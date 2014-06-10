@@ -1,0 +1,86 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="appWeb1.app.Site" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Geo Parking</title>
+    <link href="Styles/Main.css" rel="stylesheet" type="text/css" />
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+     <div id="wrapper">
+	<div id="header-wrapper">
+		<div id="header">
+			<div id="logo">
+				<h1>Geo Parking<a href="#"></a></h1>
+			</div>
+			<div id="menu">
+				<ul>
+			            <li><a href="Default.aspx">Inicio</a></li>
+                        <li><a href="Usuarios.aspx">Usuarios</a></li>
+                        <li><a href="Acercade.aspx">Acerca de</a></li>
+
+				</ul>
+			</div>
+
+		</div>
+
+	</div>
+	<div id="page-wrapper">
+        <div id="menuDesplegable">
+            <ul id="nav">
+ 
+            <li><span>Administración de Playas</span>
+                <ul>
+                    <li><a href="#">Alta</a></li>
+                    <li><a href="#">Baja</a></li>
+                    <li><a href="#">Consultar</a></li>
+               </ul>
+            </li>
+ 
+            <li><span>Administracion de Usuarios</span>
+                <ul>
+                    <li><a href="Playa.aspx">Alta</a></li>
+                    <li><a href="Playa.aspx">Baja</a></li>
+                    <li><a href="Playa.aspx">Consultar</a></li>
+               </ul>
+            </li>            
+            <li><span>Gestion de Puntos de Interes</span>
+ 
+                <ul>
+                    <li><a href="#">Menu item 1</a></li>
+                    <li><a href="#">Menu item 2</a></li>
+                    <li><a href="#">Menu item 3</a></li>
+               </ul>
+            </li>
+        </ul>
+ 
+    </div>
+		<div id="page">
+			<div id="wide-content">
+				        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+			</div>
+		</div>
+	</div>
+	<div id="recent-news">
+		
+	</div>
+	<div id="footer-wrapper">
+		<div id="footer-content">
+			
+		</div>
+	</div>
+</div>
+<div id="footer">
+	<p>Copyright (c) 2014 </p>
+</div>
+
+    </form>
+</body>
+</html>
