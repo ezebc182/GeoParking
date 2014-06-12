@@ -1,0 +1,17 @@
+Reunión 13/04/14 -> 21:20 hs
+
+Eze: Corregi lo de Lucas. Estaría bueno que veamos la posiblidad de conseguir una entrevista con la gente o secretaria del área.
+Voy a terminar de ver los dos capitulos del tutorial de MVC.
+Ningún problema.
+
+Lucas: Hice el cuestionario de la Muni. Lo otro fue para modificar todo. No fuimos a las playas de estacionamiento. Estuve 3 hs investigando.Ningún problema.Inconveniente sobre qué hacer del cuestionario. Leo dijo una cosa y yo pienso otra. Para la próxima vez me va a servir.
+
+Nacho: Perfecto, eso se debe solucionar en el momento, para aclarar en el momento la próxima vez.
+Estuve fijandome en la estructura del repo, MAS O MENOS. Hice un diseño a mano y la armé en la estructura de la pC local, armé una estructura de archivos. Cree el proyecto en CodePlex y conecté con el repo, tiene ERRORES aún a corregir. No tuve ningún problea. Averigué, extra, hacer la gestión de proyeto con el TEAM y resulta que es una Apliación que la tenés que montar en un servidor debe estar siempre prendida. DreamSpark nos dá la licencia. El inconveniento es tener una pc prendida para hacer un COMMIT. No sé los requerimientos de hw que solicita. La podría montar en mi pc. Y uds avisenme para hacer un commit. Para el martes quiero ver algo de MVC4.
+
+Leo:hice las preguntas para las playas de estacionamiento, me junte con ustedes, y fui a tomarmates al paseo de las artes
+tambien terminamos el documento para presentar
+y hasta el martes tengo pensado empezar a ver un poco de MVC4.
+Ningún problema.
+
+Finalización [21:37hs]

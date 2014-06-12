@@ -1,0 +1,640 @@
+1
+00:00:01,790 --> 00:00:04,410
+night this is me but ima scummy to J
+
+2
+00:00:04,410 --> 00:00:07,450
+that have been involved with a number saw for development projects over the
+
+3
+00:00:07,450 --> 00:00:07,859
+years
+
+4
+00:00:07,859 --> 00:00:10,949
+at a number of different companies have come to recognize scrum
+
+5
+00:00:10,949 --> 00:00:14,419
+as one of the best agile development practices in use today in this
+
+6
+00:00:14,419 --> 00:00:15,480
+fast-paced video
+
+7
+00:00:15,480 --> 00:00:19,550
+I want to show you why scrum is so great and how you can get started with from
+
+8
+00:00:19,550 --> 00:00:23,830
+under 10 minutes a cover all the course chrome concepts like product backlog
+
+9
+00:00:23,829 --> 00:00:27,649
+people's sprints burn on trucks and more
+
+10
+00:00:27,649 --> 00:00:31,278
+so get ready to be bombarded with information let's save this
+
+11
+00:00:31,278 --> 00:00:34,909
+is the product we want to build for this product we get all kinds a feature
+
+12
+00:00:34,909 --> 00:00:36,279
+requests from users
+
+13
+00:00:36,280 --> 00:00:39,929
+customers executives or even other team members it's well
+
+14
+00:00:39,929 --> 00:00:43,738
+the collection of all these features is called the product backlog another way
+
+15
+00:00:43,738 --> 00:00:45,189
+to think that the product backlog
+
+16
+00:00:45,189 --> 00:00:48,759
+is to think of it as a wish list all the things that would make this product
+
+17
+00:00:48,759 --> 00:00:49,100
+great
+
+18
+00:00:49,100 --> 00:00:52,160
+once we have our wish list or the product backlog
+
+19
+00:00:52,159 --> 00:00:55,569
+but it to start planning which specific features for point to put into it
+
+20
+00:00:55,570 --> 00:00:56,140
+particularly
+
+21
+00:00:56,140 --> 00:00:59,320
+release our product but we're getting ahead of ourselves
+
+22
+00:00:59,320 --> 00:01:03,590
+let's back up a bit built this product we need to have one or more people
+
+23
+00:01:03,590 --> 00:01:06,859
+party we're going to play a variety of roles first
+
+24
+00:01:06,859 --> 00:01:10,879
+we need her she plays the role a product Porter and helps make sure the right
+
+25
+00:01:10,879 --> 00:01:13,030
+features make it into the product backlog
+
+26
+00:01:13,030 --> 00:01:16,609
+representing the user's and customers are the product she hopes
+
+27
+00:01:16,609 --> 00:01:20,060
+set the direction of the product then we need this crap
+
+28
+00:01:20,060 --> 00:01:23,189
+he's the Scrum Master at his job is to make sure the project is progressing
+
+29
+00:01:23,188 --> 00:01:24,089
+smoothly
+
+30
+00:01:24,090 --> 00:01:27,640
+that every team member has the tools they need to get the job done
+
+31
+00:01:27,640 --> 00:01:31,700
+he set up meetings monitors the work being done that facilitates release
+
+32
+00:01:31,700 --> 00:01:34,180
+plant is essentially a project manager
+
+33
+00:01:34,180 --> 00:01:37,368
+but that such a boring title too will call him a ScrumMaster
+
+34
+00:01:37,368 --> 00:01:42,140
+implied he knows some jujitsu the rest to the team has similar roles to other
+
+35
+00:01:42,140 --> 00:01:43,340
+development processes
+
+36
+00:01:43,340 --> 00:01:47,270
+these guys build the product while these guys tested to make sure it works right
+
+37
+00:01:47,269 --> 00:01:51,469
+these games use it and hopefully pay for it at these guys generally get in the
+
+38
+00:01:51,469 --> 00:01:51,810
+way
+
+39
+00:01:51,810 --> 00:01:55,320
+but it turns out can't build many products without them but let's get back
+
+40
+00:01:55,319 --> 00:01:56,089
+to this
+
+41
+00:01:56,090 --> 00:01:59,530
+release planning the plan to release the team starts with this
+
+42
+00:01:59,530 --> 00:02:03,040
+the product backlog they identify the features they want to put into this
+
+43
+00:02:03,040 --> 00:02:03,659
+release
+
+44
+00:02:03,659 --> 00:02:07,380
+these features then comported the release back of the tape that
+
+45
+00:02:07,379 --> 00:02:08,899
+prioritizes the features
+
+46
+00:02:08,899 --> 00:02:12,060
+and has to miss them out of work involved for each feature providing a
+
+47
+00:02:12,060 --> 00:02:12,909
+rough idea
+
+48
+00:02:12,909 --> 00:02:15,909
+the full amount of work involved completed tire release
+
+49
+00:02:15,909 --> 00:02:19,568
+the quick side note about estimates their lot of techniques for creating
+
+50
+00:02:19,568 --> 00:02:20,159
+custom
+
+51
+00:02:20,159 --> 00:02:24,348
+from poker games debasing estimates on historical trends to using story points
+
+52
+00:02:24,348 --> 00:02:25,280
+is that about hours
+
+53
+00:02:25,280 --> 00:02:29,209
+but no matter what technique you use the want to make sure you involve at least
+
+54
+00:02:29,209 --> 00:02:32,979
+to or three subject matter experts there's simply no replacement for what a
+
+55
+00:02:32,979 --> 00:02:34,949
+subject matter expert brings to the table
+
+56
+00:02:34,949 --> 00:02:38,549
+keep that in mind as you do your estimates let's get back to this
+
+57
+00:02:38,550 --> 00:02:42,239
+the release backlog the prioritized leaseback login here
+
+58
+00:02:42,239 --> 00:02:45,269
+we're not ready to plan out several springs to get the work done
+
+59
+00:02:45,269 --> 00:02:49,500
+sprints for short durations milestones that allow teams to tackle a manageable
+
+60
+00:02:49,500 --> 00:02:53,680
+chunks for the project get a ship ready state spence generally range from a
+
+61
+00:02:53,680 --> 00:02:54,519
+couple days
+
+62
+00:02:54,519 --> 00:02:58,080
+as much as 30 days in length depending on the product release cycles
+
+63
+00:02:58,080 --> 00:03:01,170
+shorter the product's release cycles shorter each
+
+64
+00:03:01,169 --> 00:03:04,988
+Richard B and you want to have at least four as many as a dozen
+
+65
+00:03:04,989 --> 00:03:09,620
+strentz any given release so at this point we can take our release backlog
+
+66
+00:03:09,620 --> 00:03:12,620
+and split it up into several the spread battle
+
+67
+00:03:12,620 --> 00:03:16,378
+what are the most important things to remember about Sprint's is that the call
+
+68
+00:03:16,378 --> 00:03:20,539
+each sprint is to get a subsidy the product backlog worship ready state so
+
+69
+00:03:20,539 --> 00:03:21,650
+at the end the beach spread
+
+70
+00:03:21,650 --> 00:03:25,930
+you should have a fully tested product with all the features of that Sprint 100
+
+71
+00:03:25,930 --> 00:03:26,730
+percent complete
+
+72
+00:03:26,729 --> 00:03:30,669
+since Prince are a very short but a realistic representation apart
+
+73
+00:03:30,669 --> 00:03:34,609
+the product the late finished the spread is a great indicator that the project is
+
+74
+00:03:34,610 --> 00:03:35,099
+not
+
+75
+00:03:35,098 --> 00:03:38,219
+on schedule and something needs to be done therefore
+
+76
+00:03:38,219 --> 00:03:41,719
+it's extremely important to monitor the progress each sprint
+
+77
+00:03:41,719 --> 00:03:45,709
+with this a burnout the burndown chart is the number one reason
+
+78
+00:03:45,709 --> 00:03:49,489
+Force Ones popularity what are the best product visibility tools
+
+79
+00:03:49,489 --> 00:03:53,810
+ensure the project is progressing smoothly burn on chart provides the by
+
+80
+00:03:53,810 --> 00:03:54,560
+the measure
+
+81
+00:03:54,560 --> 00:03:57,709
+appear month work that remains in a given sprint release
+
+82
+00:03:57,709 --> 00:04:01,090
+in this crap you can see that the amount of work remaining bounces up and down
+
+83
+00:04:01,090 --> 00:04:02,069
+from day-to-day
+
+84
+00:04:02,068 --> 00:04:05,979
+is generally trending down towards zero because historical information is
+
+85
+00:04:05,979 --> 00:04:07,378
+provided in the burndown chart
+
+86
+00:04:07,378 --> 00:04:11,310
+its easy to see if the team is on the right track using the burndown chart
+
+87
+00:04:11,310 --> 00:04:14,500
+the team can quickly calculate this the slope of the graph
+
+88
+00:04:14,500 --> 00:04:18,139
+which is also called the burned-out velocity this is the average rate of
+
+89
+00:04:18,139 --> 00:04:19,459
+productivity for each day
+
+90
+00:04:19,459 --> 00:04:23,509
+for example a team greater productivity might be done on a typical day to finish
+
+91
+00:04:23,509 --> 00:04:25,389
+approximately 50 hours of work
+
+92
+00:04:25,389 --> 00:04:29,490
+knowing that it's possible to calculate an estimated completion date for the
+
+93
+00:04:29,490 --> 00:04:31,939
+Sprint or even for the entire release
+
+94
+00:04:31,939 --> 00:04:35,519
+based on the amount of work remain what's great about the burndown chart is
+
+95
+00:04:35,519 --> 00:04:36,680
+that we can compare our
+
+96
+00:04:36,680 --> 00:04:40,889
+actual velocity projected completion date what the team needs to do
+
+97
+00:04:40,889 --> 00:04:44,379
+in order to finish on time we can use that to see if it's a realistic time
+
+98
+00:04:44,379 --> 00:04:45,209
+frame
+
+99
+00:04:45,209 --> 00:04:48,719
+this is perhaps the most useful piece of knowledge that any team member product
+
+100
+00:04:48,720 --> 00:04:49,210
+owner
+
+101
+00:04:49,209 --> 00:04:52,819
+for product executive can have about the project because knowing whether or not
+
+102
+00:04:52,819 --> 00:04:54,079
+the project is on track
+
+103
+00:04:54,079 --> 00:04:57,810
+early in the schedule can help teams make the proper adjustments necessary to
+
+104
+00:04:57,810 --> 00:04:58,449
+get the project
+
+105
+00:04:58,449 --> 00:05:02,530
+on track burned-out truck provides empirical proof that the project is on
+
+106
+00:05:02,529 --> 00:05:03,168
+track
+
+107
+00:05:03,168 --> 00:05:06,680
+or if it's going to be late so let's talk a little about where the data for
+
+108
+00:05:06,680 --> 00:05:09,410
+this incredibly useful burned-out car comes from
+
+109
+00:05:09,410 --> 00:05:13,130
+as you recall are the least funny process was to create an estimate for
+
+110
+00:05:13,129 --> 00:05:13,930
+each feature
+
+111
+00:05:13,930 --> 00:05:17,449
+the product backlog the collection of these estimates forgiven sprint
+
+112
+00:05:17,449 --> 00:05:21,169
+represents the total amount of work that must be done to complete that Sprint
+
+113
+00:05:21,168 --> 00:05:24,269
+as each team member goes through and makes progress on one or more the
+
+114
+00:05:24,269 --> 00:05:25,149
+features
+
+115
+00:05:25,149 --> 00:05:28,620
+is simply update the amount of time remaining: for each with their own items
+
+116
+00:05:28,620 --> 00:05:32,519
+to the total amount of time remaining: a group of features that make up a sprint
+
+117
+00:05:32,519 --> 00:05:36,758
+changes on it day by day basis hopefully going downward until it hits 0
+
+118
+00:05:36,759 --> 00:05:40,000
+when the Sprint is complete breakdown chart aggregates that
+
+119
+00:05:40,000 --> 00:05:43,550
+remaining work data and shows it visually it's brilliant because it
+
+120
+00:05:43,550 --> 00:05:45,639
+communicates a massive amount of information
+
+121
+00:05:45,639 --> 00:05:49,470
+in just a few seconds at this point one question might have
+
+122
+00:05:49,470 --> 00:05:53,240
+is what we do about these little guys bugs come up during the development
+
+123
+00:05:53,240 --> 00:05:56,680
+every product while there's no way to avoid them altogether
+
+124
+00:05:56,680 --> 00:05:59,829
+there are some best practices on how to deal with them hearst
+
+125
+00:05:59,829 --> 00:06:02,969
+it's a good idea to track bike separately from features in their own
+
+126
+00:06:02,970 --> 00:06:06,910
+defect back lot doing a feature sprint any books that are found
+
+127
+00:06:06,910 --> 00:06:10,490
+relating to the future in development should be built with immediately
+
+128
+00:06:10,490 --> 00:06:14,389
+before marking the feature complete you also want to plan at least one or two
+
+129
+00:06:14,389 --> 00:06:16,139
+sprints the focus poorly
+
+130
+00:06:16,139 --> 00:06:19,329
+100 defect back that brings us to this
+
+131
+00:06:19,329 --> 00:06:22,418
+at the scrum from proponents after insisting
+
+132
+00:06:22,418 --> 00:06:26,189
+sure released an EP thank you behind a steady
+
+133
+00:06:26,189 --> 00:06:29,579
+is that if everyone is standing nobody will waste time and their poor
+
+134
+00:06:29,579 --> 00:06:33,339
+meeting will be short am i meeting daily you can feel confident that
+
+135
+00:06:33,339 --> 00:06:37,060
+everyone is on top of their tasks the daily scrum is a great idea
+
+136
+00:06:37,060 --> 00:06:40,550
+especially useful in less experienced teams but I wouldn't call it a
+
+137
+00:06:40,550 --> 00:06:45,038
+or essential part of scrap insisting on these meetings in an already efficient
+
+138
+00:06:45,038 --> 00:06:46,349
+an experienced team
+
+139
+00:06:46,350 --> 00:06:49,560
+especially teams that work in close proximity with one another
+
+140
+00:06:49,560 --> 00:06:53,598
+potentially backfire by laurin team or a keep that in mind when deciding on
+
+141
+00:06:53,598 --> 00:06:55,250
+having daily scrums
+
+142
+00:06:55,250 --> 00:06:58,509
+so there you have it scrum in under 10 minutes internal
+
+143
+00:06:58,509 --> 00:07:01,699
+all the essential concepts to start implementing scrum inside of your
+
+144
+00:07:01,699 --> 00:07:02,860
+organization
+
+145
+00:07:02,860 --> 00:07:05,919
+as quickly review in Squirrel you work with this
+
+146
+00:07:05,918 --> 00:07:09,339
+a product backlog which is nothing more than a list of features
+
+147
+00:07:09,339 --> 00:07:13,448
+he didn't break down the product backlog into one or more release backlogs
+
+148
+00:07:13,449 --> 00:07:16,560
+that for a given release you for the break up the release backlog
+
+149
+00:07:16,560 --> 00:07:20,389
+it to a number of Sprint backwards which are essentially short duration milestone
+
+150
+00:07:20,389 --> 00:07:24,038
+throughout your project event monitor the progress and each spread
+
+151
+00:07:24,038 --> 00:07:27,519
+using the burned-out depending on your team
+
+152
+00:07:27,519 --> 00:07:30,240
+you might want to have daily scrum meetings to ensure everything is on
+
+153
+00:07:30,240 --> 00:07:31,090
+track
+
+154
+00:07:31,089 --> 00:07:34,529
+that's all there is to it I hope you like this video as much as I enjoyed
+
+155
+00:07:34,529 --> 00:07:35,159
+making it
+
+156
+00:07:35,160 --> 00:07:38,160
+but before I let you go I have a quick assignment for you
+
+157
+00:07:38,160 --> 00:07:41,610
+open up your email client it send me an email letting me go what you thought of
+
+158
+00:07:41,610 --> 00:07:43,729
+this video on how it could be improved
+
+159
+00:07:43,728 --> 00:07:46,758
+feel free to ask any questions you might still have 0
+
+160
+00:07:46,759 --> 00:07:47,430
+and thanks for watching
+

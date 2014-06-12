@@ -1,0 +1,11 @@
+AL MOMENTO DE ESTACIONAR EL AUTO
+1)Presionar "estacionar"
+2)Introducir patente (identificacion unica de cada vehiculo) y presionar OK
+3)Tomar patente y Coordenada y registrar estacionemiento en la BD
+
+AL MOMENTO DE CONSULTAR DONDE ESTA
+1)Presionar "¿Donde esta mi auto?"
+2)Ingresar patente
+3)Tomar patente buscar en la BD por la patente y extraer la coordenada
+4)Tomar la coordenada actual del celular
+5)Establecer el proceso de GPS de la funcion "Como Llegar" (explicada en "idea implementacion GPS.txt") o el GPS del Celular
