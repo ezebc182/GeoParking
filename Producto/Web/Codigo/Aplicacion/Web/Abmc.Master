@@ -1,0 +1,75 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Abmc.master.cs" Inherits="appWeb1.app.Abmc" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+    <link href="Styles/Main.css" rel="stylesheet" type="text/css" />
+</asp:Content>
+<asp:Content ID="Content4" ContentPlaceHolderID="TopContent" runat="server">
+    <asp:ContentPlaceHolder ID="TopContent" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:UpdatePanel runat="server" ID="upSecConsulta" ChildrenAsTriggers="true" UpdateMode="Conditional">
+        <ContentTemplate>
+            <h1>
+                
+                <div class="pull-right">
+                    <b>
+                        <asp:Button ID="btnAgregar" runat="server" Text="+ Agregar" CssClass="btn btn-link" /></b></div>             
+                <span class="title-ico"></span>
+                <asp:Label ID="lblEntidad" runat="server"></asp:Label>
+                <h1></h1>
+                <section id="secConsulta" runat="server" style="margin-top: -15px;">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="widget-box">
+                                <div class="widget-title">
+                                    <span class="icon"><i class="icon-align-justify"></i></span>
+                                    <h5>Consultar</h5>
+                                </div>
+                                <div class="widget-content nopadding form-horizontal">
+                                    <asp:ContentPlaceHolder ID="AbmcFiltrosConsultaContent" runat="server" />
+                                    <div class="form-actions">
+                                        <asp:Button ID="btnConsultar" runat="server" CssClass="btn btn-success" Text="Consultar" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear: both;">
+                    </div>
+                    <div id="secResultadoBusqueda" runat="server">
+                        <asp:ContentPlaceHolder ID="AbmcResultadosConsultaContent" runat="server" />
+                        <p id="pTotalRegistros" runat="server" visible="false">
+                            <strong>TOTAL: </strong>
+                            <asp:Label ID="lblTotalRegistros" runat="server" Text="Label"></asp:Label>
+                            registros encontrados
+                        </p>
+                    </div>
+                </section>
+                <section id="secFormulario" runat="server" style="margin-top: -15px;">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="widget-box">
+                                <div class="widget-title">
+                                    <span class="icon"><i class="icon-align-justify"></i></span>
+                                    <h5>
+                                        <asp:Label ID="lblEstado" runat="server"></asp:Label>
+                                    </h5>
+                                </div>
+                                <div class="widget-content nopadding form-horizontal">
+                                    <asp:ContentPlaceHolder ID="AbmcFormularioContent" runat="server" />
+                                    <div class="form-actions">
+                                        <asp:Button ID="btnAceptar" runat="server" CssClass="btn btn-success" Text="Guardar" ValidationGroup="AbmcValidation" />
+                                        <asp:Button ID="btnCancelar" runat="server" CausesValidation="False" CssClass="btn" Text="Cancelar" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <h1></h1>
+                <h1></h1>
+            </h1>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+</asp:Content>
