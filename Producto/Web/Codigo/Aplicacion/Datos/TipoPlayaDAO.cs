@@ -53,31 +53,31 @@ namespace Datos
         /// <summary>
         /// Registra nuevo tipo de playa
         /// </summary>
-        /// <param name="tp">Objeto tipo de playa</param>
-        public void registrarTipoPlaya(TipoPlaya tp)
+        /// <param name="tipoPlaya">Objeto tipo de playa</param>
+        public void registrarTipoPlaya(TipoPlaya tipoPlaya)
         {
             //registra un tipo de playa
-            contexto.registrarTipoPlaya(tp);
+            contexto.registrarTipoPlaya(tipoPlaya);
         }
 
         /// <summary>
         /// Actualiza un tipo de playa
         /// </summary>
-        /// <param name="tp">Objeto TipoPlaya</param>
-        public void actualizarTipoPlaya(TipoPlaya tp)
+        /// <param name="tipoPlaya">Objeto TipoPlaya</param>
+        public void actualizarTipoPlaya(TipoPlaya tipoPlaya)
         {
             //actualizar un tipo de playa
-            contexto.actualizarTipoPlaya(tp);
+            contexto.actualizarTipoPlaya(tipoPlaya);
         }
 
         /// <summary>
         /// Elimina un tipo de playa por ID
         /// </summary>
-        /// <param name="id">ID del tipo de playa</param>
-        public void eliminarTipoPlaya(int id)
+        /// <param name="idTipoPlaya">ID del tipo de playa</param>
+        public void eliminarTipoPlaya(int idTipoPlaya)
         {
             //eliminar un tipo de playa
-            contexto.eliminarTipoPlaya(id);
+            contexto.eliminarTipoPlaya(idTipoPlaya);
         }       
 
     }

@@ -13,6 +13,10 @@ namespace Datos
         //instancia del singleton        
         private static ContextoBD instancia = null;
 
+        /// <summary>
+        /// Crea o retorna el contexto de la BD
+        /// </summary>
+        /// <returns></returns>
         public static ContextoBD getInstace()
         {
             if (instancia == null)
@@ -38,12 +42,12 @@ namespace Datos
         /// <summary>
         /// busca playa de estacionamiento por el ID
         /// </summary>
-        /// <param name="id">es el ID de la playa</param>
+        /// <param name="idPlaya">es el ID de la playa</param>
         /// <returns>un objeto de Playa de Estacionamiento</returns>
-        public PlayaDeEstacionamiento buscarPlayaPorId(int id)
+        public PlayaDeEstacionamiento buscarPlayaPorId(int idPlaya)
         {
             //retorna la playa
-            return playas.Find(id);
+            return playas.Find(idPlaya);
         }
 
         /// <summary>
@@ -54,27 +58,27 @@ namespace Datos
         public List<PlayaDeEstacionamiento> buscarPlayaPorNombre(string nombre)
         {
             //lista de las playas a retornar
-            List<PlayaDeEstacionamiento> playasEstacionamientos = new List<PlayaDeEstacionamiento>();
+            List<PlayaDeEstacionamiento> ListaPlayasEstacionamientos = new List<PlayaDeEstacionamiento>();
 
             //lista de playas existente con el nombre a buscar
             var list = playas.Where(m => m.nombre == nombre);
 
             //carga de las playas a la lista
             foreach (PlayaDeEstacionamiento playa in list)
-                playasEstacionamientos.Add(playa);
+                ListaPlayasEstacionamientos.Add(playa);
 
             //retorna la lista
-            return playasEstacionamientos;
+            return ListaPlayasEstacionamientos;
         }
 
         /// <summary>
         /// registra una playa de estacionamiento
         /// </summary>
-        /// <param name="p">objeto Playa de Estacionamiento</param>
-        public void registrarPlaya(PlayaDeEstacionamiento p)
+        /// <param name="playa">objeto Playa de Estacionamiento</param>
+        public void registrarPlaya(PlayaDeEstacionamiento playa)
         {
             //agrega la playa a la BD
-            playas.Add(p);
+            playas.Add(playa);
             //guarda los cambios
             SaveChanges();
         }
@@ -82,21 +86,21 @@ namespace Datos
         /// <summary>
         /// actualiza una playa de estacionamiento
         /// </summary>
-        /// <param name="p">objeto Playa de Estacionamiento</param>
-        public void actualizarPlaya(PlayaDeEstacionamiento p)
+        /// <param name="playa">objeto Playa de Estacionamiento</param>
+        public void actualizarPlaya(PlayaDeEstacionamiento playa)
         {
-            Entry(p);
+            Entry(playa);
             SaveChanges();
         }
 
         /// <summary>
         /// elimina una playa de estacionamiento
         /// </summary>
-        /// <param name="id">es el ID de la playa</param>
-        public void eliminarPlaya(int id)
+        /// <param name="idPlaya">es el ID de la playa</param>
+        public void eliminarPlaya(int idPlaya)
         {
             //elimina la playa 
-            playas.Remove(playas.Find(id));
+            playas.Remove(playas.Find(idPlaya));
             //guarda los cambios
             SaveChanges();
         }        
@@ -106,12 +110,12 @@ namespace Datos
         /// <summary>
         /// Busca tipo de playa por ID
         /// </summary>
-        /// <param name="id">ID del tipo de playa</param>
+        /// <param name="idTipoPlaya">ID del tipo de playa</param>
         /// <returns>Objeto TipoPlaya</returns>
-        public TipoPlaya buscarTipoPlayaPorId(int id)
+        public TipoPlaya buscarTipoPlayaPorId(int idTipoPlaya)
         {
             //retorno la playa con el id
-            return tiposPlayas.Find(id);
+            return tiposPlayas.Find(idTipoPlaya);
         }
 
         /// <summary>
@@ -122,27 +126,27 @@ namespace Datos
         public List<TipoPlaya> buscarTipoPlayaPorNombre(string nombre)
         {
             //lista de playas de estacionamiento a devolver
-            List<TipoPlaya> tipos = new List<TipoPlaya>();
+            List<TipoPlaya> listaTipos = new List<TipoPlaya>();
 
             //lista de playas existente con el nombre a buscar
             var list = tiposPlayas.Where(m => m.nombre == nombre);
 
             //carga de las playas a la lista
             foreach (TipoPlaya tipoPlaya in list)
-                tipos.Add(tipoPlaya);
+                listaTipos.Add(tipoPlaya);
 
             //retornar la lista
-            return tipos;
+            return listaTipos;
         }
 
         /// <summary>
         /// Registra nuevo tipo de playa
         /// </summary>
-        /// <param name="tp">Objeto tipo de playa</param>
-        public void registrarTipoPlaya(TipoPlaya tp)
+        /// <param name="tipoPlaya">Objeto tipo de playa</param>
+        public void registrarTipoPlaya(TipoPlaya tipoPlaya)
         {
             //agrego la playa a la BD
-            tiposPlayas.Add(tp);
+            tiposPlayas.Add(tipoPlaya);
             //guardo los cambios
             SaveChanges();
         }
@@ -150,21 +154,21 @@ namespace Datos
         /// <summary>
         /// Actualiza un tipo de playa
         /// </summary>
-        /// <param name="tp">Objeto TipoPlaya</param>
-        public void actualizarTipoPlaya(TipoPlaya tp)
+        /// <param name="tipoPlaya">Objeto TipoPlaya</param>
+        public void actualizarTipoPlaya(TipoPlaya tipoPlaya)
         {
-            Entry(tp);
+            Entry(tipoPlaya);
             SaveChanges();
         }
 
         /// <summary>
         /// Elimina un tipo de playa por ID
         /// </summary>
-        /// <param name="id">ID del tipo de playa</param>
-        public void eliminarTipoPlaya(int id)
+        /// <param name="idTipoPlaya">ID del tipo de playa</param>
+        public void eliminarTipoPlaya(int idTipoPlaya)
         {
             //elimino la playa con el id
-            tiposPlayas.Remove(tiposPlayas.Find(id));
+            tiposPlayas.Remove(tiposPlayas.Find(idTipoPlaya));
             //guardo los cambios
             SaveChanges();
         }

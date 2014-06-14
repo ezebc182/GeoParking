@@ -22,12 +22,12 @@ namespace Datos
         /// <summary>
         /// busca playa de estacionamiento por el ID
         /// </summary>
-        /// <param name="id">es el ID de la playa</param>
+        /// <param name="idPlaya">es el ID de la playa</param>
         /// <returns>un objeto de Playa de Estacionamiento</returns>
-        public PlayaDeEstacionamiento buscarPlayaPorId(int id)
+        public PlayaDeEstacionamiento buscarPlayaPorId(int idPlaya)
         {
             //retorna la playa
-            return contexto.buscarPlayaPorId(id);
+            return contexto.buscarPlayaPorId(idPlaya);
         }
 
         /// <summary>
@@ -44,31 +44,31 @@ namespace Datos
         /// <summary>
         /// registra una playa de estacionamiento
         /// </summary>
-        /// <param name="p">objeto Playa de Estacionamiento</param>
-        public void registrarPlaya(PlayaDeEstacionamiento p)
+        /// <param name="playa">objeto Playa de Estacionamiento</param>
+        public void registrarPlaya(PlayaDeEstacionamiento playa)
         {
             //registra la playa
-            contexto.registrarPlaya(p);
+            contexto.registrarPlaya(playa);
         }
 
         /// <summary>
         /// actualiza una playa de estacionamiento
         /// </summary>
-        /// <param name="p">objeto Playa de Estacionamiento</param>
-        public void actualizarPlaya(PlayaDeEstacionamiento p)
+        /// <param name="playa">objeto Playa de Estacionamiento</param>
+        public void actualizarPlaya(PlayaDeEstacionamiento playa)
         {
             //actualiza la playa
-            contexto.actualizarPlaya(p);
+            contexto.actualizarPlaya(playa);
         }
 
         /// <summary>
         /// elimina una playa de estacionamiento
         /// </summary>
-        /// <param name="id">es el ID de la playa</param>
-        public void eliminarPlaya(int id)
+        /// <param name="idPlaya">es el ID de la playa</param>
+        public void eliminarPlaya(int idPlaya)
         {
             //elimina la playa
-            contexto.eliminarPlaya(id);
+            contexto.eliminarPlaya(idPlaya);
         }        
     }
 }

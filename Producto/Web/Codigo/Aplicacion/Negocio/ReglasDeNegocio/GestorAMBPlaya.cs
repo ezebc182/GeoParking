@@ -19,24 +19,24 @@ namespace ReglasDeNegocio
             tipoDao = new TipoPlayaDAO();
 	    }
 
-	    public void registrarPlaya(PlayaDeEstacionamiento p)
+	    public void registrarPlaya(PlayaDeEstacionamiento playa)
 	    {
-		    playaDao.registrarPlaya(p);
+		    playaDao.registrarPlaya(playa);
 	    }	
 
-	    public void actulaizarPlaya(PlayaDeEstacionamiento p)
+	    public void actulaizarPlaya(PlayaDeEstacionamiento playa)
 	    {
-            playaDao.actualizarPlaya(p);
+            playaDao.actualizarPlaya(playa);
 	    }
 
-	    public void eliminarPlaya(int id)
+	    public void eliminarPlaya(int idPlaya)
 	    {
-            playaDao.eliminarPlaya(id);
+            playaDao.eliminarPlaya(idPlaya);
 	    }
 
-        public PlayaDeEstacionamiento buscarPlayaPorId(int id)
+        public PlayaDeEstacionamiento buscarPlayaPorId(int idPlaya)
         {
-            return playaDao.buscarPlayaPorId(id);
+            return playaDao.buscarPlayaPorId(idPlaya);
         }
 
         public List<PlayaDeEstacionamiento> buscarPlayaPorNombre(string nombre)
