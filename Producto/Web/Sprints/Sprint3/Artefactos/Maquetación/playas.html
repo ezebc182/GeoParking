@@ -1,0 +1,321 @@
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	    <title>Gestión de playas</title>
+
+	    <!-- Bootstrap -->
+	    <link href="./bootstrap/bootstrap3/css/bootstrap.min.css" rel="stylesheet"> 
+	   	<!-- Media Queries-->
+	   	<link rel="stylesheet" type="text/css" href="./css/media-queries.css">
+	   	<header>
+		   	<!-- Barra de navegación-->
+		  	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			  <!-- El logotipo y el icono que despliega el menú se agrupan
+			       para mostrarlos mejor en los dispositivos móviles -->
+			  <div class="navbar-header">
+			    <button type="button" class="navbar-toggle" data-toggle="collapse"
+			            data-target=".navbar-ex1-collapse">
+			      <span class="sr-only">Desplegar navegación</span>
+			      <span class="icon-bar"></span>
+			      <span class="icon-bar"></span>
+			      <span class="icon-bar"></span>
+			    </button>
+			    <a class="navbar-brand" href="#">Geo Parking Logo</a>
+			  </div>
+			 
+			  <!-- Agrupar los enlaces de navegación, los formularios y cualquier
+			       otro elemento que se pueda ocultar al minimizar la barra -->
+			  <div class="collapse navbar-collapse navbar-ex1-collapse">
+				    <ul class="nav navbar-nav">
+				      <li class="active"><a href="#">Enlace #1</a></li>
+				      <li><a href="#">Enlace #2</a></li>
+				      <li class="dropdown">
+				        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				          Menú #1 <b class="caret"></b>
+				        </a>
+				        <ul class="dropdown-menu">
+				          <li><a href="#">Acción #1</a></li>
+				          <li><a href="#">Acción #2</a></li>
+				          <li><a href="#">Acción #3</a></li>
+				          <li class="divider"></li>
+				          <li><a href="#">Acción #4</a></li>
+				          <li class="divider"></li>
+				          <li><a href="#">Acción #5</a></li>
+				        </ul>
+				      </li>
+				    </ul>
+				    <!-- <form class="navbar-form navbar-left" role="search">
+				      <div class="form-group">
+				        <input type="text" class="form-control" placeholder="Buscar">
+				      </div>
+				      <button type="submit" class="btn btn-default">Enviar</button>
+				    </form> -->
+				    <!-- <ul class="nav navbar-nav navbar-right navbar-inverse">
+				      <li><a href="#">Enlace #3</a></li>
+				      <li class="dropdown">
+				        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				          Menú #2 <b class="caret"></b>
+				        </a>
+				        <ul class="dropdown-menu">
+				          <li><a href="#">Acción #1</a></li>
+				          <li><a href="#">Acción #2</a></li>
+				          <li><a href="#">Acción #3</a></li>
+				          <li class="divider"></li>
+				          <li><a href="#">Acción #4</a></li>
+				        </ul>
+				      </li>
+			    	</ul> -->
+
+
+			  </div>
+			</nav>
+		</header>
+		    	<div class="modal fade" id="mensajeOK">
+    		<div class="modal-dialog">
+    			<div class="modal-content">
+    				<div class="modal-header">
+    					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    					<h4 class="modal-title">Mensaje:</h4>
+    				</div>
+    				<div class="modal-body">
+    					<div class="success">
+    						<h4 class="text-justify"><i class="glyphicon glyphicon-ok"></i>&nbsp; La playa ha sido modificada con éxito!</h4>
+    					</div>
+    				</div>
+    				<div class="modal-footer">
+    					<button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    	<!-- Form para datos de playa-->
+    	<div class="modal fade" id="modificarPlaya">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title">Registrar/Modificar playa</h4>
+		      </div>
+		      <div class="modal-body">
+		        <form class="form-horizontal" role="form">
+				  <div class="form-group">
+				    <label for="txtNombre" class="col-sm-2 control-label">Nombre</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" id="txtNombre" placeholder="Nombre">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="txtDireccion" class="col-sm-2 control-label">Dirección</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" id="txtDireccion" placeholder="Dirección">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="txtCapacidad" class="col-sm-2 control-label">Capacidad</label>
+				    <div class="col-sm-10">
+				      <input type="number" class="form-control" id="txtCapacidad" placeholder="0">
+				    </div>
+				  </div>
+				 <div class="form-group">
+				 	<label for="ddlTipoPlaya" class="col-sm-2 control-label">Tipo</label>
+				 	<div class="col-sm-10">
+					  <button id="ddlTipoPlaya" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					    Seleccione tipo <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu" role="menu" >
+					    <li><a href="#">Techada</a></li>
+					    <li><a href="#">Descubierta</a></li>
+					  </ul>
+				  	</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="checkboxes">Extras</label>
+					<div class="col-sm-10">
+						<div class="controls">
+						    <label class="checkbox inline" for="cbMotos">
+						      <input type="checkbox" name="checkboxes" id="cbMotos" value="1">
+						      Motos
+						    </label>
+						    <label class="checkbox inline" for="cbBicicletas">
+						      <input type="checkbox" name="checkboxes" id="cbBicicletas" value="2">
+						      Bicicletas
+						    </label>
+						</div>
+					</div>
+				</div>
+			</form>	
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+		        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mensajeOK" data-dismiss="modal"> Guardar</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+  </head>
+
+  <!--BODY-->
+
+  <body>
+  	<div class="container-fluid">
+    	<div class="jumbotron">
+			<div class="page-header">
+				<h1>Administración de playas <small>menú administrador</small></h1>
+			</div>
+    			<form class="form-horizontal" role="form">
+	    			<div class="form-group" id="busquedaPlayas">
+	   					<div class="col-md-8">
+			  				<input id="txtNombre" class="form-control input-lg" placeholder="Nombre playa">
+			    			</input>
+						</div>	
+						<div class="col-md-4">
+							<a class="btn-primary btn btn-lg" id="btnBuscar">Buscar</a>
+							<a class="btn-success btn btn-lg" id="btnMostrarMapa" data-toggle="modal" data-target="#modificarPlaya">Nueva</a>
+						</div>
+	    			</div>
+	    		</form>
+    	</div>
+    	<!-- Resultados de búsqueda -->
+    	<div id="pnlResultados" class="container-fluid">
+    		<div class="panel panel-primary">
+			  <div class="panel-heading">Visualizador de playas</div>
+			  <div class="panel-body">
+			    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3405.354927622744!2d-64.19870917428585!3d-31.404345855577667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1402786472621" width="100%" height="20%" frameborder="3" style="border:2"></iframe>
+			  </div>
+			</div>
+			<div class="panel panel-primary">
+			<div class="panel-heading">Resultados <span style="background-color:white;color:black;"class="badge" id="cantidadPlayas"></span>
+			</div>
+			
+    		<div class="panel-body">
+    			<div id ="resultadosBusqueda">	    		
+					<table id="listadoPlayas" class="table table-hover table-responsive">
+						<thead>
+						    <tr>
+							    <th>#ID</th>
+							    <th>Nombre</th>
+							    <th>Dirección</th>
+							    <th>Capacidad</th>
+							    <th>Tipo</th>
+							    <th>Extras</th>
+							    <th>Opciones</th>
+							</tr>
+						</thead>
+					    <tbody >
+						    <tr>
+							    <td>1</td>
+							    <td>PLaya 1</td>
+							    <td>Dirección 1</td>
+							    <td>Capacidad 1</td>
+							     <td>Techada</td>
+							    <td>Bici y Moto</td>
+							    <td>
+							    	<a data-toggle="modal" data-target="#modificarPlaya" id="editar" href="#" class="glyphicon glyphicon-pencil" tooltip="Editar" data-toggle="tooltip" data-placement="top" title="Editar"></a>
+							    	<a href="#" class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Eliminar" id="eliminar"></a>
+							    	<a href="#" class="glyphicon glyphicon-search" data-toggle="tooltip" data-placement="top" title="Buscar" id="buscar"></a>
+							    </td>
+							   							    
+						    </tr>
+						    <tr>
+							    <td>2</td>
+							    <td>Playa 2</td>
+							    <td>Dirección 2</td>
+							    <td>Capacidad 2</td>
+							    <td>Descubierta</td>
+							    <td>Moto</td>
+							    <td>
+							    	<a data-toggle="modal" data-target="#modificarPlaya" id="editar2" href="#" class="glyphicon glyphicon-pencil" tooltip="Editar" data-toggle="tooltip" data-placement="top" title="Editar"></a>
+							    	<a href="#" class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Eliminar" id="eliminar2"></a>
+							    	<a href="#" class="glyphicon glyphicon-search" data-toggle="tooltip" data-placement="top" title="Buscar" id="buscar2"></a>
+							    </td>
+							    
+						    </tr>
+						    <tr>
+						    <td>3</td>
+							    <td>Playa 3</td>
+							    <td>Dirección 3</td>
+							    <td>Capacidad 3</td>
+							    <td>Techada</td>
+							    <td>Moto</td>
+							    <td>
+							    	<a data-toggle="modal" data-target="#modificarPlaya" id="editar3" href="#" class="glyphicon glyphicon-pencil" tooltip="Editar" data-toggle="tooltip" data-placement="top" title="Editar"></a>
+							    	<a href="#" class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Eliminar" id="eliminar3"></a>
+							    	<a href="#" class="glyphicon glyphicon-search" data-toggle="tooltip" data-placement="top" title="Buscar" id="buscar3"></a>
+							    </td>
+							    
+						    </tr>
+						   
+					    </tbody>
+					</table>
+					<ul class="pagination center-block">
+					  <li><a href="#">&laquo;</a></li>
+					  <li  class="active"><a href="#">1</a></li>
+					  <li><a href="#">2</a></li>
+					  <li><a href="#">3</a></li>
+					  <li><a href="#">4</a></li>
+					  <li><a href="#">5</a></li>
+					  <li><a href="#">&raquo;</a></li>
+					</ul>
+				</div>
+    		</div>
+    		</div>
+    	</div>
+    
+    <!-- FOOTER -->
+
+
+    <footer class="footer">
+    </footer>
+    </div>
+
+
+     <!-- JS -->
+    <script src="./jquery/jquery.min.js"></script>
+    <script src="./bootstrap/bootstrap3/js/bootstrap.min.js"></script>
+    <!--<script src="http://cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>-->
+    <script>
+	    $(document).ready(function(){
+
+	    	//activa los tooltips de bootstrap
+	    	$('#eliminar').tooltip();
+	    	$('#editar').tooltip();
+	    	$('#buscar').tooltip();
+
+	    	$('#btnMostrarMapa').click(function(){
+		    	
+		    	$('pnlMapa').slideToggle();
+		    });
+
+
+	    	/*Al iniciar cuenta las filas que tiene cargada la tabla. Client-side */
+	    	contarFilas();
+		    $('#btnBuscar').click(function() {
+					
+		    		$("#pnlResultados").slideToggle("slow");
+		    	
+		    });
+
+
+		    /*$('#listadoPlayas').dataTable();*/
+
+		   
+
+		    /*Cuenta la cantidad de filas de la tabla*/
+			function contarFilas(){
+		     var numFilas = $("#listadoPlayas>tbody>tr").length;
+		     $('#cantidadPlayas').text(numFilas);
+		 	}
+		     
+
+
+		});    
+    </script>
+ 
+  
+  </body>
+</html>
