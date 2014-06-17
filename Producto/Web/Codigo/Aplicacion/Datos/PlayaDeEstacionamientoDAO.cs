@@ -20,6 +20,26 @@ namespace Datos
         }
 
         /// <summary>
+        /// Buscar las playas de estacionamiento vigentes
+        /// </summary>
+        /// <returns>Listado de Playas vigentes</returns>
+        public List<PlayaDeEstacionamiento> buscarPlayas()
+        {
+            //lista de las playas a retornar
+            List<PlayaDeEstacionamiento> ListaPlayasEstacionamientos = new List<PlayaDeEstacionamiento>();
+
+            //lista de playas existente con el nombre a buscar
+            var list = contexto.playas.Where(m => m.FechaBaja == null);
+
+            //carga de las playas a la lista
+            foreach (PlayaDeEstacionamiento playa in list)
+                ListaPlayasEstacionamientos.Add(playa);
+
+            //retorna la lista
+            return ListaPlayasEstacionamientos;
+        }
+
+        /// <summary>
         /// busca playa de estacionamiento por el ID
         /// </summary>
         /// <param name="idPlaya">es el ID de la playa</param>
@@ -27,7 +47,18 @@ namespace Datos
         public PlayaDeEstacionamiento buscarPlayaPorId(int idPlaya)
         {
             //retorna la playa
-            return contexto.buscarPlayaPorId(idPlaya);
+            //lista de las playas a retornar
+            PlayaDeEstacionamiento playa = new PlayaDeEstacionamiento();
+
+            //lista de playas existente con el nombre a buscar
+            var list = contexto.playas.Where(m => m.Id=idPlaya && m.FechaBaja == null);
+
+            //carga de las playas a la lista
+            foreach (PlayaDeEstacionamiento item in list)
+                playa=item;
+
+            //retorna la lista
+            return playa;
         }
 
         /// <summary>
@@ -37,8 +68,18 @@ namespace Datos
         /// <returns>lista de objetos Playa de Estacionamiento</returns>
         public List<PlayaDeEstacionamiento> buscarPlayaPorNombre(string nombre)
         {
+            //lista de las playas a retornar
+            List<PlayaDeEstacionamiento> ListaPlayasEstacionamientos = new List<PlayaDeEstacionamiento>();
+
+            //lista de playas existente con el nombre a buscar
+            var list = contexto.playas.Where(m => m.Nombre.Contains(nombre) && m.FechaBaja==null);
+
+            //carga de las playas a la lista
+            foreach (PlayaDeEstacionamiento playa in list)
+                ListaPlayasEstacionamientos.Add(playa);
+
             //retorna la lista
-            return contexto.buscarPlayaPorNombre(nombre);
+            return ListaPlayasEstacionamientos;
         }
 
         /// <summary>
@@ -48,7 +89,8 @@ namespace Datos
         public void registrarPlaya(PlayaDeEstacionamiento playa)
         {
             //registra la playa
-            contexto.registrarPlaya(playa);
+            contexto.playas.Add(playa);
+            contexto.SaveChanges();
         }
 
         /// <summary>
@@ -58,7 +100,8 @@ namespace Datos
         public void actualizarPlaya(PlayaDeEstacionamiento playa)
         {
             //actualiza la playa
-            contexto.actualizarPlaya(playa);
+            contexto.Entry(playa);
+            contexto.SaveChanges();
         }
 
         /// <summary>
@@ -67,8 +110,10 @@ namespace Datos
         /// <param name="idPlaya">es el ID de la playa</param>
         public void eliminarPlaya(int idPlaya)
         {
-            //elimina la playa
-            contexto.eliminarPlaya(idPlaya);
+            //eliminar una playa(Actualiza fecha baja) 
+            PlayaDeEstacionamiento playa = buscarPlayaPorId(idPlaya);
+            playa.FechaBaja = DateTime.Now;
+            actualizarPlaya(playa); 
         }        
     }
 }

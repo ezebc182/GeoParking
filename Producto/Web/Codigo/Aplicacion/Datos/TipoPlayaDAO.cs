@@ -20,23 +20,44 @@ namespace Datos
         }
 
         /// <summary>
-        /// Busca todos los tipos de playa
+        /// Buscar los tipoPlayas de estacionamiento vigentes
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Listado de TiposPlayas vigentes</returns>
         public List<TipoPlaya> buscarTiposPlayas()
         {
-            return contexto.buscarTiposPlayas();
+            //lista de las playas a retornar
+            List<TipoPlaya> ListaTiposPlayasEstacionamientos = new List<TipoPlaya>();
+
+            //lista de playas existente con el nombre a buscar
+            var list = contexto.tiposPlayas.Where(m => m.FechaBaja == null);
+
+            //carga de las playas a la lista
+            foreach (TipoPlaya tipo in list)
+                ListaTiposPlayasEstacionamientos.Add(tipo);
+
+            //retorna la lista
+            return ListaTiposPlayasEstacionamientos;
         }
 
         /// <summary>
         /// Busca tipo de playa por ID
         /// </summary>
-        /// <param name="id">ID del tipo de playa</param>
+        /// <param name="idTipoPlaya">ID del tipo de playa</param>
         /// <returns>Objeto TipoPlaya</returns>
-        public TipoPlaya buscarTipoPlayaPorId(int id)
+        public TipoPlaya buscarTipoPlayaPorId(int idTipoPlaya)
         {
             //retorno la playa con el id
-            return contexto.buscarTipoPlayaPorId(id);
+            TipoPlaya tipoPlaya = new TipoPlaya();
+
+            //lista de playas existente con el nombre a buscar
+            var list = contexto.tiposPlayas.Where(m => m.Id==idTipoPlaya && m.FechaBaja == null);
+
+            //carga de las playas a la lista
+            foreach (TipoPlaya tipo in list)
+                tipoPlaya=tipo;
+
+            //retorna la lista
+            return tipoPlaya;
         }
 
         /// <summary>
@@ -46,8 +67,18 @@ namespace Datos
         /// <returns>Lsita de objetos Tipolaya</returns>
         public List<TipoPlaya> buscarTipoPlayaPorNombre(string nombre)
         {
+            //lista de playas de estacionamiento a devolver
+            List<TipoPlaya> listaTipos = new List<TipoPlaya>();
+
+            //lista de playas existente con el nombre a buscar
+            var list = contexto.tiposPlayas.Where(m => m.Nombre == nombre && m.FechaBaja == null);
+
+            //carga de las playas a la lista
+            foreach (TipoPlaya tipoPlaya in list)
+                listaTipos.Add(tipoPlaya);
+
             //retornar la lista
-            return contexto.buscarTipoPlayaPorNombre(nombre);
+            return listaTipos;
         }
 
         /// <summary>
@@ -57,7 +88,8 @@ namespace Datos
         public void registrarTipoPlaya(TipoPlaya tipoPlaya)
         {
             //registra un tipo de playa
-            contexto.registrarTipoPlaya(tipoPlaya);
+            contexto.tiposPlayas.Add(tipoPlaya);
+            contexto.SaveChanges();
         }
 
         /// <summary>
@@ -67,8 +99,9 @@ namespace Datos
         public void actualizarTipoPlaya(TipoPlaya tipoPlaya)
         {
             //actualizar un tipo de playa
-            contexto.actualizarTipoPlaya(tipoPlaya);
-        }
+            contexto.Entry(tipoPlaya);
+            contexto.SaveChanges();
+        }            
 
         /// <summary>
         /// Elimina un tipo de playa por ID
@@ -76,8 +109,10 @@ namespace Datos
         /// <param name="idTipoPlaya">ID del tipo de playa</param>
         public void eliminarTipoPlaya(int idTipoPlaya)
         {
-            //eliminar un tipo de playa
-            contexto.eliminarTipoPlaya(idTipoPlaya);
+            //eliminar un tipo de playa(Actualiza fecha baja) 
+            TipoPlaya tipoPlaya = buscarTipoPlayaPorId(idTipoPlaya);
+            tipoPlaya.FechaBaja = DateTime.Now;
+            actualizarTipoPlaya(tipoPlaya);           
         }       
 
     }
