@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    public class TipoPlaya
+    public class TipoPlaya : EntidadBase
     {
-        public int id { get; set; }
-        public string nombre { get; set; }
-        public string descripcion { get; set; }
+        public TipoPlaya()
+        {
+            FechaAlta = DateTime.Now;
+        }
+
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
     }
 }
