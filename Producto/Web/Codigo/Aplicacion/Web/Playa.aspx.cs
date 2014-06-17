@@ -50,26 +50,26 @@ namespace appWeb1.app
                 PlayaDeEstacionamiento p = new PlayaDeEstacionamiento();
 
                 //seteo lo valores
-                p.nombre = txtNombre.Text;
-                p.direccion = txtDireccion.Text;
-                p.tipoPlaya = int.Parse(ddlTipoPlaya.SelectedValue);
-                p.capacidad = int.Parse(txtCapacidad.Text);
-                p.latitud = Double.Parse(txtLatitud.Text);
-                p.longitud = Double.Parse(txtLongitud.Text);
-                p.horaDesde = DateTime.Parse(txtDesde.Text);
-                p.horaHasta = DateTime.Parse(txtHasta.Text);
+                p.Nombre = txtNombre.Text;
+                p.Direccion = txtDireccion.Text;
+                p.TipoPlaya = int.Parse(ddlTipoPlaya.SelectedValue);
+                p.Capacidad = int.Parse(txtCapacidad.Text);
+                p.Latitud = Double.Parse(txtLatitud.Text);
+                p.Longitud = Double.Parse(txtLongitud.Text);
+                p.HoraDesde = DateTime.Parse(txtDesde.Text);
+                p.HoraHasta = DateTime.Parse(txtHasta.Text);
                 if (chkMotos.Checked)
-                    p.motos = true;
+                    p.Motos = true;
                 else
-                    p.motos = false;
+                    p.Motos = false;
                 if (chkBicis.Checked)
-                    p.bicicletas = true;
+                    p.Bicicletas = true;
                 else
-                    p.bicicletas = false;
+                    p.Bicicletas = false;
                 if (chkUtilitarios.Checked)
-                    p.utilitarios = true;
+                    p.Utilitarios = true;
                 else
-                    p.utilitarios = false;
+                    p.Utilitarios = false;
 
                 //registro la playa a travez del gestor
                 gestor.registrarPlaya(p);
@@ -83,26 +83,26 @@ namespace appWeb1.app
             else //edito el objeto playa editar
             {
                 //seteo los nuevos valores
-                playaEditar.nombre = txtNombre.Text;
-                playaEditar.direccion = txtDireccion.Text;
-                playaEditar.tipoPlaya = int.Parse(ddlTipoPlaya.SelectedValue);
-                playaEditar.capacidad = int.Parse(txtCapacidad.Text);
-                playaEditar.latitud = Double.Parse(txtLatitud.Text);
-                playaEditar.longitud = Double.Parse(txtLongitud.Text);
-                playaEditar.horaDesde = DateTime.Parse(txtDesde.Text);
-                playaEditar.horaHasta = DateTime.Parse(txtHasta.Text);
+                playaEditar.Nombre = txtNombre.Text;
+                playaEditar.Direccion = txtDireccion.Text;
+                playaEditar.TipoPlaya = int.Parse(ddlTipoPlaya.SelectedValue);
+                playaEditar.Capacidad = int.Parse(txtCapacidad.Text);
+                playaEditar.Latitud = Double.Parse(txtLatitud.Text);
+                playaEditar.Longitud = Double.Parse(txtLongitud.Text);
+                playaEditar.HoraDesde = DateTime.Parse(txtDesde.Text);
+                playaEditar.HoraHasta = DateTime.Parse(txtHasta.Text);
                 if (chkMotos.Checked)
-                    playaEditar.motos = true;
+                    playaEditar.Motos = true;
                 else
-                    playaEditar.motos = false;
+                    playaEditar.Motos = false;
                 if (chkBicis.Checked)
-                    playaEditar.bicicletas = true;
+                    playaEditar.Bicicletas = true;
                 else
-                    playaEditar.bicicletas = false;
+                    playaEditar.Bicicletas = false;
                 if (chkUtilitarios.Checked)
-                    playaEditar.utilitarios = true;
+                    playaEditar.Utilitarios = true;
                 else
-                    playaEditar.utilitarios = false;
+                    playaEditar.Utilitarios = false;
 
                 //actualizo la playa a travez del gestor
                 gestor.actulaizarPlaya(playaEditar);
@@ -158,19 +158,19 @@ namespace appWeb1.app
             playaEditar = gestor.buscarPlayaPorId(idPlaya);
 
             //cargo todos los campos del formulario
-            txtNombre.Text = playaEditar.nombre;
-            txtDireccion.Text = playaEditar.direccion;
-            ddlTipoPlaya.SelectedValue = playaEditar.tipoPlaya.ToString();
-            txtCapacidad.Text = playaEditar.capacidad.ToString();
-            txtLatitud.Text = playaEditar.latitud.ToString();
-            txtLongitud.Text = playaEditar.longitud.ToString();
+            txtNombre.Text = playaEditar.Nombre;
+            txtDireccion.Text = playaEditar.Direccion;
+            ddlTipoPlaya.SelectedValue = playaEditar.TipoPlaya.ToString();
+            txtCapacidad.Text = playaEditar.Capacidad.ToString();
+            txtLatitud.Text = playaEditar.Latitud.ToString();
+            txtLongitud.Text = playaEditar.Longitud.ToString();
             //esto hay que revisarlo por ahora deja que guarde la fecha
-            txtDesde.Text = playaEditar.horaDesde.ToString();
-            txtHasta.Text = playaEditar.horaHasta.ToString();
+            txtDesde.Text = playaEditar.HoraDesde.ToString();
+            txtHasta.Text = playaEditar.HoraHasta.ToString();
             //el seteo del mapa lo hace java script, ya esta hecho
-            chkMotos.Checked = playaEditar.motos;
-            chkBicis.Checked = playaEditar.bicicletas;
-            chkUtilitarios.Checked = playaEditar.utilitarios;
+            chkMotos.Checked = playaEditar.Motos;
+            chkBicis.Checked = playaEditar.Bicicletas;
+            chkUtilitarios.Checked = playaEditar.Utilitarios;
         }
 
         private void limpiarCampos()
