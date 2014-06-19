@@ -51,7 +51,7 @@ namespace Datos
             PlayaDeEstacionamiento playa = new PlayaDeEstacionamiento();
 
             //lista de playas existente con el nombre a buscar
-            var list = contexto.playas.Where(m => m.Id=idPlaya && m.FechaBaja == null);
+            var list = contexto.playas.Where(m => m.Id==idPlaya && m.FechaBaja == null);
 
             //carga de las playas a la lista
             foreach (PlayaDeEstacionamiento item in list)
