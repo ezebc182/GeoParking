@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Datos.Empleados
+namespace Empleados
 {
     class Empleado
     {
+        public string nombre { get; set; }
     }
 }

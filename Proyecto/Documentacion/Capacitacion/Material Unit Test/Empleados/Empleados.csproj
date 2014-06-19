@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Contexto.cs" />
     <Compile Include="Empleado.cs" />
+    <Compile Include="Gestor.cs" />
     <Compile Include="IRepositorio.cs" />
     <Compile Include="RepositorioGenerico.cs" />
     <Compile Include="Repositorios.cs" />

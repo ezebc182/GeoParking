@@ -7,157 +7,38 @@ using System.Web.UI.WebControls;
 using Entidades;
 using ReglasDeNegocio;
 
-namespace appWeb1.app
+namespace Web
 {
-    public partial class Formulario_web1 : System.Web.UI.Page
+    public partial class Playa : System.Web.UI.Page
     {
         //gestor encargado de todas las funcionalidades del ABM
-        GestorAMBPlaya gestor;
-
-        //objeto PlayaDeEsyacionamiento para guardar de manera global la playa que se esta actualizando
-        PlayaDeEstacionamiento playaEditar;
+        GestorABMPlaya gestor;
+        //Master de la pagina, para poder mostrar mensajes.
+        MasterPage master;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            gestor = new GestorABMPlaya();
+            master = (SiteMaster)Master;
+
             if (!Page.IsPostBack)
             {
-                cargarComboTiposPlayas();                
+                CargarComboTiposPlayas();
             }
         }
 
-        public void cargarComboTiposPlayas()
+        public void CargarComboTiposPlayas()
         {
-            gestor = new GestorAMBPlaya();
-            ddlTipoPlaya.DataSource = gestor.buscarTipoPlayas();
+            gestor = new GestorABMPlaya();
+            ddlTipoPlaya.DataSource = gestor.BuscarTipoPlayas();
             ddlTipoPlaya.DataTextField = "nombre";
             ddlTipoPlaya.DataValueField = "id";
             ddlTipoPlaya.DataBind();
         }
 
-        /// <summary>
-        /// Guarda o Actualiza un Playa de Estacionemiento
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnGuardar_Click(object sender, EventArgs e)
+        //Carga los campos del formulario con los datos enviados por parametro
+        public void CargarCamposFormulario(PlayaDeEstacionamiento playaEditar)
         {
-            //instancio el gestor
-            gestor = new GestorAMBPlaya();
-
-            if (playaEditar == null)//creo una nueva playa
-            {
-                //Creo el objeto de la nueva PlayaDeEstacionamiento
-                PlayaDeEstacionamiento p = new PlayaDeEstacionamiento();
-
-                //seteo lo valores
-                p.Nombre = txtNombre.Text;
-                p.Direccion = txtDireccion.Text;
-                p.TipoPlaya = int.Parse(ddlTipoPlaya.SelectedValue);
-                p.Capacidad = int.Parse(txtCapacidad.Text);
-                p.Latitud = Double.Parse(txtLatitud.Text);
-                p.Longitud = Double.Parse(txtLongitud.Text);
-                p.HoraDesde = DateTime.Parse(txtDesde.Text);
-                p.HoraHasta = DateTime.Parse(txtHasta.Text);
-                if (chkMotos.Checked)
-                    p.Motos = true;
-                else
-                    p.Motos = false;
-                if (chkBicis.Checked)
-                    p.Bicicletas = true;
-                else
-                    p.Bicicletas = false;
-                if (chkUtilitarios.Checked)
-                    p.Utilitarios = true;
-                else
-                    p.Utilitarios = false;
-
-                //registro la playa a travez del gestor
-                gestor.registrarPlaya(p);
-
-                //limpio el formulario
-                limpiarCampos();
-
-                //mensaje de registracion correcta
-                Response.Write("<script>alert('La playa fue registrada correctamente');</script>");
-            }
-            else //edito el objeto playa editar
-            {
-                //seteo los nuevos valores
-                playaEditar.Nombre = txtNombre.Text;
-                playaEditar.Direccion = txtDireccion.Text;
-                playaEditar.TipoPlaya = int.Parse(ddlTipoPlaya.SelectedValue);
-                playaEditar.Capacidad = int.Parse(txtCapacidad.Text);
-                playaEditar.Latitud = Double.Parse(txtLatitud.Text);
-                playaEditar.Longitud = Double.Parse(txtLongitud.Text);
-                playaEditar.HoraDesde = DateTime.Parse(txtDesde.Text);
-                playaEditar.HoraHasta = DateTime.Parse(txtHasta.Text);
-                if (chkMotos.Checked)
-                    playaEditar.Motos = true;
-                else
-                    playaEditar.Motos = false;
-                if (chkBicis.Checked)
-                    playaEditar.Bicicletas = true;
-                else
-                    playaEditar.Bicicletas = false;
-                if (chkUtilitarios.Checked)
-                    playaEditar.Utilitarios = true;
-                else
-                    playaEditar.Utilitarios = false;
-
-                //actualizo la playa a travez del gestor
-                gestor.actulaizarPlaya(playaEditar);
-
-                //limpio el formulario
-                limpiarCampos();
-
-                //borro de memoria la playa que ya fue editada
-                playaEditar = null;
-
-                //mensaje de actualizacion correcta
-                Response.Write("<script>alert('La playa fue actualizada correctamente');</script>");
-            }
-        }
-
-        /// <summary>
-        /// Cancela cualquier accion y limpia el formulario
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
-            limpiarCampos();
-        }
-
-        /// <summary>
-        /// Consulta playa de estacionamiento por filtro de nombre (por ahora exacto, hay que modificarlo)
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnConsultar_Click(object sender, EventArgs e)
-        {
-            //instancio el gestor
-            gestor = new GestorAMBPlaya();
-
-            //lleno la grilla
-            gvResultados.DataSource = gestor.buscarPlayaPorNombre(txtFiltroNombre.Text);
-            gvResultados.DataBind();
-
-            //la hago visible (no se como lo vas a hacer yo lo hice asi porque necesitaba verla)
-            gvResultados.Visible = true;
-        }
-
-        /// <summary>
-        /// Carga los campos del formulario con datos de la playa a editar
-        /// </summary>
-        /// <param name="idPlaya">ID de la playa a editar</param>
-        private void editarPlaya(int idPlaya)
-        {
-            Titulo.Text = "Editar";
-
-            //cargo la variable globla de la playa a editar
-            playaEditar = gestor.buscarPlayaPorId(idPlaya);
-
-            //cargo todos los campos del formulario
             txtNombre.Text = playaEditar.Nombre;
             txtDireccion.Text = playaEditar.Direccion;
             ddlTipoPlaya.SelectedValue = playaEditar.TipoPlaya.ToString();
@@ -173,6 +54,25 @@ namespace appWeb1.app
             chkUtilitarios.Checked = playaEditar.Utilitarios;
         }
 
+        //Carga la entidad PlayaDeEstacionamiento con los valores del formulario.
+        public PlayaDeEstacionamiento CargarEntidad()
+        {
+            PlayaDeEstacionamiento playa = new PlayaDeEstacionamiento
+            {
+                Nombre = Nombre,
+                Direccion = Direccion,
+                TipoPlaya = TipoPlayaSeleccionada,
+                Capacidad = Capacidad,
+                Latitud = Latitud,
+                Longitud = Longitud,
+                HoraDesde = HoraDesde,
+                HoraHasta = HoraHasta,
+                Motos = Motos,
+                Bicicletas = Bicicletas,
+                Utilitarios = Utilitarios
+            };
+            return playa;
+        }
         private void limpiarCampos()
         {
             Titulo.Text = "Registrar";
@@ -187,31 +87,164 @@ namespace appWeb1.app
             chkUtilitarios.Checked = false;
         }
 
+        private void EliminarPlaya()
+        {
+            var resultado = gestor.EliminarPlaya(IdPlayaSeleccionada);
+            if (resultado.Ok)
+            {
+                master.SuccessAlert("La playa fue eliminada correctamente.");
+            }
+            else
+            {
+                master.ErrorAlert(resultado.MessagesAsString());
+            }
+        }
+
+        #region properties
+        //Id de la playa seleccionada en la grilla
+        public int IdPlayaSeleccionada { get; set; }
+        //Id de la playa a editar, si se esta registrando es 0
+        public int IdPlaya
+        {
+            get { return hfIdPlaya.HasValue ? hfIdPlaya.Value : 0; }
+            set { hfIdPlaya.Value = value.ToString(); }
+        }
+        //Nombre de la playa para filtrar la grilla
+        public string FiltroNombre
+        {
+            get { return txtFiltroNombre.Text; }
+            set { txtFiltroNombre.Text = value; }
+        }
+        //Nombre de la playa que se esta registrando/editando
+        public string Nombre
+        {
+            get { return txtNombre.Text; }
+            set { txtNombre.Text = value; }
+        }
+        //Direccion de la playa que se esta registrando/editando
+        public string Direccion
+        {
+            get { return txtDireccion.Text; }
+            set { txtDireccion.Text = value; }
+        }
+        //Tipo de la playa que se esta registrando/editando
+        public string TipoPlayaSeleccionada
+        {
+            get { return ddlTipoPlaya.SelectedValue; }
+        }
+        //Capacidad de la playa que se esta registrando/editando
+        public int Capacidad
+        {
+            get { return string.IsNullOrEmpty(txtCapacidad.Text) ? 0 : int.Parse(txtCapacidad.Text); }
+            set { txtCapacidad.Text = value.ToString(); }
+        }
+        //Latitud de la playa que se esta registrando/editando        
+        public double Latitud
+        {
+            get { return Double.Parse(txtLatitud.Text); }
+            set { txtLatitud.Text = value.ToString(); }
+        }
+        //Longitud de la playa que se esta registrando/editando
+        public double Longitud
+        {
+            get { return Double.Parse(txtLongitud.Text); }
+            set { txtLongitud.Text = value.ToString(); }
+        }
+        //Hora desde de la playa que se esta registrando/editando
+        public string HoraDesde
+        {
+            get { return txtHoraDesde.Text + ":" + txtMinutosDesde.Text; }
+            set
+            {
+                var horaArray = value.Split(':');
+                txtHoraDesde.Text = horaArray[0].ToString();
+                txtMinutosDesde.Text = horaArray[2].ToString();
+            }
+        }
+        //Hora hasta de la playa que se esta registrando/editando
+        public string HoraHasta
+        {
+            get { return txtHoraHasta.Text + ":" + txtMinutosHasta.Text; }
+            set
+            {
+                var horaArray = value.Split(':');
+                txtHoraHasta.Text = horaArray[0].ToString();
+                txtMinutosHasta.Text = horaArray[2].ToString();
+            }
+        }
+        //Indica si la playa que se esta registrando/editando acepta motos
+        public bool Motos
+        {
+            get { return chkMotos.Checked; }
+            set { chkMotos.Checked = value; }
+        }
+        //Indica si la playa que se esta registrando/editando acepta bicicletas
+        public bool Bicicletas
+        {
+            get { return chkBicis.Checked; }
+            set { chkBicis.Checked = value; }
+        }
+        //Indica si la playa que se esta registrando/editando acepta utilitarios
+        public bool Utilitarios
+        {
+            get { return chkUtilitarios.Checked; }
+            set { chkUtilitarios.Checked = value; }
+        }
+        //Precio de la playa que se esta registrando/editando
+        public decimal? PrecioAutos
+        {
+            get { return txtPrecioAutos.Text != "" ? Convert.ToDecimal(txtPrecioAutos.Text) : null; }
+            set { txtPrecioAutos = value.ToString(); }
+        }
+        //Precio de motos de la playa que se esta registrando/editando
+        public decimal? PrecioMotos
+        {
+            get { return txtPrecioMotos.Text != "" ? Convert.ToDecimal(txtPrecioMotos.Text) : null; }
+            set { txtPrecioMotos = value.ToString(); }
+        }
+        //Precio de bicicletas de la playa que se esta registrando/editando
+        public decimal? PrecioBicicletas
+        {
+            get { return txtPrecioBicicletas.Text != "" ? Convert.ToDecimal(txtPrecioBicicletas.Text) : null; }
+            set { txtPrecioBicicletas = value.ToString(); }
+        }
+        //Precio de utilitarios de la playa que se esta registrando/editando
+        public decimal? PrecioUtilitarios
+        {
+            get { return txtPrecioUtilitarios.Text != "" ? Convert.ToDecimal(txtPrecioUtilitarios.Text) : null; }
+            set { txtPrecioUtilitarios = value.ToString(); }
+        }
+
+        #endregion
+        #region eventos
+        #region eventos grilla
+
         //no se que hace ni cuando se ejecuta (nunca entro en el codigo)
         void gvResultados_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            gestor = new GestorAMBPlaya();
-
-            var acciones = new List<string> { "Editar", "Eliminar" };
+            var acciones = new List<string> { "Editar", "Eliminar", "Ver" };
 
             if (!acciones.Contains(e.CommandName))
                 return;
 
+            gvResultados.SelectedIndex = Convert.ToInt32(e.CommandArgument);
+            IdPlayaSeleccionada = 0;
+
+            if (gvResultados.SelectedValue != null)
+                IdPlayaSeleccionada = (int)gvResultados.SelectedValue;
+
             switch (e.CommandName)
             {
                 case "Eliminar":
-                    var idEliminar = gvResultados.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Text;
 
-                    //elimina la playa
-                    gestor.eliminarPlaya(int.Parse(idEliminar));
-                    
-                    Response.Write("<script>alert('La playa fue eliminada correctamente');</script>");
+                    //elimina la playa y muestra el resultado.
+                    EliminarPlaya()                    
                     break;
                 case "Editar":
-                    var idEditar = gvResultados.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Text;
-                    
-                    //Carga los campos de la playa a editar
-                    editarPlaya(int.Parse(idEditar));                    
+                    Titulo.Text = "Editar";
+                    var playa = gestor.BuscarPlayaPorId(IdPlayaSeleccionada);
+                    //Carga los campos del formulario con la playa a editar
+                    CargarCamposFormulario(playa);
                     break;
                 default:
                     break;
@@ -232,5 +265,91 @@ namespace appWeb1.app
                 btn.CommandArgument = e.Row.RowIndex.ToString();
             }
         }
+
+        #endregion
+        #region eventos botones
+        /// <summary>
+        /// Guarda o Actualiza un Playa de Estacionemiento
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            //instancio el gestor
+
+            if (IdPlaya == 0)//creo una nueva playa
+            {
+                //Creo el objeto de la nueva PlayaDeEstacionamiento
+                PlayaDeEstacionamiento playa = CargarEntidad();
+
+                //registro la playa a travez del gestor
+                var resultado = gestor.RegistrarPlaya(playa);
+
+                if (resultado.Ok)
+                {
+                    //Mensaje de registracion correcta
+                    master.SuccessAlert("La playa fue registrada correctamente.");
+                }
+                else
+                {
+                    //Mensajes de error
+                    master.ErrorAlert(resultado.MessagesAsString());
+                }
+
+                //limpio el formulario
+                limpiarCampos();
+
+            }
+            else //edito el objeto playa editar
+            {
+                var playa = CargarEntidad();
+
+                //actualizo la playa a travez del gestor
+                var resultado = gestor.ActualizarPlaya(playa);
+
+                if (resultado.Ok)
+                {
+                    //Mensaje de actualizacion correcta
+                    master.SuccessAlert("La playa fue editada correctamente.");
+                }
+                else
+                {
+                    //Mensajes de error
+                    master.ErrorAlert(resultado.MessagesAsString());
+                }
+
+                //limpio el formulario
+                limpiarCampos();
+
+            }
+        }
+
+        /// <summary>
+        /// Cancela cualquier accion y limpia el formulario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            limpiarCampos();
+        }
+
+        /// <summary>
+        /// Consulta playa de estacionamiento por filtro de nombre (por ahora exacto, hay que modificarlo)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnConsultar_Click(object sender, EventArgs e)
+        {
+            //lleno la grilla
+            gvResultados.DataSource = gestor.BuscarPlayaPorNombre(txtFiltroNombre.Text);
+            gvResultados.DataBind();
+
+            //la hago visible (no se como lo vas a hacer yo lo hice asi porque necesitaba verla)
+            gvResultados.Visible = true;
+        }
+
+        #endregion
+        #endregion
     }
 }

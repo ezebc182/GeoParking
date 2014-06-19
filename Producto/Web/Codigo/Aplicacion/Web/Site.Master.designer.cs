@@ -10,7 +10,7 @@
 namespace Web {
     
     
-    public partial class Site1 {
+    public partial class SiteMaster {
         
         /// <summary>
         /// Control Head1.

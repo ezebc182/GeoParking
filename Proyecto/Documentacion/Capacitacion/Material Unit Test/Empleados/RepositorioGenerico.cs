@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
-using Entidades;
 
-namespace Datos
+namespace Empleados
 {
 
     public class Repositorio<TEntity> : IRepositorio<TEntity> where TEntity : EntidadBase
@@ -33,7 +32,7 @@ namespace Datos
            return lista[0];
         }
 
-        public IList<TEntity> FindAll(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
+        public IList<TEntity> FindAll()
         {
             return DbSet.ToList<TEntity>();
         }

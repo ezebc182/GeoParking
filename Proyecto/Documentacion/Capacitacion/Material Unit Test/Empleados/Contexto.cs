@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using Entidades;
 
-namespace Datos
+namespace Empleados
 {
     class ContextoBD: DbContext
     {

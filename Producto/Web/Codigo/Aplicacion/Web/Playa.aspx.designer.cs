@@ -7,10 +7,10 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace appWeb1.app {
+namespace Web {
     
     
-    public partial class Formulario_web1 {
+    public partial class Playa {
         
         /// <summary>
         /// Control divFiltrosBusqueda.

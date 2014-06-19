@@ -39,8 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GestorAMBPlaya.cs" />
+    <Compile Include="GestorABMPlaya.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\Resultado.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Datos\Datos.csproj">

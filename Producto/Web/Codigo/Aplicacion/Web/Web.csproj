@@ -58,19 +58,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Playa.aspx" />
+    <Content Include="Scripts\GoogleMaps.js" />
     <Content Include="Styles\bootstrap.min.css" />
     <Content Include="Styles\Main.css" />
     <Content Include="Styles\MapaAbmPlaya.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abmc.Master.cs">
-      <DependentUpon>Abmc.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Abmc.Master.designer.cs">
-      <DependentUpon>Abmc.Master</DependentUpon>
-    </Compile>
     <Compile Include="Playa.aspx.cs">
       <DependentUpon>Playa.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -88,7 +82,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Abmc.Master" />
     <Content Include="Site.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
