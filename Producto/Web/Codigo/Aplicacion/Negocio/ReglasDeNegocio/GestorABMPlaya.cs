@@ -11,13 +11,14 @@ namespace ReglasDeNegocio
 {
     public class GestorABMPlaya
     {
-        PlayaDeEstacionamientoDAO playaDao;
-        TipoPlayaDAO tipoDao;
+        RepositorioPlayaDeEstacionamientos playaDao;
+        RepositorioTipoDePlaya tipoDao;
+        
 
         public GestorABMPlaya()
         {
-            playaDao = new PlayaDeEstacionamientoDAO();
-            tipoDao = new TipoPlayaDAO();
+            playaDao = new RepositorioPlayaDeEstacionamientos();
+            tipoDao = new RepositorioTipoDePlaya();
 	    }
 
 
@@ -27,7 +28,7 @@ namespace ReglasDeNegocio
             
             if (resultado.Ok)
             {
-                playaDao.registrarPlaya(playa);
+                playaDao.Create(playa);
             }
 
             return resultado;
@@ -48,7 +49,7 @@ namespace ReglasDeNegocio
             
             if (resultado.Ok)
             {
-                playaDao.actualizarPlaya(playa);
+                playaDao.Update(playa);
             }
             return resultado;
         }
@@ -69,7 +70,7 @@ namespace ReglasDeNegocio
             
             if (resultado.Ok)
             {
-                playaDao.eliminarPlaya(idPlaya);
+                playaDao.Delete(m => m.Id==idPlaya);
             }
 
             return resultado;
@@ -87,17 +88,17 @@ namespace ReglasDeNegocio
 
         public PlayaDeEstacionamiento BuscarPlayaPorId(int idPlaya)
         {
-            return playaDao.buscarPlayaPorId(idPlaya);
+            return playaDao.FindWhere(m => m.Id==idPlaya && m.FechaBaja==null)[0];
         }
 
-        public List<PlayaDeEstacionamiento> BuscarPlayaPorNombre(string nombre)
+        public IList<PlayaDeEstacionamiento> BuscarPlayaPorNombre(string nombre)
         {
-            return playaDao.buscarPlayaPorNombre(nombre);
+            return playaDao.FindWhere(m => m.Nombre.Contains(nombre));
         }
 
-        public List<TipoPlaya> BuscarTipoPlayas()
+        public IList<TipoPlaya> BuscarTipoPlayas()
         {
-            return tipoDao.buscarTiposPlayas();
+            return tipoDao.FindAll();
         }
     }
 }
