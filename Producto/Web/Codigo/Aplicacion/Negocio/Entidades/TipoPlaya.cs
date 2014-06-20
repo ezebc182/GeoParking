@@ -8,10 +8,7 @@ namespace Entidades
 {
     public class TipoPlaya : EntidadBase
     {
-        public TipoPlaya()
-        {
-            FechaAlta = DateTime.Now;
-        }
+        public TipoPlaya(){}
 
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
