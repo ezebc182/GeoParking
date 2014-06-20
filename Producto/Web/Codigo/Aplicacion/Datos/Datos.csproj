@@ -47,9 +47,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContextoBD.cs" />
-    <Compile Include="PlayaDeEstacionamientoDAO.cs" />
+    <Compile Include="IRepositorio.cs" />
+    <Compile Include="Migrations\201406120233006_InitialCreate.cs" />
+    <Compile Include="Migrations\201406120233006_InitialCreate.Designer.cs">
+      <DependentUpon>201406120233006_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TipoPlayaDAO.cs" />
+    <Compile Include="RepositorioDAO.cs" />
+    <Compile Include="Repositorio.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -60,6 +66,11 @@
       <Project>{d8060039-8b31-4b88-a318-20fb89972151}</Project>
       <Name>Entidades</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201406120233006_InitialCreate.resx">
+      <DependentUpon>201406120233006_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

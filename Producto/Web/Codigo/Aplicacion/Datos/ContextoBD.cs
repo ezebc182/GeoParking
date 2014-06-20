@@ -8,7 +8,7 @@ using Entidades;
 
 namespace Datos
 {
-    class ContextoBD: DbContext
+    public class ContextoBD: DbContext
     {
         //instancia del singleton        
         private static ContextoBD instancia = null;
@@ -16,7 +16,7 @@ namespace Datos
         /// <summary>
         /// Crea o retorna el contexto de la BD
         /// </summary>
-        /// <returns></returns>
+        /// <returns>instancia del contexto</returns>
         public static ContextoBD getInstace()
         {
             if (instancia == null)
