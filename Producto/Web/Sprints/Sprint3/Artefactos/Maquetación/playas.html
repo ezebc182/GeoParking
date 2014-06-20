@@ -24,7 +24,7 @@
 			      <span class="icon-bar"></span>
 			      <span class="icon-bar"></span>
 			    </button>
-			    <a class="navbar-brand" href="#">Geo Parking Logo</a>
+			    <a class="navbar-brand" href="./index.html">Geo Parking Logo</a>
 			  </div>
 			 
 			  <!-- Agrupar los enlaces de navegación, los formularios y cualquier
@@ -49,7 +49,13 @@
 			</nav>
 		</header>
 
-		<!--Mensaje de confirmación-->
+	
+  </head>
+
+  <!--BODY-->
+
+  <body>
+  		<!--Mensaje de confirmación-->
 		<div class="modal fade" id="mensajeOK">
     		<div class="modal-dialog">
     			<div class="modal-content">
@@ -63,7 +69,7 @@
     					</div>
     				</div>
     				<div class="modal-footer">
-    					<button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+    					<button type="button" class="btn btn-success" data-dismiss="modal" data-target="#pnlResultados" data-toggle="">Ok</button>
     				</div>
     			</div>
     		</div>
@@ -78,7 +84,7 @@
 		        <h4 class="modal-title">Registrar/Modificar playa</h4>
 		      </div>
 		      <div class="modal-body">
-		        <form class="form-horizontal" role="form">
+		        <form class="form-horizontal" id="frmPlayas"data-toggle="validator"role="form">
 				  <div class="form-group">
 				    <label for="txtNombre" class="col-sm-2 control-label">Nombre</label>
 				    <div class="col-sm-10">
@@ -86,75 +92,129 @@
 				    </div>
 				  </div>
 				  <div class="form-group">
+					  	<label for="ddlTipoPlaya" class="col-sm-2 control-label">Tipo</label>
+					 		<div class="col-sm-10">
+								 <select id="ddlTipoPlaya"class="form-control">
+								    <option value="techada">Techada</option>
+								    <option value="descubierta">Descubierta</option>
+								    <option value="otra">Otra</option>
+								</select>
+							</div>
+				  </div>
+				  <div class="form-group">
 				    <label for="txtDireccion" class="col-sm-2 control-label">Dirección</label>
 				    <div class="col-sm-10">
 				      <input type="text" class="form-control" id="txtDireccion" placeholder="Dirección" required>
 				    </div>
 				  </div>
-				  <div class="form-group">
-				    <label for="txtCapacidad" class="col-sm-2 control-label">Capacidad</label>
-				    <div class="col-sm-10">
-				      <input type="number" class="form-control" id="txtCapacidad" placeholder="0" required>
-				    </div>
-				  </div>
-				 <div class="form-group">
-				 	<label for="ddlTipoPlaya" class="col-sm-2 control-label">Tipo</label>
-				 	<div class="col-sm-10">
-					  <button id="ddlTipoPlaya" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-					    Seleccione tipo <span class="caret"></span>
-					  </button>
-					  <ul class="dropdown-menu" role="menu" >
-					    <li><a href="#">Techada</a></li>
-					    <li><a href="#">Descubierta</a></li>
-					  </ul>
-				  	</div>
-				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label" for="checkboxes">Ubicación</label>
-					
+					<label class="col-sm-2 control-label" for="checkboxes"></label>
+					<div class="col-sm-10" >
+						<div class="pnlMapa">
+				    		<!-- <div class="panel panel-default">
+								<div class="panel-heading">Visualizador de playas</div>
+								<div class="panel-body"> -->
+									<div style="height:150px;width:100%;">
+									<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3405.354927622744!2d-64.19870917428585!3d-31.404345855577667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1402786472621" width="100%" height="100%" frameborder="3" style="border:2">
+									</iframe>
+									</div>
+									<br>									
+								<!-- </div> -->
+							<!-- </div> -->
+						
 						<div class="col-sm-5">
-					      <input type="text" class="form-control" id="txtLatitud" placeholder="Latitud" required>
-					    </div>
-					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="txtLongitud" placeholder="Longitud" required>
-					    </div>
-				    
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="checkboxes">Extras</label>
-					<div class="col-sm-10">
-						<div class="controls">
-						    <label class="checkbox inline" for="cbMotos">
-						      <input type="checkbox" name="checkboxes" id="cbMotos" value="1">
-						      Motos
-						    </label>
-						    <label class="checkbox inline" for="cbBicicletas">
-						      <input type="checkbox" name="checkboxes" id="cbBicicletas" value="2">
-						      Bicicletas
-						    </label>
-						    <label class="checkbox inline" for="cbUtilitarios">
-						      <input type="checkbox" name="checkboxes" id="cbUtilitarios" value="3">
-						      Utilitarios
-						    </label>
+							<input type="text" class="form-control" id="txtLatitud" placeholder="Latitud" required>
 						</div>
-					</div>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="txtLongitud" placeholder="Longitud" required>
+						</div>
+			    	</div>
+			    	</div>
 				</div>
+				<label for="tiposVehiculo" class="col-sm-2 control-label">Precios</label>
+				<div class="form-group col-sm-10">
+					<table id="tiposVehiculo" class="table table-hover">
+						<thead>
+						    <tr>
+						    	<th>#</th>
+							    <th>Capacidad</th>
+							    <th>Precio por hora</th>
+							</tr>
+						</thead>
+					    <tbody >
+						    <tr>						    	
+							    <td>
+							    	<label class="checkbox" for="cbAutos">
+						      		<input type="checkbox" name="checkboxes" id="cbAutos" value="1">
+						      		Autos
+						    		</label>
+							    </td>
+							    <td>
+							    	<input type="number" min="0"class="form-control" id="txtCapacidadAutos" placeholder="1" required>
+							    </td>
+							    <td>
+							    	<input type="number" min="0"class="form-control" id="txtPrecioXhoraAutos" placeholder="1" required>
+							    </td>
+						    </tr>
+						    <tr>						    	
+							    <td>
+							    	<label class="checkbox" for="cbUtilitarios">
+						      		<input type="checkbox" name="checkboxes" id="cbUtilitarios" value="2">
+						      		Utilitarios
+						    		</label>
+							    </td>
+							    <td>
+							    	<input type="number" min="0"class="form-control" id="txtCapacidadUtilitarios" placeholder="1" required>
+							    </td>
+							    <td>
+							    	<input type="number" min="0"class="form-control" id="txtPrecioXhoraUtilitarios" placeholder="1" required>
+							    </td>
+						    </tr>
+						    <tr>						    	
+							    <td>
+							    	<label class="checkbox" for="cbMotos">
+						      		<input type="checkbox" name="checkboxes" id="cbMotos" value="3">
+						      		Motos
+						    		</label>
+							    </td>
+							    <td>
+							    	<input type="number" min="0"class="form-control" id="txtCapacidadMotos" placeholder="1" required>
+							    </td>
+							    <td>
+							    	<input type="number" min="0"class="form-control" id="txtPrecioXhoraMotos" placeholder="1" required>
+							    </td>
+						    </tr>
+						    <tr>						    	
+							    <td>
+							    	<label class="checkbox" for="cbBicicletas">
+						      		<input type="checkbox" name="checkboxes" id="cbBicicletas" value="4">
+						      		Bicicletas
+						    		</label>
+							    </td>
+							    <td>
+							    	<input type="number" min="0"class="form-control" id="txtCapacidadBicicletas" placeholder="1" required>
+							    </td>
+							    <td>
+							    	<input type="number" min="0"class="form-control" id="txtPrecioXhoraBicicletas" placeholder="1" required>
+							    </td>
+						    </tr>
+					    </tbody>
+					</table>
+				</div>
+				
 				<div class="form-group">
-					
-					
 					<label for="txtCapacidad" class="col-sm-2 control-label">Horarios</label>
 				    <div class="col-sm-4">
-				      <input type="number" class="form-control" id="txtHoraDesde" placeholder="00:00" required>
+				      <input type="time" class="form-control" id="txtHoraDesde">
 				    </div>
 				    <div class="col-sm-4">
-				      <input type="number" class="form-control" id="txtHoraHasta" placeholder="23:00" required>
+				      <input type="time" class="form-control" id="txtHoraHasta">
 				    </div>
 				    <div class="col-sm-2">
 					    <label class="checkbox inline" for="cbMotos">
-							<input type="checkbox" id="cbAllDay" value="1">24 hs
+							<input type="checkbox" id="cbTodoElDia" value="1">24 hs
 						</label>
 					</div>
-				    
 				</div>
 			</form>	
 		      </div>
@@ -166,13 +226,8 @@
 		  </div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 
-  </head>
-
-  <!--BODY-->
-
-  <body>
   	<div class="container-fluid">
-    	<div class="jumbotron">
+    	<div class="jumbotron" style="margin-top:5%;">
 			<div class="page-header">
 				<h1>Administración de playas <small>Consulta</small></h1>
 			</div>
@@ -192,18 +247,12 @@
     	<!-- Resultados de búsqueda -->
     	<div id="pnlResultados" class="container-fluid" hidden>
     		<div class="panel panel-primary">
-			  <div class="panel-heading">Visualizador de playas</div>
-			  <div class="panel-body">
-			    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3405.354927622744!2d-64.19870917428585!3d-31.404345855577667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1402786472621" width="100%" height="20%" frameborder="3" style="border:2"></iframe>
-			  </div>
-			</div>
-			<div class="panel panel-primary">
 			<div class="panel-heading">Resultados <span style="background-color:white;color:black;"class="badge" id="cantidadPlayas"></span>
 			</div>
 			
     		<div class="panel-body">
-    			<div id ="resultadosBusqueda">	    		
-					<table id="listadoPlayas" class="table table-hover table-responsive">
+    			<div id ="resultadosBusqueda" class="table-responsive">	    		
+					<table id="listadoPlayas" class="table table-hover">
 						<thead>
 						    <tr>
 							    <th>#ID</th>
@@ -224,9 +273,9 @@
 							     <td>Techada</td>
 							    <td>Bici y Moto</td>
 							    <td>
-							    	<a data-toggle="modal" data-target="#modificarPlaya" id="editar" href="#" class="glyphicon glyphicon-pencil" tooltip="Editar" data-toggle="tooltip" data-placement="top" title="Editar"></a>
-							    	<a href="#" class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Eliminar" id="eliminar"></a>
-							    	<a href="#" class="glyphicon glyphicon-search" data-toggle="tooltip" data-placement="top" title="Buscar" id="buscar"></a>
+							    	<a data-toggle="modal" data-target="#modificarPlaya" id="editar" href="#" class="editar glyphicon glyphicon-pencil" tooltip="Editar" data-toggle="tooltip" data-placement="top" title="Editar"></a>
+							    	<a href="#" class="eliminar glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Eliminar" id="eliminar"></a>
+							    	<a href="#" class="ver glyphicon glyphicon-search" data-toggle="tooltip" data-placement="top" title="Ver" id="buscar"></a>
 							    </td>
 							   							    
 						    </tr>
@@ -238,9 +287,9 @@
 							    <td>Descubierta</td>
 							    <td>Moto</td>
 							    <td>
-							    	<a data-toggle="modal" data-target="#modificarPlaya" id="editar2" href="#" class="glyphicon glyphicon-pencil" tooltip="Editar" data-toggle="tooltip" data-placement="top" title="Editar"></a>
-							    	<a href="#" class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Eliminar" id="eliminar2"></a>
-							    	<a href="#" class="glyphicon glyphicon-search" data-toggle="tooltip" data-placement="top" title="Buscar" id="buscar2"></a>
+							    	<a data-toggle="modal" data-target="#modificarPlaya" id="editar2" href="#" class=" editar glyphicon glyphicon-pencil" tooltip="Editar" data-toggle="tooltip" data-placement="top" title="Editar"></a>
+							    	<a href="#" class="eliminar glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Eliminar" id="eliminar2"></a>
+							    	<a href="#" class="ver glyphicon glyphicon-search" data-toggle="tooltip" data-placement="top" title="Ver" id="buscar2"></a>
 							    </td>
 							    
 						    </tr>
@@ -252,9 +301,9 @@
 							    <td>Techada</td>
 							    <td>Moto</td>
 							    <td>
-							    	<a data-toggle="modal" data-target="#modificarPlaya" id="editar3" href="#" class="glyphicon glyphicon-pencil" tooltip="Editar" data-toggle="tooltip" data-placement="top" title="Editar"></a>
-							    	<a href="#" class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Eliminar" id="eliminar3"></a>
-							    	<a href="#" class="glyphicon glyphicon-search" data-toggle="tooltip" data-placement="top" title="Buscar" id="buscar3"></a>
+							    	<a data-toggle="modal" data-target="#modificarPlaya" id="editar3" href="#" class=" editar glyphicon glyphicon-pencil" tooltip="Editar" data-toggle="tooltip" data-placement="top" title="Editar"></a>
+							    	<a href="#" class="eliminar glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Eliminar" id="eliminar3"></a>
+							    	<a href="#" class="ver glyphicon glyphicon-search" data-toggle="tooltip" data-placement="top" title="Ver" id="buscar3"></a>
 							    </td>
 							    
 						    </tr>
@@ -286,20 +335,25 @@
      <!-- JS -->
     <script src="./jquery/jquery.min.js"></script>
     <script src="./bootstrap/bootstrap3/js/bootstrap.min.js"></script>
-    <!--<script src="http://cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>-->
+    <script src="./js/validator.js"></script>
+    
     <script>
 	    $(document).ready(function(){
+	    	/*pre seteo los campos del horario
+	    	var ahora = new Date();
+	    	ahora= ahora.getHours() + ":" + ahora.getMinutes() +": "+ "pm";
+	    	alert(ahora);
+	    	var horaActual = new Date(1970, 1, 1, 7, 34);
+	    	$('#txtHoraDesde').valueAsDate(ahora);
+			*/
 
+
+	    	//activa los validadores del formulario
+	    	$('frmPlayas').validator();
 	    	//activa los tooltips de bootstrap
-	    	$('#eliminar').tooltip();
-	    	$('#editar').tooltip();
-	    	$('#buscar').tooltip();
-
-	    	$('#btnNuevo').click(function(){
-		    	$('pnlMapa').show();
-		    	$('pnlMapa').slideToggle();
-		    });
-
+	    	$('#listadoPlayas>tbody>tr>td>a.eliminar').tooltip();
+	    	$('#listadoPlayas>tbody>tr>td>a.editar').tooltip();
+	    	$('#listadoPlayas>tbody>tr>td>a.ver').tooltip();
 
 	    	/*Al iniciar cuenta las filas que tiene cargada la tabla. Client-side */
 	    	contarFilas();
@@ -308,23 +362,20 @@
 
 		    $('#btnBuscar').click(function() {
 					
-		    		$("#pnlResultados").slideToggle("slow");
+		    		$("#pnlResultados").show("slow");
 		    	
 		    });
-
-
-		    /*$('#listadoPlayas').dataTable();*/
-
-		   
 
 		    /*Cuenta la cantidad de filas de la tabla*/
 			function contarFilas(){
 		     var numFilas = $("#listadoPlayas>tbody>tr").length;
 		     $('#cantidadPlayas').text(numFilas);
 		 	}
+
+  			 $("#listadoPlayas>tbody>tr>td>#eliminar3").live("click", function(){
+  				$(this).parent("tr:first").remove()
+			});
 		     
-
-
 		});    
     </script>
  
