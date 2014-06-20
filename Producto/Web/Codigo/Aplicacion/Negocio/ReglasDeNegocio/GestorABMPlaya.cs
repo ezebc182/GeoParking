@@ -11,13 +11,13 @@ namespace ReglasDeNegocio
 {
     public class GestorABMPlaya
     {
-        RepositorioPlayaDeEstacionamientos playaDao;
+        RepositorioPlayaDeEstacionamiento playaDao;
         RepositorioTipoDePlaya tipoDao;
         
 
         public GestorABMPlaya()
         {
-            playaDao = new RepositorioPlayaDeEstacionamientos();
+            playaDao = new RepositorioPlayaDeEstacionamiento();
             tipoDao = new RepositorioTipoDePlaya();
 	    }
 
@@ -53,8 +53,7 @@ namespace ReglasDeNegocio
             }
             return resultado;
         }
-
-
+        
         private Resultado ValidarActualizacion()
         {
             var resultado = new Resultado();
