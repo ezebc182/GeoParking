@@ -52,6 +52,7 @@
     <Compile Include="Migrations\201406120233006_InitialCreate.Designer.cs">
       <DependentUpon>201406120233006_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406200331592_20\06.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositorioDAO.cs" />

@@ -28,7 +28,11 @@ namespace Datos
         /// <summary>
         /// Crea el contexto con la BD, con el name "BD_Geoparking" en el webConfig 
         /// </summary>
-        public ContextoBD() : base("BD_Geoparking") { }
+        public ContextoBD() : base("BD_Geoparking") 
+        {
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
+        }
 
         /// <summary>
         /// Conexto(DataSet) para cada objeto en la BD

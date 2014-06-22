@@ -60,7 +60,7 @@ namespace Datos
             var lista = DbSet.Where(predicate).ToList<TEntity>();
             return lista;
         }
-        
+
         /// <summary>
         /// crea una entidad
         /// </summary>
@@ -68,7 +68,9 @@ namespace Datos
         /// <returns>la entidad creada</returns>
         public TEntity Create(TEntity entity)
         {
-            return DbSet.Add(entity);
+            var result = DbSet.Add(entity);
+            contexto.SaveChanges();
+            return result;
         }
 
         /// <summary>
@@ -95,9 +97,10 @@ namespace Datos
         /// <returns>0 sino se realizo ninguna accion</returns>
         public int Update(TEntity t)
         {
-            var entry = contexto.Entry(t);
-            DbSet.Attach(t);
-            entry.State = EntityState.Modified;
+            var currentEntity = FindById(t.Id);
+            var entry = contexto.Entry(currentEntity);
+            //DbSet.Attach(t);
+            entry.CurrentValues.SetValues(t);
             return contexto.SaveChanges();
         }
     }
