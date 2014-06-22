@@ -143,6 +143,18 @@ namespace Web
             }
         }
 
+        private void ActualizarGrilla()
+        {
+            //lleno la grilla
+            gvResultados.DataSource = gestor.BuscarPlayaPorNombre(txtFiltroNombre.Text);
+            gvResultados.DataBind();
+
+            //la hago visible (no se como lo vas a hacer yo lo hice asi porque necesitaba verla)
+            gvResultados.Visible = true;
+
+            hfFilasGrilla.Value = string.IsNullOrEmpty(hfFilasGrilla.Value)? "0" : gvResultados.Rows.Count.ToString();
+        }
+
         #region properties
         //Id de la playa seleccionada en la grilla
         public int IdPlayaSeleccionada { get; set; }
@@ -308,6 +320,7 @@ namespace Web
 
                     //elimina la playa y muestra el resultado.
                     EliminarPlaya();
+                    ActualizarGrilla();
                     break;
                 case "Editar":
                     Titulo.Text = "Editar";
@@ -447,12 +460,9 @@ namespace Web
         /// <param name="e"></param>
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            //lleno la grilla
-            gvResultados.DataSource = gestor.BuscarPlayaPorNombre(txtFiltroNombre.Text);
-            gvResultados.DataBind();
 
-            //la hago visible (no se como lo vas a hacer yo lo hice asi porque necesitaba verla)
-            gvResultados.Visible = true;
+            ActualizarGrilla();
+            
         }
         protected void btnNuevo_Click(object sender, EventArgs e)
         {

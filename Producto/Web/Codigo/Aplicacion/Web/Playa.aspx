@@ -141,10 +141,11 @@
                     </div>
                 </div>
                 <!-- Resultados de búsqueda -->
+                <asp:HiddenField ID="hfFilasGrilla" runat="server" />
                 <div id="pnlResultados" class="container-fluid">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            Resultados <span style="background-color: white; color: black;" class="badge" id="cantidadPlayas"></span>
+                            Resultados <span style="background-color: white; color: black;" class="badge" id="cantidadPlayas" ></span>
                         </div>
 
                         <div class="panel-body">
@@ -194,7 +195,7 @@
             $("#pnlResultados").addClass('hidden');
 
             /*Al iniciar cuenta las filas que tiene cargada la tabla. Client-side */
-            contarFilas();
+           contarFilas();
 
             /*Muestra los resultados de la búsqueda*/
             $("#MainContent_btnBuscar").click(function () {
@@ -204,12 +205,15 @@
 
             /*$('#listadoPlayas').dataTable();*/
 
-            /*Cuenta la cantidad de filas de la tabla*/
-            function contarFilas() {
-                var numFilas = $("#listadoPlayas>tbody>tr").length;
-                $("#cantidadPlayas").text(numFilas);
-            }
+            contarFilas();
+
         });
+
+        /*Cuenta la cantidad de filas de la tabla*/
+        function contarFilas() {
+            $("#cantidadPlayas").text($("#MainContent_hfFilasGrilla").val());
+        }
+
         function customSlideToggle(e) {
             if (e.hasClass('hidden')) {
                 e.show();
@@ -229,7 +233,7 @@
 
         pageManager.add_endRequest(function () {
             GoogleMaps.initialize();
-
+            contarFilas();
             $("#MainContent_btnBuscar").click(function () {
                 customSlideToggle($("#pnlResultados"));
 
@@ -237,6 +241,7 @@
 
         });
 
+        //Guarda el estado de los update panels, para que no se pierdan los atributos cambiados en el postback
         var resultadosOcultos;
         function SaveState(sender, args) {
             // code to save state of update panel controls
@@ -244,7 +249,7 @@
                 resultadosOcultos = true;
             }
         }
-
+        //Aplica el estado guardado anteriormente
         function ReapplyState(sender, args) {
 
             // code to reapply state of update panel controls
