@@ -13,6 +13,7 @@ namespace ReglasDeNegocio.Util
 
         public Resultado()
         {
+            Ok = true;
             Messages = new List<string>();
         }
 

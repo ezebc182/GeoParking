@@ -8,8 +8,6 @@ namespace Entidades
 {
     public class TipoPlaya : EntidadBase
     {
-        public TipoPlaya(){}
-
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
     }
