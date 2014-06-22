@@ -46,15 +46,19 @@
 // In the following example, markers appear when the user clicks on the map.
 // The markers are stored in an array.
 // The user can then click an option to hide, show or delete the markers.
+var geocoder;
 var map;
 var markers = [];
 
 function initialize() {
+
+   geocoder = new google.maps.Geocoder();//AGREGAR ESTA VARIABLE
   //var haightAshbury = new google.maps.LatLng(-31.416756,-64.183501);
   document.getElementById("x").value=-31.416756;
   document.getElementById("y").value=-64.183501;
 
   var haightAshbury = new google.maps.LatLng(document.getElementById("x").value,document.getElementById("y").value);
+
 
   var mapOptions = {
     zoom: 17,
@@ -101,6 +105,29 @@ function deleteMarkers() {
   markers = [];  
 }
 
+//AGREGAR TODO ESTE METODO
+function codeAddress() {
+
+  deleteMarkers();
+
+  var address = document.getElementById('address').value;
+  geocoder.geocode( { 'address': address}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      map.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+      });
+
+      markers.push(marker);
+    } else {
+      alert('La direccion establecida no ha podido encontrarse');
+    }
+  });
+
+
+}
+
 google.maps.event.addDomListener(window, 'load', initialize);
 
     </script>
@@ -109,7 +136,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <div class="todo">
     <div id="panel">
       
-
+       <input id="address" type="textbox" value="Sydney, NSW">
+      <input type="button" value="Geocode" onclick="codeAddress()">
       <input id="x" type="text" value="x">
       <input id="y" type="text" value="x">
 
