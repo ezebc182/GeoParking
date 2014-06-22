@@ -1,135 +1,260 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Playa.aspx.cs" Inherits="Web.Playa" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server" Visible=" false">
-    <div class="row-fluid" id="divFiltrosBusqueda" runat="server">
-        <h1>Consultar Playa</h1>
-        <div class="span6">
-            <div class="control-group">
-                <label class="control-label">
-                    Nombre:
-                </label>
-                <div class="controls">
-                    <asp:TextBox ID="txtFiltroNombre" runat="server"></asp:TextBox>
-                    <asp:Button ID="btnConsultar" runat="server" CssClass="btn btn-success" OnClick="btnConsultar_Click" Text="Consultar" ValidationGroup="AbmcValidation" />
+<asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server" Visible="false"></asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="TopContent" runat="server" Visible="false">
+
+    <!-- Form para datos de playa-->
+    <div class="modal fade" id="modificarPlaya">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <asp:UpdatePanel ID="upTituloModal" runat="server" ChildrenAsTriggers="true">
+                        <ContentTemplate>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <asp:Label ID="Titulo" runat="server" CssClass="modal-title" Text="Registrar/Modificar playa"></asp:Label>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+                <div class="modal-body">
+                    <asp:UpdatePanel ID="upModalDatosPlaya" runat="server" ChildrenAsTriggers="true">
+                        <ContentTemplate>
+                            <div class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <asp:HiddenField runat="server" ID="hfIdPlaya" />
+                                    <label for="txtNombre" class="col-sm-2 control-label">Nombre</label>
+                                    <div class="col-sm-10">
+                                        <asp:TextBox runat="server" CssClass="form-control col-sm-10 required" ID="txtNombre" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ddlTipoPlaya" class="col-sm-2 control-label">Tipo</label>
+                                    <div class="col-sm-10">
+                                        <asp:DropDownList runat="server" ID="ddlTipoPlaya" CssClass="btn btn-default required" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtDireccion" class="col-sm-2 control-label">Dirección</label>
+                                    <div class="col-sm-7">
+                                        <asp:TextBox runat="server" CssClass="form-control required" ID="txtDireccion" ClientIDMode="Static" />
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="button" value="Buscar" class="btn-primary" onclick="codeAddress()">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="txtLatitud">Ubicación</label>
+                                    <div id="pnlMapa" class="col-sm-10">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">Visualizador de playas</div>
+                                            <div class="panel-body">
+                                                <div id="map-canvas"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-5">
+                                            <asp:TextBox runat="server" CssClass="form-control required" ID="txtLatitud" ClientIDMode="Static" />
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <asp:TextBox runat="server" CssClass="form-control required" ID="txtLongitud" ClientIDMode="Static" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="gvTiposVehiculo">Tipos de Vehiculo</label>
+                                    <div class="col-sm-10">
+                                        <asp:GridView ID="gvTiposVehiculo" runat="server" CssClass="table table-hover"
+                                            AutoGenerateColumns="False" OnRowDataBound="gvTiposVehiculo_RowDataBound">
+                                            <Columns>
+                                                <asp:TemplateField>
+                                                    <ItemTemplate>
+                                                        <asp:CheckBox ID="checkBox" runat="server" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Capacidad">
+                                                    <ItemTemplate>
+                                                        <asp:TextBox ID="txtCapacidad" runat="server"></asp:TextBox>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Precio">
+                                                    <ItemTemplate>
+                                                        <asp:TextBox ID="txtPrecio" runat="server"></asp:TextBox>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtHoraDesde" class="col-sm-2 control-label">Horarios</label>
+                                    <div class="col-sm-4">
+                                        <asp:TextBox runat="server" TextMode="Time" CssClass="form-control" ID="txtHoraDesde" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <asp:TextBox runat="server" TextMode="Time" CssClass="form-control" ID="txtHoraHasta" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="checkbox inline" for="cbAllDay">
+                                            <asp:CheckBox runat="server" ID="cbAllDay" value="1" Text="24 hs" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+                <div class="modal-footer">
+                    <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-danger" OnClick="btnCancelar_Click" data-dismiss="modal" Text="Cancelar"></asp:Button>
+                    <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success" OnClick="btnGuardar_Click" Text="Guardar"></asp:Button>
+
                 </div>
             </div>
+            <!-- /.modal-content -->
         </div>
+        <!-- /.modal-dialog -->
     </div>
+    <!-- /.modal -->
+
+
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <asp:GridView ID="gvResultados" runat="server" CssClass="table table-condensed table-bordered table-striped table-hover"
-        AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron Playas para los filtros utilizados">
-        <Columns>
-            <asp:BoundField DataField="Id" HeaderText="Id" Visible="false" />
-            <asp:BoundField DataField="Nombre" HeaderText="Nombre" Visible="true" />
-            <asp:BoundField DataField="Direccion" HeaderText="Direccion" Visible="true" />
-            <asp:BoundField DataField="TipoPlaya" HeaderText="Tipo" Visible="true" />
-            <asp:BoundField DataField="Latitud" HeaderText="Latitud" Visible="true" />
-            <asp:BoundField DataField="Longitud" HeaderText="Longitud" Visible="true" />
-            <asp:TemplateField HeaderText="Editar">
-                <ItemStyle CssClass="grilla-columna-accion" />
-                <ItemTemplate>
-                    <asp:Button ID="btnEditar" runat="server" CommandArgument="<%# Container.DataItemIndex %>"
-                        CommandName="Editar" CssClass="icon icon-grilla icon-edit" />
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField HeaderText="Eliminar">
-                <ItemStyle CssClass="grilla-columna-accion" />
-                <ItemTemplate>
-                    <asp:Button ID="btnEliminar" runat="server" CommandArgument="<%# Container.DataItemIndex %>"
-                        CommandName="Eliminar" CssClass="icon icon-grilla icon-delete" />
-                </ItemTemplate>
-            </asp:TemplateField>
-        </Columns>
-    </asp:GridView>
-</asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
-    <h1>
-        <asp:Label ID="Titulo" runat="server"></asp:Label>
-    </h1>
-    <asp:HiddenField runat="server" ID="hfId" />
-    <div class="row-fluid">
-        <div class="span6">
-            <div class="control-group">
-                <label class="control-label">
-                    Nombre(*):</label>
-                <div class="controls">
-                    <asp:TextBox ID="txtNombre" runat="server" MaxLength="100"></asp:TextBox>
-                </div>
-                <label class="control-label">
-                    Direccion(*):
-                </label>
-                <div class="controls">
-                    <asp:TextBox ID="txtDireccion" runat="server"></asp:TextBox>
-                </div>
-                <label class="control-label">
-                    Tipo(*):
-                </label>
-                <div class="controls">
-                    <asp:DropDownList ID="ddlTipoPlaya" runat="server">
-                    </asp:DropDownList>
-                </div>
-                <label class="control-label">
-                    Capacidad(*):
-                </label>
-                <div class="controls">
-                    <asp:TextBox ID="txtCapacidad" runat="server"></asp:TextBox>
-                </div>
-
-                <div>
-                    <div id="map-canvas"></div>
-                    <asp:TextBox ID="txtLatitud" runat="server" ClientIDMode="Static"></asp:TextBox>
-                    <asp:TextBox ID="txtLongitud" runat="server" ClientIDMode="Static"></asp:TextBox>
-                </div>
-
-                <label class="control-label">
-                    Horario(*):
-                </label>
-                <div class="controls">
-                    <asp:RadioButton ID="rbTodo" Text="24 hs" runat="server" GroupName="horario"></asp:RadioButton>
-                </div>
-                <div class="controls">
-                    <asp:RadioButton ID="rbOtro" runat="server" GroupName="horario"></asp:RadioButton>
-                    <label class="control-label">
-                        Desde(*):
-                    </label>
-                    <div class="controls">
-                        <asp:TextBox ID="txtDesde" runat="server"></asp:TextBox>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server" Visible=" false">
+    <asp:UpdatePanel ID="upResultados" runat="server" ChildrenAsTriggers="true">
+        <ContentTemplate>
+            <div class="container-fluid">
+                <div class="jumbotron">
+                    <div class="page-header">
+                        <h1>Administración de playas <small>Consulta</small></h1>
                     </div>
-                    <label class="control-label">
-                        Hasta(*):
-                    </label>
-                    <div class="controls">
-                        <asp:TextBox ID="txtHasta" runat="server"></asp:TextBox>
-                    </div>
-                    <div class="controls">
-                        <label class="control-label">
-                            Motos(*):
-                        </label>
-                        <asp:CheckBox ID="chkMotos" runat="server"></asp:CheckBox>
-                        <label class="control-label">
-                            Bicis(*):
-                        </label>
-                        <asp:CheckBox ID="chkBicis" runat="server"></asp:CheckBox>
-                        <label class="control-label">
-                            Utilitarios(*):
-                        </label>
-                        <asp:CheckBox ID="chkUtilitarios" runat="server"></asp:CheckBox>
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group" id="busquedaPlayas">
+                            <div class="col-md-8">
+                                <asp:TextBox ID="txtFiltroNombre" CssClass="form-control input-lg" runat="server">
+                                </asp:TextBox>
+                            </div>
+                            <div class="col-md-4">
+                                <asp:Button runat="server" CssClass="btn-primary btn btn-lg" ID="btnBuscar" Text="Buscar" OnClick="btnBuscar_Click"></asp:Button>
+                                <asp:Button runat="server" CssClass="btn-success btn btn-lg" ID="btnNuevo" Text="Nueva" OnClick="btnNuevo_Click" data-toggle="modal" data-target="#modificarPlaya"></asp:Button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-actions">
-                <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success" Text="Guardar" OnClick="btnGuardar_Click" />
-                <asp:Button ID="btnCancelar" runat="server" CausesValidation="False" CssClass="btn" Text="Cancelar" OnClick="btnCancelar_Click" />
-            </div>
-        </div>
-    </div>
+                <!-- Resultados de búsqueda -->
+                <div id="pnlResultados" class="container-fluid">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Resultados <span style="background-color: white; color: black;" class="badge" id="cantidadPlayas"></span>
+                        </div>
 
-    <script src="Scripts/GoogleMaps.js" type="text/javascript"></script>
+                        <div class="panel-body">
+                            <div id="resultadosBusqueda">
+                                <asp:GridView ID="gvResultados" runat="server" DataKeyNames="Id" CssClass="table table-hover table-responsive"
+                                    AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron Playas para los filtros utilizados"
+                                    OnRowCommand="gvResultados_RowCommand" OnRowDataBound="gvResultados_RowDataBound">
+                                    <Columns>
+                                        <asp:BoundField DataField="Id" HeaderText="Id" Visible="false" />
+                                        <asp:BoundField DataField="Nombre" HeaderText="Nombre" Visible="true" />
+                                        <asp:BoundField DataField="Direccion" HeaderText="Direccion" Visible="true" />
+                                        <asp:BoundField DataField="TipoPlayaNombre" HeaderText="Tipo" Visible="true" />
+                                        <asp:BoundField DataField="Extras" HeaderText="Extras" Visible="true" />
+                                        <asp:TemplateField HeaderText="Acciones">
+                                            <ItemStyle CssClass="grilla-columna-accion" />
+                                            <ItemTemplate>
+                                                <asp:Button ID="btnEditar" runat="server" CommandArgument="<%# Container.DataItemIndex %>"
+                                                    CommandName="Editar" data-toggle="modal" data-target="#modificarPlaya" CssClass="icon icon-grilla icon-edit" />
 
-    <script type="text/javascript">
-        $(document).ready(GoogleMaps.Initialize());
+                                                <asp:Button ID="btnEliminar" runat="server" CommandArgument="<%# Container.DataItemIndex %>"
+                                                    CommandName="Eliminar" CssClass="icon icon-grilla icon-delete" />
+
+                                                <asp:Button ID="btnVer" runat="server" CommandArgument="<%# Container.DataItemIndex %>"
+                                                    CommandName="Ver" data-toggle="modal" data-target="#modificarPlaya" CssClass="icon icon-grilla icon-edit" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+
+                                    </Columns>
+                                </asp:GridView>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+
+
+    <script>
+
+        $(document).ready(function () {
+
+            //activa los tooltips de bootstrap
+            $('#eliminar').tooltip();
+            $('#editar').tooltip();
+            $('#buscar').tooltip();
+
+            $("#pnlResultados").addClass('hidden');
+
+            /*Al iniciar cuenta las filas que tiene cargada la tabla. Client-side */
+            contarFilas();
+
+            /*Muestra los resultados de la búsqueda*/
+            $("#MainContent_btnBuscar").click(function () {
+                customSlideToggle($("#pnlResultados"));
+
+            });
+
+            /*$('#listadoPlayas').dataTable();*/
+
+            /*Cuenta la cantidad de filas de la tabla*/
+            function contarFilas() {
+                var numFilas = $("#listadoPlayas>tbody>tr").length;
+                $("#cantidadPlayas").text(numFilas);
+            }
+        });
+        function customSlideToggle(e) {
+            if (e.hasClass('hidden')) {
+                e.show();
+                e.removeClass('hidden')
+                e.slideDown('slow');
+            }
+            else {
+                e.slideUp('slow', function () {
+                    e.addclass('hidden');
+                    e.hide();
+
+                });
+            }
+        }
+
         pageManager = Sys.WebForms.PageRequestManager.getInstance();
+
+        pageManager.add_endRequest(function () {
+            GoogleMaps.initialize();
+
+            $("#MainContent_btnBuscar").click(function () {
+                customSlideToggle($("#pnlResultados"));
+
+            });
+
+        });
+
+        var resultadosOcultos;
+        function SaveState(sender, args) {
+            // code to save state of update panel controls
+            if ($("#pnlResultados").hasClass('hidden')) {
+                resultadosOcultos = true;
+            }
+        }
+
+        function ReapplyState(sender, args) {
+
+            // code to reapply state of update panel controls
+            if (resultadosOcultos) {
+                $("#pnlResultados").addClass('hidden');
+            }
+        }
+
+        Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(SaveState);
+        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(ReapplyState);
 
     </script>
 </asp:Content>

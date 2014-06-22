@@ -13,5 +13,23 @@ namespace Web
         {
 
         }
+
+        public string Alert
+        {
+            get { return lblMessage.InnerText; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    lblMessage.InnerText = value;
+                    Show();
+                }                
+            }
+        }
+        private void Show()
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "PopAlerta", "$(function() { Alerta_openModal(); });", true);
+        }
+
     }
 }

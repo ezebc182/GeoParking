@@ -1,11 +1,10 @@
-﻿// In the following example, markers appear when the user clicks on the map.
-// The markers are stored in an array.
-// The user can then click an option to hide, show or delete the markers.
+﻿var GoogleMaps = {};
 var map;
 var markers = [];
+var geocoder;
 
-function initialize() {
-
+GoogleMaps.initialize = function () {
+    geocoder = new google.maps.Geocoder();
     if (document.getElementById('txtLatitud').value == "") {
         var haightAshbury = new google.maps.LatLng(-31.416756, -64.183501);
     }
@@ -14,7 +13,7 @@ function initialize() {
         var longitud = document.getElementById('txtLongitud').value
         var haightAshbury = new google.maps.LatLng(latitud, longitud);
     }
-            
+
     var mapOptions = {
         zoom: 17,
         center: haightAshbury,
@@ -28,8 +27,8 @@ function initialize() {
         deleteMarkers();
         addMarker(event.latLng);
         document.getElementById('txtLatitud').value = event.latLng.lat();
-        document.getElementById('txtLongitud').value = event.latLng.lng();               
-               
+        document.getElementById('txtLongitud').value = event.latLng.lng();
+
     });
 
     // Adds a marker at the center of the map.
@@ -73,7 +72,7 @@ function codeAddress() {
     deleteMarkers();
 
     var address = document.getElementById('txtDireccion').value;
-    geocoder.geocode( { 'txtDireccion': address}, function(results, status) {
+    geocoder.geocode({ 'txtDireccion': address }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
             var marker = new google.maps.Marker({
@@ -89,4 +88,5 @@ function codeAddress() {
 
     window.onload = loadScript;
 
-    //google.maps.event.addDomListener(window, 'onload', initialize);
+    google.maps.event.addDomListener(window, 'onload', initialize);
+}
