@@ -72,13 +72,16 @@ function codeAddress() {
     deleteMarkers();
 
     var address = document.getElementById('txtDireccion').value;
-    geocoder.geocode({ 'txtDireccion': address }, function (results, status) {
+    geocoder.geocode({ 'address': address }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
             var marker = new google.maps.Marker({
                 map: map,
                 position: results[0].geometry.location
             });
+
+            document.getElementById("txtLatitud").value = results[0].geometry.location.lat();
+            document.getElementById("txtLongitud").value = results[0].geometry.location.lng();
 
             markers.push(marker);
         } else {
