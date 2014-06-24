@@ -24,6 +24,8 @@ namespace Web
             if (!Page.IsPostBack)
             {
                 CargarComboTiposPlayas();
+                Error = string.Empty;
+
             }
         }
 
@@ -64,18 +66,7 @@ namespace Web
             //esto hay que revisarlo por ahora deja que guarde la fecha
             HoraDesde = playaEditar.HoraDesde.ToString();
             HoraHasta = playaEditar.HoraHasta.ToString();
-            //Autos = playaEditar.Autos;
-            //CapacidadAutos = playaEditar.CapacidadAutos;
-            //PrecioAutos = playaEditar.PrecioAutos;
-            //Utilitarios = playaEditar.Utilitarios;
-            //CapacidadUtilitarios = playaEditar.CapacidadUtilitarios;
-            //PrecioUtilitarios = playaEditar.PrecioUtilitarios;
-            //Motos = playaEditar.Motos;
-            //CapacidadMotos = playaEditar.CapacidadMotos;
-            //PrecioMotos = playaEditar.PrecioMotos;
-            //Bicicletas = playaEditar.Bicicletas;
-            //CapacidadBicicletas = playaEditar.CapacidadBicicletas;
-            //PrecioBicicletas = playaEditar.PrecioBicicletas;
+            
 
             //Creamos un Data Table Object para cargar la grilla de Tipos de vehiculo, precio y capacidad
             List<dtoDetalleTipoVehiculo> dtos = new List<dtoDetalleTipoVehiculo>();
@@ -122,6 +113,8 @@ namespace Web
         }
         private void limpiarCampos()
         {
+            divAlertError.Visible = false;
+
             Nombre = "";
             Direccion = "";
             TipoPlayaSeleccionada = 0;
@@ -139,7 +132,7 @@ namespace Web
             }
             else
             {
-                master.Alert = resultado.MessagesAsString();
+                Error = resultado.MessagesAsString();
             }
         }
 
@@ -152,7 +145,21 @@ namespace Web
             //la hago visible (no se como lo vas a hacer yo lo hice asi porque necesitaba verla)
             gvResultados.Visible = true;
 
-            hfFilasGrilla.Value = string.IsNullOrEmpty(hfFilasGrilla.Value)? "0" : gvResultados.Rows.Count.ToString();
+            hfFilasGrilla.Value = string.IsNullOrEmpty(hfFilasGrilla.Value) ? "0" : gvResultados.Rows.Count.ToString();
+        }
+
+        public bool ValidarCamposFormulario()
+        {
+            var result = true;
+
+            if(string.IsNullOrEmpty(Nombre) || string.IsNullOrEmpty(Direccion) || TipoPlayaSeleccionada == 0 || 
+                ((Autos && CapacidadAutos > 0 && PrecioAutos.HasValue) ||( Motos && CapacidadMotos > 0 && PrecioMotos.HasValue )||
+                ( Utilitarios && CapacidadUtilitarios >0 && PrecioUtilitarios.HasValue )||( Bicicletas && CapacidadBicicletas>0&&PrecioBicicletas.HasValue )))
+            {
+                result = false;
+            }
+
+            return result;
         }
 
         #region properties
@@ -288,6 +295,16 @@ namespace Web
             set { ((TextBox)gvTiposVehiculo.Rows[3].FindControl("txtPrecio")).Text = value.ToString(); }
         }
 
+        public string Error
+        {
+            get { return lblMensajeError.Text; }
+            set
+            {
+                lblMensajeError.Text = value;
+                divAlertError.Visible = !string.IsNullOrEmpty(value);
+            }
+        }
+
         private IList<dtoDetalleTipoVehiculo> GrillaDetalles
         {
             set
@@ -397,8 +414,11 @@ namespace Web
         /// <param name="e"></param>
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            //instancio el gestor
-
+            if (!ValidarCamposFormulario())
+            {
+                Error = "Debe completar todos los datos requeridos";
+                return;
+            }
             if (IdPlaya == 0)//creo una nueva playa
             {
                 //Creo el objeto de la nueva PlayaDeEstacionamiento
@@ -417,8 +437,8 @@ namespace Web
                 else
                 {
                     //Mensajes de error
-                    master.Alert = resultado.MessagesAsString();
-                }               
+                    Error = resultado.MessagesAsString();
+                }
 
             }
             else //edito el objeto playa editar
@@ -438,7 +458,7 @@ namespace Web
                 else
                 {
                     //Mensajes de Error
-                    master.Alert = resultado.MessagesAsString();
+                    Error = resultado.MessagesAsString();
                 }
             }
         }
@@ -462,12 +482,12 @@ namespace Web
         {
 
             ActualizarGrilla();
-            
+
         }
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
             VaciarDetallesPlaya();
-
+            Titulo.Text = "Registrar";
             HabilitarCamposFormlario(true);
         }
 

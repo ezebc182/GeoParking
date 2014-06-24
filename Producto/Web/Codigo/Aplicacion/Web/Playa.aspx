@@ -18,6 +18,9 @@
                 <div class="modal-body">
                     <asp:UpdatePanel ID="upModalDatosPlaya" runat="server" ChildrenAsTriggers="true">
                         <ContentTemplate>
+                            <div class="alert alert-danger" id="divAlertError" runat="server" Visible="false">
+                                <asp:Label ID="lblMensajeError" runat="server" ></asp:Label>
+                            </div>
                             <div class="form-horizontal" role="form">
                                 <div class="form-group">
                                     <asp:HiddenField runat="server" ID="hfIdPlaya" />
@@ -38,7 +41,7 @@
                                         <asp:TextBox runat="server" CssClass="form-control required" ID="txtDireccion" ClientIDMode="Static" />
                                     </div>
                                     <div class="col-sm-3">
-                                        <input type="button" value="Buscar" class="btn-primary" onclick="codeAddress()">
+                                        <input type="button" value="Buscar" class="btn btn-primary" onclick="codeAddress()">
                                     </div>
                                 </div>
 
@@ -103,6 +106,9 @@
                             </div>
 
                         </ContentTemplate>
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
+                    </Triggers>
                     </asp:UpdatePanel>
                 </div>
                 <div class="modal-footer">
@@ -200,7 +206,6 @@
             /*Muestra los resultados de la búsqueda*/
             $("#MainContent_btnBuscar").click(function () {
                 customSlideToggle($("#pnlResultados"));
-
             });
 
             /*$('#listadoPlayas').dataTable();*/
@@ -247,6 +252,9 @@
             // code to save state of update panel controls
             if ($("#pnlResultados").hasClass('hidden')) {
                 resultadosOcultos = true;
+            }
+            else {
+                resultadosOcultos = false;
             }
         }
         //Aplica el estado guardado anteriormente
