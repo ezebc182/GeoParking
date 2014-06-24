@@ -2,9 +2,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Datos;
 using ReglasDeNegocio;
-using UnitTest.Repositorios;
+using Repositorios;
 
-namespace UnitTest.Pruebas
+namespace UnitTest.Base
 {
     public class PruebaPlayaBase
     {

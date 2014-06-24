@@ -8,7 +8,7 @@ using Entidades;
 using System.Data;
 using System.Data.Entity;
 
-namespace UnitTest.Repositorios
+namespace Repositorios
 {
     public class RepositorioPlayasFalso : IRepositorioPlayaDeEstacionamiento
     {

@@ -37,7 +37,7 @@ namespace Web
             ddlTipoPlaya.DataTextField = "nombre";
             ddlTipoPlaya.DataValueField = "id";
             ddlTipoPlaya.DataBind();
-            ddlTipoPlaya.Items.Insert(0, new ListItem("Seleccione...", "0"));
+            ddlTipoPlaya.Items.Insert(0, new ListItem("Seleccione", "0"));
         }
 
         public void HabilitarCamposFormlario(bool habilitar)
@@ -144,24 +144,46 @@ namespace Web
 
             //la hago visible (no se como lo vas a hacer yo lo hice asi porque necesitaba verla)
             gvResultados.Visible = true;
-
-            hfFilasGrilla.Value = string.IsNullOrEmpty(hfFilasGrilla.Value) ? "0" : gvResultados.Rows.Count.ToString();
+            
+            hfFilasGrilla.Value =  gvResultados.Rows.Count.ToString();
         }
 
         public bool ValidarCamposFormulario()
         {
+            if (string.IsNullOrEmpty(Nombre)) return false;
+            else if (string.IsNullOrEmpty(Direccion)) return false;
+            else if (TipoPlayaSeleccionada == 0) return false;
+            else if (Autos)
+            {
+                if (CapacidadAutos < 0) return false;
+                if (!(PrecioAutos.HasValue && PrecioAutos.Value > 0)) return false;
+            }
+            else if (Motos)
+            {
+                if (CapacidadMotos < 0) return false;
+                if (!(PrecioMotos.HasValue && PrecioMotos.Value > 0)) return false;
+            }
+            else if (Utilitarios)
+            {
+                if (CapacidadUtilitarios < 0) return false;
+                if (!(PrecioUtilitarios.HasValue && PrecioUtilitarios.Value > 0)) return false;
+            }
+            else if (Bicicletas)
+            {
+                if (CapacidadBicicletas < 0) return false;
+                if (!(PrecioBicicletas.HasValue && PrecioBicicletas.Value > 0)) return false;
+            }
+            return true;
+        }
+
+        public bool ValidarHorario()
+        {
             var result = true;
 
-            if(string.IsNullOrEmpty(Nombre) || string.IsNullOrEmpty(Direccion) || TipoPlayaSeleccionada == 0 || 
-                ((Autos && CapacidadAutos > 0 && PrecioAutos.HasValue) ||( Motos && CapacidadMotos > 0 && PrecioMotos.HasValue )||
-                ( Utilitarios && CapacidadUtilitarios >0 && PrecioUtilitarios.HasValue )||( Bicicletas && CapacidadBicicletas>0&&PrecioBicicletas.HasValue )))
-            {
-                result = false;
-            }
+            if (int.Parse(HoraDesde.Split(':')[0]) >= int.Parse(HoraHasta.Split(':')[0])) result = false;
 
             return result;
         }
-
         #region properties
         //Id de la playa seleccionada en la grilla
         public int IdPlayaSeleccionada { get; set; }
@@ -219,14 +241,14 @@ namespace Web
         //Latitud de la playa que se esta registrando/editando        
         public double Latitud
         {
-            get { return Double.Parse(txtLatitud.Text); }
-            set { txtLatitud.Text = value.ToString(); }
+            get { return txtLatitud.Text.Length > 17 ? Double.Parse(txtLatitud.Text.Remove(17).Replace('.', ',')) : Double.Parse(txtLatitud.Text.Replace('.', ',')); }
+            set { txtLatitud.Text = value.ToString().Replace(',', '.'); }
         }
         //Longitud de la playa que se esta registrando/editando
         public double Longitud
         {
-            get { return Double.Parse(txtLongitud.Text); }
-            set { txtLongitud.Text = value.ToString(); }
+            get { return txtLongitud.Text.Length > 17 ? Double.Parse(txtLongitud.Text.Remove(17).Replace('.', ',')) : Double.Parse(txtLongitud.Text.Replace('.', ',')); }
+            set { txtLongitud.Text = value.ToString().Replace(',', '.'); }
         }
         //Hora desde de la playa que se esta registrando/editando
         public string HoraDesde
@@ -414,11 +436,21 @@ namespace Web
         /// <param name="e"></param>
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+            var error = false;
             if (!ValidarCamposFormulario())
             {
                 Error = "Debe completar todos los datos requeridos";
-                return;
+                error = true;
             }
+            if (!ValidarHorario())
+            {
+                Error = "El horario de apertura debe ser menor al horario de cierre.";
+                error = true;
+            }
+            
+            if (error) return;
+
+
             if (IdPlaya == 0)//creo una nueva playa
             {
                 //Creo el objeto de la nueva PlayaDeEstacionamiento
@@ -489,6 +521,7 @@ namespace Web
             VaciarDetallesPlaya();
             Titulo.Text = "Registrar";
             HabilitarCamposFormlario(true);
+            limpiarCampos();
         }
 
         #endregion

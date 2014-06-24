@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Datos;
 
-namespace UnitTest.Repositorios
+namespace Repositorios
 {
-    class RepositorioTipoPlayasFalso : IRepositorioTipoDePlaya
+    public class RepositorioTipoPlayasFalso : IRepositorioTipoDePlaya
     {
         public Entidades.TipoPlaya FindById(int id)
         {

@@ -77,12 +77,12 @@
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Capacidad">
                                                     <ItemTemplate>
-                                                        <asp:TextBox ID="txtCapacidad" runat="server"></asp:TextBox>
+                                                        <asp:TextBox ID="txtCapacidad" CssClass="numeric" runat="server"></asp:TextBox>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Precio">
                                                     <ItemTemplate>
-                                                        <asp:TextBox ID="txtPrecio" runat="server"></asp:TextBox>
+                                                        <asp:TextBox ID="txtPrecio" CssClass="numeric" runat="server"></asp:TextBox>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                             </Columns>

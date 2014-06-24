@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Entidades;
+using Repositorios;
+using UnitTest.Base;
 
 namespace UnitTest.Pruebas
 {
@@ -8,7 +10,7 @@ namespace UnitTest.Pruebas
     public class PruebaABMPlaya : PruebaPlayaBase
     {
         [TestMethod]
-        public void BuscarPlayaPorIPrueba()
+        public void BuscarPlayaPorIdPrueba()
         {
             //Busca la playa con ID = 1, si retorna un objeto pasa el test.
             PlayaDeEstacionamiento result = gestor.BuscarPlayaPorId(1);
