@@ -39,6 +39,8 @@ namespace Datos
         /// </summary>
         public DbSet<PlayaDeEstacionamiento> playas { get; set; }
         public DbSet<TipoPlaya> tiposPlayas{ get; set; }
+        public DbSet<Servicio> servicios { get; set; }
+        public DbSet<TipoVehiculo> tiposVehiculos { get; set; }
        
     }
 }
