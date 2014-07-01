@@ -32,18 +32,30 @@
 			  <div class="collapse navbar-collapse navbar-ex1-collapse">
 				    <ul class="nav navbar-nav">
 				      <li class="active"><a href="#">Administración de playas</a></li>
-				      <li><a href="#">Administración de usuarios</a></li>
-				      <li class="dropdown">
-				        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				      <li class="disabled"><a href="#">Administración de usuarios</a></li>
+				      <li class="dropdown disabled">
+				        <a href="#" class="disabled dropdown-toggle" data-toggle="dropdown">
 				          Administración POI <b class="caret"></b>
 				        </a>
-				        <ul class="dropdown-menu">
+				        <ul class="disabled dropdown-menu">
 				          <li><a href="#">Nuevo</a></li>
 				          <li><a href="#">Consultar</a></li>
 				          <li class="divider"></li>
 				          <li><a href="#">Exportar?</a></li>
-				        </ul>
+				        </ul>				        
 				      </li>
+				      <li class="divider-vertical"></li>				        
+				     <li class="dropdown">
+				        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				          Ayuda <b class="caret"></b>
+				        </a>
+				        <ul class="dropdown-menu">
+				          <li><a href="#">Registrar playa</a></li>
+				          <li><a href="#">Consultar playa</a></li>
+				          <li class="divider"></li>
+				          <li><a href="#">Eliminar playa</a></li>
+				        </ul>				        
+				      </li>		
 				    </ul>
 				</div>
 			</nav>
@@ -142,62 +154,7 @@
 							</tr>
 						</thead>
 					    <tbody >
-						    <tr>						    	
-							    <td>
-							    	<label class="checkbox" for="cbAutos">
-						      		<input type="checkbox" name="checkboxes" id="cbAutos" value="1">
-						      		Autos
-						    		</label>
-							    </td>
-							    <td>
-							    	<input type="number" min="0"class="form-control" id="txtCapacidadAutos" placeholder="1" required>
-							    </td>
-							    <td>
-							    	<input type="number" min="0"class="form-control" id="txtPrecioXhoraAutos" placeholder="1" required>
-							    </td>
-						    </tr>
-						    <tr>						    	
-							    <td>
-							    	<label class="checkbox" for="cbUtilitarios">
-						      		<input type="checkbox" name="checkboxes" id="cbUtilitarios" value="2">
-						      		Utilitarios
-						    		</label>
-							    </td>
-							    <td>
-							    	<input type="number" min="0"class="form-control" id="txtCapacidadUtilitarios" placeholder="1" required>
-							    </td>
-							    <td>
-							    	<input type="number" min="0"class="form-control" id="txtPrecioXhoraUtilitarios" placeholder="1" required>
-							    </td>
-						    </tr>
-						    <tr>						    	
-							    <td>
-							    	<label class="checkbox" for="cbMotos">
-						      		<input type="checkbox" name="checkboxes" id="cbMotos" value="3">
-						      		Motos
-						    		</label>
-							    </td>
-							    <td>
-							    	<input type="number" min="0"class="form-control" id="txtCapacidadMotos" placeholder="1" required>
-							    </td>
-							    <td>
-							    	<input type="number" min="0"class="form-control" id="txtPrecioXhoraMotos" placeholder="1" required>
-							    </td>
-						    </tr>
-						    <tr>						    	
-							    <td>
-							    	<label class="checkbox" for="cbBicicletas">
-						      		<input type="checkbox" name="checkboxes" id="cbBicicletas" value="4">
-						      		Bicicletas
-						    		</label>
-							    </td>
-							    <td>
-							    	<input type="number" min="0"class="form-control" id="txtCapacidadBicicletas" placeholder="1" required>
-							    </td>
-							    <td>
-							    	<input type="number" min="0"class="form-control" id="txtPrecioXhoraBicicletas" placeholder="1" required>
-							    </td>
-						    </tr>
+						    
 					    </tbody>
 					</table>
 				</div>
@@ -265,7 +222,7 @@
 							</tr>
 						</thead>
 					    <tbody >
-						    <tr>
+						   <!--  <tr>
 							    <td>1</td>
 							    <td>PLaya 1</td>
 							    <td>Dirección 1</td>
@@ -306,7 +263,7 @@
 							    	<a href="#" class="ver glyphicon glyphicon-search" data-toggle="tooltip" data-placement="top" title="Ver" id="buscar3"></a>
 							    </td>
 							    
-						    </tr>
+						    </tr> -->
 						   
 					    </tbody>
 					</table>
