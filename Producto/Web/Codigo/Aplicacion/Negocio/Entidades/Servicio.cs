@@ -8,11 +8,12 @@ namespace Entidades
 {
     public class Servicio : EntidadBase
     {
-        public int Capacidad { get; set; }
-        public double PrecioXHora { get; set; }
-
         //referencia a tabla TipoVehiculo
         public int TipoVehiculoId { get; set; }
         public virtual TipoVehiculo TipoVehiculo { get; set; }
+
+        //capacidad de lugares para el tipo de vehiculo
+        public int Capacidad { get; set; }
+
     }
 }

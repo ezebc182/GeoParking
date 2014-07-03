@@ -8,42 +8,30 @@ namespace Entidades
 {
     public class PlayaDeEstacionamiento : EntidadBase   
     {
-        public string Nombre { get; set; }
+        //Nombre
+        public string Nombre { get; set; }      
         
+        //Referencia a Tipo de Playa
         public int TipoPlayaId { get; set; }
+        public virtual TipoPlaya TipoPlaya { get; set; }               
+
+        //Direcciones (calle, numero,ciudad y coordenadas)
+        public virtual IList<Direccion> Direcciones { get; set; }
         
-
-        public string Direccion { get; set; }
-        public double Latitud { get; set; }
-        public double Longitud { get; set; }
-
-        //public int CapacidadAutos { get; set; }
-        //public int CapacidadUtilitarios { get; set; }
-        //public int CapacidadMotos { get; set; }
-        //public int CapacidadBicicletas { get; set; }
-
-        public String HoraDesde { get; set; }
-        public String HoraHasta { get; set; }
-
-        //public bool Autos { get; set; }
-        //public double? PrecioAutos { get; set; }
-        //public bool Motos { get; set; }
-        //public double? PrecioMotos { get; set; }
-        //public bool Bicicletas { get; set; }
-        //public double? PrecioBicicletas { get; set; }
-        //public bool Utilitarios { get; set; }
-        //public double? PrecioUtilitarios { get; set; }
-
-        //parte nueva
+        //Servicios (tipo de vehculo y capacidad)
         public virtual IList<Servicio> Servicios { get; set; }
         
+        //Horarios (dia, horaDesde, HoraHasta)
+        public virtual IList<Horario> Horarios { get; set; }
+        
+        //Precios (Vehiculo, dia, tiempo, precio)
+        public virtual IList<Precio> Precios { get; set; }       
+       
+        //datos extras
         [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         public virtual string TipoPlayaNombre { get; set; }
         [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         public virtual string Extras { get; set; }
-
-        //referencia a TipoPlaya
-        public virtual TipoPlaya TipoPlaya { get; set; }
         
     }
 }
