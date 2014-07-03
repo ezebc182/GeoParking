@@ -106,13 +106,13 @@ namespace ReglasDeNegocio
 
             foreach (var playa in lista)
             {
-                StringBuilder extras = new StringBuilder();
-                extras.Append(playa.Autos ? "Autos" : "");
-                extras.Append(playa.Motos ? " Motos" : "");
-                extras.Append(playa.Bicicletas ? " Bicicletas" : "");
-                extras.Append(playa.Utilitarios ? " Utilitarios" : "");
+                //StringBuilder extras = new StringBuilder();
+                //extras.Append(playa.Autos ? "Autos" : "");
+                //extras.Append(playa.Motos ? " Motos" : "");
+                //extras.Append(playa.Bicicletas ? " Bicicletas" : "");
+                //extras.Append(playa.Utilitarios ? " Utilitarios" : "");
                 playa.TipoPlayaNombre = tipoDao.FindById(playa.TipoPlayaId).Nombre;
-                playa.Extras = extras.ToString();
+                //playa.Extras = extras.ToString();
             }
             return lista;
         }

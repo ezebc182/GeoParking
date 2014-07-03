@@ -42,14 +42,8 @@ namespace Web
 
         public void HabilitarCamposFormlario(bool habilitar)
         {
-            txtNombre.Enabled = habilitar;
-            txtDireccion.Enabled = habilitar;
-            txtLatitud.Enabled = habilitar;
-            txtLongitud.Enabled = habilitar;
-            txtHoraDesde.Enabled = habilitar;
-            txtHoraHasta.Enabled = habilitar;
-            ddlTipoPlaya.Enabled = habilitar;
-            gvTiposVehiculo.Enabled = habilitar;
+            txtNombre.Enabled = habilitar;            
+            ddlTipoPlaya.Enabled = habilitar;            
             btnGuardar.Visible = habilitar;
             btnCancelar.Text = habilitar ? "Cancelar" : "Cerrar";
         }
@@ -61,27 +55,10 @@ namespace Web
             Nombre = playaEditar.Nombre;
             Direccion = playaEditar.Direccion;
             TipoPlayaSeleccionada = playaEditar.TipoPlayaId;
-            Latitud = playaEditar.Latitud;
-            Longitud = playaEditar.Longitud;
-            //esto hay que revisarlo por ahora deja que guarde la fecha
-            HoraDesde = playaEditar.HoraDesde.ToString();
-            HoraHasta = playaEditar.HoraHasta.ToString();
-            
+           
 
-            //Creamos un Data Table Object para cargar la grilla de Tipos de vehiculo, precio y capacidad
-            List<dtoDetalleTipoVehiculo> dtos = new List<dtoDetalleTipoVehiculo>();
-            dtos.Add(new dtoDetalleTipoVehiculo { AceptaTipoVehiculo = playaEditar.Autos, Capacidad = playaEditar.CapacidadAutos, Precio = playaEditar.PrecioAutos });
-            dtos.Add(new dtoDetalleTipoVehiculo { AceptaTipoVehiculo = playaEditar.Utilitarios, Capacidad = playaEditar.CapacidadUtilitarios, Precio = playaEditar.PrecioUtilitarios });
-            dtos.Add(new dtoDetalleTipoVehiculo { AceptaTipoVehiculo = playaEditar.Motos, Capacidad = playaEditar.CapacidadMotos, Precio = playaEditar.PrecioMotos });
-            dtos.Add(new dtoDetalleTipoVehiculo { AceptaTipoVehiculo = playaEditar.Bicicletas, Capacidad = playaEditar.CapacidadBicicletas, Precio = playaEditar.PrecioBicicletas });
-
-            GrillaDetalles = dtos;
         }
 
-        private void VaciarDetallesPlaya()
-        {
-            GrillaDetalles = new List<dtoDetalleTipoVehiculo> { new dtoDetalleTipoVehiculo(), new dtoDetalleTipoVehiculo(), new dtoDetalleTipoVehiculo(), new dtoDetalleTipoVehiculo() };
-        }
 
         //Carga la entidad PlayaDeEstacionamiento con los valores del formulario.
         public PlayaDeEstacionamiento CargarEntidad()
@@ -91,23 +68,7 @@ namespace Web
                 Id = IdPlaya,
                 Nombre = Nombre,
                 Direccion = Direccion,
-                TipoPlayaId = TipoPlayaSeleccionada,
-                CapacidadAutos = CapacidadAutos,
-                CapacidadBicicletas = CapacidadBicicletas,
-                CapacidadMotos = CapacidadMotos,
-                CapacidadUtilitarios = CapacidadUtilitarios,
-                Latitud = Latitud,
-                Longitud = Longitud,
-                HoraDesde = HoraDesde,
-                HoraHasta = HoraHasta,
-                Autos = Autos,
-                Motos = Motos,
-                Bicicletas = Bicicletas,
-                Utilitarios = Utilitarios,
-                PrecioAutos = PrecioAutos,
-                PrecioUtilitarios = PrecioUtilitarios,
-                PrecioMotos = PrecioMotos,
-                PrecioBicicletas = PrecioBicicletas
+                TipoPlayaId = TipoPlayaSeleccionada                
             };
             return playa;
         }
@@ -117,10 +78,7 @@ namespace Web
 
             Nombre = "";
             Direccion = "";
-            TipoPlayaSeleccionada = 0;
-            HoraDesde = "";
-            HoraHasta = "";
-            VaciarDetallesPlaya();
+            TipoPlayaSeleccionada = 0;           
         }
 
         private void EliminarPlaya()
@@ -148,42 +106,6 @@ namespace Web
             hfFilasGrilla.Value =  gvResultados.Rows.Count.ToString();
         }
 
-        public bool ValidarCamposFormulario()
-        {
-            if (string.IsNullOrEmpty(Nombre)) return false;
-            else if (string.IsNullOrEmpty(Direccion)) return false;
-            else if (TipoPlayaSeleccionada == 0) return false;
-            else if (Autos)
-            {
-                if (CapacidadAutos < 0) return false;
-                if (!(PrecioAutos.HasValue && PrecioAutos.Value > 0)) return false;
-            }
-            else if (Motos)
-            {
-                if (CapacidadMotos < 0) return false;
-                if (!(PrecioMotos.HasValue && PrecioMotos.Value > 0)) return false;
-            }
-            else if (Utilitarios)
-            {
-                if (CapacidadUtilitarios < 0) return false;
-                if (!(PrecioUtilitarios.HasValue && PrecioUtilitarios.Value > 0)) return false;
-            }
-            else if (Bicicletas)
-            {
-                if (CapacidadBicicletas < 0) return false;
-                if (!(PrecioBicicletas.HasValue && PrecioBicicletas.Value > 0)) return false;
-            }
-            return true;
-        }
-
-        public bool ValidarHorario()
-        {
-            var result = true;
-
-            if (int.Parse(HoraDesde.Split(':')[0]) >= int.Parse(HoraHasta.Split(':')[0])) result = false;
-
-            return result;
-        }
         #region properties
         //Id de la playa seleccionada en la grilla
         public int IdPlayaSeleccionada { get; set; }
@@ -217,106 +139,7 @@ namespace Web
             get { return ddlTipoPlaya.SelectedIndex; }
             set { ddlTipoPlaya.SelectedIndex = value; }
         }
-        //Capacidad de la playa que se esta registrando/editando para el tipo de vehiculo correspondiente a la fila de la grilla
-        public int CapacidadAutos
-        {
-            get { return !string.IsNullOrEmpty(((TextBox)gvTiposVehiculo.Rows[0].FindControl("txtCapacidad")).Text) ? Convert.ToInt32(((TextBox)gvTiposVehiculo.Rows[0].FindControl("txtCapacidad")).Text) : 0; }
-            set { ((TextBox)gvTiposVehiculo.Rows[0].FindControl("txtCapacidad")).Text = value.ToString(); }
-        }
-        public int CapacidadUtilitarios
-        {
-            get { return !string.IsNullOrEmpty(((TextBox)gvTiposVehiculo.Rows[1].FindControl("txtCapacidad")).Text) ? Convert.ToInt32(((TextBox)gvTiposVehiculo.Rows[1].FindControl("txtCapacidad")).Text) : 0; }
-            set { ((TextBox)gvTiposVehiculo.Rows[1].FindControl("txtCapacidad")).Text = value.ToString(); }
-        }
-        public int CapacidadMotos
-        {
-            get { return !string.IsNullOrEmpty(((TextBox)gvTiposVehiculo.Rows[2].FindControl("txtCapacidad")).Text) ? Convert.ToInt32(((TextBox)gvTiposVehiculo.Rows[2].FindControl("txtCapacidad")).Text) : 0; }
-            set { ((TextBox)gvTiposVehiculo.Rows[2].FindControl("txtCapacidad")).Text = value.ToString(); }
-        }
-        public int CapacidadBicicletas
-        {
-            get { return !string.IsNullOrEmpty(((TextBox)gvTiposVehiculo.Rows[3].FindControl("txtCapacidad")).Text) ? Convert.ToInt32(((TextBox)gvTiposVehiculo.Rows[3].FindControl("txtCapacidad")).Text) : 0; }
-            set { ((TextBox)gvTiposVehiculo.Rows[3].FindControl("txtCapacidad")).Text = value.ToString(); }
-        }
-        //Latitud de la playa que se esta registrando/editando        
-        public double Latitud
-        {
-            get { return txtLatitud.Text.Length > 17 ? Double.Parse(txtLatitud.Text.Remove(17).Replace('.', ',')) : Double.Parse(txtLatitud.Text.Replace('.', ',')); }
-            set { txtLatitud.Text = value.ToString().Replace(',', '.'); }
-        }
-        //Longitud de la playa que se esta registrando/editando
-        public double Longitud
-        {
-            get { return txtLongitud.Text.Length > 17 ? Double.Parse(txtLongitud.Text.Remove(17).Replace('.', ',')) : Double.Parse(txtLongitud.Text.Replace('.', ',')); }
-            set { txtLongitud.Text = value.ToString().Replace(',', '.'); }
-        }
-        //Hora desde de la playa que se esta registrando/editando
-        public string HoraDesde
-        {
-            get { return cbAllDay.Checked ? "00:00" : txtHoraDesde.Text; }
-            set
-            {
-                txtHoraDesde.Text = value;
-            }
-        }
-        //Hora hasta de la playa que se esta registrando/editando
-        public string HoraHasta
-        {
-            get { return cbAllDay.Checked ? "23:59" : txtHoraHasta.Text; }
-            set
-            {
-                txtHoraHasta.Text = value;
-            }
-        }
-        //Indica si la playa que se esta registrando/editando acepta autos
-        public bool Autos
-        {
-            get { return ((CheckBox)gvTiposVehiculo.Rows[0].FindControl("checkBox")).Checked; }
-            set { ((CheckBox)gvTiposVehiculo.Rows[0].FindControl("checkBox")).Checked = value; }
-        }
-        //Indica si la playa que se esta registrando/editando acepta utilitarios
-        public bool Utilitarios
-        {
-            get { return ((CheckBox)gvTiposVehiculo.Rows[1].FindControl("checkBox")).Checked; }
-            set { ((CheckBox)gvTiposVehiculo.Rows[1].FindControl("checkBox")).Checked = value; }
-        }
-        //Indica si la playa que se esta registrando/editando acepta motos
-        public bool Motos
-        {
-            get { return ((CheckBox)gvTiposVehiculo.Rows[2].FindControl("checkBox")).Checked; }
-            set { ((CheckBox)gvTiposVehiculo.Rows[2].FindControl("checkBox")).Checked = value; }
-        }
-        //Indica si la playa que se esta registrando/editando acepta bicicletas
-        public bool Bicicletas
-        {
-            get { return ((CheckBox)gvTiposVehiculo.Rows[3].FindControl("checkBox")).Checked; }
-            set { ((CheckBox)gvTiposVehiculo.Rows[3].FindControl("checkBox")).Checked = value; }
-        }
-        //Precio de autos de la playa que se esta registrando/editando
-        public double? PrecioAutos
-        {
-            get { return !string.IsNullOrEmpty(((TextBox)gvTiposVehiculo.Rows[0].FindControl("txtPrecio")).Text) ? (Nullable<Double>)Convert.ToDouble(((TextBox)gvTiposVehiculo.Rows[0].FindControl("txtPrecio")).Text) : null; }
-            set { ((TextBox)gvTiposVehiculo.Rows[0].FindControl("txtPrecio")).Text = value.ToString(); }
-        }
-        //Precio de utilitarios de la playa que se esta registrando/editando
-        public double? PrecioUtilitarios
-        {
-            get { return !string.IsNullOrEmpty(((TextBox)gvTiposVehiculo.Rows[1].FindControl("txtPrecio")).Text) ? (Nullable<Double>)Convert.ToDouble(((TextBox)gvTiposVehiculo.Rows[1].FindControl("txtPrecio")).Text) : null; }
-            set { ((TextBox)gvTiposVehiculo.Rows[1].FindControl("txtPrecio")).Text = value.ToString(); }
-        }
-        //Precio de motos de la playa que se esta registrando/editando
-        public double? PrecioMotos
-        {
-            get { return !string.IsNullOrEmpty(((TextBox)gvTiposVehiculo.Rows[2].FindControl("txtPrecio")).Text) ? (Nullable<double>)Convert.ToDouble(((TextBox)gvTiposVehiculo.Rows[2].FindControl("txtPrecio")).Text) : null; }
-            set { ((TextBox)gvTiposVehiculo.Rows[2].FindControl("txtPrecio")).Text = value.ToString(); }
-        }
-        //Precio de bicicletas de la playa que se esta registrando/editando
-        public double? PrecioBicicletas
-        {
-            get { return !string.IsNullOrEmpty(((TextBox)gvTiposVehiculo.Rows[3].FindControl("txtPrecio")).Text) ? (Nullable<double>)Convert.ToDouble(((TextBox)gvTiposVehiculo.Rows[3].FindControl("txtPrecio")).Text) : null; }
-            set { ((TextBox)gvTiposVehiculo.Rows[3].FindControl("txtPrecio")).Text = value.ToString(); }
-        }
-
+        
         public string Error
         {
             get { return lblMensajeError.Text; }
@@ -327,14 +150,7 @@ namespace Web
             }
         }
 
-        private IList<dtoDetalleTipoVehiculo> GrillaDetalles
-        {
-            set
-            {
-                gvTiposVehiculo.DataSource = value;
-                gvTiposVehiculo.DataBind();
-            }
-        }
+       
         #endregion
         #region eventos
         #region eventos grilla
@@ -394,39 +210,7 @@ namespace Web
             }
         }
 
-        protected void gvTiposVehiculo_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                var entity = (dtoDetalleTipoVehiculo)e.Row.DataItem;
-                //Capacidad
-                var gvTxtCapacidad = (TextBox)e.Row.FindControl("txtCapacidad");
-                //Precio
-                var gvTxtPrecio = (TextBox)e.Row.FindControl("txtPrecio");
-                //Checkboxes
-                var gvCheckBox = (CheckBox)e.Row.FindControl("checkBox");
-
-                gvTxtCapacidad.Text = entity.Capacidad.ToString();
-                gvTxtPrecio.Text = entity.Precio.ToString();
-                gvCheckBox.Checked = entity.AceptaTipoVehiculo;
-
-                switch (e.Row.RowIndex)
-                {
-                    case 0:
-                        gvCheckBox.Text = "Autos";
-                        break;
-                    case 1:
-                        gvCheckBox.Text = "Utilitarios";
-                        break;
-                    case 2:
-                        gvCheckBox.Text = "Motos";
-                        break;
-                    case 3:
-                        gvCheckBox.Text = "Bicicletas";
-                        break;
-                }
-            }
-        }
+        
         #endregion
         #region eventos botones
         /// <summary>
@@ -435,22 +219,7 @@ namespace Web
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btnGuardar_Click(object sender, EventArgs e)
-        {
-            var error = false;
-            if (!ValidarCamposFormulario())
-            {
-                Error = "Debe completar todos los datos requeridos";
-                error = true;
-            }
-            if (!ValidarHorario())
-            {
-                Error = "El horario de apertura debe ser menor al horario de cierre.";
-                error = true;
-            }
-            
-            if (error) return;
-
-
+        {            
             if (IdPlaya == 0)//creo una nueva playa
             {
                 //Creo el objeto de la nueva PlayaDeEstacionamiento
@@ -518,7 +287,6 @@ namespace Web
         }
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
-            VaciarDetallesPlaya();
             Titulo.Text = "Registrar";
             HabilitarCamposFormlario(true);
             limpiarCampos();
@@ -528,10 +296,5 @@ namespace Web
         #endregion
     }
 
-    internal class dtoDetalleTipoVehiculo
-    {
-        public bool AceptaTipoVehiculo { get; set; }
-        public int Capacidad { get; set; }
-        public double? Precio { get; set; }
-    }
+   
 }
