@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    class Ciudad : EntidadBase
+    public class Ciudad : EntidadBase
     {
         //falta definir variables como al BD que bajaste
     }

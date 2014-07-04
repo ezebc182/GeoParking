@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    class Horario : EntidadBase
+    public class Horario : EntidadBase
     {
         //Hora de apertura
         public string HoraDesde { get; set; }

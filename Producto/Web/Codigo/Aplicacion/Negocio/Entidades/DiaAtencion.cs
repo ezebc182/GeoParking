@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    class DiaAtencion : EntidadBase
+    public class DiaAtencion : EntidadBase
     {
         //Lunes-Viernes , Sabado, Domingo, Feriados
         public string Nombre { get; set; }

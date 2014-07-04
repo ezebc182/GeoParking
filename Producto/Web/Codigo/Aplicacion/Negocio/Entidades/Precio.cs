@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    class Precio : EntidadBase
+    public class Precio : EntidadBase
     {
 
         //referencia a un TipoVehiculo
@@ -22,6 +22,6 @@ namespace Entidades
         public virtual Tiempo Tiempo { get; set; }
 
         //precio
-        public double Precio { get; set; }
+        public double Monto { get; set; }
     }
 }
