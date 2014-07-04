@@ -53,7 +53,6 @@ namespace Web
         {
             IdPlaya = playaEditar.Id;
             Nombre = playaEditar.Nombre;
-            Direccion = playaEditar.Direccion;
             TipoPlayaSeleccionada = playaEditar.TipoPlayaId;
            
 
@@ -67,7 +66,6 @@ namespace Web
             {
                 Id = IdPlaya,
                 Nombre = Nombre,
-                Direccion = Direccion,
                 TipoPlayaId = TipoPlayaSeleccionada                
             };
             return playa;
@@ -77,7 +75,6 @@ namespace Web
             divAlertError.Visible = false;
 
             Nombre = "";
-            Direccion = "";
             TipoPlayaSeleccionada = 0;           
         }
 
@@ -128,10 +125,10 @@ namespace Web
             set { txtNombre.Text = value; }
         }
         //Direccion de la playa que se esta registrando/editando
-        public string Direccion
+        public IList<Direccion> Direcciones
         {
-            get { return txtDireccion.Text; }
-            set { txtDireccion.Text = value; }
+            get;
+            set;
         }
         //Tipo de la playa que se esta registrando/editando
         public int TipoPlayaSeleccionada

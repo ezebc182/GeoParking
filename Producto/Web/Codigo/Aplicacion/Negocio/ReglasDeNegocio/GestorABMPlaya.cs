@@ -44,10 +44,7 @@ namespace ReglasDeNegocio
         {
             var resultado = new Resultado();
 
-            if (playaDao.FindWhere(p => p.Direccion.Contains(playa.Direccion)).Count > 0)
-            {
-                resultado.AddErrorMessage("Ya existe una playa con la misma direccion.");
-            }
+            
 
             return resultado;
         }

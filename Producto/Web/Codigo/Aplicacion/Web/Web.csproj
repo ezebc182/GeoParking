@@ -57,6 +57,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Controles\Horarios.ascx" />
+    <Content Include="Controles\Precios.ascx" />
+    <Content Include="Controles\Domicilio.ascx" />
     <Content Include="Playa.aspx" />
     <Content Include="Bootstrap\css\bootstrap-theme.css" />
     <Content Include="Bootstrap\css\bootstrap-theme.min.css" />
@@ -73,6 +76,27 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controles\Horarios.ascx.cs">
+      <DependentUpon>Horarios.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Horarios.ascx.designer.cs">
+      <DependentUpon>Horarios.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Precios.ascx.cs">
+      <DependentUpon>Precios.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Precios.ascx.designer.cs">
+      <DependentUpon>Precios.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Domicilio.ascx.cs">
+      <DependentUpon>Domicilio.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Domicilio.ascx.designer.cs">
+      <DependentUpon>Domicilio.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Playa.aspx.cs">
       <DependentUpon>Playa.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -113,9 +137,7 @@
       <Name>ReglasDeNegocio</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

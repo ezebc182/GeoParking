@@ -1,7 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Playa.aspx.cs" Inherits="Web.Playa" %>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server" Visible="false"></asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="TopContent" runat="server" Visible="false">
+<%@ Register Src="~/Controles/Domicilio.ascx" TagName="domicilios" TagPrefix="domicilios" %>
+<%@ Register Src="~/Controles/Precios.ascx" TagName="precios" TagPrefix="precios" %>
+<%@ Register Src="~/Controles/Horarios.ascx" TagName="horarios" TagPrefix="horarios" %>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server"></asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="TopContent" runat="server">
 
     <!-- Form para datos de playa-->
     <div class="modal fade" id="modificarPlaya">
@@ -16,99 +20,83 @@
                     </asp:UpdatePanel>
                 </div>
                 <div class="modal-body">
-                    <asp:UpdatePanel ID="upModalDatosPlaya" runat="server" ChildrenAsTriggers="true">
+                    <asp:UpdatePanel runat="server" ID="upFormularioPlaya">
                         <ContentTemplate>
-                            <div class="alert alert-danger" id="divAlertError" runat="server" Visible="false">
-                                <asp:Label ID="lblMensajeError" runat="server" ></asp:Label>
-                            </div>
-                            <div class="form-horizontal" role="form">
-                                <div class="form-group">
-                                    <asp:HiddenField runat="server" ID="hfIdPlaya" />
-                                    <label for="txtNombre" class="col-sm-2 control-label">Nombre</label>
-                                    <div class="col-sm-10">
-                                        <asp:TextBox runat="server" CssClass="form-control col-sm-10 required" ID="txtNombre" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="ddlTipoPlaya" class="col-sm-2 control-label">Tipo</label>
-                                    <div class="col-sm-10">
-                                        <asp:DropDownList runat="server" ID="ddlTipoPlaya" CssClass="btn btn-default required" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtDireccion" class="col-sm-2 control-label">Dirección</label>
-                                    <div class="col-sm-7">
-                                        <asp:TextBox runat="server" CssClass="form-control required" ID="txtDireccion" ClientIDMode="Static" />
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <input type="button" value="Buscar" class="btn btn-primary" onclick="codeAddress()">
-                                    </div>
-                                </div>
+                            <ul class="nav nav-tabs" id="myTab">
+                                <li class="active" runat="server" id="tabDestino"><a href="#datosGrales" data-toggle="tab">
+                                    <br />
+                                    Datos Generales</a></li>
+                                <li class="" runat="server" id="tabBuscarDestino"><a href="#horarios" data-toggle="tab">
+                                    <br />
+                                    Horarios</a></li>
+                                <li class="" runat="server" id="Li1"><a href="#precios" data-toggle="tab">
+                                    <br />
+                                    Precios</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="datosGrales">
+                                    <div class="control-group span10">
 
-
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="txtLatitud">Ubicación</label>
-                                    <div id="pnlMapa" class="col-sm-10">
-                                        <div class="panel panel-primary">
-                                            <div class="panel-heading">Visualizador de playas</div>
-                                            <div class="panel-body">
-                                                <div id="map-canvas"></div>
+                                        <div class="alert alert-danger" id="divAlertError" runat="server" visible="false">
+                                            <asp:Label ID="lblMensajeError" runat="server"></asp:Label>
+                                        </div>
+                                        <div class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <asp:HiddenField runat="server" ID="hfIdPlaya" />
+                                                <label for="txtNombre" class="col-sm-2 control-label">Nombre</label>
+                                                <div class="col-sm-10">
+                                                    <asp:TextBox runat="server" CssClass="form-control col-sm-10 required" ID="txtNombre" />
+                                                </div>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="txtTelefono" class="col-sm-2 control-label">Telefono</label>
+                                                <div class="col-sm-10">
+                                                    <asp:TextBox runat="server" CssClass="form-control col-sm-10 required" ID="txtTelefono" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtMail" class="col-sm-2 control-label">Mail</label>
+                                                <div class="col-sm-10">
+                                                    <asp:TextBox runat="server" CssClass="form-control col-sm-10 required" ID="txtMail" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="ddlTipoPlaya" class="col-sm-2 control-label">Tipo de Playa</label>
+                                                <div class="col-sm-10">
+                                                    <asp:DropDownList runat="server" ID="ddlTipoPlaya" CssClass="btn btn-default required" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <domicilios:domicilios runat="server" ID="ucDomicilios"></domicilios:domicilios>
+                                            </div>
+
                                         </div>
 
-                                        <div class="col-sm-5">
-                                            <asp:TextBox runat="server" CssClass="form-control required" ID="txtLatitud" ClientIDMode="Static" />
-                                        </div>
-                                        <div class="col-sm-5">
-                                            <asp:TextBox runat="server" CssClass="form-control required" ID="txtLongitud" ClientIDMode="Static" />
+
+                                    </div>
+                                </div>
+
+                                <div class="tab-content">
+                                    <div class="tab-pane" id="horarios">
+                                        <div class="control-group span10">
+
+                                            <horarios:horarios runat="server" ID="ucHorarios"></horarios:horarios>
+
                                         </div>
                                     </div>
                                 </div>
-                               <%-- <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="gvTiposVehiculo">Tipos de Vehiculo</label>
-                                    <div class="col-sm-10">
-                                        <asp:GridView ID="gvTiposVehiculo" runat="server" CssClass="table table-hover"
-                                            AutoGenerateColumns="False" OnRowDataBound="gvTiposVehiculo_RowDataBound">
-                                            <Columns>
-                                                <asp:TemplateField>
-                                                    <ItemTemplate>
-                                                        <asp:CheckBox ID="checkBox" runat="server" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Capacidad">
-                                                    <ItemTemplate>
-                                                        <asp:TextBox ID="txtCapacidad" CssClass="numeric" runat="server"></asp:TextBox>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Precio">
-                                                    <ItemTemplate>
-                                                        <asp:TextBox ID="txtPrecio" CssClass="numeric" runat="server"></asp:TextBox>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                            </Columns>
-                                        </asp:GridView>
-                                    </div>
-                                </div>--%>
-                                <div class="form-group">
-                                    <label for="txtHoraDesde" class="col-sm-2 control-label">Horarios</label>
-                                    <div class="col-sm-4">
-                                        <asp:TextBox runat="server" TextMode="Time" CssClass="form-control" ID="txtHoraDesde" />
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <asp:TextBox runat="server" TextMode="Time" CssClass="form-control" ID="txtHoraHasta" />
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <label class="checkbox inline" for="cbAllDay">
-                                            <asp:CheckBox runat="server" ID="cbAllDay" value="1" Text="24 hs" />
-                                        </label>
+
+                                <div class="tab-content">
+                                    <div class="tab-pane " id="precios">
+                                        <div class="control-group span10">
+
+                                            <precios:precios runat="server" ID="ucPrecios"></precios:precios>
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
                         </ContentTemplate>
-                    <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
-                    </Triggers>
                     </asp:UpdatePanel>
                 </div>
                 <div class="modal-footer">
@@ -123,9 +111,10 @@
     </div>
     <!-- /.modal -->
 
-
+    </div>  
+    </div>            
 </asp:Content>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server" Visible=" false">
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="upResultados" runat="server" ChildrenAsTriggers="true">
         <ContentTemplate>
             <div class="container-fluid">
@@ -151,7 +140,7 @@
                 <div id="pnlResultados" class="container-fluid">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            Resultados <span style="background-color: white; color: black;" class="badge" id="cantidadPlayas" ></span>
+                            Resultados <span style="background-color: white; color: black;" class="badge" id="cantidadPlayas"></span>
                         </div>
 
                         <div class="panel-body">
@@ -185,6 +174,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
         </ContentTemplate>
     </asp:UpdatePanel>
 
@@ -201,7 +192,7 @@
             $("#pnlResultados").addClass('hidden');
 
             /*Al iniciar cuenta las filas que tiene cargada la tabla. Client-side */
-           contarFilas();
+            contarFilas();
 
             /*Muestra los resultados de la búsqueda*/
             $("#MainContent_btnBuscar").click(function () {
