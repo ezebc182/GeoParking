@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entidades
 {
@@ -14,7 +15,7 @@ namespace Entidades
         public virtual TipoVehiculo TipoVehiculo { get; set; }
 
         //referencia a un dia de atencion
-        public int DiaAtencioId { get; set; }
+        public int DiaAtencionId { get; set; }
         public virtual DiaAtencion DiaAtencion { get; set; }
 
         //referecia a un tiempo
@@ -22,6 +23,21 @@ namespace Entidades
         public virtual Tiempo Tiempo { get; set; }
 
         //precio
-        public double Monto { get; set; }
+        [Column(TypeName="Money")]
+        public decimal Monto { get; set; }
+
+        [NotMapped]
+        private TipoVehiculo tipoVehiculo;
+        [NotMapped]
+        private DiaAtencion diaAtencion;
+        [NotMapped]
+        private Tiempo tiempo;
+        [NotMapped]
+        private string TipoVehiculoStr { get; set; }
+        [NotMapped]
+        private string DiaAtencionStr { get; set; }
+        [NotMapped]
+        private string TiempoStr { get; set; }
+
     }
 }

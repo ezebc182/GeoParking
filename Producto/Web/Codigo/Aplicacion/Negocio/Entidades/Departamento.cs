@@ -8,6 +8,9 @@ namespace Entidades
 {
     public class Departamento : EntidadBase
     {
-        //falta definir variables como al BD que bajaste
+        public string Nombre { get; set; }
+        public int ProvinciaId { get; set; }
+        public virtual Provincia Provincia { get; set; }
+        public virtual IList<Ciudad> Ciudades{get;set;}
     }
 }

@@ -8,6 +8,8 @@ namespace Entidades
 {
     public class Ciudad : EntidadBase
     {
-        //falta definir variables como al BD que bajaste
+        public string Nombre { get; set; }
+        public int DepartamentoId { get; set; }
+        public virtual Departamento Departamento { get; set; }
     }
 }
