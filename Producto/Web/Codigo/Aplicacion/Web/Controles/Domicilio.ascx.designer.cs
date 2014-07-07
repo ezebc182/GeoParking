@@ -13,6 +13,15 @@ namespace Web.Controles {
     public partial class Domicilio {
         
         /// <summary>
+        /// Control UpdatePanel1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
         /// Control lblDomicilios.
         /// </summary>
         /// <remarks>
@@ -49,31 +58,31 @@ namespace Web.Controles {
         protected global::System.Web.UI.UpdatePanel upFormulario;
         
         /// <summary>
-        /// Control txtProvincia.
+        /// Control ddlProvincia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtProvincia;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProvincia;
         
         /// <summary>
-        /// Control txtDepartamento.
+        /// Control ddlDepartamento.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDepartamento;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDepartamento;
         
         /// <summary>
-        /// Control txtCiudad.
+        /// Control ddlCiudad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCiudad;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCiudad;
         
         /// <summary>
         /// Control txtCalle.
@@ -94,13 +103,22 @@ namespace Web.Controles {
         protected global::System.Web.UI.WebControls.TextBox txtNumero;
         
         /// <summary>
-        /// Control btnAceptar.
+        /// Control btnGuardar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAceptar;
+        protected global::System.Web.UI.WebControls.Button btnGuardar;
+        
+        /// <summary>
+        /// Control btnCancelar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelar;
         
         /// <summary>
         /// Control divSeccionDomicilios.
@@ -112,13 +130,13 @@ namespace Web.Controles {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSeccionDomicilios;
         
         /// <summary>
-        /// Control upGVResultados.
+        /// Control upseccionDomicilios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upGVResultados;
+        protected global::System.Web.UI.UpdatePanel upseccionDomicilios;
         
         /// <summary>
         /// Control gvDomicilios.

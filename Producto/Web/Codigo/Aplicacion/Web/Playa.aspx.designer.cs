@@ -31,15 +31,6 @@ namespace Web {
         protected global::System.Web.UI.WebControls.Label Titulo;
         
         /// <summary>
-        /// Control upFormularioPlaya.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upFormularioPlaya;
-        
-        /// <summary>
         /// Control divAlertError.
         /// </summary>
         /// <remarks>
@@ -154,7 +145,7 @@ namespace Web {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::Web.Controles.Horarios ucHorarios;
+        protected global::Web.Controles.Horario ucHorarios;
         
         /// <summary>
         /// Control btnPaso2.
@@ -172,7 +163,7 @@ namespace Web {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::Web.Controles.Precios ucPrecios;
+        protected global::Web.Controles.Precio ucPrecios;
         
         /// <summary>
         /// Control btnCancelar.
@@ -236,6 +227,15 @@ namespace Web {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfFilasGrilla;
+        
+        /// <summary>
+        /// Control UpdatePanel1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
         /// Control gvResultados.

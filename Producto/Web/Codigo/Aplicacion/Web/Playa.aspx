@@ -6,8 +6,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server"></asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="TopContent" runat="server">
-
-    <!-- Form para datos de playa-->
     <div class="modal fade" id="modificarPlaya">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -20,99 +18,92 @@
                     </asp:UpdatePanel>
                 </div>
                 <div class="modal-body">
-                    <asp:UpdatePanel runat="server" ID="upFormularioPlaya">
-                        <ContentTemplate>
 
-                            <div class="alert alert-danger" id="divAlertError" runat="server" visible="false">
-                                <asp:Label ID="lblMensajeError" runat="server"></asp:Label>
+
+                    <div class="alert alert-danger" id="divAlertError" runat="server" visible="false">
+                        <asp:Label ID="lblMensajeError" runat="server"></asp:Label>
+                    </div>
+                    <div class="form-horizontal" role="form">
+                        <ul class="nav nav-tabs" id="myTab">
+                            <li runat="server" id="tabDestino" class="active"><a href="#datosGrales" data-toggle="tab">Datos Generales</a></li>
+                            <li runat="server" id="tabBuscarDestino"><a href="#horarios" data-toggle="tab">Horarios</a></li>
+                            <li runat="server" id="Li1"><a href="#precios" data-toggle="tab">Precios</a></li>
+                        </ul>
+                        <div class="tab-content">
+
+                            <div class="tab-pane fade in active" id="datosGrales">
+                                <div class="control-group">
+
+                                    <div class="form-group">
+                                        <asp:HiddenField runat="server" ID="hfIdPlaya" />
+                                        <label for="txtNombre" class="col-sm-2 control-label">Nombre</label>
+                                        <div class="col-sm-10 col-md-10 col-lg-10">
+                                            <asp:TextBox runat="server" CssClass="form-control required" ID="txtNombre" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTelefono" class="col-sm-2 control-label">Telefono</label>
+                                        <div class="col-sm-10">
+                                            <asp:TextBox runat="server" CssClass="form-control  required" ID="txtTelefono" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtMail" class="col-sm-2 control-label">Mail</label>
+                                        <div class="col-sm-10">
+                                            <asp:TextBox runat="server" CssClass="form-control required" ID="txtMail" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ddlTipoPlaya" class="col-sm-2 control-label">Tipo de Playa</label>
+                                        <div class="col-sm-10">
+                                            <asp:DropDownList runat="server" ID="ddlTipoPlaya" CssClass="btn btn-default required" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <domicilios:domicilios runat="server" ID="ucDomicilios"></domicilios:domicilios>
+                                    </div>
+                                </div>
+                                <asp:Button ID="btnPaso1" Text="Siguiente" runat="server" CssClass="btn btn-primary pull-right" data-toggle="tab" data-target="#horarios" OnClientClick="abrirTab()" />
                             </div>
-                            <div class="form-horizontal" role="form">
-                                <ul class="nav nav-tabs" id="myTab">
-                                    <li runat="server" id="tabDestino" class="active" ><a href="#datosGrales" data-toggle="tab">Datos Generales</a></li>
-                                    <li runat="server" id="tabBuscarDestino"><a href="#horarios" data-toggle="tab">Horarios</a></li>
-                                    <li runat="server" id="Li1"><a href="#precios" data-toggle="tab">Precios</a></li>
-                                </ul>
-                                <div class="tab-content">
-                                    
-                                    <div class="tab-pane fade in active" id="datosGrales">
-                                        <div class="control-group">
 
-                                            <div class="form-group">
-                                                <asp:HiddenField runat="server" ID="hfIdPlaya" />
-                                                <label for="txtNombre" class="col-sm-2 control-label">Nombre</label>
-                                                <div class="col-sm-10 col-md-10 col-lg-10">
-                                                    <asp:TextBox runat="server" CssClass="form-control required" ID="txtNombre" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="txtTelefono" class="col-sm-2 control-label">Telefono</label>
-                                                <div class="col-sm-10">
-                                                    <asp:TextBox runat="server" CssClass="form-control  required" ID="txtTelefono" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="txtMail" class="col-sm-2 control-label">Mail</label>
-                                                <div class="col-sm-10">
-                                                    <asp:TextBox runat="server" CssClass="form-control required" ID="txtMail" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="ddlTipoPlaya" class="col-sm-2 control-label">Tipo de Playa</label>
-                                                <div class="col-sm-10">
-                                                    <asp:DropDownList runat="server" ID="ddlTipoPlaya" CssClass="btn btn-default required" />
-                                                </div>
-                                            </div>
+                            <div class="tab-pane" id="horarios">
+                                <div class="control-group">
 
-                                            <div class="form-group">
-                                                <domicilios:domicilios runat="server" ID="ucDomicilios"></domicilios:domicilios>
-                                            </div>
-                                        </div>
-                                          <asp:Button id="btnPaso1" Text="Siguiente" runat="server" CssClass="btn btn-primary pull-right" data-toggle="tab" data-target="#horarios" OnClientClick="abrirTab()"/>                                      
-                                    </div>
+                                    <horarios:horarios runat="server" ID="ucHorarios"></horarios:horarios>
+                                    <asp:Button ID="btnPaso2" Text="Siguiente" runat="server" CssClass="btn btn-primary pull-right" data-toggle="tab" data-target="#precios" OnClientClick="abrirTab()" />
+                                </div>
+                            </div>
 
-                                    <div class="tab-pane" id="horarios">
-                                        <div class="control-group">
+                            <div class="tab-pane " id="precios">
+                                <div class="control-group">
 
-                                            <horarios:horarios runat="server" ID="ucHorarios"></horarios:horarios>
-                                            <asp:Button id="btnPaso2" Text="Siguiente" runat="server" CssClass="btn btn-primary pull-right" data-toggle="tab" data-target="#precios" OnClientClick="abrirTab()"/>
-                                        </div>
-                                    </div>
+                                    <precios:precios runat="server" ID="ucPrecios"></precios:precios>
+                                    <div class="modal-footer">
+                                        <asp:Button ID="btnCancelar" runat="server" CssClass="btn" OnClick="btnCancelar_Click" data-dismiss="modal" Text="Cancelar"></asp:Button>
+                                        <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success" OnClick="btnGuardar_Click" Text="Guardar"></asp:Button>
 
-                                    <div class="tab-pane " id="precios">
-                                        <div class="control-group">
-
-                                            <precios:precios runat="server" ID="ucPrecios"></precios:precios>
-                                            <div class="modal-footer">
-                                                <asp:Button ID="btnCancelar" runat="server" CssClass="btn" OnClick="btnCancelar_Click" data-dismiss="modal" Text="Cancelar"></asp:Button>
-                                                <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success" OnClick="btnGuardar_Click" Text="Guardar"></asp:Button>
-
-                                            </div>
-
-                                        </div>
                                     </div>
 
                                 </div>
                             </div>
-                            <!-- Fin form -->
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+
+                        </div>
+                    </div>
+                    <!-- Fin form -->
+
                 </div>
-
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal -->
 
-    </div>  
-    </div>            
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="upResultados" runat="server" ChildrenAsTriggers="true">
         <ContentTemplate>
+
             <div class="container-fluid">
-                <div class="jumbotron" style="margin-top:5%;">
+                <div class="jumbotron" style="margin-top: 5%;">
                     <div class="page-header">
                         <h1>Administración de playas <small>Consulta</small></h1>
                     </div>
@@ -124,69 +115,75 @@
                             </div>
                             <div class="col-md-4">
                                 <asp:Button runat="server" CssClass="btn-primary btn btn-lg" ID="btnBuscar" Text="Buscar" OnClick="btnBuscar_Click"></asp:Button>
-                                <asp:Button runat="server" CssClass="btn-success btn btn-lg" ID="btnNuevo" Text="Nueva" OnClick="btnNuevo_Click" data-toggle="modal" data-target="#modificarPlaya"></asp:Button>
+                                <asp:Button runat="server" CssClass="btn-success btn btn-lg" ID="btnNuevo" Text="Nueva" OnClick="btnNuevo_Click" OnClientClick="openModal()"></asp:Button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Resultados de búsqueda -->
-                <asp:HiddenField ID="hfFilasGrilla" runat="server" />
-                <div id="pnlResultados" class="container-fluid">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            Resultados <span style="background-color: white; color: black;" class="badge" id="cantidadPlayas"></span>
-                        </div>
-
-                        <div class="panel-body">
-                            <div id="resultadosBusqueda">
-                                <asp:GridView ID="gvResultados" runat="server" DataKeyNames="Id" CssClass="table table-hover table-responsive"
-                                    AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron Playas para los filtros utilizados"
-                                    OnRowCommand="gvResultados_RowCommand" OnRowDataBound="gvResultados_RowDataBound">
-                                    <Columns>
-                                        <asp:BoundField DataField="Id" HeaderText="Id" Visible="false" />
-                                        <asp:BoundField DataField="Nombre" HeaderText="Nombre" Visible="true" />
-                                        <asp:BoundField DataField="Direccion" HeaderText="Direccion" Visible="true" />
-                                        <asp:BoundField DataField="TipoPlayaNombre" HeaderText="Tipo" Visible="true" />
-                                        <asp:BoundField DataField="Extras" HeaderText="Extras" Visible="true" />
-                                        <asp:TemplateField HeaderText="Acciones">
-                                            <ItemStyle CssClass="grilla-columna-accion" />
-                                            <ItemTemplate>
-                                                <asp:Button ID="btnEditar" runat="server" CommandArgument="<%# Container.DataItemIndex %>"
-                                                    CommandName="Editar" data-toggle="modal" data-target="#modificarPlaya" CssClass="icon icon-grilla icon-edit" />
-
-                                                <asp:Button ID="btnEliminar" runat="server" CommandArgument="<%# Container.DataItemIndex %>"
-                                                    CommandName="Eliminar" CssClass="icon icon-grilla icon-delete" />
-
-                                                <asp:Button ID="btnVer" runat="server" CommandArgument="<%# Container.DataItemIndex %>"
-                                                    CommandName="Ver" data-toggle="modal" data-target="#modificarPlaya" CssClass="icon icon-grilla icon-edit" />
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-
-                                    </Columns>
-                                </asp:GridView>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </ContentTemplate>
     </asp:UpdatePanel>
 
+    <!-- Resultados de búsqueda -->
+    <asp:HiddenField ID="hfFilasGrilla" runat="server" />
+    <div id="pnlResultados" class="container-fluid hidden">
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server" ChildrenAsTriggers="true">
+            <ContentTemplate>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Resultados <span style="background-color: white; color: black;" class="badge" id="cantidadPlayas"></span>
+                    </div>
+
+                    <div class="panel-body">
+                        <div id="resultadosBusqueda">
+                            <asp:GridView ID="gvResultados" runat="server" DataKeyNames="Id" CssClass="table table-hover table-responsive"
+                                AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron Playas para los filtros utilizados"
+                                OnRowCommand="gvResultados_RowCommand" OnRowDataBound="gvResultados_RowDataBound">
+                                <Columns>
+                                    <asp:BoundField DataField="Id" HeaderText="Id" Visible="false" />
+                                    <asp:BoundField DataField="Nombre" HeaderText="Nombre" Visible="true" />
+                                    <asp:BoundField DataField="Direccion" HeaderText="Direccion" Visible="true" />
+                                    <asp:BoundField DataField="TipoPlayaNombre" HeaderText="Tipo" Visible="true" />
+                                    <asp:BoundField DataField="Extras" HeaderText="Extras" Visible="true" />
+                                    <asp:TemplateField HeaderText="Acciones">
+                                        <ItemStyle CssClass="grilla-columna-accion" />
+                                        <ItemTemplate>
+                                            <asp:Button ID="btnEditar" runat="server" CommandArgument="<%# Container.DataItemIndex %>"
+                                                CommandName="Editar" data-toggle="modal" data-target="#modificarPlaya" CssClass="icon icon-grilla icon-edit" />
+
+                                            <asp:Button ID="btnEliminar" runat="server" CommandArgument="<%# Container.DataItemIndex %>"
+                                                CommandName="Eliminar" CssClass="icon icon-grilla icon-delete" />
+
+                                            <asp:Button ID="btnVer" runat="server" CommandArgument="<%# Container.DataItemIndex %>"
+                                                CommandName="Ver" data-toggle="modal" data-target="#modificarPlaya" CssClass="icon icon-grilla icon-edit" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
+                                </Columns>
+                            </asp:GridView>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
+
     <script>
 
-        $(document).ready(function () {
+        function openModal() {
+            $('#modificarPlaya').modal('show');
 
-            //activa los tooltips de bootstrap
-            //$('#listadoPlayas>tbody>tr>td>a.eliminar').tooltip();
-            //$('#listadoPlayas>tbody>tr>td>a.editar').tooltip();
-            //$('#listadoPlayas>tbody>tr>td>a.ver').tooltip();
+
+        }
+
+        $(document).ready(function () {
 
             $('#eliminar').tooltip();
             $('#editar').tooltip();
             $('#buscar').tooltip();
-
-            $("#pnlResultados").addClass('hidden');
 
             /*Al iniciar cuenta las filas que tiene cargada la tabla. Client-side */
             contarFilas();
@@ -199,7 +196,7 @@
             contarFilas();
 
         });
-       
+
 
         /*Cuenta la cantidad de filas de la tabla*/
         function contarFilas() {
@@ -224,37 +221,13 @@
         pageManager = Sys.WebForms.PageRequestManager.getInstance();
 
         pageManager.add_endRequest(function () {
-            GoogleMaps.initialize();
+            // GoogleMaps.initialize();
             contarFilas();
             $("#MainContent_btnBuscar").click(function () {
                 customSlideToggle($("#pnlResultados"));
 
             });
-
         });
-
-        //Guarda el estado de los update panels, para que no se pierdan los atributos cambiados en el postback
-        var resultadosOcultos;
-        function SaveState(sender, args) {
-            // code to save state of update panel controls
-            if ($("#pnlResultados").hasClass('hidden')) {
-                resultadosOcultos = true;
-            }
-            else {
-                resultadosOcultos = false;
-            }
-        }
-        //Aplica el estado guardado anteriormente
-        function ReapplyState(sender, args) {
-
-            // code to reapply state of update panel controls
-            if (resultadosOcultos) {
-                $("#pnlResultados").addClass('hidden');
-            }
-        }
-
-        Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(SaveState);
-        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(ReapplyState);
 
     </script>
     <script src="~/Scripts/tabs.js"></script>

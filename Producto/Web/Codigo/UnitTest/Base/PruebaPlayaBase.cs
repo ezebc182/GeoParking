@@ -10,13 +10,13 @@ namespace UnitTest.Base
     {
         public IRepositorioPlayaDeEstacionamiento repositorioPlayas;
         public IRepositorioTipoDePlaya repositorioTipoPlayas;
-        public GestorABMPlaya gestor;
+        public GestorPlaya gestor;
 
         public PruebaPlayaBase()
         {
             repositorioPlayas = new RepositorioPlayasFalso();
             repositorioTipoPlayas = new RepositorioTipoPlayasFalso();
-            gestor = new GestorABMPlaya(repositorioPlayas, repositorioTipoPlayas);
+            gestor = new GestorPlaya(repositorioPlayas, repositorioTipoPlayas);
         }
     }
 }

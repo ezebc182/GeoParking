@@ -12,13 +12,13 @@ namespace Web
     public partial class Playa : System.Web.UI.Page
     {
         //gestor encargado de todas las funcionalidades del ABM
-        GestorABMPlaya gestor;
+        GestorPlaya gestor;
         //Master de la pagina, para poder mostrar mensajes.
         SiteMaster master;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            gestor = new GestorABMPlaya();
+            gestor = new GestorPlaya();
             master = (SiteMaster)Master;
 
             if (!Page.IsPostBack)
@@ -31,7 +31,7 @@ namespace Web
 
         public void CargarComboTiposPlayas()
         {
-            gestor = new GestorABMPlaya();
+            gestor = new GestorPlaya();
             var lista = gestor.BuscarTipoPlayas();
             ddlTipoPlaya.DataSource = lista;
             ddlTipoPlaya.DataTextField = "nombre";
@@ -66,7 +66,10 @@ namespace Web
             {
                 Id = IdPlaya,
                 Nombre = Nombre,
-                TipoPlayaId = TipoPlayaSeleccionada                
+                TipoPlayaId = TipoPlayaSeleccionada,
+                Direcciones = Direcciones,
+                Precios = Precios,
+                Horarios = Horarios
             };
             return playa;
         }
@@ -127,8 +130,8 @@ namespace Web
         //Direccion de la playa que se esta registrando/editando
         public IList<Direccion> Direcciones
         {
-            get;
-            set;
+            get { return ucDomicilios.Domicilios; }
+            set { ucDomicilios.Domicilios = value;}
         }
         //Tipo de la playa que se esta registrando/editando
         public int TipoPlayaSeleccionada
@@ -147,6 +150,17 @@ namespace Web
             }
         }
 
+        public IList<Horario> Horarios
+        {
+            get { return ucHorarios.Horarios; }
+            set { ucHorarios.Horarios = value; }
+        }
+
+        public IList<Precio> Precios
+        {
+            get { return ucPrecios.Precios; }
+            set { ucPrecios.Precios = value; }
+        }
        
         #endregion
         #region eventos

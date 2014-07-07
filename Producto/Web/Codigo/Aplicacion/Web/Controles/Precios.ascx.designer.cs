@@ -10,7 +10,16 @@
 namespace Web.Controles {
     
     
-    public partial class Precios {
+    public partial class Precio {
+        
+        /// <summary>
+        /// Control UpdatePanel1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
         /// Control lblPrecios.
@@ -55,7 +64,7 @@ namespace Web.Controles {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ddlTipoVehiculo;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTipoVehiculo;
         
         /// <summary>
         /// Control ddlTipoHorario.
@@ -64,7 +73,7 @@ namespace Web.Controles {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ddlTipoHorario;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTipoHorario;
         
         /// <summary>
         /// Control ddlDias.
@@ -73,7 +82,7 @@ namespace Web.Controles {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ddlDias;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDias;
         
         /// <summary>
         /// Control txtPrecio.
@@ -85,13 +94,22 @@ namespace Web.Controles {
         protected global::System.Web.UI.WebControls.TextBox txtPrecio;
         
         /// <summary>
-        /// Control btnAceptar.
+        /// Control btnGuardar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAceptar;
+        protected global::System.Web.UI.WebControls.Button btnGuardar;
+        
+        /// <summary>
+        /// Control btnCancelar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelar;
         
         /// <summary>
         /// Control divSeccionPrecios.
