@@ -9,19 +9,20 @@ using Datos;
 
 namespace ReglasDeNegocio
 {
-    public class GestorABMPlaya
+    public class GestorPlaya
     {
         IRepositorioPlayaDeEstacionamiento playaDao;
         IRepositorioTipoDePlaya tipoDao;
+        IRepositorioDiaAtencion diaAtencionDao;
 
-
-        public GestorABMPlaya()
+        public GestorPlaya()
         {
             playaDao = new RepositorioPlayaDeEstacionamiento();
             tipoDao = new RepositorioTipoDePlaya();
+            diaAtencionDao = new RepositorioDiaAtencion();
         }
 
-        public GestorABMPlaya(IRepositorioPlayaDeEstacionamiento repositorioPlaya, IRepositorioTipoDePlaya repositorioTipoPlaya)
+        public GestorPlaya(IRepositorioPlayaDeEstacionamiento repositorioPlaya, IRepositorioTipoDePlaya repositorioTipoPlaya)
         {
             playaDao = repositorioPlaya;
             tipoDao = repositorioTipoPlaya;
@@ -117,6 +118,11 @@ namespace ReglasDeNegocio
         public IList<TipoPlaya> BuscarTipoPlayas()
         {
             return tipoDao.FindAll();
+        }
+
+        public DiaAtencion GetDiaAtencionById(int IdDiaAtencionSeleccionado)
+        {
+           return diaAtencionDao.FindById(IdDiaAtencionSeleccionado);
         }
     }
 }
