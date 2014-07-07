@@ -2,25 +2,25 @@
 
 <div>
     <asp:Label ID="lblHorarios" runat="server" Text="Horarios"></asp:Label>
-    <asp:Button ID="btnAgregarHorario" runat="server" Text="Agregar" OnClick="btnAgregarHorario_Click" />
+    <asp:Button ID="btnAgregarHorario" runat="server" Text="Agregar" OnClick="btnAgregarHorario_Click" CssClass="btn btn-success" />
     <div id="divSeccionFormulario" runat="server">
         <asp:UpdatePanel runat="server" ID="upFormulario">
             <ContentTemplate>
-                <div class="form-horizontal" role="form">
+                <%--<div class="form-horizontal" role="form">--%>
                     <div class="form-group">
                         <label for="ddlDias" class="col-sm-2 control-label">Provincia</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-10">
                             <asp:DropDownList runat="server" CssClass="form-control required" ID="ddlDias" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="txtDesde" class="col-sm-2 control-label">Departamento</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-10">
                             <asp:TextBox runat="server" CssClass="form-control required" ID="txtDesde" />
                         </div>
 
                         <label for="txtHasta" class="col-sm-2 control-label">Ciudad</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-10">
                             <asp:TextBox runat="server" CssClass="form-control required" ID="txtHasta" />
                         </div>
                         <asp:CheckBox runat="server" ID="chk24Horas" Text="24 Horas" />

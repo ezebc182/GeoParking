@@ -6,30 +6,30 @@
     <div id="divSeccionFormulario" runat="server">
         <asp:UpdatePanel runat="server" ID="upFormulario">
             <ContentTemplate>
-                <div class="form-horizontal" role="form">
+                <%--<div class="form-horizontal" role="form">--%>
                     <div class="form-group">
                         <label for="ddlTipoVehiculo" class="col-sm-2 control-label">Tipo de Vehiculo</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-10">
                             <asp:TextBox runat="server" CssClass="form-control required" ID="ddlTipoVehiculo" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="ddlTipoHorario" class="col-sm-2 control-label">Tipo de Horario</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-10">
                             <asp:TextBox runat="server" CssClass="form-control required" ID="ddlTipoHorario" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="ddlDias" class="col-sm-2 control-label">Dias</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-10">
                             <asp:TextBox runat="server" CssClass="form-control required" ID="ddlDias" />
                         </div>
                     </div>
-                </div>
+                <%--</div>--%>
                 <div class="form-group">
                     <label for="txtPrecio" class="col-sm-2 control-label">Precio</label>
                     <div class="col-sm-10">
-                        <asp:TextBox runat="server" CssClass="form-control col-sm-10 required" ID="txtPrecio" />
+                        <asp:TextBox runat="server" CssClass="form-control required" ID="txtPrecio" />
                     </div>
                 </div>
                 <div class="form-group">

@@ -45,6 +45,7 @@
 				        </ul>				        
 				      </li>
 				      <li class="divider-vertical"></li>				        
+				      
 				     <li class="dropdown">
 				        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 				          Ayuda <b class="caret"></b>
@@ -97,7 +98,19 @@
 		      </div>
 		      <div class="modal-body">
 		        <form class="form-horizontal" id="frmPlayas"data-toggle="validator"role="form">
-				  <div class="form-group">
+				  
+		        			<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#home" role="tab" data-toggle="tab">Home</a></li>
+  <li><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+  <li><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
+  <li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="home">
+  	<div class="form-group">
 				    <label for="txtNombre" class="col-sm-2 control-label">Nombre</label>
 				    <div class="col-sm-10">
 				      <input type="text" class="form-control" id="txtNombre" placeholder="Nombre" required>
@@ -143,6 +156,12 @@
 			    	</div>
 			    	</div>
 				</div>
+  </div>
+  <div class="tab-pane" id="profile">...</div>
+  <div class="tab-pane" id="messages">...</div>
+  <div class="tab-pane" id="settings">...</div>
+</div>
+
 				<label for="tiposVehiculo" class="col-sm-2 control-label">Precios</label>
 				<div class="form-group col-sm-10">
 					<table id="tiposVehiculo" class="table table-hover">
@@ -173,6 +192,8 @@
 						</label>
 					</div>
 				</div>
+
+		
 			</form>	
 		      </div>
 		      <div class="modal-footer">
@@ -222,7 +243,7 @@
 							</tr>
 						</thead>
 					    <tbody >
-						   <!--  <tr>
+						    <tr>
 							    <td>1</td>
 							    <td>PLaya 1</td>
 							    <td>Dirección 1</td>
@@ -263,7 +284,7 @@
 							    	<a href="#" class="ver glyphicon glyphicon-search" data-toggle="tooltip" data-placement="top" title="Ver" id="buscar3"></a>
 							    </td>
 							    
-						    </tr> -->
+						    </tr>
 						   
 					    </tbody>
 					</table>

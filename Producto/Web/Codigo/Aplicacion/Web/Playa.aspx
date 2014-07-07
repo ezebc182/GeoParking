@@ -22,42 +22,38 @@
                 <div class="modal-body">
                     <asp:UpdatePanel runat="server" ID="upFormularioPlaya">
                         <ContentTemplate>
-                            <ul class="nav nav-tabs" id="myTab">
-                                <li class="active" runat="server" id="tabDestino"><a href="#datosGrales" data-toggle="tab">
-                                    <br />
-                                    Datos Generales</a></li>
-                                <li class="" runat="server" id="tabBuscarDestino"><a href="#horarios" data-toggle="tab">
-                                    <br />
-                                    Horarios</a></li>
-                                <li class="" runat="server" id="Li1"><a href="#precios" data-toggle="tab">
-                                    <br />
-                                    Precios</a></li>
-                            </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="datosGrales">
-                                    <div class="control-group span10">
 
-                                        <div class="alert alert-danger" id="divAlertError" runat="server" visible="false">
-                                            <asp:Label ID="lblMensajeError" runat="server"></asp:Label>
-                                        </div>
-                                        <div class="form-horizontal" role="form">
+                            <div class="alert alert-danger" id="divAlertError" runat="server" visible="false">
+                                <asp:Label ID="lblMensajeError" runat="server"></asp:Label>
+                            </div>
+                            <div class="form-horizontal" role="form">
+                                <ul class="nav nav-tabs" id="myTab">
+                                    <li runat="server" id="tabDestino" class="active" ><a href="#datosGrales" data-toggle="tab">Datos Generales</a></li>
+                                    <li runat="server" id="tabBuscarDestino"><a href="#horarios" data-toggle="tab">Horarios</a></li>
+                                    <li runat="server" id="Li1"><a href="#precios" data-toggle="tab">Precios</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    
+                                    <div class="tab-pane fade in active" id="datosGrales">
+                                        <div class="control-group">
+
                                             <div class="form-group">
                                                 <asp:HiddenField runat="server" ID="hfIdPlaya" />
                                                 <label for="txtNombre" class="col-sm-2 control-label">Nombre</label>
-                                                <div class="col-sm-10">
-                                                    <asp:TextBox runat="server" CssClass="form-control col-sm-10 required" ID="txtNombre" />
+                                                <div class="col-sm-10 col-md-10 col-lg-10">
+                                                    <asp:TextBox runat="server" CssClass="form-control required" ID="txtNombre" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="txtTelefono" class="col-sm-2 control-label">Telefono</label>
                                                 <div class="col-sm-10">
-                                                    <asp:TextBox runat="server" CssClass="form-control col-sm-10 required" ID="txtTelefono" />
+                                                    <asp:TextBox runat="server" CssClass="form-control  required" ID="txtTelefono" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="txtMail" class="col-sm-2 control-label">Mail</label>
                                                 <div class="col-sm-10">
-                                                    <asp:TextBox runat="server" CssClass="form-control col-sm-10 required" ID="txtMail" />
+                                                    <asp:TextBox runat="server" CssClass="form-control required" ID="txtMail" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -70,40 +66,38 @@
                                             <div class="form-group">
                                                 <domicilios:domicilios runat="server" ID="ucDomicilios"></domicilios:domicilios>
                                             </div>
-
                                         </div>
-
-
+                                          <asp:Button id="btnPaso1" Text="Siguiente" runat="server" CssClass="btn btn-primary pull-right" data-toggle="tab" data-target="#horarios" OnClientClick="abrirTab()"/>                                      
                                     </div>
-                                </div>
 
-                                <div class="tab-content">
                                     <div class="tab-pane" id="horarios">
-                                        <div class="control-group span10">
+                                        <div class="control-group">
 
                                             <horarios:horarios runat="server" ID="ucHorarios"></horarios:horarios>
-
+                                            <asp:Button id="btnPaso2" Text="Siguiente" runat="server" CssClass="btn btn-primary pull-right" data-toggle="tab" data-target="#precios" OnClientClick="abrirTab()"/>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="tab-content">
                                     <div class="tab-pane " id="precios">
-                                        <div class="control-group span10">
+                                        <div class="control-group">
 
                                             <precios:precios runat="server" ID="ucPrecios"></precios:precios>
+                                            <div class="modal-footer">
+                                                <asp:Button ID="btnCancelar" runat="server" CssClass="btn" OnClick="btnCancelar_Click" data-dismiss="modal" Text="Cancelar"></asp:Button>
+                                                <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success" OnClick="btnGuardar_Click" Text="Guardar"></asp:Button>
+
+                                            </div>
 
                                         </div>
                                     </div>
+
                                 </div>
+                            </div>
+                            <!-- Fin form -->
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
-                <div class="modal-footer">
-                    <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-danger" OnClick="btnCancelar_Click" data-dismiss="modal" Text="Cancelar"></asp:Button>
-                    <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success" OnClick="btnGuardar_Click" Text="Guardar"></asp:Button>
 
-                </div>
             </div>
             <!-- /.modal-content -->
         </div>
@@ -118,14 +112,14 @@
     <asp:UpdatePanel ID="upResultados" runat="server" ChildrenAsTriggers="true">
         <ContentTemplate>
             <div class="container-fluid">
-                <div class="jumbotron">
+                <div class="jumbotron" style="margin-top:5%;">
                     <div class="page-header">
                         <h1>Administración de playas <small>Consulta</small></h1>
                     </div>
                     <div class="form-horizontal" role="form">
                         <div class="form-group" id="busquedaPlayas">
                             <div class="col-md-8">
-                                <asp:TextBox ID="txtFiltroNombre" CssClass="form-control input-lg" runat="server">
+                                <asp:TextBox ID="txtFiltroNombre" CssClass="form-control input-lg" runat="server" placeholder="Nombre de playa">
                                 </asp:TextBox>
                             </div>
                             <div class="col-md-4">
@@ -179,12 +173,15 @@
         </ContentTemplate>
     </asp:UpdatePanel>
 
-
     <script>
 
         $(document).ready(function () {
 
             //activa los tooltips de bootstrap
+            //$('#listadoPlayas>tbody>tr>td>a.eliminar').tooltip();
+            //$('#listadoPlayas>tbody>tr>td>a.editar').tooltip();
+            //$('#listadoPlayas>tbody>tr>td>a.ver').tooltip();
+
             $('#eliminar').tooltip();
             $('#editar').tooltip();
             $('#buscar').tooltip();
@@ -199,11 +196,10 @@
                 customSlideToggle($("#pnlResultados"));
             });
 
-            /*$('#listadoPlayas').dataTable();*/
-
             contarFilas();
 
         });
+       
 
         /*Cuenta la cantidad de filas de la tabla*/
         function contarFilas() {
@@ -261,4 +257,6 @@
         Sys.WebForms.PageRequestManager.getInstance().add_endRequest(ReapplyState);
 
     </script>
+    <script src="~/Scripts/tabs.js"></script>
+    <script src="~/Scripts/DesplazarTabs.js"></script>
 </asp:Content>
