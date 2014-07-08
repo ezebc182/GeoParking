@@ -3,52 +3,59 @@
 <div>
     <asp:UpdatePanel runat="server" ID="UpdatePanel1">
         <ContentTemplate>
-            <asp:Label ID="lblPrecios" runat="server" Text="Precios"></asp:Label>
-            <asp:Button ID="btnAgregarPrecio" runat="server" Text="Agregar" CssClass="btn btn-primary" OnClientClick="mostrarFormularioPrecio()" />
+            <%--<asp:Label ID="lblPrecios" runat="server" Text="Precios"></asp:Label>--%>
+            <asp:LinkButton ID="btnAgregarPrecio" runat="server" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClientClick="mostrarFormularioPrecio()" />
         </ContentTemplate>
     </asp:UpdatePanel>
-    <div id="divSeccionFormulario" runat="server" class="hidden">
-        <asp:UpdatePanel runat="server" ID="upFormulario">
-            <ContentTemplate>
-                <%--<div class="form-horizontal" role="form">--%>
-                    <div class="form-group">
-                        <label for="ddlTipoVehiculo" class="col-sm-2 control-label">Tipo de Vehiculo</label>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Precios</h3>
+        </div>
+        <div class="panel-body">
+            <div id="divSeccionFormulario" runat="server" class="hidden">
+                <asp:UpdatePanel runat="server" ID="upFormulario">
+                    <ContentTemplate>
+                        <%--<div class="form-horizontal" role="form">--%>
+                        <div class="form-group">
+                            <label for="ddlTipoVehiculo" class="col-sm-2 col-md-2 col-lg-2 control-label">Tipo de Vehiculo</label>
 
-                        <div class="col-sm-7">
-                            <asp:DropDownList runat="server" CssClass="form-control required" ID="ddlTipoVehiculo" />
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <asp:DropDownList runat="server" CssClass="form-control required" ID="ddlTipoVehiculo" />
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="ddlTipoHorario" class="col-sm-2 control-label">Tipo de Horario</label>
+                        <div class="form-group">
+                            <label for="ddlTipoHorario" class="col-sm-2 col-md-2 col-lg-2 control-label">Tipo de Horario</label>
 
-                        <div class="col-sm-7">
-                            <asp:DropDownList runat="server" CssClass="form-control required" ID="ddlTipoHorario" />
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <asp:DropDownList runat="server" CssClass="form-control required" ID="ddlTipoHorario" />
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="ddlDias" class="col-sm-2 control-label">Dias</label>
+                        <div class="form-group">
+                            <label for="ddlDias" class="col-sm-2 col-md-2 col-lg-2 control-label">Dias</label>
 
-                        <div class="col-sm-7">
-                            <asp:DropDownList runat="server" CssClass="form-control required" ID="ddlDias" />
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <asp:DropDownList runat="server" CssClass="form-control required" ID="ddlDias" />
 
+                            </div>
                         </div>
-                    </div>
-                <%--</div>--%>
-                <div class="form-group">
-                    <label for="txtPrecio" class="col-sm-2 control-label">Precio</label>
-                    <div class="col-sm-10">
-                        <asp:TextBox runat="server" CssClass="form-control required" ID="txtPrecio" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <asp:Button runat="server" ID="btnGuardar" Text="Guardar" CssClass="btn btn-success" OnClientClick="mostrarFormularioPrecio()" OnClick="btnGuardar_Click" />
-                    <asp:Button runat="server" ID="btnCancelar" Text="Cancelar" CssClass="btn btn-danger" OnClientClick="mostrarFormularioPrecio()" />
-                </div>
-            </ContentTemplate>
+                        <%--</div>--%>
+                        <div class="form-group">
+                            <label for="txtPrecio" class="col-sm-2 col-md-2 col-lg-2 control-label">Precio</label>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <asp:TextBox runat="server" CssClass="form-control required" ID="txtPrecio" />
+                            </div>
+                        </div>
+                        <div class="form-group pull-right">
+                            <asp:LinkButton runat="server" ID="btnGuardar" Text="<span class='glyphicon glyphicon-ok-circle'></span>" CssClass="btn btn-lg"  ForeColor="Green" BackColor="Transparent" OnClientClick="mostrarFormularioPrecio()" OnClick="btnGuardar_Click" />
+                            <asp:LinkButton runat="server" ID="btnCancelar" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClientClick="mostrarFormularioPrecio()" />
+                        </div>
+                    </ContentTemplate>
 
-        </asp:UpdatePanel>
+                </asp:UpdatePanel>
+            </div>
+        </div>
     </div>
     <div id="divSeccionPrecios" runat="server">
         <asp:UpdatePanel runat="server" ID="upGVResultados">

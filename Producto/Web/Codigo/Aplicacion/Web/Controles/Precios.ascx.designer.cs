@@ -22,22 +22,13 @@ namespace Web.Controles {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// Control lblPrecios.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPrecios;
-        
-        /// <summary>
         /// Control btnAgregarPrecio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregarPrecio;
+        protected global::System.Web.UI.WebControls.LinkButton btnAgregarPrecio;
         
         /// <summary>
         /// Control divSeccionFormulario.
@@ -100,7 +91,7 @@ namespace Web.Controles {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuardar;
+        protected global::System.Web.UI.WebControls.LinkButton btnGuardar;
         
         /// <summary>
         /// Control btnCancelar.
@@ -109,7 +100,7 @@ namespace Web.Controles {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancelar;
+        protected global::System.Web.UI.WebControls.LinkButton btnCancelar;
         
         /// <summary>
         /// Control divSeccionPrecios.

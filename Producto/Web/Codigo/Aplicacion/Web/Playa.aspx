@@ -28,42 +28,48 @@
                             <li runat="server" id="tabDestino" class="active"><a href="#datosGrales" data-toggle="tab">Datos Generales</a></li>
                             <li runat="server" id="tabBuscarDestino"><a href="#horarios" data-toggle="tab">Horarios</a></li>
                             <li runat="server" id="Li1"><a href="#precios" data-toggle="tab">Precios</a></li>
+                            <!-- ********************************
+                                LEO : Que joraca son esos id de los li?
+                                *********************************
+                                 -->
                         </ul>
-                        <div class="tab-content">
+                        <div class="tab-content" style="margin: 20px;">
 
-                            <div class="tab-pane fade in active" id="datosGrales">
-                                <div class="control-group">
+                            <div class="tab-pane fade active in" id="datosGrales">
+                                <div class="clearfix"></div>
 
-                                    <div class="form-group">
-                                        <asp:HiddenField runat="server" ID="hfIdPlaya" />
-                                        <label for="txtNombre" class="col-sm-2 control-label">Nombre</label>
-                                        <div class="col-sm-10 col-md-10 col-lg-10">
-                                            <asp:TextBox runat="server" CssClass="form-control required" ID="txtNombre" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtTelefono" class="col-sm-2 control-label">Telefono</label>
-                                        <div class="col-sm-10">
-                                            <asp:TextBox runat="server" CssClass="form-control  required" ID="txtTelefono" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtMail" class="col-sm-2 control-label">Mail</label>
-                                        <div class="col-sm-10">
-                                            <asp:TextBox runat="server" CssClass="form-control required" ID="txtMail" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="ddlTipoPlaya" class="col-sm-2 control-label">Tipo de Playa</label>
-                                        <div class="col-sm-10">
-                                            <asp:DropDownList runat="server" ID="ddlTipoPlaya" CssClass="btn btn-default required" />
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <domicilios:domicilios runat="server" ID="ucDomicilios"></domicilios:domicilios>
+                                <%--<div class="control-group"></div>--%>
+                                <div class="form-group">
+                                    <asp:HiddenField runat="server" ID="hfIdPlaya" />
+                                    <label for="txtNombre" class="col-sm-2 col-md-2 col-lg-2 control-label">Nombre</label>
+                                    <div class="col-sm-10 col-md-10 col-lg-10 col-md-10 col-lg-10">
+                                        <asp:TextBox runat="server" CssClass="form-control required" ID="txtNombre" />
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="txtTelefono" class="col-sm-2 col-md-2 col-lg-2 col-md-2 col-lg-2 control-label">Telefono</label>
+                                    <div class="col-sm-10 col-md-10 col-lg-10">
+                                        <asp:TextBox runat="server" CssClass="form-control  required" ID="txtTelefono" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtMail" class="col-sm-2 col-md-2 col-lg-2 control-label">Mail</label>
+                                    <div class="col-sm-10 col-md-10 col-lg-10">
+                                        <asp:TextBox runat="server" CssClass="form-control required" ID="txtMail" />
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="ddlTipoPlaya" class="col-sm-2 col-md-2 col-lg-2 control-label">Tipo de Playa</label>
+                                    <div class="col-sm-10 col-md-10 col-lg-10">
+                                        <asp:DropDownList runat="server" ID="ddlTipoPlaya" CssClass="form-control required" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <domicilios:domicilios runat="server" ID="ucDomicilios"></domicilios:domicilios>
+                                </div>
+
                                 <asp:Button ID="btnPaso1" Text="Siguiente" runat="server" CssClass="btn btn-primary pull-right" data-toggle="tab" data-target="#horarios" OnClientClick="abrirTab()" />
                             </div>
 
@@ -75,7 +81,7 @@
                                 </div>
                             </div>
 
-                            <div class="tab-pane " id="precios">
+                            <div class="tab-pane" id="precios">
                                 <div class="control-group">
 
                                     <precios:precios runat="server" ID="ucPrecios"></precios:precios>

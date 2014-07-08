@@ -39,7 +39,7 @@
 			  <!-- Agrupar los enlaces de navegación, los formularios y cualquier
 			       otro elemento que se pueda ocultar al minimizar la barra -->
 			  <div class="collapse navbar-collapse navbar-ex1-collapse">
-				    <ul class="nav navbar-nav">
+				    <ul class="nav navbar-nav navbar-right">
 				      <li class="active"><a href="#">Administración de playas</a></li>
 				      <li class="disabled"><a href="#">Administración de usuarios</a></li>
 				      <li class="dropdown disabled">
