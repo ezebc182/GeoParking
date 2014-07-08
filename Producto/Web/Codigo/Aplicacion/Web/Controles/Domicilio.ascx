@@ -1,12 +1,9 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Domicilio.ascx.cs" Inherits="Web.Controles.Domicilio" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Domicilio.ascx.cs" Inherits="Web.Controles.DomicilioControl" %>
 
 
 <asp:UpdatePanel runat="server" ID="UpdatePanel1">
     <ContentTemplate>
-
         <asp:LinkButton ID="btnAgregarDomicilio" runat="server" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClick="btnAgregarDomicilio_Click" OnClientClick="mostrarFormularioDomicilio()" />
-
-        <%--<asp:Label ID="lblDomicilios" runat="server" Text="Agregar"></asp:Label>--%>
     </ContentTemplate>
 </asp:UpdatePanel>
 <div class="panel panel-default">
@@ -36,7 +33,6 @@
                                 <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ID="ddlCiudad" />
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label for="txtCalle" class="col-sm-2 col-md-2 col-lg-2 control-label">Calle</label>
                             <div class="col-sm-10">
@@ -65,19 +61,21 @@
     <asp:UpdatePanel ID="upseccionDomicilios" runat="server">
         <ContentTemplate>
 
-            <asp:GridView runat="server" ID="gvDomicilios" AutoGenerateColumns="false" DataKeyNames="Id">
+            <asp:GridView runat="server" ID="gvDomicilios" AutoGenerateColumns="false"
+                DataKeyNames="Id, CiudadId" CssClass="table table-hover table-responsive"
+                OnRowCommand="OnRowCommandGvDomicilios">
                 <Columns>
                     <asp:BoundField HeaderText="Calle" DataField="Calle" />
                     <asp:BoundField HeaderText="Numero" DataField="Numero" />
-                    <asp:BoundField HeaderText="CiudadId" DataField="CiudadId" Visible="false" />
                     <asp:BoundField HeaderText="Ciudad" DataField="CiudadStr" />
                     <asp:BoundField HeaderText="Departamento" DataField="DepartamentoStr" />
                     <asp:BoundField HeaderText="Provincia" DataField="ProvinciaStr" />
-                    <asp:BoundField HeaderText="Latitud" DataField="Latitud" Visible="false" />
-                    <asp:BoundField HeaderText="Longitud" DataField="Longitud" Visible="false" />
+                    <asp:BoundField HeaderText="Latitud" DataField="Latitud" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden" />
+                    <asp:BoundField HeaderText="Longitud" DataField="Longitud" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden" />
                     <asp:TemplateField HeaderText="Quitar">
                         <ItemTemplate>
-                            <asp:LinkButton runat="server" ID="btnQuitar" CssClass="btn btn-danger btn-xs" Text="<span class='glyphicon glyphicon-remove'></span>" />
+                            <asp:LinkButton runat="server" ID="btnQuitar" CssClass="btn btn-danger btn-xs" Text="<span class='glyphicon glyphicon-remove'></span>"
+                                CommandArgument="<%# Container.DataItemIndex %>" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>

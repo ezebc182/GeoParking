@@ -1,14 +1,12 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Horarios.ascx.cs" Inherits="Web.Controles.Horario" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Horarios.ascx.cs" Inherits="Web.Controles.HorarioControl" %>
 
 <div>
-
-
     <asp:UpdatePanel runat="server" ID="UpdatePanel1">
         <ContentTemplate>
-            <%--<asp:Label ID="lblHorarios" runat="server" Text="Horarios"></asp:Label>--%>
             <asp:LinkButton ID="btnAgregarHorario" runat="server" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClientClick="mostrarFormularioHorario()" />
         </ContentTemplate>
     </asp:UpdatePanel>
+
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Horarios</h3>
@@ -46,45 +44,44 @@
                                 <asp:LinkButton runat="server" ID="btnCancelar" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClientClick="mostrarFormularioHorario()" />
                             </div>
                         </div>
-                        </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
-                <div id="divSeccionHorarios" runat="server">
-                    <asp:UpdatePanel runat="server" ID="upGVResultados">
-                        <ContentTemplate>
-                            <asp:GridView runat="server" ID="gvHorarios" AutoGenerateColumns="false">
-                                <Columns>
-                                    <asp:BoundField HeaderText="DiaAtencionId" DataField="DiaAtencionId" Visible="false" />
-                                    <asp:BoundField HeaderText="Dias" DataField="DiaAtencionStr" />
-                                    <asp:BoundField HeaderText="Desde" DataField="HoraDesde" />
-                                    <asp:BoundField HeaderText="Hasta" DataField="HoraHasta" />
-                                    <asp:TemplateField HeaderText="Quitar">
-                                        <ItemTemplate>
-                                            <asp:Button runat="server" ID="btnQuitar" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                </Columns>
-                            </asp:GridView>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                </div>
             </div>
         </div>
     </div>
+    <div id="divSeccionHorarios" runat="server">
+        <asp:UpdatePanel runat="server" ID="upGVResultados">
+            <ContentTemplate>
+                <asp:GridView runat="server" ID="gvHorarios" AutoGenerateColumns="false">
+                    <Columns>
+                        <asp:BoundField HeaderText="DiaAtencionId" DataField="DiaAtencionId" Visible="false" />
+                        <asp:BoundField HeaderText="Dias" DataField="DiaAtencionStr" />
+                        <asp:BoundField HeaderText="Desde" DataField="HoraDesde" />
+                        <asp:BoundField HeaderText="Hasta" DataField="HoraHasta" />
+                        <asp:TemplateField HeaderText="Quitar">
+                            <ItemTemplate>
+                                <asp:Button runat="server" ID="btnQuitar" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
+</div>
+<script type="text/javascript">
 
-    <script type="text/javascript">
-
-        function mostrarFormularioHorario() {
-            var mostrar = $('#TopContent_ucHorarios_divSeccionFormulario').hasClass("hidden");
-            if (mostrar) {
-                $('#TopContent_ucHorarios_divSeccionFormulario').removeClass("hidden");
-                $('#TopContent_ucHorarios_btnAgregarHorario').addClass("hidden");
-            }
-            else {
-                $('#TopContent_ucHorarios_divSeccionFormulario').addClass("hidden");
-                $('#TopContent_ucHorarios_btnAgregarHorario').removeClass("hidden");
-            }
-
+    function mostrarFormularioHorario() {
+        var mostrar = $('#TopContent_ucHorarios_divSeccionFormulario').hasClass("hidden");
+        if (mostrar) {
+            $('#TopContent_ucHorarios_divSeccionFormulario').removeClass("hidden");
+            $('#TopContent_ucHorarios_btnAgregarHorario').addClass("hidden");
+        }
+        else {
+            $('#TopContent_ucHorarios_divSeccionFormulario').addClass("hidden");
+            $('#TopContent_ucHorarios_btnAgregarHorario').removeClass("hidden");
         }
 
-    </script>
+    }
+
+</script>

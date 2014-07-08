@@ -10,7 +10,7 @@
 namespace Web.Controles {
     
     
-    public partial class Horario {
+    public partial class HorarioControl {
         
         /// <summary>
         /// Control UpdatePanel1.

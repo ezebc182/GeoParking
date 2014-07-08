@@ -1,9 +1,8 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Precios.ascx.cs" Inherits="Web.Controles.Precio" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Precios.ascx.cs" Inherits="Web.Controles.PrecioControl" %>
 
 <div>
     <asp:UpdatePanel runat="server" ID="UpdatePanel1">
-        <ContentTemplate>
-            <%--<asp:Label ID="lblPrecios" runat="server" Text="Precios"></asp:Label>--%>
+        <ContentTemplate>            
             <asp:LinkButton ID="btnAgregarPrecio" runat="server" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClientClick="mostrarFormularioPrecio()" />
         </ContentTemplate>
     </asp:UpdatePanel>

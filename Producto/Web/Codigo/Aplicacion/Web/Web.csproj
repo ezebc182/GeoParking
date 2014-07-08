@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Controles\Servicio.ascx" />
     <Content Include="Controles\Horarios.ascx" />
     <Content Include="Controles\Precios.ascx" />
     <Content Include="Controles\Domicilio.ascx" />
@@ -78,6 +79,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controles\Servicio.ascx.cs">
+      <DependentUpon>Servicio.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Servicio.ascx.designer.cs">
+      <DependentUpon>Servicio.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controles\Horarios.ascx.cs">
       <DependentUpon>Horarios.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

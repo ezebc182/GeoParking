@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Entidades;
 using ReglasDeNegocio;
+using Web.Controles;
 
 namespace Web
 {
@@ -42,8 +43,8 @@ namespace Web
 
         public void HabilitarCamposFormlario(bool habilitar)
         {
-            txtNombre.Enabled = habilitar;            
-            ddlTipoPlaya.Enabled = habilitar;            
+            txtNombre.Enabled = habilitar;
+            ddlTipoPlaya.Enabled = habilitar;
             btnGuardar.Visible = habilitar;
             btnCancelar.Text = habilitar ? "Cancelar" : "Cerrar";
         }
@@ -54,7 +55,7 @@ namespace Web
             IdPlaya = playaEditar.Id;
             Nombre = playaEditar.Nombre;
             TipoPlayaSeleccionada = playaEditar.TipoPlayaId;
-           
+
 
         }
 
@@ -78,7 +79,7 @@ namespace Web
             divAlertError.Visible = false;
 
             Nombre = "";
-            TipoPlayaSeleccionada = 0;           
+            TipoPlayaSeleccionada = 0;
         }
 
         private void EliminarPlaya()
@@ -102,8 +103,8 @@ namespace Web
 
             //la hago visible (no se como lo vas a hacer yo lo hice asi porque necesitaba verla)
             gvResultados.Visible = true;
-            
-            hfFilasGrilla.Value =  gvResultados.Rows.Count.ToString();
+
+            hfFilasGrilla.Value = gvResultados.Rows.Count.ToString();
         }
 
         #region properties
@@ -131,7 +132,7 @@ namespace Web
         public IList<Direccion> Direcciones
         {
             get { return ucDomicilios.Domicilios; }
-            set { ucDomicilios.Domicilios = value;}
+            set { ucDomicilios.Domicilios = value; }
         }
         //Tipo de la playa que se esta registrando/editando
         public int TipoPlayaSeleccionada
@@ -139,7 +140,7 @@ namespace Web
             get { return ddlTipoPlaya.SelectedIndex; }
             set { ddlTipoPlaya.SelectedIndex = value; }
         }
-        
+
         public string Error
         {
             get { return lblMensajeError.Text; }
@@ -161,7 +162,7 @@ namespace Web
             get { return ucPrecios.Precios; }
             set { ucPrecios.Precios = value; }
         }
-       
+
         #endregion
         #region eventos
         #region eventos grilla
@@ -183,7 +184,6 @@ namespace Web
             switch (e.CommandName)
             {
                 case "Eliminar":
-
                     //elimina la playa y muestra el resultado.
                     EliminarPlaya();
                     ActualizarGrilla();
@@ -221,16 +221,28 @@ namespace Web
             }
         }
 
-        
+
         #endregion
-        #region eventos botones
+        #region eventos controles
+        /// <summary>
+        /// Se lanza cuando se produce un error en el control de domicilios,
+        /// muestra el mensaje de error.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void MostrarErrorDomicilio(object sender, EventArgs e)
+        {
+            var error = (DomicilioControl.DomicilioArgs)e;
+            Error = error.Mensaje;
+        }
+
         /// <summary>
         /// Guarda o Actualiza un Playa de Estacionemiento
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btnGuardar_Click(object sender, EventArgs e)
-        {            
+        {
             if (IdPlaya == 0)//creo una nueva playa
             {
                 //Creo el objeto de la nueva PlayaDeEstacionamiento
@@ -286,7 +298,7 @@ namespace Web
         }
 
         /// <summary>
-        /// Consulta playa de estacionamiento por filtro de nombre (por ahora exacto, hay que modificarlo)
+        /// Consulta playa de estacionamiento por filtro de nombre 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -307,5 +319,5 @@ namespace Web
         #endregion
     }
 
-   
+
 }

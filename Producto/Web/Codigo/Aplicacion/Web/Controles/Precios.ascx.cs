@@ -9,7 +9,7 @@ using Entidades;
 
 namespace Web.Controles
 {
-    public partial class Precio : System.Web.UI.UserControl
+    public partial class PrecioControl : System.Web.UI.UserControl
     {
         GestorPrecio gestor;
         protected void Page_Load(object sender, EventArgs e)

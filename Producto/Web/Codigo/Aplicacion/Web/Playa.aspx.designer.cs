@@ -31,6 +31,15 @@ namespace Web {
         protected global::System.Web.UI.WebControls.Label Titulo;
         
         /// <summary>
+        /// Control upModalBody.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upModalBody;
+        
+        /// <summary>
         /// Control divAlertError.
         /// </summary>
         /// <remarks>
@@ -49,31 +58,31 @@ namespace Web {
         protected global::System.Web.UI.WebControls.Label lblMensajeError;
         
         /// <summary>
-        /// Control tabDestino.
+        /// Control tabDatosGrales.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tabDestino;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tabDatosGrales;
         
         /// <summary>
-        /// Control tabBuscarDestino.
+        /// Control tabHorarios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tabBuscarDestino;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tabHorarios;
         
         /// <summary>
-        /// Control Li1.
+        /// Control tabPrecios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tabPrecios;
         
         /// <summary>
         /// Control hfIdPlaya.
@@ -121,13 +130,22 @@ namespace Web {
         protected global::System.Web.UI.WebControls.DropDownList ddlTipoPlaya;
         
         /// <summary>
+        /// Control ucServicios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::Web.Controles.ServicioControl ucServicios;
+        
+        /// <summary>
         /// Control ucDomicilios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::Web.Controles.Domicilio ucDomicilios;
+        protected global::Web.Controles.DomicilioControl ucDomicilios;
         
         /// <summary>
         /// Control btnPaso1.
@@ -145,7 +163,7 @@ namespace Web {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::Web.Controles.Horario ucHorarios;
+        protected global::Web.Controles.HorarioControl ucHorarios;
         
         /// <summary>
         /// Control btnPaso2.
@@ -163,7 +181,7 @@ namespace Web {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::Web.Controles.Precio ucPrecios;
+        protected global::Web.Controles.PrecioControl ucPrecios;
         
         /// <summary>
         /// Control btnCancelar.
@@ -184,13 +202,13 @@ namespace Web {
         protected global::System.Web.UI.WebControls.Button btnGuardar;
         
         /// <summary>
-        /// Control upResultados.
+        /// Control upBusqueda.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upResultados;
+        protected global::System.Web.UI.UpdatePanel upBusqueda;
         
         /// <summary>
         /// Control txtFiltroNombre.
@@ -227,15 +245,6 @@ namespace Web {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfFilasGrilla;
-        
-        /// <summary>
-        /// Control UpdatePanel1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
         /// Control gvResultados.

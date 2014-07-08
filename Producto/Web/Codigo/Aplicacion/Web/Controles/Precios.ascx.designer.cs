@@ -10,7 +10,7 @@
 namespace Web.Controles {
     
     
-    public partial class Precio {
+    public partial class PrecioControl {
         
         /// <summary>
         /// Control UpdatePanel1.

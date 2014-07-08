@@ -9,7 +9,7 @@ using Entidades;
 
 namespace Web.Controles
 {
-    public partial class Horario : System.Web.UI.UserControl
+    public partial class HorarioControl : System.Web.UI.UserControl
     {
         GestorPlaya gestor;
         protected void Page_Load(object sender, EventArgs e)

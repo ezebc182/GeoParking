@@ -10,7 +10,7 @@
 namespace Web.Controles {
     
     
-    public partial class DomicilioControl {
+    public partial class ServicioControl {
         
         /// <summary>
         /// Control UpdatePanel1.
@@ -22,13 +22,22 @@ namespace Web.Controles {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// Control btnAgregarDomicilio.
+        /// Control lblServicios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnAgregarDomicilio;
+        protected global::System.Web.UI.WebControls.Label lblServicios;
+        
+        /// <summary>
+        /// Control btnAgregarServicio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAgregarServicio;
         
         /// <summary>
         /// Control divSeccionFormulario.
@@ -49,49 +58,22 @@ namespace Web.Controles {
         protected global::System.Web.UI.UpdatePanel upFormulario;
         
         /// <summary>
-        /// Control ddlProvincia.
+        /// Control ddlTipoVehiculo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlProvincia;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTipoVehiculo;
         
         /// <summary>
-        /// Control ddlDepartamento.
+        /// Control txtCapacidad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDepartamento;
-        
-        /// <summary>
-        /// Control ddlCiudad.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCiudad;
-        
-        /// <summary>
-        /// Control txtCalle.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCalle;
-        
-        /// <summary>
-        /// Control txtNumero.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNumero;
+        protected global::System.Web.UI.WebControls.TextBox txtCapacidad;
         
         /// <summary>
         /// Control btnGuardar.
@@ -100,7 +82,7 @@ namespace Web.Controles {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnGuardar;
+        protected global::System.Web.UI.WebControls.Button btnGuardar;
         
         /// <summary>
         /// Control btnCancelar.
@@ -109,33 +91,33 @@ namespace Web.Controles {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnCancelar;
+        protected global::System.Web.UI.WebControls.Button btnCancelar;
         
         /// <summary>
-        /// Control divSeccionDomicilios.
+        /// Control divSeccionServicios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSeccionDomicilios;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSeccionServicios;
         
         /// <summary>
-        /// Control upseccionDomicilios.
+        /// Control upGVResultados.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upseccionDomicilios;
+        protected global::System.Web.UI.UpdatePanel upGVResultados;
         
         /// <summary>
-        /// Control gvDomicilios.
+        /// Control gvServicios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvDomicilios;
+        protected global::System.Web.UI.WebControls.GridView gvServicios;
     }
 }

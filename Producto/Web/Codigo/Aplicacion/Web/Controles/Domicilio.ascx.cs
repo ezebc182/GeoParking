@@ -10,9 +10,11 @@ using ReglasDeNegocio;
 
 namespace Web.Controles
 {
-    public partial class Domicilio : System.Web.UI.UserControl
+    public partial class DomicilioControl : System.Web.UI.UserControl
     {
         GestorDireccion gestor;
+        public event EventHandler ErrorHandler;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             gestor = new GestorDireccion();
@@ -72,15 +74,15 @@ namespace Web.Controles
             {
                 var direccion = new Direccion();
 
-                direccion.Id = int.Parse(gvDomicilios.DataKeys[row.RowIndex].Value.ToString());
+                direccion.Id = int.Parse(gvDomicilios.DataKeys[row.RowIndex].Values[0].ToString());
                 direccion.Calle = row.Cells[0].Text;
                 direccion.Numero = int.Parse(row.Cells[1].Text);
-                direccion.CiudadId = int.Parse(row.Cells[2].Text);
-                direccion.CiudadStr = row.Cells[3].Text;
+                direccion.CiudadId = int.Parse(gvDomicilios.DataKeys[row.RowIndex].Values[1].ToString());
+                direccion.CiudadStr = row.Cells[2].Text;
+                direccion.DepartamentoStr = row.Cells[3].Text;
                 direccion.ProvinciaStr = row.Cells[4].Text;
-                direccion.DepartamentoStr = row.Cells[5].Text;
-                direccion.Latitud = row.Cells[6].Text;
-                direccion.Longitud = row.Cells[7].Text;
+                direccion.Latitud = row.Cells[5].Text;
+                direccion.Longitud = row.Cells[6].Text;
 
                 domicilios.Add(direccion);
             }
@@ -103,6 +105,14 @@ namespace Web.Controles
         private void AgregarDomicilio(Direccion direccion)
         {
             var domicilios = Domicilios;
+            foreach (var domicilio in domicilios)
+            {
+                if (domicilio.Calle.Equals(direccion.Calle) && domicilio.Numero == direccion.Numero)
+                {
+                    OnError("El domicilio ingresado ya se encuentra en la lista de domicilios");
+                    return;
+                }
+            }
             domicilios.Add(direccion);
             Domicilios = domicilios;
         }
@@ -113,6 +123,8 @@ namespace Web.Controles
             direccion.Ciudad = gestor.GetCiudadById(IdCiudadSeleccionada);
             direccion.Departamento = gestor.BuscarDepartamentoPorCiudadId(direccion.Ciudad.Id);
             direccion.Provincia = gestor.BuscarProvinciaPorDepartamentoId(direccion.Departamento.Id);
+            direccion.Calle = Calle;
+            direccion.Numero = Numero;
             return direccion;
         }
 
@@ -161,13 +173,13 @@ namespace Web.Controles
 
         public string Calle
         {
-            get { return txtCalle.Text; }
-            set { txtCalle.Text = value; }
+            get { return txtCalle.Text.Trim(); }
+            set { txtCalle.Text = value.Trim(); }
         }
 
         public int Numero
         {
-            get { return Convert.ToInt32(txtNumero.Text); }
+            get { return Convert.ToInt32(txtNumero.Text.Trim()); }
             set { txtNumero.Text = value.ToString(); }
         }
 
@@ -191,6 +203,23 @@ namespace Web.Controles
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
             SetVisibleFormulario(false);
+        }
+
+        public void OnError(String mensaje)
+        {
+            if (ErrorHandler != null)
+                ErrorHandler.Invoke(this, new DomicilioArgs(mensaje));
+        }
+
+
+        public class DomicilioArgs : EventArgs
+        {
+            public DomicilioArgs(String error)
+            {
+                this.Mensaje = error;
+            }
+
+            public String Mensaje { get; set; }
         }
 
     }
