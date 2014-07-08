@@ -47,26 +47,27 @@
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
+            <div id="divSeccionHorarios" runat="server">
+                <asp:UpdatePanel runat="server" ID="upGVResultados">
+                    <ContentTemplate>
+                        <asp:GridView runat="server" ID="gvHorarios" AutoGenerateColumns="false" DataKeyNames="Id, DiaAtencionId"
+                            OnRowCommand="OnRowCommandGvHorarios">
+                            <Columns>
+                                <asp:BoundField HeaderText="Dias" DataField="DiaAtencionStr" />
+                                <asp:BoundField HeaderText="Desde" DataField="HoraDesde" />
+                                <asp:BoundField HeaderText="Hasta" DataField="HoraHasta" />
+                                <asp:TemplateField HeaderText="Quitar">
+                                    <ItemTemplate>
+                                        <asp:Button runat="server" ID="btnQuitar" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                        </asp:GridView>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
         </div>
-    </div>
-    <div id="divSeccionHorarios" runat="server">
-        <asp:UpdatePanel runat="server" ID="upGVResultados">
-            <ContentTemplate>
-                <asp:GridView runat="server" ID="gvHorarios" AutoGenerateColumns="false" DataKeyNames="Id, DiaAtencionId"
-                    OnRowCommand="OnRowCommandGvHorarios">
-                    <Columns>
-                        <asp:BoundField HeaderText="Dias" DataField="DiaAtencionStr" />
-                        <asp:BoundField HeaderText="Desde" DataField="HoraDesde" />
-                        <asp:BoundField HeaderText="Hasta" DataField="HoraHasta" />
-                        <asp:TemplateField HeaderText="Quitar">
-                            <ItemTemplate>
-                                <asp:Button runat="server" ID="btnQuitar" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                </asp:GridView>
-            </ContentTemplate>
-        </asp:UpdatePanel>
+
     </div>
 </div>
 <script type="text/javascript">
