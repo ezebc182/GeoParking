@@ -18,7 +18,7 @@ namespace Entidades
         //Coordenadas Geograficas
         public string Latitud { get; set; }
         public string Longitud { get; set; }
-        
+
         //referencia a ciudad
         public virtual Ciudad Ciudad
         {
@@ -27,9 +27,10 @@ namespace Entidades
             {
                 ciudad = value;
                 CiudadStr = value.Nombre;
+                CiudadId = value.Id;
             }
         }
-        
+
         [NotMapped]
         private Ciudad ciudad;
         [NotMapped]

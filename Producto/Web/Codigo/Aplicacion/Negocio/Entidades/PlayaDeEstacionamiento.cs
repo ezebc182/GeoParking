@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.ComponentModel.DataAnnotations.Schema;
 namespace Entidades
 {
     public class PlayaDeEstacionamiento : EntidadBase   
@@ -28,9 +28,9 @@ namespace Entidades
         public virtual IList<Precio> Precios { get; set; }       
        
         //datos extras
-        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        [NotMapped]
         public virtual string TipoPlayaNombre { get; set; }
-        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        [NotMapped]
         public virtual string Extras { get; set; }
         
     }
