@@ -68,6 +68,7 @@ namespace Web
                 Id = IdPlaya,
                 Nombre = Nombre,
                 TipoPlayaId = TipoPlayaSeleccionada,
+                Servicios = Servicios,
                 Direcciones = Direcciones,
                 Precios = Precios,
                 Horarios = Horarios
@@ -128,7 +129,13 @@ namespace Web
             get { return txtNombre.Text; }
             set { txtNombre.Text = value; }
         }
-        //Direccion de la playa que se esta registrando/editando
+        //Servicios de la playa que se esta registrando/editando
+        public IList<Servicio> Servicios
+        {
+            get { return ucServicios.Servicios; }
+            set { ucServicios.Servicios = value; }
+        }
+        //Direcciones de la playa que se esta registrando/editando
         public IList<Direccion> Direcciones
         {
             get { return ucDomicilios.Domicilios; }
@@ -304,9 +311,8 @@ namespace Web
         /// <param name="e"></param>
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-
+            pnlResultados.Visible = true;
             ActualizarGrilla();
-
         }
         protected void btnNuevo_Click(object sender, EventArgs e)
         {

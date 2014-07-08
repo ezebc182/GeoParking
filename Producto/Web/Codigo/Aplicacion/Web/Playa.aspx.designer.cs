@@ -247,6 +247,15 @@ namespace Web {
         protected global::System.Web.UI.WebControls.HiddenField hfFilasGrilla;
         
         /// <summary>
+        /// Control pnlResultados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pnlResultados;
+        
+        /// <summary>
         /// Control gvResultados.
         /// </summary>
         /// <remarks>

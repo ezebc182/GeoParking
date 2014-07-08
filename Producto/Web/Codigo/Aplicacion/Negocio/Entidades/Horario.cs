@@ -17,19 +17,9 @@ namespace Entidades
 
         //Referencia a Dia de Atencion
         public int DiaAtencionId { get; set; }
-        public virtual DiaAtencion DiaAtencion 
-        {
-            get { return diaAtencion; }
-            set
-            {
-                diaAtencion = value;
-                DiaAtencionStr = value.Nombre;
-            }
-        }
-
+        public virtual DiaAtencion DiaAtencion { get; set; }
+        
         [NotMapped]
-        private DiaAtencion diaAtencion;
-        [NotMapped]
-        public String DiaAtencionStr{get;set;}
+        public String DiaAtencionStr { get { return DiaAtencion != null ? DiaAtencion.Nombre : ""; } }
     }
 }

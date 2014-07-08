@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using ReglasDeNegocio;
 using Entidades;
+using Web.Util;
 
 namespace Web.Controles
 {
@@ -17,10 +18,14 @@ namespace Web.Controles
             gestor = new GestorPlaya();
             if (!Page.IsPostBack)
             {
-
+                CargarCombos();
             }
         }
 
+        public void CargarCombos()
+        {
+            FormHelper.CargarCombo(ddlTipoVehiculo, gestor.BuscarTipoVehiculos(), "Nombre", "Id");
+        }
         public IList<Servicio> Servicios
         {
             get { return GetServiciosDesdeGrilla(); }
@@ -48,6 +53,7 @@ namespace Web.Controles
 
                 servicio.Id = int.Parse(gvServicios.DataKeys[row.RowIndex].Values[0].ToString());
                 servicio.TipoVehiculoId = int.Parse(gvServicios.DataKeys[row.RowIndex].Values[1].ToString());
+                servicio.TipoVehiculo = gestor.BuscarTipoVehiculo(servicio.TipoVehiculoId);
                 servicio.TipoVehiculoStr = row.Cells[0].Text;
                 servicio.Capacidad = int.Parse(row.Cells[1].Text);
 

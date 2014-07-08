@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using ReglasDeNegocio;
 using Entidades;
+using Web.Util;
 
 namespace Web.Controles
 {
@@ -17,9 +18,13 @@ namespace Web.Controles
             gestor = new GestorPlaya();
             if (!Page.IsPostBack)
             {
+                CargarCombos();
             }
         }
-
+        public void CargarCombos()
+        {
+            FormHelper.CargarCombo(ddlDias, gestor.BuscarDiasDeAtencion(), "Nombre", "Id");
+        }
         public IList<Entidades.Horario> Horarios
         {
             get { return GetHorariosDesdeGrilla(); }
@@ -45,10 +50,11 @@ namespace Web.Controles
             {
                 var horario = new Entidades.Horario();
                                
-                horario.Id = int.Parse(gvHorarios.DataKeys[row.RowIndex].Value.ToString());
-                horario.DiaAtencionId = Convert.ToInt32(row.Cells[0].Text);
-                horario.HoraDesde = row.Cells[2].Text;
-                horario.HoraHasta = row.Cells[3].Text;
+                horario.Id = int.Parse(gvHorarios.DataKeys[row.RowIndex].Values[0].ToString());
+                horario.DiaAtencionId = int.Parse(gvHorarios.DataKeys[row.RowIndex].Values[1].ToString());
+                horario.DiaAtencion = gestor.GetDiaAtencionById(horario.DiaAtencionId);
+                horario.HoraDesde = row.Cells[1].Text;
+                horario.HoraHasta = row.Cells[2].Text;
                 
                 horarios.Add(horario);
             }
@@ -77,6 +83,7 @@ namespace Web.Controles
         private Entidades.Horario CargarEntidad()
         {
             var horario = new Entidades.Horario();
+            horario.DiaAtencionId = IdDiaAtencionSeleccionado;
             horario.DiaAtencion = gestor.GetDiaAtencionById(IdDiaAtencionSeleccionado);
             horario.HoraDesde = HoraDesde;
             horario.HoraHasta = HoraHasta;

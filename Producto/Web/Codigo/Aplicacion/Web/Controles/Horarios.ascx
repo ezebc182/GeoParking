@@ -52,9 +52,9 @@
     <div id="divSeccionHorarios" runat="server">
         <asp:UpdatePanel runat="server" ID="upGVResultados">
             <ContentTemplate>
-                <asp:GridView runat="server" ID="gvHorarios" AutoGenerateColumns="false">
+                <asp:GridView runat="server" ID="gvHorarios" AutoGenerateColumns="false" DataKeyNames="Id, DiaAtencionId"
+                    OnRowCommand="OnRowCommandGvHorarios">
                     <Columns>
-                        <asp:BoundField HeaderText="DiaAtencionId" DataField="DiaAtencionId" Visible="false" />
                         <asp:BoundField HeaderText="Dias" DataField="DiaAtencionStr" />
                         <asp:BoundField HeaderText="Desde" DataField="HoraDesde" />
                         <asp:BoundField HeaderText="Hasta" DataField="HoraHasta" />

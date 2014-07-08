@@ -2,7 +2,7 @@
 
 <div>
     <asp:UpdatePanel runat="server" ID="UpdatePanel1">
-        <ContentTemplate>            
+        <ContentTemplate>
             <asp:LinkButton ID="btnAgregarPrecio" runat="server" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClientClick="mostrarFormularioPrecio()" />
         </ContentTemplate>
     </asp:UpdatePanel>
@@ -47,39 +47,37 @@
                             </div>
                         </div>
                         <div class="form-group pull-right">
-                            <asp:LinkButton runat="server" ID="btnGuardar" Text="<span class='glyphicon glyphicon-ok-circle'></span>" CssClass="btn btn-lg"  ForeColor="Green" BackColor="Transparent" OnClientClick="mostrarFormularioPrecio()" OnClick="btnGuardar_Click" />
+                            <asp:LinkButton runat="server" ID="btnGuardar" Text="<span class='glyphicon glyphicon-ok-circle'></span>" CssClass="btn btn-lg" ForeColor="Green" BackColor="Transparent" OnClientClick="mostrarFormularioPrecio()" OnClick="btnGuardar_Click" />
                             <asp:LinkButton runat="server" ID="btnCancelar" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClientClick="mostrarFormularioPrecio()" />
                         </div>
                     </ContentTemplate>
 
                 </asp:UpdatePanel>
             </div>
+
+            <div id="divSeccionPrecios" runat="server">
+                <asp:UpdatePanel runat="server" ID="upGVResultados">
+                    <ContentTemplate>
+                        <asp:GridView runat="server" ID="gvPrecios" AutoGenerateColumns="false" DataKeyNames="Id, TipoVehiculoId, TiempoId, DiaAtencionId"
+                            OnRowCommand="OnRowCommandGvPrecios">
+                            <Columns>
+                                <asp:BoundField HeaderText="Tipo de Vehiculo" DataField="TipoVehiculoStr" />
+                                <asp:BoundField HeaderText="Tiempo" DataField="TiempoStr" />
+                                <asp:BoundField HeaderText="Dias" DataField="DiaAtencionStr" />
+                                <asp:BoundField HeaderText="Precio" DataField="Monto" />
+                                <asp:TemplateField HeaderText="Quitar">
+                                    <ItemTemplate>
+                                        <asp:Button runat="server" ID="btnQuitar" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                        </asp:GridView>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
         </div>
     </div>
-    <div id="divSeccionPrecios" runat="server">
-        <asp:UpdatePanel runat="server" ID="upGVResultados">
-            <ContentTemplate>
-                <asp:GridView runat="server" ID="gvPrecios" AutoGenerateColumns="false">
-                    <Columns>
-                        <asp:BoundField DataField="TipoVehiculoId" Visible="false" />
-                        <asp:BoundField HeaderText="Tipo de Vehiculo" DataField="TipoVehiculoStr" />
-                        <asp:BoundField DataField="TiempoId" Visible="false" />
-                        <asp:BoundField HeaderText="Tiempo" DataField="TiempoStr" />
-                        <asp:BoundField DataField="DiaAtencionId" Visible="false" />
-                        <asp:BoundField HeaderText="Dias" DataField="DiaAtencionStr" />
-                        <asp:BoundField HeaderText="Precio" DataField="Precio" />
-                        <asp:TemplateField HeaderText="Quitar">
-                            <ItemTemplate>
-                                <asp:Button runat="server" ID="btnQuitar" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                </asp:GridView>
-            </ContentTemplate>
-        </asp:UpdatePanel>
-    </div>
 </div>
-
 <script type="text/javascript">
 
     function mostrarFormularioPrecio() {

@@ -27,17 +27,11 @@ namespace Entidades
         public decimal Monto { get; set; }
 
         [NotMapped]
-        private TipoVehiculo tipoVehiculo;
+        public string TipoVehiculoStr { get { return TipoVehiculo != null ? TipoVehiculo.Nombre : ""; } }
         [NotMapped]
-        private DiaAtencion diaAtencion;
+        public string DiaAtencionStr { get { return DiaAtencion != null ? DiaAtencion.Nombre : ""; } }
         [NotMapped]
-        private Tiempo tiempo;
-        [NotMapped]
-        private string TipoVehiculoStr { get; set; }
-        [NotMapped]
-        private string DiaAtencionStr { get; set; }
-        [NotMapped]
-        private string TiempoStr { get; set; }
+        public string TiempoStr { get { return Tiempo != null ? Tiempo.Nombre : ""; } }
 
     }
 }

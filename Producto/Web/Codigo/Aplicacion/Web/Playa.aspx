@@ -25,7 +25,7 @@
                             <div class="alert alert-danger" id="divAlertError" runat="server" visible="false">
                                 <asp:Label ID="lblMensajeError" runat="server"></asp:Label>
                             </div>
-                        </ContentTemplate>                        
+                        </ContentTemplate>
                     </asp:UpdatePanel>
 
                     <div class="form-horizontal" role="form">
@@ -33,7 +33,7 @@
                             <li runat="server" id="tabDatosGrales" class="active"><a href="#datosGrales" data-toggle="tab">Datos Generales</a></li>
                             <li runat="server" id="tabHorarios"><a href="#horarios" data-toggle="tab">Horarios</a></li>
                             <li runat="server" id="tabPrecios"><a href="#precios" data-toggle="tab">Precios</a></li>
-                           
+
                         </ul>
 
                         <div class="tab-content" style="margin: 20px;">
@@ -41,7 +41,6 @@
                             <div class="tab-pane fade active in" id="datosGrales">
                                 <div class="clearfix"></div>
 
-                                <%--<div class="control-group"></div>--%>
                                 <div class="form-group">
                                     <asp:HiddenField runat="server" ID="hfIdPlaya" />
                                     <label for="txtNombre" class="col-sm-2 col-md-2 col-lg-2 control-label">Nombre</label>
@@ -69,7 +68,7 @@
                                     </div>
                                 </div>
 
-                                 <div class="form-group">
+                                <div class="form-group">
                                     <servicios:servicios runat="server" ID="ucServicios"></servicios:servicios>
                                 </div>
 
@@ -109,8 +108,8 @@
             </div>
         </div>
     </div>
-      
-   
+
+
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div>
@@ -141,7 +140,7 @@
 
 
                     <asp:HiddenField ID="hfFilasGrilla" runat="server" />
-                    <div id="pnlResultados" class="container-fluid">
+                    <div id="pnlResultados" runat="server" class="container-fluid" visible="false">
 
                         <div class="panel panel-primary">
                             <div class="panel-heading">
@@ -154,11 +153,11 @@
                                         AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron Playas para los filtros utilizados"
                                         OnRowCommand="gvResultados_RowCommand" OnRowDataBound="gvResultados_RowDataBound">
                                         <Columns>
-                                            <asp:BoundField DataField="Id" HeaderText="Id" Visible="false" />
+                                            <%--<asp:BoundField DataField="Id" HeaderText="Id" Visible="false" />
                                             <asp:BoundField DataField="Nombre" HeaderText="Nombre" Visible="true" />
                                             <asp:BoundField DataField="Direccion" HeaderText="Direccion" Visible="true" />
                                             <asp:BoundField DataField="TipoPlayaNombre" HeaderText="Tipo" Visible="true" />
-                                            <asp:BoundField DataField="Extras" HeaderText="Extras" Visible="true" />
+                                            <asp:BoundField DataField="Extras" HeaderText="Extras" Visible="true" />--%>
                                             <asp:TemplateField HeaderText="Acciones">
                                                 <ItemStyle CssClass="grilla-columna-accion" />
                                                 <ItemTemplate>
@@ -196,29 +195,29 @@
 
         }
 
-        //$(document).ready(function () {
+        $(document).ready(function () {
 
-        //    $('#eliminar').tooltip();
-        //    $('#editar').tooltip();
-        //    $('#buscar').tooltip();
+            $('#eliminar').tooltip();
+            $('#editar').tooltip();
+            $('#buscar').tooltip();
 
-        //    /*Al iniciar cuenta las filas que tiene cargada la tabla. Client-side */
-        //    contarFilas();
+            /*Al iniciar cuenta las filas que tiene cargada la tabla. Client-side */
+            contarFilas();
 
-        //    /*Muestra los resultados de la búsqueda*/
-        //    //$("#MainContent_btnBuscar").click(function () {
-        //    //    customSlideToggle($("#pnlResultados"));
-        //    //});
+            /*Muestra los resultados de la búsqueda*/
+            $("#MainContent_btnBuscar").click(function () {
+                customSlideToggle($("#pnlResultados"));
+            });
 
-        //    contarFilas();
+            contarFilas();
 
-        //});
+        });
 
 
-        ///*Cuenta la cantidad de filas de la tabla*/
-        //function contarFilas() {
-        //    $("#cantidadPlayas").text($("#MainContent_hfFilasGrilla").val());
-        //}
+        /*Cuenta la cantidad de filas de la tabla*/
+        function contarFilas() {
+            $("#cantidadPlayas").text($("#MainContent_hfFilasGrilla").val());
+        }
 
         ////function customSlideToggle(e) {
         ////    if (e.hasClass('hidden')) {
@@ -235,16 +234,16 @@
         ////    }
         ////}
 
-        //pageManager = Sys.WebForms.PageRequestManager.getInstance();
+        pageManager = Sys.WebForms.PageRequestManager.getInstance();
 
-        //pageManager.add_endRequest(function () {
-        //    // GoogleMaps.initialize();
-        //    contarFilas();
-        //    //$("#MainContent_btnBuscar").click(function () {
-        //    //    customSlideToggle($("#pnlResultados"));
+        pageManager.add_endRequest(function () {
+            GoogleMaps.initialize();
+            contarFilas();
+            $("#MainContent_btnBuscar").click(function () {
+                customSlideToggle($("#pnlResultados"));
 
-        //    //});
-        //});
+            });
+        });
 
     </script>
     <script src="./Scripts/tabs.js" type="text/javascript"></script>

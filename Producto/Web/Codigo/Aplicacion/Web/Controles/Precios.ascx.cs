@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using ReglasDeNegocio;
 using Entidades;
+using Web.Util;
 
 namespace Web.Controles
 {
@@ -17,9 +18,16 @@ namespace Web.Controles
             gestor = new GestorPrecio();
             if (!Page.IsPostBack)
             {
+                CargarCombos();
             }
         }
-
+        public void CargarCombos()
+        {
+            FormHelper.CargarCombo(ddlDias, gestor.BuscarDiasDeAtencion(), "Nombre", "Id");
+            FormHelper.CargarCombo(ddlTipoHorario, gestor.BuscarTiempos(), "Nombre", "Id"); 
+            FormHelper.CargarCombo(ddlTipoVehiculo, gestor.BuscarTipoVehiculos(), "Nombre", "Id");
+            
+        }
         public IList<Entidades.Precio> Precios
         {
             get { return GetPreciosDesdeGrilla(); }
@@ -45,11 +53,14 @@ namespace Web.Controles
             {
                 var precio = new Entidades.Precio();
 
-                precio.Id = int.Parse(gvPrecios.DataKeys[row.RowIndex].Value.ToString());
-                precio.TipoVehiculoId = Convert.ToInt32(row.Cells[0].Text);
-                precio.TiempoId = Convert.ToInt32(row.Cells[2].Text);
-                precio.DiaAtencionId = Convert.ToInt32(row.Cells[4].Text);
-                precio.Monto = Convert.ToDecimal(row.Cells[6]);
+                precio.Id = int.Parse(gvPrecios.DataKeys[row.RowIndex].Values[0].ToString());
+                precio.TipoVehiculoId = int.Parse(gvPrecios.DataKeys[row.RowIndex].Values[1].ToString());
+                precio.TipoVehiculo = gestor.BuscarTipoVehiculoPorId(precio.TipoVehiculoId);
+                precio.TiempoId = int.Parse(gvPrecios.DataKeys[row.RowIndex].Values[2].ToString());
+                precio.Tiempo = gestor.BuscarTiempoPorId(precio.TiempoId);
+                precio.DiaAtencionId = int.Parse(gvPrecios.DataKeys[row.RowIndex].Values[3].ToString());
+                precio.DiaAtencion = gestor.GetDiaAtencionById(precio.DiaAtencionId);
+                precio.Monto = Convert.ToDecimal(row.Cells[3].Text);
                 
                 precios.Add(precio);
             }
@@ -79,8 +90,11 @@ namespace Web.Controles
         {
             var precio = new Entidades.Precio();
             precio.TipoVehiculoId = IdTipoVehiculoSeleccionado;
+            precio.TipoVehiculo = gestor.BuscarTipoVehiculoPorId(IdTipoVehiculoSeleccionado);
             precio.TiempoId = IdTiempoSeleccionado;
+            precio.Tiempo = gestor.BuscarTiempoPorId(IdTiempoSeleccionado);
             precio.DiaAtencionId = IdDiaAtencionSeleccionado;
+            precio.DiaAtencion = gestor.GetDiaAtencionById(IdDiaAtencionSeleccionado);
             precio.Monto = Monto;
             return precio;
         }

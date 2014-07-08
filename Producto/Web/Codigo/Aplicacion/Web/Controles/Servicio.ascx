@@ -37,7 +37,7 @@
         <asp:UpdatePanel runat="server" ID="upGVResultados">
             <ContentTemplate>
                 <asp:GridView runat="server" ID="gvServicios" AutoGenerateColumns="false"
-                    DataKeyNames="Id,TipoVehiculoId">
+                    DataKeyNames="Id,TipoVehiculoId" OnRowCommand="OnRowCommandGvServicios">
                     <Columns>
                         <asp:BoundField HeaderText="Tipo de Vehiculo" DataField="TipoVehiculoStr" />
                         <asp:BoundField HeaderText="Capacidad" DataField="Capacidad" />

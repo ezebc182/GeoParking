@@ -20,49 +20,14 @@ namespace Entidades
         public string Longitud { get; set; }
 
         //referencia a ciudad
-        public virtual Ciudad Ciudad
-        {
-            get { return ciudad; }
-            set
-            {
-                ciudad = value;
-                CiudadStr = value.Nombre;
-                CiudadId = value.Id;
-            }
-        }
+        public virtual Ciudad Ciudad{get;set;}
 
         [NotMapped]
-        private Ciudad ciudad;
+        public string DepartamentoStr { get { return Ciudad != null ? Ciudad.Departamento.Nombre : ""; } }
         [NotMapped]
-        private Departamento departamento;
+        public string ProvinciaStr { get { return Ciudad != null ? Ciudad.Departamento.Provincia.Nombre : ""; } }
         [NotMapped]
-        public Departamento Departamento
-        {
-            get { return departamento; }
-            set
-            {
-                departamento = value;
-                DepartamentoStr = value.Nombre;
-            }
-        }
-        [NotMapped]
-        private Provincia provincia;
-        [NotMapped]
-        public Provincia Provincia
-        {
-            get { return provincia; }
-            set
-            {
-                provincia = value;
-                ProvinciaStr = value.Nombre;
-            }
-        }
-        [NotMapped]
-        public string DepartamentoStr { get; set; }
-        [NotMapped]
-        public string ProvinciaStr { get; set; }
-        [NotMapped]
-        public string CiudadStr { get; set; }
+        public string CiudadStr { get { return Ciudad != null ? Ciudad.Nombre : ""; } }
 
     }
 }

@@ -78,12 +78,10 @@ namespace Web.Controles
                 direccion.Calle = row.Cells[0].Text;
                 direccion.Numero = int.Parse(row.Cells[1].Text);
                 direccion.CiudadId = int.Parse(gvDomicilios.DataKeys[row.RowIndex].Values[1].ToString());
-                direccion.CiudadStr = row.Cells[2].Text;
-                direccion.DepartamentoStr = row.Cells[3].Text;
-                direccion.ProvinciaStr = row.Cells[4].Text;
                 direccion.Latitud = row.Cells[5].Text;
                 direccion.Longitud = row.Cells[6].Text;
-
+                direccion.Ciudad = gestor.GetCiudadById(direccion.CiudadId);
+                
                 domicilios.Add(direccion);
             }
             return domicilios;
@@ -121,8 +119,7 @@ namespace Web.Controles
         {
             var direccion = new Direccion();
             direccion.Ciudad = gestor.GetCiudadById(IdCiudadSeleccionada);
-            direccion.Departamento = gestor.BuscarDepartamentoPorCiudadId(direccion.Ciudad.Id);
-            direccion.Provincia = gestor.BuscarProvinciaPorDepartamentoId(direccion.Departamento.Id);
+            direccion.CiudadId = direccion.Ciudad.Id;
             direccion.Calle = Calle;
             direccion.Numero = Numero;
             return direccion;

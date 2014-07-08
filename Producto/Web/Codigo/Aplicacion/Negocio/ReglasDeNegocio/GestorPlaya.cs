@@ -14,9 +14,11 @@ namespace ReglasDeNegocio
         IRepositorioPlayaDeEstacionamiento playaDao;
         IRepositorioTipoDePlaya tipoDao;
         IRepositorioDiaAtencion diaAtencionDao;
+        IRepositorioTipoVehiculo tipoVehiculoDao;
 
         public GestorPlaya()
         {
+            tipoVehiculoDao = new RepositorioTipoVehiculo();
             playaDao = new RepositorioPlayaDeEstacionamiento();
             tipoDao = new RepositorioTipoDePlaya();
             diaAtencionDao = new RepositorioDiaAtencion();
@@ -109,7 +111,6 @@ namespace ReglasDeNegocio
                 //extras.Append(playa.Motos ? " Motos" : "");
                 //extras.Append(playa.Bicicletas ? " Bicicletas" : "");
                 //extras.Append(playa.Utilitarios ? " Utilitarios" : "");
-                playa.TipoPlayaNombre = tipoDao.FindById(playa.TipoPlayaId).Nombre;
                 //playa.Extras = extras.ToString();
             }
             return lista;
@@ -119,10 +120,21 @@ namespace ReglasDeNegocio
         {
             return tipoDao.FindAll();
         }
-
+        public IList<TipoVehiculo> BuscarTipoVehiculos()
+        {
+            return tipoVehiculoDao.FindAll();
+        }
+        public TipoVehiculo BuscarTipoVehiculo(int id)
+        {
+            return tipoVehiculoDao.FindById(id);
+        }
         public DiaAtencion GetDiaAtencionById(int IdDiaAtencionSeleccionado)
         {
            return diaAtencionDao.FindById(IdDiaAtencionSeleccionado);
+        }
+        public IList<DiaAtencion> BuscarDiasDeAtencion()
+        {
+            return diaAtencionDao.FindAll();
         }
     }
 }
