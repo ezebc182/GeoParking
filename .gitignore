@@ -213,3 +213,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+Producto/Web/Codigo/Aplicacion/Datos/App.config
+Producto/Web/Codigo/Aplicacion/Web/Controles/Servicio.ascx.cs
+Producto/Web/Codigo/Aplicacion/Web/Web.config
