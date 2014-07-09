@@ -13,6 +13,8 @@ namespace Web.Controles
     public partial class HorarioControl : System.Web.UI.UserControl
     {
         GestorPlaya gestor;
+        public event EventHandler ErrorHandler;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             gestor = new GestorPlaya();
@@ -23,7 +25,7 @@ namespace Web.Controles
         }
         public void CargarCombos()
         {
-            FormHelper.CargarCombo(ddlDias, gestor.BuscarDiasDeAtencion(), "Nombre", "Id");
+            FormHelper.CargarCombo(ddlDias, gestor.BuscarDiasDeAtencion(), "Nombre", "Id", "Seleccione");
         }
         public IList<Entidades.Horario> Horarios
         {
@@ -76,10 +78,37 @@ namespace Web.Controles
         private void AgregarHorario(Entidades.Horario horario)
         {
             var horarios = Horarios;
-            horarios.Add(horario);
-            Horarios = horarios;
+            if (!ValidarHorario(horario)) return;
+            
+                horarios.Add(horario);
+                Horarios = horarios;
+            
         }
 
+        private bool ValidarHorario(Entidades.Horario horario)
+        {
+            
+            foreach (var item in Horarios)
+            {
+                if (item.DiaAtencionId == horario.DiaAtencionId)
+                {
+                    OnError("Ya se ha cargado el horario de atencion para los dias seleccionados.");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool ValidarDatosIngresados()
+        {
+            if (IdDiaAtencionSeleccionado == 0 || string.IsNullOrEmpty(HoraDesde) || string.IsNullOrEmpty(HoraHasta))
+            {
+                OnError("Debe ingresar todos los datos requeridos.");
+                return false;
+            }
+            return true;
+        }
         private Entidades.Horario CargarEntidad()
         {
             var horario = new Entidades.Horario();
@@ -87,14 +116,54 @@ namespace Web.Controles
             horario.DiaAtencion = gestor.GetDiaAtencionById(IdDiaAtencionSeleccionado);
             horario.HoraDesde = HoraDesde;
             horario.HoraHasta = HoraHasta;
+
             return horario;
         }
-        
+
+        public void LimpiarCampos()
+        {
+            IdDiaAtencionSeleccionado = 0;
+            HoraDesde = "";
+            HoraHasta = "";
+        }
+
+        private void SetVisibleFormulario(bool habilitar)
+        {
+            divSeccionFormulario.Visible = habilitar;
+            divSeccionHorarios.Visible = !habilitar;
+            btnAgregarHorario.Visible = !habilitar;
+        }
+
+        public void ConfigurarVer()
+        {
+            divSeccionFormulario.Visible = false;
+            divSeccionHorarios.Visible = true;
+            gvHorarios.Columns[3].Visible = false;
+            btnAgregarHorario.Visible = false;
+        }
+
+        public void ConfigurarEditar()
+        {
+            divSeccionFormulario.Visible = false;
+            divSeccionHorarios.Visible = true;
+            gvHorarios.Columns[3].Visible = true;
+            btnAgregarHorario.Visible = true;
+        }
+
+        public void ConfigurarRegistrar()
+        {
+            divSeccionFormulario.Visible = false;
+            divSeccionHorarios.Visible = true;
+            gvHorarios.Columns[3].Visible = true;
+            btnAgregarHorario.Visible = true;
+        }
         #region eventos
         
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+            if (!ValidarDatosIngresados()) return;
             AgregarHorario(CargarEntidad());
+            SetVisibleFormulario(false);
         }
         #endregion
         #region properties
@@ -119,6 +188,34 @@ namespace Web.Controles
         }
 
         #endregion
+
+
+        public void OnError(String mensaje)
+        {
+            if (ErrorHandler != null)
+                ErrorHandler.Invoke(this, new HorarioArgs(mensaje));
+        }
+
+
+        public class HorarioArgs : EventArgs
+        {
+            public HorarioArgs(String error)
+            {
+                this.Mensaje = error;
+            }
+
+            public String Mensaje { get; set; }
+        }
+
+        protected void btnAgregarHorario_Click(object sender, EventArgs e)
+        {
+            SetVisibleFormulario(true);
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            SetVisibleFormulario(false);
+        }
 
     }
     

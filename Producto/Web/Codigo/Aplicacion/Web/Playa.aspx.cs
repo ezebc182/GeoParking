@@ -41,12 +41,43 @@ namespace Web
             ddlTipoPlaya.Items.Insert(0, new ListItem("Seleccione", "0"));
         }
 
-        public void HabilitarCamposFormlario(bool habilitar)
+        public void ConfigurarVer()
         {
-            txtNombre.Enabled = habilitar;
-            ddlTipoPlaya.Enabled = habilitar;
-            btnGuardar.Visible = habilitar;
-            btnCancelar.Text = habilitar ? "Cancelar" : "Cerrar";
+            txtNombre.Enabled = false;
+            ddlTipoPlaya.Enabled = false;
+            btnGuardar.Visible = false;
+            btnCancelar.Text = "Cerrar";
+            ucDomicilios.ConfigurarVer();
+            ucServicios.ConfigurarVer();
+            ucPrecios.ConfigurarVer();
+            ucHorarios.ConfigurarVer();
+
+        }
+
+        public void ConfigurarEditar()
+        {
+            txtNombre.Enabled = true;
+            ddlTipoPlaya.Enabled = true;
+            btnGuardar.Visible = true;
+            btnCancelar.Text = "Cancelar";
+            ucDomicilios.ConfigurarEditar();
+            ucServicios.ConfigurarEditar();
+            ucPrecios.ConfigurarEditar();
+            ucHorarios.ConfigurarEditar();
+
+        }
+
+        public void ConfigurarRegistrar()
+        {
+            txtNombre.Enabled = true;
+            ddlTipoPlaya.Enabled = true;
+            btnGuardar.Visible = true;
+            btnCancelar.Text = "Cancelar";
+            ucDomicilios.ConfigurarRegistrar();
+            ucServicios.ConfigurarRegistrar();
+            ucPrecios.ConfigurarRegistrar();
+            ucHorarios.ConfigurarRegistrar();
+
         }
 
         //Carga los campos del formulario con los datos enviados por parametro
@@ -54,8 +85,13 @@ namespace Web
         {
             IdPlaya = playaEditar.Id;
             Nombre = playaEditar.Nombre;
-            TipoPlayaSeleccionada = playaEditar.TipoPlayaId;
-
+            Telefono = playaEditar.Telefono;
+            Mail = playaEditar.Mail;
+            TipoPlayaSeleccionada = playaEditar.TipoPlayaId.Value;
+            Servicios = playaEditar.Servicios;
+            Horarios = playaEditar.Horarios;
+            Precios = playaEditar.Precios;
+            Direcciones = playaEditar.Direcciones;
 
         }
 
@@ -67,6 +103,8 @@ namespace Web
             {
                 Id = IdPlaya,
                 Nombre = Nombre,
+                Mail = Mail,
+                Telefono = Telefono,
                 TipoPlayaId = TipoPlayaSeleccionada,
                 Servicios = Servicios,
                 Direcciones = Direcciones,
@@ -78,9 +116,19 @@ namespace Web
         private void limpiarCampos()
         {
             divAlertError.Visible = false;
-
+            IdPlaya = 0;
             Nombre = "";
+            Mail = "";
+            Telefono = "";
             TipoPlayaSeleccionada = 0;
+            ucDomicilios.LimpiarCampos();
+            ucDomicilios.Domicilios = null;
+            ucPrecios.LimpiarCampos();
+            ucPrecios.Precios = null;
+            ucServicios.LimpiarCampos();
+            ucServicios.Servicios = null;
+            ucHorarios.LimpiarCampos();
+            ucHorarios.Horarios = null;
         }
 
         private void EliminarPlaya()
@@ -128,6 +176,19 @@ namespace Web
         {
             get { return txtNombre.Text; }
             set { txtNombre.Text = value; }
+        }
+
+        //Mail
+        public string Mail
+        {
+            get { return txtMail.Text; }
+            set { txtMail.Text = value; }
+        }
+        //Telefono
+        public string Telefono
+        {
+            get { return txtTelefono.Text; }
+            set { txtTelefono.Text = value; }
         }
         //Servicios de la playa que se esta registrando/editando
         public IList<Servicio> Servicios
@@ -199,13 +260,13 @@ namespace Web
                     Titulo.Text = "Editar";
                     //Carga los campos del formulario con la playa a editar
                     CargarCamposFormulario(playa);
-                    HabilitarCamposFormlario(true);
+                    ConfigurarEditar();
                     break;
                 case "Ver":
                     Titulo.Text = "Ver";
                     //Carga los campos del formulario con la playa a editar
                     CargarCamposFormulario(playa);
-                    HabilitarCamposFormlario(false);
+                    ConfigurarVer();
 
                     break;
                 default:
@@ -242,7 +303,39 @@ namespace Web
             var error = (DomicilioControl.DomicilioArgs)e;
             Error = error.Mensaje;
         }
-
+        /// <summary>
+        /// Se lanza cuando se produce un error en el control de precios,
+        /// muestra el mensaje de error.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void MostrarErrorPrecio(object sender, EventArgs e)
+        {
+            var error = (PrecioControl.PrecioArgs)e;
+            Error = error.Mensaje;
+        }
+        /// <summary>
+        /// Se lanza cuando se produce un error en el control de servicios,
+        /// muestra el mensaje de error.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void MostrarErrorServicio(object sender, EventArgs e)
+        {
+            var error = (ServicioControl.ServicioArgs)e;
+            Error = error.Mensaje;
+        }
+        /// <summary>
+        /// Se lanza cuando se produce un error en el control de horarios,
+        /// muestra el mensaje de error.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void MostrarErrorHorario(object sender, EventArgs e)
+        {
+            var error = (HorarioControl.HorarioArgs)e;
+            Error = error.Mensaje;
+        }
         /// <summary>
         /// Guarda o Actualiza un Playa de Estacionemiento
         /// </summary>
@@ -317,8 +410,8 @@ namespace Web
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
             Titulo.Text = "Registrar";
-            HabilitarCamposFormlario(true);
             limpiarCampos();
+            ConfigurarRegistrar();
         }
 
         #endregion

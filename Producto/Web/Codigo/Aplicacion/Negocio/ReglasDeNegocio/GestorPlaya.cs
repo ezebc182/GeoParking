@@ -12,22 +12,30 @@ namespace ReglasDeNegocio
     public class GestorPlaya
     {
         IRepositorioPlayaDeEstacionamiento playaDao;
-        IRepositorioTipoDePlaya tipoDao;
+        IRepositorioTipoDePlaya tipoPlayaDao;
         IRepositorioDiaAtencion diaAtencionDao;
         IRepositorioTipoVehiculo tipoVehiculoDao;
+        IRepositorioDireccion direccionDao;
+        IRepositorioHorario horarioDao;
+        IRepositorioServicio servicioDao;
+        IRepositorioPrecio precioDao;
 
         public GestorPlaya()
         {
             tipoVehiculoDao = new RepositorioTipoVehiculo();
             playaDao = new RepositorioPlayaDeEstacionamiento();
-            tipoDao = new RepositorioTipoDePlaya();
+            tipoPlayaDao = new RepositorioTipoDePlaya();
             diaAtencionDao = new RepositorioDiaAtencion();
+            direccionDao = new RepositorioDireccion();
+            horarioDao = new RepositorioHorario();
+            servicioDao = new RepositorioServicio();
+            precioDao = new RepositorioPrecio();
         }
 
         public GestorPlaya(IRepositorioPlayaDeEstacionamiento repositorioPlaya, IRepositorioTipoDePlaya repositorioTipoPlaya)
         {
             playaDao = repositorioPlaya;
-            tipoDao = repositorioTipoPlaya;
+            tipoPlayaDao = repositorioTipoPlaya;
         }
 
 
@@ -46,29 +54,116 @@ namespace ReglasDeNegocio
         private Resultado ValidarRegistracion(PlayaDeEstacionamiento playa)
         {
             var resultado = new Resultado();
-
-            
+            ValidarDatosGrales(playa, resultado);
+            ValidarDiasDeAtencion(playa, resultado);
+            ValidarTiposDeVehiculos(playa, resultado);
+            ValidarDirecciones(playa, resultado);
 
             return resultado;
         }
 
+
+        private void ValidarDatosGrales(PlayaDeEstacionamiento playa, Resultado resultado)
+        {
+            if (string.IsNullOrEmpty(playa.Nombre) || ((string.IsNullOrEmpty(playa.Mail) || string.IsNullOrEmpty(playa.Telefono)) || ((string.IsNullOrEmpty(playa.Mail) && string.IsNullOrEmpty(playa.Telefono)))) || playa.TipoPlayaId == 0)
+            {
+                resultado.AddErrorMessage("Debe ingresar todos los datos de la playa.");
+            }
+            
+        }
+
+        private void ValidarDiasDeAtencion(PlayaDeEstacionamiento playa, Resultado resultado)
+        {
+            var precios = playa.Precios.Select(p => p.DiaAtencionId).Distinct();
+            var horarios = playa.Horarios.Select(h => h.DiaAtencionId).Distinct();
+            var contador = 0;
+            if (precios.Count() != horarios.Count())
+            {
+                if (precios.Count() > horarios.Count()) { resultado.AddErrorMessage("No puede cargar precios para dias en los que no se atiende al publico."); }
+                else if (precios.Count() < horarios.Count()) { resultado.AddErrorMessage("Debe cargar precios para todos los dias de atencion."); }
+            }
+            else
+            {
+                foreach (var precio in precios)
+                {
+                    foreach (var horario in horarios)
+                    {
+                        if (precio == horario)
+                        {
+                            contador++;
+                            break;
+                        }
+                    }
+                }
+                if (contador != precios.Count())
+                {
+                    resultado.AddErrorMessage("Debe cargar precios para todos los horarios de atencion indicados.");
+                }
+            }
+        }
+        private void ValidarTiposDeVehiculos(PlayaDeEstacionamiento playa, Resultado resultado)
+        {
+            var servicios = playa.Servicios.Select(p => p.TipoVehiculoId).Distinct();
+            var precios = playa.Precios.Select(h => h.TipoVehiculoId).Distinct();
+            var contador = 0;
+
+            if (servicios.Count() != precios.Count())
+            {
+                if (servicios.Count() > precios.Count()) { resultado.AddErrorMessage("Debe cargar precios para todos los tipos de vehiculos aceptados."); }
+                else if (servicios.Count() < precios.Count()) { resultado.AddErrorMessage("Se cargaron precios para vehiculos no aceptados en la playa."); }
+            }
+            else
+            {
+                foreach (var servicio in servicios)
+                {
+                    foreach (var precio in precios)
+                    {
+                        if (precio == servicio)
+                        {
+                            contador++;
+                            break;
+                        }
+                    }
+                }
+                if (contador != precios.Count())
+                {
+                    resultado.AddErrorMessage("Debe cargar precios para todos los Tipos de vehiculos aceptados por la playa.");
+                }
+            }
+        }
+        private void ValidarDirecciones(PlayaDeEstacionamiento playa, Resultado resultado)
+        {
+            foreach (var direccion in playa.Direcciones)
+            {
+                if (!String.IsNullOrEmpty(direccion.Longitud) && !String.IsNullOrEmpty(direccion.Latitud))
+                {
+                    return;
+                }
+            }
+            resultado.AddErrorMessage("Debe indicar al menos una direccion en el mapa.");
+        }
+
         public Resultado ActualizarPlaya(PlayaDeEstacionamiento playa)
         {
-            var resultado = ValidarActualizacion();
+            var resultado = ValidarActualizacion(playa);
 
             if (resultado.Ok)
             {
                 playaDao.Update(playa);
+
             }
             return resultado;
         }
 
 
-        private Resultado ValidarActualizacion()
+        private Resultado ValidarActualizacion(PlayaDeEstacionamiento playa)
         {
             var resultado = new Resultado();
 
-            //Agregar validaciones
+            ValidarDatosGrales(playa, resultado);
+            ValidarDiasDeAtencion(playa, resultado);
+            ValidarTiposDeVehiculos(playa, resultado);
+            ValidarDirecciones(playa, resultado);
 
             return resultado;
         }
@@ -97,7 +192,9 @@ namespace ReglasDeNegocio
 
         public PlayaDeEstacionamiento BuscarPlayaPorId(int idPlaya)
         {
-            return playaDao.FindById(idPlaya);
+            var playa = playaDao.FindById(idPlaya);
+            CargarPlaya(playa);
+            return playa;
         }
 
         public IList<PlayaDeEstacionamiento> BuscarPlayaPorNombre(string nombre)
@@ -106,19 +203,21 @@ namespace ReglasDeNegocio
 
             foreach (var playa in lista)
             {
-                //StringBuilder extras = new StringBuilder();
-                //extras.Append(playa.Autos ? "Autos" : "");
-                //extras.Append(playa.Motos ? " Motos" : "");
-                //extras.Append(playa.Bicicletas ? " Bicicletas" : "");
-                //extras.Append(playa.Utilitarios ? " Utilitarios" : "");
-                //playa.Extras = extras.ToString();
+                CargarPlaya(playa);
             }
             return lista;
         }
 
+        private void CargarPlaya(PlayaDeEstacionamiento playa)
+        {
+            playa.Direcciones = BuscarDireccionesPorPlaya(playa.Id);
+            playa.Precios = BuscarPreciosPorPlaya(playa.Id);
+            playa.Horarios = BuscarHorariosPorPlaya(playa.Id);
+            playa.Servicios = BuscarServiciosPorPlaya(playa.Id);
+        }
         public IList<TipoPlaya> BuscarTipoPlayas()
         {
-            return tipoDao.FindAll();
+            return tipoPlayaDao.FindAll();
         }
         public IList<TipoVehiculo> BuscarTipoVehiculos()
         {
@@ -130,11 +229,31 @@ namespace ReglasDeNegocio
         }
         public DiaAtencion GetDiaAtencionById(int IdDiaAtencionSeleccionado)
         {
-           return diaAtencionDao.FindById(IdDiaAtencionSeleccionado);
+            return diaAtencionDao.FindById(IdDiaAtencionSeleccionado);
         }
         public IList<DiaAtencion> BuscarDiasDeAtencion()
         {
             return diaAtencionDao.FindAll();
+        }
+
+        public IList<Direccion> BuscarDireccionesPorPlaya(int idPlaya)
+        {
+            return new GestorDireccion().BuscarDireccionesPorPlaya(idPlaya);
+        }
+
+        public IList<Servicio> BuscarServiciosPorPlaya(int idPlaya)
+        {
+            return servicioDao.FindWhere(d => d.PlayaDeEstacionamientoId == idPlaya);
+        }
+
+        public IList<Precio> BuscarPreciosPorPlaya(int idPlaya)
+        {
+            return precioDao.FindWhere(d => d.PlayaDeEstacionamientoId == idPlaya);
+        }
+
+        public IList<Horario> BuscarHorariosPorPlaya(int idPlaya)
+        {
+            return horarioDao.FindWhere(d => d.PlayaDeEstacionamientoId == idPlaya);
         }
     }
 }

@@ -31,6 +31,15 @@ namespace Web.Controles {
         protected global::System.Web.UI.WebControls.LinkButton btnAgregarServicio;
         
         /// <summary>
+        /// Control UpdatePanel2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+        
+        /// <summary>
         /// Control divSeccionFormulario.
         /// </summary>
         /// <remarks>
@@ -38,15 +47,6 @@ namespace Web.Controles {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSeccionFormulario;
-        
-        /// <summary>
-        /// Control upFormulario.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upFormulario;
         
         /// <summary>
         /// Control ddlTipoVehiculo.
@@ -92,15 +92,6 @@ namespace Web.Controles {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSeccionServicios;
-        
-        /// <summary>
-        /// Control upGVResultados.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upGVResultados;
         
         /// <summary>
         /// Control gvServicios.

@@ -3,7 +3,7 @@
 <div>
     <asp:UpdatePanel runat="server" ID="UpdatePanel1">
         <ContentTemplate>
-            <asp:LinkButton ID="btnAgregarPrecio" runat="server" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClientClick="mostrarFormularioPrecio()" />
+            <asp:LinkButton ID="btnAgregarPrecio" runat="server" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClick="btnAgregarPrecio_Click" OnClientClick="mostrarFormularioPrecio()" />
         </ContentTemplate>
     </asp:UpdatePanel>
     <div class="panel panel-default">
@@ -11,11 +11,10 @@
             <h3 class="panel-title">Precios</h3>
         </div>
         <div class="panel-body">
-            <div id="divSeccionFormulario" runat="server" class="hidden">
                 <asp:UpdatePanel runat="server" ID="upFormulario">
                     <ContentTemplate>
-                        <%--<div class="form-horizontal" role="form">--%>
-                        <div class="form-group">
+            <div id="divSeccionFormulario" runat="server" class="">
+ <div class="form-group">
                             <label for="ddlTipoVehiculo" class="col-sm-2 col-md-2 col-lg-2 control-label">Tipo de Vehiculo</label>
 
                             <div class="col-sm-10 col-md-10 col-lg-10">
@@ -39,7 +38,7 @@
 
                             </div>
                         </div>
-                        <%--</div>--%>
+
                         <div class="form-group">
                             <label for="txtPrecio" class="col-sm-2 col-md-2 col-lg-2 control-label">Precio</label>
                             <div class="col-sm-10 col-md-10 col-lg-10">
@@ -48,16 +47,11 @@
                         </div>
                         <div class="form-group pull-right">
                             <asp:LinkButton runat="server" ID="btnGuardar" Text="<span class='glyphicon glyphicon-ok-circle'></span>" CssClass="btn btn-lg" ForeColor="Green" BackColor="Transparent" OnClientClick="mostrarFormularioPrecio()" OnClick="btnGuardar_Click" />
-                            <asp:LinkButton runat="server" ID="btnCancelar" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClientClick="mostrarFormularioPrecio()" />
+                            <asp:LinkButton runat="server" ID="btnCancelar" OnClick="btnCancelar_Click" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClientClick="mostrarFormularioPrecio()" />
                         </div>
-                    </ContentTemplate>
-
-                </asp:UpdatePanel>
             </div>
 
-            <div id="divSeccionPrecios" runat="server">
-                <asp:UpdatePanel runat="server" ID="upGVResultados">
-                    <ContentTemplate>
+                        <div id="divSeccionPrecios" runat="server">
                         <asp:GridView runat="server" ID="gvPrecios" AutoGenerateColumns="false" DataKeyNames="Id, TipoVehiculoId, TiempoId, DiaAtencionId"
                             OnRowCommand="OnRowCommandGvPrecios">
                             <Columns>
@@ -67,29 +61,32 @@
                                 <asp:BoundField HeaderText="Precio" DataField="Monto" />
                                 <asp:TemplateField HeaderText="Quitar">
                                     <ItemTemplate>
-                                        <asp:Button runat="server" ID="btnQuitar" />
+                                        <asp:Button runat="server" ID="btnQuitar" CommandName="Quitar" CommandArgument="<% # Container.DataItemIndex%>" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
             </div>
+                        </ContentTemplate>
+                </asp:UpdatePanel>
+            
         </div>
     </div>
 </div>
 <script type="text/javascript">
 
     function mostrarFormularioPrecio() {
-        var mostrar = $('#TopContent_ucPrecios_divSeccionFormulario').hasClass("hidden");
-        if (mostrar) {
-            $('#TopContent_ucPrecios_divSeccionFormulario').removeClass("hidden");
-            $('#TopContent_ucPrecios_btnAgregarPrecio').addClass("hidden");
-        }
-        else {
-            $('#TopContent_ucPrecios_divSeccionFormulario').addClass("hidden");
-            $('#TopContent_ucPrecios_btnAgregarPrecio').removeClass("hidden");
-        }
+        //var mostrar = $('#TopContent_ucPrecios_divSeccionFormulario').hasClass("hidden");
+        //if (mostrar) {
+        //    $('#TopContent_ucPrecios_divSeccionFormulario').removeClass("hidden");
+        //    $('#TopContent_ucPrecios_divSeccionPrecio').addClass("hidden");
+        //    $('#TopContent_ucPrecios_btnAgregarPrecio').addClass("hidden");
+        //}
+        //else {
+        //    $('#TopContent_ucPrecios_divSeccionFormulario').addClass("hidden");
+        //    $('#TopContent_ucPrecios_divSeccionPrecio').removeClass("hidden");
+        //    $('#TopContent_ucPrecios_btnAgregarPrecio').removeClass("hidden");
+        //}
 
     }
 

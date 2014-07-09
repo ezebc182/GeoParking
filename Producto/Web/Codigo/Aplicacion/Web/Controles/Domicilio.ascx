@@ -1,18 +1,18 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Domicilio.ascx.cs" Inherits="Web.Controles.DomicilioControl" %>
 
-<div>
 <asp:UpdatePanel runat="server" ID="UpdatePanel1">
     <ContentTemplate>
-        <asp:LinkButton ID="btnAgregarDomicilio" runat="server" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClick="btnAgregarDomicilio_Click" OnClientClick="mostrarFormularioDomicilio()" />
+        <asp:LinkButton ID="btnAgregarDomicilio" runat="server" CssClass="btn btn-md btn-success pull-right" OnClick="btnAgregarDomicilio_Click" Text="<span class='glyphicon glyphicon-plus'></span>" OnClientClick="mostrarFormularioDomicilio()" />
     </ContentTemplate>
 </asp:UpdatePanel>
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Domicilios</h3>
     </div>
-        <div id="divSeccionFormulario" runat="server" class="hidden panel-body">
-            <asp:UpdatePanel runat="server" ID="upFormulario">
-                <ContentTemplate>
+    <div class="panel-body">
+        <asp:UpdatePanel runat="server" ID="upFormulario">
+            <ContentTemplate>
+                <div id="divSeccionFormulario" runat="server" class="">
                     <div class="form-horizontal" role="form">
                         <div class="form-group">
                             <label for="ddlProvincia" class="col-sm-2 col-md-2 col-lg-2 control-label">Provincia</label>
@@ -44,30 +44,28 @@
                                 <asp:TextBox runat="server" CssClass="form-control required" ID="txtNumero" />
                             </div>
                             <div class="col-sm-1 col-md-1 col-lg-1">
-                                <asp:LinkButton runat="server" Text="<span class='glyphicon glyphicon-map-marker'></span>" ToolTip="Buscar en mapa" CssClass="btn btn-warning pull-right" />
+                                <asp:LinkButton runat="server" ID="btnBuscarEnMapa" Text="<span class='glyphicon glyphicon-map-marker'></span>"
+                                     ToolTip="Buscar en mapa" CssClass="btn btn-warning pull-right" OnClick="btnBuscarEnMapa_Click" OnClientClick="codeAddress()" />
+                                <asp:TextBox runat="server" ClientIDMode="Static" ID="txtDireccion" CssClass="hidden"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-2 col-md-2 col-lg-2"></div>
                             <div id="pnlMapa" class="col-sm-10 col-md-10 col-lg-10">
                                 <div id="map-canvas"></div>
-                            <asp:TextBox runat="server" CssClass="form-control col-sm-5 col-md-5 col-lg-5 required hidden" ID="txtLatitud" ClientIDMode="Static" />
-                            <asp:TextBox runat="server" CssClass="form-control col-sm-5 col-md-5 col-lg-5 required hidden" ID="txtLongitud" ClientIDMode="Static" />
-                            </div>                            
+                                <asp:TextBox runat="server" CssClass="form-control col-sm-5 col-md-5 col-lg-5 required hidden" ID="txtLatitud" ClientIDMode="Static" />
+                                <asp:TextBox runat="server" CssClass="form-control col-sm-5 col-md-5 col-lg-5 required hidden" ID="txtLongitud" ClientIDMode="Static" />
+                            </div>
                         </div>
-                        
+
                         <div class="form-group pull-right">
                             <asp:LinkButton runat="server" ID="btnGuardar" CssClass="btn btn-lg" Text="<span class='glyphicon glyphicon-ok-circle'></span>" ForeColor="Green" BackColor="Transparent" OnClientClick="mostrarFormularioDomicilio()" OnClick="btnGuardar_Click" />
                             <asp:LinkButton runat="server" ID="btnCancelar" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClick="btnCancelar_Click" OnClientClick="mostrarFormularioDomicilio()" />
                         </div>
 
                     </div>
-                </ContentTemplate>
-            </asp:UpdatePanel>
-        </div>
-        <div id="divSeccionDomicilios" runat="server">
-            <asp:UpdatePanel ID="upseccionDomicilios" runat="server">
-                <ContentTemplate>
+                </div>
+                <div id="divSeccionDomicilios" runat="server">
                     <asp:GridView runat="server" ID="gvDomicilios" AutoGenerateColumns="false"
                         DataKeyNames="Id, CiudadId" CssClass="table table-hover table-responsive"
                         OnRowCommand="OnRowCommandGvDomicilios">
@@ -81,35 +79,34 @@
                             <asp:BoundField HeaderText="Longitud" DataField="Longitud" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden" />
                             <asp:TemplateField HeaderText="Quitar">
                                 <ItemTemplate>
-                                    <asp:LinkButton runat="server" ID="btnQuitar" CssClass="btn btn-danger btn-xs" Text="<span class='glyphicon glyphicon-minus'></span>"
-                                        CommandArgument="<%# Container.DataItemIndex %>" />
+                                    <asp:LinkButton runat="server" ID="btnQuitar" CssClass="btn btn-danger btn-xs" Text="<span class='glyphicon glyphicon-remove'></span>"
+                                        CommandArgument="<%# Container.DataItemIndex %>" CommandName="Quitar" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
-                </ContentTemplate>
-            </asp:UpdatePanel>
-        </div>
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+
     </div>
 </div>
-    
+
 <script type="text/javascript">
 
     function mostrarFormularioDomicilio() {
-        var mostrar = $('#TopContent_ucDomicilios_divSeccionFormulario').hasClass("hidden");
-        if (mostrar) {
-            $('#TopContent_ucDomicilios_divSeccionFormulario').removeClass("hidden");
-            $('#TopContent_ucDomicilios_btnAgregarDomicilio').removeClass("hidden");
-            $('#TopContent_ucDomicilios_btnAgregarDomicilio').addClass("btn btn-danger");
-            $('#TopContent_ucDomicilios_btnAgregarDomicilio>span').addClass("glyphicon glyphicon-minus");
+        //var mostrar = $('#TopContent_ucDomicilios_divSeccionFormulario').hasClass("hidden");
+        //if (mostrar) {
+        //    $('#TopContent_ucDomicilios_divSeccionDomicilios').addClass("hidden");
+        //    $('#TopContent_ucDomicilios_divSeccionFormulario').removeClass("hidden");
+        //    $('#TopContent_ucDomicilios_btnAgregarDomicilio').addClass("hidden");
+        //}
+        //else {
+        //    $('#TopContent_ucDomicilios_divSeccionFormulario').addClass("hidden");
+        //    $('#TopContent_ucDomicilios_divSeccionDomicilios').removeClass("hidden");
 
-        }
-        else {
-            $('#TopContent_ucDomicilios_divSeccionFormulario').addClass("hidden");
-            $('#TopContent_ucDomicilios_btnAgregarDomicilio').removeClass("hidden");
-            $('#TopContent_ucDomicilios_btnAgregarDomicilio').addClass("btn btn-success");
-            $('#TopContent_ucDomicilios_btnAgregarDomicilio>span').addClass("glyphicon glyphicon-plus");
-        }
+        //    $('#TopContent_ucDomicilios_btnAgregarDomicilio').removeClass("hidden");
+        //}
 
     }
 

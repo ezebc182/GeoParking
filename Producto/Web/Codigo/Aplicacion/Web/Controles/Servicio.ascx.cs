@@ -13,6 +13,8 @@ namespace Web.Controles
     public partial class ServicioControl : System.Web.UI.UserControl
     {
         GestorPlaya gestor;
+        public event EventHandler ErrorHandler;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             gestor = new GestorPlaya();
@@ -24,7 +26,7 @@ namespace Web.Controles
 
         public void CargarCombos()
         {
-            FormHelper.CargarCombo(ddlTipoVehiculo, gestor.BuscarTipoVehiculos(), "Nombre", "Id");
+            FormHelper.CargarCombo(ddlTipoVehiculo, gestor.BuscarTipoVehiculos(), "Nombre", "Id", "Seleccione");
         }
         public IList<Servicio> Servicios
         {
@@ -77,23 +79,84 @@ namespace Web.Controles
         private void AgregarServicio(Servicio servicio)
         {
             var servicios = Servicios;
+            if (!ValidarServicio(servicio)) return;
             servicios.Add(servicio);
             Servicios = servicios;
         }
-
+        private bool ValidarServicio(Servicio servicio)
+        {
+            
+            foreach (var item in Servicios)
+            {
+                if (item.TipoVehiculoId == servicio.TipoVehiculoId)
+                {
+                    OnError("Ya se ha cargado la capacidad para el tipo de vehiculo seleccionado.");
+                    return false;
+                }
+            }
+            return true;
+        }
+        private bool ValidarDatosIngresados()
+        {
+            if (IdVehiculoSeleccionado == 0 || Capacidad == -1)
+            {
+                OnError("Debe ingresar todos los datos requeridos.");
+                return false;
+            }
+            return true;
+        }
         private Servicio CargarEntidad()
         {
+            
             var servicio = new Servicio();
             servicio.TipoVehiculo = gestor.BuscarTipoVehiculo(IdVehiculoSeleccionado);
             servicio.Capacidad = Capacidad;
             return servicio;
         }
 
+        public void LimpiarCampos()
+        {
+            IdVehiculoSeleccionado = 0;
+            Capacidad = -1;
+        }
+
+        private void SetVisibleFormulario(bool habilitar)
+        {
+            divSeccionFormulario.Visible = habilitar;
+            divSeccionServicios.Visible = !habilitar;
+            btnAgregarServicio.Visible = !habilitar;
+        }
+
+        public void ConfigurarVer()
+        {
+            divSeccionFormulario.Visible = false;
+            divSeccionServicios.Visible = true;
+            gvServicios.Columns[2].Visible = false;
+            btnAgregarServicio.Visible = false;
+        }
+
+        public void ConfigurarEditar()
+        {
+            divSeccionFormulario.Visible = false;
+            divSeccionServicios.Visible = true;
+            gvServicios.Columns[2].Visible = true;
+            btnAgregarServicio.Visible = true;
+        }
+
+        public void ConfigurarRegistrar()
+        {
+            divSeccionFormulario.Visible = false;
+            divSeccionServicios.Visible = true;
+            gvServicios.Columns[2].Visible = true;
+            btnAgregarServicio.Visible = true;
+        }
         #region eventos
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+            if(!ValidarDatosIngresados()) return;
             AgregarServicio(CargarEntidad());
+            SetVisibleFormulario(false);
         }
         #endregion
         #region properties
@@ -108,10 +171,38 @@ namespace Web.Controles
         public int Capacidad
         {
             get { return Convert.ToInt32(txtCapacidad.Text); }
-            set { txtCapacidad.Text = value.ToString(); }
+            set { txtCapacidad.Text = value == -1 ? "" : value.ToString(); }
         }
 
         #endregion
+
+
+        public void OnError(String mensaje)
+        {
+            if (ErrorHandler != null)
+                ErrorHandler.Invoke(this, new ServicioArgs(mensaje));
+        }
+
+
+        public class ServicioArgs : EventArgs
+        {
+            public ServicioArgs(String error)
+            {
+                this.Mensaje = error;
+            }
+
+            public String Mensaje { get; set; }
+        }
+
+        protected void btnAgregarServicio_Click(object sender, EventArgs e)
+        {
+            SetVisibleFormulario(true);
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            SetVisibleFormulario(false);
+        }
 
     }
 

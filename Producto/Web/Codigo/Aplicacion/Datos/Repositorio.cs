@@ -95,7 +95,7 @@ namespace Datos
         /// </summary>
         /// <param name="t">entidad a actualizar</param>
         /// <returns>0 sino se realizo ninguna accion</returns>
-        public int Update(TEntity t)
+        public virtual int Update(TEntity t)
         {
             var currentEntity = FindById(t.Id);
             var entry = contexto.Entry(currentEntity);

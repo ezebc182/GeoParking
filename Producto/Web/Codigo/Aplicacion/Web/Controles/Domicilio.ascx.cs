@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Entidades;
 using System.Text;
 using ReglasDeNegocio;
+using Web.Util;
 
 namespace Web.Controles
 {
@@ -25,30 +26,15 @@ namespace Web.Controles
         }
         public void CargarComboProvincias()
         {
-            var lista = gestor.BuscarProvincias();
-            ddlProvincia.DataSource = lista;
-            ddlProvincia.DataTextField = "Nombre";
-            ddlProvincia.DataValueField = "Id";
-            ddlProvincia.DataBind();
-            ddlProvincia.Items.Insert(0, new ListItem("Seleccione", "0"));
+            FormHelper.CargarCombo(ddlProvincia, gestor.BuscarProvincias(), "Nombre", "Id", "Seleccione");
         }
         public void CargarComboDepartamentos()
         {
-            var lista = gestor.BuscarDepartamentosPorProvinciaId(IdProvinciaSeleccionada);
-            ddlDepartamento.DataSource = lista;
-            ddlDepartamento.DataTextField = "Nombre";
-            ddlDepartamento.DataValueField = "Id";
-            ddlDepartamento.DataBind();
-            ddlDepartamento.Items.Insert(0, new ListItem("Seleccione", "0"));
+            FormHelper.CargarCombo(ddlDepartamento, gestor.BuscarDepartamentosPorProvinciaId(IdProvinciaSeleccionada), "Nombre", "Id", "Seleccione");
         }
         public void CargarComboCiudades()
         {
-            var lista = gestor.BuscarCiudadesPorDepartamentoId(IdDepartamentoSeleccionado);
-            ddlCiudad.DataSource = lista;
-            ddlCiudad.DataTextField = "Nombre";
-            ddlCiudad.DataValueField = "Id";
-            ddlCiudad.DataBind();
-            ddlCiudad.Items.Insert(0, new ListItem("Seleccione", "0"));
+            FormHelper.CargarCombo(ddlCiudad, gestor.BuscarCiudadesPorDepartamentoId(IdDepartamentoSeleccionado), "Nombre", "Id", "Seleccione");
         }
         public IList<Direccion> Domicilios
         {
@@ -81,7 +67,8 @@ namespace Web.Controles
                 direccion.Latitud = row.Cells[5].Text;
                 direccion.Longitud = row.Cells[6].Text;
                 direccion.Ciudad = gestor.GetCiudadById(direccion.CiudadId);
-                
+                direccion.Departamento = gestor.BuscarDepartamentoPorCiudadId(direccion.CiudadId);
+                direccion.Provincia = gestor.BuscarProvinciaPorDepartamentoId(direccion.Departamento.Id);
                 domicilios.Add(direccion);
             }
             return domicilios;
@@ -103,18 +90,33 @@ namespace Web.Controles
         private void AgregarDomicilio(Direccion direccion)
         {
             var domicilios = Domicilios;
-            foreach (var domicilio in domicilios)
+            if (!ValidarDomicilio(direccion)) return;
+            domicilios.Add(direccion);
+            Domicilios = domicilios;
+        }
+        private bool ValidarDomicilio(Direccion direccion)
+        {
+
+            foreach (var domicilio in Domicilios)
             {
                 if (domicilio.Calle.Equals(direccion.Calle) && domicilio.Numero == direccion.Numero)
                 {
                     OnError("El domicilio ingresado ya se encuentra en la lista de domicilios");
-                    return;
+                    return false;
                 }
             }
-            domicilios.Add(direccion);
-            Domicilios = domicilios;
+            return true;
         }
 
+        private bool ValidarDatosIngresados()
+        {
+            if (IdProvinciaSeleccionada == 0 || IdDepartamentoSeleccionado == 0 || IdCiudadSeleccionada == 0 || string.IsNullOrEmpty(Calle) || Numero == -1)
+            {
+                OnError("Debe ingresar todos los datos requeridos.");
+                return false;
+            }
+            return true;
+        }
         private Direccion CargarEntidad()
         {
             var direccion = new Direccion();
@@ -122,9 +124,43 @@ namespace Web.Controles
             direccion.CiudadId = direccion.Ciudad.Id;
             direccion.Calle = Calle;
             direccion.Numero = Numero;
+            direccion.Departamento = gestor.BuscarDepartamentoPorCiudadId(direccion.CiudadId);
+            direccion.Provincia = gestor.BuscarProvinciaPorDepartamentoId(direccion.Departamento.Id);
+            direccion.Latitud = Latitud;
+            direccion.Longitud = Longitud;
             return direccion;
         }
 
+        public void LimpiarCampos()
+        {
+            IdProvinciaSeleccionada = 0;
+            Calle = "";
+            Numero = -1;//Con -1 se limpia el textbox
+        }
+
+        public void ConfigurarVer()
+        {
+            divSeccionFormulario.Visible = false;
+            divSeccionDomicilios.Visible = true;
+            gvDomicilios.Columns[7].Visible = false;
+            btnAgregarDomicilio.Visible = false;
+        }
+
+        public void ConfigurarEditar()
+        {
+            divSeccionFormulario.Visible = false;
+            divSeccionDomicilios.Visible = true;
+            gvDomicilios.Columns[5].Visible = true;
+            btnAgregarDomicilio.Visible = true;
+        }
+
+        public void ConfigurarRegistrar()
+        {
+            divSeccionFormulario.Visible = false;
+            divSeccionDomicilios.Visible = true;
+            gvDomicilios.Columns[5].Visible = true;
+            btnAgregarDomicilio.Visible = true;
+        }
         private void SetVisibleFormulario(bool habilitar)
         {
             divSeccionFormulario.Visible = habilitar;
@@ -143,31 +179,73 @@ namespace Web.Controles
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+            if (!ValidarDatosIngresados()) return;
             AgregarDomicilio(CargarEntidad());
             SetVisibleFormulario(false);
             HabilitarCombos(false);
         }
+
+        protected void btnAgregarDomicilio_Click(object sender, EventArgs e)
+        {
+            SetVisibleFormulario(true);
+        }
+
+        protected void btnBuscarEnMapa_Click(object sender, EventArgs e)
+        {
+            txtDireccion.Text = (string.IsNullOrEmpty(Calle) ? "" : Calle + " " + ( Numero != (-1) ?   Numero.ToString() : "") + ", ") + (CiudadSeleccionada != null ? CiudadSeleccionada.Nombre : "" + ", ") + (ProvinciaSeleccionada != null ? ProvinciaSeleccionada.Nombre : "");
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            SetVisibleFormulario(false);
+        }
+
+
         #endregion
         #region properties
 
+        public string Latitud
+        {
+            get { return txtLatitud.Text; }
+            set { txtLatitud.Text = value; }
+        }
+
+        public string Longitud
+        {
+            get { return txtLongitud.Text; }
+            set { txtLongitud.Text = value; }
+        }
+
         public int IdProvinciaSeleccionada
         {
-            get { return Convert.ToInt32(ddlProvincia.SelectedValue); }
+            get { return string.IsNullOrEmpty(ddlProvincia.SelectedValue) ? 0 : Convert.ToInt32(ddlProvincia.SelectedValue); }
             set { ddlProvincia.SelectedValue = value.ToString(); }
+        }
+        public Provincia ProvinciaSeleccionada
+        {
+            get { return IdProvinciaSeleccionada !=0? gestor.BuscarProvinciaPorId(IdProvinciaSeleccionada) : null; }
         }
 
         public int IdDepartamentoSeleccionado
         {
-            get { return Convert.ToInt32(ddlDepartamento.SelectedValue); }
+            get { return string.IsNullOrEmpty(ddlDepartamento.SelectedValue) ? 0 : Convert.ToInt32(ddlDepartamento.SelectedValue); }
             set { ddlDepartamento.SelectedValue = value.ToString(); }
         }
 
+        public Departamento DepartamentoSeleccionado
+        {
+            get { return IdDepartamentoSeleccionado != 0 ? gestor.BuscarDepartamentoPorId(IdDepartamentoSeleccionado) : null; }
+        }
         public int IdCiudadSeleccionada
         {
-            get { return Convert.ToInt32(ddlCiudad.SelectedValue); }
+            get { return string.IsNullOrEmpty(ddlCiudad.SelectedValue)? 0 : Convert.ToInt32(ddlCiudad.SelectedValue); }
             set { ddlCiudad.SelectedValue = value.ToString(); }
         }
 
+        public Ciudad CiudadSeleccionada
+        {
+            get { return IdCiudadSeleccionada != 0 ? gestor.GetCiudadById(IdCiudadSeleccionada) : null; }
+        }
         public string Calle
         {
             get { return txtCalle.Text.Trim(); }
@@ -176,8 +254,8 @@ namespace Web.Controles
 
         public int Numero
         {
-            get { return Convert.ToInt32(txtNumero.Text.Trim()); }
-            set { txtNumero.Text = value.ToString(); }
+            get { return string.IsNullOrEmpty(txtNumero.Text)? -1 : Convert.ToInt32(txtNumero.Text.Trim()); }
+            set { txtNumero.Text = value == -1 ? "" : value.ToString(); }
         }
 
         #endregion
@@ -185,22 +263,16 @@ namespace Web.Controles
         protected void ddlProvincia_SelectedIndexChanged(object sender, EventArgs e)
         {
             CargarComboDepartamentos();
+            IdDepartamentoSeleccionado = 0;
         }
 
         protected void ddlDepartamento_SelectedIndexChanged(object sender, EventArgs e)
         {
             CargarComboCiudades();
+            IdCiudadSeleccionada = 0;
         }
 
-        protected void btnAgregarDomicilio_Click(object sender, EventArgs e)
-        {
-            SetVisibleFormulario(true);
-        }
 
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
-            SetVisibleFormulario(false);
-        }
 
         public void OnError(String mensaje)
         {
@@ -218,6 +290,8 @@ namespace Web.Controles
 
             public String Mensaje { get; set; }
         }
+
+
 
     }
 }

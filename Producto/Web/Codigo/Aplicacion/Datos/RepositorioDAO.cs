@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entidades;
+using RefactorThis.GraphDiff;
 
 namespace Datos
 {
@@ -22,7 +23,6 @@ namespace Datos
     public interface IRepositorioProvincia : IRepositorio<Provincia> { }
 
     //Clases DAO para cada entidad que heredan de la clase Repositorio
-    public class RepositorioPlayaDeEstacionamiento : Repositorio<PlayaDeEstacionamiento>, IRepositorioPlayaDeEstacionamiento { }
     public class RepositorioTipoDePlaya : Repositorio<TipoPlaya>, IRepositorioTipoDePlaya { }
     public class RepositorioTipoVehiculo : Repositorio<TipoVehiculo>, IRepositorioTipoVehiculo { }
     public class RepositorioServicio : Repositorio<Servicio>, IRepositorioServicio { }
@@ -34,5 +34,34 @@ namespace Datos
     public class RepositorioCiudad : Repositorio<Ciudad>, IRepositorioCiudad { }
     public class RepositorioDepartamento : Repositorio<Departamento>, IRepositorioDepartamento { }
     public class RepositorioProvincia : Repositorio<Provincia>, IRepositorioProvincia { }
-    
+
+    public class RepositorioPlayaDeEstacionamiento : Repositorio<PlayaDeEstacionamiento>, IRepositorioPlayaDeEstacionamiento 
+    { 
+
+        public override int Update(PlayaDeEstacionamiento t)
+        {
+            var entry = contexto.Entry(t);
+            if (entry.State == System.Data.Entity.EntityState.Detached)
+            {
+                contexto.UpdateGraph(t, map => map
+                    .OwnedCollection(p => p.Direcciones, with => with
+                        .AssociatedEntity(d => d.PlayaDeEstacionamiento))
+                    .OwnedCollection(p => p.Horarios, with => with
+                    .AssociatedEntity(h => h.PlayaDeEstacionamiento))
+                    .OwnedCollection(p => p.Precios, with => with
+                    .AssociatedEntity(p => p.PlayaDeEstacionamiento))
+                    .OwnedCollection(p => p.Servicios, with => with
+                    .AssociatedEntity(s => s.PlayaDeEstacionamiento))
+                    );
+                return contexto.SaveChanges();
+            }
+            else
+            {
+                return base.Update(t);
+            }
+        }
+      
+
+    }
 }
+

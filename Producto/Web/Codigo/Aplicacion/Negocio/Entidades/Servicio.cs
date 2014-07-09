@@ -11,6 +11,9 @@ namespace Entidades
     {
         //referencia a tabla TipoVehiculo
         public int TipoVehiculoId { get; set; }
+        //Playa
+        public int? PlayaDeEstacionamientoId { get; set; }
+        public virtual PlayaDeEstacionamiento PlayaDeEstacionamiento { get; set; }
 
         [NotMapped]
         private TipoVehiculo tipoVehiculo;
@@ -20,8 +23,8 @@ namespace Entidades
             set
             {
                 tipoVehiculo = value;
-                TipoVehiculoStr = value.Nombre;
-                TipoVehiculoId = value.Id;
+                TipoVehiculoStr = value != null ? value.Nombre : "";
+                TipoVehiculoId = value != null ? value.Id : 0;
             }
         }
 
@@ -30,6 +33,6 @@ namespace Entidades
 
         [NotMapped]
         public string TipoVehiculoStr { get; set; }
-        
+
     }
 }

@@ -10,9 +10,13 @@ namespace Entidades
     {
         //Nombre
         public string Nombre { get; set; }
+        //Mail
+        public string Mail { get; set; }
+        //Telefono
+        public string Telefono { get; set; }
 
         //Referencia a Tipo de Playa
-        public int TipoPlayaId { get; set; }
+        public int? TipoPlayaId { get; set; }
         public virtual TipoPlaya TipoPlaya { get; set; }
 
         //Direcciones (calle, numero,ciudad y coordenadas)
@@ -36,13 +40,28 @@ namespace Entidades
             get
             {
                 string extras = "";
-                foreach (var item in Servicios)
+                if (Servicios.Count > 0)
                 {
-                    extras += item.TipoVehiculoStr + " - ";
+                    foreach (var item in Servicios)
+                    {
+                        extras += item.TipoVehiculoStr + " - ";
+                    }
+                    extras = extras.Remove(extras.Length - 2);
                 }
-                return extras.Remove(extras.Length-2);
+                return extras;
             }
         }
+        #region Direccion
 
+        [NotMapped]
+        public string Calle { get { return Direcciones.Count > 0 ? Direcciones[0].Calle : ""; } }
+        [NotMapped]
+        public int Numero { get { return Direcciones.Count > 0 ? Direcciones[0].Numero : 0; } }
+        [NotMapped]
+        public string Ciudad { get { return Direcciones.Count > 0 ? Direcciones[0].CiudadStr : ""; } }
+        [NotMapped]
+        public string Provincia { get { return Direcciones.Count > 0 ? Direcciones[0].ProvinciaStr : ""; } }
+
+        #endregion
     }
 }

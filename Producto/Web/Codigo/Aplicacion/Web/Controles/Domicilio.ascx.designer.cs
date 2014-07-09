@@ -31,15 +31,6 @@ namespace Web.Controles {
         protected global::System.Web.UI.WebControls.LinkButton btnAgregarDomicilio;
         
         /// <summary>
-        /// Control divSeccionFormulario.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSeccionFormulario;
-        
-        /// <summary>
         /// Control upFormulario.
         /// </summary>
         /// <remarks>
@@ -47,6 +38,15 @@ namespace Web.Controles {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel upFormulario;
+        
+        /// <summary>
+        /// Control divSeccionFormulario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSeccionFormulario;
         
         /// <summary>
         /// Control ddlProvincia.
@@ -94,6 +94,24 @@ namespace Web.Controles {
         protected global::System.Web.UI.WebControls.TextBox txtNumero;
         
         /// <summary>
+        /// Control btnBuscarEnMapa.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnBuscarEnMapa;
+        
+        /// <summary>
+        /// Control txtDireccion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDireccion;
+        
+        /// <summary>
         /// Control txtLatitud.
         /// </summary>
         /// <remarks>
@@ -137,15 +155,6 @@ namespace Web.Controles {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSeccionDomicilios;
-        
-        /// <summary>
-        /// Control upseccionDomicilios.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upseccionDomicilios;
         
         /// <summary>
         /// Control gvDomicilios.

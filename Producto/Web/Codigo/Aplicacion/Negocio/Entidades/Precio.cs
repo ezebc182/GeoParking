@@ -13,6 +13,9 @@ namespace Entidades
         //referencia a un TipoVehiculo
         public int TipoVehiculoId { get; set; }
         public virtual TipoVehiculo TipoVehiculo { get; set; }
+        //Playa
+        public int? PlayaDeEstacionamientoId { get; set; }
+        public virtual PlayaDeEstacionamiento PlayaDeEstacionamiento { get; set; }
 
         //referencia a un dia de atencion
         public int DiaAtencionId { get; set; }

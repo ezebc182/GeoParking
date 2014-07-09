@@ -93,10 +93,27 @@ namespace ReglasDeNegocio
             return resultado;
         }
 
+        private void CargarDireccion(Direccion direccion)
+        {
+            direccion.Ciudad = GetCiudadById(direccion.CiudadId);
+            direccion.Departamento = BuscarDepartamentoPorCiudadId(direccion.CiudadId);
+            direccion.Provincia = BuscarProvinciaPorDepartamentoId(direccion.Departamento.Id);
+        }
 
         public Direccion BuscarDireccionPorId(int idDireccion)
         {
-            return direccionDao.FindById(idDireccion);
+            var direccion = direccionDao.FindById(idDireccion);
+            CargarDireccion(direccion);
+            return direccion;            
+        }
+        public IList<Direccion> BuscarDireccionesPorPlaya(int idPlaya)
+        {
+            var direcciones = direccionDao.FindWhere(d => d.PlayaDeEstacionamientoId == idPlaya);
+            foreach (var direccion in direcciones)
+            {
+                CargarDireccion(direccion);
+            }
+            return direcciones;
         }
 
         public Ciudad GetCiudadById(int IdCiudadSeleccionada)
@@ -106,14 +123,20 @@ namespace ReglasDeNegocio
 
         public Departamento BuscarDepartamentoPorCiudadId(int id)
         {
-            return GetCiudadById(id).Departamento;
+            return BuscarDepartamentoPorId(GetCiudadById(id).DepartamentoId);
         }
-
+        public Departamento BuscarDepartamentoPorId(int id)
+        {
+            return departamentoDao.FindById(id);
+        }
         public Provincia BuscarProvinciaPorDepartamentoId(int id)
         {
-            return departamentoDao.FindById(id).Provincia;
+            return BuscarProvinciaPorId(BuscarDepartamentoPorId(id).ProvinciaId);
         }
-
+        public Provincia BuscarProvinciaPorId(int id)
+        {
+            return provinciaDao.FindById(id);
+        }
         public IList<Provincia> BuscarProvincias()
         {
             return provinciaDao.FindAll();

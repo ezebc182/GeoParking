@@ -91,5 +91,5 @@ function codeAddress() {
 
     window.onload = loadScript;
 
-    google.maps.event.addDomListener(window, 'onload', initialize);
+    google.maps.event.addDomListener(window, 'onload', GoogleMaps.initialize);
 }
