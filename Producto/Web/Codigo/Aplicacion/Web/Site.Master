@@ -13,7 +13,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="./Styles/MapaAbmPlaya.css" type="text/css">
-
+    
     <!-- Media Queries-->
     <link rel="stylesheet" type="text/css" href="./Styles/media-queries.css">
 
@@ -38,7 +38,6 @@
 
         <!-- Agrupar los enlaces de navegación, los formularios y cualquier
 			       otro elemento que se pueda ocultar al minimizar la barra -->
-<<<<<<< Updated upstream
 			  <div class="collapse navbar-collapse navbar-ex1-collapse">
 				    <ul class="nav navbar-nav navbar-right">
 				      <li class="active"><a href="#">Administración de playas</a></li>

@@ -67,8 +67,9 @@
                 </asp:UpdatePanel>
             </div>
         </div>
-
+        
     </div>
+    
 </div>
 <script type="text/javascript">
 
@@ -77,10 +78,14 @@
         if (mostrar) {
             $('#TopContent_ucHorarios_divSeccionFormulario').removeClass("hidden");
             $('#TopContent_ucHorarios_btnAgregarHorario').addClass("hidden");
+            $('#TopContent_ucHorarios_btnAgregarHorario').addClass("btn btn-danger");
+            $('#TopContent_ucHorarios_btnAgregarHorario>span').addClass("glyphicon glyphicon-minus");
         }
         else {
             $('#TopContent_ucHorarios_divSeccionFormulario').addClass("hidden");
             $('#TopContent_ucHorarios_btnAgregarHorario').removeClass("hidden");
+            $('#TopContent_ucHorarios_btnAgregarHorario').addClass("btn btn-success");
+            $('#TopContent_ucHorarios_btnAgregarHorario>span').addClass("glyphicon glyphicon-plus");
         }
 
     }

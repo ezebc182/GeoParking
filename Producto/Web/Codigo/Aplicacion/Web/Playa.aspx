@@ -9,7 +9,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server"></asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="TopContent" runat="server">
     <div class="modal fade" id="modificarPlaya">
-        <div class="modal-dialog">
+        <div class="modal-dialog  modal-lg ">
             <div class="modal-content">
                 <div class="modal-header">
                     <asp:UpdatePanel ID="upTituloModal" runat="server" ChildrenAsTriggers="true">
@@ -51,7 +51,7 @@
                                 <div class="form-group">
                                     <label for="txtTelefono" class="col-sm-2 col-md-2 col-lg-2 col-md-2 col-lg-2 control-label">Telefono</label>
                                     <div class="col-sm-10 col-md-10 col-lg-10">
-                                        <asp:TextBox runat="server" CssClass="form-control  required" ID="txtTelefono" />
+                                        <asp:TextBox runat="server" CssClass="form-control has required" ID="txtTelefono" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -74,16 +74,17 @@
 
                                 <div class="form-group">
                                     <domicilios:domicilios runat="server" ID="ucDomicilios" OnErrorHandler="MostrarErrorDomicilio"></domicilios:domicilios>
+                                    <asp:Button ID="btnPaso1" Text="Siguiente" runat="server" CssClass="btn btn-primary pull-right" OnClientClick="abrirTab($(this))" />
                                 </div>
 
-                                <asp:Button ID="btnPaso1" Text="Siguiente" runat="server" CssClass="btn btn-primary pull-right" data-toggle="tab" data-target="#horarios" OnClientClick="abrirTab()" />
+
                             </div>
 
                             <div class="tab-pane" id="horarios">
-                                <div class="control-group">
+                                <div class="form-group">
 
                                     <horarios:horarios runat="server" ID="ucHorarios"></horarios:horarios>
-                                    <asp:Button ID="btnPaso2" Text="Siguiente" runat="server" CssClass="btn btn-primary pull-right" data-toggle="tab" data-target="#precios" OnClientClick="abrirTab()" />
+                                    <asp:Button ID="btnPaso2" Text="Siguiente" runat="server" CssClass="btn btn-primary pull-right" OnClientClick="abrirTab($(this))" />
                                 </div>
                             </div>
 
@@ -167,8 +168,8 @@
                                                     <asp:Button ID="btnEliminar" runat="server" CommandArgument="<%# Container.DataItemIndex %>"
                                                         CommandName="Eliminar" CssClass="icon icon-grilla icon-delete" />
 
-                                                    <asp:Button ID="btnVer" runat="server" CommandArgument="<%# Container.DataItemIndex %>"
-                                                        CommandName="Ver" data-toggle="modal" data-target="#modificarPlaya" CssClass="icon icon-grilla icon-edit" />
+                                                    <asp:LinkButton ID="btnVer" runat="server" CommandArgument="<%# Container.DataItemIndex %>"
+                                                        CommandName="Ver" data-toggle="modal" data-target="#modificarPlaya" Text="<span class='glyphicon glyphicon-edit'></span>" />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
 
@@ -177,75 +178,64 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
                     </div>
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
-
+    <script src="./Scripts/openModal.js"></script>
+    <script src="./Scripts/contarFilas.js"></script>
+    <script src="./Scripts/DesplazarTabs.js"></script>
     <script>
 
-        function openModal() {
-            $('#modificarPlaya').modal('show');
 
 
-        }
+        //$(document).ready(function () {
 
-        $(document).ready(function () {
+        //    $('#eliminar').tooltip();
+        //    $('#editar').tooltip();
+        //    $('#buscar').tooltip();
 
-            $('#eliminar').tooltip();
-            $('#editar').tooltip();
-            $('#buscar').tooltip();
+        //    /*Al iniciar cuenta las filas que tiene cargada la tabla. Client-side */
+        //    contarFilas();
 
-            /*Al iniciar cuenta las filas que tiene cargada la tabla. Client-side */
-            contarFilas();
+        //    /*Muestra los resultados de la búsqueda*/
+        //    $("#MainContent_btnBuscar").click(function () {
+        //        customSlideToggle($("#pnlResultados"));
+        //    });
 
-            /*Muestra los resultados de la búsqueda*/
-            $("#MainContent_btnBuscar").click(function () {
-                customSlideToggle($("#pnlResultados"));
-            });
+        //    contarFilas();
 
-            contarFilas();
-
-        });
+        //});
 
 
-        /*Cuenta la cantidad de filas de la tabla*/
-        function contarFilas() {
-            $("#cantidadPlayas").text($("#MainContent_hfFilasGrilla").val());
-        }
 
-        ////function customSlideToggle(e) {
-        ////    if (e.hasClass('hidden')) {
-        ////        e.show();
-        ////        e.removeClass('hidden')
-        ////        e.slideDown('slow');
-        ////    }
-        ////    else {
-        ////        e.slideUp('slow', function () {
-        ////            e.addclass('hidden');
-        ////            e.hide();
 
-        ////        });
-        ////    }
-        ////}
+        //////function customSlideToggle(e) {
+        //////    if (e.hasClass('hidden')) {
+        //////        e.show();
+        //////        e.removeClass('hidden')
+        //////        e.slideDown('slow');
+        //////    }
+        //////    else {
+        //////        e.slideUp('slow', function () {
+        //////            e.addclass('hidden');
+        //////            e.hide();
 
-        pageManager = Sys.WebForms.PageRequestManager.getInstance();
+        //////        });
+        //////    }
+        //////}
 
-        pageManager.add_endRequest(function () {
-            GoogleMaps.initialize();
-            contarFilas();
-            $("#MainContent_btnBuscar").click(function () {
-                customSlideToggle($("#pnlResultados"));
+        //pageManager = Sys.WebForms.PageRequestManager.getInstance();
 
-            });
-        });
+        //pageManager.add_endRequest(function () {
+        //    GoogleMaps.initialize();
+        //    contarFilas();
+        //    $("#MainContent_btnBuscar").click(function () {
+        //        customSlideToggle($("#pnlResultados"));
+
+        //    });
+        //});
 
     </script>
-    <script src="./Scripts/tabs.js" type="text/javascript"></script>
-    <script src="./Scripts/DesplazarTabs.js" type="text/javascript"></script>
+
 </asp:Content>

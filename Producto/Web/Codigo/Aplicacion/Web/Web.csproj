@@ -69,9 +69,11 @@
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Bootstrap\js\bootstrap.js" />
     <Content Include="Bootstrap\js\bootstrap.min.js" />
+    <Content Include="Scripts\contarFilas.js" />
     <Content Include="Scripts\DesplazarTabs.js" />
     <Content Include="Scripts\GoogleMaps.js" />
     <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\openModal.js" />
     <Content Include="Scripts\tabs.js" />
     <Content Include="Scripts\validator.js" />
     <Content Include="Styles\MapaAbmPlaya.css" />
