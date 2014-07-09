@@ -13,9 +13,11 @@ namespace Web.Controles
     public partial class ServicioControl : System.Web.UI.UserControl
     {
         GestorPlaya gestor;
+        GestorPrecio gestorP;
         protected void Page_Load(object sender, EventArgs e)
         {
             gestor = new GestorPlaya();
+            gestorP = new GestorPrecio();
             if (!Page.IsPostBack)
             {
                 CargarCombos();
@@ -84,7 +86,7 @@ namespace Web.Controles
         private Servicio CargarEntidad()
         {
             var servicio = new Servicio();
-            servicio.TipoVehiculo = gestor.BuscarTipoVehiculo(IdVehiculoSeleccionado);
+            servicio.TipoVehiculo = gestorP.BuscarTipoVehiculoPorId(IdVehiculoSeleccionado);
             servicio.Capacidad = Capacidad;
             return servicio;
         }
