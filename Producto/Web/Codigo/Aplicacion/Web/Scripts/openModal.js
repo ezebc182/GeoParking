@@ -12,7 +12,10 @@
         $('#TopContent_tabDatosGrales').addClass('active');
         $('.tab-pane#datosGrales').addClass('active in');
     }
+    
     $('#modificarPlaya').modal('show');
+    $('#TopContent_txtNombre').focus();
+    
 
 
 }

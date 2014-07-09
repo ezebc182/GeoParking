@@ -74,7 +74,6 @@
     <Content Include="Scripts\GoogleMaps.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\openModal.js" />
-    <Content Include="Scripts\tabs.js" />
     <Content Include="Scripts\validator.js" />
     <Content Include="Styles\MapaAbmPlaya.css" />
     <Content Include="Styles\media-queries.css" />
