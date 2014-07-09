@@ -33,43 +33,48 @@
                             <li runat="server" id="tabDatosGrales" class="active"><a href="#datosGrales" data-toggle="tab">Datos Generales</a></li>
                             <li runat="server" id="tabHorarios"><a href="#horarios" data-toggle="tab">Horarios</a></li>
                             <li runat="server" id="tabPrecios"><a href="#precios" data-toggle="tab">Precios</a></li>
-
                         </ul>
+
 
                         <div class="tab-content" style="margin: 20px;">
 
                             <div class="tab-pane fade active in" id="datosGrales">
                                 <div class="clearfix"></div>
+                                <asp:UpdatePanel runat="server" ID="upDatosGrales">
+                                    <ContentTemplate>
+                                        <div class="form-group">
+                                            <asp:HiddenField runat="server" ID="hfIdPlaya" />
+                                            <label for="txtNombre" class="col-sm-2 col-md-2 col-lg-2 control-label">Nombre</label>
+                                            <div class="col-sm-10 col-md-10 col-lg-10 col-md-10 col-lg-10">
+                                                <asp:TextBox runat="server" CssClass="form-control required" ID="txtNombre" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtTelefono" class="col-sm-2 col-md-2 col-lg-2 col-md-2 col-lg-2 control-label">Telefono</label>
+                                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                                <asp:TextBox runat="server" CssClass="form-control  required" ID="txtTelefono" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtMail" class="col-sm-2 col-md-2 col-lg-2 control-label">Mail</label>
+                                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                                <asp:TextBox runat="server" CssClass="form-control required" ID="txtMail" />
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ddlTipoPlaya" class="col-sm-2 col-md-2 col-lg-2 control-label">Tipo de Playa</label>
+                                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                                <asp:DropDownList runat="server" ID="ddlTipoPlaya" CssClass="form-control required" />
+                                            </div>
+                                        </div>
+
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+
 
                                 <div class="form-group">
-                                    <asp:HiddenField runat="server" ID="hfIdPlaya" />
-                                    <label for="txtNombre" class="col-sm-2 col-md-2 col-lg-2 control-label">Nombre</label>
-                                    <div class="col-sm-10 col-md-10 col-lg-10 col-md-10 col-lg-10">
-                                        <asp:TextBox runat="server" CssClass="form-control required" ID="txtNombre" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtTelefono" class="col-sm-2 col-md-2 col-lg-2 col-md-2 col-lg-2 control-label">Telefono</label>
-                                    <div class="col-sm-10 col-md-10 col-lg-10">
-                                        <asp:TextBox runat="server" CssClass="form-control has required" ID="txtTelefono" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtMail" class="col-sm-2 col-md-2 col-lg-2 control-label">Mail</label>
-                                    <div class="col-sm-10 col-md-10 col-lg-10">
-                                        <asp:TextBox runat="server" CssClass="form-control required" ID="txtMail" />
-                                    </div>
-
-                                </div>
-                                <div class="form-group">
-                                    <label for="ddlTipoPlaya" class="col-sm-2 col-md-2 col-lg-2 control-label">Tipo de Playa</label>
-                                    <div class="col-sm-10 col-md-10 col-lg-10">
-                                        <asp:DropDownList runat="server" ID="ddlTipoPlaya" CssClass="form-control required" />
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <servicios:servicios runat="server" ID="ucServicios"></servicios:servicios>
+                                    <servicios:servicios runat="server" ID="ucServicios" OnErrorHandler="MostrarErrorServicio"></servicios:servicios>
                                 </div>
 
                                 <div class="form-group">
@@ -79,19 +84,17 @@
 
 
                             </div>
-
                             <div class="tab-pane" id="horarios">
                                 <div class="form-group">
-
-                                    <horarios:horarios runat="server" ID="ucHorarios"></horarios:horarios>
-                                    <asp:Button ID="btnPaso2" Text="Siguiente" runat="server" CssClass="btn btn-primary pull-right" OnClientClick="abrirTab($(this))" />
+                                    <horarios:horarios runat="server" ID="ucHorarios" OnErrorHandler="MostrarErrorHorario"></horarios:horarios>
+                                    <asp:Button ID="btnPaso2" Text="Siguiente" runat="server" CssClass="btn btn-primary pull-right" data-toggle="tab" data-target="#precios" OnClientClick="abrirTab()" />
                                 </div>
                             </div>
 
                             <div class="tab-pane" id="precios">
                                 <div class="control-group">
 
-                                    <precios:precios runat="server" ID="ucPrecios"></precios:precios>
+                                    <precios:precios runat="server" ID="ucPrecios" OnErrorHandler="MostrarErrorPrecio"></precios:precios>
                                     <div class="modal-footer">
                                         <asp:Button ID="btnCancelar" runat="server" CssClass="btn" OnClick="btnCancelar_Click" data-dismiss="modal" Text="Cancelar"></asp:Button>
                                         <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success" OnClick="btnGuardar_Click" Text="Guardar"></asp:Button>
@@ -103,14 +106,12 @@
 
                         </div>
                     </div>
-                    <!-- Fin form -->
-
-                </div>
+                </div> 
             </div>
         </div>
     </div>
 
-
+    </div>
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div>
@@ -154,11 +155,13 @@
                                         AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron Playas para los filtros utilizados"
                                         OnRowCommand="gvResultados_RowCommand" OnRowDataBound="gvResultados_RowDataBound">
                                         <Columns>
-                                            <%--<asp:BoundField DataField="Id" HeaderText="Id" Visible="false" />
-                                            <asp:BoundField DataField="Nombre" HeaderText="Nombre" Visible="true" />
-                                            <asp:BoundField DataField="Direccion" HeaderText="Direccion" Visible="true" />
-                                            <asp:BoundField DataField="TipoPlayaNombre" HeaderText="Tipo" Visible="true" />
-                                            <asp:BoundField DataField="Extras" HeaderText="Extras" Visible="true" />--%>
+                                            <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                                            <asp:BoundField DataField="TipoPlayaStr" HeaderText="Tipo" />
+                                            <asp:BoundField DataField="Calle" HeaderText="Calle" />
+                                            <asp:BoundField DataField="Numero" HeaderText="Numero" />
+                                            <asp:BoundField DataField="Ciudad" HeaderText="Ciudad" />
+                                            <asp:BoundField DataField="Provincia" HeaderText="Provincia" />
+                                            <asp:BoundField DataField="Extras" HeaderText="Extras" />
                                             <asp:TemplateField HeaderText="Acciones">
                                                 <ItemStyle CssClass="grilla-columna-accion" />
                                                 <ItemTemplate>
@@ -168,8 +171,8 @@
                                                     <asp:Button ID="btnEliminar" runat="server" CommandArgument="<%# Container.DataItemIndex %>"
                                                         CommandName="Eliminar" CssClass="icon icon-grilla icon-delete" />
 
-                                                    <asp:LinkButton ID="btnVer" runat="server" CommandArgument="<%# Container.DataItemIndex %>"
-                                                        CommandName="Ver" data-toggle="modal" data-target="#modificarPlaya" Text="<span class='glyphicon glyphicon-edit'></span>" />
+                                                    <asp:Button ID="btnVer" runat="server" CommandArgument="<%# Container.DataItemIndex %>"
+                                                        CommandName="Ver" data-toggle="modal" data-target="#modificarPlaya" CssClass="icon icon-grilla " />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
 
@@ -189,52 +192,54 @@
 
 
 
-        //$(document).ready(function () {
+        $(document).ready(function () {
 
-        //    $('#eliminar').tooltip();
-        //    $('#editar').tooltip();
-        //    $('#buscar').tooltip();
+            $('#eliminar').tooltip();
+            $('#editar').tooltip();
+            $('#buscar').tooltip();
+                       
 
-        //    /*Al iniciar cuenta las filas que tiene cargada la tabla. Client-side */
-        //    contarFilas();
+            /*Al iniciar cuenta las filas que tiene cargada la tabla. Client-side */
+            contarFilas();
 
-        //    /*Muestra los resultados de la búsqueda*/
-        //    $("#MainContent_btnBuscar").click(function () {
-        //        customSlideToggle($("#pnlResultados"));
-        //    });
+            /*Muestra los resultados de la búsqueda*/
+            $("#MainContent_btnBuscar").click(function () {
+                customSlideToggle($("#pnlResultados"));
+            });
 
-        //    contarFilas();
-
-        //});
-
+        });
 
 
 
-        //////function customSlideToggle(e) {
-        //////    if (e.hasClass('hidden')) {
-        //////        e.show();
-        //////        e.removeClass('hidden')
-        //////        e.slideDown('slow');
-        //////    }
-        //////    else {
-        //////        e.slideUp('slow', function () {
-        //////            e.addclass('hidden');
-        //////            e.hide();
+        function customSlideToggle(e) {
+            if (e.hasClass('hidden')) {
+                e.show();
+                e.removeClass('hidden')
+                e.slideDown('slow');
+            }
+            else {
+                e.slideUp('slow', function () {
+                    e.addclass('hidden');
+                    e.hide();
 
-        //////        });
-        //////    }
-        //////}
+                });
+            }
+        }
 
-        //pageManager = Sys.WebForms.PageRequestManager.getInstance();
+        pageManager = Sys.WebForms.PageRequestManager.getInstance();
+        pageManager.add_endRequest(function () {
+            
+            var contador = 0;
+            if (document.getElementById('TopContent_ucDomicilios_divSeccionFormulario') != null && contador == 0) {
+                contador = 1;
+                GoogleMaps.initialize();
+            }
+            contarFilas();
+            $("#MainContent_btnBuscar").click(function () {
+                customSlideToggle($("#pnlResultados"));
 
-        //pageManager.add_endRequest(function () {
-        //    GoogleMaps.initialize();
-        //    contarFilas();
-        //    $("#MainContent_btnBuscar").click(function () {
-        //        customSlideToggle($("#pnlResultados"));
-
-        //    });
-        //});
+            });
+        });
 
     </script>
 

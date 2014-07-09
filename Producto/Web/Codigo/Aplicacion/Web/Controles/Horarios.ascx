@@ -3,7 +3,7 @@
 <div>
     <asp:UpdatePanel runat="server" ID="UpdatePanel1">
         <ContentTemplate>
-            <asp:LinkButton ID="btnAgregarHorario" runat="server" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClientClick="mostrarFormularioHorario()" />
+            <asp:LinkButton ID="btnAgregarHorario" runat="server" OnClick="btnAgregarHorario_Click" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClientClick="mostrarFormularioHorario()" />
         </ContentTemplate>
     </asp:UpdatePanel>
 
@@ -12,9 +12,10 @@
             <h3 class="panel-title">Horarios</h3>
         </div>
         <div class="panel-body">
-            <div id="divSeccionFormulario" runat="server" class="hidden">
                 <asp:UpdatePanel runat="server" ID="upFormulario">
                     <ContentTemplate>
+            <div id="divSeccionFormulario" runat="server" class="">
+
                         <div class="form-horizontal" role="form">
                             <div class="form-group">
                                 <label for="ddlDias" class="col-sm-2 col-md-2 col-lg-2 control-label">Dias</label>
@@ -41,15 +42,12 @@
                             </div>
                             <div class="form-group pull-right">
                                 <asp:LinkButton runat="server" ID="btnGuardar" CssClass="btn btn-lg" Text="<span class='glyphicon glyphicon-ok-circle'></span>" ForeColor="Green" BackColor="Transparent" OnClientClick="mostrarFormularioHorario()" OnClick="btnGuardar_Click" />
-                                <asp:LinkButton runat="server" ID="btnCancelar" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClientClick="mostrarFormularioHorario()" />
+                                <asp:LinkButton runat="server" ID="btnCancelar" OnClick="btnCancelar_Click" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClientClick="mostrarFormularioHorario()" />
                             </div>
                         </div>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
             </div>
             <div id="divSeccionHorarios" runat="server">
-                <asp:UpdatePanel runat="server" ID="upGVResultados">
-                    <ContentTemplate>
+
                         <asp:GridView runat="server" ID="gvHorarios" AutoGenerateColumns="false" DataKeyNames="Id, DiaAtencionId"
                             OnRowCommand="OnRowCommandGvHorarios">
                             <Columns>
@@ -58,14 +56,14 @@
                                 <asp:BoundField HeaderText="Hasta" DataField="HoraHasta" />
                                 <asp:TemplateField HeaderText="Quitar">
                                     <ItemTemplate>
-                                        <asp:Button runat="server" ID="btnQuitar" />
+                                        <asp:Button runat="server" ID="btnQuitar" CommandName="Quitar" CommandArgument="<%# Container.DataItemIndex %>"/>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
+            </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
-            </div>
         </div>
         
     </div>
@@ -74,19 +72,30 @@
 <script type="text/javascript">
 
     function mostrarFormularioHorario() {
-        var mostrar = $('#TopContent_ucHorarios_divSeccionFormulario').hasClass("hidden");
-        if (mostrar) {
-            $('#TopContent_ucHorarios_divSeccionFormulario').removeClass("hidden");
-            $('#TopContent_ucHorarios_btnAgregarHorario').addClass("hidden");
-            $('#TopContent_ucHorarios_btnAgregarHorario').addClass("btn btn-danger");
-            $('#TopContent_ucHorarios_btnAgregarHorario>span').addClass("glyphicon glyphicon-minus");
-        }
-        else {
-            $('#TopContent_ucHorarios_divSeccionFormulario').addClass("hidden");
-            $('#TopContent_ucHorarios_btnAgregarHorario').removeClass("hidden");
-            $('#TopContent_ucHorarios_btnAgregarHorario').addClass("btn btn-success");
-            $('#TopContent_ucHorarios_btnAgregarHorario>span').addClass("glyphicon glyphicon-plus");
-        }
+//<<<<<<< Updated upstream
+//        var mostrar = $('#TopContent_ucHorarios_divSeccionFormulario').hasClass("hidden");
+//        if (mostrar) {
+//            $('#TopContent_ucHorarios_divSeccionFormulario').removeClass("hidden");
+//            $('#TopContent_ucHorarios_btnAgregarHorario').addClass("hidden");
+//            $('#TopContent_ucHorarios_btnAgregarHorario').addClass("btn btn-danger");
+//            $('#TopContent_ucHorarios_btnAgregarHorario>span').addClass("glyphicon glyphicon-minus");
+//        }
+//        else {
+//            $('#TopContent_ucHorarios_divSeccionFormulario').addClass("hidden");
+//            $('#TopContent_ucHorarios_btnAgregarHorario').removeClass("hidden");
+//            $('#TopContent_ucHorarios_btnAgregarHorario').addClass("btn btn-success");
+//            $('#TopContent_ucHorarios_btnAgregarHorario>span').addClass("glyphicon glyphicon-plus");
+//        }
+//=======
+        //var mostrar = $('#TopContent_ucHorarios_divSeccionFormulario').hasClass("hidden");
+        //if (mostrar) {
+        //    $('#TopContent_ucHorarios_divSeccionFormulario').removeClass("hidden");
+        //    $('#TopContent_ucHorarios_btnAgregarHorario').addClass("hidden");
+        //}
+        //else {
+        //    $('#TopContent_ucHorarios_divSeccionFormulario').addClass("hidden");
+        //    $('#TopContent_ucHorarios_btnAgregarHorario').removeClass("hidden");
+        //}
 
     }
 
