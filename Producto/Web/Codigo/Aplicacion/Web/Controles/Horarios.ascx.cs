@@ -165,6 +165,18 @@ namespace Web.Controles
             AgregarHorario(CargarEntidad());
             SetVisibleFormulario(false);
         }
+
+        protected void btnAgregarHorario_Click(object sender, EventArgs e)
+        {
+            SetVisibleFormulario(true);
+            LimpiarCampos();
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            SetVisibleFormulario(false);
+        }
+
         #endregion
         #region properties
 
@@ -207,15 +219,7 @@ namespace Web.Controles
             public String Mensaje { get; set; }
         }
 
-        protected void btnAgregarHorario_Click(object sender, EventArgs e)
-        {
-            SetVisibleFormulario(true);
-        }
-
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
-            SetVisibleFormulario(false);
-        }
+        
 
     }
     

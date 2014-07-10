@@ -26,9 +26,9 @@ namespace Web.Controles
         public void CargarCombos()
         {
             FormHelper.CargarCombo(ddlDias, gestor.BuscarDiasDeAtencion(), "Nombre", "Id", "Seleccione");
-            FormHelper.CargarCombo(ddlTipoHorario, gestor.BuscarTiempos(), "Nombre", "Id","Seleccione");
+            FormHelper.CargarCombo(ddlTipoHorario, gestor.BuscarTiempos(), "Nombre", "Id", "Seleccione");
             FormHelper.CargarCombo(ddlTipoVehiculo, gestor.BuscarTipoVehiculos(), "Nombre", "Id", "Seleccione");
-            
+
         }
         public IList<Entidades.Precio> Precios
         {
@@ -63,7 +63,7 @@ namespace Web.Controles
                 precio.DiaAtencionId = int.Parse(gvPrecios.DataKeys[row.RowIndex].Values[3].ToString());
                 precio.DiaAtencion = gestor.GetDiaAtencionById(precio.DiaAtencionId);
                 precio.Monto = Convert.ToDecimal(row.Cells[3].Text);
-                
+
                 precios.Add(precio);
             }
             return precios;
@@ -91,7 +91,7 @@ namespace Web.Controles
         }
 
         private bool ValidarPrecio(Entidades.Precio precio)
-        {           
+        {
 
             foreach (var item in Precios)
             {
@@ -107,7 +107,7 @@ namespace Web.Controles
 
         private bool ValidarDatosIngresados()
         {
-            if (IdTipoVehiculoSeleccionado == 0 || IdTiempoSeleccionado == 0 || IdDiaAtencionSeleccionado == 0 || Monto == (Decimal)(-1))
+            if (IdTipoVehiculoSeleccionado == 0 || IdTiempoSeleccionado == 0 || IdDiaAtencionSeleccionado == 0 || Monto == null)
             {
                 OnError("Debe ingresar todos los datos requeridos.");
                 return false;
@@ -123,7 +123,7 @@ namespace Web.Controles
             precio.Tiempo = gestor.BuscarTiempoPorId(IdTiempoSeleccionado);
             precio.DiaAtencionId = IdDiaAtencionSeleccionado;
             precio.DiaAtencion = gestor.GetDiaAtencionById(IdDiaAtencionSeleccionado);
-            precio.Monto = Monto;
+            precio.Monto = Monto.Value;
             return precio;
         }
 
@@ -132,8 +132,7 @@ namespace Web.Controles
             IdTipoVehiculoSeleccionado = 0;
             IdTiempoSeleccionado = 0;
             IdDiaAtencionSeleccionado = 0;
-            Monto = -1; //-1 Limpia el textBox
-            
+            Monto = null;
         }
 
         private void SetVisibleFormulario(bool habilitar)
@@ -167,7 +166,6 @@ namespace Web.Controles
             btnAgregarPrecio.Visible = true;
         }
 
-
         #region eventos
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -180,8 +178,13 @@ namespace Web.Controles
         protected void btnAgregarPrecio_Click(object sender, EventArgs e)
         {
             SetVisibleFormulario(true);
+            LimpiarCampos();
         }
 
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            SetVisibleFormulario(false);
+        }
 
         #endregion
         #region properties
@@ -202,10 +205,10 @@ namespace Web.Controles
             set { ddlDias.SelectedValue = value.ToString(); }
         }
 
-        public Decimal Monto
+        public Decimal? Monto
         {
-            get { return String.IsNullOrEmpty(txtPrecio.Text)? -1 : Convert.ToDecimal(txtPrecio.Text); }
-            set { txtPrecio.Text = value == (Decimal)(-1) ? "" : value.ToString(); }
+            get { return FormHelper.ObtenerNullableDecimal(txtPrecio); }
+            set { txtPrecio.Text = value == null ? "" : value.ToString(); }
         }
 
         #endregion
@@ -227,13 +230,6 @@ namespace Web.Controles
 
             public String Mensaje { get; set; }
         }
-
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
-            SetVisibleFormulario(false);
-        }
-
-        
     }
 
 }

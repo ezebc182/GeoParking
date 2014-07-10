@@ -17,7 +17,7 @@
                         <div class="form-group">
                             <label for="ddlProvincia" class="col-sm-2 col-md-2 col-lg-2 control-label">Provincia</label>
                             <div class="col-sm-10 col-md-10 col-lg-10">
-                                <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ID="ddlProvincia" OnSelectedIndexChanged="ddlProvincia_SelectedIndexChanged" />
+                                <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ClientIDMode="Static" ID="ddlProvincia" OnSelectedIndexChanged="ddlProvincia_SelectedIndexChanged" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -29,23 +29,22 @@
                         <div class="form-group">
                             <label for="ddlCiudad" class="col-sm-2 col-md-2 col-lg-2 control-label">Ciudad</label>
                             <div class="col-sm-10 col-md-10 col-lg-10">
-                                <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ID="ddlCiudad" />
+                                <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ClientIDMode="Static" ID="ddlCiudad" />
                             </div>
                         </div>
                         <div class="form-group">
 
                             <label for="txtCalle" class="col-sm-2 col-md-2 col-lg-2 control-label">Calle</label>
                             <div class="col-sm-6 col-md-6 col-lg-6">
-                                <asp:TextBox runat="server" CssClass="form-control required" ID="txtCalle" />
+                                <asp:TextBox runat="server" CssClass="form-control required" ClientIDMode="Static" ID="txtCalle" />
                             </div>
-
                             <label for="txtNumero" class="col-sm-1 col-md-1 col-lg-1 control-label">Número</label>
                             <div class="col-sm-2 col-md-2 col-lg-2">
-                                <asp:TextBox runat="server" CssClass="form-control required" ID="txtNumero" />
+                                <asp:TextBox runat="server" CssClass="form-control required" ClientIDMode="Static" ID="txtNumero" />
                             </div>
                             <div class="col-sm-1 col-md-1 col-lg-1">
-                                <asp:LinkButton runat="server" ID="btnBuscarEnMapa" Text="<span class='glyphicon glyphicon-map-marker'></span>"
-                                     ToolTip="Buscar en mapa" CssClass="btn btn-warning pull-right" OnClick="btnBuscarEnMapa_Click" OnClientClick="codeAddress()" />
+                                <button runat="server" ID="btnBuscarEnMapa" class="glyphicon glyphicon-map-marker btn btn-warning pull-right"
+                                     ToolTip="Buscar en mapa" onclick="codeAddress()" />
                                 <asp:TextBox runat="server" ClientIDMode="Static" ID="txtDireccion" CssClass="hidden"/>
                             </div>
                         </div>
