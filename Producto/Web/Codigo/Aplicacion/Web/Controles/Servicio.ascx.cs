@@ -85,7 +85,7 @@ namespace Web.Controles
         }
         private bool ValidarServicio(Servicio servicio)
         {
-            
+
             foreach (var item in Servicios)
             {
                 if (item.TipoVehiculoId == servicio.TipoVehiculoId)
@@ -98,7 +98,7 @@ namespace Web.Controles
         }
         private bool ValidarDatosIngresados()
         {
-            if (IdVehiculoSeleccionado == 0 || Capacidad == -1)
+            if (IdVehiculoSeleccionado == 0 || Capacidad == null)
             {
                 OnError("Debe ingresar todos los datos requeridos.");
                 return false;
@@ -107,17 +107,17 @@ namespace Web.Controles
         }
         private Servicio CargarEntidad()
         {
-            
+
             var servicio = new Servicio();
             servicio.TipoVehiculo = gestor.BuscarTipoVehiculo(IdVehiculoSeleccionado);
-            servicio.Capacidad = Capacidad;
+            servicio.Capacidad = Capacidad.Value;
             return servicio;
         }
 
         public void LimpiarCampos()
         {
             IdVehiculoSeleccionado = 0;
-            Capacidad = -1;
+            Capacidad = null;
         }
 
         private void SetVisibleFormulario(bool habilitar)
@@ -154,13 +154,24 @@ namespace Web.Controles
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            if(!ValidarDatosIngresados()) return;
+            if (!ValidarDatosIngresados()) return;
             AgregarServicio(CargarEntidad());
             SetVisibleFormulario(false);
         }
+
+        protected void btnAgregarServicio_Click(object sender, EventArgs e)
+        {
+            SetVisibleFormulario(true);
+            LimpiarCampos();
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            SetVisibleFormulario(false);
+        }
+
         #endregion
         #region properties
-
 
         public int IdVehiculoSeleccionado
         {
@@ -168,10 +179,10 @@ namespace Web.Controles
             set { ddlTipoVehiculo.SelectedValue = value.ToString(); }
         }
 
-        public int Capacidad
+        public int? Capacidad
         {
-            get { return Convert.ToInt32(txtCapacidad.Text); }
-            set { txtCapacidad.Text = value == -1 ? "" : value.ToString(); }
+            get { return FormHelper.ObtenerNullableEntero(txtCapacidad); }
+            set { txtCapacidad.Text = value == null ? "" : value.ToString(); }
         }
 
         #endregion
@@ -192,16 +203,6 @@ namespace Web.Controles
             }
 
             public String Mensaje { get; set; }
-        }
-
-        protected void btnAgregarServicio_Click(object sender, EventArgs e)
-        {
-            SetVisibleFormulario(true);
-        }
-
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
-            SetVisibleFormulario(false);
         }
 
     }

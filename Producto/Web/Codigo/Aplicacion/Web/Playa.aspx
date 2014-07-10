@@ -96,8 +96,12 @@
 
                                     <precios:precios runat="server" ID="ucPrecios" OnErrorHandler="MostrarErrorPrecio"></precios:precios>
                                     <div class="modal-footer">
-                                        <asp:Button ID="btnCancelar" runat="server" CssClass="btn" OnClick="btnCancelar_Click" data-dismiss="modal" Text="Cancelar"></asp:Button>
-                                        <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success" OnClick="btnGuardar_Click" Text="Guardar"></asp:Button>
+                                        <asp:UpdatePanel runat="server" ID="upBotones">
+                                            <ContentTemplate>
+                                                <asp:Button ID="btnCancelar" runat="server" CssClass="btn" OnClick="btnCancelar_Click" data-dismiss="modal" Text="Cancelar"></asp:Button>
+                                                <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success" OnClick="btnGuardar_Click" Text="Guardar"></asp:Button>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
 
                                     </div>
 
@@ -106,7 +110,7 @@
 
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
@@ -197,7 +201,7 @@
             $('#eliminar').tooltip();
             $('#editar').tooltip();
             $('#buscar').tooltip();
-                       
+
 
             /*Al iniciar cuenta las filas que tiene cargada la tabla. Client-side */
             contarFilas();
@@ -228,7 +232,7 @@
 
         pageManager = Sys.WebForms.PageRequestManager.getInstance();
         pageManager.add_endRequest(function () {
-            
+
             var contador = 0;
             if (document.getElementById('TopContent_ucDomicilios_divSeccionFormulario') != null && contador == 0) {
                 contador = 1;

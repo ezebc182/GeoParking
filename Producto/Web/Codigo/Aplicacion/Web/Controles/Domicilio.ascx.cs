@@ -110,7 +110,7 @@ namespace Web.Controles
 
         private bool ValidarDatosIngresados()
         {
-            if (IdProvinciaSeleccionada == 0 || IdDepartamentoSeleccionado == 0 || IdCiudadSeleccionada == 0 || string.IsNullOrEmpty(Calle) || Numero == -1)
+            if (IdProvinciaSeleccionada == 0 || IdDepartamentoSeleccionado == 0 || IdCiudadSeleccionada == 0 || string.IsNullOrEmpty(Calle) || Numero == null)
             {
                 OnError("Debe ingresar todos los datos requeridos.");
                 return false;
@@ -123,7 +123,7 @@ namespace Web.Controles
             direccion.Ciudad = gestor.GetCiudadById(IdCiudadSeleccionada);
             direccion.CiudadId = direccion.Ciudad.Id;
             direccion.Calle = Calle;
-            direccion.Numero = Numero;
+            direccion.Numero = Numero.Value;
             direccion.Departamento = gestor.BuscarDepartamentoPorCiudadId(direccion.CiudadId);
             direccion.Provincia = gestor.BuscarProvinciaPorDepartamentoId(direccion.Departamento.Id);
             direccion.Latitud = Latitud;
@@ -135,7 +135,17 @@ namespace Web.Controles
         {
             IdProvinciaSeleccionada = 0;
             Calle = "";
-            Numero = -1;//Con -1 se limpia el textbox
+            Numero = null;
+            if (Domicilios.Count > 0) LimpiarCombos();
+
+        }
+
+
+        public void LimpiarCombos()
+        {
+            FormHelper.LimpiarCombo(ddlCiudad);
+            FormHelper.LimpiarCombo(ddlDepartamento);
+            HabilitarCombos(true);
         }
 
         public void ConfigurarVer()
@@ -190,10 +200,6 @@ namespace Web.Controles
             SetVisibleFormulario(true);
         }
 
-        protected void btnBuscarEnMapa_Click(object sender, EventArgs e)
-        {
-            txtDireccion.Text = (string.IsNullOrEmpty(Calle) ? "" : Calle + " " + ( Numero != (-1) ?   Numero.ToString() : "") + ", ") + (CiudadSeleccionada != null ? CiudadSeleccionada.Nombre : "" + ", ") + (ProvinciaSeleccionada != null ? ProvinciaSeleccionada.Nombre : "");
-        }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -223,7 +229,7 @@ namespace Web.Controles
         }
         public Provincia ProvinciaSeleccionada
         {
-            get { return IdProvinciaSeleccionada !=0? gestor.BuscarProvinciaPorId(IdProvinciaSeleccionada) : null; }
+            get { return IdProvinciaSeleccionada != 0 ? gestor.BuscarProvinciaPorId(IdProvinciaSeleccionada) : null; }
         }
 
         public int IdDepartamentoSeleccionado
@@ -238,7 +244,7 @@ namespace Web.Controles
         }
         public int IdCiudadSeleccionada
         {
-            get { return string.IsNullOrEmpty(ddlCiudad.SelectedValue)? 0 : Convert.ToInt32(ddlCiudad.SelectedValue); }
+            get { return string.IsNullOrEmpty(ddlCiudad.SelectedValue) ? 0 : Convert.ToInt32(ddlCiudad.SelectedValue); }
             set { ddlCiudad.SelectedValue = value.ToString(); }
         }
 
@@ -252,10 +258,10 @@ namespace Web.Controles
             set { txtCalle.Text = value.Trim(); }
         }
 
-        public int Numero
+        public int? Numero
         {
-            get { return string.IsNullOrEmpty(txtNumero.Text)? -1 : Convert.ToInt32(txtNumero.Text.Trim()); }
-            set { txtNumero.Text = value == -1 ? "" : value.ToString(); }
+            get { return FormHelper.ObtenerNullableEntero(txtNumero); }
+            set { txtNumero.Text = value == null ? "" : value.ToString(); }
         }
 
         #endregion

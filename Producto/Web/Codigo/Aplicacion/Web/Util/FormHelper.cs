@@ -110,6 +110,58 @@ namespace Web.Util
             }
         }
 
+        public static decimal? ObtenerNullableDecimal(object control)
+        {
+            try
+            {
+                string valor = null;
+
+                if (control.GetType() == typeof(DropDownList))
+                    valor = ((DropDownList)control).SelectedValue;
+
+                if (control.GetType() == typeof(TextBox))
+                    valor = ((TextBox)control).Text;
+
+                if (control.GetType() == typeof(HiddenField))
+                    valor = ((HiddenField)control).Value;
+
+                if (string.IsNullOrEmpty(valor))
+                    return null;
+
+                return decimal.Parse(valor);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public static decimal ObtenerDecimal(object control)
+        {
+            try
+            {
+                string valor = null;
+
+                if (control.GetType() == typeof(DropDownList))
+                    valor = ((DropDownList)control).SelectedValue;
+
+                if (control.GetType() == typeof(TextBox))
+                    valor = ((TextBox)control).Text;
+
+                if (control.GetType() == typeof(HiddenField))
+                    valor = ((HiddenField)control).Value;
+
+                if (string.IsNullOrEmpty(valor))
+                    return 0;
+
+                return decimal.Parse(valor);
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
         public static float? ObtenerNullableFlotante(object control)
         {
             try
@@ -287,6 +339,12 @@ namespace Web.Util
         #endregion
 
         #region Combos
+
+        public static void LimpiarCombo(DropDownList combo)
+        {
+            combo.DataSource = null;
+            combo.DataBind();
+        }
 
         /// <summary>
         /// Metodo usado para llenar un combo con una lista de entidades.
