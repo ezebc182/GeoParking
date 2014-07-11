@@ -97,7 +97,8 @@ namespace ReglasDeNegocio
                 }
                 if (contador != precios.Count())
                 {
-                    resultado.AddErrorMessage("Debe cargar precios para todos los horarios de atencion indicados.");
+                    resultado.AddErrorMessage("No puede cargar precios para dias en los que no se atiende al publico.");
+                    resultado.AddErrorMessage("Debe cargar precios para todos los dias de atencion.");
                 }
             }
         }
@@ -127,7 +128,8 @@ namespace ReglasDeNegocio
                 }
                 if (contador != precios.Count())
                 {
-                    resultado.AddErrorMessage("Debe cargar precios para todos los Tipos de vehiculos aceptados por la playa.");
+                    resultado.AddErrorMessage("Debe cargar precios para todos los tipos de vehiculos aceptados.");
+                    resultado.AddErrorMessage("Se cargaron precios para vehiculos no aceptados en la playa.");
                 }
             }
         }
@@ -219,23 +221,7 @@ namespace ReglasDeNegocio
         {
             return tipoPlayaDao.FindAll();
         }
-        public IList<TipoVehiculo> BuscarTipoVehiculos()
-        {
-            return tipoVehiculoDao.FindAll();
-        }
-        public TipoVehiculo BuscarTipoVehiculo(int id)
-        {
-            return tipoVehiculoDao.FindById(id);
-        }
-        public DiaAtencion GetDiaAtencionById(int IdDiaAtencionSeleccionado)
-        {
-            return diaAtencionDao.FindById(IdDiaAtencionSeleccionado);
-        }
-        public IList<DiaAtencion> BuscarDiasDeAtencion()
-        {
-            return diaAtencionDao.FindAll();
-        }
-
+        
         public IList<Direccion> BuscarDireccionesPorPlaya(int idPlaya)
         {
             return new GestorDireccion().BuscarDireccionesPorPlaya(idPlaya);
