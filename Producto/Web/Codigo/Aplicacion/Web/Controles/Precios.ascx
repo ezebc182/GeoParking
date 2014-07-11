@@ -51,7 +51,7 @@
                         </div>
             </div>
 
-                        <div id="divSeccionPrecios" runat="server">
+                        <div id="divSeccionPrecios" runat="server" class="">
                         <asp:GridView runat="server" ID="gvPrecios" AutoGenerateColumns="false" DataKeyNames="Id, TipoVehiculoId, TiempoId, DiaAtencionId"
                             OnRowCommand="OnRowCommandGvPrecios">
                             <Columns>

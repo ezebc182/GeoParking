@@ -12,12 +12,12 @@ namespace Web.Controles
 {
     public partial class ServicioControl : System.Web.UI.UserControl
     {
-        GestorPlaya gestor;
+        GestorServicio gestor;
         public event EventHandler ErrorHandler;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            gestor = new GestorPlaya();
+            gestor = new GestorServicio();
             if (!Page.IsPostBack)
             {
                 CargarCombos();
@@ -55,7 +55,7 @@ namespace Web.Controles
 
                 servicio.Id = int.Parse(gvServicios.DataKeys[row.RowIndex].Values[0].ToString());
                 servicio.TipoVehiculoId = int.Parse(gvServicios.DataKeys[row.RowIndex].Values[1].ToString());
-                servicio.TipoVehiculo = gestor.BuscarTipoVehiculo(servicio.TipoVehiculoId);
+                servicio.TipoVehiculo = gestor.BuscarTipoVehiculoPorId(servicio.TipoVehiculoId);
                 servicio.TipoVehiculoStr = row.Cells[0].Text;
                 servicio.Capacidad = int.Parse(row.Cells[1].Text);
 
@@ -109,7 +109,7 @@ namespace Web.Controles
         {
 
             var servicio = new Servicio();
-            servicio.TipoVehiculo = gestor.BuscarTipoVehiculo(IdVehiculoSeleccionado);
+            servicio.TipoVehiculo = gestor.BuscarTipoVehiculoPorId(IdVehiculoSeleccionado);
             servicio.Capacidad = Capacidad.Value;
             return servicio;
         }
@@ -120,35 +120,28 @@ namespace Web.Controles
             Capacidad = null;
         }
 
-        private void SetVisibleFormulario(bool habilitar)
-        {
-            divSeccionFormulario.Visible = habilitar;
-            divSeccionServicios.Visible = !habilitar;
-            btnAgregarServicio.Visible = !habilitar;
-        }
-
         public void ConfigurarVer()
         {
-            divSeccionFormulario.Visible = false;
-            divSeccionServicios.Visible = true;
-            gvServicios.Columns[2].Visible = false;
-            btnAgregarServicio.Visible = false;
-        }
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionServicios, true);
+            FormHelper.CambiarVisibilidadControl(btnAgregarServicio, true);
+            gvServicios.Columns[2].Visible = true;
+            }
 
         public void ConfigurarEditar()
         {
-            divSeccionFormulario.Visible = false;
-            divSeccionServicios.Visible = true;
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionServicios, true);
+            FormHelper.CambiarVisibilidadControl(btnAgregarServicio, true);
             gvServicios.Columns[2].Visible = true;
-            btnAgregarServicio.Visible = true;
         }
 
         public void ConfigurarRegistrar()
         {
-            divSeccionFormulario.Visible = false;
-            divSeccionServicios.Visible = true;
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionServicios, true);
+            FormHelper.CambiarVisibilidadControl(btnAgregarServicio, true);
             gvServicios.Columns[2].Visible = true;
-            btnAgregarServicio.Visible = true;
         }
         #region eventos
 
@@ -156,18 +149,15 @@ namespace Web.Controles
         {
             if (!ValidarDatosIngresados()) return;
             AgregarServicio(CargarEntidad());
-            SetVisibleFormulario(false);
         }
 
         protected void btnAgregarServicio_Click(object sender, EventArgs e)
         {
-            SetVisibleFormulario(true);
             LimpiarCampos();
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            SetVisibleFormulario(false);
         }
 
         #endregion

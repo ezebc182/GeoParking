@@ -33,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="divSeccionServicios" runat="server">
+                    <div id="divSeccionServicios" runat="server" class="">
 
                         <asp:GridView runat="server" ID="gvServicios" AutoGenerateColumns="false"
                             DataKeyNames="Id,TipoVehiculoId" OnRowCommand="OnRowCommandGvServicios">

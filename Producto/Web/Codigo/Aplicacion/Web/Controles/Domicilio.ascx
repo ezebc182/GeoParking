@@ -59,12 +59,12 @@
 
                         <div class="form-group pull-right">
                             <asp:LinkButton runat="server" ID="btnGuardar" CssClass="btn btn-lg" Text="<span class='glyphicon glyphicon-ok-circle'></span>" ForeColor="Green" BackColor="Transparent" OnClientClick="mostrarFormularioDomicilio()" OnClick="btnGuardar_Click" />
-                            <asp:LinkButton runat="server" ID="btnCancelar" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClick="btnCancelar_Click" OnClientClick="mostrarFormularioDomicilio()" />
+                            <asp:LinkButton runat="server" ID="btnCancelar" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClientClick="mostrarFormularioDomicilio()" />
                         </div>
 
                     </div>
                 </div>
-                <div id="divSeccionDomicilios" runat="server">
+                <div id="divSeccionDomicilios" runat="server" class="">
                     <asp:GridView runat="server" ID="gvDomicilios" AutoGenerateColumns="false"
                         DataKeyNames="Id, CiudadId" CssClass="table table-hover table-responsive"
                         OnRowCommand="OnRowCommandGvDomicilios">

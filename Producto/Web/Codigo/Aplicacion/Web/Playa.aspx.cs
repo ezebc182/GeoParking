@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Entidades;
 using ReglasDeNegocio;
 using Web.Controles;
+using Web.Util;
 
 namespace Web
 {
@@ -26,8 +27,8 @@ namespace Web
             {
                 CargarComboTiposPlayas();
                 Error = string.Empty;
-
             }
+            Error = string.Empty;
         }
 
         public void CargarComboTiposPlayas()
@@ -43,6 +44,8 @@ namespace Web
 
         public void ConfigurarVer()
         {
+            Exito = string.Empty;
+            Error = string.Empty;
             txtNombre.Enabled = false;
             ddlTipoPlaya.Enabled = false;
             btnGuardar.Visible = false;
@@ -56,6 +59,8 @@ namespace Web
 
         public void ConfigurarEditar()
         {
+            Exito = string.Empty;
+            Error = string.Empty;
             txtNombre.Enabled = true;
             ddlTipoPlaya.Enabled = true;
             btnGuardar.Visible = true;
@@ -69,6 +74,8 @@ namespace Web
 
         public void ConfigurarRegistrar()
         {
+            Error = string.Empty;
+            Exito = string.Empty;
             txtNombre.Enabled = true;
             ddlTipoPlaya.Enabled = true;
             btnGuardar.Visible = true;
@@ -115,7 +122,7 @@ namespace Web
         }
         private void limpiarCampos()
         {
-            divAlertError.Visible = false;
+            Error = string.Empty;
             IdPlaya = 0;
             Nombre = "";
             Mail = "";
@@ -208,14 +215,23 @@ namespace Web
             get { return ddlTipoPlaya.SelectedIndex; }
             set { ddlTipoPlaya.SelectedIndex = value; }
         }
-
+        public string Exito
+        {
+            set
+            {
+                lblMensajeExito.Text = value;
+                FormHelper.CambiarVisibilidadControl(divAlertExito, !string.IsNullOrEmpty(value));
+                FormHelper.CambiarVisibilidadControl(divModal, string.IsNullOrEmpty(value));
+                FormHelper.CambiarVisibilidadControl(btnAceptar, !string.IsNullOrEmpty(value));
+            }
+        }
         public string Error
         {
             get { return lblMensajeError.Text; }
             set
             {
                 lblMensajeError.Text = value;
-                divAlertError.Visible = !string.IsNullOrEmpty(value);
+                FormHelper.CambiarVisibilidadControl(divAlertError, !string.IsNullOrEmpty(value));
             }
         }
 
@@ -354,9 +370,7 @@ namespace Web
                 if (resultado.Ok)
                 {
                     //Mensaje de registracion correcta
-                    master.Alert = "La playa fue registrada correctamente.";
-                    //limpio el formulario
-                    limpiarCampos();
+                    Exito = "La playa fue registrada correctamente.";                    
                 }
                 else
                 {

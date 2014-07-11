@@ -150,33 +150,28 @@ namespace Web.Controles
 
         public void ConfigurarVer()
         {
-            divSeccionFormulario.Visible = false;
-            divSeccionDomicilios.Visible = true;
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionDomicilios, true);
+            FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, false);
             gvDomicilios.Columns[7].Visible = false;
-            btnAgregarDomicilio.Visible = false;
         }
 
         public void ConfigurarEditar()
         {
-            divSeccionFormulario.Visible = false;
-            divSeccionDomicilios.Visible = true;
-            gvDomicilios.Columns[5].Visible = true;
-            btnAgregarDomicilio.Visible = true;
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionDomicilios, true);
+            FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, true);
+            gvDomicilios.Columns[7].Visible = true;
         }
 
         public void ConfigurarRegistrar()
         {
-            divSeccionFormulario.Visible = false;
-            divSeccionDomicilios.Visible = true;
-            gvDomicilios.Columns[5].Visible = true;
-            btnAgregarDomicilio.Visible = true;
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionDomicilios, true);
+            FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, true);
+            gvDomicilios.Columns[7].Visible = true;
         }
-        private void SetVisibleFormulario(bool habilitar)
-        {
-            divSeccionFormulario.Visible = habilitar;
-            divSeccionDomicilios.Visible = !habilitar;
-            btnAgregarDomicilio.Visible = !habilitar;
-        }
+       
 
         private void HabilitarCombos(bool habilitar)
         {
@@ -191,21 +186,26 @@ namespace Web.Controles
         {
             if (!ValidarDatosIngresados()) return;
             AgregarDomicilio(CargarEntidad());
-            SetVisibleFormulario(false);
             HabilitarCombos(false);
         }
 
         protected void btnAgregarDomicilio_Click(object sender, EventArgs e)
         {
-            SetVisibleFormulario(true);
+            LimpiarCampos();
         }
+        
 
-
-        protected void btnCancelar_Click(object sender, EventArgs e)
+        protected void ddlProvincia_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SetVisibleFormulario(false);
+            CargarComboDepartamentos();
+            IdDepartamentoSeleccionado = 0;
         }
 
+        protected void ddlDepartamento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarComboCiudades();
+            IdCiudadSeleccionada = 0;
+        }
 
         #endregion
         #region properties
@@ -265,18 +265,6 @@ namespace Web.Controles
         }
 
         #endregion
-
-        protected void ddlProvincia_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            CargarComboDepartamentos();
-            IdDepartamentoSeleccionado = 0;
-        }
-
-        protected void ddlDepartamento_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            CargarComboCiudades();
-            IdCiudadSeleccionada = 0;
-        }
 
 
 

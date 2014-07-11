@@ -12,16 +12,17 @@ namespace Web.Controles
 {
     public partial class HorarioControl : System.Web.UI.UserControl
     {
-        GestorPlaya gestor;
+        GestorHorario gestor;
         public event EventHandler ErrorHandler;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            gestor = new GestorPlaya();
+            gestor = new GestorHorario();
             if (!Page.IsPostBack)
             {
                 CargarCombos();
             }
+            
         }
         public void CargarCombos()
         {
@@ -127,35 +128,28 @@ namespace Web.Controles
             HoraHasta = "";
         }
 
-        private void SetVisibleFormulario(bool habilitar)
-        {
-            divSeccionFormulario.Visible = habilitar;
-            divSeccionHorarios.Visible = !habilitar;
-            btnAgregarHorario.Visible = !habilitar;
-        }
-
         public void ConfigurarVer()
         {
-            divSeccionFormulario.Visible = false;
-            divSeccionHorarios.Visible = true;
-            gvHorarios.Columns[3].Visible = false;
-            btnAgregarHorario.Visible = false;
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionHorarios, true);
+            FormHelper.CambiarVisibilidadControl(btnAgregarHorario, true);
+            gvHorarios.Columns[3].Visible = true;
         }
 
         public void ConfigurarEditar()
         {
-            divSeccionFormulario.Visible = false;
-            divSeccionHorarios.Visible = true;
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionHorarios, true);
+            FormHelper.CambiarVisibilidadControl(btnAgregarHorario, true);
             gvHorarios.Columns[3].Visible = true;
-            btnAgregarHorario.Visible = true;
         }
 
         public void ConfigurarRegistrar()
         {
-            divSeccionFormulario.Visible = false;
-            divSeccionHorarios.Visible = true;
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionHorarios, true);
+            FormHelper.CambiarVisibilidadControl(btnAgregarHorario, true);
             gvHorarios.Columns[3].Visible = true;
-            btnAgregarHorario.Visible = true;
         }
         #region eventos
         
@@ -163,18 +157,15 @@ namespace Web.Controles
         {
             if (!ValidarDatosIngresados()) return;
             AgregarHorario(CargarEntidad());
-            SetVisibleFormulario(false);
         }
 
         protected void btnAgregarHorario_Click(object sender, EventArgs e)
         {
-            SetVisibleFormulario(true);
             LimpiarCampos();
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            SetVisibleFormulario(false);
         }
 
         #endregion

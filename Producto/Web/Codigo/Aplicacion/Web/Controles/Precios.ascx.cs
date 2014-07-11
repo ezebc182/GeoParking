@@ -135,35 +135,28 @@ namespace Web.Controles
             Monto = null;
         }
 
-        private void SetVisibleFormulario(bool habilitar)
-        {
-            divSeccionFormulario.Visible = habilitar;
-            divSeccionPrecios.Visible = !habilitar;
-            btnAgregarPrecio.Visible = !habilitar;
-        }
-
         public void ConfigurarVer()
         {
-            divSeccionFormulario.Visible = false;
-            divSeccionPrecios.Visible = true;
-            gvPrecios.Columns[4].Visible = false;
-            btnAgregarPrecio.Visible = false;
-        }
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionPrecios, true);
+            FormHelper.CambiarVisibilidadControl(btnAgregarPrecio, true);
+            gvPrecios.Columns[4].Visible = true;
+            }
 
         public void ConfigurarEditar()
         {
-            divSeccionFormulario.Visible = false;
-            divSeccionPrecios.Visible = true;
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionPrecios, true);
+            FormHelper.CambiarVisibilidadControl(btnAgregarPrecio, true);
             gvPrecios.Columns[4].Visible = true;
-            btnAgregarPrecio.Visible = true;
         }
 
         public void ConfigurarRegistrar()
         {
-            divSeccionFormulario.Visible = false;
-            divSeccionPrecios.Visible = true;
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionPrecios, true);
+            FormHelper.CambiarVisibilidadControl(btnAgregarPrecio, true);
             gvPrecios.Columns[4].Visible = true;
-            btnAgregarPrecio.Visible = true;
         }
 
         #region eventos
@@ -172,18 +165,15 @@ namespace Web.Controles
         {
             if (!ValidarDatosIngresados()) return;
             AgregarPrecio(CargarEntidad());
-            SetVisibleFormulario(false);
         }
 
         protected void btnAgregarPrecio_Click(object sender, EventArgs e)
         {
-            SetVisibleFormulario(true);
             LimpiarCampos();
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            SetVisibleFormulario(false);
         }
 
         #endregion

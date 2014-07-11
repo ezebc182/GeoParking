@@ -37,7 +37,7 @@
                                     <asp:TextBox runat="server" CssClass="form-control required" ID="txtHasta" />
                                 </div>
                                 <div class="col-sm-2 col-md-2 col-lg-2">
-                                    <asp:CheckBox runat="server" ID="chk24Horas" Text="24 hs" />
+                                    <asp:CheckBox runat="server" ID="chk24Horas" Checked="true" Text="24 hs" />
                                 </div>
                             </div>
                             <div class="form-group pull-right">
@@ -46,7 +46,7 @@
                             </div>
                         </div>
             </div>
-            <div id="divSeccionHorarios" runat="server">
+            <div id="divSeccionHorarios" runat="server" class="">
 
                         <asp:GridView runat="server" ID="gvHorarios" AutoGenerateColumns="false" DataKeyNames="Id, DiaAtencionId"
                             OnRowCommand="OnRowCommandGvHorarios">

@@ -22,13 +22,16 @@
                 <div class="modal-body">
                     <asp:UpdatePanel ID="upModalBody" runat="server">
                         <ContentTemplate>
-                            <div class="alert alert-danger" id="divAlertError" runat="server" visible="false">
+                            <div class="alert alert-danger hidden" id="divAlertError" runat="server">
                                 <asp:Label ID="lblMensajeError" runat="server"></asp:Label>
+                            </div>
+                            <div runat="server" class="hidden" id="divAlertExito">
+                                <asp:Label ID="lblMensajeExito" runat="server"></asp:Label>
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
 
-                    <div class="form-horizontal" role="form">
+                    <div runat="server" id="divModal" class="form-horizontal" role="form">
                         <ul class="nav nav-tabs" id="myTab">
                             <li runat="server" id="tabDatosGrales" class="active"><a href="#datosGrales" data-toggle="tab">Datos Generales</a></li>
                             <li runat="server" id="tabHorarios"><a href="#horarios" data-toggle="tab">Horarios</a></li>
@@ -110,12 +113,12 @@
 
                         </div>
                     </div>
+                    <button id="btnAceptar" runat="server" class="btn hidden" data-dismiss="modal" >Aceptar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    </div>
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div>
