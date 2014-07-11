@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using System.Web.UI;
 
 namespace Web.Util
 {
@@ -234,7 +235,7 @@ namespace Web.Util
             grilla.DataBind();
         }
 
-        
+
         /// <summary>
         /// Recupera los IDs de los objetos seleccionados en un GridView con una columna de checkbox
         /// </summary>
@@ -248,7 +249,7 @@ namespace Web.Util
 
             foreach (GridViewRow gvr in grilla.Rows)
             {
-                var control = (CheckBox) gvr.FindControl(idControl);
+                var control = (CheckBox)gvr.FindControl(idControl);
                 if (control.Checked)
                 {
                     int value = int.Parse(gvr.Cells[posicionColumna].Text);
@@ -270,7 +271,7 @@ namespace Web.Util
         {
             foreach (GridViewRow gvr in grilla.Rows)
             {
-                var control = ((CheckBox) gvr.FindControl(nombreControlCheckbox));
+                var control = ((CheckBox)gvr.FindControl(nombreControlCheckbox));
                 var uPrimaryid = int.Parse(gvr.Cells[posicionColumnaId].Text);
                 if (ids.Any(id => id == uPrimaryid))
                     control.Checked = true;
@@ -297,7 +298,7 @@ namespace Web.Util
 
         #region Manejo enumeraciones
 
-        
+
         public static string GetEnumNombre(Enum e)
         {
             return e.ToString().Replace('_', ' ');
@@ -323,11 +324,11 @@ namespace Web.Util
 
         public static List<string> ListFromListEnum(List<Enum> list)
         {
-            
+
             var listResult = new List<string>();
             foreach (var e in list)
-                listResult.Add(e.ToString().Replace('_',' '));
-            
+                listResult.Add(e.ToString().Replace('_', ' '));
+
             return listResult;
         }
 
@@ -355,7 +356,7 @@ namespace Web.Util
         /// <param name="dataValueField">Propiedad de la entidad que se toma como valor al seleccionar algun item</param>
         public static void CargarCombo(DropDownList combo, Object source, string dataTextField, string dataValueField)
         {
-            
+
             // seteo la propiedad de la Entidad que quiero mostrarle al usuario
             combo.DataTextField = dataTextField;
             // seteo la propiedad de la Entidad que quiero tomar como valor
@@ -429,6 +430,73 @@ namespace Web.Util
             }
         }
 
+        #endregion
+
+        #region Controles
+
+        public static void CambiarVisibilidadControl(HtmlControl control)
+        {
+            if (control.Attributes["class"].Contains("hidden"))
+            {
+                MostrarControl(control);
+            }
+            else OcultarControl(control);
+        }
+
+        public static void CambiarVisibilidadControl(WebControl control)
+        {
+            if (control.Attributes["class"].Contains("hidden"))
+            {
+                MostrarControl(control);
+            }
+            else OcultarControl(control);
+        }
+
+        public static void CambiarVisibilidadControl(HtmlControl control, bool habilitar)
+        {
+            if (habilitar && !string.IsNullOrEmpty(control.Attributes["class"]))
+            {
+                MostrarControl(control);
+            }
+            else OcultarControl(control);
+        }
+
+        public static void CambiarVisibilidadControl(WebControl control, bool habilitar)
+        {
+            if (habilitar && !string.IsNullOrEmpty(control.Attributes["class"]))
+            {
+                MostrarControl(control);
+            }
+            else OcultarControl(control);
+        }
+
+        private static void MostrarControl(HtmlControl control)
+        {
+            var val = control.Attributes["class"];
+            
+                val = val.Replace("hidden", string.Empty);
+                control.Attributes["class"] = val;
+            
+        }
+
+        private static void MostrarControl(WebControl control)
+        {
+            var val = control.Attributes["class"];
+            
+                val = val.Replace("hidden", string.Empty);
+                control.Attributes["class"] = val;
+            
+        }
+
+        private static void OcultarControl(HtmlControl control)
+        {
+            control.Attributes.Add("class", " hidden");
+        }
+
+        private static void OcultarControl(WebControl control)
+        {
+            control.Attributes.Add("class", " hidden");
+        }
         #endregion
 
     }
