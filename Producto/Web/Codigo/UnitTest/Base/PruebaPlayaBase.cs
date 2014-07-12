@@ -16,7 +16,7 @@ namespace UnitTest.Base
         {
             repositorioPlayas = new RepositorioPlayasFalso();
             repositorioTipoPlayas = new RepositorioTipoPlayasFalso();
-            gestor = new GestorPlaya(repositorioPlayas, repositorioTipoPlayas);
+           // gestor = new GestorPlaya(repositorioPlayas, repositorioTipoPlayas);
         }
     }
 }
