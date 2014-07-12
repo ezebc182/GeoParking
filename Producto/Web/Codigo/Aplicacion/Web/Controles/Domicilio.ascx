@@ -10,28 +10,32 @@
         <h3 class="panel-title">Domicilios</h3>
     </div>
     <div class="panel-body">
-        <asp:UpdatePanel runat="server" ID="upFormulario">
+        <asp:UpdatePanel runat="server" ID="upFormulario" ChildrenAsTriggers="false" UpdateMode="Conditional">
             <ContentTemplate>
                 <div id="divSeccionFormulario" runat="server" class="">
                     <div class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label for="ddlProvincia" class="col-sm-2 col-md-2 col-lg-2 control-label">Provincia</label>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ClientIDMode="Static" ID="ddlProvincia" OnSelectedIndexChanged="ddlProvincia_SelectedIndexChanged" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="ddlDepartamento" class="col-sm-2 col-md-2 col-lg-2 control-label">Departamento</label>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ID="ddlDepartamento" OnSelectedIndexChanged="ddlDepartamento_SelectedIndexChanged" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="ddlCiudad" class="col-sm-2 col-md-2 col-lg-2 control-label">Ciudad</label>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ClientIDMode="Static" ID="ddlCiudad" />
-                            </div>
-                        </div>
+                        <asp:UpdatePanel runat="server" ID="UpdatePanel2">
+                            <ContentTemplate>
+                                <div class="form-group">
+                                    <label for="ddlProvincia" class="col-sm-2 col-md-2 col-lg-2 control-label">Provincia</label>
+                                    <div class="col-sm-10 col-md-10 col-lg-10">
+                                        <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ClientIDMode="Static" ID="ddlProvincia" OnSelectedIndexChanged="ddlProvincia_SelectedIndexChanged" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ddlDepartamento" class="col-sm-2 col-md-2 col-lg-2 control-label">Departamento</label>
+                                    <div class="col-sm-10 col-md-10 col-lg-10">
+                                        <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ID="ddlDepartamento" OnSelectedIndexChanged="ddlDepartamento_SelectedIndexChanged" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ddlCiudad" class="col-sm-2 col-md-2 col-lg-2 control-label">Ciudad</label>
+                                    <div class="col-sm-10 col-md-10 col-lg-10">
+                                        <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ClientIDMode="Static" ID="ddlCiudad" />
+                                    </div>
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                         <div class="form-group">
 
                             <label for="txtCalle" class="col-sm-2 col-md-2 col-lg-2 control-label">Calle</label>
@@ -43,9 +47,9 @@
                                 <asp:TextBox runat="server" CssClass="form-control required" ClientIDMode="Static" ID="txtNumero" />
                             </div>
                             <div class="col-sm-1 col-md-1 col-lg-1">
-                                <button runat="server" ID="btnBuscarEnMapa" class="glyphicon glyphicon-map-marker btn btn-warning pull-right"
-                                     ToolTip="Buscar en mapa" onclick="codeAddress()" />
-                                <asp:TextBox runat="server" ClientIDMode="Static" ID="txtDireccion" CssClass="hidden"/>
+                                <button runat="server" id="btnBuscarEnMapa" class="glyphicon glyphicon-map-marker btn btn-warning pull-right"
+                                    tooltip="Buscar en mapa" onclick="codeAddress()" />
+                                <asp:TextBox runat="server" ClientIDMode="Static" ID="txtDireccion" CssClass="hidden" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -61,7 +65,6 @@
                             <asp:LinkButton runat="server" ID="btnGuardar" CssClass="btn btn-lg" Text="<span class='glyphicon glyphicon-ok-circle'></span>" ForeColor="Green" BackColor="Transparent" OnClientClick="mostrarFormularioDomicilio()" OnClick="btnGuardar_Click" />
                             <asp:LinkButton runat="server" ID="btnCancelar" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClientClick="mostrarFormularioDomicilio()" />
                         </div>
-
                     </div>
                 </div>
                 <div id="divSeccionDomicilios" runat="server" class="">
