@@ -10,7 +10,7 @@ using Datos;
 namespace ReglasDeNegocio
 {
     public class GestorServicio
-    {        
+    {
         IRepositorioTipoVehiculo tipoVehiculoDao;
         IRepositorioServicio servicioDao;
 
@@ -20,87 +20,36 @@ namespace ReglasDeNegocio
             servicioDao = new RepositorioServicio();
         }
 
-        public GestorServicio(IRepositorioServicio repositorioServicio)
+        public GestorServicio(IRepositorioTipoVehiculo tipoVehiculoDao,
+        IRepositorioServicio servicioDao)
         {
-            servicioDao = repositorioServicio;
+            this.servicioDao = servicioDao;
+            this.tipoVehiculoDao = tipoVehiculoDao;
         }
 
-
-        public Resultado RegistrarServicio(Servicio servicio)
-        {
-            var resultado = ValidarRegistracion(servicio);
-
-            if (resultado.Ok)
-            {
-                servicioDao.Create(servicio);
-            }
-
-            return resultado;
-        }
-
-        private Resultado ValidarRegistracion(Servicio servicio)
-        {
-            var resultado = new Resultado();
-
-
-
-            return resultado;
-        }
-
-        public Resultado ActualizarServicio(Servicio servicio)
-        {
-            var resultado = ValidarActualizacion();
-
-            if (resultado.Ok)
-            {
-                servicioDao.Update(servicio);
-            }
-            return resultado;
-        }
-
-
-        private Resultado ValidarActualizacion()
-        {
-            var resultado = new Resultado();
-
-            //Agregar validaciones
-
-            return resultado;
-        }
-
-        public Resultado EliminarServicio(int idServicio)
-        {
-            var resultado = ValidarEliminacion();
-
-            if (resultado.Ok)
-            {
-                servicioDao.Delete(m => m.Id == idServicio);
-            }
-
-            return resultado;
-        }
-
-        private Resultado ValidarEliminacion()
-        {
-            var resultado = new Resultado();
-
-            //Agregar validaciones
-
-            return resultado;
-        }
-
-
+        /// <summary>
+        /// Busca un servicio por su id
+        /// </summary>
+        /// <param name="idServicio"></param>
+        /// <returns></returns>
         public Servicio BuscarServicioPorId(int idServicio)
         {
             return servicioDao.FindById(idServicio);
         }
 
-       
+        /// <summary>
+        /// Busca un tipo de vehiculo por su id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public TipoVehiculo BuscarTipoVehiculoPorId(int id)
         {
             return tipoVehiculoDao.FindById(id);
         }
-
+        /// <summary>
+        /// Busca todos los tipos de vehiculos
+        /// </summary>
+        /// <returns></returns>
         public IList<TipoVehiculo> BuscarTipoVehiculos()
         {
             return tipoVehiculoDao.FindAll();

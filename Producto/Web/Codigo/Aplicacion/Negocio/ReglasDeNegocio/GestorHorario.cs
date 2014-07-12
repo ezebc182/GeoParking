@@ -20,86 +20,34 @@ namespace ReglasDeNegocio
             horarioDao = new RepositorioHorario();
         }
 
-        public GestorHorario(IRepositorioDiaAtencion repositorioHorario)
+        public GestorHorario(IRepositorioDiaAtencion diaAtencionDao,
+        IRepositorioHorario horarioDao)
         {
-            diaAtencionDao = repositorioHorario;
+            this.diaAtencionDao = diaAtencionDao;
+            this.horarioDao = horarioDao;
         }
-
-
-        public Resultado RegistrarHorario(Horario horario)
-        {
-            var resultado = ValidarRegistracion(horario);
-
-            if (resultado.Ok)
-            {
-                horarioDao.Create(horario);
-            }
-
-            return resultado;
-        }
-
-        private Resultado ValidarRegistracion(Horario horario)
-        {
-            var resultado = new Resultado();
-
-
-
-            return resultado;
-        }
-
-        public Resultado ActualizarHorario(Horario horario)
-        {
-            var resultado = ValidarActualizacion();
-
-            if (resultado.Ok)
-            {
-                horarioDao.Update(horario);
-            }
-            return resultado;
-        }
-
-
-        private Resultado ValidarActualizacion()
-        {
-            var resultado = new Resultado();
-
-            //Agregar validaciones
-
-            return resultado;
-        }
-
-        public Resultado EliminarHorario(int idHorario)
-        {
-            var resultado = ValidarEliminacion();
-
-            if (resultado.Ok)
-            {
-                horarioDao.Delete(m => m.Id == idHorario);
-            }
-
-            return resultado;
-        }
-
-        private Resultado ValidarEliminacion()
-        {
-            var resultado = new Resultado();
-
-            //Agregar validaciones
-
-            return resultado;
-        }
-
-
+        /// <summary>
+        /// Busca un horario por su id
+        /// </summary>
+        /// <param name="idHorario"></param>
+        /// <returns></returns>
         public Horario BuscarHorarioPorId(int idHorario)
         {
             return horarioDao.FindById(idHorario);
         }
-
-        public DiaAtencion GetDiaAtencionById(int IdDiaAtencionSeleccionado)
+        /// <summary>
+        /// Busca un dia de atencion por su id
+        /// </summary>
+        /// <param name="IdDiaAtencionSeleccionado"></param>
+        /// <returns></returns>
+        public DiaAtencion BuscarDiaAtencionPorId(int IdDiaAtencionSeleccionado)
         {
             return diaAtencionDao.FindById(IdDiaAtencionSeleccionado);
         }
-                
+        /// <summary>
+        /// busca todos los dias de atencion
+        /// </summary>
+        /// <returns></returns>
         public IList<DiaAtencion> BuscarDiasDeAtencion()
         {
             return diaAtencionDao.FindAll();

@@ -24,106 +24,73 @@ namespace ReglasDeNegocio
             precioDao = new RepositorioPrecio();
         }
 
-        public GestorPrecio(IRepositorioPrecio repositorioPrecio)
+        public GestorPrecio(IRepositorioDiaAtencion diaAtencionDao,
+        IRepositorioTiempo tiempoDao,
+        IRepositorioTipoVehiculo tipoVehiculoDao,
+        IRepositorioPrecio precioDao)
         {
-            precioDao = repositorioPrecio;
+            this.precioDao = precioDao;
+            this.tiempoDao = tiempoDao;
+            this.tipoVehiculoDao = tipoVehiculoDao;
+            this.diaAtencionDao = diaAtencionDao;
         }
 
-
-        public Resultado RegistrarPrecio(Precio precio)
-        {
-            var resultado = ValidarRegistracion(precio);
-
-            if (resultado.Ok)
-            {
-                precioDao.Create(precio);
-            }
-
-            return resultado;
-        }
-
-        private Resultado ValidarRegistracion(Precio precio)
-        {
-            var resultado = new Resultado();
-
-
-
-            return resultado;
-        }
-
-        public Resultado ActualizarPrecio(Precio precio)
-        {
-            var resultado = ValidarActualizacion();
-
-            if (resultado.Ok)
-            {
-                precioDao.Update(precio);
-            }
-            return resultado;
-        }
-
-
-        private Resultado ValidarActualizacion()
-        {
-            var resultado = new Resultado();
-
-            //Agregar validaciones
-
-            return resultado;
-        }
-
-        public Resultado EliminarPrecio(int idPrecio)
-        {
-            var resultado = ValidarEliminacion();
-
-            if (resultado.Ok)
-            {
-                precioDao.Delete(m => m.Id == idPrecio);
-            }
-
-            return resultado;
-        }
-
-        private Resultado ValidarEliminacion()
-        {
-            var resultado = new Resultado();
-
-            //Agregar validaciones
-
-            return resultado;
-        }
-
-
+        /// <summary>
+        /// Busca un precio por su id
+        /// </summary>
+        /// <param name="idPrecio"></param>
+        /// <returns></returns>
         public Precio BuscarPrecioPorId(int idPrecio)
         {
             return precioDao.FindById(idPrecio);
         }
-
-        public DiaAtencion GetDiaAtencionById(int IdDiaAtencionSeleccionado)
+        /// <summary>
+        /// Busca un dia de atencion por su id
+        /// </summary>
+        /// <param name="IdDiaAtencionSeleccionado"></param>
+        /// <returns></returns>
+        public DiaAtencion BuscarDiaAtencionPorId(int IdDiaAtencionSeleccionado)
         {
             return diaAtencionDao.FindById(IdDiaAtencionSeleccionado);
         }
-
+        /// <summary>
+        /// Busca un tipo de vehiculo por su id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public TipoVehiculo BuscarTipoVehiculoPorId(int id)
         {
             return tipoVehiculoDao.FindById(id);
         }
-
+        /// <summary>
+        /// Busca un tiempo por  su id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Tiempo BuscarTiempoPorId(int id)
         {
             return tiempoDao.FindById(id);
         }
-
+        /// <summary>
+        /// Busca todos los tiempos
+        /// </summary>
+        /// <returns></returns>
         public IList<Tiempo> BuscarTiempos()
         {
             return tiempoDao.FindAll();
         }
-
+        /// <summary>
+        /// Busca todos los tipos de vehiculos
+        /// </summary>
+        /// <returns></returns>
         public IList<TipoVehiculo> BuscarTipoVehiculos()
         {
             return tipoVehiculoDao.FindAll();
         }
-
+        /// <summary>
+        /// Busca todos los dias de atencion
+        /// </summary>
+        /// <returns></returns>
         public IList<DiaAtencion> BuscarDiasDeAtencion()
         {
             return diaAtencionDao.FindAll();
