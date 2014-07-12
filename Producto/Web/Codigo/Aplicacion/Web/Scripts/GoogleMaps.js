@@ -74,7 +74,7 @@ function codeAddress() {
     var numero = $('#txtNumero').val();
     var ciudad = $("#ddlCiudad").children("option").filter(":selected").text();
     var provincia = $('#ddlProvincia').children("option").filter(":selected").text();
-    var address = (calle === "" ? "" : calle + " " + numero + ", ") + (ciudad !== "" ? ciudad + ", " : ciudad) + provincia;
+    var address = (calle === "" ? "" : calle + " " + numero + ", ") + (ciudad !== "" ? ciudad + ", " : ciudad) + provincia + ", Argentina";
 
     geocoder.geocode({ 'address': address }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
@@ -89,25 +89,27 @@ function codeAddress() {
 
             markers.push(marker);
         } else {
-            address = ciudad + ", " + provincia;
-            if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location);
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location
-                });
+            address = ciudad + ", " + provincia + ", Argentina";
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });
 
-                document.getElementById("txtLatitud").value = results[0].geometry.location.lat();
-                document.getElementById("txtLongitud").value = results[0].geometry.location.lng();
+                    document.getElementById("txtLatitud").value = results[0].geometry.location.lat();
+                    document.getElementById("txtLongitud").value = results[0].geometry.location.lng();
 
-                markers.push(marker);
-            } else {
-                alert('La direccion establecida no ha podido encontrarse');
-            }
+                    markers.push(marker);
+                } else {
+                    alert('La direccion establecida no ha podido encontrarse');
+                }
+            });
         }
-        });
+    });
 
-        window.onload = loadScript;
+    window.onload = loadScript;
 
-        google.maps.event.addDomListener(window, 'onload', GoogleMaps.initialize);
-    }
+    google.maps.event.addDomListener(window, 'onload', GoogleMaps.initialize);
+}
