@@ -30,25 +30,24 @@ namespace Web
             }
             Error = string.Empty;
         }
-
+        /// <summary>
+        /// Carga el combo Tipos de playas con todas las playas nod adas de baja en la BD
+        /// </summary>
         public void CargarComboTiposPlayas()
         {
-            gestor = new GestorPlaya();
-            var lista = gestor.BuscarTipoPlayas();
-            ddlTipoPlaya.DataSource = lista;
-            ddlTipoPlaya.DataTextField = "nombre";
-            ddlTipoPlaya.DataValueField = "id";
-            ddlTipoPlaya.DataBind();
-            ddlTipoPlaya.Items.Insert(0, new ListItem("Seleccione", "0"));
+            FormHelper.CargarCombo(ddlTipoPlaya, gestor.BuscarTipoPlayas(), "Nombre", "Id", "Seleccione");
         }
-
+        /// <summary>
+        /// Configura todos los controles para cuando el usuario esta viendo una playa.
+        /// Setea las visibilidades y la habilitacion de los distintos controles.
+        /// </summary>
         public void ConfigurarVer()
         {
             Exito = string.Empty;
             Error = string.Empty;
             txtNombre.Enabled = false;
             ddlTipoPlaya.Enabled = false;
-            btnGuardar.Visible = false;
+            FormHelper.CambiarVisibilidadControl(btnGuardar, false);
             btnCancelar.Text = "Cerrar";
             ucDomicilios.ConfigurarVer();
             ucServicios.ConfigurarVer();
@@ -56,14 +55,17 @@ namespace Web
             ucHorarios.ConfigurarVer();
 
         }
-
+        /// <summary>
+        /// Configura todos los controles para cuando el usuario esta editando una playa.
+        /// Setea las visibilidades y la habilitacion de los distintos controles.
+        /// </summary>
         public void ConfigurarEditar()
         {
             Exito = string.Empty;
             Error = string.Empty;
             txtNombre.Enabled = true;
             ddlTipoPlaya.Enabled = true;
-            btnGuardar.Visible = true;
+            FormHelper.CambiarVisibilidadControl(btnGuardar, true);
             btnCancelar.Text = "Cancelar";
             ucDomicilios.ConfigurarEditar();
             ucServicios.ConfigurarEditar();
@@ -71,14 +73,17 @@ namespace Web
             ucHorarios.ConfigurarEditar();
 
         }
-
+        /// <summary>
+        /// Configura todos los controles para cuando el usuario esta registrando una playa
+        /// Setea las visibilidades y la habilitacion de los distintos controles.
+        /// </summary>
         public void ConfigurarRegistrar()
         {
             Error = string.Empty;
             Exito = string.Empty;
             txtNombre.Enabled = true;
             ddlTipoPlaya.Enabled = true;
-            btnGuardar.Visible = true;
+            FormHelper.CambiarVisibilidadControl(btnGuardar, false);
             btnCancelar.Text = "Cancelar";
             ucDomicilios.ConfigurarRegistrar();
             ucServicios.ConfigurarRegistrar();
@@ -86,8 +91,10 @@ namespace Web
             ucHorarios.ConfigurarRegistrar();
 
         }
-
-        //Carga los campos del formulario con los datos enviados por parametro
+        /// <summary>
+        /// Carga los campos del formulario con los datos enviados por parametro
+        /// </summary>
+        /// <param name="playaEditar">Playa a editar, se usa para tomar los datos y cargar el formulario</param>
         public void CargarCamposFormulario(PlayaDeEstacionamiento playaEditar)
         {
             IdPlaya = playaEditar.Id;
@@ -102,8 +109,10 @@ namespace Web
 
         }
 
-
-        //Carga la entidad PlayaDeEstacionamiento con los valores del formulario.
+        /// <summary>
+        /// Carga la entidad PlayaDeEstacionamiento con los valores del formulario
+        /// </summary>
+        /// <returns>Retorna una playa de estacionamiento</returns>
         public PlayaDeEstacionamiento CargarEntidad()
         {
             PlayaDeEstacionamiento playa = new PlayaDeEstacionamiento
@@ -120,6 +129,9 @@ namespace Web
             };
             return playa;
         }
+        /// <summary>
+        /// Limpia todos los controles del formulario
+        /// </summary>
         private void limpiarCampos()
         {
             Error = string.Empty;
@@ -138,6 +150,9 @@ namespace Web
             ucHorarios.Horarios = null;
         }
 
+        /// <summary>
+        /// Elimina una playa de estacionamiento.
+        /// </summary>
         private void EliminarPlaya()
         {
             var resultado = gestor.EliminarPlaya(IdPlayaSeleccionada);
@@ -147,10 +162,12 @@ namespace Web
             }
             else
             {
-                Error = resultado.MessagesAsString();
+                Error = resultado.MensajesString();
             }
         }
-
+        /// <summary>
+        /// Actualiza el contenido de la grilla de playas de estacionamientos
+        /// </summary>
         private void ActualizarGrilla()
         {
             //lleno la grilla
@@ -164,57 +181,79 @@ namespace Web
         }
 
         #region properties
-        //Id de la playa seleccionada en la grilla
+
+        /// <summary>
+        /// Id de la playa seleccionada en la grilla
+        /// </summary>
         public int IdPlayaSeleccionada { get; set; }
-        //Id de la playa a editar, si se esta registrando es 0
+        /// <summary>
+        /// Id de la playa a editar, si se esta registrando es 0
+        /// </summary>
         public int IdPlaya
         {
             get { return !hfIdPlaya.Value.Equals("") ? Convert.ToInt32(hfIdPlaya.Value) : 0; }
             set { hfIdPlaya.Value = value.ToString(); }
         }
-        //Nombre de la playa para filtrar la grilla
+        /// <summary>
+        ///Nombre de la playa para filtrar la grilla
+        /// </summary>
         public string FiltroNombre
         {
             get { return txtFiltroNombre.Text; }
             set { txtFiltroNombre.Text = value; }
         }
-        //Nombre de la playa que se esta registrando/editando
+        /// <summary>
+        ///Nombre de la playa que se esta registrando/editando
+        /// </summary>
         public string Nombre
         {
             get { return txtNombre.Text; }
             set { txtNombre.Text = value; }
         }
 
-        //Mail
+        /// <summary>
+        ///Mail
+        /// </summary>
         public string Mail
         {
             get { return txtMail.Text; }
             set { txtMail.Text = value; }
         }
-        //Telefono
+        /// <summary>
+        ///Telefono
+        /// </summary>
         public string Telefono
         {
             get { return txtTelefono.Text; }
             set { txtTelefono.Text = value; }
         }
-        //Servicios de la playa que se esta registrando/editando
+        /// <summary>
+        ///Servicios de la playa que se esta registrando/editando
+        /// </summary>
         public IList<Servicio> Servicios
         {
             get { return ucServicios.Servicios; }
             set { ucServicios.Servicios = value; }
         }
-        //Direcciones de la playa que se esta registrando/editando
+        /// <summary>
+        ///Direcciones de la playa que se esta registrando/editando
+        /// </summary>
         public IList<Direccion> Direcciones
         {
             get { return ucDomicilios.Domicilios; }
             set { ucDomicilios.Domicilios = value; }
         }
-        //Tipo de la playa que se esta registrando/editando
+        /// <summary>
+        ///Tipo de la playa que se esta registrando/editando
+        /// </summary>
         public int TipoPlayaSeleccionada
         {
             get { return ddlTipoPlaya.SelectedIndex; }
             set { ddlTipoPlaya.SelectedIndex = value; }
         }
+        /// <summary>
+        /// Mensaje de exito
+        /// </summary>
         public string Exito
         {
             set
@@ -225,6 +264,9 @@ namespace Web
                 FormHelper.CambiarVisibilidadControl(btnAceptar, !string.IsNullOrEmpty(value));
             }
         }
+        /// <summary>
+        /// Mensaje de error
+        /// </summary>
         public string Error
         {
             get { return lblMensajeError.Text; }
@@ -234,13 +276,17 @@ namespace Web
                 FormHelper.CambiarVisibilidadControl(divAlertError, !string.IsNullOrEmpty(value));
             }
         }
-
+        /// <summary>
+        /// Lista de horarios de la playa.
+        /// </summary>
         public IList<Horario> Horarios
         {
             get { return ucHorarios.Horarios; }
             set { ucHorarios.Horarios = value; }
         }
-
+        /// <summary>
+        /// Lista de precios de la playa
+        /// </summary>
         public IList<Precio> Precios
         {
             get { return ucPrecios.Precios; }
@@ -251,7 +297,11 @@ namespace Web
         #region eventos
         #region eventos grilla
 
-        //no se que hace ni cuando se ejecuta (nunca entro en el codigo)
+        /// <summary>
+        /// Evento que se ejecuta cuando se preciona un boton de la grilla
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void gvResultados_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             var acciones = new List<string> { "Editar", "Eliminar", "Ver" };
@@ -289,8 +339,11 @@ namespace Web
                     break;
             }
         }
-
-        //no se que hace ni cuando se ejecuta (nunca entro en el codigo)
+        /// <summary>
+        /// Evento que se ejecuta cuando se llena la grilla con datos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void gvResultados_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -370,12 +423,12 @@ namespace Web
                 if (resultado.Ok)
                 {
                     //Mensaje de registracion correcta
-                    Exito = "La playa fue registrada correctamente.";                    
+                    Exito = "La playa fue registrada correctamente.";
                 }
                 else
                 {
                     //Mensajes de error
-                    Error = resultado.MessagesAsString();
+                    Error = resultado.MensajesString();
                 }
 
             }
@@ -396,7 +449,7 @@ namespace Web
                 else
                 {
                     //Mensajes de Error
-                    Error = resultado.MessagesAsString();
+                    Error = resultado.MensajesString();
                 }
             }
         }
@@ -421,6 +474,11 @@ namespace Web
             pnlResultados.Visible = true;
             ActualizarGrilla();
         }
+        /// <summary>
+        /// Muestra el formulario para registrar playas.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
             Titulo.Text = "Registrar";

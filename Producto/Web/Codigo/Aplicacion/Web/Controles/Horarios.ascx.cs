@@ -30,7 +30,7 @@ namespace Web.Controles
         }
         public IList<Entidades.Horario> Horarios
         {
-            get { return GetHorariosDesdeGrilla(); }
+            get { return ObtenerHorariosDesdeGrilla(); }
             set { SetHorarioAGrilla(value); }
         }
 
@@ -45,7 +45,7 @@ namespace Web.Controles
             horarios.Add(horario);
             Horarios = horarios;
         }
-        private IList<Entidades.Horario> GetHorariosDesdeGrilla()
+        private IList<Entidades.Horario> ObtenerHorariosDesdeGrilla()
         {
             IList<Entidades.Horario> horarios = new List<Entidades.Horario>();
 
@@ -55,7 +55,7 @@ namespace Web.Controles
                                
                 horario.Id = int.Parse(gvHorarios.DataKeys[row.RowIndex].Values[0].ToString());
                 horario.DiaAtencionId = int.Parse(gvHorarios.DataKeys[row.RowIndex].Values[1].ToString());
-                horario.DiaAtencion = gestor.GetDiaAtencionById(horario.DiaAtencionId);
+                horario.DiaAtencion = gestor.BuscarDiaAtencionPorId(horario.DiaAtencionId);
                 horario.HoraDesde = row.Cells[1].Text;
                 horario.HoraHasta = row.Cells[2].Text;
                 
@@ -114,7 +114,7 @@ namespace Web.Controles
         {
             var horario = new Entidades.Horario();
             horario.DiaAtencionId = IdDiaAtencionSeleccionado;
-            horario.DiaAtencion = gestor.GetDiaAtencionById(IdDiaAtencionSeleccionado);
+            horario.DiaAtencion = gestor.BuscarDiaAtencionPorId(IdDiaAtencionSeleccionado);
             horario.HoraDesde = HoraDesde;
             horario.HoraHasta = HoraHasta;
 

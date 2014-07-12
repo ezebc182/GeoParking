@@ -23,29 +23,27 @@ namespace Web.Controles
                 CargarCombos();
             }
         }
-
+        /// <summary>
+        /// Carga los combos
+        /// </summary>
         public void CargarCombos()
         {
             FormHelper.CargarCombo(ddlTipoVehiculo, gestor.BuscarTipoVehiculos(), "Nombre", "Id", "Seleccione");
         }
-        public IList<Servicio> Servicios
-        {
-            get { return GetServiciosDesdeGrilla(); }
-            set { SetServicioAGrilla(value); }
-        }
-
-        private void SetServicioAGrilla(IList<Servicio> value)
+        /// <summary>
+        /// Carga la grilla con una lista pasada por parametros
+        /// </summary>
+        /// <param name="value">Lista a cargar en la grilla</param>
+        private void SetServiciosAGrilla(IList<Servicio> value)
         {
             gvServicios.DataSource = value;
             gvServicios.DataBind();
         }
-        private void AddServicio(Servicio servicio)
-        {
-            var servicios = Servicios;
-            servicios.Add(servicio);
-            Servicios = servicios;
-        }
-        private IList<Servicio> GetServiciosDesdeGrilla()
+        /// <summary>
+        /// Obtiene los servicios desde la grilla
+        /// </summary>
+        /// <returns>Lista de servicios</returns>
+        private IList<Servicio> ObtenerServiciosDesdeGrilla()
         {
             IList<Servicio> servicios = new List<Servicio>();
 
@@ -63,19 +61,10 @@ namespace Web.Controles
             }
             return servicios;
         }
-        protected void OnRowCommandGvServicios(object sender, GridViewCommandEventArgs e)
-        {
-            int index = Convert.ToInt32(e.CommandArgument);
-            var lista = Servicios;
-
-            switch (e.CommandName)
-            {
-                case "Quitar":
-                    lista.RemoveAt(index);
-                    Servicios = lista;
-                    break;
-            }
-        }
+        /// <summary>
+        /// Valida y Agrega un servicio a la grilla de servicios
+        /// </summary>
+        /// <param name="servicio">servicio a agregar</param>
         private void AgregarServicio(Servicio servicio)
         {
             var servicios = Servicios;
@@ -83,6 +72,11 @@ namespace Web.Controles
             servicios.Add(servicio);
             Servicios = servicios;
         }
+        /// <summary>
+        /// Valida que el servicio no se haya cargado antes
+        /// </summary>
+        /// <param name="servicio">servicio a validar</param>
+        /// <returns></returns>
         private bool ValidarServicio(Servicio servicio)
         {
 
@@ -96,6 +90,10 @@ namespace Web.Controles
             }
             return true;
         }
+        /// <summary>
+        /// Valida que los datos requeridos hayan sido ingresados
+        /// </summary>
+        /// <returns></returns>
         private bool ValidarDatosIngresados()
         {
             if (IdVehiculoSeleccionado == 0 || Capacidad == null)
@@ -105,6 +103,10 @@ namespace Web.Controles
             }
             return true;
         }
+        /// <summary>
+        /// Carga un servicio desde el formulario
+        /// </summary>
+        /// <returns>Servicio cargado</returns>
         private Servicio CargarEntidad()
         {
 
@@ -113,13 +115,17 @@ namespace Web.Controles
             servicio.Capacidad = Capacidad.Value;
             return servicio;
         }
-
+        /// <summary>
+        /// Limpia los controles del formulario
+        /// </summary>
         public void LimpiarCampos()
         {
             IdVehiculoSeleccionado = 0;
             Capacidad = null;
         }
-
+        /// <summary>
+        /// Establece las propiedades de los controles para cuando el usuario esta viendo.
+        /// </summary>
         public void ConfigurarVer()
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
@@ -127,7 +133,9 @@ namespace Web.Controles
             FormHelper.CambiarVisibilidadControl(btnAgregarServicio, true);
             gvServicios.Columns[2].Visible = true;
             }
-
+        /// <summary>
+        /// Establece las propiedades de los controles para cuando el usuario esta editando.
+        /// </summary>
         public void ConfigurarEditar()
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
@@ -135,7 +143,9 @@ namespace Web.Controles
             FormHelper.CambiarVisibilidadControl(btnAgregarServicio, true);
             gvServicios.Columns[2].Visible = true;
         }
-
+        /// <summary>
+        /// Establece las propiedades de los controles para cuando el usuario esta registrando.
+        /// </summary>
         public void ConfigurarRegistrar()
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
@@ -144,13 +154,42 @@ namespace Web.Controles
             gvServicios.Columns[2].Visible = true;
         }
         #region eventos
+        #region grilla
+        /// <summary>
+        /// Se ejecuta cuando se presiona un boton de la grilla
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void OnRowCommandGvServicios(object sender, GridViewCommandEventArgs e)
+        {
+            int index = Convert.ToInt32(e.CommandArgument);
+            var lista = Servicios;
 
+            switch (e.CommandName)
+            {
+                case "Quitar":
+                    lista.RemoveAt(index);
+                    Servicios = lista;
+                    break;
+            }
+        }
+        #endregion
+        #region controles
+        /// <summary>
+        /// Valida y agrega un servicio a la grilla
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             if (!ValidarDatosIngresados()) return;
             AgregarServicio(CargarEntidad());
         }
-
+        /// <summary>
+        /// Limpia los campos para registrar un nuevo servicio
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnAgregarServicio_Click(object sender, EventArgs e)
         {
             LimpiarCampos();
@@ -159,16 +198,28 @@ namespace Web.Controles
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
         }
-
+        #endregion
         #endregion
         #region properties
-
+        /// <summary>
+        /// Obtiene o establece los servicios de la playa
+        /// </summary>
+        public IList<Servicio> Servicios
+        {
+            get { return ObtenerServiciosDesdeGrilla(); }
+            set { SetServiciosAGrilla(value); }
+        }
+        /// <summary>
+        /// Obtiene o establece el id del tipo de vehiculo seleccionado
+        /// </summary>
         public int IdVehiculoSeleccionado
         {
             get { return Convert.ToInt32(ddlTipoVehiculo.SelectedValue); }
             set { ddlTipoVehiculo.SelectedValue = value.ToString(); }
         }
-
+        /// <summary>
+        /// Obtiene o establece la capacidad
+        /// </summary>
         public int? Capacidad
         {
             get { return FormHelper.ObtenerNullableEntero(txtCapacidad); }
@@ -177,7 +228,10 @@ namespace Web.Controles
 
         #endregion
 
-
+        /// <summary>
+        /// lanza el evento OnErrorHandler
+        /// </summary>
+        /// <param name="mensaje"></param>
         public void OnError(String mensaje)
         {
             if (ErrorHandler != null)

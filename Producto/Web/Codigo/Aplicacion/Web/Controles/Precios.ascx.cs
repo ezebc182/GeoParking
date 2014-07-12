@@ -23,6 +23,9 @@ namespace Web.Controles
                 CargarCombos();
             }
         }
+        /// <summary>
+        /// Carga los combos.
+        /// </summary>
         public void CargarCombos()
         {
             FormHelper.CargarCombo(ddlDias, gestor.BuscarDiasDeAtencion(), "Nombre", "Id", "Seleccione");
@@ -30,24 +33,23 @@ namespace Web.Controles
             FormHelper.CargarCombo(ddlTipoVehiculo, gestor.BuscarTipoVehiculos(), "Nombre", "Id", "Seleccione");
 
         }
-        public IList<Entidades.Precio> Precios
-        {
-            get { return GetPreciosDesdeGrilla(); }
-            set { SetPrecioAGrilla(value); }
-        }
 
-        private void SetPrecioAGrilla(IList<Entidades.Precio> value)
+        /// <summary>
+        /// Cambia el contenido de la grilla
+        /// </summary>
+        /// <param name="value">Precios a agregar</param>
+        private void SetPreciosAGrilla(IList<Entidades.Precio> value)
         {
             gvPrecios.DataSource = value;
             gvPrecios.DataBind();
         }
-        private void AddPrecio(Entidades.Precio precio)
-        {
-            var precios = Precios;
-            precios.Add(precio);
-            Precios = precios;
-        }
-        private IList<Entidades.Precio> GetPreciosDesdeGrilla()
+        
+        
+        /// <summary>
+        /// Obtiene los precios cargados en la grilla
+        /// </summary>
+        /// <returns>Retorna una lista de precios</returns>
+        private IList<Entidades.Precio> ObtenerPreciosDesdeGrilla()
         {
             IList<Entidades.Precio> precios = new List<Entidades.Precio>();
 
@@ -61,26 +63,17 @@ namespace Web.Controles
                 precio.TiempoId = int.Parse(gvPrecios.DataKeys[row.RowIndex].Values[2].ToString());
                 precio.Tiempo = gestor.BuscarTiempoPorId(precio.TiempoId);
                 precio.DiaAtencionId = int.Parse(gvPrecios.DataKeys[row.RowIndex].Values[3].ToString());
-                precio.DiaAtencion = gestor.GetDiaAtencionById(precio.DiaAtencionId);
+                precio.DiaAtencion = gestor.BuscarDiaAtencionPorId(precio.DiaAtencionId);
                 precio.Monto = Convert.ToDecimal(row.Cells[3].Text);
 
                 precios.Add(precio);
             }
             return precios;
         }
-        protected void OnRowCommandGvPrecios(object sender, GridViewCommandEventArgs e)
-        {
-            int index = Convert.ToInt32(e.CommandArgument);
-            var lista = Precios;
-
-            switch (e.CommandName)
-            {
-                case "Quitar":
-                    lista.RemoveAt(index);
-                    Precios = lista;
-                    break;
-            }
-        }
+        /// <summary>
+        /// Agrega un unico precio a la grilla de precios
+        /// </summary>
+        /// <param name="precio">Precio que se agregara</param>
         private void AgregarPrecio(Entidades.Precio precio)
         {
             var precios = Precios;
@@ -89,7 +82,11 @@ namespace Web.Controles
 
             Precios = precios;
         }
-
+        /// <summary>
+        /// Valida que el precio no este duplicado
+        /// </summary>
+        /// <param name="precio"></param>
+        /// <returns></returns>
         private bool ValidarPrecio(Entidades.Precio precio)
         {
 
@@ -104,7 +101,10 @@ namespace Web.Controles
             }
             return true;
         }
-
+        /// <summary>
+        /// Valida que se hayan ingresado todos los datos necesarios
+        /// </summary>
+        /// <returns></returns>
         private bool ValidarDatosIngresados()
         {
             if (IdTipoVehiculoSeleccionado == 0 || IdTiempoSeleccionado == 0 || IdDiaAtencionSeleccionado == 0 || Monto == null)
@@ -114,6 +114,10 @@ namespace Web.Controles
             }
             return true;
         }
+        /// <summary>
+        /// Carga un precio desde los campos del formulario
+        /// </summary>
+        /// <returns>Retorna un precio</returns>
         private Entidades.Precio CargarEntidad()
         {
             var precio = new Entidades.Precio();
@@ -122,11 +126,13 @@ namespace Web.Controles
             precio.TiempoId = IdTiempoSeleccionado;
             precio.Tiempo = gestor.BuscarTiempoPorId(IdTiempoSeleccionado);
             precio.DiaAtencionId = IdDiaAtencionSeleccionado;
-            precio.DiaAtencion = gestor.GetDiaAtencionById(IdDiaAtencionSeleccionado);
+            precio.DiaAtencion = gestor.BuscarDiaAtencionPorId(IdDiaAtencionSeleccionado);
             precio.Monto = Monto.Value;
             return precio;
         }
-
+        /// <summary>
+        /// Limpia los controles del formulario
+        /// </summary>
         public void LimpiarCampos()
         {
             IdTipoVehiculoSeleccionado = 0;
@@ -134,7 +140,10 @@ namespace Web.Controles
             IdDiaAtencionSeleccionado = 0;
             Monto = null;
         }
-
+        /// <summary>
+        /// Configura todos los controles para cuando el usuario esta viendo un precio.
+        /// Setea las visibilidades y la habilitacion de los distintos controles.
+        /// </summary>
         public void ConfigurarVer()
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
@@ -142,7 +151,10 @@ namespace Web.Controles
             FormHelper.CambiarVisibilidadControl(btnAgregarPrecio, true);
             gvPrecios.Columns[4].Visible = true;
             }
-
+        /// <summary>
+        /// Configura todos los controles para cuando el usuario esta editando un precio.
+        /// Setea las visibilidades y la habilitacion de los distintos controles.
+        /// </summary>
         public void ConfigurarEditar()
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
@@ -150,7 +162,10 @@ namespace Web.Controles
             FormHelper.CambiarVisibilidadControl(btnAgregarPrecio, true);
             gvPrecios.Columns[4].Visible = true;
         }
-
+        /// <summary>
+        /// Configura todos los controles para cuando el usuario esta registrando un precio.
+        /// Setea las visibilidades y la habilitacion de los distintos controles.
+        /// </summary>
         public void ConfigurarRegistrar()
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
@@ -160,13 +175,42 @@ namespace Web.Controles
         }
 
         #region eventos
+        #region grilla
+        /// <summary>
+        /// Se ejecuta cuando se presiona un boton de la grilla
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void OnRowCommandGvPrecios(object sender, GridViewCommandEventArgs e)
+        {
+            int index = Convert.ToInt32(e.CommandArgument);
+            var lista = Precios;
 
+            switch (e.CommandName)
+            {
+                case "Quitar":
+                    lista.RemoveAt(index);
+                    Precios = lista;
+                    break;
+            }
+        }
+        #endregion
+        #region controles
+        /// <summary>
+        /// Valida y agrega un precio a la grilla de precios
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             if (!ValidarDatosIngresados()) return;
             AgregarPrecio(CargarEntidad());
         }
-
+        /// <summary>
+        /// Limpia los campos del formulario para agregar un nuevo precio
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnAgregarPrecio_Click(object sender, EventArgs e)
         {
             LimpiarCampos();
@@ -177,24 +221,43 @@ namespace Web.Controles
         }
 
         #endregion
+        #endregion
         #region properties
-
+        /// <summary>
+        /// Obtiene o establece Lista de precios agregadas
+        /// </summary>
+        public IList<Entidades.Precio> Precios
+        {
+            get { return ObtenerPreciosDesdeGrilla(); }
+            set { SetPreciosAGrilla(value); }
+        }
+        /// <summary>
+        /// Obtiene o establece el tipo de vehiculo seleccionado mediante su id
+        /// </summary>
         public int IdTipoVehiculoSeleccionado
         {
             get { return Convert.ToInt32(ddlTipoVehiculo.SelectedValue); }
             set { ddlTipoVehiculo.SelectedValue = value.ToString(); }
         }
+        /// <summary>
+        /// Obtiene o establece el tiempo seleccionado, mediante su id
+        /// </summary>
         public int IdTiempoSeleccionado
         {
             get { return Convert.ToInt32(ddlTipoHorario.SelectedValue); }
             set { ddlTipoHorario.SelectedValue = value.ToString(); }
         }
+        /// <summary>
+        /// Obtiene o establece el dia de atencion seleccionado, mediante su id
+        /// </summary>
         public int IdDiaAtencionSeleccionado
         {
             get { return Convert.ToInt32(ddlDias.SelectedValue); }
             set { ddlDias.SelectedValue = value.ToString(); }
         }
-
+        /// <summary>
+        /// Obtiene o establece el monto.
+        /// </summary>
         public Decimal? Monto
         {
             get { return FormHelper.ObtenerNullableDecimal(txtPrecio); }
@@ -203,14 +266,19 @@ namespace Web.Controles
 
         #endregion
 
-
+        /// <summary>
+        /// Lanza el error OnError del cotnrol de usuario
+        /// </summary>
+        /// <param name="mensaje"></param>
         public void OnError(String mensaje)
         {
             if (ErrorHandler != null)
                 ErrorHandler.Invoke(this, new PrecioArgs(mensaje));
         }
 
-
+        /// <summary>
+        /// Clase interna para lanzar el error OnErrorHandles del control
+        /// </summary>
         public class PrecioArgs : EventArgs
         {
             public PrecioArgs(String error)

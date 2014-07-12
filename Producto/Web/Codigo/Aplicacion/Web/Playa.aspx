@@ -232,11 +232,11 @@
                 });
             }
         }
-
+        var contador = 0;
         pageManager = Sys.WebForms.PageRequestManager.getInstance();
         pageManager.add_endRequest(function () {
 
-            var contador = 0;
+          
             if (document.getElementById('TopContent_ucDomicilios_divSeccionFormulario') != null && contador == 0) {
                 contador = 1;
                 GoogleMaps.initialize();
