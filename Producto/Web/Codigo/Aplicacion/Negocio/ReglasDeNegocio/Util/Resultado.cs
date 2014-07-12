@@ -9,30 +9,30 @@ namespace ReglasDeNegocio.Util
     public class Resultado
     {        
         public bool Ok { get; set; }
-        public List<string> Messages { get; set; }
+        public List<string> Mensajes { get; set; }
 
         public Resultado()
         {
             Ok = true;
-            Messages = new List<string>();
+            Mensajes = new List<string>();
         }
 
-        public void AddErrorMessage(string message)
+        public void AgregarMensaje(string message)
         {
             Ok = false;
-            Messages.Add(message);
+            Mensajes.Add(message);
         }
 
-        public void AddErrorMessageList(List<string> messages)
+        public void AgregarListaDeMensajes(List<string> messages)
         {
             if (messages.Count <= 0) return;
             Ok = false;
-            Messages.AddRange(messages);
+            Mensajes.AddRange(messages);
         }
 
-        public String MessagesAsString()
+        public String MensajesString()
         {
-            return string.Join("<br/>", Messages);
+            return string.Join("<br/>", Mensajes);
         }
     }
 }
