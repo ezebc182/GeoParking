@@ -433,7 +433,10 @@ namespace Web.Util
         #endregion
 
         #region Controles
-
+        /// <summary>
+        /// Agrega o elimina la clase 'hidden' a un control
+        /// </summary>
+        /// <param name="control">control</param>
         public static void CambiarVisibilidadControl(HtmlControl control)
         {
             if (control.Attributes["class"].Contains("hidden"))
@@ -443,6 +446,10 @@ namespace Web.Util
             else OcultarControl(control);
         }
 
+        /// <summary>
+        /// Agrega o elimina la clase 'hidden' a un control
+        /// </summary>
+        /// <param name="control">control</param>
         public static void CambiarVisibilidadControl(WebControl control)
         {
             if (control.Attributes["class"].Contains("hidden"))
@@ -451,48 +458,74 @@ namespace Web.Util
             }
             else OcultarControl(control);
         }
-
+        
+        /// <summary>
+        /// muestra u oculta un control
+        /// </summary>
+        /// <param name="control">control</param>
+        /// <param name="habilitar">true=mostrar, false=ocultar</param>
         public static void CambiarVisibilidadControl(HtmlControl control, bool habilitar)
         {
-            if (habilitar && !string.IsNullOrEmpty(control.Attributes["class"]))
+            if (habilitar)
             {
                 MostrarControl(control);
             }
             else OcultarControl(control);
         }
 
+        /// <summary>
+        /// muestra u oculta un control
+        /// </summary>
+        /// <param name="control">control</param>
+        /// <param name="habilitar">true=mostrar, false=ocultar</param>
         public static void CambiarVisibilidadControl(WebControl control, bool habilitar)
         {
-            if (habilitar && !string.IsNullOrEmpty(control.Attributes["class"]))
+            if (habilitar)
             {
                 MostrarControl(control);
             }
             else OcultarControl(control);
         }
-
+        /// <summary>
+        /// Muestra un control
+        /// </summary>
+        /// <param name="control"></param>
         private static void MostrarControl(HtmlControl control)
         {
             var val = control.Attributes["class"];
-            
+            if (!string.IsNullOrEmpty(val))
+            {
                 val = val.Replace("hidden", string.Empty);
                 control.Attributes["class"] = val;
-            
-        }
 
+            }
+        }
+        /// <summary>
+        /// Muestra un control
+        /// </summary>
+        /// <param name="control"></param>
         private static void MostrarControl(WebControl control)
         {
             var val = control.Attributes["class"];
-            
+            if (!string.IsNullOrEmpty(val))
+            {
                 val = val.Replace("hidden", string.Empty);
                 control.Attributes["class"] = val;
-            
-        }
 
+            }
+        }
+        /// <summary>
+        /// Oculta un control
+        /// </summary>
+        /// <param name="control"></param>
         private static void OcultarControl(HtmlControl control)
         {
             control.Attributes.Add("class", " hidden");
         }
-
+        /// <summary>
+        /// Oculta un control
+        /// </summary>
+        /// <param name="control"></param>
         private static void OcultarControl(WebControl control)
         {
             control.Attributes.Add("class", " hidden");
