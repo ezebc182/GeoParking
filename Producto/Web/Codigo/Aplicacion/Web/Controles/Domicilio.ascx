@@ -10,33 +10,36 @@
         <h3 class="panel-title">Domicilios</h3>
     </div>
     <div class="panel-body">
-        <asp:UpdatePanel runat="server" ID="upFormulario" ChildrenAsTriggers="false" UpdateMode="Conditional">
-            <ContentTemplate>
-                <div id="divSeccionFormulario" runat="server" class="">
-                    <div class="form-horizontal" role="form">
-                        <asp:UpdatePanel runat="server" ID="UpdatePanel2">
-                            <ContentTemplate>
-                                <div class="form-group">
-                                    <label for="ddlProvincia" class="col-sm-2 col-md-2 col-lg-2 control-label">Provincia</label>
-                                    <div class="col-sm-10 col-md-10 col-lg-10">
-                                        <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ClientIDMode="Static" ID="ddlProvincia" OnSelectedIndexChanged="ddlProvincia_SelectedIndexChanged" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="ddlDepartamento" class="col-sm-2 col-md-2 col-lg-2 control-label">Departamento</label>
-                                    <div class="col-sm-10 col-md-10 col-lg-10">
-                                        <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ID="ddlDepartamento" OnSelectedIndexChanged="ddlDepartamento_SelectedIndexChanged" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="ddlCiudad" class="col-sm-2 col-md-2 col-lg-2 control-label">Ciudad</label>
-                                    <div class="col-sm-10 col-md-10 col-lg-10">
-                                        <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ClientIDMode="Static" ID="ddlCiudad" />
-                                    </div>
-                                </div>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
+        <div class="form-horizontal" role="form">
+            <asp:UpdatePanel runat="server" ID="UpdatePanel2">
+                <ContentTemplate>
+                    <div id="divSeccionFormulario1" runat="server" class="">
+
                         <div class="form-group">
+                            <label for="ddlProvincia" class="col-sm-2 col-md-2 col-lg-2 control-label">Provincia</label>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ClientIDMode="Static" ID="ddlProvincia" OnSelectedIndexChanged="ddlProvincia_SelectedIndexChanged" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ddlDepartamento" class="col-sm-2 col-md-2 col-lg-2 control-label">Departamento</label>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ID="ddlDepartamento" OnSelectedIndexChanged="ddlDepartamento_SelectedIndexChanged" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ddlCiudad" class="col-sm-2 col-md-2 col-lg-2 control-label">Ciudad</label>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ClientIDMode="Static" ID="ddlCiudad" />
+                            </div>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+            <div class="form-group">
+                <asp:UpdatePanel runat="server" ID="upFormulario">
+                    <ContentTemplate>
+                        <div id="divSeccionFormulario2" runat="server" class="">
 
                             <label for="txtCalle" class="col-sm-2 col-md-2 col-lg-2 control-label">Calle</label>
                             <div class="col-sm-6 col-md-6 col-lg-6">
@@ -51,23 +54,28 @@
                                     tooltip="Buscar en mapa" onclick="codeAddress()" />
                                 <asp:TextBox runat="server" ClientIDMode="Static" ID="txtDireccion" CssClass="hidden" />
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div id="pnlMapa" class="col-sm-10 col-md-10 col-lg-10">
-                                <div id="map-canvas"></div>
-                                <asp:TextBox runat="server" CssClass="form-control col-sm-5 col-md-5 col-lg-5 required hidden" ID="txtLatitud" ClientIDMode="Static" />
-                                <asp:TextBox runat="server" CssClass="form-control col-sm-5 col-md-5 col-lg-5 required hidden" ID="txtLongitud" ClientIDMode="Static" />
+                            <div class="form-group">
+                                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                                <div id="pnlMapa" class="col-sm-10 col-md-10 col-lg-10">
+                                    <div id="map-canvas"></div>
+                                    <asp:TextBox runat="server" CssClass="form-control col-sm-5 col-md-5 col-lg-5 required hidden" ID="txtLatitud" ClientIDMode="Static" />
+                                    <asp:TextBox runat="server" CssClass="form-control col-sm-5 col-md-5 col-lg-5 required hidden" ID="txtLongitud" ClientIDMode="Static" />
+                                </div>
+                            </div>
+
+                            <div class="form-group pull-right">
+                                <asp:LinkButton runat="server" ID="btnGuardar" CssClass="btn btn-lg" Text="<span class='glyphicon glyphicon-ok-circle'></span>" ForeColor="Green" BackColor="Transparent" OnClientClick="mostrarFormularioDomicilio()" OnClick="btnGuardar_Click" />
+                                <asp:LinkButton runat="server" ID="btnCancelar" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClientClick="mostrarFormularioDomicilio()" />
                             </div>
                         </div>
 
-                        <div class="form-group pull-right">
-                            <asp:LinkButton runat="server" ID="btnGuardar" CssClass="btn btn-lg" Text="<span class='glyphicon glyphicon-ok-circle'></span>" ForeColor="Green" BackColor="Transparent" OnClientClick="mostrarFormularioDomicilio()" OnClick="btnGuardar_Click" />
-                            <asp:LinkButton runat="server" ID="btnCancelar" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClientClick="mostrarFormularioDomicilio()" />
-                        </div>
-                    </div>
-                </div>
-                <div id="divSeccionDomicilios" runat="server" class="">
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+        </div>
+        <div id="divSeccionDomicilios" runat="server" class="">
+            <asp:UpdatePanel runat="server" ID="UpdatePanel3">
+                <ContentTemplate>
                     <asp:GridView runat="server" ID="gvDomicilios" AutoGenerateColumns="false"
                         DataKeyNames="Id, CiudadId" CssClass="table table-hover table-responsive"
                         OnRowCommand="OnRowCommandGvDomicilios">
@@ -87,13 +95,11 @@
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
-                </div>
-            </ContentTemplate>
-        </asp:UpdatePanel>
-
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
     </div>
 </div>
-
 <script type="text/javascript">
 
     function mostrarFormularioDomicilio() {
@@ -112,4 +118,4 @@
 
     }
 
-</script>
+    </script>
