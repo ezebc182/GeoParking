@@ -36,7 +36,7 @@
                     <div id="divSeccionServicios" runat="server" class="">
 
                         <asp:GridView runat="server" ID="gvServicios" AutoGenerateColumns="false"
-                            DataKeyNames="Id,TipoVehiculoId" OnRowCommand="OnRowCommandGvServicios">
+                            DataKeyNames="Id,TipoVehiculoId" OnRowCommand="OnRowCommandGvServicios" CssClass="table table-hover table-responsive">
                             <Columns>
                                 <asp:BoundField HeaderText="Tipo de Vehiculo" DataField="TipoVehiculoStr" />
                                 <asp:BoundField HeaderText="Capacidad" DataField="Capacidad" />

@@ -53,7 +53,7 @@
 
                         <div id="divSeccionPrecios" runat="server" class="">
                         <asp:GridView runat="server" ID="gvPrecios" AutoGenerateColumns="false" DataKeyNames="Id, TipoVehiculoId, TiempoId, DiaAtencionId"
-                            OnRowCommand="OnRowCommandGvPrecios">
+                            OnRowCommand="OnRowCommandGvPrecios" CssClass="table table-hover table-responsive">
                             <Columns>
                                 <asp:BoundField HeaderText="Tipo de Vehiculo" DataField="TipoVehiculoStr" />
                                 <asp:BoundField HeaderText="Tiempo" DataField="TiempoStr" />

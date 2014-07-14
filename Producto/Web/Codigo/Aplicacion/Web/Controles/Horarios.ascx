@@ -12,9 +12,9 @@
             <h3 class="panel-title">Horarios</h3>
         </div>
         <div class="panel-body">
-                <asp:UpdatePanel runat="server" ID="upFormulario">
-                    <ContentTemplate>
-            <div id="divSeccionFormulario" runat="server" class="">
+            <asp:UpdatePanel runat="server" ID="upFormulario">
+                <ContentTemplate>
+                    <div id="divSeccionFormulario" runat="server" class="">
 
                         <div class="form-horizontal" role="form">
                             <div class="form-group">
@@ -27,14 +27,16 @@
                             <div class="form-group">
 
                                 <label for="txtDesde" class="col-sm-2 col-md-2 col-lg-2 control-label">Desde</label>
-                                <div class="col-sm-3 col-md-3 col-lg-3">
+                                <div class="col-sm-3 col-md-3 col-lg-3 input-group date horarios" id="dtpDesde">
                                     <asp:TextBox runat="server" CssClass="form-control required" ID="txtDesde" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                                 </div>
 
 
                                 <label for="txtHasta" class="col-sm-2 col-md-2 col-lg-2 control-label">Hasta</label>
-                                <div class="col-sm-3 col-md-3 col-lg-3">
+                                <div class="col-sm-3 col-md-3 col-lg-3 input-group date horarios" id="dtpHasta">
                                     <asp:TextBox runat="server" CssClass="form-control required" ID="txtHasta" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                                 </div>
                                 <div class="col-sm-2 col-md-2 col-lg-2">
                                     <asp:CheckBox runat="server" ID="chk24Horas" Checked="true" Text="24 hs" />
@@ -45,48 +47,48 @@
                                 <asp:LinkButton runat="server" ID="btnCancelar" OnClick="btnCancelar_Click" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClientClick="mostrarFormularioHorario()" />
                             </div>
                         </div>
-            </div>
-            <div id="divSeccionHorarios" runat="server" class="">
+                    </div>
+                    <div id="divSeccionHorarios" runat="server" class="">
 
                         <asp:GridView runat="server" ID="gvHorarios" AutoGenerateColumns="false" DataKeyNames="Id, DiaAtencionId"
-                            OnRowCommand="OnRowCommandGvHorarios">
+                            OnRowCommand="OnRowCommandGvHorarios" CssClass="table table-hover table-responsive">
                             <Columns>
                                 <asp:BoundField HeaderText="Dias" DataField="DiaAtencionStr" />
                                 <asp:BoundField HeaderText="Desde" DataField="HoraDesde" />
                                 <asp:BoundField HeaderText="Hasta" DataField="HoraHasta" />
                                 <asp:TemplateField HeaderText="Quitar">
                                     <ItemTemplate>
-                                        <asp:Button runat="server" ID="btnQuitar" CommandName="Quitar" CommandArgument="<%# Container.DataItemIndex %>"/>
+                                        <asp:Button runat="server" ID="btnQuitar" CommandName="Quitar" CommandArgument="<%# Container.DataItemIndex %>" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
-            </div>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </div>
-        
+
     </div>
-    
+
 </div>
 <script type="text/javascript">
 
     function mostrarFormularioHorario() {
-//<<<<<<< Updated upstream
-//        var mostrar = $('#TopContent_ucHorarios_divSeccionFormulario').hasClass("hidden");
-//        if (mostrar) {
-//            $('#TopContent_ucHorarios_divSeccionFormulario').removeClass("hidden");
-//            $('#TopContent_ucHorarios_btnAgregarHorario').addClass("hidden");
-//            $('#TopContent_ucHorarios_btnAgregarHorario').addClass("btn btn-danger");
-//            $('#TopContent_ucHorarios_btnAgregarHorario>span').addClass("glyphicon glyphicon-minus");
-//        }
-//        else {
-//            $('#TopContent_ucHorarios_divSeccionFormulario').addClass("hidden");
-//            $('#TopContent_ucHorarios_btnAgregarHorario').removeClass("hidden");
-//            $('#TopContent_ucHorarios_btnAgregarHorario').addClass("btn btn-success");
-//            $('#TopContent_ucHorarios_btnAgregarHorario>span').addClass("glyphicon glyphicon-plus");
-//        }
-//=======
+        //<<<<<<< Updated upstream
+        //        var mostrar = $('#TopContent_ucHorarios_divSeccionFormulario').hasClass("hidden");
+        //        if (mostrar) {
+        //            $('#TopContent_ucHorarios_divSeccionFormulario').removeClass("hidden");
+        //            $('#TopContent_ucHorarios_btnAgregarHorario').addClass("hidden");
+        //            $('#TopContent_ucHorarios_btnAgregarHorario').addClass("btn btn-danger");
+        //            $('#TopContent_ucHorarios_btnAgregarHorario>span').addClass("glyphicon glyphicon-minus");
+        //        }
+        //        else {
+        //            $('#TopContent_ucHorarios_divSeccionFormulario').addClass("hidden");
+        //            $('#TopContent_ucHorarios_btnAgregarHorario').removeClass("hidden");
+        //            $('#TopContent_ucHorarios_btnAgregarHorario').addClass("btn btn-success");
+        //            $('#TopContent_ucHorarios_btnAgregarHorario>span').addClass("glyphicon glyphicon-plus");
+        //        }
+        //=======
         //var mostrar = $('#TopContent_ucHorarios_divSeccionFormulario').hasClass("hidden");
         //if (mostrar) {
         //    $('#TopContent_ucHorarios_divSeccionFormulario').removeClass("hidden");
@@ -100,3 +102,4 @@
     }
 
 </script>
+<script src="./Scripts/horarios.js"></script>
