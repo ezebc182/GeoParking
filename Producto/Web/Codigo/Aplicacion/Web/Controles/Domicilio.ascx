@@ -12,26 +12,26 @@
     <div class="panel-body">
         <asp:UpdatePanel runat="server" ID="upFormulario" ChildrenAsTriggers="false" UpdateMode="Conditional">
             <ContentTemplate>
-                <div id="divSeccionFormulario" runat="server" class="">
+                <div id="divSeccionFormulario" runat="server">
                     <div class="form-horizontal" role="form">
                         <asp:UpdatePanel runat="server" ID="UpdatePanel2">
                             <ContentTemplate>
                                 <div class="form-group">
-                                    <label for="ddlProvincia" class="col-sm-2 col-md-2 col-lg-2 control-label">Provincia</label>
+                                    <label for="ddlProvincia" class="col-sm-2 col-md-2 col-lg-2 control-label"> Provincia</label>
                                     <div class="col-sm-10 col-md-10 col-lg-10">
-                                        <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ClientIDMode="Static" ID="ddlProvincia" OnSelectedIndexChanged="ddlProvincia_SelectedIndexChanged" />
+                                        <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control "  ClientIDMode="Static" ID="ddlProvincia" OnSelectedIndexChanged="ddlProvincia_SelectedIndexChanged" data-bv-notempty="true" data-bv-notempty-message="Seleccione una provincia."/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="ddlDepartamento" class="col-sm-2 col-md-2 col-lg-2 control-label">Departamento</label>
                                     <div class="col-sm-10 col-md-10 col-lg-10">
-                                        <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ID="ddlDepartamento" OnSelectedIndexChanged="ddlDepartamento_SelectedIndexChanged" />
+                                        <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="Seleccione un departamento." ID="ddlDepartamento" OnSelectedIndexChanged="ddlDepartamento_SelectedIndexChanged" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="ddlCiudad" class="col-sm-2 col-md-2 col-lg-2 control-label">Ciudad</label>
                                     <div class="col-sm-10 col-md-10 col-lg-10">
-                                        <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ClientIDMode="Static" ID="ddlCiudad" />
+                                        <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="Seleccione una ciudad." ClientIDMode="Static" ID="ddlCiudad" />
                                     </div>
                                 </div>
                             </ContentTemplate>
@@ -40,24 +40,24 @@
 
                             <label for="txtCalle" class="col-sm-2 col-md-2 col-lg-2 control-label">Calle</label>
                             <div class="col-sm-6 col-md-6 col-lg-6">
-                                <asp:TextBox runat="server" CssClass="form-control required" ClientIDMode="Static" ID="txtCalle" />
+                                <asp:TextBox runat="server" type="text" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="La calle es requerida." ClientIDMode="Static" ID="txtCalle" />
                             </div>
                             <label for="txtNumero" class="col-sm-1 col-md-1 col-lg-1 control-label">Número</label>
                             <div class="col-sm-2 col-md-2 col-lg-2">
-                                <asp:TextBox runat="server" CssClass="form-control required" ClientIDMode="Static" ID="txtNumero" />
+                                <asp:TextBox runat="server" type="number" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="La altura es requerida." ClientIDMode="Static" ID="txtNumero" />
                             </div>
                             <div class="col-sm-1 col-md-1 col-lg-1">
                                 <button runat="server" id="btnBuscarEnMapa" class="glyphicon glyphicon-map-marker btn btn-warning pull-right"
                                     tooltip="Buscar en mapa" onclick="codeAddress()" />
-                                <asp:TextBox runat="server" ClientIDMode="Static" ID="txtDireccion" CssClass="hidden" />
+                                <asp:TextBox runat="server" ClientIDMode="Static" ID="txtDireccion" CssClass="hidden"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-2 col-md-2 col-lg-2"></div>
                             <div id="pnlMapa" class="col-sm-10 col-md-10 col-lg-10">
                                 <div id="map-canvas"></div>
-                                <asp:TextBox runat="server" CssClass="form-control col-sm-5 col-md-5 col-lg-5 required hidden" ID="txtLatitud" ClientIDMode="Static" />
-                                <asp:TextBox runat="server" CssClass="form-control col-sm-5 col-md-5 col-lg-5 required hidden" ID="txtLongitud" ClientIDMode="Static" />
+                                <asp:TextBox runat="server" CssClass="form-control col-sm-5 col-md-5 col-lg-5  hidden" ID="txtLatitud" ClientIDMode="Static" />
+                                <asp:TextBox runat="server" CssClass="form-control col-sm-5 col-md-5 col-lg-5  hidden" ID="txtLongitud" ClientIDMode="Static" />
                             </div>
                         </div>
 
@@ -81,7 +81,7 @@
                             <asp:BoundField HeaderText="Longitud" DataField="Longitud" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden" />
                             <asp:TemplateField HeaderText="Quitar">
                                 <ItemTemplate>
-                                    <asp:LinkButton runat="server" ID="btnQuitar" CssClass="btn btn-danger btn-xs" Text="<span class='glyphicon glyphicon-remove'></span>"
+                                    <asp:LinkButton runat="server" ID="btnQuitar" CssClass="btn btn-danger btn-xs eliminacion" Text="<span class='glyphicon glyphicon-remove'></span>"
                                         CommandArgument="<%# Container.DataItemIndex %>" CommandName="Quitar" />
                                 </ItemTemplate>
                             </asp:TemplateField>

@@ -13,17 +13,17 @@
         <div class="panel-body">
             <asp:UpdatePanel runat="server" ID="UpdatePanel2">
                 <ContentTemplate>
-                    <div id="divSeccionFormulario" runat="server" class="">
+                    <div id="divSeccionFormulario" runat="server">
 
-                        <div class="form-horizontal" role="form">
+                        <div class="form-horizontal " role="form">
                             <div class="form-group">
                                 <label for="ddlTipoVehiculo" class="col-sm-2 col-md-2 col-lg-2 control-label">Tipo de Vehiculo</label>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <asp:DropDownList runat="server" CssClass="form-control required" ID="ddlTipoVehiculo" />
+                                    <asp:DropDownList runat="server" CssClass="form-control" ID="ddlTipoVehiculo" data-bv-notempty="true" data-bv-notempty-message="Seleccione un tipo de vehículo."/>
                                 </div>
                                 <label for="txtCapacidad" class="col-sm-2 col-md-2 col-lg-2 control-label">Capacidad</label>
                                 <div class="col-sm-2 col-md-2 col-lg-2">
-                                    <asp:TextBox runat="server" CssClass="form-control required" ID="txtCapacidad" />
+                                    <asp:TextBox runat="server" CssClass="form-control" ID="txtCapacidad" type="number" data-bv-notempty="true" data-bv-notempty-message="La capacidad es requerida."/>
                                 </div>
 
                             </div>
@@ -42,7 +42,7 @@
                                 <asp:BoundField HeaderText="Capacidad" DataField="Capacidad" />
                                 <asp:TemplateField HeaderText="Quitar">
                                     <ItemTemplate>
-                                        <asp:Button runat="server" ID="btnQuitar" CommandName="Quitar" CommandArgument="<%# Container.DataItemIndex %>" />
+                                        <asp:Button runat="server" ID="btnQuitar" CommandName="Quitar" CssClass="btn btn-danger" Text="&#9747;" CommandArgument="<%# Container.DataItemIndex %>" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>

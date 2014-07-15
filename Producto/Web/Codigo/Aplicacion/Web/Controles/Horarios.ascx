@@ -3,7 +3,7 @@
 <div>
     <asp:UpdatePanel runat="server" ID="UpdatePanel1">
         <ContentTemplate>
-            <asp:LinkButton ID="btnAgregarHorario" runat="server" OnClick="btnAgregarHorario_Click" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClientClick="mostrarFormularioHorario()" />
+            <asp:LinkButton ID="btnAgregarHorario" runat="server" data-toggle="panel" data-target="#upFormulario" OnClick="btnAgregarHorario_Click" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClientClick="mostrarFormularioHorario()" />
         </ContentTemplate>
     </asp:UpdatePanel>
 
@@ -14,28 +14,25 @@
         <div class="panel-body">
             <asp:UpdatePanel runat="server" ID="upFormulario">
                 <ContentTemplate>
-                    <div id="divSeccionFormulario" runat="server" class="">
+                    <div id="divSeccionFormulario" runat="server">
 
-                        <div class="form-horizontal" role="form">
+                        <div class="form-horizontal " role="form">
                             <div class="form-group">
                                 <label for="ddlDias" class="col-sm-2 col-md-2 col-lg-2 control-label">Dias</label>
-                                <div class="col-sm-10 col-md-10 col-lg-10">
-
-                                    <asp:DropDownList runat="server" CssClass="form-control required" ID="ddlDias" />
+                                <div class="col-sm-4 col-md-4 col-lg-4">
+                                    <asp:DropDownList runat="server" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="Seleccione un tipo." ID="ddlDias" />
                                 </div>
-                            </div>
+                                </div>
                             <div class="form-group">
-
                                 <label for="txtDesde" class="col-sm-2 col-md-2 col-lg-2 control-label">Desde</label>
                                 <div class="col-sm-3 col-md-3 col-lg-3 input-group date horarios" id="dtpDesde">
-                                    <asp:TextBox runat="server" CssClass="form-control required" ID="txtDesde" />
+                                    <asp:TextBox runat="server" CssClass="form-control "  ID="txtDesde" data-bv-notempty="true" data-bv-notempty-message="Ingrese horario hasta"/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                                 </div>
 
-
                                 <label for="txtHasta" class="col-sm-2 col-md-2 col-lg-2 control-label">Hasta</label>
                                 <div class="col-sm-3 col-md-3 col-lg-3 input-group date horarios" id="dtpHasta">
-                                    <asp:TextBox runat="server" CssClass="form-control required" ID="txtHasta" />
+                                    <asp:TextBox runat="server" CssClass="form-control " ID="txtHasta" data-bv-notempty="true" data-bv-notempty-message="Ingrese horario hasta" data-bv-greaterthan-inclusive="false" data-bv-greaterthan-message="Horario hasta no puede ser inferior a horario desde." data-bv-greaterthan-value="txtDesde"/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                                 </div>
                                 <div class="col-sm-2 col-md-2 col-lg-2">
@@ -56,9 +53,9 @@
                                 <asp:BoundField HeaderText="Dias" DataField="DiaAtencionStr" />
                                 <asp:BoundField HeaderText="Desde" DataField="HoraDesde" />
                                 <asp:BoundField HeaderText="Hasta" DataField="HoraHasta" />
-                                <asp:TemplateField HeaderText="Quitar">
+                                <asp:TemplateField HeaderText="Acciones">
                                     <ItemTemplate>
-                                        <asp:Button runat="server" ID="btnQuitar" CommandName="Quitar" CommandArgument="<%# Container.DataItemIndex %>" />
+                                        <asp:Button runat="server" ToolTip="Eliminar" ID="btnQuitar" CommandName="Quitar" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn btn-danger eliminacion" Text="&#9747;"/>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -72,6 +69,11 @@
 
 </div>
 <script type="text/javascript">
+    function validarHorarios() { 
+        if ($("#TopContent_ucHorarios_txtDesde").text() >= $("#TopContent_ucHorarios_txtHasta").text()) {
+        alert("La hora desde no puede ser superior a la hora hasta");
+    }
+    }
 
     function mostrarFormularioHorario() {
         //<<<<<<< Updated upstream
