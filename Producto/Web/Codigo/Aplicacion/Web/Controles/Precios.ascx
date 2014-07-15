@@ -11,14 +11,17 @@
             <h3 class="panel-title">Precios</h3>
         </div>
         <div class="panel-body">
-                <asp:UpdatePanel runat="server" ID="upFormulario">
-                    <ContentTemplate>
-            <div id="divSeccionFormulario" runat="server" class="">
- <div class="form-group">
+            <asp:UpdatePanel runat="server" ID="upFormulario">
+                <ContentTemplate>
+
+                    <div id="divSeccionFormulario" runat="server" >
+                          <div class="form-horizontal" role="form">
+
+                        <div class="form-group">
                             <label for="ddlTipoVehiculo" class="col-sm-2 col-md-2 col-lg-2 control-label">Tipo de Vehiculo</label>
 
                             <div class="col-sm-10 col-md-10 col-lg-10">
-                                <asp:DropDownList runat="server" CssClass="form-control required" ID="ddlTipoVehiculo" />
+                                <asp:DropDownList runat="server" CssClass="form-control " ID="ddlTipoVehiculo" data-bv-notempty="true" data-bv-notempty-message="Seleccione un tipo de vehículo." />
 
                             </div>
                         </div>
@@ -26,7 +29,7 @@
                             <label for="ddlTipoHorario" class="col-sm-2 col-md-2 col-lg-2 control-label">Tipo de Horario</label>
 
                             <div class="col-sm-10 col-md-10 col-lg-10">
-                                <asp:DropDownList runat="server" CssClass="form-control required" ID="ddlTipoHorario" />
+                                <asp:DropDownList runat="server" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="Seleccione un tipo de horario." ID="ddlTipoHorario" />
 
                             </div>
                         </div>
@@ -34,7 +37,7 @@
                             <label for="ddlDias" class="col-sm-2 col-md-2 col-lg-2 control-label">Dias</label>
 
                             <div class="col-sm-10 col-md-10 col-lg-10">
-                                <asp:DropDownList runat="server" CssClass="form-control required" ID="ddlDias" />
+                                <asp:DropDownList runat="server" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="Seleccione el/los día/s." ID="ddlDias" />
 
                             </div>
                         </div>
@@ -42,34 +45,34 @@
                         <div class="form-group">
                             <label for="txtPrecio" class="col-sm-2 col-md-2 col-lg-2 control-label">Precio</label>
                             <div class="col-sm-10 col-md-10 col-lg-10">
-                                <asp:TextBox runat="server" CssClass="form-control required" ID="txtPrecio" />
+                                <asp:TextBox type="number" min="0" runat="server" CssClass="form-control " data-bv-numeric-separator="," data-bv-numeric-message="Ingrese un precio válido." ID="txtPrecio" />
                             </div>
                         </div>
                         <div class="form-group pull-right">
                             <asp:LinkButton runat="server" ID="btnGuardar" Text="<span class='glyphicon glyphicon-ok-circle'></span>" CssClass="btn btn-lg" ForeColor="Green" BackColor="Transparent" OnClientClick="mostrarFormularioPrecio()" OnClick="btnGuardar_Click" />
                             <asp:LinkButton runat="server" ID="btnCancelar" OnClick="btnCancelar_Click" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClientClick="mostrarFormularioPrecio()" />
                         </div>
-            </div>
-
-                        <div id="divSeccionPrecios" runat="server" class="">
+                    </div>
+                    </div>
+                    <div id="divSeccionPrecios" runat="server" class="">
                         <asp:GridView runat="server" ID="gvPrecios" AutoGenerateColumns="false" DataKeyNames="Id, TipoVehiculoId, TiempoId, DiaAtencionId"
-                            OnRowCommand="OnRowCommandGvPrecios">
+                            OnRowCommand="OnRowCommandGvPrecios" CssClass="table table-hover table-responsive" AllowCustomPaging="False" AllowPaging="True">
                             <Columns>
                                 <asp:BoundField HeaderText="Tipo de Vehiculo" DataField="TipoVehiculoStr" />
                                 <asp:BoundField HeaderText="Tiempo" DataField="TiempoStr" />
                                 <asp:BoundField HeaderText="Dias" DataField="DiaAtencionStr" />
                                 <asp:BoundField HeaderText="Precio" DataField="Monto" />
-                                <asp:TemplateField HeaderText="Quitar">
+                                <asp:TemplateField HeaderText="Acciones">
                                     <ItemTemplate>
-                                        <asp:Button runat="server" ID="btnQuitar" CommandName="Quitar" CommandArgument="<% # Container.DataItemIndex%>" />
+                                        <asp:Button runat="server" ID="btnQuitar" CommandName="Quitar" Text="&#9747;" CssClass="btn btn-danger eliminacion" CommandArgument="<% # Container.DataItemIndex%>" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
-            </div>
-                        </ContentTemplate>
-                </asp:UpdatePanel>
-            
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+
         </div>
     </div>
 </div>

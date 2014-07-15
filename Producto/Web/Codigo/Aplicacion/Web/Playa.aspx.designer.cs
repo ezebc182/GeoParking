@@ -184,15 +184,6 @@ namespace Web {
         protected global::Web.Controles.DomicilioControl ucDomicilios;
         
         /// <summary>
-        /// Control btnPaso1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPaso1;
-        
-        /// <summary>
         /// Control ucHorarios.
         /// </summary>
         /// <remarks>
@@ -202,15 +193,6 @@ namespace Web {
         protected global::Web.Controles.HorarioControl ucHorarios;
         
         /// <summary>
-        /// Control btnPaso2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPaso2;
-        
-        /// <summary>
         /// Control ucPrecios.
         /// </summary>
         /// <remarks>
@@ -218,6 +200,15 @@ namespace Web {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::Web.Controles.PrecioControl ucPrecios;
+        
+        /// <summary>
+        /// Control btnAceptar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnAceptar;
         
         /// <summary>
         /// Control upBotones.
@@ -247,15 +238,6 @@ namespace Web {
         protected global::System.Web.UI.WebControls.Button btnGuardar;
         
         /// <summary>
-        /// Control btnAceptar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnAceptar;
-        
-        /// <summary>
         /// Control upBusqueda.
         /// </summary>
         /// <remarks>
@@ -280,7 +262,7 @@ namespace Web {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBuscar;
+        protected global::System.Web.UI.WebControls.LinkButton btnBuscar;
         
         /// <summary>
         /// Control btnNuevo.
@@ -289,7 +271,7 @@ namespace Web {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNuevo;
+        protected global::System.Web.UI.WebControls.LinkButton btnNuevo;
         
         /// <summary>
         /// Control hfFilasGrilla.

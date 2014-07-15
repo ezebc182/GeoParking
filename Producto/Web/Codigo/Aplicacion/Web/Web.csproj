@@ -69,15 +69,25 @@
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Bootstrap\js\bootstrap.js" />
     <Content Include="Bootstrap\js\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrapValidator.min.js" />
+    <Content Include="Scripts\bv-lenguaje.js" />
+    <Content Include="Scripts\datetimepicker.min.js" />
     <Content Include="Scripts\contarFilas.js" />
     <Content Include="Scripts\DesplazarTabs.js" />
     <Content Include="Scripts\GoogleMaps.js" />
+    <Content Include="Scripts\horarios.js" />
     <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\openModal.js" />
+    <Content Include="Scripts\validador.js" />
     <Content Include="Scripts\validator.js" />
+    <Content Include="Styles\bootstrap-datetimepicker.min.css" />
+    <Content Include="Styles\bootstrapValidator.min.css" />
     <Content Include="Styles\MapaAbmPlaya.css" />
     <Content Include="Styles\media-queries.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controles\Servicio.ascx.cs">
