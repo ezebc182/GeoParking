@@ -100,7 +100,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="reset" id="btnCancelar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -111,7 +111,7 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                    <button type="button" class="close" data-dismiss="modal" onclick="javascript:this.resetForm()"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
                     <h4 class="modal-title" id="H1">Acerca de GeoParking</h4>
                 </div>
                 <div class="modal-body">
@@ -151,7 +151,7 @@
                         </ContentTemplate>
                     </asp:UpdatePanel>
 
-                    <div runat="server" id="divModal" class="form-horizontal formulario" role="form">
+                    <div runat="server" id="divModal" class="form-horizontal" role="form">
                         <ul class="nav nav-tabs" id="myTab">
                             <li runat="server" id="tabDatosGrales" class="active"><a href="#datosGrales" data-toggle="tab">1. Datos Generales</a></li>
                             <li runat="server" id="tabHorarios"><a href="#horarios" data-toggle="tab">2. Horarios</a></li>
@@ -176,7 +176,7 @@
                                             <div class="form-group">
                                                 <label for="txtTelefono" class="col-sm-2 col-md-2 col-lg-2 col-md-2 col-lg-2 control-label">Telefono</label>
                                                 <div class="col-sm-3 col-md-3 col-lg-3">
-                                                    <asp:TextBox runat="server" CssClass="form-control" type="tel" ID="txtTelefono" data-bv-notempty="true" data-bv-notempty-message="El teléfono es requerido" data-bv-regexp="true" data-bv-regexp-regexp="^\+?\d{1,3}?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$" data-bv-regexp-message="Ingrese un número telefónico correcto." />
+                                                    <asp:TextBox runat="server" CssClass="form-control" type="tel" ID="txtTelefono" data-bv-notempty="true" data-bv-notempty-message="El teléfono es requerido" data-bv-regexp="true" data-bv-regexp-regexp="\b\d{3,5}[-.]?\d{3}[-.]?\d*\b" data-bv-regexp-message="Ingrese un número telefónico correcto." />
                                                 </div>
                                                 <label for="txtMail" class="col-sm-2 col-md-2 col-lg-2 control-label">Email</label>
                                                 <div class="col-sm-5 col-md-5 col-lg-5">
@@ -192,13 +192,13 @@
                                         </div>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
-                                
+
 
                                 <div class="form-group ">
                                     <servicios:servicios runat="server" ID="ucServicios" OnErrorHandler="MostrarErrorServicio"></servicios:servicios>
                                 </div>
 
-                                <div class="form-group" >
+                                <div class="form-group">
                                     <domicilios:domicilios runat="server" ID="ucDomicilios" OnErrorHandler="MostrarErrorDomicilio"></domicilios:domicilios>
                                     <div class="col-md-2 form-group pull-right">
                                         <button class="btn btn-primary pull-left disabled " id="btnPaso1_1"><span class='glyphicon glyphicon-chevron-left'></span></button>
@@ -251,9 +251,8 @@
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div>
-        <asp:UpdatePanel ID="upBusqueda" runat="server" ChildrenAsTriggers="true">
+        <asp:UpdatePanel ID="upBusqueda" runat="server">
             <ContentTemplate>
-
                 <div class="container-fluid">
                     <div class="jumbotron" style="margin-top: 5%;">
                         <div class="page-header">
@@ -267,7 +266,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <asp:LinkButton runat="server" CssClass="btn-primary btn btn-lg" ID="btnBuscar" Text="Buscar" OnClick="btnBuscar_Click"></asp:LinkButton>
-                                    <asp:LinkButton runat="server" CssClass="btn-success btn btn-lg" ID="btnNuevo" Text="Nueva" OnClick="btnNuevo_Click" data-keyboard="false" data-backdrop="static" data-target="#modificarPlaya" data-toggle="modal" OnClientClick="javascript:resetearFormulario()"></asp:LinkButton>
+                                    <asp:LinkButton runat="server" CssClass="btn-success btn btn-lg" ID="btnNuevo" Text="Nueva" OnClick="btnNuevo_Click" data-target="#modificarPlaya" data-toggle="modal"></asp:LinkButton>
                                 </div>
                             </div>
                         </div>
@@ -289,7 +288,7 @@
                                 <div id="resultadosBusqueda">
                                     <asp:GridView ID="gvResultados" runat="server" DataKeyNames="Id" CssClass="table table-hover table-responsive"
                                         AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron Playas para los filtros utilizados"
-                                        OnRowCommand="gvResultados_RowCommand" OnRowDataBound="gvResultados_RowDataBound" AllowSorting="True" AllowPaging="True" PageSize="2" >
+                                        OnRowCommand="gvResultados_RowCommand" OnRowDataBound="gvResultados_RowDataBound" AllowSorting="True" AllowPaging="True" PageSize="2">
                                         <Columns>
                                             <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                                             <asp:BoundField DataField="TipoPlayaStr" HeaderText="Tipo" />
@@ -329,27 +328,13 @@
     <script src="./Scripts/DesplazarTabs.js"></script>
     <script src="./Scripts/moment.js"></script>
     <script src="./Scripts/datetimepicker.min.js"></script>
-    <script src="./Scripts/validador.js"></script>
+
     <script>
         $(document).ready(function () {
-            function resetearFormulario() {
-                $("#TopContent_txtNombre").val("");
-            }
 
             $('.formulario').bootstrapValidator({
 
             });
-
-            if ($("#btnGuardar").click()) {
-                var elements = document.getElementsByClassName(names);
-            }
-
-
-
-
-            $('#eliminar').tooltip();
-            $('#editar').tooltip();
-            $('#buscar').tooltip();
             /*Al iniciar cuenta las filas que tiene cargada la tabla. Client-side */
             contarFilas();
 
@@ -359,6 +344,7 @@
             });
 
         });
+
         function customSlideToggle(e) {
             if (e.hasClass('hidden')) {
                 e.show();
@@ -372,6 +358,7 @@
                 });
             }
         }
+
         var contador = 0;
         pageManager = Sys.WebForms.PageRequestManager.getInstance();
         pageManager.add_endRequest(function () {

@@ -178,7 +178,7 @@ namespace Web.Controles
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario1, false);
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario2, false);
             FormHelper.CambiarVisibilidadControl(divSeccionDomicilios, true);
-            FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, false);
+            FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, true);
         }
         /// <summary>
         /// Establece las propiedades de los controles para cuando el usuario esta registrando.
@@ -188,7 +188,7 @@ namespace Web.Controles
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario1, false);
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario2, false);
             FormHelper.CambiarVisibilidadControl(divSeccionDomicilios, true);
-            FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, false);
+            FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, true);
         }
 
         /// <summary>
