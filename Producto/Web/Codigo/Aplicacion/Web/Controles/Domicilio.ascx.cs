@@ -164,7 +164,8 @@ namespace Web.Controles
         /// </summary>
         public void ConfigurarVer()
         {
-            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario1, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario2, false);
             FormHelper.CambiarVisibilidadControl(divSeccionDomicilios, true);
             FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, false);
             gvDomicilios.Columns[7].Visible = false;
@@ -174,20 +175,20 @@ namespace Web.Controles
         /// </summary>
         public void ConfigurarEditar()
         {
-            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario1, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario2, false);
             FormHelper.CambiarVisibilidadControl(divSeccionDomicilios, true);
-            FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, true);
-            gvDomicilios.Columns[7].Visible = true;
+            FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, false);
         }
         /// <summary>
         /// Establece las propiedades de los controles para cuando el usuario esta registrando.
         /// </summary>
         public void ConfigurarRegistrar()
         {
-            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario1, false);
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario2, false);
             FormHelper.CambiarVisibilidadControl(divSeccionDomicilios, true);
-            FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, true);
-            gvDomicilios.Columns[7].Visible = true;
+            FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, false);
         }
 
         /// <summary>

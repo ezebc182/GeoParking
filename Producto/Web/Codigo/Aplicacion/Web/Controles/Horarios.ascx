@@ -15,14 +15,13 @@
             <asp:UpdatePanel runat="server" ID="upFormulario">
                 <ContentTemplate>
                     <div id="divSeccionFormulario" runat="server">
-
                         <div class="form-horizontal " role="form">
                             <div class="form-group">
                                 <label for="ddlDias" class="col-sm-2 col-md-2 col-lg-2 control-label">Dias</label>
                                 <div class="col-sm-4 col-md-4 col-lg-4">
                                     <asp:DropDownList runat="server" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="Seleccione un tipo." ID="ddlDias" />
                                 </div>
-                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="txtDesde" class="col-sm-2 col-md-2 col-lg-2 control-label">Desde</label>
                                 <div class="col-sm-3 col-md-3 col-lg-3 input-group date horarios" id="dtpDesde">
@@ -48,7 +47,7 @@
                     <div id="divSeccionHorarios" runat="server" class="">
 
                         <asp:GridView runat="server" ID="gvHorarios" AutoGenerateColumns="false" DataKeyNames="Id, DiaAtencionId"
-                            OnRowCommand="OnRowCommandGvHorarios" CssClass="table table-hover table-responsive">
+                            OnRowCommand="OnRowCommandGvHorarios" CssClass="table table-hover table-responsive" AllowPaging="True">
                             <Columns>
                                 <asp:BoundField HeaderText="Dias" DataField="DiaAtencionStr" />
                                 <asp:BoundField HeaderText="Desde" DataField="HoraDesde" />

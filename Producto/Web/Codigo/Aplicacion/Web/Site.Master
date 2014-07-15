@@ -102,6 +102,16 @@
                         </div>
                     </div>
                 </div>
+                <script type="text/javascript">
+
+
+                    function Alerta_openModal() {
+                        $('#AlertPopup').modal('show');
+
+
+                    }
+
+</script>
             </ContentTemplate>
         </asp:UpdatePanel>
 
@@ -111,16 +121,7 @@
     </form>
     
     
-<script type="text/javascript">
 
-
-    function Alerta_openModal() {
-        $('#AlertPopup').modal('show');
-
-
-    }
-
-</script>
 </body>
 
 </html>

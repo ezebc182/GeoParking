@@ -36,11 +36,11 @@
                     <div id="divSeccionServicios" runat="server" class="">
 
                         <asp:GridView runat="server" ID="gvServicios" AutoGenerateColumns="false"
-                            DataKeyNames="Id,TipoVehiculoId" OnRowCommand="OnRowCommandGvServicios" CssClass="table table-hover table-responsive">
+                            DataKeyNames="Id,TipoVehiculoId" OnRowCommand="OnRowCommandGvServicios" CssClass="table table-hover table-responsive" AllowPaging="True">
                             <Columns>
                                 <asp:BoundField HeaderText="Tipo de Vehiculo" DataField="TipoVehiculoStr" />
                                 <asp:BoundField HeaderText="Capacidad" DataField="Capacidad" />
-                                <asp:TemplateField HeaderText="Quitar">
+                                <asp:TemplateField HeaderText="Acciones">
                                     <ItemTemplate>
                                         <asp:Button runat="server" ID="btnQuitar" CommandName="Quitar" CssClass="btn btn-danger" Text="&#9747;" CommandArgument="<%# Container.DataItemIndex %>" />
                                     </ItemTemplate>
