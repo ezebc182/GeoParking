@@ -458,7 +458,7 @@ namespace Web.Util
             }
             else OcultarControl(control);
         }
-        
+
         /// <summary>
         /// muestra u oculta un control
         /// </summary>
@@ -492,13 +492,12 @@ namespace Web.Util
         /// <param name="control"></param>
         private static void MostrarControl(HtmlControl control)
         {
-            var val = control.Attributes["class"];
-            if (!string.IsNullOrEmpty(val))
-            {
-                val = val.Replace("hidden", string.Empty);
-                control.Attributes["class"] = val;
-
-            }
+            control.Attributes.Add("class", String.Join(" ", control
+               .Attributes["class"]
+               .Split(' ')
+               .Except(new string[] { "", "hidden" })
+               .ToArray()
+               ));
         }
         /// <summary>
         /// Muestra un control
@@ -506,13 +505,12 @@ namespace Web.Util
         /// <param name="control"></param>
         private static void MostrarControl(WebControl control)
         {
-            var val = control.Attributes["class"];
-            if (!string.IsNullOrEmpty(val))
-            {
-                val = val.Replace("hidden", string.Empty);
-                control.Attributes["class"] = val;
-
-            }
+            control.Attributes.Add("class", String.Join(" ", control
+               .Attributes["class"]
+               .Split(' ')
+               .Except(new string[] { "", "hidden" })
+               .ToArray()
+               ));
         }
         /// <summary>
         /// Oculta un control
@@ -520,7 +518,13 @@ namespace Web.Util
         /// <param name="control"></param>
         private static void OcultarControl(HtmlControl control)
         {
-            control.Attributes.Add("class", " hidden");
+            control.Attributes.Add("class", String.Join(" ", control
+               .Attributes["class"]
+               .Split(' ')
+               .Except(new string[] { "", "hidden" })
+               .Concat(new string[] { "hidden" })
+               .ToArray()
+               ));
         }
         /// <summary>
         /// Oculta un control
@@ -528,7 +532,13 @@ namespace Web.Util
         /// <param name="control"></param>
         private static void OcultarControl(WebControl control)
         {
-            control.Attributes.Add("class", " hidden");
+            control.Attributes.Add("class", String.Join(" ", control
+                   .Attributes["class"]
+                   .Split(' ')
+                   .Except(new string[] { "", "hidden" })
+                   .Concat(new string[] { "hidden" })
+                   .ToArray()
+                   ));
         }
         #endregion
 
