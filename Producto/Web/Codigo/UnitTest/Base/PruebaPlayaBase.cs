@@ -8,15 +8,36 @@ namespace UnitTest.Base
 {
     public class PruebaPlayaBase
     {
-        public IRepositorioPlayaDeEstacionamiento repositorioPlayas;
-        public IRepositorioTipoDePlaya repositorioTipoPlayas;
-        public GestorPlaya gestor;
+        IRepositorioPlayaDeEstacionamiento playaDao;
+        IRepositorioTipoDePlaya tipoPlayaDao;
+        IRepositorioDiaAtencion diaAtencionDao;
+        IRepositorioTipoVehiculo tipoVehiculoDao;
+        IRepositorioHorario horarioDao;
+        IRepositorioServicio servicioDao;
+        IRepositorioPrecio precioDao;
+        IRepositorioDireccion direccionDao;
+        IRepositorioCiudad ciudadDao;
+        IRepositorioDepartamento departamentoDao;
+        IRepositorioProvincia provinciaDao;
 
+        public GestorPlaya gestor;
+        public GestorDireccion gestorDireccion;
         public PruebaPlayaBase()
         {
-            repositorioPlayas = new RepositorioPlayasFalso();
-            repositorioTipoPlayas = new RepositorioTipoPlayasFalso();
-           // gestor = new GestorPlaya(repositorioPlayas, repositorioTipoPlayas);
+            playaDao = new RepositorioPlayasFalso();
+            tipoPlayaDao = new RepositorioTipoPlayasFalso();
+            diaAtencionDao = new RepositorioDiaAtencionFalso();
+            tipoVehiculoDao = new RepositorioTipoVehiculoFalso();
+            horarioDao = new RepositorioHorarioFalso();
+            servicioDao = new RepositorioServicioFalso();
+            precioDao = new RepositorioPrecioFalso();
+            direccionDao = new RepositorioDireccionFalso();
+            ciudadDao = new RepositorioCiudadFalso();
+            departamentoDao = new RepositorioDepartamentoFalso();
+            provinciaDao = new RepositorioProvinciaFalso();
+            gestorDireccion = new GestorDireccion(direccionDao, ciudadDao, departamentoDao, provinciaDao);
+            gestor = new GestorPlaya(playaDao, tipoPlayaDao, diaAtencionDao, tipoVehiculoDao, horarioDao, servicioDao, precioDao, gestorDireccion);
+            
         }
     }
 }

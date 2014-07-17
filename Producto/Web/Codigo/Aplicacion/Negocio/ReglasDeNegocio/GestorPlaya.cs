@@ -44,13 +44,15 @@ namespace ReglasDeNegocio
         /// <param name="servicioDao"></param>
         /// <param name="precioDao"></param>
         public GestorPlaya(IRepositorioPlayaDeEstacionamiento playaDao,
-        IRepositorioTipoDePlaya tipoPlayaDao,
-        IRepositorioDiaAtencion diaAtencionDao,
-        IRepositorioTipoVehiculo tipoVehiculoDao,
-        IRepositorioHorario horarioDao,
-        IRepositorioServicio servicioDao,
-        IRepositorioPrecio precioDao)
+            IRepositorioTipoDePlaya tipoPlayaDao,
+            IRepositorioDiaAtencion diaAtencionDao,
+            IRepositorioTipoVehiculo tipoVehiculoDao,
+            IRepositorioHorario horarioDao,
+            IRepositorioServicio servicioDao,
+            IRepositorioPrecio precioDao,
+            GestorDireccion gestorDireccion)
         {
+            this.gestorDireccion = gestorDireccion;
             this.playaDao = playaDao;
             this.tipoPlayaDao = tipoPlayaDao;
             this.diaAtencionDao = diaAtencionDao;
@@ -104,7 +106,7 @@ namespace ReglasDeNegocio
             {
                 resultado.AgregarMensaje("Debe ingresar todos los datos de la playa.");
             }
-            
+
         }
         /// <summary>
         /// Valida que se hayan ingresado los precios para los dias de atencion y viceversa
