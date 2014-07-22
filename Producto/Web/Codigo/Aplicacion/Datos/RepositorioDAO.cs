@@ -21,6 +21,9 @@ namespace Datos
     public interface IRepositorioCiudad : IRepositorio<Ciudad> { }
     public interface IRepositorioDepartamento : IRepositorio<Departamento> { }
     public interface IRepositorioProvincia : IRepositorio<Provincia> { }
+    public interface IRepositorioUsuario : IRepositorio<Usuario> { }
+    public interface IRepositorioRol : IRepositorio<Rol> { }
+    public interface IRepositorioPermiso : IRepositorio<Provincia> { }
 
     //Clases DAO para cada entidad que heredan de la clase Repositorio
     public class RepositorioTipoDePlaya : Repositorio<TipoPlaya>, IRepositorioTipoDePlaya { }
@@ -34,6 +37,9 @@ namespace Datos
     public class RepositorioCiudad : Repositorio<Ciudad>, IRepositorioCiudad { }
     public class RepositorioDepartamento : Repositorio<Departamento>, IRepositorioDepartamento { }
     public class RepositorioProvincia : Repositorio<Provincia>, IRepositorioProvincia { }
+    public class RepositorioUsuario : Repositorio<Usuario>, IRepositorioUsuario { }
+    public class RepositorioRol : Repositorio<Rol>, IRepositorioRol { }
+    public class RepositorioPermiso : Repositorio<Permiso>, IRepositorioPermiso { }
 
     public class RepositorioPlayaDeEstacionamiento : Repositorio<PlayaDeEstacionamiento>, IRepositorioPlayaDeEstacionamiento 
     { 
