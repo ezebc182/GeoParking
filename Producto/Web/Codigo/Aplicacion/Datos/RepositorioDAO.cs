@@ -23,7 +23,7 @@ namespace Datos
     public interface IRepositorioProvincia : IRepositorio<Provincia> { }
     public interface IRepositorioUsuario : IRepositorio<Usuario> { }
     public interface IRepositorioRol : IRepositorio<Rol> { }
-    public interface IRepositorioPermiso : IRepositorio<Provincia> { }
+    public interface IRepositorioPermiso : IRepositorio<Permiso> { }
 
     //Clases DAO para cada entidad que heredan de la clase Repositorio
     public class RepositorioTipoDePlaya : Repositorio<TipoPlaya>, IRepositorioTipoDePlaya { }
