@@ -23,19 +23,18 @@ namespace Web
             if (!Page.IsPostBack)
             {
                 cargarComboUsuario();
+                cargarComboRol();
             }
         }
 
         protected void ddlUsuario_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            cargarComboRol();
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            Usuario usuario = new Usuario();
-            Rol rol = new Rol();
-            guardar(usuario, rol);
+            gestor.AsigarRolAUsuario(int.Parse(ddlUsuario.SelectedValue), int.Parse(ddlRol.SelectedValue));
         }
 
         private void guardar(Usuario usuario, Rol rol)
@@ -45,9 +44,16 @@ namespace Web
 
         private void cargarComboUsuario()
         {
-            FormHelper.CargarCombo(ddlUsuario, gestor.BuscarUsuarios(), "Nombre", "Id", "Seleccione");
-            ddlUsuario.DataSource = gestor.BuscarUsuarios();
-            ddlUsuario.DataBind();
+            FormHelper.CargarCombo(ddlUsuario, gestor.BuscarUsuarios(), "NombreUsuario", "Id", "Seleccione");
+        }
+
+        private void cargarComboRol()
+        {
+            FormHelper.CargarCombo(ddlRol, gestor.BuscarRoles(), "Nombre", "Id", "Seleccione");
+            if (ddlUsuario.SelectedIndex != 0)
+            {
+                ddlRol.SelectedIndex = gestor.BuscarRolPorUsuarioId(ddlUsuario.SelectedIndex).Id;
+            }
         }
 
         public int IdUsuarioSeleccionado
