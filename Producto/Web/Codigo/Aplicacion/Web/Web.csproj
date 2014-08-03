@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AsignarPermisoARol.aspx" />
     <Content Include="AsignarRol.aspx" />
     <Content Include="Controles\Servicio.ascx" />
     <Content Include="Controles\Horarios.ascx" />
@@ -92,6 +93,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsignarPermisoARol.aspx.cs">
+      <DependentUpon>AsignarPermisoARol.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AsignarPermisoARol.aspx.designer.cs">
+      <DependentUpon>AsignarPermisoARol.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AsignarRol.aspx.cs">
       <DependentUpon>AsignarRol.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -11,5 +11,6 @@ namespace Entidades
         public String Nombre { get; set; }
         public String Url { get; set; }
         public bool Acceso { get; set; }
+        public virtual IList<Rol> Roles { get; set; }
     }
 }
