@@ -71,6 +71,7 @@ namespace Web.Controles
             if (!ValidarServicio(servicio)) return;
             servicios.Add(servicio);
             Servicios = servicios;
+            HabilitarFormulario(false);
         }
         /// <summary>
         /// Valida que el servicio no se haya cargado antes
@@ -129,9 +130,9 @@ namespace Web.Controles
         public void ConfigurarVer()
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
-            FormHelper.CambiarVisibilidadControl(divSeccionServicios, true);
-            FormHelper.CambiarVisibilidadControl(btnAgregarServicio, true);
-            gvServicios.Columns[2].Visible = true;
+            FormHelper.CambiarVisibilidadControl(divSeccionGrillaServicios, true);
+            FormHelper.CambiarVisibilidadControl(btnAgregarServicio, false);
+            gvServicios.Columns[2].Visible = false;
             }
         /// <summary>
         /// Establece las propiedades de los controles para cuando el usuario esta editando.
@@ -139,7 +140,7 @@ namespace Web.Controles
         public void ConfigurarEditar()
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
-            FormHelper.CambiarVisibilidadControl(divSeccionServicios, true);
+            FormHelper.CambiarVisibilidadControl(divSeccionGrillaServicios, true);
             FormHelper.CambiarVisibilidadControl(btnAgregarServicio, true);
             gvServicios.Columns[2].Visible = true;
         }
@@ -149,10 +150,17 @@ namespace Web.Controles
         public void ConfigurarRegistrar()
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
-            FormHelper.CambiarVisibilidadControl(divSeccionServicios, true);
+            FormHelper.CambiarVisibilidadControl(divSeccionGrillaServicios, true);
             FormHelper.CambiarVisibilidadControl(btnAgregarServicio, true);
             gvServicios.Columns[2].Visible = true;
         }
+        public void HabilitarFormulario(bool habilitar)
+        {
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, habilitar);
+            FormHelper.CambiarVisibilidadControl(divSeccionGrillaServicios, !habilitar);
+            FormHelper.CambiarVisibilidadControl(btnAgregarServicio, !habilitar);
+        }
+
         #region eventos
         #region grilla
         /// <summary>
@@ -193,10 +201,12 @@ namespace Web.Controles
         protected void btnAgregarServicio_Click(object sender, EventArgs e)
         {
             LimpiarCampos();
+            HabilitarFormulario(true);
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
+            HabilitarFormulario(false);
         }
         #endregion
         #endregion

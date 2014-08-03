@@ -13,13 +13,13 @@ namespace Web.Controles {
     public partial class ServicioControl {
         
         /// <summary>
-        /// Control UpdatePanel1.
+        /// Control UpdatePanel.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel;
         
         /// <summary>
         /// Control btnAgregarServicio.
@@ -85,13 +85,13 @@ namespace Web.Controles {
         protected global::System.Web.UI.WebControls.LinkButton btnCancelar;
         
         /// <summary>
-        /// Control divSeccionServicios.
+        /// Control divSeccionGrillaServicios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSeccionServicios;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSeccionGrillaServicios;
         
         /// <summary>
         /// Control gvServicios.

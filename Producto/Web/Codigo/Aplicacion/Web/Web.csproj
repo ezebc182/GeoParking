@@ -81,6 +81,7 @@
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\openModal.js" />
+    <Content Include="Scripts\paneles.js" />
     <Content Include="Scripts\resetearControles.js" />
     <Content Include="Scripts\validador.js" />
     <Content Include="Scripts\validator.js" />

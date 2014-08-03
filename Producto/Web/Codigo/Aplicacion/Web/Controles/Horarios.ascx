@@ -1,9 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Horarios.ascx.cs" Inherits="Web.Controles.HorarioControl" %>
 
-<div>
+<div id="divPanel">
     <asp:UpdatePanel runat="server" ID="UpdatePanel1">
         <ContentTemplate>
-            <asp:LinkButton ID="btnAgregarHorario" runat="server" data-toggle="panel" data-target="#upFormulario" OnClick="btnAgregarHorario_Click" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClientClick="mostrarFormularioHorario()" />
+            <asp:LinkButton ID="btnAgregarHorario" runat="server" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClick="btnAgregarHorario_Click" OnClientClick="mostrarPanel((this))" />
+
         </ContentTemplate>
     </asp:UpdatePanel>
 
@@ -14,7 +15,7 @@
         <div class="panel-body">
             <asp:UpdatePanel runat="server" ID="upFormulario">
                 <ContentTemplate>
-                    <div id="divSeccionFormulario" runat="server">
+                    <div id="divSeccionFormulario" runat="server" class=" ">
                         <div class="form-horizontal " role="form">
                             <div class="form-group">
                                 <label for="ddlDias" class="col-sm-2 col-md-2 col-lg-2 control-label">Dias</label>
@@ -25,13 +26,13 @@
                             <div class="form-group">
                                 <label for="txtDesde" class="col-sm-2 col-md-2 col-lg-2 control-label">Desde</label>
                                 <div class="col-sm-3 col-md-3 col-lg-3 input-group date horarios" id="dtpDesde">
-                                    <asp:TextBox runat="server" CssClass="form-control "  ID="txtDesde" data-bv-notempty="true" data-bv-notempty-message="Ingrese horario hasta"/>
+                                    <asp:TextBox runat="server" CssClass="form-control " ID="txtDesde" data-bv-notempty="true" data-bv-notempty-message="Ingrese horario hasta" />
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                                 </div>
 
                                 <label for="txtHasta" class="col-sm-2 col-md-2 col-lg-2 control-label">Hasta</label>
                                 <div class="col-sm-3 col-md-3 col-lg-3 input-group date horarios" id="dtpHasta">
-                                    <asp:TextBox runat="server" CssClass="form-control " ID="txtHasta" data-bv-notempty="true" data-bv-notempty-message="Ingrese horario hasta" data-bv-greaterthan-inclusive="false" data-bv-greaterthan-message="Horario hasta no puede ser inferior a horario desde." data-bv-greaterthan-value="txtDesde"/>
+                                    <asp:TextBox runat="server" CssClass="form-control " ID="txtHasta" data-bv-notempty="true" data-bv-notempty-message="Ingrese horario hasta" data-bv-greaterthan-inclusive="false" data-bv-greaterthan-message="Horario hasta no puede ser inferior a horario desde." data-bv-greaterthan-value="txtDesde" />
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                                 </div>
                                 <div class="col-sm-2 col-md-2 col-lg-2">
@@ -39,12 +40,12 @@
                                 </div>
                             </div>
                             <div class="form-group pull-right">
-                                <asp:LinkButton runat="server" ID="btnGuardar" CssClass="btn btn-lg" Text="<span class='glyphicon glyphicon-ok-circle'></span>" ForeColor="Green" BackColor="Transparent" OnClientClick="mostrarFormularioHorario()" OnClick="btnGuardar_Click" />
-                                <asp:LinkButton runat="server" ID="btnCancelar" OnClick="btnCancelar_Click" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClientClick="mostrarFormularioHorario()" />
+                                <asp:LinkButton runat="server" ID="btnGuardar" CssClass="btn btn-lg" Text="<span class='glyphicon glyphicon-ok-circle'></span>" ForeColor="Green" BackColor="Transparent" OnClientClick="ocultarPanel()" OnClick="btnGuardar_Click" />
+                                <span class='btn btn-lg glyphicon glyphicon-remove-circle' onclick="ocultarPanel((this))"></span>
                             </div>
                         </div>
                     </div>
-                    <div id="divSeccionHorarios" runat="server" class="">
+                    <div id="divSeccionGrillaHorarios" runat="server" class=" ">
 
                         <asp:GridView runat="server" ID="gvHorarios" AutoGenerateColumns="false" DataKeyNames="Id, DiaAtencionId"
                             OnRowCommand="OnRowCommandGvHorarios" CssClass="table table-hover table-responsive" AllowPaging="True">
@@ -54,7 +55,7 @@
                                 <asp:BoundField HeaderText="Hasta" DataField="HoraHasta" />
                                 <asp:TemplateField HeaderText="Acciones">
                                     <ItemTemplate>
-                                        <asp:Button runat="server" ToolTip="Eliminar" ID="btnQuitar" CommandName="Quitar" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn btn-danger eliminacion" Text="&#9747;"/>
+                                        <asp:Button runat="server" ToolTip="Eliminar" ID="btnQuitar" CommandName="Quitar" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn btn-danger eliminacion" Text="&#9747;" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -68,10 +69,10 @@
 
 </div>
 <script type="text/javascript">
-    function validarHorarios() { 
+    function validarHorarios() {
         if ($("#TopContent_ucHorarios_txtDesde").text() >= $("#TopContent_ucHorarios_txtHasta").text()) {
-        alert("La hora desde no puede ser superior a la hora hasta");
-    }
+            alert("La hora desde no puede ser superior a la hora hasta");
+        }
     }
 
     function mostrarFormularioHorario() {

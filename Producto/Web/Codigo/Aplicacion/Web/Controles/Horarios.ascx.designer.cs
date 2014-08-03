@@ -94,22 +94,13 @@ namespace Web.Controles {
         protected global::System.Web.UI.WebControls.LinkButton btnGuardar;
         
         /// <summary>
-        /// Control btnCancelar.
+        /// Control divSeccionGrillaHorarios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnCancelar;
-        
-        /// <summary>
-        /// Control divSeccionHorarios.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSeccionHorarios;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSeccionGrillaHorarios;
         
         /// <summary>
         /// Control gvHorarios.
