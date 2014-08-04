@@ -18,7 +18,7 @@
         </div>
         <div class="col-sm-10 col-md-10 col-lg-10">
             <div style="position:relative; top:50px;right: -82%;">
-                <asp:Button ID="btnGuardar" runat="server" OnClick="btnGuardar_Click" Text="Guardar" />
+                <asp:Button ID="btnGuardar" CssClass="btn btn-success btn-lg" runat="server" OnClick="btnGuardar_Click" Text="Guardar" />
             </div>
         </div>
     </div>

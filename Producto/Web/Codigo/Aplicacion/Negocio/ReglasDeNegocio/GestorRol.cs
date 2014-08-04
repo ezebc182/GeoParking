@@ -29,16 +29,25 @@ namespace ReglasDeNegocio
         }
         public IList<Permiso> BuscarPermisosPorRol(Rol rol)
         {
-            return permisoDao.FindWhere(p => p.Roles.Contains(rol));
+            return permisoDao.FindWhere(p => p.Roles.Any(r => r.Id == rol.Id));
         }
         public Rol BuscarRol(int idRol)
         {
             return rolDao.FindById(idRol);
         }
+        public Permiso BuscarPermiso(int id)
+        {
+            return permisoDao.FindById(id);
+        }
 
+        public int GuardarRol(Rol rol)
+        {
+            return rolDao.Update(rol);
+        }
 
-
-
-
+        public Rol CrearRol(Rol rol)
+        {
+            return rolDao.Create(rol);
+        }
     }
 }

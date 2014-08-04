@@ -21,35 +21,74 @@ namespace Web
                 cargarListadoCheckBoxPermisos();
             }
         }
-        public void cargarComboRol()
+        private void cargarComboRol()
         {
             FormHelper.CargarCombo(ddlRol, gestor.BuscarRoles(), "Nombre", "Id", "Seleccione");
         }
-        public void cargarListadoCheckBoxPermisos()
+        private void cargarListadoCheckBoxPermisos()
         {
-            //Rol rol = gestor.BuscarRol(int.Parse(ddlRol.SelectedValue));
             cblPermiso.DataSource = gestor.BuscarPermisos();
             cblPermiso.DataTextField = "Nombre";
+            cblPermiso.DataValueField = "Id";
             cblPermiso.DataBind();
             if (ddlRol.SelectedIndex != 0)
             {
                 seleccionarPermisosDeRol();
             }
         }
-        public void seleccionarPermisosDeRol()
+        private void seleccionarPermisosDeRol()
         {
             Rol rol = gestor.BuscarRol(int.Parse(ddlRol.SelectedValue));
-            IList<Permiso> permisos = gestor.BuscarPermisosPorRol(rol);
-            foreach (Permiso permiso in permisos)
+            rol.Permisos = gestor.BuscarPermisosPorRol(rol);
+            foreach (Permiso permiso in rol.Permisos)
             {
                 cblPermiso.Items.FindByValue(permiso.Id.ToString()).Selected = true;
             }
         }
 
-        protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e)
+        private void LimpiarCheckboxListPermisos()
         {
-            seleccionarPermisosDeRol();
+            for (int i = 0; i < cblPermiso.Items.Count; i++)
+            {
+                cblPermiso.Items[i].Selected = false;
+            }
         }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            if (ddlRol.SelectedIndex != 0)
+            {
+                AsignarPermisosARol();
+            }
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            LimpiarCheckboxListPermisos();
+            ddlRol.SelectedIndex = -1;
+        }
+
+        private void AsignarPermisosARol()
+        {
+            Rol rolSeleccionado = gestor.BuscarRol(int.Parse(ddlRol.SelectedValue));
+            foreach (ListItem item in cblPermiso.Items)
+            {
+                if (item.Selected)
+                {
+                    rolSeleccionado.Permisos.Add(gestor.BuscarPermiso(int.Parse(item.Value)));
+                }
+            }
+        }
+
+        protected void ddlRol_SelectedIndexChanged1(object sender, EventArgs e)
+        {
+            LimpiarCheckboxListPermisos();
+            if (ddlRol.SelectedIndex != 0)
+            {
+                seleccionarPermisosDeRol();
+            }
+        }
+
 
     }
 }
