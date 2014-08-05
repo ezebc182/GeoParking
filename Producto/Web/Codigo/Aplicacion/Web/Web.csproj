@@ -58,10 +58,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AsignarRol.aspx" />
+    <Content Include="BusquedaPlaya.aspx" />
     <Content Include="Controles\Servicio.ascx" />
     <Content Include="Controles\Horarios.ascx" />
     <Content Include="Controles\Precios.ascx" />
     <Content Include="Controles\Domicilio.ascx" />
+    <Content Include="img\Banner.png" />
+    <Content Include="Index.aspx" />
     <Content Include="Playa.aspx" />
     <Content Include="Bootstrap\css\bootstrap-theme.css" />
     <Content Include="Bootstrap\css\bootstrap-theme.min.css" />
@@ -85,6 +88,8 @@
     <Content Include="Scripts\validator.js" />
     <Content Include="Styles\bootstrap-datetimepicker.min.css" />
     <Content Include="Styles\bootstrapValidator.min.css" />
+    <Content Include="Styles\BusquedaPlaya.css" />
+    <Content Include="Styles\index.css" />
     <Content Include="Styles\MapaAbmPlaya.css" />
     <Content Include="Styles\media-queries.css" />
     <Content Include="Web.config">
@@ -98,6 +103,13 @@
     </Compile>
     <Compile Include="AsignarRol.aspx.designer.cs">
       <DependentUpon>AsignarRol.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BusquedaPlaya.aspx.cs">
+      <DependentUpon>BusquedaPlaya.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusquedaPlaya.aspx.designer.cs">
+      <DependentUpon>BusquedaPlaya.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controles\Servicio.ascx.cs">
       <DependentUpon>Servicio.ascx</DependentUpon>
@@ -126,6 +138,13 @@
     </Compile>
     <Compile Include="Controles\Domicilio.ascx.designer.cs">
       <DependentUpon>Domicilio.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Playa.aspx.cs">
       <DependentUpon>Playa.aspx</DependentUpon>
