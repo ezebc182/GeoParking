@@ -1,9 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Precios.ascx.cs" Inherits="Web.Controles.PrecioControl" %>
 
-<div>
+<div id="divPanel">
     <asp:UpdatePanel runat="server" ID="UpdatePanel1">
         <ContentTemplate>
-            <asp:LinkButton ID="btnAgregarPrecio" runat="server" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClick="btnAgregarPrecio_Click" OnClientClick="mostrarFormularioPrecio()" />
+            <asp:LinkButton ID="btnAgregarPrecio" runat="server" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClick="btnAgregarPrecio_Click" OnClientClick="mostrarPanel((this))" />
         </ContentTemplate>
     </asp:UpdatePanel>
     <div class="panel panel-default">
@@ -14,47 +14,47 @@
             <asp:UpdatePanel runat="server" ID="upFormulario">
                 <ContentTemplate>
 
-                    <div id="divSeccionFormulario" runat="server" >
-                          <div class="form-horizontal" role="form">
+                    <div id="divSeccionFormulario" runat="server" class=" ">
+                        <div class="form-horizontal" role="form">
 
-                        <div class="form-group">
-                            <label for="ddlTipoVehiculo" class="col-sm-2 col-md-2 col-lg-2 control-label">Tipo de Vehiculo</label>
+                            <div class="form-group">
+                                <label for="ddlTipoVehiculo" class="col-sm-2 col-md-2 col-lg-2 control-label">Tipo de Vehiculo</label>
 
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <asp:DropDownList runat="server" CssClass="form-control " ID="ddlTipoVehiculo" data-bv-notempty="true" data-bv-notempty-message="Seleccione un tipo de vehículo." />
+                                <div class="col-sm-10 col-md-10 col-lg-10">
+                                    <asp:DropDownList runat="server" CssClass="form-control " ID="ddlTipoVehiculo" data-bv-notempty="true" data-bv-notempty-message="Seleccione un tipo de vehículo." />
 
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="ddlTipoHorario" class="col-sm-2 col-md-2 col-lg-2 control-label">Tipo de Horario</label>
+                            <div class="form-group">
+                                <label for="ddlTipoHorario" class="col-sm-2 col-md-2 col-lg-2 control-label">Tipo de Horario</label>
 
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <asp:DropDownList runat="server" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="Seleccione un tipo de horario." ID="ddlTipoHorario" />
+                                <div class="col-sm-10 col-md-10 col-lg-10">
+                                    <asp:DropDownList runat="server" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="Seleccione un tipo de horario." ID="ddlTipoHorario" />
 
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="ddlDias" class="col-sm-2 col-md-2 col-lg-2 control-label">Dias</label>
+                            <div class="form-group">
+                                <label for="ddlDias" class="col-sm-2 col-md-2 col-lg-2 control-label">Dias</label>
 
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <asp:DropDownList runat="server" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="Seleccione el/los día/s." ID="ddlDias" />
+                                <div class="col-sm-10 col-md-10 col-lg-10">
+                                    <asp:DropDownList runat="server" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="Seleccione el/los día/s." ID="ddlDias" />
 
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="txtPrecio" class="col-sm-2 col-md-2 col-lg-2 control-label">Precio</label>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <asp:TextBox type="number" min="0" runat="server" CssClass="form-control " data-bv-numeric-separator="," data-bv-numeric-message="Ingrese un precio válido." ID="txtPrecio" />
+                            <div class="form-group">
+                                <label for="txtPrecio" class="col-sm-2 col-md-2 col-lg-2 control-label">Precio</label>
+                                <div class="col-sm-10 col-md-10 col-lg-10">
+                                    <asp:TextBox type="number" min="0" runat="server" CssClass="form-control " data-bv-numeric-separator="," data-bv-numeric-message="Ingrese un precio válido." ID="txtPrecio" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group pull-right">
-                            <asp:LinkButton runat="server" ID="btnGuardar" Text="<span class='glyphicon glyphicon-ok-circle'></span>" CssClass="btn btn-lg" ForeColor="Green" BackColor="Transparent" OnClientClick="mostrarFormularioPrecio()" OnClick="btnGuardar_Click" />
-                            <asp:LinkButton runat="server" ID="btnCancelar" OnClick="btnCancelar_Click" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClientClick="mostrarFormularioPrecio()" />
+                            <div class="form-group pull-right">
+                                <asp:LinkButton runat="server" ID="btnGuardar" Text="<span class='glyphicon glyphicon-ok-circle'></span>" CssClass="btn btn-lg" ForeColor="Green" BackColor="Transparent" OnClientClick="ocultarPanel()" OnClick="btnGuardar_Click" />
+                                <span class='btn btn-lg glyphicon glyphicon-remove-circle' onclick="ocultarPanel((this))"></span>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                    <div id="divSeccionPrecios" runat="server" class="">
+                    <div id="divSeccionGrillaPrecios" runat="server" class="">
                         <asp:GridView runat="server" ID="gvPrecios" AutoGenerateColumns="false" DataKeyNames="Id, TipoVehiculoId, TiempoId, DiaAtencionId"
                             OnRowCommand="OnRowCommandGvPrecios" CssClass="table table-hover table-responsive" AllowCustomPaging="False" AllowPaging="True">
                             <Columns>

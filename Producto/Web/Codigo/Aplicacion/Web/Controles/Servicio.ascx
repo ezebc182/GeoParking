@@ -1,9 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Servicio.ascx.cs" Inherits="Web.Controles.ServicioControl" %>
 
-<div>
-    <asp:UpdatePanel runat="server" ID="UpdatePanel1">
+<div id="divPanel">
+    <asp:UpdatePanel runat="server" ID="UpdatePanel">
         <ContentTemplate>
-            <asp:LinkButton ID="btnAgregarServicio" runat="server" OnClick="btnAgregarServicio_Click" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClientClick="mostrarFormularioServicio()" />
+            <asp:LinkButton ID="btnAgregarServicio" runat="server" CssClass="btn btn-md btn-success pull-right" Text="<span class='glyphicon glyphicon-plus'></span>" OnClick="btnAgregarServicio_Click" OnClientClick="mostrarPanel((this))" />
         </ContentTemplate>
     </asp:UpdatePanel>
     <div class="panel panel-default">
@@ -11,30 +11,31 @@
             <h3 class="panel-title">Servicios</h3>
         </div>
         <div class="panel-body">
-            <asp:UpdatePanel runat="server" ID="UpdatePanel2">
+            <asp:UpdatePanel runat="server" ID="UpdatePanel2" >
                 <ContentTemplate>
-                    <div id="divSeccionFormulario" runat="server">
+                    <div id="divSeccionFormulario" runat="server" class=" ">
 
-                        <div class="form-horizontal " role="form" data-bv-message="This value is not valid" data-bv-feedbackicons-valid="glyphicon glyphicon-ok" data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">                           <div class="form-group">
+                        <div class="form-horizontal " role="form" data-bv-message="This value is not valid" data-bv-feedbackicons-valid="glyphicon glyphicon-ok" data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                            <div class="form-group">
                                 <label for="ddlTipoVehiculo" class="col-sm-2 col-md-2 col-lg-2 control-label">Tipo de Vehiculo</label>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <asp:DropDownList runat="server" CssClass="form-control" ID="ddlTipoVehiculo" data-bv-notempty="true" data-bv-notempty-message="Seleccione un tipo de vehículo."/>
+                                    <asp:DropDownList runat="server" CssClass="form-control" ID="ddlTipoVehiculo" data-bv-notempty="true" data-bv-notempty-message="Seleccione un tipo de vehículo." />
                                 </div>
                                 <label for="txtCapacidad" class="col-sm-2 col-md-2 col-lg-2 control-label">Capacidad</label>
                                 <div class="col-sm-2 col-md-2 col-lg-2">
-                                    <asp:TextBox runat="server" CssClass="form-control" ID="txtCapacidad" type="number" data-bv-integer-message="La capacidad debe ser un número entero." data-bv-notempty="true" data-bv-notempty-message="La capacidad es requerida." data-bv-regexp-regexp="^[0-9]" data-bv-regexp-message="Ingrese números." min="1"/>
+                                    <asp:TextBox runat="server" CssClass="form-control" ID="txtCapacidad" type="number" data-bv-integer-message="La capacidad debe ser un número entero." data-bv-notempty="true" data-bv-notempty-message="La capacidad es requerida." data-bv-regexp-regexp="^[0-9]" data-bv-regexp-message="Ingrese números." min="1" />
                                 </div>
 
                             </div>
                             <div class="form-group pull-right">
-                                <asp:LinkButton runat="server" ID="btnGuardar" CssClass="btn btn-lg" Text="<span class='glyphicon glyphicon-ok-circle'></span>" ForeColor="Green" BackColor="Transparent" OnClientClick="mostrarFormularioServicio()" OnClick="btnGuardar_Click" />
-                                <asp:LinkButton runat="server" ID="btnCancelar" Text="<span class='glyphicon glyphicon-remove-circle'></span>" CssClass="btn btn-lg" ForeColor="Red" BackColor="Transparent" OnClientClick="mostrarFormularioServicio()" OnClick="btnCancelar_Click" />
+                                <asp:LinkButton runat="server" ID="btnGuardar" CssClass="btn btn-lg" Text="<span class='glyphicon glyphicon-ok-circle'></span>" ForeColor="Green" BackColor="Transparent" OnClick="btnGuardar_Click" OnClientClick="ocultarPanel()" />
+                                <asp:LinkButton runat="server" ID="btnCancelar" CssClass="btn btn-lg" Text="<span class='glyphicon glyphicon-remove-circle'></span>" ForeColor="Red" BackColor="Transparent" OnClick="btnCancelar_Click" OnClientClick="ocultarPanel()" />
                             </div>
                         </div>
                     </div>
 
-                    
-                    <div id="divSeccionServicios" runat="server" class="">
+
+                    <div id="divSeccionGrillaServicios" runat="server" class="">
 
                         <asp:GridView runat="server" ID="gvServicios" AutoGenerateColumns="false"
                             DataKeyNames="Id,TipoVehiculoId" OnRowCommand="OnRowCommandGvServicios" CssClass="table table-hover table-responsive" AllowPaging="True">
@@ -55,22 +56,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-
-    function mostrarFormularioServicio() {
-        //var mostrar = $('#TopContent_ucServicios_divSeccionFormulario').hasClass("hidden");
-        //if (mostrar) {
-        //    $('#TopContent_ucServicios_divSeccionFormulario').removeClass("hidden");
-        //    //$('#TopContent_ucServicios_divSeccionServicios').addClass("hidden");
-        //    $('#TopContent_ucServicios_btnAgregarServicio').addClass("hidden");
-        //}
-        //else {
-        //    $('#TopContent_ucServicios_divSeccionFormulario').addClass("hidden");
-        //    //$('#TopContent_ucServicios_divSeccionServicios').removeClass("hidden");
-        //    $('#TopContent_ucServicios_btnAgregarServicio').removeClass("hidden");
-        //}
-
-    }
-
-</script>

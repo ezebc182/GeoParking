@@ -147,9 +147,9 @@ namespace Web.Controles
         public void ConfigurarVer()
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
-            FormHelper.CambiarVisibilidadControl(divSeccionPrecios, true);
-            FormHelper.CambiarVisibilidadControl(btnAgregarPrecio, true);
-            gvPrecios.Columns[4].Visible = true;
+            FormHelper.CambiarVisibilidadControl(divSeccionGrillaPrecios, true);
+            FormHelper.CambiarVisibilidadControl(btnAgregarPrecio, false);
+            gvPrecios.Columns[4].Visible = false;
             }
         /// <summary>
         /// Configura todos los controles para cuando el usuario esta editando un precio.
@@ -158,7 +158,7 @@ namespace Web.Controles
         public void ConfigurarEditar()
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
-            FormHelper.CambiarVisibilidadControl(divSeccionPrecios, true);
+            FormHelper.CambiarVisibilidadControl(divSeccionGrillaPrecios, true);
             FormHelper.CambiarVisibilidadControl(btnAgregarPrecio, true);
             gvPrecios.Columns[4].Visible = true;
         }
@@ -169,11 +169,16 @@ namespace Web.Controles
         public void ConfigurarRegistrar()
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
-            FormHelper.CambiarVisibilidadControl(divSeccionPrecios, true);
+            FormHelper.CambiarVisibilidadControl(divSeccionGrillaPrecios, true);
             FormHelper.CambiarVisibilidadControl(btnAgregarPrecio, true);
             gvPrecios.Columns[4].Visible = true;
         }
-
+        public void HabilitarFormulario(bool habilitar)
+        {
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, habilitar);
+            FormHelper.CambiarVisibilidadControl(divSeccionGrillaPrecios, !habilitar);
+            FormHelper.CambiarVisibilidadControl(btnAgregarPrecio, !habilitar);
+        }
         #region eventos
         #region grilla
         /// <summary>
@@ -205,6 +210,7 @@ namespace Web.Controles
         {
             if (!ValidarDatosIngresados()) return;
             AgregarPrecio(CargarEntidad());
+            HabilitarFormulario(false);
         }
         /// <summary>
         /// Limpia los campos del formulario para agregar un nuevo precio
@@ -214,6 +220,7 @@ namespace Web.Controles
         protected void btnAgregarPrecio_Click(object sender, EventArgs e)
         {
             LimpiarCampos();
+            HabilitarFormulario(true);
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)

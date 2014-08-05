@@ -22,7 +22,7 @@ namespace Web.Controles
             {
                 CargarCombos();
             }
-            
+
         }
         public void CargarCombos()
         {
@@ -52,13 +52,13 @@ namespace Web.Controles
             foreach (GridViewRow row in gvHorarios.Rows)
             {
                 var horario = new Entidades.Horario();
-                               
+
                 horario.Id = int.Parse(gvHorarios.DataKeys[row.RowIndex].Values[0].ToString());
                 horario.DiaAtencionId = int.Parse(gvHorarios.DataKeys[row.RowIndex].Values[1].ToString());
                 horario.DiaAtencion = gestor.BuscarDiaAtencionPorId(horario.DiaAtencionId);
                 horario.HoraDesde = row.Cells[1].Text;
                 horario.HoraHasta = row.Cells[2].Text;
-                
+
                 horarios.Add(horario);
             }
             return horarios;
@@ -69,7 +69,7 @@ namespace Web.Controles
             var lista = Horarios;
 
             switch (e.CommandName)
-            {                
+            {
                 case "Quitar":
                     lista.RemoveAt(index);
                     Horarios = lista;
@@ -80,15 +80,16 @@ namespace Web.Controles
         {
             var horarios = Horarios;
             if (!ValidarHorario(horario)) return;
-            
-                horarios.Add(horario);
-                Horarios = horarios;
-            
+
+            horarios.Add(horario);
+            Horarios = horarios;
+            HabilitarFormulario(false);
+
         }
 
         private bool ValidarHorario(Entidades.Horario horario)
         {
-            
+
             foreach (var item in Horarios)
             {
                 if (item.DiaAtencionId == horario.DiaAtencionId)
@@ -131,15 +132,15 @@ namespace Web.Controles
         public void ConfigurarVer()
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
-            FormHelper.CambiarVisibilidadControl(divSeccionHorarios, true);
-            FormHelper.CambiarVisibilidadControl(btnAgregarHorario, true);
-            gvHorarios.Columns[3].Visible = true;
+            FormHelper.CambiarVisibilidadControl(divSeccionGrillaHorarios, true);
+            FormHelper.CambiarVisibilidadControl(btnAgregarHorario, false);
+            gvHorarios.Columns[3].Visible = false;
         }
 
         public void ConfigurarEditar()
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
-            FormHelper.CambiarVisibilidadControl(divSeccionHorarios, true);
+            FormHelper.CambiarVisibilidadControl(divSeccionGrillaHorarios, true);
             FormHelper.CambiarVisibilidadControl(btnAgregarHorario, true);
             gvHorarios.Columns[3].Visible = true;
         }
@@ -147,12 +148,19 @@ namespace Web.Controles
         public void ConfigurarRegistrar()
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario, false);
-            FormHelper.CambiarVisibilidadControl(divSeccionHorarios, true);
+            FormHelper.CambiarVisibilidadControl(divSeccionGrillaHorarios, true);
             FormHelper.CambiarVisibilidadControl(btnAgregarHorario, true);
             gvHorarios.Columns[3].Visible = true;
         }
+
+        public void HabilitarFormulario(bool habilitar)
+        {
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario, habilitar);
+            FormHelper.CambiarVisibilidadControl(divSeccionGrillaHorarios, !habilitar);
+            FormHelper.CambiarVisibilidadControl(btnAgregarHorario, !habilitar);
+        }
         #region eventos
-        
+
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             if (!ValidarDatosIngresados()) return;
@@ -162,10 +170,7 @@ namespace Web.Controles
         protected void btnAgregarHorario_Click(object sender, EventArgs e)
         {
             LimpiarCampos();
-        }
-
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
+            HabilitarFormulario(true);
         }
 
         #endregion
@@ -186,7 +191,7 @@ namespace Web.Controles
 
         public string HoraHasta
         {
-            get { return chk24Horas.Checked ? "23:59" : txtHasta.Text;}
+            get { return chk24Horas.Checked ? "23:59" : txtHasta.Text; }
             set { txtHasta.Text = value; }
         }
 
@@ -210,8 +215,8 @@ namespace Web.Controles
             public String Mensaje { get; set; }
         }
 
-        
+
 
     }
-    
+
 }

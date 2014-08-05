@@ -43,10 +43,13 @@ namespace Web
         /// </summary>
         public void ConfigurarVer()
         {
+            Titulo.Text = "Ver";
             Exito = string.Empty;
             Error = string.Empty;
             txtNombre.Enabled = false;
             ddlTipoPlaya.Enabled = false;
+            txtTelefono.Enabled = false;
+            txtMail.Enabled = false;
             FormHelper.CambiarVisibilidadControl(btnGuardar, false);
             btnCancelar.Text = "Cerrar";
             ucDomicilios.ConfigurarVer();
@@ -61,10 +64,13 @@ namespace Web
         /// </summary>
         public void ConfigurarEditar()
         {
+            Titulo.Text = "Editar";
             Exito = string.Empty;
             Error = string.Empty;
             txtNombre.Enabled = true;
             ddlTipoPlaya.Enabled = true;
+            txtTelefono.Enabled = true;
+            txtMail.Enabled = true;
             FormHelper.CambiarVisibilidadControl(btnGuardar, true);
             btnCancelar.Text = "Cancelar";
             ucDomicilios.ConfigurarEditar();
@@ -79,16 +85,19 @@ namespace Web
         /// </summary>
         public void ConfigurarRegistrar()
         {
+            Titulo.Text = "Registrar";
             Error = string.Empty;
             Exito = string.Empty;
             txtNombre.Enabled = true;
             ddlTipoPlaya.Enabled = true;
-            FormHelper.CambiarVisibilidadControl(btnGuardar, false);
+            txtTelefono.Enabled = true;
+            txtMail.Enabled = true; 
             btnCancelar.Text = "Cancelar";
             ucDomicilios.ConfigurarRegistrar();
             ucServicios.ConfigurarRegistrar();
             ucPrecios.ConfigurarRegistrar();
             ucHorarios.ConfigurarRegistrar();
+            FormHelper.CambiarVisibilidadControl(btnGuardar, false);
 
         }
         /// <summary>

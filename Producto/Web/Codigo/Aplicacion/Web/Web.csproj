@@ -57,6 +57,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ABMRol.aspx" />
+    <Content Include="AsignarPermisoARol.aspx" />
     <Content Include="AsignarRol.aspx" />
     <Content Include="BusquedaPlaya.aspx" />
     <Content Include="Controles\Servicio.ascx" />
@@ -83,6 +85,7 @@
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\openModal.js" />
+    <Content Include="Scripts\paneles.js" />
     <Content Include="Scripts\resetearControles.js" />
     <Content Include="Scripts\validador.js" />
     <Content Include="Scripts\validator.js" />
@@ -97,6 +100,20 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ABMRol.aspx.cs">
+      <DependentUpon>ABMRol.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ABMRol.aspx.designer.cs">
+      <DependentUpon>ABMRol.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AsignarPermisoARol.aspx.cs">
+      <DependentUpon>AsignarPermisoARol.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AsignarPermisoARol.aspx.designer.cs">
+      <DependentUpon>AsignarPermisoARol.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AsignarRol.aspx.cs">
       <DependentUpon>AsignarRol.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

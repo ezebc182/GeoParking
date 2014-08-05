@@ -9,6 +9,7 @@ namespace Entidades
     public class Rol : EntidadBase
     {
         public String Nombre { get; set; }
+        public String Descripcion { get; set; }
         public virtual IList<Permiso> Permisos { get; set; }
     }
 }

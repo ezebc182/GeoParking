@@ -89,6 +89,7 @@ namespace Web.Controles
             if (!ValidarDomicilio(direccion)) return;
             domicilios.Add(direccion);
             Domicilios = domicilios;
+            HabilitarFormularioDomicilio(false);
         }
         /// <summary>
         /// Valida que el domicilio ingresado no exista previamente.
@@ -166,7 +167,7 @@ namespace Web.Controles
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario1, false);
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario2, false);
-            FormHelper.CambiarVisibilidadControl(divSeccionDomicilios, true);
+            FormHelper.CambiarVisibilidadControl(divSeccionGrillaDomicilios, true);
             FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, false);
             gvDomicilios.Columns[7].Visible = false;
         }
@@ -177,8 +178,9 @@ namespace Web.Controles
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario1, false);
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario2, false);
-            FormHelper.CambiarVisibilidadControl(divSeccionDomicilios, true);
-            FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, true);
+            FormHelper.CambiarVisibilidadControl(divSeccionGrillaDomicilios, true);
+            FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, true); 
+            gvDomicilios.Columns[7].Visible = true;
         }
         /// <summary>
         /// Establece las propiedades de los controles para cuando el usuario esta registrando.
@@ -187,8 +189,9 @@ namespace Web.Controles
         {
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario1, false);
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario2, false);
-            FormHelper.CambiarVisibilidadControl(divSeccionDomicilios, true);
+            FormHelper.CambiarVisibilidadControl(divSeccionGrillaDomicilios, true);
             FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, true);
+            gvDomicilios.Columns[7].Visible = true;
         }
 
         /// <summary>
@@ -202,6 +205,13 @@ namespace Web.Controles
             ddlProvincia.Enabled = habilitar;
         }
 
+        public void HabilitarFormularioDomicilio(bool habilitar)
+        {
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario1, habilitar);
+            FormHelper.CambiarVisibilidadControl(divSeccionFormulario2, habilitar);
+            FormHelper.CambiarVisibilidadControl(divSeccionGrillaDomicilios, !habilitar);
+            FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, !habilitar);
+        }
         #region eventos
         #region grilla
         /// <summary>
@@ -235,6 +245,7 @@ namespace Web.Controles
             if (!ValidarDatosIngresados()) return;
             AgregarDomicilio(CargarEntidad());
             HabilitarCombos(false);
+            HabilitarFormularioDomicilio(false);
         }
         /// <summary>
         /// Limpia los campos del formulario para registrar un nuevo domicilio
@@ -244,6 +255,7 @@ namespace Web.Controles
         protected void btnAgregarDomicilio_Click(object sender, EventArgs e)
         {
             LimpiarCampos();
+            HabilitarFormularioDomicilio(true);
         }
 
         /// <summary>
@@ -382,6 +394,11 @@ namespace Web.Controles
             }
 
             public String Mensaje { get; set; }
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            HabilitarFormularioDomicilio(false);
         }
 
     }

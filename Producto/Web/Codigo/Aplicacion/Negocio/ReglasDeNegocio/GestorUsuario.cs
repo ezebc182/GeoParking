@@ -39,5 +39,11 @@ namespace ReglasDeNegocio
         {
             return rolDao.FindAll();
         }
+        public void AsigarRolAUsuario(int idUsuario, int idRol)
+        {
+            Usuario usuario = usuarioDao.FindById(idUsuario);
+            usuario.RolId = idRol;
+            usuarioDao.Update(usuario);
+        }
     }
 }

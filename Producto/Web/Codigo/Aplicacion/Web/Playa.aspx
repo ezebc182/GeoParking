@@ -266,7 +266,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <asp:LinkButton runat="server" CssClass="btn-primary btn btn-lg" ID="btnBuscar" Text="Buscar" OnClick="btnBuscar_Click"></asp:LinkButton>
-                                    <asp:LinkButton runat="server" CssClass="btn-success btn btn-lg" ID="btnNuevo" Text="Nueva" OnClick="btnNuevo_Click" data-target="#modificarPlaya" data-toggle="modal"></asp:LinkButton>
+                                    <asp:LinkButton runat="server" CssClass="btn-success btn btn-lg" ID="btnNuevo" Text="Nueva" OnClick="btnNuevo_Click" OnClientClick="$('#modificarPlaya').modal({keyboard: false, show: true, backdrop: 'static'});"></asp:LinkButton>
                                 </div>
                             </div>
                         </div>
@@ -323,7 +323,8 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
-
+    
+    <script src="./Scripts/paneles.js"></script>
     <script src="./Scripts/contarFilas.js"></script>
     <script src="./Scripts/DesplazarTabs.js"></script>
     <script src="./Scripts/moment.js"></script>
@@ -359,13 +360,11 @@
             }
         }
 
-        var contador = 0;
         pageManager = Sys.WebForms.PageRequestManager.getInstance();
         pageManager.add_endRequest(function () {
 
 
-            if (document.getElementById('TopContent_ucDomicilios_divSeccionFormulario') != null && contador == 0) {
-                contador = 1;
+            if ($("[id *= ucDomicilio] [id *= btnAgregar]").attr("class").search("hidden") > 0) {
                 GoogleMaps.initialize();
             }
             contarFilas();

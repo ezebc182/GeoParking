@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI;
+using System.Text;
 
 namespace Web.Util
 {
@@ -505,12 +506,10 @@ namespace Web.Util
         /// <param name="control"></param>
         private static void MostrarControl(WebControl control)
         {
-            control.Attributes.Add("class", String.Join(" ", control
-               .Attributes["class"]
-               .Split(' ')
-               .Except(new string[] { "", "hidden" })
-               .ToArray()
-               ));
+            var clases = new StringBuilder();
+            clases.Append(control.CssClass);
+            clases.Replace("hidden", "");
+            control.CssClass = clases.ToString();
         }
         /// <summary>
         /// Oculta un control
@@ -532,13 +531,11 @@ namespace Web.Util
         /// <param name="control"></param>
         private static void OcultarControl(WebControl control)
         {
-            control.Attributes.Add("class", String.Join(" ", control
-                   .Attributes["class"]
-                   .Split(' ')
-                   .Except(new string[] { "", "hidden" })
-                   .Concat(new string[] { "hidden" })
-                   .ToArray()
-                   ));
+            var clases = new StringBuilder();
+            clases.Append(control.CssClass);
+            clases.Replace("hidden", "");
+            clases.Append(" hidden");
+            control.CssClass = clases.ToString();
         }
         #endregion
 

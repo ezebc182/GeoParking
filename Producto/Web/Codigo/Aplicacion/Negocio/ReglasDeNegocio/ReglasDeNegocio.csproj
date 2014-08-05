@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GestorHorario.cs" />
+    <Compile Include="GestorRol.cs" />
     <Compile Include="GestorServicio.cs" />
     <Compile Include="GestorPrecio.cs" />
     <Compile Include="GestorDireccion.cs" />
