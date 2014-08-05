@@ -12,13 +12,17 @@ namespace Web
 {
     public partial class AsignarPermisoARol : System.Web.UI.Page
     {
+        SiteMaster master;
         GestorRol gestor = new GestorRol();
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (!Page.IsPostBack)
             {
+                master = (SiteMaster)Master;
                 cargarComboRol();
                 cargarListadoCheckBoxPermisos();
+                cblPermiso.Enabled = false;
             }
         }
         private void cargarComboRol()
@@ -60,6 +64,10 @@ namespace Web
             {
                 AsignarPermisosARol();
             }
+            ddlRol.SelectedIndex = 0;
+            LimpiarCheckboxListPermisos();
+            cblPermiso.Enabled = false;
+            //master.Alert = "cambios guardados con exito!";
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
@@ -71,13 +79,17 @@ namespace Web
         private void AsignarPermisosARol()
         {
             Rol rolSeleccionado = gestor.BuscarRol(int.Parse(ddlRol.SelectedValue));
+            
+            IList<Permiso> permisos = new List<Permiso>();
             foreach (ListItem item in cblPermiso.Items)
             {
                 if (item.Selected)
                 {
-                    rolSeleccionado.Permisos.Add(gestor.BuscarPermiso(int.Parse(item.Value)));
+                    permisos.Add(gestor.BuscarPermiso(int.Parse(item.Value)));
                 }
             }
+            rolSeleccionado.Permisos = permisos;
+            gestor.GuardarRol(rolSeleccionado);
         }
 
         protected void ddlRol_SelectedIndexChanged1(object sender, EventArgs e)
@@ -85,6 +97,7 @@ namespace Web
             LimpiarCheckboxListPermisos();
             if (ddlRol.SelectedIndex != 0)
             {
+                cblPermiso.Enabled = true;
                 seleccionarPermisosDeRol();
             }
         }

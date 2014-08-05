@@ -43,5 +43,7 @@ namespace Datos
         public DbSet<Servicio> servicios { get; set; }
         public DbSet<TipoVehiculo> tiposVehiculos { get; set; }
         public DbSet<Usuario> usuarios { get; set; }
+        public DbSet<Rol> roles { get; set; }
+        public DbSet<Permiso> permisos { get; set; }
     }
 }

@@ -14,7 +14,7 @@
         </div>
         <div class="col-sm-10 col-md-10 col-lg-10">
             <label for="ddlRol" class="col-sm-2 col-md-2 col-lg-2 control-label">Permisos</label>
-            <div style="position: relative;top: 25px;">
+            <div style="position: relative; top: 25px; height:auto">
                 <asp:CheckBoxList ID="cblPermiso" runat="server">
             </asp:CheckBoxList>
             </div>
