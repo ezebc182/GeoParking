@@ -141,5 +141,17 @@ namespace ReglasDeNegocio
         {
             return ciudadDao.FindWhere(c => c.DepartamentoId == id);
         }
+
+        /// <summary>
+        /// Busca las ciudades por un prefijo, es decir que el nombre de la 
+        /// ciudad comienze con...
+        /// </summary>
+        /// <param name="prefijoNombre">string inicio del nombre</param>
+        /// <returns>Lista de ciudades que comienzan con...</returns>
+        public IList<Ciudad> BuscarCiudadesPorNombre(string prefijoNombre)
+        {
+            return ciudadDao.FindWhere(c => c.Nombre.StartsWith(prefijoNombre));
+        }
+
     }
 }
