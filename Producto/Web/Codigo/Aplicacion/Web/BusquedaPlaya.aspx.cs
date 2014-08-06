@@ -11,7 +11,8 @@ namespace Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["ciudad"] != null)
+                txtBuscar.Text = Session["ciudad"].ToString();
         }
     }
 }

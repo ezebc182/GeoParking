@@ -60,7 +60,7 @@
             <asp:TextBox ID="txtBuscar" CssClass="form-control input-lg autosuggest" runat="server" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2">
-            <asp:Button ID="btnBuscar" CssClass="btn-primary btn btn-lg" runat="server" Text="Buscar" />
+            <asp:Button ID="btnBuscar" CssClass="btn-primary btn btn-lg" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4"></div>
         <!--Eliminar esta columna-->
