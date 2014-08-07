@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GestorBusquedaPlayas.cs" />
     <Compile Include="GestorHorario.cs" />
     <Compile Include="GestorRol.cs" />
     <Compile Include="GestorServicio.cs" />
