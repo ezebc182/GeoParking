@@ -52,6 +52,7 @@
                         <li><a href="#">Exportar?</a></li>
                     </ul>
                 </li>
+                <li><a href="#login" data-keyboard="false" data-backdrop="static" data-toggle="modal" data-target="#login">Ingresar</a></li>
                 <li class="divider-vertical"></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ayuda <b class="caret"></b>
@@ -102,8 +103,118 @@
 
             </ContentTemplate>
         </asp:UpdatePanel>
+        <div class="modal fade" id="login">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title text-center"><span class="glyphicon glyphicon-user"></span><strong> Iniciar Sesion</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6 " style="padding-right: 20px; border-right: 1px solid #ccc;">
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <asp:TextBox ID="txtUsuarioLogin" placeholder="Usuario o E-mail" CssClass="form-control input-lg" runat="server" TextMode="Email"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <asp:TextBox ID="txtContraseñaLogin" placeholder="Contraseña" CssClass="form-control input-lg" runat="server" TextMode="Password"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <asp:Button ID="btnIniciarSesion" Text="Iniciar Sesion" OnClick="btnIniciarSesion_Click" CssClass="btn btn-primary btn-block btn-sm" runat="server" />
+                            </div>
+                            <div class="col-lg-6">
+                                <h4 class="modal-title text-center">¿No Tienes cuenta?</h4>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <button type="button" id="btnRegistrarse" class="btn btn-success btn-block btn-sm" onclick="AbrirModalRegistro()">Registrarse</button>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <ul>
+                                            <li><a href="#olvideContraseña">Olvidé mi contraseña.</a></li>
+                                            <li><a href="#olvideUsuario">Olvidé mi nombre de usuario.</a></li>
+                                            <li><a href="#mail">No me llegó el email de confirmación.</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-        <asp:ContentPlaceHolder ID="TopContent" runat="server"></asp:ContentPlaceHolder>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <div class="modal fade" id="registrar">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title text-center"><span class="glyphicon glyphicon-user"></span><strong> Registro de Usuario - Complete con sus Datos</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <asp:TextBox ID="txtNombre" placeholder="Nombre" CssClass="form-control input-lg" runat="server" TabIndex="1"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <asp:TextBox ID="txtApellido" placeholder="Apellido" CssClass="form-control input-lg" runat="server" TabIndex="2"></asp:TextBox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <asp:TextBox ID="txtUsuarioRegistro" placeholder="Usuario" CssClass="form-control input-lg" runat="server" TabIndex="3"></asp:TextBox>
+                        </div>
+                        <div class="form-group">
+                            <asp:TextBox ID="txtEmailRegistro" placeholder="Email" CssClass="form-control input-lg" runat="server" TextMode="Email" TabIndex="4"></asp:TextBox>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div id="pass1" class="form-group">
+                                    <asp:TextBox ID="txtContraseña" placeholder="Contraseña" CssClass="form-control input-lg" runat="server" TextMode="Password" TabIndex="5"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div id="pass2" class="form-group">
+                                    <asp:TextBox ID="txtContraseñaRepetir" placeholder="Repetir Contraseña" CssClass="form-control input-lg" runat="server" TextMode="Password" TabIndex="6" ></asp:TextBox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <span class="button-checkbox">
+                                    <input id="chAceptar" type="checkbox" tabindex="7" > Acepto terminos
+                                </span>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                Haciendo Click en <strong class="label label-primary">Registrar</strong>,usted acepta <a href="#" data-toggle="modal" data-target="#t_and_c_m">Terminos y Condiciones</a> de este sitio incluido el uso de Cookies.
+			
+                            </div>
+                        </div>
+
+                        <hr class="colorgraph">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <asp:Button ID="btnRegistrar" Text="Registrarse" Enabled="false" CssClass="btn btn-primary btn-block btn-lg" runat="server" OnClick="btnRegistrar_Click" TabIndex="7" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <asp:ContentPlaceHolder ID="TopContent" runat="server">
+        </asp:ContentPlaceHolder>
         <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
         <asp:ContentPlaceHolder ID="helpContent" runat="server"></asp:ContentPlaceHolder>
     </form>
@@ -112,10 +223,24 @@
 </html>
 <script type="text/javascript">
 
-
     function Alerta_openModal() {
         $('#AlertPopup').modal('show');
+    }
 
+    var checker = document.getElementById('chAceptar');
+    var sendbtn = document.getElementById('btnRegistrar');
+    // when unchecked or checked, run the function
+    checker.onchange = function () {
+        if (this.checked) {
+            sendbtn.disabled = false;
+        } else {
+            sendbtn.disabled = true;
+        }
 
+    }
+
+    function AbrirModalRegistro() {
+        $('#login').modal('hide');
+        $('#registrar').modal('show');
     }
 </script>

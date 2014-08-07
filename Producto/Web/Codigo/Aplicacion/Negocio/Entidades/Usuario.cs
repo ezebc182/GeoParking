@@ -11,6 +11,7 @@ namespace Entidades
         public String NombreUsuario { get; set; }
         public String Contraseña { get; set; }
         public String Apellido { get; set; }
+        public String Mail { get; set; }
         public String Nombre { get; set; }
         public int RolId { get; set; }
         public virtual Rol Rol { get; set; }
