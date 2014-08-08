@@ -14,7 +14,7 @@
         </div>
         <div class="col-sm-10 col-md-10 col-lg-10">
             <label for="ddlRol" class="col-sm-2 col-md-2 col-lg-2 control-label">Rol</label>
-            <asp:DropDownList ID="ddlRol" CssClass="form-control required" runat="server" AutoPostBack="True" />
+            <asp:DropDownList ID="ddlRol" CssClass="form-control required" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlRol_SelectedIndexChanged" />
         </div>
         <div class="col-sm-10 col-md-10 col-lg-10">
             <div style="position:relative; top:50px;right: -82%;">

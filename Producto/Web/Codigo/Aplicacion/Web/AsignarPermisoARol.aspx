@@ -19,7 +19,7 @@
             </asp:CheckBoxList>
             </div>
         </div>
-            <div class="col-sm-10 col-md-10 col-lg-10">
+            <div class="col-sm-10 col-md-10 col-lg-10"style="position: relative;top: 15px;">
                 <div style="position:relative; top:50px;right: -82%;">
                     <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success btn-lg" Text="Guardar" AutoPostBack="True" OnClick="btnGuardar_Click"/>
                     <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-lg" Text="Cancelar" AutoPostBack="True" OnClick="btnCancelar_Click"/>

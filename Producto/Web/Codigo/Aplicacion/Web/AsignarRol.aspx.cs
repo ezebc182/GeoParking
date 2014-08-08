@@ -22,6 +22,8 @@ namespace Web
 
             if (!Page.IsPostBack)
             {
+                btnGuardar.Enabled = false;
+                ddlRol.Enabled = false;
                 cargarComboUsuario();
                 cargarComboRol();
             }
@@ -29,7 +31,16 @@ namespace Web
 
         protected void ddlUsuario_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cargarComboRol();
+            if (ddlUsuario.SelectedIndex != 0)
+            {
+                cargarComboRol();
+                ddlRol.Enabled = true;
+            }
+            else
+            {
+                ddlRol.SelectedIndex = 0;
+                ddlRol.Enabled = false;
+            }
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -60,6 +71,18 @@ namespace Web
         {
             get { return string.IsNullOrEmpty(ddlUsuario.SelectedValue) ? 0 : Convert.ToInt32(ddlUsuario.SelectedValue); }
             set { ddlUsuario.SelectedValue = value.ToString(); }
+        }
+
+        protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlRol.SelectedIndex != 0)
+            {
+                btnGuardar.Enabled = true;
+            }
+            else
+            {
+                btnGuardar.Enabled = false;
+            }
         }
     }
 }
