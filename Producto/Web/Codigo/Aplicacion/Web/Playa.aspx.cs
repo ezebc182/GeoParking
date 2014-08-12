@@ -97,7 +97,7 @@ namespace Web
             ucServicios.ConfigurarRegistrar();
             ucPrecios.ConfigurarRegistrar();
             ucHorarios.ConfigurarRegistrar();
-            FormHelper.CambiarVisibilidadControl(btnGuardar, false);
+            FormHelper.CambiarVisibilidadControl(btnGuardar, true);
 
         }
         /// <summary>
