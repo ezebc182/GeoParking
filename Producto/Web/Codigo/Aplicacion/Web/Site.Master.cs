@@ -21,36 +21,72 @@ namespace Web
         }
 
         #region mensajes
-        public void MostrarMensaje(string mensaje)
+        #region MensajeInformacion
+        public void MostrarMensajeInformacion(string mensaje)
         {
-            MostrarMensaje(MensajeEnum.Info, TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje");
+            MostrarMensajeInformacion(MensajeEnum.Info, TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje");
         }
-        public void MostrarMensaje(MensajeEnum msj, string mensaje)
+        public void MostrarMensajeInformacion(MensajeEnum msj, string mensaje)
         {
-            MostrarMensaje(msj, TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje");
+            MostrarMensajeInformacion(msj, TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje");
         }
-        public void MostrarMensaje(MensajeEnum msj, TipoMensajeEnum tipo, string mensaje)
+        public void MostrarMensajeInformacion(MensajeEnum msj, TipoMensajeEnum tipo, string mensaje)
         {
-            MostrarMensaje(msj, tipo, mensaje, "Mensaje");
+            MostrarMensajeInformacion(msj, tipo, mensaje, "Mensaje");
         }
-        public void MostrarMensaje(MensajeEnum msj, string mensaje, string titulo)
+        public void MostrarMensajeInformacion(MensajeEnum msj, string mensaje, string titulo)
         {
-            MostrarMensaje(msj, TipoMensajeEnum.MostrarAlertaYModal, mensaje, titulo);
-        }
-
-        public void MostrarMensaje(MensajeEnum msj, TipoMensajeEnum tipo, string mensaje, string titulo)
-        {
-            switch (msj)
-            {
-                case MensajeEnum.Confirmacion: msjConfirmacion.MostrarMensaje(tipo, mensaje, titulo);
-                    break;
-                case MensajeEnum.Error: msjError.MostrarMensaje(tipo, mensaje, titulo);
-                    break;
-                case MensajeEnum.Info:
-                    break;
-            }
+            MostrarMensajeInformacion(msj, TipoMensajeEnum.MostrarAlertaYModal, mensaje, titulo);
         }
 
+        public void MostrarMensajeInformacion(MensajeEnum msj, TipoMensajeEnum tipo, string mensaje, string titulo)
+        {
+            msjInfo.MostrarMensaje(tipo, mensaje, titulo);
+        }
+#endregion
+        #region MensajeError
+        public void MostrarMensajeError(string mensaje)
+        {
+            MostrarMensajeError(MensajeEnum.Info, TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje");
+        }
+        public void MostrarMensajeError(MensajeEnum msj, string mensaje)
+        {
+            MostrarMensajeError(msj, TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje");
+        }
+        public void MostrarMensajeError(MensajeEnum msj, TipoMensajeEnum tipo, string mensaje)
+        {
+            MostrarMensajeError(msj, tipo, mensaje, "Mensaje");
+        }
+        public void MostrarMensajeError(MensajeEnum msj, string mensaje, string titulo)
+        {
+            MostrarMensajeError(msj, TipoMensajeEnum.MostrarAlertaYModal, mensaje, titulo);
+        }
+
+        public void MostrarMensajeError(MensajeEnum msj, TipoMensajeEnum tipo, string mensaje, string titulo)
+        {
+            msjError.MostrarMensaje(tipo, mensaje, titulo);
+        }
+        #endregion
+        #region MensajeConfirmacion
+        public void MostrarMensajeConfirmacion(string mensaje, EventHandler evento)
+        {
+            MostrarMensajeConfirmacion(TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje", evento);
+        }
+        public void MostrarMensajeConfirmacion(TipoMensajeEnum tipo, string mensaje, EventHandler evento)
+        {
+            MostrarMensajeConfirmacion(tipo, mensaje, "Mensaje", evento);
+        }
+        public void MostrarMensajeConfirmacion(string mensaje, string titulo, EventHandler evento)
+        {
+            MostrarMensajeConfirmacion(TipoMensajeEnum.MostrarAlertaYModal, mensaje, titulo, evento);
+        }
+
+        public void MostrarMensajeConfirmacion(TipoMensajeEnum tipo, string mensaje, string titulo, EventHandler evento)
+        {
+            ConfirmarMensaje = evento;
+            msjConfirmacion.MostrarMensaje(tipo, mensaje, titulo);
+        }
+        #endregion
         public EventHandler ConfirmarMensaje
         {
             get { return (EventHandler)Session["EventoConfirmacion"]; }

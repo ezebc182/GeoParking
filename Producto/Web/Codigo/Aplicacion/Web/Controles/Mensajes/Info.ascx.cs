@@ -24,20 +24,16 @@ namespace SIRAD.Web.Controls.Alerts
         }
         public void MostrarMensaje(string msj)
         {
-            MostrarMensaje(TipoMensajeEnum.MostrarAlertaYModal, BotonesEnum.Aceptar, msj, "Error");
+            MostrarMensaje(TipoMensajeEnum.MostrarAlertaYModal, msj, "Error");
         }
 
         public void MostrarMensaje(string msj, string titulo)
         {
-            MostrarMensaje(TipoMensajeEnum.MostrarAlertaYModal, BotonesEnum.Aceptar, msj, titulo);
+            MostrarMensaje(TipoMensajeEnum.MostrarAlertaYModal,  msj, titulo);
         }
 
-        public void MostrarMensaje(TipoMensajeEnum tipo, string msj, string titulo)
-        {
-            MostrarMensaje(tipo, BotonesEnum.Aceptar, msj, titulo);
-        }
 
-        public void MostrarMensaje(TipoMensajeEnum tipo, BotonesEnum botones, string msj, string titulo)
+        public void MostrarMensaje(TipoMensajeEnum tipo,string msj, string titulo)
         {
             Mensaje = msj;
             switch (tipo)

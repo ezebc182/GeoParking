@@ -12,12 +12,6 @@ namespace Web.Util
         MostrarAlertaYModal
     }
 
-    public enum MensajeEnum
-    {
-        Error,
-        Info,
-        Confirmacion
-    }
     public enum BotonesEnum
     {
         Aceptar,

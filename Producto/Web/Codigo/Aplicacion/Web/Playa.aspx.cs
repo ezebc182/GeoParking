@@ -313,9 +313,8 @@ namespace Web
             switch (e.CommandName)
             {
                 case "Eliminar":
-                    //elimina la playa y muestra el resultado.
-                    master.ConfirmarMensaje = EliminarPlaya;
-                    master.MostrarMensaje(MensajeEnum.Confirmacion, TipoMensajeEnum.MensajeModal, "¿Quiere eliminar la playa " + playa.Nombre + "?", "Confirmar Eliminacion");
+                    //elimina la playa y muestra el resultado.                    
+                    master.MostrarMensajeConfirmacion(TipoMensajeEnum.MensajeModal, "¿Quiere eliminar la playa " + playa.Nombre + "?", "Confirmar Eliminacion", EliminarPlaya);
                     break;
                 case "Editar":
                     Titulo.Text = "Editar";
