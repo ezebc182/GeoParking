@@ -24,45 +24,39 @@ namespace Web
         #region MensajeInformacion
         public void MostrarMensajeInformacion(string mensaje)
         {
-            MostrarMensajeInformacion(MensajeEnum.Info, TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje");
+            MostrarMensajeInformacion(TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje");
         }
-        public void MostrarMensajeInformacion(MensajeEnum msj, string mensaje)
+        
+        public void MostrarMensajeInformacion(TipoMensajeEnum tipo, string mensaje)
         {
-            MostrarMensajeInformacion(msj, TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje");
+            MostrarMensajeInformacion(tipo, mensaje, "Mensaje");
         }
-        public void MostrarMensajeInformacion(MensajeEnum msj, TipoMensajeEnum tipo, string mensaje)
+        public void MostrarMensajeInformacion(string mensaje, string titulo)
         {
-            MostrarMensajeInformacion(msj, tipo, mensaje, "Mensaje");
-        }
-        public void MostrarMensajeInformacion(MensajeEnum msj, string mensaje, string titulo)
-        {
-            MostrarMensajeInformacion(msj, TipoMensajeEnum.MostrarAlertaYModal, mensaje, titulo);
+            MostrarMensajeInformacion(TipoMensajeEnum.MostrarAlertaYModal, mensaje, titulo);
         }
 
-        public void MostrarMensajeInformacion(MensajeEnum msj, TipoMensajeEnum tipo, string mensaje, string titulo)
+        public void MostrarMensajeInformacion(TipoMensajeEnum tipo, string mensaje, string titulo)
         {
             msjInfo.MostrarMensaje(tipo, mensaje, titulo);
         }
 #endregion
         #region MensajeError
-        public void MostrarMensajeError(string mensaje)
+        
+        public void MostrarMensajeError( string mensaje)
         {
-            MostrarMensajeError(MensajeEnum.Info, TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje");
+            MostrarMensajeError(TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje");
         }
-        public void MostrarMensajeError(MensajeEnum msj, string mensaje)
+        public void MostrarMensajeError(TipoMensajeEnum tipo, string mensaje)
         {
-            MostrarMensajeError(msj, TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje");
+            MostrarMensajeError(tipo, mensaje, "Mensaje");
         }
-        public void MostrarMensajeError(MensajeEnum msj, TipoMensajeEnum tipo, string mensaje)
+        public void MostrarMensajeError(string mensaje, string titulo)
         {
-            MostrarMensajeError(msj, tipo, mensaje, "Mensaje");
-        }
-        public void MostrarMensajeError(MensajeEnum msj, string mensaje, string titulo)
-        {
-            MostrarMensajeError(msj, TipoMensajeEnum.MostrarAlertaYModal, mensaje, titulo);
+            MostrarMensajeError(TipoMensajeEnum.MostrarAlertaYModal, mensaje, titulo);
         }
 
-        public void MostrarMensajeError(MensajeEnum msj, TipoMensajeEnum tipo, string mensaje, string titulo)
+        public void MostrarMensajeError(TipoMensajeEnum tipo, string mensaje, string titulo)
         {
             msjError.MostrarMensaje(tipo, mensaje, titulo);
         }

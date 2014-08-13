@@ -436,7 +436,7 @@ namespace Web
                 if (resultado.Ok)
                 {
                     //Mensaje de actualizacion correcta
-                    master.MostrarMensaje(MensajeEnum.Info, TipoMensajeEnum.MostrarAlertaYModal, "La playa fue editada correctamente.");
+                    master.MostrarMensajeInformacion(TipoMensajeEnum.MostrarAlertaYModal, "La playa fue editada correctamente.");
                     //limpio el formulario
                     limpiarCampos();
                 }
@@ -488,7 +488,7 @@ namespace Web
             var resultado = gestor.EliminarPlaya(IdPlayaSeleccionada);
             if (resultado.Ok)
             {
-                master.MostrarMensaje(MensajeEnum.Info, TipoMensajeEnum.MostrarAlertaYModal, "La playa fue eliminada correctamente.");
+                master.MostrarMensajeInformacion(TipoMensajeEnum.MostrarAlertaYModal, "La playa fue eliminada correctamente.");
             }
             else
             {
