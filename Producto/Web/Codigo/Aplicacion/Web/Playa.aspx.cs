@@ -314,7 +314,7 @@ namespace Web
             {
                 case "Eliminar":
                     //elimina la playa y muestra el resultado.                    
-                    master.MostrarMensajeConfirmacion(TipoMensajeEnum.MensajeModal, "¿Quiere eliminar la playa " + playa.Nombre + "?", "Confirmar Eliminacion", EliminarPlaya);
+                    master.MostrarMensajeConfirmacion("¿Quiere eliminar la playa " + playa.Nombre + "?", "Confirmar Eliminacion", EliminarPlaya);
                     break;
                 case "Editar":
                     Titulo.Text = "Editar";
@@ -465,8 +465,9 @@ namespace Web
         /// <param name="e"></param>
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            pnlResultados.Visible = true;
-            ActualizarGrilla();
+            master.MostrarMensajeError(TipoMensajeEnum.MensajeAlerta, "hoooooooola");
+            //pnlResultados.Visible = true;
+            //ActualizarGrilla();
         }
         /// <summary>
         /// Muestra el formulario para registrar playas.

@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Confirmacion.ascx.cs" Inherits="SIRAD.Web.Controls.Alerts.Confirmacion" %>
 
-<div class="alert alert-info" runat="server" id="Alert">
+<div class="alert alert-warning" runat="server" id="Alert">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <span runat="server" id="lblMensaje"></span>
 </div>

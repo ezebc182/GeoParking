@@ -31,22 +31,12 @@ namespace SIRAD.Web.Controls.Alerts
             }
         }
         
-        public void MostrarMensaje(TipoMensajeEnum tipo, string mensaje, string titulo)
+        public void MostrarMensaje(string mensaje, string titulo)
         {
-            Mensaje = mensaje;
-            switch (tipo)
-            {
-                case TipoMensajeEnum.MensajeAlerta:
-                    MostrarAlert();
-                    break;
-                case TipoMensajeEnum.MensajeModal:
+            
                     MostrarModal();
-                    break;
-                case TipoMensajeEnum.MostrarAlertaYModal:
-                    MostrarAlert();
-                    MostrarModal();
-                    break;
-            }
+                    
+            
         }
         /// <summary>
         /// Muestra el mensaje de error en el margen superior de la pagina

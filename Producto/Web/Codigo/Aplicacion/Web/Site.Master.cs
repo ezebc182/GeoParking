@@ -64,21 +64,12 @@ namespace Web
         #region MensajeConfirmacion
         public void MostrarMensajeConfirmacion(string mensaje, EventHandler evento)
         {
-            MostrarMensajeConfirmacion(TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje", evento);
+            MostrarMensajeConfirmacion(mensaje, "Mensaje", evento);
         }
-        public void MostrarMensajeConfirmacion(TipoMensajeEnum tipo, string mensaje, EventHandler evento)
-        {
-            MostrarMensajeConfirmacion(tipo, mensaje, "Mensaje", evento);
-        }
-        public void MostrarMensajeConfirmacion(string mensaje, string titulo, EventHandler evento)
-        {
-            MostrarMensajeConfirmacion(TipoMensajeEnum.MostrarAlertaYModal, mensaje, titulo, evento);
-        }
-
-        public void MostrarMensajeConfirmacion(TipoMensajeEnum tipo, string mensaje, string titulo, EventHandler evento)
+        public void MostrarMensajeConfirmacion( string mensaje, string titulo, EventHandler evento)
         {
             ConfirmarMensaje = evento;
-            msjConfirmacion.MostrarMensaje(tipo, mensaje, titulo);
+            msjConfirmacion.MostrarMensaje(mensaje, titulo);
         }
         #endregion
         public EventHandler ConfirmarMensaje

@@ -5,7 +5,7 @@
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <span runat="server" id="lblMensaje"></span>
 </div>
-<div id="MensajeModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="MensajeModalInfo" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-header">
         <a class="close" data-dismiss="modal">×</a>
 
@@ -23,8 +23,8 @@
 <script type="text/javascript">
 
 
-    function Alerta_openModal() {
-        $('#MensajeModal').modal('show');
+    function Alerta_openModalInfo() {
+        $('#MensajeModalInfo').modal('show');
 
 
     }
