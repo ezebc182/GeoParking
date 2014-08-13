@@ -65,6 +65,9 @@
     <Content Include="Controles\Horarios.ascx" />
     <Content Include="Controles\Precios.ascx" />
     <Content Include="Controles\Domicilio.ascx" />
+    <Content Include="Controles\Mensajes\Error.ascx" />
+    <Content Include="Controles\Mensajes\Info.ascx" />
+    <Content Include="Controles\Mensajes\Confirmacion.ascx" />
     <Content Include="img\Banner.png" />
     <Content Include="Index.aspx" />
     <Content Include="Playa.aspx" />
@@ -156,6 +159,27 @@
     <Compile Include="Controles\Domicilio.ascx.designer.cs">
       <DependentUpon>Domicilio.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controles\Mensajes\Error.ascx.cs">
+      <DependentUpon>Error.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Mensajes\Error.ascx.designer.cs">
+      <DependentUpon>Error.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Mensajes\Info.ascx.cs">
+      <DependentUpon>Info.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Mensajes\Info.ascx.designer.cs">
+      <DependentUpon>Info.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Mensajes\Confirmacion.ascx.cs">
+      <DependentUpon>Confirmacion.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Mensajes\Confirmacion.ascx.designer.cs">
+      <DependentUpon>Confirmacion.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -178,6 +202,7 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
+    <Compile Include="Util\Enumeraciones.cs" />
     <Compile Include="Util\FormHelper.cs" />
   </ItemGroup>
   <ItemGroup>

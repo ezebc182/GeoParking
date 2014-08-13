@@ -6,40 +6,62 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Entidades;
 using ReglasDeNegocio;
+using Web.Util;
 
 namespace Web
 {
     public partial class SiteMaster : System.Web.UI.MasterPage
     {
-
         GestorUsuario gestor;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             gestor = new GestorUsuario();
+            msjConfirmacion.Si += ConfirmarMensaje;
         }
 
-        public string Alert
+        #region mensajes
+        public void MostrarMensaje(string mensaje)
         {
-            get { return lblMessage.InnerText; }
-            set
+            MostrarMensaje(MensajeEnum.Info, TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje");
+        }
+        public void MostrarMensaje(MensajeEnum msj, string mensaje)
+        {
+            MostrarMensaje(msj, TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje");
+        }
+        public void MostrarMensaje(MensajeEnum msj, TipoMensajeEnum tipo, string mensaje)
+        {
+            MostrarMensaje(msj, tipo, mensaje, "Mensaje");
+        }
+        public void MostrarMensaje(MensajeEnum msj, string mensaje, string titulo)
+        {
+            MostrarMensaje(msj, TipoMensajeEnum.MostrarAlertaYModal, mensaje, titulo);
+        }
+
+        public void MostrarMensaje(MensajeEnum msj, TipoMensajeEnum tipo, string mensaje, string titulo)
+        {
+            switch (msj)
             {
-                if (!string.IsNullOrEmpty(value))
-                {
-                    lblMessage.InnerText = value;
-                    Show();
-                }                
+                case MensajeEnum.Confirmacion: msjConfirmacion.MostrarMensaje(tipo, mensaje, titulo);
+                    break;
+                case MensajeEnum.Error: msjError.MostrarMensaje(tipo, mensaje, titulo);
+                    break;
+                case MensajeEnum.Info:
+                    break;
             }
         }
-        private void Show()
+
+        public EventHandler ConfirmarMensaje
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "PopAlerta", "$(function() { Alerta_openModal(); });", true);
+            get { return (EventHandler)Session["EventoConfirmacion"]; }
+            set { Session["EventoConfirmacion"] = value; }
         }
+        #endregion
 
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
-            if (txtApellido.Text!="" && txtNombre.Text!="" && txtContraseña.Text!="" && txtContraseñaRepetir.Text!="" 
-                && txtEmailRegistro.Text!="" && txtUsuarioRegistro.Text!="")
+            if (txtApellido.Text != "" && txtNombre.Text != "" && txtContraseña.Text != "" && txtContraseñaRepetir.Text != ""
+                && txtEmailRegistro.Text != "" && txtUsuarioRegistro.Text != "")
             {
                 Usuario usuario = CargarEntidad();
                 var resultado = gestor.RegistrarUsuario(usuario);
