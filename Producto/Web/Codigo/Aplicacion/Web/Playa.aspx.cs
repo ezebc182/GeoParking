@@ -22,7 +22,7 @@ namespace Web
         {
             gestor = new GestorPlaya();
             master = (SiteMaster)Master;
-
+            
             if (!Page.IsPostBack)
             {
                 CargarComboTiposPlayas();
@@ -159,21 +159,7 @@ namespace Web
             ucHorarios.Horarios = null;
         }
 
-        /// <summary>
-        /// Elimina una playa de estacionamiento.
-        /// </summary>
-        private void EliminarPlaya()
-        {
-            var resultado = gestor.EliminarPlaya(IdPlayaSeleccionada);
-            if (resultado.Ok)
-            {
-                master.Alert = "La playa fue eliminada correctamente.";
-            }
-            else
-            {
-                Error = resultado.MensajesString();
-            }
-        }
+        
         /// <summary>
         /// Actualiza el contenido de la grilla de playas de estacionamientos
         /// </summary>
@@ -328,8 +314,8 @@ namespace Web
             {
                 case "Eliminar":
                     //elimina la playa y muestra el resultado.
-                    EliminarPlaya();
-                    ActualizarGrilla();
+                    master.ConfirmarMensaje = EliminarPlaya;
+                    master.MostrarMensaje(MensajeEnum.Confirmacion, TipoMensajeEnum.MensajeModal, "¿Quiere eliminar la playa " + playa.Nombre + "?", "Confirmar Eliminacion");
                     break;
                 case "Editar":
                     Titulo.Text = "Editar";
@@ -451,7 +437,7 @@ namespace Web
                 if (resultado.Ok)
                 {
                     //Mensaje de actualizacion correcta
-                    master.Alert = "La playa fue editada correctamente.";
+                    master.MostrarMensaje(MensajeEnum.Info, TipoMensajeEnum.MostrarAlertaYModal, "La playa fue editada correctamente.");
                     //limpio el formulario
                     limpiarCampos();
                 }
@@ -493,6 +479,22 @@ namespace Web
             Titulo.Text = "Registrar";
             limpiarCampos();
             ConfigurarRegistrar();
+        }
+
+        /// <summary>
+        /// Elimina una playa de estacionamiento.
+        /// </summary>
+        protected void EliminarPlaya(object sender, EventArgs e)
+        {
+            var resultado = gestor.EliminarPlaya(IdPlayaSeleccionada);
+            if (resultado.Ok)
+            {
+                master.MostrarMensaje(MensajeEnum.Info, TipoMensajeEnum.MostrarAlertaYModal, "La playa fue eliminada correctamente.");
+            }
+            else
+            {
+                Error = resultado.MensajesString();
+            }
         }
 
         #endregion
