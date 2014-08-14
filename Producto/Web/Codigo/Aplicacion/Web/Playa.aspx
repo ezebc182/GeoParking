@@ -288,7 +288,7 @@
                                 <div id="resultadosBusqueda">
                                     <asp:GridView ID="gvResultados" runat="server" DataKeyNames="Id" CssClass="table table-hover table-responsive"
                                         AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron Playas para los filtros utilizados"
-                                        OnRowCommand="gvResultados_RowCommand" OnRowDataBound="gvResultados_RowDataBound" AllowSorting="True" AllowPaging="True" PageSize="2">
+                                        OnRowCommand="gvResultados_RowCommand" OnRowDataBound="gvResultados_RowDataBound">
                                         <Columns>
                                             <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                                             <asp:BoundField DataField="TipoPlayaStr" HeaderText="Tipo" />
@@ -323,7 +323,7 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
-    
+
     <script src="./Scripts/paneles.js"></script>
     <script src="./Scripts/contarFilas.js"></script>
     <script src="./Scripts/DesplazarTabs.js"></script>
@@ -364,9 +364,9 @@
         pageManager.add_endRequest(function () {
 
 
-            //if ($("[id *= ucDomicilio] [id *= btnAgregar]").attr("class").search("hidden") > 0) {
-            //    GoogleMaps.initialize();
-            //}
+            if ($("[id *= ucDomicilio] [id *= btnAgregar]").attr("class").search("hidden") > 0) {
+                GoogleMaps.initialize();
+            }
             contarFilas();
             $("#MainContent_btnBuscar").click(function () {
                 customSlideToggle($("#pnlResultados"));

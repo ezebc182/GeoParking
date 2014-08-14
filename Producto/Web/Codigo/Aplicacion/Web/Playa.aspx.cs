@@ -22,7 +22,7 @@ namespace Web
         {
             gestor = new GestorPlaya();
             master = (SiteMaster)Master;
-            
+
             if (!Page.IsPostBack)
             {
                 CargarComboTiposPlayas();
@@ -70,7 +70,7 @@ namespace Web
             txtNombre.Enabled = true;
             ddlTipoPlaya.Enabled = true;
             txtTelefono.Enabled = true;
-            txtMail.Enabled = true;
+            //txtMail.Enabled = true;
             FormHelper.CambiarVisibilidadControl(btnGuardar, true);
             btnCancelar.Text = "Cancelar";
             ucDomicilios.ConfigurarEditar();
@@ -91,7 +91,7 @@ namespace Web
             txtNombre.Enabled = true;
             ddlTipoPlaya.Enabled = true;
             txtTelefono.Enabled = true;
-            txtMail.Enabled = true; 
+            txtMail.Enabled = true;
             btnCancelar.Text = "Cancelar";
             ucDomicilios.ConfigurarRegistrar();
             ucServicios.ConfigurarRegistrar();
@@ -159,7 +159,7 @@ namespace Web
             ucHorarios.Horarios = null;
         }
 
-        
+
         /// <summary>
         /// Actualiza el contenido de la grilla de playas de estacionamientos
         /// </summary>
@@ -257,6 +257,11 @@ namespace Web
                 FormHelper.CambiarVisibilidadControl(divAlertExito, !string.IsNullOrEmpty(value));
                 FormHelper.CambiarVisibilidadControl(divModal, string.IsNullOrEmpty(value));
                 FormHelper.CambiarVisibilidadControl(btnAceptar, !string.IsNullOrEmpty(value));
+                if (!string.IsNullOrEmpty(value))
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "modificarPlaya", "$(function() { $('#modificarPlaya').modal('hide') });", true);
+                    master.MostrarMensajeInformacion(value);
+                }
             }
         }
         /// <summary>
@@ -464,9 +469,9 @@ namespace Web
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btnBuscar_Click(object sender, EventArgs e)
-        {          
-           pnlResultados.Visible = true;
-           ActualizarGrilla();
+        {
+            pnlResultados.Visible = true;
+            ActualizarGrilla();
         }
         /// <summary>
         /// Muestra el formulario para registrar playas.
