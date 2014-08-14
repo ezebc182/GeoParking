@@ -210,12 +210,12 @@
                         </ContentTemplate>
                     </asp:UpdatePanel>
 
-        <asp:ContentPlaceHolder ID="TopContent" runat="server">
-        </asp:ContentPlaceHolder>
-        <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
-        <asp:ContentPlaceHolder ID="helpContent" runat="server"></asp:ContentPlaceHolder>
-                    
-               </div>
+                    <asp:ContentPlaceHolder ID="TopContent" runat="server">
+                    </asp:ContentPlaceHolder>
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+                    <asp:ContentPlaceHolder ID="helpContent" runat="server"></asp:ContentPlaceHolder>
+
+                </div>
             </div>
         </div>
     </form>

@@ -464,7 +464,7 @@ namespace Web
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btnBuscar_Click(object sender, EventArgs e)
-        {
+        {          
            pnlResultados.Visible = true;
            ActualizarGrilla();
         }
