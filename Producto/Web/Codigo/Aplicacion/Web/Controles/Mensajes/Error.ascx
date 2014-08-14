@@ -7,7 +7,7 @@
 <div class="modal fade" id="MensajeModalError">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header  alert alert-danger">
                 <a class="close" data-dismiss="MensajeModalError">×</a>
                 <span runat="server" id="lblTitulo"></span>
             </div>
@@ -17,7 +17,7 @@
             <div class="modal-footer">
                 <button class="btn btn-info" data-dismiss="modal" aria-hidden="true">Aceptar</button>
             </div>
-        </div>
+        </>
     </div>
 </div>
 

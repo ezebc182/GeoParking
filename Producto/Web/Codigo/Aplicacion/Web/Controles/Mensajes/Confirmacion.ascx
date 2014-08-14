@@ -7,7 +7,7 @@
 <div class="modal fade" id="MensajeModalConfirmacion">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header  alert alert-warning">
                 <a class="close" data-dismiss="MensajeModalConfirmacion">×</a>
                 <span runat="server" id="lblTitulo"></span>
             </div>

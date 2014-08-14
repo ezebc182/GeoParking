@@ -465,9 +465,8 @@ namespace Web
         /// <param name="e"></param>
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            master.MostrarMensajeError(TipoMensajeEnum.MostrarAlertaYModal, "hoooooooola");
-            //pnlResultados.Visible = true;
-            //ActualizarGrilla();
+           pnlResultados.Visible = true;
+           ActualizarGrilla();
         }
         /// <summary>
         /// Muestra el formulario para registrar playas.

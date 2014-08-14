@@ -8,7 +8,7 @@
 <div class="modal fade" id="MensajeModalInfo">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header  alert alert-info">
                 <a class="close" data-dismiss="MensajeModalInfo">×</a>
                 <span runat="server" id="lblTitulo"></span>
             </div>
