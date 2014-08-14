@@ -364,9 +364,9 @@
         pageManager.add_endRequest(function () {
 
 
-            if ($("[id *= ucDomicilio] [id *= btnAgregar]").attr("class").search("hidden") > 0) {
-                GoogleMaps.initialize();
-            }
+            //if ($("[id *= ucDomicilio] [id *= btnAgregar]").attr("class").search("hidden") > 0) {
+            //    GoogleMaps.initialize();
+            //}
             contarFilas();
             $("#MainContent_btnBuscar").click(function () {
                 customSlideToggle($("#pnlResultados"));
