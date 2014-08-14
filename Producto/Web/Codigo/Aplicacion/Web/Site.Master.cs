@@ -62,13 +62,23 @@ namespace Web
         }
         #endregion
         #region MensajeConfirmacion
-        public void MostrarMensajeConfirmacion(string mensaje, EventHandler evento)
+        public void MostrarMensajeConfirmacion(string mensaje, EventHandler eventoConfirmacion)
         {
-            MostrarMensajeConfirmacion(mensaje, "Mensaje", evento);
+            MostrarMensajeConfirmacion(mensaje, "Mensaje", eventoConfirmacion, CancelacionMensaje);
         }
-        public void MostrarMensajeConfirmacion( string mensaje, string titulo, EventHandler evento)
+        public void MostrarMensajeConfirmacion(string mensaje, EventHandler eventoConfirmacion, EventHandler eventoCancelacion)
         {
-            ConfirmarMensaje = evento;
+            MostrarMensajeConfirmacion(mensaje, "Mensaje", eventoConfirmacion, eventoCancelacion);
+        }
+
+        public void MostrarMensajeConfirmacion(string mensaje, string titulo, EventHandler eventoConfirmacion)
+        {
+            MostrarMensajeConfirmacion(mensaje, titulo, eventoConfirmacion, CancelacionMensaje);
+        }
+        public void MostrarMensajeConfirmacion(string mensaje, string titulo, EventHandler eventoConfirmacion, EventHandler eventoCancelacion)
+        {
+            ConfirmarMensaje = eventoConfirmacion;
+            CancelarMensaje = eventoCancelacion;
             msjConfirmacion.MostrarMensaje(mensaje, titulo);
         }
         #endregion
@@ -77,8 +87,15 @@ namespace Web
             get { return (EventHandler)Session["EventoConfirmacion"]; }
             set { Session["EventoConfirmacion"] = value; }
         }
+        public EventHandler CancelarMensaje
+        {
+            get { return (EventHandler)Session["EventoCancelacion"]; }
+            set { Session["EventoCancelacion"] = value; }
+        }
         #endregion
-
+        protected void ConfirmacionMensaje(object sender, EventArgs e){}
+        protected void CancelacionMensaje(object sender, EventArgs e){}
+        
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
             if (txtApellido.Text != "" && txtNombre.Text != "" && txtContraseña.Text != "" && txtContraseñaRepetir.Text != ""

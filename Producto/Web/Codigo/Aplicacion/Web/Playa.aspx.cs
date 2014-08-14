@@ -465,7 +465,7 @@ namespace Web
         /// <param name="e"></param>
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            master.MostrarMensajeError(TipoMensajeEnum.MensajeAlerta, "hoooooooola");
+            master.MostrarMensajeError(TipoMensajeEnum.MostrarAlertaYModal, "hoooooooola");
             //pnlResultados.Visible = true;
             //ActualizarGrilla();
         }
