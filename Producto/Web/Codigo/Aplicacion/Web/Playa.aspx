@@ -7,6 +7,8 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <link type="text/css" href="./Styles/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <!--Script de google mas-->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="helpContent" runat="server">

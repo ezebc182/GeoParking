@@ -11,6 +11,7 @@ namespace ReglasDeNegocio
     public class GestorBusquedaPlayas
     {
         GestorDireccion gestorDireccion;
+        GestorPlaya gestorPlaya;
         IRepositorioPlayaDeEstacionamiento playaDao;
         IRepositorioTipoDePlaya tipoPlayaDao;
         IRepositorioDiaAtencion diaAtencionDao;
@@ -25,6 +26,7 @@ namespace ReglasDeNegocio
         public GestorBusquedaPlayas()
         {
             gestorDireccion = new GestorDireccion();
+            gestorPlaya = new GestorPlaya();
             tipoVehiculoDao = new RepositorioTipoVehiculo();
             playaDao = new RepositorioPlayaDeEstacionamiento();
             tipoPlayaDao = new RepositorioTipoDePlaya();
@@ -55,6 +57,35 @@ namespace ReglasDeNegocio
 
             //retorno la lista de nombres
             return nombreCiudades;
+        }
+
+        /// <summary>
+        /// buscas las playas de determinada ciudad
+        /// </summary>
+        /// <param name="ciudad">ciudad donde se ubican las playas</param>
+        /// <returns>listado de playas ubicadas en esa ciudad</returns>
+        public IList<PlayaDeEstacionamiento> buscarPlayasPorCiudad(string ciudad)
+        {
+            IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
+
+            playas = gestorPlaya.BuscarPlayasPorCiudad(ciudad);
+
+            return playas;
+        }
+
+        /// <summary>
+        /// buscas las playas de determinada ciudad
+        /// </summary>
+        /// <param name="ciudad">ciudad donde se ubican las playas</param>
+        /// <returns>listado de playas ubicadas en esa ciudad</returns>
+        public IList<PlayaDeEstacionamiento> buscarPlayasPorFiltro(string ciudad, int tipoPlaya, int tipoVehiculo, int diasAtencion, decimal precioDesde, decimal precioHasta,
+             int horaDesde, int horaHasta)
+        {
+            IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
+
+            playas = gestorPlaya.BuscarPlayasPorFiltro(ciudad, tipoPlaya, tipoVehiculo, diasAtencion, precioDesde, precioHasta, horaDesde, horaHasta);
+
+            return playas;
         }
     }
 }

@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="./Styles/index.css" type="text/css" />
 
     <!--Estilo para el autocomplete-->
-    <%--<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />--%>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
     
     
 </asp:Content>
