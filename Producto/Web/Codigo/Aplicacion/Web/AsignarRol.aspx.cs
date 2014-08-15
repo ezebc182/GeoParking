@@ -25,7 +25,7 @@ namespace Web
                 btnGuardar.Enabled = false;
                 ddlRol.Enabled = false;
                 cargarComboUsuario();
-                cargarComboRol();
+                //cargarComboRol();
             }
         }
 
@@ -38,20 +38,38 @@ namespace Web
             }
             else
             {
-                ddlRol.SelectedIndex = 0;
-                ddlRol.Enabled = false;
+                limpiarComponentes();
             }
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            gestor.AsigarRolAUsuario(int.Parse(ddlUsuario.SelectedValue), int.Parse(ddlRol.SelectedValue));
+            guardar();
         }
 
-        private void guardar(Usuario usuario, Rol rol)
+        private void guardar()
         {
+            try
+            {
+                gestor.AsigarRolAUsuario(int.Parse(ddlUsuario.SelectedValue), int.Parse(ddlRol.SelectedValue));
+                master.MostrarMensajeInformacion("El rol '" + ddlRol.SelectedItem.Text + "' ha sido asignado al usuario '" + ddlUsuario.SelectedItem.Text + "'", "Rol guardado con éxito.");
+                limpiarComponentes();
+            }
+            catch (Exception)
+            {
+                master.MostrarMensajeError("No se pudo asignar el rol '" + ddlRol.SelectedItem.Text + "' al usuario '" + ddlUsuario.SelectedItem.Text+"'", "Error al guardar el rol");
+            }
+            
             
         }
+        public void limpiarComponentes()
+        {
+            ddlRol.SelectedIndex = 0;
+            ddlUsuario.SelectedIndex = 0;
+            ddlRol.Enabled = false;
+            btnGuardar.Enabled = false;
+        }
+
 
         private void cargarComboUsuario()
         {
@@ -63,7 +81,11 @@ namespace Web
             FormHelper.CargarCombo(ddlRol, gestor.BuscarRoles(), "Nombre", "Id", "Seleccione");
             if (ddlUsuario.SelectedIndex != 0)
             {
-                ddlRol.SelectedIndex = gestor.BuscarRolPorUsuarioId(ddlUsuario.SelectedIndex).Id;
+                Usuario usuarioSeleccionado = gestor.BuscarUsuarioPorId(int.Parse(ddlUsuario.SelectedValue));
+                if (usuarioSeleccionado != null)
+                {
+                    ddlRol.SelectedValue = usuarioSeleccionado.Rol.Id.ToString();
+                }
             }
         }
 
