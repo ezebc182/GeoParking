@@ -9,6 +9,8 @@ using ReglasDeNegocio;
 using Entidades;
 using System.Text;
 using System.Web.Script.Serialization;
+using Web.Util;
+using Web.ClasesJsonVista;
 namespace Web
 {
     public partial class BusquedaPlaya : System.Web.UI.Page
@@ -20,12 +22,45 @@ namespace Web
         {
             gestor = new GestorBusquedaPlayas();
 
-            if (Session["ciudad"] != null)
+            if (!Page.IsPostBack)
             {
-                txtBuscar.Text = Session["ciudad"].ToString();
-                ciudadBuscada = Session["ciudad"].ToString();
+
+                if (Session["ciudad"] != null)
+                {
+                    txtBuscar.Text = Session["ciudad"].ToString();
+                    ciudadBuscada = Session["ciudad"].ToString();
+                }
+
+                //cargo los combos de los filtros
+                CargarComboTiposPlayas();
+                CargarComboTiposVehiculos();
+                CargarComboDiasAtencion();
             }
 
+        }
+
+        /// <summary>
+        /// Carga el combo Tipos de playas con todas las playas nod adas de baja en la BD
+        /// </summary>
+        public void CargarComboTiposPlayas()
+        {
+            FormHelper.CargarCombo(ddlTipoPlaya, gestor.BuscarTipoPlayas(), "Nombre", "Id", "Seleccione");
+        }
+
+        /// <summary>
+        /// Carga el combo Tipos de Vehiculos 
+        /// </summary>
+        public void CargarComboTiposVehiculos()
+        {
+            FormHelper.CargarCombo(ddlTipoVehiculo, gestor.BuscarTipoVehiculos(), "Nombre", "Id", "Seleccione");
+        }
+
+        /// <summary>
+        /// Carga el combo Dias de Atencion
+        /// </summary>
+        public void CargarComboDiasAtencion()
+        {
+            FormHelper.CargarCombo(ddlDiasAtencion, gestor.BuscarDiasDeAtencion(), "Nombre", "Id", "Seleccione");
         }
 
         /// <summary>
@@ -48,28 +83,25 @@ namespace Web
 
         }
 
-        //, string tipoVehiculo, string precioDesde, string precioHasta, string diasAtencion, string horaDesde, string HoraHasta
-       
-        //string precioDesde, string precioHasta, , string horaDesde, string horaHasta
-
+        /// <summary>
+        /// Busco la playas en la BD que cumplan con los filtros
+        /// </summary>
+        /// <param name="tipoPlaya">tipo de playa</param>
+        /// <param name="tipoVehiculo"> el tipo de vehiculo</param>
+        /// <param name="diaAtencion">dia de atencion</param>
+        /// <param name="precioDesde">precio base</param>
+        /// <param name="precioHasta">precio maximo</param>
+        /// <param name="horaDesde">hora de apertura</param>
+        /// <param name="horaHasta">hora de cierre</param>
+        /// <returns>lista de playas filtradas</returns>
         [WebMethod]
         public static List<PlayaJSON> ObtenerPlayasDeCiudadPorFiltro(int tipoPlaya, int tipoVehiculo, int diaAtencion, string precioDesde, string precioHasta, int horaDesde, int horaHasta)
         {
-            int tipo = tipoPlaya;
-            int ve = tipoVehiculo;
-            int di = diaAtencion;
-            string preciod = precioDesde;
-            string precioh = precioHasta;
-            int horad = horaDesde;
-            int horah = horaHasta;
-
             //busco en la BD
             IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
-           
-            //playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorFiltro(ciudadBuscada, ddlT, tipoVehiculo, diasAtencion, txtpre, precioHasta, horaDesde, HoraHasta);
+                       
             playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorFiltro(ciudadBuscada, tipoPlaya, tipoVehiculo, diaAtencion,Decimal.Parse(precioDesde),Decimal.Parse(precioHasta),horaDesde,horaHasta);
-            //playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorCiudad(ciudadBuscada);
-
+           
             //mapeo a objeto serializable
             List<PlayaJSON> playasJSON = new List<PlayaJSON>();
             playasJSON = mapearEntityAJSON(playas);
@@ -155,62 +187,7 @@ namespace Web
             }
             return playas;
         }
-    }
-
-    public class PlayaJSON
-    {
-        public int id { get; set; }
-        //Nombre
-        public string Nombre { get; set; }
-        //Mail
-        public string Mail { get; set; }
-        //Telefono
-        public string Telefono { get; set; }
-        //tipo playa
-        public string TipoPlaya { get; set; }
-
-        //x e y
-        public string Latitud { get; set; }
-        public string Longitud { get; set; }
-
-        //Direcciones (calle, numero,ciudad y coordenadas)
-        public List<DireccionJSON> Direcciones { get; set; }
-
-        //Servicios (tipo de vehculo y capacidad)
-        public List<ServicioJSON> Servicios { get; set; }
-
-        //Horarios (dia, horaDesde, HoraHasta)
-        public List<HorarioJSON> Horarios { get; set; }
-
-        //Precios (Vehiculo, dia, tiempo, precio)
-        public List<PrecioJSON> Precios { get; set; }       
 
     }
-
-    public class DireccionJSON
-    {
-        public string Calle { get; set; }
-        public int Numero { get; set; }
-    }
-
-    public class ServicioJSON
-    {
-        public string TipoVehiculo { get; set; }
-        public int Capacidad { get; set; }
-    }
-
-    public class HorarioJSON
-    {
-        public string Dia { get; set; }
-        public string HoraDesde { get; set; }
-        public string HoraHasta { get; set; }
-    }
-
-    public class PrecioJSON
-    {
-        public string Vehiculo { get; set; }
-        public string Dia { get; set; }
-        public string Tiempo { get; set; }
-        public decimal Monto { get; set; }       
-    }
+      
 }

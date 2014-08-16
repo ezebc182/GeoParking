@@ -12,6 +12,8 @@ namespace ReglasDeNegocio
     {
         GestorDireccion gestorDireccion;
         GestorPlaya gestorPlaya;
+        GestorServicio gestorServicio;
+        GestorHorario gestorHorario;
         IRepositorioPlayaDeEstacionamiento playaDao;
         IRepositorioTipoDePlaya tipoPlayaDao;
         IRepositorioDiaAtencion diaAtencionDao;
@@ -27,6 +29,8 @@ namespace ReglasDeNegocio
         {
             gestorDireccion = new GestorDireccion();
             gestorPlaya = new GestorPlaya();
+            gestorServicio = new GestorServicio();
+            gestorHorario = new GestorHorario();
             tipoVehiculoDao = new RepositorioTipoVehiculo();
             playaDao = new RepositorioPlayaDeEstacionamiento();
             tipoPlayaDao = new RepositorioTipoDePlaya();
@@ -86,6 +90,21 @@ namespace ReglasDeNegocio
             playas = gestorPlaya.BuscarPlayasPorFiltro(ciudad, tipoPlaya, tipoVehiculo, diasAtencion, precioDesde, precioHasta, horaDesde, horaHasta);
 
             return playas;
+        }
+
+        public IList<TipoPlaya> BuscarTipoPlayas()
+        {
+            return gestorPlaya.BuscarTipoPlayas();
+        }
+
+        public IList<TipoVehiculo> BuscarTipoVehiculos()
+        {
+            return gestorServicio.BuscarTipoVehiculos();
+        }
+
+        public IList<DiaAtencion> BuscarDiasDeAtencion()
+        {
+            return gestorHorario.BuscarDiasDeAtencion();
         }
     }
 }

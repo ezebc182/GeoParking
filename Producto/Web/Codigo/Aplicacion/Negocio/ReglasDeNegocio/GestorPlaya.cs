@@ -390,7 +390,7 @@ namespace ReglasDeNegocio
 
             if (precioHasta != 0)
             {
-                query = query.Where(p => p.Precios.Any(prec => prec.Monto >= precioHasta));
+                query = query.Where(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
                 //lista = (IList<PlayaDeEstacionamiento>)lista.Where(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
             }
 
