@@ -1,22 +1,23 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="Web.Index" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+    <!--seguro que este se bora jeje-->
     <link rel="stylesheet" href="./Styles/index.css" type="text/css" />
 
     <!--Estilo para el autocomplete-->
-    <%--<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />--%>
-    
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
     
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="TopContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     
-    <!--EZE : el auto complete no anda si los script(las 2 url y el codigo) no estan aca, fijate porque pasa esto
-        ya intente moverlos de archivos y todo y no andan sino estan como aca abajo
-        HAY UN SCRIPT AUTOCOMPLETE.JS QUE FUE EL QUE NO PUDE HACER ANDAR TIENE EL MISMO CODIGO QUE EL DE ABAJO-->
+    <!--Scripts jquery del auto complete-->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
+   
+    <!--Script de la funcion autocomplete-->
     <script type="text/javascript">
         $(document).ready(function () {
             SearchText();

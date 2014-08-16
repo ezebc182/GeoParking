@@ -37,8 +37,16 @@ namespace Datos
         /// <returns>una entidad</returns>
         public TEntity FindById(int id)
         {
-            var lista = DbSet.Where(x => x.Id == id).ToList<TEntity>();
-            return lista[0];
+            try
+            {
+                var lista = DbSet.Where(x => x.Id == id).ToList<TEntity>();
+                return lista[0];
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            
         }
 
         /// <summary>

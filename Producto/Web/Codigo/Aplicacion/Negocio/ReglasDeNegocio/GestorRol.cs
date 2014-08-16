@@ -21,23 +21,43 @@ namespace ReglasDeNegocio
         }
         public IList<Rol> BuscarRoles()
         {
-            return rolDao.FindAll();
+            IList<Rol> roles = rolDao.FindAll();
+            foreach (Rol rol in roles)
+            {
+                IList<Permiso> permisos = BuscarPermisosPorRol(rol);
+                rol.Permisos = permisos;
+            }
+            return roles;
         }
         public IList<Permiso> BuscarPermisos()
         {
-            return permisoDao.FindAll();
+            IList<Permiso> permisos = permisoDao.FindAll();
+            foreach (Permiso permiso in permisos)
+            {
+                permiso.Roles = rolDao.FindWhere(p => p.Permisos.Any(r => p.Id == permiso.Id));
+            }
+            return permisos;
         }
         public IList<Permiso> BuscarPermisosPorRol(Rol rol)
         {
-            return permisoDao.FindWhere(p => p.Roles.Any(r => r.Id == rol.Id));
+            IList<Permiso> permisos = permisoDao.FindWhere(p => p.Roles.Any(r => r.Id == rol.Id));
+            foreach (Permiso permiso in permisos)
+            {
+                permiso.Roles = rolDao.FindWhere(p => p.Permisos.Any(r => p.Id == permiso.Id));
+            }
+            return permisos;
         }
         public Rol BuscarRol(int idRol)
         {
-            return rolDao.FindById(idRol);
+            Rol rol = rolDao.FindById(idRol);
+            rol.Permisos = permisoDao.FindWhere(p => p.Roles.Any(r => r.Id == rol.Id));
+            return rol;
         }
         public Permiso BuscarPermiso(int id)
         {
-            return permisoDao.FindById(id);
+            Permiso permiso = permisoDao.FindById(id);
+            permiso.Roles = rolDao.FindWhere(p => p.Permisos.Any(r => p.Id == permiso.Id));
+            return permiso;
         }
 
         public int GuardarRol(Rol rol)

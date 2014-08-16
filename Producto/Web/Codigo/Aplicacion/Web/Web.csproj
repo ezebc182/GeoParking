@@ -78,14 +78,18 @@
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Bootstrap\js\bootstrap.js" />
     <Content Include="Bootstrap\js\bootstrap.min.js" />
+    <Content Include="Scripts\Autocomplete.js" />
     <Content Include="Scripts\bootstrapValidator.min.js" />
     <Content Include="Scripts\bv-lenguaje.js" />
     <Content Include="Scripts\datetimepicker.min.js" />
     <Content Include="Scripts\contarFilas.js" />
     <Content Include="Scripts\DesplazarTabs.js" />
     <Content Include="Scripts\GoogleMaps.js" />
+    <Content Include="Scripts\GoogleMapsBusquedaPlaya.js" />
     <Content Include="Scripts\horarios.js" />
+    <Content Include="Scripts\jquery-ui_ajax.min.js" />
     <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\jquery_ajax.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\openModal.js" />
     <Content Include="Scripts\paneles.js" />
@@ -131,6 +135,11 @@
     <Compile Include="BusquedaPlaya.aspx.designer.cs">
       <DependentUpon>BusquedaPlaya.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ClasesJsonVista\DireccionJSON.cs" />
+    <Compile Include="ClasesJsonVista\HorarioJSON.cs" />
+    <Compile Include="ClasesJsonVista\PlayaJSON.cs" />
+    <Compile Include="ClasesJsonVista\PrecioJSON.cs" />
+    <Compile Include="ClasesJsonVista\ServicioJSON.cs" />
     <Compile Include="Controles\Servicio.ascx.cs">
       <DependentUpon>Servicio.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

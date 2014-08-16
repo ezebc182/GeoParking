@@ -65,7 +65,10 @@ namespace ReglasDeNegocio
         {
             return usuarioDao.FindAll();
         }
-
+        public Usuario BuscarUsuarioPorId(int id)
+        {
+            return usuarioDao.FindById(id);
+        }
         public Rol BuscarRolPorUsuarioId(int id)
         {
             return rolDao.FindById(id);
@@ -78,6 +81,8 @@ namespace ReglasDeNegocio
         {
             Usuario usuario = usuarioDao.FindById(idUsuario);
             usuario.RolId = idRol;
+            Rol rol = rolDao.FindById(idRol);
+            usuario.Rol = rol;
             usuarioDao.Update(usuario);
         }
     }

@@ -16,22 +16,24 @@ namespace Web
         GestorRol gestor = new GestorRol();
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            master = (SiteMaster)Master;
             if (!Page.IsPostBack)
             {
-                master = (SiteMaster)Master;
                 cargarComboRol();
                 cargarListadoCheckBoxPermisos();
                 cblPermiso.Enabled = false;
+                btnGuardar.Enabled = false;
             }
         }
         private void cargarComboRol()
         {
-            FormHelper.CargarCombo(ddlRol, gestor.BuscarRoles(), "Nombre", "Id", "Seleccione");
+            IList<Rol> roles = gestor.BuscarRoles();
+            FormHelper.CargarCombo(ddlRol, roles, "Nombre", "Id", "Seleccione");
         }
         private void cargarListadoCheckBoxPermisos()
         {
-            cblPermiso.DataSource = gestor.BuscarPermisos();
+            IList<Permiso> permisos = gestor.BuscarPermisos();
+            cblPermiso.DataSource = permisos;
             cblPermiso.DataTextField = "Nombre";
             cblPermiso.DataValueField = "Id";
             cblPermiso.DataBind();
@@ -67,7 +69,6 @@ namespace Web
             ddlRol.SelectedIndex = 0;
             LimpiarCheckboxListPermisos();
             cblPermiso.Enabled = false;
-            //master.Alert = "cambios guardados con exito!";
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
@@ -78,8 +79,48 @@ namespace Web
 
         private void AsignarPermisosARol()
         {
-            Rol rolSeleccionado = gestor.BuscarRol(int.Parse(ddlRol.SelectedValue));
+            Rol rolSeleccionado = tomarRolSeleccionado();
+            IList<Permiso> permisos = tomarPermisosSeleccionados();
             
+            if (hayCambiosPorGuardar(rolSeleccionado,permisos))
+            {
+                //rolSeleccionado.Permisos = permisos;
+                foreach (Permiso permiso in permisos)
+                {
+                    if (!(rolSeleccionado.Permisos.Contains(permiso)))
+                    {
+                        rolSeleccionado.Permisos.Add(permiso);
+                    }
+                }
+                foreach (Permiso permiso in permisos)
+                {
+                    if (!(permiso.Roles.Contains(rolSeleccionado)))
+                    {
+                        permiso.Roles.Add(rolSeleccionado);
+                    }
+                }
+                gestor.GuardarRol(rolSeleccionado);
+                master.MostrarMensajeInformacion(
+                "Los permisos han sido guardados para el rol '"
+                + rolSeleccionado.Nombre
+                + "'"
+                , "Rol guardado con éxito.");
+            }
+            else
+            {
+                master.MostrarMensajeError(
+                    "No se encontraron cambios para el rol'"
+                    + ddlRol.SelectedItem.Text+"'",
+                    "Error al guardar el rol");
+            }
+            
+        }
+        private Rol tomarRolSeleccionado()
+        {
+            return gestor.BuscarRol(int.Parse(ddlRol.SelectedValue));
+        }
+        private IList<Permiso> tomarPermisosSeleccionados()
+        {
             IList<Permiso> permisos = new List<Permiso>();
             foreach (ListItem item in cblPermiso.Items)
             {
@@ -88,10 +129,28 @@ namespace Web
                     permisos.Add(gestor.BuscarPermiso(int.Parse(item.Value)));
                 }
             }
-            rolSeleccionado.Permisos = permisos;
-            gestor.GuardarRol(rolSeleccionado);
+            return permisos;
         }
-
+        private bool hayCambiosPorGuardar(Rol rolSeleccionado, IList<Permiso> permisos)
+        {
+            bool diferencia = false;
+            if (permisos.Count != rolSeleccionado.Permisos.Count)
+            {
+                diferencia = true;
+            }
+            else
+            {
+                for (int i = 0; i < permisos.Count; i++)
+                {
+                    if (permisos[i].Id != rolSeleccionado.Permisos[i].Id)
+                    {
+                        diferencia = true;
+                        break;
+                    }
+                }
+            }
+            return diferencia;
+        }
         protected void ddlRol_SelectedIndexChanged1(object sender, EventArgs e)
         {
             LimpiarCheckboxListPermisos();
@@ -100,6 +159,15 @@ namespace Web
                 cblPermiso.Enabled = true;
                 seleccionarPermisosDeRol();
             }
+            else
+            {
+                cblPermiso.Enabled = false;
+            }
+        }
+
+        protected void cblPermiso_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnGuardar.Enabled = ddlRol.SelectedIndex != 0 && hayCambiosPorGuardar(tomarRolSeleccionado(), tomarPermisosSeleccionados());
         }
 
 
