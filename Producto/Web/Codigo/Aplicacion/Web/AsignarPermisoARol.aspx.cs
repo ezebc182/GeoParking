@@ -27,11 +27,13 @@ namespace Web
         }
         private void cargarComboRol()
         {
-            FormHelper.CargarCombo(ddlRol, gestor.BuscarRoles(), "Nombre", "Id", "Seleccione");
+            IList<Rol> roles = gestor.BuscarRoles();
+            FormHelper.CargarCombo(ddlRol, roles, "Nombre", "Id", "Seleccione");
         }
         private void cargarListadoCheckBoxPermisos()
         {
-            cblPermiso.DataSource = gestor.BuscarPermisos();
+            IList<Permiso> permisos = gestor.BuscarPermisos();
+            cblPermiso.DataSource = permisos;
             cblPermiso.DataTextField = "Nombre";
             cblPermiso.DataValueField = "Id";
             cblPermiso.DataBind();
@@ -79,9 +81,24 @@ namespace Web
         {
             Rol rolSeleccionado = tomarRolSeleccionado();
             IList<Permiso> permisos = tomarPermisosSeleccionados();
+            
             if (hayCambiosPorGuardar(rolSeleccionado,permisos))
             {
-                rolSeleccionado.Permisos = permisos;
+                //rolSeleccionado.Permisos = permisos;
+                foreach (Permiso permiso in permisos)
+                {
+                    if (!(rolSeleccionado.Permisos.Contains(permiso)))
+                    {
+                        rolSeleccionado.Permisos.Add(permiso);
+                    }
+                }
+                foreach (Permiso permiso in permisos)
+                {
+                    if (!(permiso.Roles.Contains(rolSeleccionado)))
+                    {
+                        permiso.Roles.Add(rolSeleccionado);
+                    }
+                }
                 gestor.GuardarRol(rolSeleccionado);
                 master.MostrarMensajeInformacion(
                 "Los permisos han sido guardados para el rol '"

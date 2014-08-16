@@ -62,6 +62,12 @@ namespace Web
             
             
         }
+        private bool hayCambiosPorGuardar()
+        {
+            Usuario usuarioSeleccionado = gestor.BuscarUsuarioPorId(int.Parse(ddlUsuario.SelectedValue));
+            return usuarioSeleccionado.RolId != int.Parse(ddlRol.SelectedValue);
+            
+        }
         public void limpiarComponentes()
         {
             ddlRol.SelectedIndex = 0;
@@ -97,7 +103,7 @@ namespace Web
 
         protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlRol.SelectedIndex != 0)
+            if (ddlRol.SelectedIndex != 0 && hayCambiosPorGuardar())
             {
                 btnGuardar.Enabled = true;
             }
