@@ -323,7 +323,8 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
-
+    
+    <script src="./Scripts/GoogleMaps.js" type="text/javascript"></script>
     <script src="./Scripts/paneles.js"></script>
     <script src="./Scripts/contarFilas.js"></script>
     <script src="./Scripts/DesplazarTabs.js"></script>

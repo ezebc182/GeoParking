@@ -39,6 +39,8 @@
 
             </asp:UpdatePanel>
             <div class="form-group">
+                <input id="latitud" class="hidden" />
+                <input id="longitud" class="hidden" />
                 <asp:UpdatePanel runat="server" ID="upFormulario">
                     <ContentTemplate>
                         <div id="divSeccionFormulario2" runat="server" class=" hidden ">
@@ -52,7 +54,7 @@
                                 <asp:TextBox runat="server" type="number" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="La altura es requerida." ClientIDMode="Static" ID="txtNumero" />
                             </div>
                             <div class="col-sm-1 col-md-1 col-lg-1">
-                                <button runat="server" id="btnBuscarEnMapa" class="glyphicon glyphicon-map-marker btn btn-warning pull-right"
+                                <button id="btnBuscarEnMapa" runat="server" class="glyphicon glyphicon-map-marker btn btn-warning pull-right"
                                     tooltip="Buscar en mapa" onclick="codeAddress()" />
                                 <asp:TextBox runat="server" ClientIDMode="Static" ID="txtDireccion" CssClass="hidden" />
                             </div>
