@@ -107,6 +107,7 @@ namespace Datos
         {
             var currentEntity = FindById(t.Id);
             var entry = contexto.Entry(currentEntity);
+            
             //DbSet.Attach(t);
             entry.CurrentValues.SetValues(t);
             return contexto.SaveChanges();
