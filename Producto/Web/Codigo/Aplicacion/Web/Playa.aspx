@@ -380,7 +380,12 @@
             $('#txtLatitud').text($('latitud').val())
             $('#txtLongitud').text($('longitud').val())
 
-            habilitarBotonGuardar();
+            if ($('[id*=precios][class*=active]').first().length() > 0) {
+                habilitarBotonGuardar(true);
+            }
+            else {
+                habilitarBotonGuardar(false);
+            }
 
             if ($("[id *= ucDomicilio][id *= btnAgregar]").attr("class").search("hidden") > 0) {
                 GoogleMaps.initialize();
