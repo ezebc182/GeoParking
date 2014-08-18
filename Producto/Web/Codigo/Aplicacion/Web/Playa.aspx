@@ -366,6 +366,11 @@
         pageManager = Sys.WebForms.PageRequestManager.getInstance();
         pageManager.add_endRequest(function () {
 
+            $('#txtLatitud').val($('latitud').val())
+            $('#txtLongitud').val($('longitud').val())
+
+            $('#txtLatitud').text($('latitud').val())
+            $('#txtLongitud').text($('longitud').val())
 
             if ($("[id *= ucDomicilio] [id *= btnAgregar]").attr("class").search("hidden") > 0) {
                 GoogleMaps.initialize();

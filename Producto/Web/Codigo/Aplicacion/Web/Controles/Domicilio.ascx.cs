@@ -299,16 +299,16 @@ namespace Web.Controles
         /// </summary>
         public string Latitud
         {
-            get { return txtLatitud.Text; }
-            set { txtLatitud.Text = value; }
+            get { return latitud.Text; }
+            set { latitud.Text = value; }
         }
         /// <summary>
         /// Obtiene o establece la longitud de la direccion
         /// </summary>
         public string Longitud
         {
-            get { return txtLongitud.Text; }
-            set { txtLongitud.Text = value; }
+            get { return longitud.Text; }
+            set { longitud.Text = value; }
         }
         /// <summary>
         /// Obtiene o establece el Id de la provincia seleccionada en el combo provincias
