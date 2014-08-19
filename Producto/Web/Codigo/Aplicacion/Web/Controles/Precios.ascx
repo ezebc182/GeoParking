@@ -45,7 +45,7 @@
                             <div class="form-group">
                                 <label for="txtPrecio" class="col-sm-2 col-md-2 col-lg-2 control-label">Precio</label>
                                 <div class="col-sm-10 col-md-10 col-lg-10">
-                                    <asp:TextBox type="number" min="0" runat="server" CssClass="form-control " data-bv-numeric-separator="," data-bv-numeric-message="Ingrese un precio válido." ID="txtPrecio" />
+                                    <asp:TextBox type="number" min="0" runat="server" CssClass="form-control " data-bv-numeric-separator="," data-bv-numeric-message="Ingrese un precio válido."  ID="txtPrecio" />
                                 </div>
                             </div>
                             <div class="form-group pull-right">

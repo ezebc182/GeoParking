@@ -3,20 +3,40 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <!--seguro que este se bora jeje-->
-    <link rel="stylesheet" href="./Styles/index.css" type="text/css" />
-
+    <link rel="stylesheet" href="Styles/index.css" type="text/css" />
+    
     <!--Estilo para el autocomplete-->
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
-    
+
+
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="TopContent" runat="server">
-</asp:Content>
+
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+
+                        <h1 class="brand-heading"><span style="color: red;">Geo</span>Parking</h1>
+                        <%--<img id="cel" src="./img/cel.png">--%>
+                        <p class="intro-text">Estacioná de manera fácil, rápida y efectiva.</p>
+                        <div class="input-group">                            
+                            <asp:TextBox ID="txtBuscar" CssClass="form-control input-lg autosuggest" runat="server" ClientIDMode="Static" placeholder="Ingresá tu ciudad"></asp:TextBox>
+                            <div class="input-group-btn">
+                                <asp:Button ID="btnBuscar" CssClass="btn-primary btn btn-lg" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <!--Scripts jquery del auto complete-->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <%--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>--%>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
-   
+    <script src="./Scripts/grayscale.js"></script>
     <!--Script de la funcion autocomplete-->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -43,15 +63,8 @@
         }
     </script>
 
-    <!--Eliminar los BR-->
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <div id="imagenPricipal">
+
+    <%--    <div id="imagenPricipal">
         <asp:Image ID="imagen" class="img-thumbnail" runat="server" ImageUrl="~/img/Banner.png" ImageAlign="Middle" />
     </div>
     <div class="buscadrPrincipal">
@@ -66,8 +79,5 @@
         <div class="col-sm-4 col-md-4 col-lg-4"></div>
         <!--Eliminar esta columna-->
     </div>  
-    
-
-</asp:Content>
-<asp:Content ID="Content4" ContentPlaceHolderID="helpContent" runat="server">
+    --%>
 </asp:Content>

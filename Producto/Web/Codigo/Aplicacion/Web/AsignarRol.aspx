@@ -1,10 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AsignarRol.aspx.cs" Inherits="Web.AsignarRol" %>
 
 
-<asp:Content ID="Content5" ContentPlaceHolderID="head" runat="server">
-    <link type="text/css" href="./Styles/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<asp:Content ID="Content5" ContentPlaceHolderID="head" runat="server">    
 
 </asp:Content>
+
 <asp:Content ID="Content4" ContentPlaceHolderID="mainContent" runat="server">
     <h3 style="position: relative; top: 140px; right: -50%;">Asignar rol a usuario</h3>
     <div class="form-group" style="position:relative; top:160px; right:-40%; height:500px; width:500px" >

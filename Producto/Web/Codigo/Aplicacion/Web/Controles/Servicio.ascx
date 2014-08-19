@@ -13,7 +13,7 @@
         <div class="panel-body">
             <asp:UpdatePanel runat="server" ID="UpdatePanel2" >
                 <ContentTemplate>
-                    <div id="divSeccionFormulario" runat="server" class=" ">
+                    <div id="divSeccionFormulario" runat="server" class="formulario">
 
                         <div class="form-horizontal " role="form" data-bv-message="This value is not valid" data-bv-feedbackicons-valid="glyphicon glyphicon-ok" data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
                             <div class="form-group">
@@ -56,3 +56,7 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(".formulario").bootstrapValidator();
+</script>

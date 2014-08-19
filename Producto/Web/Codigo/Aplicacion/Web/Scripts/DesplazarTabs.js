@@ -50,7 +50,7 @@ function abrirTab(id) {
             
             break;
         default:
-            alert("LA CONCHA DE TU MADRE ALL BOYS");
+            break;
             
             
     }

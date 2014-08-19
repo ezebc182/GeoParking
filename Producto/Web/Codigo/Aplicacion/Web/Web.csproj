@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ABMRol.aspx" />
+    <Content Include="AdministracionUsuarios.aspx" />
     <Content Include="AsignarPermisoARol.aspx" />
     <Content Include="AsignarRol.aspx" />
     <Content Include="BusquedaPlaya.aspx" />
@@ -69,6 +70,7 @@
     <Content Include="Controles\Mensajes\Info.ascx" />
     <Content Include="Controles\Mensajes\Confirmacion.ascx" />
     <Content Include="img\Banner.png" />
+    <Content Include="img\parking1.jpg" />
     <Content Include="Index.aspx" />
     <Content Include="Playa.aspx" />
     <Content Include="Bootstrap\css\bootstrap-theme.css" />
@@ -87,11 +89,8 @@
     <Content Include="Scripts\GoogleMaps.js" />
     <Content Include="Scripts\GoogleMapsBusquedaPlaya.js" />
     <Content Include="Scripts\horarios.js" />
-    <Content Include="Scripts\jquery-ui_ajax.min.js" />
     <Content Include="Scripts\jquery.min.js" />
-    <Content Include="Scripts\jquery_ajax.min.js" />
     <Content Include="Scripts\moment.js" />
-    <Content Include="Scripts\openModal.js" />
     <Content Include="Scripts\paneles.js" />
     <Content Include="Scripts\resetearControles.js" />
     <Content Include="Scripts\validador.js" />
@@ -113,6 +112,13 @@
     </Compile>
     <Compile Include="ABMRol.aspx.designer.cs">
       <DependentUpon>ABMRol.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdministracionUsuarios.aspx.cs">
+      <DependentUpon>AdministracionUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdministracionUsuarios.aspx.designer.cs">
+      <DependentUpon>AdministracionUsuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="AsignarPermisoARol.aspx.cs">
       <DependentUpon>AsignarPermisoARol.aspx</DependentUpon>

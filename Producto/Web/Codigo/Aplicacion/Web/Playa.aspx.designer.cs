@@ -193,6 +193,15 @@ namespace Web {
         protected global::Web.Controles.HorarioControl ucHorarios;
         
         /// <summary>
+        /// Control btnPaso2_1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnPaso2_1;
+        
+        /// <summary>
         /// Control ucPrecios.
         /// </summary>
         /// <remarks>

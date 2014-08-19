@@ -26,13 +26,13 @@
                             <div class="form-group">
                                 <label for="txtDesde" class="col-sm-2 col-md-2 col-lg-2 control-label">Desde</label>
                                 <div class="col-sm-3 col-md-3 col-lg-3 input-group date horarios" id="dtpDesde">
-                                    <asp:TextBox runat="server" CssClass="form-control " ID="txtDesde" data-bv-notempty="true" data-bv-notempty-message="Ingrese horario hasta" />
+                                    <asp:TextBox type="time" required runat="server" CssClass="form-control " ID="txtDesde" data-bv-notempty="true" data-bv-notempty-message="Ingrese horario hasta" />
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                                 </div>
 
                                 <label for="txtHasta" class="col-sm-2 col-md-2 col-lg-2 control-label">Hasta</label>
                                 <div class="col-sm-3 col-md-3 col-lg-3 input-group date horarios" id="dtpHasta">
-                                    <asp:TextBox runat="server" CssClass="form-control " ID="txtHasta" data-bv-notempty="true" data-bv-notempty-message="Ingrese horario hasta" data-bv-greaterthan-inclusive="false" data-bv-greaterthan-message="Horario hasta no puede ser inferior a horario desde." data-bv-greaterthan-value="txtDesde" />
+                                    <asp:TextBox type="time" required runat="server" CssClass="form-control " ID="txtHasta" data-bv-notempty="true" data-bv-notempty-message="Ingrese horario hasta" data-bv-greaterthan-inclusive="false" data-bv-greaterthan-message="Horario hasta no puede ser inferior a horario desde." data-bv-greaterthan-value="txtDesde" />
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                                 </div>
                                 <div class="col-sm-2 col-md-2 col-lg-2">
