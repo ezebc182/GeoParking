@@ -380,7 +380,7 @@
             $('#txtLatitud').text($('latitud').val())
             $('#txtLongitud').text($('longitud').val())
 
-            if ($('[id*=precios][class*=active]').first().length() > 0) {
+            if ($('[id*=precios][class*=active]').first().length > 0) {
                 habilitarBotonGuardar(true);
             }
             else {
