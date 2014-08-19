@@ -29,21 +29,21 @@ namespace Web.Controles
         /// </summary>
         public void CargarComboProvincias()
         {
-            FormHelper.CargarCombo(ddlProvincia, gestor.BuscarProvincias(), "Nombre", "Id", "Seleccione");
+            FormHelper.CargarCombo(ddlProvincia, ((IList<Provincia>)gestor.BuscarProvincias()).OrderBy(p => p.Nombre), "Nombre", "Id", "Seleccione");
         }
         /// <summary>
         /// Carga el combo de departamentos, con los departamentos pertenecientes a la provincia seleccionada
         /// </summary>
         public void CargarComboDepartamentos()
         {
-            FormHelper.CargarCombo(ddlDepartamento, gestor.BuscarDepartamentosPorProvinciaId(IdProvinciaSeleccionada), "Nombre", "Id", "Seleccione");
+            FormHelper.CargarCombo(ddlDepartamento, ((IList<Departamento>)gestor.BuscarDepartamentosPorProvinciaId(IdProvinciaSeleccionada)).OrderBy(d => d.Nombre), "Nombre", "Id", "Seleccione");
         }
         /// <summary>
         /// Carga el combo de ciudades, con las ciudades pertenecientes al departamento seleccionado
         /// </summary>
         public void CargarComboCiudades()
         {
-            FormHelper.CargarCombo(ddlCiudad, gestor.BuscarCiudadesPorDepartamentoId(IdDepartamentoSeleccionado), "Nombre", "Id", "Seleccione");
+            FormHelper.CargarCombo(ddlCiudad, ((IList<Ciudad>)(gestor.BuscarCiudadesPorDepartamentoId(IdDepartamentoSeleccionado))).OrderBy(c => c.Nombre), "Nombre", "Id", "Seleccione");
         }
         /// <summary>
         /// Agrega una lista de domicilios a la grilla de domicilios
