@@ -4,7 +4,7 @@ using Web.Util;
 
 namespace SIRAD.Web.Controls.Alerts
 {
-    public partial class Confirmacion : UserControl 
+    public partial class Confirmacion : UserControl
     {
         public event EventHandler Si;
         public event EventHandler No;
@@ -23,20 +23,29 @@ namespace SIRAD.Web.Controls.Alerts
         /// </summary>
         public string Mensaje
         {
-            get { return lblMensaje.InnerHtml; }
+            get { return lblMensaje.Text; }
             set
             {
-                lblMensaje.InnerHtml = value;
-                lblMensajeModal.InnerHtml = value;
+                lblMensaje.Text = value;
+                lblMensajeModal.Text = value;
             }
         }
-        
+
+        public string Titulo
+        {
+            get { return lblTitulo.Text; }
+            set
+            {
+                lblTitulo.Text = value;
+            }
+        }
+
         public void MostrarMensaje(string mensaje, string titulo)
         {
-            
-                    MostrarModal();
-                    
-            
+            Mensaje = mensaje;
+            Titulo = titulo;
+
+            MostrarModal();
         }
         /// <summary>
         /// Muestra el mensaje de error en el margen superior de la pagina
@@ -59,7 +68,7 @@ namespace SIRAD.Web.Controls.Alerts
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "MensajeModal", "$(function() { Alerta_openModalConfirmacion(); });", true);
         }
-        
+
         protected void btnSi_Click(object sender, EventArgs e)
         {
             if (Si != null)

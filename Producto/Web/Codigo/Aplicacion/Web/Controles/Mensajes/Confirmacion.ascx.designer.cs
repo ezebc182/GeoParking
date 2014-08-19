@@ -28,7 +28,7 @@ namespace SIRAD.Web.Controls.Alerts {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblMensaje;
+        protected global::System.Web.UI.WebControls.Label lblMensaje;
         
         /// <summary>
         /// Control lblTitulo.
@@ -37,7 +37,7 @@ namespace SIRAD.Web.Controls.Alerts {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblTitulo;
+        protected global::System.Web.UI.WebControls.Label lblTitulo;
         
         /// <summary>
         /// Control lblMensajeModal.
@@ -46,7 +46,7 @@ namespace SIRAD.Web.Controls.Alerts {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblMensajeModal;
+        protected global::System.Web.UI.WebControls.Label lblMensajeModal;
         
         /// <summary>
         /// Control btnSi.

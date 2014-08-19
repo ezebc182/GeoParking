@@ -260,7 +260,7 @@ namespace Web
                 if (!string.IsNullOrEmpty(value))
                 {
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "modificarPlaya", "$(function() { $('#modificarPlaya').modal('hide') });", true);
-                    master.MostrarMensajeInformacion(value);
+                    master.MostrarMensajeInformacion(value,"Exito");
                 }
             }
         }
@@ -441,8 +441,7 @@ namespace Web
                 if (resultado.Ok)
                 {
                     //Mensaje de actualizacion correcta
-                    master.MostrarMensajeInformacion(TipoMensajeEnum.MostrarAlertaYModal, "La playa fue editada correctamente.");
-                    //limpio el formulario
+                    Exito = "La playa fue modificada correctamente.";//limpio el formulario
                     limpiarCampos();
                 }
                 else
@@ -493,7 +492,7 @@ namespace Web
             var resultado = gestor.EliminarPlaya(IdPlayaSeleccionada);
             if (resultado.Ok)
             {
-                master.MostrarMensajeInformacion(TipoMensajeEnum.MostrarAlertaYModal, "La playa fue eliminada correctamente.");
+                Exito = "La playa fue eliminada correctamente.";
             }
             else
             {
