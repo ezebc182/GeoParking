@@ -13,11 +13,13 @@ namespace ReglasDeNegocio
     {
         IRepositorioUsuario usuarioDao;
         IRepositorioRol rolDao;
+        Encriptacion cifrar;
 
         public GestorUsuario()
         {
             usuarioDao = new RepositorioUsuario();
             rolDao = new RepositorioRol();
+            cifrar = new Encriptacion();
         }
 
         public GestorUsuario(IRepositorioUsuario usuario, IRepositorioRol rol)
@@ -51,6 +53,11 @@ namespace ReglasDeNegocio
         private Resultado ValidarRegistracion(Usuario usuario)
         {
             var resultado = new Resultado();
+            
+            if (ValidarUsuarioIngresado(usuario.NombreUsuario) !=null)
+            {
+                resultado.AgregarMensaje("Ya existe un usuario con ese nombre.");
+            }
 
             if (usuario.Nombre == "" && usuario.Mail == "" && usuario.NombreUsuario == "" && usuario.Contraseña == ""
                 && usuario.Apellido == "")
@@ -59,6 +66,35 @@ namespace ReglasDeNegocio
             }
 
             return resultado;
+        }
+
+        public Usuario Login(string usuario,string contraseña)
+        {
+            string cifrada = Encriptar(contraseña);
+            IList<Usuario> resultado = usuarioDao.FindWhere(x => (x.Mail.Equals(usuario) || x.NombreUsuario.Equals(usuario)) && x.Contraseña.Equals(cifrada));
+            return resultado.FirstOrDefault();
+        }
+
+        public Usuario ValidarUsuarioIngresado(string usuario)
+        {
+            IList<Usuario> resultado = usuarioDao.FindWhere(x => x.NombreUsuario.Equals(usuario));
+            return resultado.FirstOrDefault();
+        }
+
+        public Usuario ValidarEmailIngresado(string email)
+        {
+            IList<Usuario> resultado = usuarioDao.FindWhere(x => x.Mail.Equals(email));
+            return resultado.FirstOrDefault();
+        }
+
+        public string Encriptar(string contraseña)
+        {
+            return cifrar.Encriptar(contraseña);
+        }
+
+        public string Desencriptar(string contraseña)
+        {
+            return cifrar.Desencriptar(contraseña);
         }
 
         public IList<Usuario> BuscarUsuarios()

@@ -2,12 +2,12 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-    <!--seguro que este se bora jeje-->
+<%--    <!--seguro que este se bora jeje-->
     <link rel="stylesheet" href="./Styles/index.css" type="text/css" />
 
     <!--Estilo para el autocomplete-->
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
-    
+    --%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="TopContent" runat="server">
 </asp:Content>

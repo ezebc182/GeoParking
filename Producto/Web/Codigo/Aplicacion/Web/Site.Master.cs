@@ -15,9 +15,14 @@ namespace Web
         GestorUsuario gestor;
 
         protected void Page_Load(object sender, EventArgs e)
+        
         {
             gestor = new GestorUsuario();
             msjConfirmacion.Si += ConfirmarMensaje;
+            if (SessionUsuario != null)
+            {
+                lblLogin.Text = SessionUsuario.NombreUsuario;
+            }
         }
 
         #region mensajes
@@ -110,7 +115,12 @@ namespace Web
         {
             if (txtUsuarioLogin.Text != "" && txtContraseñaLogin.Text != "")
             {
-
+                var resultado = gestor.Login(txtUsuarioLogin.Text, txtContraseñaLogin.Text);
+                if (resultado != null)
+                {
+                    SessionUsuario = resultado;
+                    lblLogin.Text = SessionUsuario.NombreUsuario;
+                }
             }
         }
 
@@ -119,16 +129,22 @@ namespace Web
             Usuario usuario = new Usuario
             {
                 NombreUsuario = UsuarioRegistro,
-                Contraseña = ContraseñaRegistro,
+                Contraseña = gestor.Encriptar(ContraseñaRegistro),
                 Apellido = ApellidoRegistro,
                 Nombre = NombreRegistro,
                 Mail = EmailRegistro,
-                RolId = 1,
+                RolId = gestor.BuscarRoles().First().Id,
             };
             return usuario;
         }
 
         #region properties
+
+        public Usuario SessionUsuario
+        {
+            get { return (Usuario)Session["Usuario"]; }
+            set { Session["Usuario"] = value; }
+        }
 
         public string UsuarioRegistro
         {
@@ -162,6 +178,10 @@ namespace Web
 
         #endregion
 
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            SessionUsuario = null;
+        }
 
     }
 }
