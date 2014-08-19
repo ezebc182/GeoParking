@@ -294,6 +294,7 @@ namespace ReglasDeNegocio
             playa.Precios = BuscarPreciosPorPlaya(playa.Id);
             playa.Horarios = BuscarHorariosPorPlaya(playa.Id);
             playa.Servicios = BuscarServiciosPorPlaya(playa.Id);
+            playa.TipoPlaya = BuscarTipoPlayas().Where(t => t.Id == playa.TipoPlayaId).First();
         }
         /// <summary>
         /// Busca todos los tipos de playas
