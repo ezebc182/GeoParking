@@ -39,8 +39,8 @@
 
             </asp:UpdatePanel>
             <div class="form-group">
-                <input id="latitud" class="hidden" />
-                <input id="longitud" class="hidden" />
+                <asp:TextBox id="latitud" class="hidden" runat="server"/>
+                <asp:TextBox id="longitud" class="hidden" runat="server" />
                 <asp:UpdatePanel runat="server" ID="upFormulario">
                     <ContentTemplate>
                         <div id="divSeccionFormulario2" runat="server" class=" hidden ">
@@ -65,8 +65,6 @@
                                 <div class="col-sm-2 col-md-2 col-lg-2"></div>
                                 <div id="pnlMapa" class="col-sm-10 col-md-10 col-lg-10">
                                     <div id="map-canvas"></div>
-                                    <asp:TextBox runat="server" CssClass="form-control col-sm-5 col-md-5 col-lg-5 required hidden" ID="txtLatitud" ClientIDMode="Static" />
-                                    <asp:TextBox runat="server" CssClass="form-control col-sm-5 col-md-5 col-lg-5 required hidden" ID="txtLongitud" ClientIDMode="Static" />
                                 </div>
 
                             </div>

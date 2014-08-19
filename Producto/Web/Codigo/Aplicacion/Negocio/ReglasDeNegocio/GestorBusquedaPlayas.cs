@@ -14,13 +14,7 @@ namespace ReglasDeNegocio
         GestorPlaya gestorPlaya;
         GestorServicio gestorServicio;
         GestorHorario gestorHorario;
-        IRepositorioPlayaDeEstacionamiento playaDao;
-        IRepositorioTipoDePlaya tipoPlayaDao;
-        IRepositorioDiaAtencion diaAtencionDao;
-        IRepositorioTipoVehiculo tipoVehiculoDao;
-        IRepositorioHorario horarioDao;
-        IRepositorioServicio servicioDao;
-        IRepositorioPrecio precioDao;
+       
 
         /// <summary>
         /// Constructor 
@@ -30,14 +24,7 @@ namespace ReglasDeNegocio
             gestorDireccion = new GestorDireccion();
             gestorPlaya = new GestorPlaya();
             gestorServicio = new GestorServicio();
-            gestorHorario = new GestorHorario();
-            tipoVehiculoDao = new RepositorioTipoVehiculo();
-            playaDao = new RepositorioPlayaDeEstacionamiento();
-            tipoPlayaDao = new RepositorioTipoDePlaya();
-            diaAtencionDao = new RepositorioDiaAtencion();
-            horarioDao = new RepositorioHorario();
-            servicioDao = new RepositorioServicio();
-            precioDao = new RepositorioPrecio();
+            gestorHorario = new GestorHorario();            
         }
 
         /// <summary>
@@ -92,16 +79,28 @@ namespace ReglasDeNegocio
             return playas;
         }
 
+        /// <summary>
+        /// Busca los tipos de playa
+        /// </summary>
+        /// <returns>Tipos de playas</returns>
         public IList<TipoPlaya> BuscarTipoPlayas()
         {
             return gestorPlaya.BuscarTipoPlayas();
         }
 
+        /// <summary>
+        /// Busca los tipos de vehiculos
+        /// </summary>
+        /// <returns>Tipos de vehiculos</returns>
         public IList<TipoVehiculo> BuscarTipoVehiculos()
         {
             return gestorServicio.BuscarTipoVehiculos();
         }
 
+        /// <summary>
+        /// Busca los dias de atencion
+        /// </summary>
+        /// <returns>Dias de atencion</returns>
         public IList<DiaAtencion> BuscarDiasDeAtencion()
         {
             return gestorHorario.BuscarDiasDeAtencion();

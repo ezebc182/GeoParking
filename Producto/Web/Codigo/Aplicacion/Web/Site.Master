@@ -44,12 +44,17 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+
                     <a class="navbar-brand" href="./Index.aspx">Geo Parking Logo</a>
+
+                    <a class="navbar-brand" href="./index.aspx">Geo Parking Logo</a>
+
                 </div>
 
                 <!-- Agrupar los enlaces de navegación, los formularios y cualquier
 			       otro elemento que se pueda ocultar al minimizar la barra -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
+
                     <ul class="nav navbar-nav navbar-right">
                         <li class="active"><a href="./Playa.aspx">Administración de playas</a></li>
                         <li><a href="./AdministracionUsuarios.aspx">Administración de usuarios</a></li>
@@ -63,7 +68,22 @@
                                 <li><a href="#">Exportar?</a></li>
                             </ul>
                         </li>
+                        <% var usuario = Session["Usuario"];
+                           if (Session["Usuario"] == null)
+                           { %>
                         <li><a href="#login" data-keyboard="false" data-backdrop="static" data-toggle="modal" data-target="#login">Ingresar</a></li>
+                        <% }
+                           else
+                           {
+                        %>
+                        <li>
+                            <h5 style="color: white; margin-top: 16px;"><span class="glyphicon glyphicon-user"></span><strong>
+                                <asp:Label ID="lblLogin" runat="server"></asp:Label>
+                                |
+                                <asp:LinkButton ID="btnCerrarSesion" OnClick="btnCerrarSesion_Click" Text="Cerrar Sesion" ForeColor="White" runat="server"></asp:LinkButton>
+                            </strong></h5>
+                        </li>
+                        <% } %>
                         <li class="divider-vertical"></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ayuda <b class="caret"></b>
@@ -91,24 +111,42 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-lg-6 " style="padding-right: 20px; border-right: 1px solid #ccc;">
+
+                            <div class="col-lg-6 " style="padding-right: 10px; border-right: 1px solid #ccc;">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <asp:TextBox ID="txtUsuarioLogin" placeholder="Usuario o E-mail" CssClass="form-control input-lg" runat="server" TextMode="Email"></asp:TextBox>
+                                        <asp:TextBox ID="txtUsuarioLogin" placeholder="Usuario o E-mail" TabIndex="1" CssClass="form-control input-lg" runat="server"></asp:TextBox>
+                                        <%--<asp:Label Enabled="false" runat="server" ForeColor="#a94442" class="control-label" Text=" Usuario o E-mail invalido" Visible="true"><span class="glyphicon glyphicon-remove" style="vertical-align:middle"> Usuario</span></asp:Label>--%>
+<%--                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
+                                            ControlToValidate="txtUsuarioLogin"
+                                            ErrorMessage="Usuario o E-mail invalido"
+                                            ForeColor="#a94442"><span class="glyphicon glyphicon-remove" > Debe ingresar un Usuario o E-mail</span>
+                                        </asp:RequiredFieldValidator>--%>
                                     </div>
-                                </div>
+                                    </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <asp:TextBox ID="txtContraseñaLogin" placeholder="Contraseña" CssClass="form-control input-lg" runat="server" TextMode="Password"></asp:TextBox>
+                                        <asp:TextBox ID="txtContraseñaLogin" AutoPostBack="false" placeholder="Contraseña" TabIndex="2" CssClass="form-control input-lg" runat="server" TextMode="Password"></asp:TextBox>
+<%--                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"
+                                            ControlToValidate="txtContraseñaLogin"
+                                            ErrorMessage="Usuario o E-mail invalido"
+                                            ForeColor="#a94442"><span class="glyphicon glyphicon-remove"> Debe ingresar una contraseña</span>
+                                        </asp:RequiredFieldValidator>--%>
                                     </div>
-                                </div>
-                                <asp:Button ID="btnIniciarSesion" Text="Iniciar Sesion" OnClick="btnIniciarSesion_Click" CssClass="btn btn-primary btn-block btn-sm" runat="server" />
+                                    </div>
+
+                                <asp:Button ID="btnIniciarSesion" Text="Iniciar Sesion" UseSubmitBehavior="false" OnClick="btnIniciarSesion_Click" TabIndex="3" CssClass="btn btn-primary btn-block btn-sm" runat="server" />
                             </div>
+
                             <div class="col-lg-6">
                                 <h4 class="modal-title text-center">¿No Tienes cuenta?</h4>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
+
                                         <button type="button" id="btnRegistrarse" class="btn btn-success btn-block btn-sm" onclick="$('#registrar').modal({keyboard: false, show: true, backdrop: 'static'});" >Registrarse</button>
+
+                                        <button type="button" id="btnRegistrarse" class="btn btn-success btn-block btn-sm" tabindex="4" onclick="AbrirModalRegistro()">Registrarse</button>
+
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -208,7 +246,8 @@
 
                     <asp:ContentPlaceHolder ID="TopContent" runat="server">
                     </asp:ContentPlaceHolder>
-                    <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                    </asp:ContentPlaceHolder>
                     <asp:ContentPlaceHolder ID="helpContent" runat="server"></asp:ContentPlaceHolder>
 
                 </div>
@@ -217,7 +256,6 @@
     </form>
 </body>
 
-</html>
 <script type="text/javascript">
     
     var checker = document.getElementById('chAceptar');
@@ -243,3 +281,6 @@
         }
     }
 </script>
+
+</html>
+
