@@ -38,11 +38,48 @@ namespace Datos
     public class RepositorioDepartamento : Repositorio<Departamento>, IRepositorioDepartamento { }
     public class RepositorioProvincia : Repositorio<Provincia>, IRepositorioProvincia { }
     public class RepositorioUsuario : Repositorio<Usuario>, IRepositorioUsuario { }
-    public class RepositorioRol : Repositorio<Rol>, IRepositorioRol { }
+    public class RepositorioRol : Repositorio<Rol>, IRepositorioRol
+    {
+        public override int Update(Rol t)
+        {
+            RepositorioPermiso repoPermisos = new RepositorioPermiso();
+            using (var contexto = new ContextoBD())
+            {
+                //var lista = repoPermisos.FindWhere(p => p.Roles.Any(r => r.Id == t.Id));
+                //foreach (var permiso in t.Permisos)
+                //{
+                //    lista.Add(new Permiso { Id = permiso.Id, Acceso = permiso.Acceso, FechaAlta = permiso.FechaAlta, Nombre = permiso.Nombre, Url = permiso.Url, Roles = new List<Rol>(), FechaBaja = permiso.FechaBaja });
+                //    permiso.Roles.Clear();
+                //}
+                //var currentEntity = FindById(t.Id);
+                //var entry = contexto.Entry(currentEntity);
+                
+                //currentEntity.Permisos.Clear();
+                //entry.CurrentValues.SetValues(currentEntity);
+                //entry.State = System.Data.Entity.EntityState.Modified;
+                //contexto.SaveChanges();
+                //t.Permisos = lista;
+                //entry.CurrentValues.SetValues(t);
+                //entry.State = System.Data.Entity.EntityState.Modified;
+                ////DbSet.Attach(t);
+                //t.Permisos.Clear();
+
+                contexto.UpdateGraph(t, map => map
+                    .AssociatedCollection(r => r.Permisos));
+                foreach (var permiso in t.Permisos)
+                {
+                    contexto.UpdateGraph(permiso, map => map
+                    .AssociatedCollection(p => p.Roles));
+                
+                }
+                return contexto.SaveChanges();
+            }
+        }
+    }
     public class RepositorioPermiso : Repositorio<Permiso>, IRepositorioPermiso { }
 
-    public class RepositorioPlayaDeEstacionamiento : Repositorio<PlayaDeEstacionamiento>, IRepositorioPlayaDeEstacionamiento 
-    { 
+    public class RepositorioPlayaDeEstacionamiento : Repositorio<PlayaDeEstacionamiento>, IRepositorioPlayaDeEstacionamiento
+    {
 
         public override int Update(PlayaDeEstacionamiento t)
         {
@@ -66,7 +103,7 @@ namespace Datos
                 return base.Update(t);
             }
         }
-      
+
 
     }
 }

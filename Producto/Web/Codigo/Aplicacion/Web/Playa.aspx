@@ -155,9 +155,9 @@
 
                     <div runat="server" id="divModal" class="form-horizontal" role="form">
                         <ul class="nav nav-tabs" id="myTab">
-                            <li runat="server" id="tabDatosGrales" class="active"><a href="#datosGrales" data-toggle="tab">1. Datos Generales</a></li>
-                            <li runat="server" id="tabHorarios"><a href="#horarios" data-toggle="tab">2. Horarios</a></li>
-                            <li runat="server" id="tabPrecios"><a href="#precios" data-toggle="tab">3. Precios</a></li>
+                            <li runat="server" id="tabDatosGrales" class="active"><a href="#datosGrales" data-toggle="tab"  onclick="habilitarBotonGuardar(false)" >1. Datos Generales</a></li>
+                            <li runat="server" id="tabHorarios"><a href="#horarios" data-toggle="tab" onclick="habilitarBotonGuardar(false)" >2. Horarios</a></li>
+                            <li runat="server" id="tabPrecios"><a href="#precios" data-toggle="tab" onclick="habilitarBotonGuardar(true)">3. Precios</a></li>
                         </ul>
 
 
@@ -325,7 +325,8 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
-
+    
+    <script src="./Scripts/GoogleMaps.js" type="text/javascript"></script>
     <script src="./Scripts/paneles.js"></script>
     <script src="./Scripts/contarFilas.js"></script>
     <script src="./Scripts/DesplazarTabs.js"></script>
@@ -361,12 +362,32 @@
                 });
             }
         }
+        function habilitarBotonGuardar(habilitar) {
+            if (habilitar == true) {
+                $('[id*=upBotones] [id*=btnGuardar]').first().removeClass('disabled');
+            }
+            else {
+                $('[id*=upBotones] [id*=btnGuardar]').first().addClass('disabled');
+            }
+        }
 
         pageManager = Sys.WebForms.PageRequestManager.getInstance();
         pageManager.add_endRequest(function () {
 
+            $('#txtLatitud').val($('latitud').val())
+            $('#txtLongitud').val($('longitud').val())
 
-            if ($("[id *= ucDomicilio] [id *= btnAgregar]").attr("class").search("hidden") > 0) {
+            $('#txtLatitud').text($('latitud').val())
+            $('#txtLongitud').text($('longitud').val())
+
+            if ($('[id*=precios][class*=active]').first().length() > 0) {
+                habilitarBotonGuardar(true);
+            }
+            else {
+                habilitarBotonGuardar(false);
+            }
+
+            if ($("[id *= ucDomicilio][id *= btnAgregar]").attr("class").search("hidden") > 0) {
                 GoogleMaps.initialize();
             }
             contarFilas();

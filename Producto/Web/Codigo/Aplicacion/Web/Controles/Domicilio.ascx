@@ -39,6 +39,8 @@
 
             </asp:UpdatePanel>
             <div class="form-group">
+                <asp:TextBox id="latitud" class="hidden" runat="server"/>
+                <asp:TextBox id="longitud" class="hidden" runat="server" />
                 <asp:UpdatePanel runat="server" ID="upFormulario">
                     <ContentTemplate>
                         <div id="divSeccionFormulario2" runat="server" class=" hidden ">
@@ -52,7 +54,7 @@
                                 <asp:TextBox runat="server" type="number" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="La altura es requerida." ClientIDMode="Static" ID="txtNumero" />
                             </div>
                             <div class="col-sm-1 col-md-1 col-lg-1">
-                                <button runat="server" id="btnBuscarEnMapa" class="glyphicon glyphicon-map-marker btn btn-warning pull-right"
+                                <button id="btnBuscarEnMapa" runat="server" class="glyphicon glyphicon-map-marker btn btn-warning pull-right"
                                     tooltip="Buscar en mapa" onclick="codeAddress()" />
                                 <asp:TextBox runat="server" ClientIDMode="Static" ID="txtDireccion" CssClass="hidden" />
                             </div>
@@ -63,8 +65,6 @@
                                 <div class="col-sm-2 col-md-2 col-lg-2"></div>
                                 <div id="pnlMapa" class="col-sm-10 col-md-10 col-lg-10">
                                     <div id="map-canvas"></div>
-                                    <asp:TextBox runat="server" CssClass="form-control col-sm-5 col-md-5 col-lg-5 required hidden" ID="txtLatitud" ClientIDMode="Static" />
-                                    <asp:TextBox runat="server" CssClass="form-control col-sm-5 col-md-5 col-lg-5 required hidden" ID="txtLongitud" ClientIDMode="Static" />
                                 </div>
 
                             </div>

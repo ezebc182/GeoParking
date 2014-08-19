@@ -4,13 +4,14 @@ var markers = [];
 var geocoder;
 
 GoogleMaps.initialize = function () {
+    deleteMarkers();
     geocoder = new google.maps.Geocoder();
-    if (document.getElementById('txtLatitud').value == "") {
+    if ($('[id *= latitud]').first().val() == "") {
         var haightAshbury = new google.maps.LatLng(-31.416756, -64.183501);
     }
     else {
-        var latitud = document.getElementById('txtLatitud').value;
-        var longitud = document.getElementById('txtLongitud').value
+        var latitud = $('[id *= latitud]').first().val();
+        var longitud = $('[id *= longitud]').first().val();
         var haightAshbury = new google.maps.LatLng(latitud, longitud);
     }
 
@@ -26,8 +27,8 @@ GoogleMaps.initialize = function () {
     google.maps.event.addListener(map, 'click', function (event) {
         deleteMarkers();
         addMarker(event.latLng);
-        document.getElementById('txtLatitud').value = event.latLng.lat();
-        document.getElementById('txtLongitud').value = event.latLng.lng();
+        $('[id *= latitud]').first().val(event.latLng.lat().toString());
+        $('[id *= longitud]').first().val(event.latLng.lng().toString());
 
     });
 
@@ -51,7 +52,9 @@ function addMarker(location) {
 
 // seteo seteo el marcador en el mapa
 function setAllMap(map) {
-    markers[0].setMap(map);
+    if (markers.length > 0){
+        markers[0].setMap(map);
+    }
 }
 
 // Borro los marcadores del array y del mapa
@@ -84,8 +87,8 @@ function codeAddress() {
                 position: results[0].geometry.location
             });
 
-            document.getElementById("txtLatitud").value = results[0].geometry.location.lat();
-            document.getElementById("txtLongitud").value = results[0].geometry.location.lng();
+            $('[id *= latitud]').first().val(results[0].geometry.location.lat().toString());
+            $('[id *= longitud]').first().val(results[0].geometry.location.lng().toString());
 
             markers.push(marker);
         } else {
@@ -98,8 +101,8 @@ function codeAddress() {
                         position: results[0].geometry.location
                     });
 
-                    document.getElementById("txtLatitud").value = results[0].geometry.location.lat();
-                    document.getElementById("txtLongitud").value = results[0].geometry.location.lng();
+                    $('[id *= latitud]').first().val(results[0].geometry.location.lat().toString());
+                    $('[id *= longitud]').first().val(results[0].geometry.location.lng().toString());
 
                     markers.push(marker);
                 } else {

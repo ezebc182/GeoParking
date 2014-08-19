@@ -2,19 +2,19 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-<%--    <!--seguro que este se bora jeje-->
+    <!--seguro que este se bora jeje-->
     <link rel="stylesheet" href="./Styles/index.css" type="text/css" />
 
     <!--Estilo para el autocomplete-->
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
-    --%>
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="TopContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     
     <!--Scripts jquery del auto complete-->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<%--    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>--%>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
    
     <!--Script de la funcion autocomplete-->
