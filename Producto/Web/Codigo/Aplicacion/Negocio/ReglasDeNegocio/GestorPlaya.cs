@@ -319,8 +319,15 @@ namespace ReglasDeNegocio
         /// <returns></returns>
         public IList<Servicio> BuscarServiciosPorPlaya(int idPlaya)
         {
-            return servicioDao.FindWhere(d => d.PlayaDeEstacionamientoId == idPlaya);
+            var lista = servicioDao.FindWhere(d => d.PlayaDeEstacionamientoId == idPlaya);
+            foreach (var servicio in lista)
+            {
+                servicio.TipoVehiculo = tipoVehiculoDao.FindWhere(tv => tv.Id == servicio.TipoVehiculoId).First();
+            }
+
+            return lista;
         }
+
         /// <summary>
         /// Busca los precios de una playa
         /// </summary>
@@ -328,7 +335,12 @@ namespace ReglasDeNegocio
         /// <returns></returns>
         public IList<Precio> BuscarPreciosPorPlaya(int idPlaya)
         {
-            return precioDao.FindWhere(d => d.PlayaDeEstacionamientoId == idPlaya);
+            var lista =precioDao.FindWhere(d => d.PlayaDeEstacionamientoId == idPlaya);
+            foreach (var precio in lista)
+            {
+                precio.DiaAtencion = diaAtencionDao.FindWhere(d => d.Id == precio.DiaAtencionId).First();
+            }
+            return lista;
         }
         /// <summary>
         /// Busca los horarios de una playa
@@ -337,7 +349,12 @@ namespace ReglasDeNegocio
         /// <returns></returns>
         public IList<Horario> BuscarHorariosPorPlaya(int idPlaya)
         {
-            return horarioDao.FindWhere(d => d.PlayaDeEstacionamientoId == idPlaya);
+            var lista = horarioDao.FindWhere(d => d.PlayaDeEstacionamientoId == idPlaya);
+            foreach(var horario in lista)
+            {
+                horario.DiaAtencion = diaAtencionDao.FindWhere(d => d.Id == horario.DiaAtencionId).First();
+            }
+            return lista;
         }
 
         /// <summary>
