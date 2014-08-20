@@ -34,11 +34,11 @@
     </header>
 
     <!--Scripts jquery del auto complete-->
-<<<<<<< HEAD
+
     <%--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>--%>
-=======
+
 <%--    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>--%>
->>>>>>> origin/master
+
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
     <script src="./Scripts/grayscale.js"></script>
     <!--Script de la funcion autocomplete-->
