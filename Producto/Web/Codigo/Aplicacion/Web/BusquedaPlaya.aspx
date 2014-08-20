@@ -67,10 +67,7 @@
             <div class="form-group">
                 <!--Direccion-->
                 <label for="ddlTipoPlaya" class=" control-label pull-left">Tipo de playa</label>
-                <asp:DropDownList ID="ddlTipoPlaya" CssClass="form-control" runat="server" ClientIDMode="Static">
-                    <asp:ListItem Value="0">Seleccionar</asp:ListItem>
-                    <asp:ListItem Value="1">techada</asp:ListItem>
-                    <asp:ListItem Value="3">Descubierta</asp:ListItem>
+                <asp:DropDownList ID="ddlTipoPlaya" CssClass="form-control" runat="server" ClientIDMode="Static">                    
                 </asp:DropDownList>
 
             </div>
@@ -79,10 +76,7 @@
                 <!--Tipo de Vehiculo-->
                 <label for="ddlTipoVehiculo" class="control-label pull-left">Tipo de vehiculo</label>
                 <div>
-                    <asp:DropDownList ID="ddlTipoVehiculo" CssClass="form-control" runat="server" ClientIDMode="Static">
-                        <asp:ListItem Value="0">Seleccionar</asp:ListItem>
-                        <asp:ListItem Value="1">Auto</asp:ListItem>
-                        <asp:ListItem Value="2">Moto</asp:ListItem>
+                    <asp:DropDownList ID="ddlTipoVehiculo" CssClass="form-control" runat="server" ClientIDMode="Static">                        
                     </asp:DropDownList>
                 </div>
             </div>
@@ -105,10 +99,7 @@
                 <!--Dias de Atencion-->
                 <label for="ddlDiasAtencion" class="col-sm-2 control-label">Días</label>
                 <div>
-                    <asp:DropDownList ID="ddlDiasAtencion" CssClass="form-control" runat="server" ClientIDMode="Static">
-                        <asp:ListItem Value="0">Seleccionar</asp:ListItem>
-                        <asp:ListItem Value="1">Lunes-Viernes</asp:ListItem>
-                        <asp:ListItem Value="2">Sabado</asp:ListItem>
+                    <asp:DropDownList ID="ddlDiasAtencion" CssClass="form-control" runat="server" ClientIDMode="Static">                        
                     </asp:DropDownList>
                 </div>
             </div>
@@ -117,9 +108,9 @@
                 <label for="horarios" class="col-sm-2 control-label">Horarios</label>
                 <br />
                 <div id="horarios" class="col-md-10">
-                    <input type="time" id="horaDesde" class="form-control" />
-                    <input type="time" id="horaHasta" class="form-control" />
-                    <%--                    <asp:DropDownList ID="ddlHoraDesde" CssClass="form-control" runat="server" ClientIDMode="Static">
+                    <%--<input type="time" id="ddlHoraDesde" class="form-control" />
+                    <input type="time" id="ddlHoraHasta" class="form-control" />--%>
+                                        <asp:DropDownList ID="ddlHoraDesde" CssClass="form-control" runat="server" ClientIDMode="Static">
                         <asp:ListItem Value="0">00:00</asp:ListItem>
                         <asp:ListItem Value="2">02:00</asp:ListItem>
                         <asp:ListItem Value="4">04:00</asp:ListItem>
@@ -148,8 +139,8 @@
                         <asp:ListItem Value="18">18:00</asp:ListItem>
                         <asp:ListItem Value="20">20:00</asp:ListItem>
                         <asp:ListItem Value="22">22:00</asp:ListItem>
-                        <asp:ListItem Value="23">24:00</asp:ListItem>
-                    </asp:DropDownList>--%>
+                        <asp:ListItem Value="23" Selected="True">24:00</asp:ListItem>
+                    </asp:DropDownList>
                 </div>
             </div>
 

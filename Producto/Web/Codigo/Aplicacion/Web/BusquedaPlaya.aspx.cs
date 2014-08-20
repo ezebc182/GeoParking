@@ -15,6 +15,9 @@ namespace Web
 {
     public partial class BusquedaPlaya : System.Web.UI.Page
     {
+        //referencia a la master
+        private static SiteMaster master;
+
         //Ciudad buscada por el usuario
         private static String ciudadBuscada;
 
@@ -27,6 +30,8 @@ namespace Web
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            master = (SiteMaster)Master;
+
             gestor = new GestorBusquedaPlayas();
 
             if (!Page.IsPostBack)
@@ -81,6 +86,10 @@ namespace Web
         public static string ObtenerPlayasDeCiudad()
         {
             string playasDeCiudad = geoServicio.ObtenerPlayasDeCiudad(ciudadBuscada);
+            if (playasDeCiudad=="[]")
+            {
+                master.MostrarMensajeInformacion("No hay resultados para la ciudad seleccionada", "Resultado Busqueda");                
+            }
             return playasDeCiudad;
         }
 
@@ -88,6 +97,10 @@ namespace Web
         public static string ObtenerPlayasDeCiudadPorFiltro(int tipoPlaya, int tipoVehiculo, int diaAtencion, string precioDesde, string precioHasta, int horaDesde, int horaHasta)
         {
             string playasFiltradas = geoServicio.ObtenerPlayasDeCiudadPorFiltro(ciudadBuscada,tipoPlaya, tipoVehiculo, diaAtencion, precioDesde, precioHasta, horaDesde, horaHasta);
+            if (playasFiltradas == "[]")
+            {
+                master.MostrarMensajeInformacion(TipoMensajeEnum.MensajeModal, "No hay resultados para los filtros aplicados", "Resultado Busqueda");
+            }
             return playasFiltradas;
         }
 

@@ -206,8 +206,24 @@ google.maps.event.addDomListener(window, 'load', initialize);
                 var tipoplaya = document.getElementById('ddlTipoPlaya').value;
                 var tipovehiculo = document.getElementById('ddlTipoVehiculo').value;
                 var diaatencion = document.getElementById('ddlDiasAtencion').value;
-                var preciodesde = document.getElementById('txtMinPrecio').value;
-                var preciohasta = document.getElementById('txtMaxPrecio').value;
+
+                if (Number.isInteger(document.getElementById('txtMinPrecio').value)) {
+                    var preciodesde = document.getElementById('txtMinPrecio').value;
+                }
+                else {
+                    var preciodesde = "0";
+                }
+
+                if (Number.isInteger(document.getElementById('txtMaxPrecio').value)) {
+                    var preciohasta = document.getElementById('txtMaxPrecio').value;
+                }
+                else {
+                    var preciohasta = "0";
+                }
+
+
+                //var preciodesde = document.getElementById('txtMinPrecio').value;
+                //var preciohasta = document.getElementById('txtMaxPrecio').value;
                 var horadesde = document.getElementById('ddlHoraDesde').value;
                 var horahasta = document.getElementById('ddlHoraHasta').value;   
                         
