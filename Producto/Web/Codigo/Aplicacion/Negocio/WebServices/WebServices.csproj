@@ -61,11 +61,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClasesJSON\DireccionJSON.cs" />
-    <Compile Include="ClasesJSON\HorarioJSON.cs" />
-    <Compile Include="ClasesJSON\PlayaJSON.cs" />
-    <Compile Include="ClasesJSON\PrecioJSON.cs" />
-    <Compile Include="ClasesJSON\ServicioJSON.cs" />
     <Compile Include="GeoService.asmx.cs">
       <DependentUpon>GeoService.asmx</DependentUpon>
       <SubType>Component</SubType>

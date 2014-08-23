@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
+using System.IO;
 namespace Entidades
 {
     public class PlayaDeEstacionamiento : EntidadBase
@@ -63,5 +65,120 @@ namespace Entidades
         public string Provincia { get { return Direcciones.Count > 0 ? Direcciones[0].ProvinciaStr : ""; } }
 
         #endregion
+
+        /// <summary>
+        /// retorna el objeto en formato JSON
+        /// </summary>
+        /// <returns>ObjetoJSON</returns>
+        public String ToJSONRepresentation()
+        {
+            StringBuilder sb = new StringBuilder();
+            JsonWriter jw = new JsonTextWriter(new StringWriter(sb));
+
+            jw.Formatting = Formatting.Indented;
+            jw.WriteStartObject();
+            jw.WritePropertyName("Id");
+            jw.WriteValue(this.Id);
+            jw.WritePropertyName("Nombre");
+            jw.WriteValue(this.Nombre);
+            jw.WritePropertyName("Mail");
+            jw.WriteValue(this.Mail);
+            jw.WritePropertyName("Telefono");
+            jw.WriteValue(this.Telefono);
+            jw.WritePropertyName("TipoPlaya");
+            jw.WriteValue(this.TipoPlayaStr);
+            jw.WritePropertyName("Latitud");
+            jw.WriteValue(this.Direcciones[0].Latitud);
+            jw.WritePropertyName("Longitud");
+            jw.WriteValue(this.Direcciones[0].Longitud);
+
+            //DIRECCIONES
+            jw.WritePropertyName("Direcciones");
+            jw.WriteStartArray();
+
+            int i;
+            i = 0;
+
+            for (i = 0; i < this.Direcciones.Count; i++)
+            {
+                jw.WriteStartObject();
+                jw.WritePropertyName("Calle");
+                jw.WriteValue(Direcciones[i].Calle);
+                jw.WritePropertyName("Numero");
+                jw.WriteValue(Direcciones[i].Numero);
+                jw.WriteEndObject();
+            }
+
+            jw.WriteEndArray();
+
+            //SERVICIOS
+            jw.WritePropertyName("Servicios");
+            jw.WriteStartArray();
+
+            int j;
+            j = 0;
+
+            for (j = 0; j < this.Servicios.Count; j++)
+            {
+                jw.WriteStartObject();                
+                jw.WritePropertyName("TipoVehiculo");
+                jw.WriteValue(Servicios[j].TipoVehiculoStr);
+                jw.WritePropertyName("Capacidad");
+                jw.WriteValue(Servicios[j].Capacidad);
+                jw.WriteEndObject();
+            }
+
+            jw.WriteEndArray();
+
+            //HORARIOS
+            jw.WritePropertyName("Horarios");
+            jw.WriteStartArray();
+
+            int k;
+            k = 0;
+
+            for (k = 0; k < this.Horarios.Count; k++)
+            {
+                jw.WriteStartObject();                
+                jw.WritePropertyName("Dia");
+                jw.WriteValue(Horarios[k].DiaAtencionStr);
+                jw.WritePropertyName("HoraDesde");
+                jw.WriteValue(Horarios[k].HoraDesde);
+                jw.WritePropertyName("HoraHasta");
+                jw.WriteValue(Horarios[k].HoraHasta);
+                jw.WriteEndObject();
+            }
+
+            jw.WriteEndArray();            
+
+            //PRECIOS
+            jw.WritePropertyName("Precios");
+            jw.WriteStartArray();
+
+            int l;
+            l = 0;
+
+            for (l = 0; l < this.Precios.Count; l++)
+            {
+                jw.WriteStartObject();               
+                jw.WritePropertyName("TipoVehiculo");
+                jw.WriteValue(Precios[l].TipoVehiculoStr);
+                jw.WritePropertyName("Dia");
+                jw.WriteValue(Precios[l].DiaAtencionStr);
+                jw.WritePropertyName("Tiempo");
+                jw.WriteValue(Precios[l].TiempoStr);
+                jw.WritePropertyName("Monto");
+                jw.WriteValue(Precios[l].Monto);
+                jw.WriteEndObject();
+            }
+
+            jw.WriteEndArray(); 
+
+            jw.WriteEndObject();
+
+            return sb.ToString();
+        }
     }
 }
+    
+

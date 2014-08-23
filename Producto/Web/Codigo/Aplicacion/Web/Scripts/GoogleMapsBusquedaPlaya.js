@@ -256,6 +256,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
         var playas = (typeof response.d) == 'string' ?
                            eval('(' + response.d + ')') :
                            response.d;
+        alert(response);
 
         if (playas.length == 0)
             alert("No se encontraron resultados con los filtros seleccionados");
@@ -293,7 +294,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
             contenido += "<div><h6>PRECIOS<h6></div>";
             var precios = eval(playas[i].Precios);
             for (var m = 0; m < precios.length; m++) {
-                contenido += "<div>Tipo Vehiculo: " + precios[m].Vehiculo + " - Dia: " + precios[m].Dia + " - Tiempo: " + precios[m].Tiempo + " - Monto: " + precios[m].Monto + "</div>";
+                contenido += "<div>Tipo Vehiculo: " + precios[m].TipoVehiculo + " - Dia: " + precios[m].Dia + " - Tiempo: " + precios[m].Tiempo + " - Monto: " + precios[m].Monto + "</div>";
             }
 
             //creamos el marcador                      
