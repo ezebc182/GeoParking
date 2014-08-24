@@ -493,16 +493,14 @@ namespace Web
             if (resultado.Ok)
             {
                 Exito = "La playa fue eliminada correctamente.";
+                ActualizarGrilla();
             }
             else
             {
                 Error = resultado.MensajesString();
             }
         }
-
         #endregion
         #endregion
     }
-
-
 }

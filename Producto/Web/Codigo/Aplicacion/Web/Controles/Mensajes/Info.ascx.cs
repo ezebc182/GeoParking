@@ -71,6 +71,5 @@ namespace SIRAD.Web.Controls.Alerts
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "MensajeModal", "$(function() { Alerta_openModalInfo(); });", true);
         }
-
     }
 }
