@@ -73,10 +73,10 @@ function loadScript() {
 function codeAddress() {
 
     deleteMarkers();
-    var calle = $('#txtCalle').val();
-    var numero = $('#txtNumero').val();
-    var ciudad = $("#ddlCiudad").children("option").filter(":selected").text();
-    var provincia = $('#ddlProvincia').children("option").filter(":selected").text();
+    var calle = $('[id*=txtCalle]').first().val();
+    var numero = $('[id*=txtNumero]').first().val();
+    var ciudad = $("[id*=ddlCiudad]").first().children("option").filter(":selected").text();
+    var provincia = $('[id*=ddlProvincia]').first().children("option").filter(":selected").text();
     var address = (calle === "" ? "" : calle + " " + numero + ", ") + (ciudad !== "" ? ciudad + ", " : ciudad) + provincia + ", Argentina";
 
     geocoder.geocode({ 'address': address }, function (results, status) {
