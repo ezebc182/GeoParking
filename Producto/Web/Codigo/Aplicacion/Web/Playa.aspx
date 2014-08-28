@@ -336,9 +336,7 @@
     <script>
         $(document).ready(function () {
 
-            $('.formulario').bootstrapValidator({
-
-            });
+            $('.formulario').bootstrapValidator();
             /*Al iniciar cuenta las filas que tiene cargada la tabla. Client-side */
             contarFilas();
 
@@ -373,6 +371,8 @@
 
         pageManager = Sys.WebForms.PageRequestManager.getInstance();
         pageManager.add_endRequest(function () {
+
+            $('.formulario').bootstrapValidator();
 
             $('#txtLatitud').val($('latitud').val())
             $('#txtLongitud').val($('longitud').val())
