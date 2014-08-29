@@ -14,8 +14,8 @@ var infowindow = new google.maps.InfoWindow({
 //INICIALIZA EL MAPA AL CARGAR LA PAGINA
 function initialize() {
 
-    //var ciudad = <%=ciudadBuscada%>;
-    //document.getElementById('txtBuscar').value =ciudad;
+        //recupera el nombre de la ciudad buscada
+        buscarCiudadSession();
 
         //variable para la busqueda con una direccion
         geocoder = new google.maps.Geocoder();
@@ -43,7 +43,25 @@ function initialize() {
 
         //recuperamos las playas de la ciudad
         getPlayas();
-    }
+}
+
+//BUSCA LA CIUDAD EN LA SESSION
+function buscarCiudadSession() {
+    //consulta Ajax para recuperar la session
+    $.ajax({
+        type: "POST",
+        url: "BusquedaPlaya.aspx/ObtenerCiudadSession",
+        data: '{}',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            document.getElementById('txtBuscar').value = response.d;
+        },
+        error: function (response) {
+            alert('ERROR ' + response.status + ' ' + response.statusText);
+        }
+    });
+}
 
 //AGREGA UN PUNTO DE INTERES A PARTIR DE UN CLICK EN EL MAPA
 function dibujarPunto(event) {
@@ -392,5 +410,6 @@ $(function () {
         $('#marcarPunto').click(function () {
             marcarPunto();
         });
-    });
+});
+
 

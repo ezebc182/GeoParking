@@ -38,7 +38,7 @@ namespace Web
 
                 if (Session["ciudad"] != null)
                 {
-                    ciudadBuscada = Session["ciudad"].ToString();
+                    ciudadBuscada = Session["ciudad"].ToString();                    
                 }
 
                 //cargo los combos de los filtros
@@ -130,6 +130,16 @@ namespace Web
                 master.MostrarMensajeInformacion(TipoMensajeEnum.MensajeModal, "No hay resultados para los filtros aplicados", "Resultado Busqueda");
             }
             return playasFiltradas;
+        }
+
+        /// <summary>
+        /// Busca el nombre de la ciudad buscada en la session
+        /// </summary>
+        /// <returns>ciudad de la session</returns>
+        [WebMethod]
+        public static string ObtenerCiudadSession()
+        {
+            return ciudadBuscada;
         }
 
     }
