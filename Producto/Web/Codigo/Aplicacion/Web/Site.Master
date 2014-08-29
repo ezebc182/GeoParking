@@ -92,12 +92,12 @@
                            {
                         %>
                         <li>
-                            <h5 style="color: white; margin-top: 16px;"><span class="glyphicon glyphicon-user"></span>
+                            <h5 style="color: black; margin-top: 16px;"><span class="glyphicon glyphicon-user"></span>
                                 <strong>
                                     <asp:Label ID="lblLogin" runat="server"></asp:Label>
                                     |
                                 <asp:LinkButton ID="btnCerrarSesion" OnClick="btnCerrarSesion_Click" Text="Cerrar Sesion"
-                                    ForeColor="White" runat="server"></asp:LinkButton>
+                                    ForeColor="Black" runat="server"></asp:LinkButton>
                                 </strong></h5>
                         </li>
                         <% } %>

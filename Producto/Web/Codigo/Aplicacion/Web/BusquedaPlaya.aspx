@@ -74,13 +74,12 @@
                     <!-- Text input-->
                     <div class="form-group">
                         <div class="col-md-12 col-sm-12 col-lg-12">
-                            <%-- <label class="col-md-4 control-label" for="txtCalle">Dirección</label>--%>
+                            
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-road"></span></span>
                                 <div class="input-group">
                                     <input id="txtCalle" name="txtCalle" type="text" placeholder="Dirección"
-                                        class="form-control"
-                                        required="">
+                                        class="form-control">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn-warning btn pull-right"
                                             id="marcarPunto">
@@ -99,8 +98,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-star"></span>
                                 </span>
-                                <%--<label class="col-md-4 control-label" for="ddlTipoPlaya">Tipo
-        de playa</label>--%>
+                              
 
                                 <asp:DropDownList ID="ddlTipoPlaya" CssClass="form-control"
                                     runat="server" ClientIDMode="Static">
@@ -116,9 +114,7 @@
                                 <span class="input-group-addon"><span class="glyphicon
     glyphicon-align-justify"></span>
                                 </span>
-                                <%-- <label class="col-md-4 control-label" for="ddlTipoVehiculo">Tipo
-        de vehículo</label>--%>
-
+                              
                                 <asp:DropDownList ID="ddlTipoVehiculo" CssClass="form-control"
                                     runat="server" ClientIDMode="Static">
                                 </asp:DropDownList>
@@ -132,8 +128,7 @@
                                 <span class="input-group-addon"><span class="glyphicon
     glyphicon-calendar"></span>
                                 </span>
-                                <%--<label class="col-md-4 control-label" for="ddlDiasAtencion">Días
-        atención</label>--%>
+                              
 
                                 <asp:DropDownList ID="ddlDiasAtencion" CssClass="form-control"
                                     runat="server" ClientIDMode="Static">
@@ -147,9 +142,9 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon
     glyphicon-usd"></span></span>
-                                <%--<label class="col-md-4 control-label" for="txtMinPrecio">Precios</label>--%>
-                                <input id="txtMinPrecio" name="txtMinPrecio" class="form-control" placeholder="Desde"
-                                     data-bv-numeric-separator="," data-bv-numeric-message="Ingrese un precio válido."  min="0" data-bv-greaterThan-message="Ingrese un valor numérico">
+                              
+                                <input id="txtMinPrecio" name="txtMinPrecio" class="form-control" placeholder="0"
+                                    data-bv-regexp-message="Ingrese un valor válido" pattern="[+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*)(?:[eE][+-]?\d+)?"  data-bv-lessThan-inclusive="true" data-bv-lessThan-message="Precio desde debe ser menor que precio hasta" data-bv-lessThan-value="txtMaxPrecio ">
                             </div>
                         </div>
 
@@ -158,9 +153,9 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon
     glyphicon-usd"></span></span>
-                                <%--<label class="col-md-4 control-label" for="txtMaxPrecio">Precios</label>--%>
-                                <input id="txtMaxPrecio" name="txtMaxPrecio" class="form-control" placeholder="Hasta"
-                                     data-bv-numeric-separator="," data-bv-numeric-message="Ingrese un precio válido."  min="0" data-bv-greaterThan-message="Ingrese un valor numérico">
+                              
+                                <input id="txtMaxPrecio" name="txtMaxPrecio" class="form-control" placeholder="10"
+                                       data-bv-regexp-message="Ingrese un valor válido" pattern="[+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*)(?:[eE][+-]?\d+)?"  data-bv-greaterThan-inclusive="true" data-bv-greaterThan-message="Precio hasta debe ser mayor que precio desde" data-bv-greaterThan-value="txtMinPrecio">
                             </div>
                         </div>
                     </div>
@@ -171,22 +166,22 @@
                             <div class="input-group">
                                 <span class=" input-group-addon"><span class="glyphicon
         glyphicon-time"></span></span>
-                                <%--<label class="col-md-4 control-label" for="ddlHoraDesde">Horarios</label>--%>
+                              
                                 <asp:DropDownList ID="ddlHoraDesde" CssClass="form-control"
                                     runat="server" ClientIDMode="Static">
-                                    <asp:ListItem Value="0">00:00</asp:ListItem>
-                                    <asp:ListItem Value="2">02:00</asp:ListItem>
-                                    <asp:ListItem Value="4">04:00</asp:ListItem>
-                                    <asp:ListItem Value="6">06:00</asp:ListItem>
-                                    <asp:ListItem Value="8">08:00</asp:ListItem>
-                                    <asp:ListItem Value="10">10:00</asp:ListItem>
-                                    <asp:ListItem Value="12">12:00</asp:ListItem>
-                                    <asp:ListItem Value="14">14:00</asp:ListItem>
-                                    <asp:ListItem Value="16">16:00</asp:ListItem>
-                                    <asp:ListItem Value="18">18:00</asp:ListItem>
-                                    <asp:ListItem Value="20">20:00</asp:ListItem>
-                                    <asp:ListItem Value="22">22:00</asp:ListItem>
-                                    <asp:ListItem Value="23">24:00</asp:ListItem>
+                                    <asp:ListItem Value="0">00</asp:ListItem>
+                                    <asp:ListItem Value="2">02</asp:ListItem>
+                                    <asp:ListItem Value="4">04</asp:ListItem>
+                                    <asp:ListItem Value="6">06</asp:ListItem>
+                                    <asp:ListItem Value="8">08</asp:ListItem>
+                                    <asp:ListItem Value="10">10</asp:ListItem>
+                                    <asp:ListItem Value="12">12</asp:ListItem>
+                                    <asp:ListItem Value="14">14</asp:ListItem>
+                                    <asp:ListItem Value="16">16</asp:ListItem>
+                                    <asp:ListItem Value="18">18</asp:ListItem>
+                                    <asp:ListItem Value="20">20</asp:ListItem>
+                                    <asp:ListItem Value="22">22</asp:ListItem>
+                                    <asp:ListItem Value="23">24</asp:ListItem>
                                 </asp:DropDownList>
 
                             </div>
@@ -198,21 +193,21 @@
                             <div class="input-group">
                                 <span class=" input-group-addon"><span class="glyphicon
     glyphicon-time"></span></span>
-                                <%--<label class="col-md-4 control-label" for="ddlHoraHasta">Horarios</label>--%>
+                             
                                 <asp:DropDownList ID="ddlHoraHasta" CssClass="form-control" runat="server" ClientIDMode="Static">
-                                    <asp:ListItem Value="0">00:00</asp:ListItem>
-                                    <asp:ListItem Value="2">02:00</asp:ListItem>
-                                    <asp:ListItem Value="4">04:00</asp:ListItem>
-                                    <asp:ListItem Value="6">06:00</asp:ListItem>
-                                    <asp:ListItem Value="8">08:00</asp:ListItem>
-                                    <asp:ListItem Value="10">10:00</asp:ListItem>
-                                    <asp:ListItem Value="12">12:00</asp:ListItem>
-                                    <asp:ListItem Value="14">14:00</asp:ListItem>
-                                    <asp:ListItem Value="16">16:00</asp:ListItem>
-                                    <asp:ListItem Value="18">18:00</asp:ListItem>
-                                    <asp:ListItem Value="20">20:00</asp:ListItem>
-                                    <asp:ListItem Value="22">22:00</asp:ListItem>
-                                    <asp:ListItem Value="23" Selected="True">24:00</asp:ListItem>
+                                    <asp:ListItem Value="0">00</asp:ListItem>
+                                    <asp:ListItem Value="2">02</asp:ListItem>
+                                    <asp:ListItem Value="4">04</asp:ListItem>
+                                    <asp:ListItem Value="6">06</asp:ListItem>
+                                    <asp:ListItem Value="8">08</asp:ListItem>
+                                    <asp:ListItem Value="10">10</asp:ListItem>
+                                    <asp:ListItem Value="12">12</asp:ListItem>
+                                    <asp:ListItem Value="14">14</asp:ListItem>
+                                    <asp:ListItem Value="16">16</asp:ListItem>
+                                    <asp:ListItem Value="18">18</asp:ListItem>
+                                    <asp:ListItem Value="20">20</asp:ListItem>
+                                    <asp:ListItem Value="22">22</asp:ListItem>
+                                    <asp:ListItem Value="23" Selected="True">24</asp:ListItem>
                                 </asp:DropDownList>
                             </div>
                         </div>
@@ -222,117 +217,7 @@
             </div>
 
 
-            <!--Busqueda Avanzada-->
-            <%--  <h4 class="legend">Búsqueda Avanzada</h4>
-            <div class="form-group">
-                <label for="direccion" class=" control-label pull-left">Dirección</label>
-    <div class="col-md-10" id="direccion">
-                    <div class="input-group">
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-road"></span></span>
-    <asp:TextBox ID="txtCalle" CssClass="form-control" runat="server" ClientIDMode="Static"
-    placeholder="Nombre calle"></asp:TextBox>
-                    <asp:TextBox ID="txtNumero" CssClass="form-control" runat="server"
-    ClientIDMode="Static"
-                        placeholder="Número"></asp:TextBox>
-                    </div> 
-                </div>
-               <button type="button" class="btn-warning btn pull-right" id="marcarPunto">
-    <span class="glyphicon glyphicon-map-marker"></span>
-                </button>
-            </div>
-            <div class="form-group">
-                <!--Direccion-->
-                <label for="ddlTipoPlaya" class=" control-label pull-left">Tipo de playa</label>
-    <asp:DropDownList ID="ddlTipoPlaya" CssClass="form-control" runat="server" ClientIDMode="Static">
-    </asp:DropDownList>
-
-            </div>
-            <div class="form-group">
-
-                <!--Tipo de Vehiculo-->
-                <label for="ddlTipoVehiculo" class="control-label col-sm-2">Tipo de
-    vehiculo</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-align-justify"></span></span>
-    <asp:DropDownList ID="ddlTipoVehiculo" CssClass="form-control" runat="server" ClientIDMode="Static">
-    </asp:DropDownList>
-                </div>
-            </div>
-            <div class="form-group">
-
-                <!--Rango de Precios-->
-                <label for="precios" class="col-sm-2 control-label">Precios</label>
-    <div class="col-md-10" id="precios">
-                    <br />
-                    <div class="input-group">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-usd"></span></span>
-    <asp:TextBox ID="txtMinPrecio" CssClass="form-control" runat="server" ClientIDMode="Static"
-    type="number" min="0" max="999" placeholder="Precio desde"></asp:TextBox>
-                    </div>
-                    <div class="input-group">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-usd"></span></span>
-    <asp:TextBox ID="txtMaxPrecio" CssClass="form-control" runat="server" ClientIDMode="Static"
-    type="number" min="0" max="999" placeholder="Precio hasta"></asp:TextBox>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group" id="diasAtencion">
-                <!--Dias de Atencion-->
-                <label for="ddlDiasAtencion" class="col-sm-2 control-label">Días</label>
-    <div class="input-group">              
-                
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-    <asp:DropDownList ID="ddlDiasAtencion" CssClass="form-control" runat="server" ClientIDMode="Static">
-    </asp:DropDownList>
-                </div>
-            </div>
-            <div class="form-group">
-                <!--Rango de Horario-->
-                <label for="horarios" class="col-sm-2 control-label">Horarios</label>
-    <br />
-                <div id="horarios" class="col-md-10">
-                    <%--<input type="time" id="ddlHoraDesde" class="form-control" />
-    <input type="time" id="ddlHoraHasta" class="form-control" />
-            <div class="input-group">
-                <span class=" input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
-    <asp:DropDownList ID="ddlHoraDesde" CssClass="form-control" runat="server" ClientIDMode="Static">
-    <asp:ListItem Value="0">00:00</asp:ListItem>
-                        <asp:ListItem Value="2">02:00</asp:ListItem>
-                        <asp:ListItem Value="4">04:00</asp:ListItem>
-                        <asp:ListItem Value="6">06:00</asp:ListItem>
-                        <asp:ListItem Value="8">08:00</asp:ListItem>
-                        <asp:ListItem Value="10">10:00</asp:ListItem>
-                        <asp:ListItem Value="12">12:00</asp:ListItem>
-                        <asp:ListItem Value="14">14:00</asp:ListItem>
-                        <asp:ListItem Value="16">16:00</asp:ListItem>
-                        <asp:ListItem Value="18">18:00</asp:ListItem>
-                        <asp:ListItem Value="20">20:00</asp:ListItem>
-                        <asp:ListItem Value="22">22:00</asp:ListItem>
-                        <asp:ListItem Value="23">24:00</asp:ListItem>
-                    </asp:DropDownList>
-                </div>
-                      <div class="input-group">
-                <span class=" input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
-    <asp:DropDownList ID="ddlHoraHasta" CssClass="form-control" runat="server" ClientIDMode="Static">
-    <asp:ListItem Value="0">00:00</asp:ListItem>
-                        <asp:ListItem Value="2">02:00</asp:ListItem>
-                        <asp:ListItem Value="4">04:00</asp:ListItem>
-                        <asp:ListItem Value="6">06:00</asp:ListItem>
-                        <asp:ListItem Value="8">08:00</asp:ListItem>
-                        <asp:ListItem Value="10">10:00</asp:ListItem>
-                        <asp:ListItem Value="12">12:00</asp:ListItem>
-                        <asp:ListItem Value="14">14:00</asp:ListItem>
-                        <asp:ListItem Value="16">16:00</asp:ListItem>
-                        <asp:ListItem Value="18">18:00</asp:ListItem>
-                        <asp:ListItem Value="20">20:00</asp:ListItem>
-                        <asp:ListItem Value="22">22:00</asp:ListItem>
-                        <asp:ListItem Value="23" Selected="True">24:00</asp:ListItem>
-    </asp:DropDownList>
-                          </div>
-                </div>
-            </div>
-
-            <!--Buscar-->--%>
+            <!--Buscar-->
 
             <input type="button" class="btn-primary btn btn-block" value="Filtrar"
                 id="btnBuscar" />
@@ -363,7 +248,9 @@
     <script>
         var cantClick = 0;
         $(document).ready(function () {
-
+            $("#admUsuarios").addClass("hidden");
+            $("#admPlayas").addClass("hidden");
+            $("#admPOI").addClass("hidden");
             agrandarMapa();
             
 
