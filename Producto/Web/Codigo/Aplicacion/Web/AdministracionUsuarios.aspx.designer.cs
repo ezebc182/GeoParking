@@ -13,6 +13,15 @@ namespace Web {
     public partial class AdministracionUsuarios {
         
         /// <summary>
+        /// Control panelNuevoRol.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panelNuevoRol;
+        
+        /// <summary>
         /// Control txtNombre.
         /// </summary>
         /// <remarks>
@@ -31,13 +40,13 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox txtDescripcion;
         
         /// <summary>
-        /// Control btnGuardar.
+        /// Control panelAsignarRol.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuardar;
+        protected global::System.Web.UI.WebControls.Panel panelAsignarRol;
         
         /// <summary>
         /// Control ddlUsuario.
@@ -58,22 +67,22 @@ namespace Web {
         protected global::System.Web.UI.WebControls.DropDownList ddlRol;
         
         /// <summary>
-        /// Control btnGuardarAsignacion.
+        /// Control panelAsignarPermiso.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuardarAsignacion;
+        protected global::System.Web.UI.WebControls.Panel panelAsignarPermiso;
         
         /// <summary>
-        /// Control DropDownList1.
+        /// Control ddlRolPermisos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRolPermisos;
         
         /// <summary>
         /// Control cblPermiso.
@@ -85,13 +94,22 @@ namespace Web {
         protected global::System.Web.UI.WebControls.CheckBoxList cblPermiso;
         
         /// <summary>
-        /// Control Button1.
+        /// Control panelBotones.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Panel panelBotones;
+        
+        /// <summary>
+        /// Control btnGuardar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGuardar;
         
         /// <summary>
         /// Control btnCancelar.

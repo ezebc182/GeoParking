@@ -16,27 +16,36 @@ namespace Web
         GestorUsuario gestorUsuario;
         SiteMaster master;
         protected void Page_Load(object sender, EventArgs e)
-        
         {
             gestorUsuario = new GestorUsuario();
             master = (SiteMaster)Master;
             if (!Page.IsPostBack)
             {
-                //cargarComboRol();
-                //cargarListadoCheckBoxPermisos();
-                //cblPermiso.Enabled = false;
-                //btnGuardar.Enabled = false;
-                //cargarComboUsuario();
+                string action = Request.QueryString["action"];
+                panelBotones.Visible = true;
+                switch (action)
+                {
+                    case "NuevoRol":
+                        CargarPanelNuevoRol();
+                        break;
+                    case "AsignarRol":
+                        CargarPanelAsignarRol();
+                        break;
+                    case "AsignarPermiso":
+                        CargarPanelAsignarPermiso();
+                        break;
+                    default: break;
+                }
             }
         }
-
-        protected void btnGuardar_Click(object sender, EventArgs e)
+        #region PanelNuevoRol
+        private void CargarPanelNuevoRol()
         {
-            crearRol();
-            txtDescripcion.Text = "";
-            txtNombre.Text = "";
+            panelNuevoRol.Visible = true;
+            panelAsignarRol.Visible = false;
+            panelAsignarPermiso.Visible = false;
+            
         }
-
         private void crearRol()
         {
             Rol rolNuevo = new Rol();
@@ -45,40 +54,46 @@ namespace Web
             gestorRol.CrearRol(rolNuevo);
         }
         
-        
+        #endregion
+
+        #region PanelAsignarRol
+        private void CargarPanelAsignarRol()
+        {
+            panelNuevoRol.Visible = false;
+            panelAsignarRol.Visible = true;
+            panelAsignarPermiso.Visible = false;
+            cargarComboUsuario();
+        }
         protected void ddlUsuario_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlUsuario.SelectedIndex != 0)
             {
-                cargarComboRol();
+                cargarComboRolUsuario();
                 ddlRol.Enabled = true;
             }
             else
             {
-                limpiarComponentes();
+                limpiarComponentesAsignarRol();
             }
         }
-        private bool hayCambiosPorGuardar()
+        private bool hayCambiosPorGuardarEnAsignarRol()
         {
             Usuario usuarioSeleccionado = gestorUsuario.BuscarUsuarioPorId(int.Parse(ddlUsuario.SelectedValue));
             return usuarioSeleccionado.RolId != int.Parse(ddlRol.SelectedValue);
 
         }
-        public void limpiarComponentes()
+        public void limpiarComponentesAsignarRol()
         {
             ddlRol.SelectedIndex = 0;
             ddlUsuario.SelectedIndex = 0;
             ddlRol.Enabled = false;
             btnGuardar.Enabled = false;
         }
-
-
         private void cargarComboUsuario()
         {
             FormHelper.CargarCombo(ddlUsuario, gestorUsuario.BuscarUsuarios(), "NombreUsuario", "Id", "Seleccione");
         }
-
-        private void cargarComboRol()
+        private void cargarComboRolUsuario()
         {
             FormHelper.CargarCombo(ddlRol, gestorUsuario.BuscarRoles(), "Nombre", "Id", "Seleccione");
             if (ddlUsuario.SelectedIndex != 0)
@@ -90,16 +105,22 @@ namespace Web
                 }
             }
         }
-
-        public int IdUsuarioSeleccionado
+        private void guardarRolAUsuario()
         {
-            get { return string.IsNullOrEmpty(ddlUsuario.SelectedValue) ? 0 : Convert.ToInt32(ddlUsuario.SelectedValue); }
-            set { ddlUsuario.SelectedValue = value.ToString(); }
+            try
+            {
+                gestorUsuario.AsigarRolAUsuario(int.Parse(ddlUsuario.SelectedValue), int.Parse(ddlRol.SelectedValue));
+                master.MostrarMensajeInformacion("El rol '" + ddlRol.SelectedItem.Text + "' ha sido asignado al usuario '" + ddlUsuario.SelectedItem.Text + "'", "Rol guardado con éxito.");
+                limpiarComponentesAsignarRol();
+            }
+            catch (Exception)
+            {
+                master.MostrarMensajeError("No se pudo asignar el rol '" + ddlRol.SelectedItem.Text + "' al usuario '" + ddlUsuario.SelectedItem.Text + "'", "Error al guardar el rol");
+            }
         }
-
         protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlRol.SelectedIndex != 0 && hayCambiosPorGuardar())
+            if (ddlRol.SelectedIndex != 0 && hayCambiosPorGuardarEnAsignarRol())
             {
                 btnGuardar.Enabled = true;
             }
@@ -108,31 +129,22 @@ namespace Web
                 btnGuardar.Enabled = false;
             }
         }
+        #endregion
 
-       
-
-        private void guardar()
+        #region PanelAsignarPermiso
+        private void CargarPanelAsignarPermiso()
         {
-            try
-            {
-                gestorUsuario.AsigarRolAUsuario(int.Parse(ddlUsuario.SelectedValue), int.Parse(ddlRol.SelectedValue));
-                master.MostrarMensajeInformacion("El rol '" + ddlRol.SelectedItem.Text + "' ha sido asignado al usuario '" + ddlUsuario.SelectedItem.Text + "'", "Rol guardado con éxito.");
-                limpiarComponentes();
-            }
-            catch (Exception)
-            {
-                master.MostrarMensajeError("No se pudo asignar el rol '" + ddlRol.SelectedItem.Text + "' al usuario '" + ddlUsuario.SelectedItem.Text + "'", "Error al guardar el rol");
-            }
-
-
+            panelNuevoRol.Visible = false;
+            panelAsignarRol.Visible = false;
+            panelAsignarPermiso.Visible = true;
+            CargarComboRolPermisos();
+            cargarListadoCheckBoxPermisos();
+            cblPermiso.Enabled = false;
         }
-
-        protected void btnGuardarAsignacion_Click(object sender, EventArgs e)
+        private void CargarComboRolPermisos()
         {
-            guardar();
+            FormHelper.CargarCombo(ddlRolPermisos, gestorUsuario.BuscarRoles(), "Nombre", "Id", "Seleccione");
         }
-
-
         private void cargarListadoCheckBoxPermisos()
         {
             IList<Permiso> permisos = gestorRol.BuscarPermisos();
@@ -140,21 +152,20 @@ namespace Web
             cblPermiso.DataTextField = "Nombre";
             cblPermiso.DataValueField = "Id";
             cblPermiso.DataBind();
-            if (ddlRol.SelectedIndex != 0)
+            if (ddlRolPermisos.SelectedIndex != 0 && ddlRolPermisos.SelectedIndex != -1)
             {
                 seleccionarPermisosDeRol();
             }
         }
         private void seleccionarPermisosDeRol()
         {
-            Rol rol = gestorRol.BuscarRol(int.Parse(ddlRol.SelectedValue));
+            Rol rol = gestorRol.BuscarRol(int.Parse(ddlRolPermisos.SelectedValue));
             rol.Permisos = gestorRol.BuscarPermisosPorRol(rol);
             foreach (Permiso permiso in rol.Permisos)
             {
                 cblPermiso.Items.FindByValue(permiso.Id.ToString()).Selected = true;
             }
         }
-
         private void LimpiarCheckboxListPermisos()
         {
             for (int i = 0; i < cblPermiso.Items.Count; i++)
@@ -162,30 +173,12 @@ namespace Web
                 cblPermiso.Items[i].Selected = false;
             }
         }
-
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            if (ddlRol.SelectedIndex != 0)
-            {
-                AsignarPermisosARol();
-            }
-            ddlRol.SelectedIndex = 0;
-            LimpiarCheckboxListPermisos();
-            cblPermiso.Enabled = false;
-        }
-
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
-            LimpiarCheckboxListPermisos();
-            ddlRol.SelectedIndex = -1;
-        }
-
         private void AsignarPermisosARol()
         {
             Rol rolSeleccionado = tomarRolSeleccionado();
             IList<Permiso> permisos = tomarPermisosSeleccionados();
 
-            if (hayCambiosPorGuardar(rolSeleccionado, permisos))
+            if (hayCambiosPorGuardarAsignarPermiso(rolSeleccionado, permisos))
             {
                 //rolSeleccionado.Permisos = permisos;
                 foreach (Permiso permiso in permisos)
@@ -213,14 +206,18 @@ namespace Web
             {
                 master.MostrarMensajeError(
                     "No se encontraron cambios para el rol'"
-                    + ddlRol.SelectedItem.Text + "'",
+                    + ddlRolPermisos.SelectedItem.Text + "'",
                     "Error al guardar el rol");
             }
 
         }
         private Rol tomarRolSeleccionado()
         {
-            return gestorRol.BuscarRol(int.Parse(ddlRol.SelectedValue));
+            return gestorRol.BuscarRol(int.Parse(ddlRolPermisos.SelectedValue));
+        }
+        protected void cblPermiso_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnGuardar.Enabled = ddlRolPermisos.SelectedIndex != 0 && hayCambiosPorGuardarAsignarPermiso(tomarRolSeleccionado(), tomarPermisosSeleccionados());
         }
         private IList<Permiso> tomarPermisosSeleccionados()
         {
@@ -234,7 +231,7 @@ namespace Web
             }
             return permisos;
         }
-        private bool hayCambiosPorGuardar(Rol rolSeleccionado, IList<Permiso> permisos)
+        private bool hayCambiosPorGuardarAsignarPermiso(Rol rolSeleccionado, IList<Permiso> permisos)
         {
             bool diferencia = false;
             if (permisos.Count != rolSeleccionado.Permisos.Count)
@@ -257,7 +254,7 @@ namespace Web
         protected void ddlRol_SelectedIndexChanged1(object sender, EventArgs e)
         {
             LimpiarCheckboxListPermisos();
-            if (ddlRol.SelectedIndex != 0)
+            if (ddlRolPermisos.SelectedIndex != 0)
             {
                 cblPermiso.Enabled = true;
                 seleccionarPermisosDeRol();
@@ -267,12 +264,55 @@ namespace Web
                 cblPermiso.Enabled = false;
             }
         }
+        #endregion
+        
+        
 
-        protected void cblPermiso_SelectedIndexChanged(object sender, EventArgs e)
+        protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            btnGuardar.Enabled = ddlRol.SelectedIndex != 0 && hayCambiosPorGuardar(tomarRolSeleccionado(), tomarPermisosSeleccionados());
+            if (panelNuevoRol.Visible)
+            {
+                crearRol();
+                txtDescripcion.Text = "";
+                txtNombre.Text = "";
+            }
+            else if (panelAsignarRol.Visible)
+            {
+                guardarRolAUsuario();
+            }
+            else if (panelAsignarPermiso.Visible)
+            {
+                if (ddlRolPermisos.SelectedIndex != 0)
+                {
+                    AsignarPermisosARol();
+                }
+                ddlRolPermisos.SelectedIndex = 0;
+                LimpiarCheckboxListPermisos();
+                cblPermiso.Enabled = false;
+            }
         }
-
-
+        public int IdUsuarioSeleccionado
+        {
+            get { return string.IsNullOrEmpty(ddlUsuario.SelectedValue) ? 0 : Convert.ToInt32(ddlUsuario.SelectedValue); }
+            set { ddlUsuario.SelectedValue = value.ToString(); }
+        }
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            if (panelNuevoRol.Visible)
+            {
+                txtDescripcion.Text = "";
+                txtNombre.Text = "";
+            }
+            else if (panelAsignarRol.Visible)
+            {
+                limpiarComponentesAsignarRol();
+            }
+            else if (panelAsignarPermiso.Visible)
+            {
+                LimpiarCheckboxListPermisos();
+                ddlRolPermisos.SelectedIndex = -1;
+                cblPermiso.Enabled = false;
+            }
+        }
     }
 }
