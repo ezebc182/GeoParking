@@ -45,32 +45,12 @@ namespace Datos
             RepositorioPermiso repoPermisos = new RepositorioPermiso();
             using (var contexto = new ContextoBD())
             {
-                //var lista = repoPermisos.FindWhere(p => p.Roles.Any(r => r.Id == t.Id));
-                //foreach (var permiso in t.Permisos)
-                //{
-                //    lista.Add(new Permiso { Id = permiso.Id, Acceso = permiso.Acceso, FechaAlta = permiso.FechaAlta, Nombre = permiso.Nombre, Url = permiso.Url, Roles = new List<Rol>(), FechaBaja = permiso.FechaBaja });
-                //    permiso.Roles.Clear();
-                //}
-                //var currentEntity = FindById(t.Id);
-                //var entry = contexto.Entry(currentEntity);
-                
-                //currentEntity.Permisos.Clear();
-                //entry.CurrentValues.SetValues(currentEntity);
-                //entry.State = System.Data.Entity.EntityState.Modified;
-                //contexto.SaveChanges();
-                //t.Permisos = lista;
-                //entry.CurrentValues.SetValues(t);
-                //entry.State = System.Data.Entity.EntityState.Modified;
-                ////DbSet.Attach(t);
-                //t.Permisos.Clear();
-
                 contexto.UpdateGraph(t, map => map
                     .AssociatedCollection(r => r.Permisos));
                 foreach (var permiso in t.Permisos)
                 {
                     contexto.UpdateGraph(permiso, map => map
                     .AssociatedCollection(p => p.Roles));
-                
                 }
                 return contexto.SaveChanges();
             }
