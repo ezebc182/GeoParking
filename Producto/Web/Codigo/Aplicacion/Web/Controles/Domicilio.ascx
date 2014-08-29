@@ -52,18 +52,16 @@
                             </div>
                             <label for="txtNumero" class="col-sm-1 col-md-1 col-lg-1 control-label">Número</label>
                             <div class="col-sm-2 col-md-2 col-lg-2">
-                                <asp:TextBox runat="server" type="number" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="La altura es requerida." ID="txtNumero" />
+                                <asp:TextBox runat="server" type="number" min="0" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="La altura es requerida." ID="txtNumero" />
                             </div>
                             <div class="col-sm-1 col-md-1 col-lg-1">
-                                <button id="btnBuscarEnMapa" runat="server" class="glyphicon glyphicon-map-marker btn btn-warning pull-right"
-                                    tooltip="Buscar en mapa" onclick="codeAddress()" />
+                                <button id="btnBuscarEnMapa" runat="server" class="glyphicon glyphicon-map-marker btn btn-lg btn-warning pull-right"
+                                    tooltip="Buscar en mapa" onclick="codeAddress()" style="height:34px;" />
                                 <asp:TextBox runat="server"  ID="txtDireccion" CssClass="hidden" />
                             </div>
 
-
-
                             <div class="form-group">
-                                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                                <span class="col-sm-2 col-md-2 col-lg-2"></span>
                                 <div id="pnlMapa" class="col-sm-10 col-md-10 col-lg-10">
                                     <div id="map-canvas"></div>
                                 </div>
