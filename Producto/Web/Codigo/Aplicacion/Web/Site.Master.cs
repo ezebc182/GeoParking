@@ -19,6 +19,8 @@ namespace Web
         {
             gestor = new GestorUsuario();
             msjConfirmacion.Si += ConfirmarMensaje;
+            msjConfirmacion.No += CancelarMensaje;
+
             if (SessionUsuario != null)
             {
                 lblLogin.Text = SessionUsuario.NombreUsuario;
@@ -27,59 +29,118 @@ namespace Web
 
         #region mensajes
         #region MensajeInformacion
+        /// <summary>
+        /// Setea el mensaje a mostrar
+        /// </summary>
+        /// <param name="mensaje">Mensaje a mostrar</param>
         public void MostrarMensajeInformacion(string mensaje)
         {
             MostrarMensajeInformacion(TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje");
         }
-        
+        /// <summary>
+        /// Setea el mensaje a mostrar
+        /// </summary>
+        /// <param name="tipo">Alerta, modal o ambas</param>
+        /// <param name="mensaje">mensaje</param>
         public void MostrarMensajeInformacion(TipoMensajeEnum tipo, string mensaje)
         {
             MostrarMensajeInformacion(tipo, mensaje, "Mensaje");
         }
+        /// <summary>
+        /// Setea el mensaje a mostrar
+        /// </summary>
+        /// <param name="mensaje">Mensaje</param>
+        /// <param name="titulo">Titulo</param>
         public void MostrarMensajeInformacion(string mensaje, string titulo)
         {
             MostrarMensajeInformacion(TipoMensajeEnum.MostrarAlertaYModal, mensaje, titulo);
         }
-
+        /// <summary>
+        /// Setea el mensaje a mostrar
+        /// </summary>
+        /// <param name="tipo">Alerta, modal o ambas</param>
+        /// <param name="mensaje">mensaje</param>
+        /// <param name="titulo">titulo del modal</param>
         public void MostrarMensajeInformacion(TipoMensajeEnum tipo, string mensaje, string titulo)
         {
             msjInfo.MostrarMensaje(tipo, mensaje, titulo);
         }
 #endregion
         #region MensajeError
-        
+        /// <summary>
+        /// Setea el mensaje a mostrar
+        /// </summary>
+        /// <param name="mensaje">mensaje</param>
         public void MostrarMensajeError( string mensaje)
         {
             MostrarMensajeError(TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje");
         }
+        /// <summary>
+        /// Setea el mensaje a mostrar
+        /// </summary>
+        /// <param name="tipo">Alerta,modal o ambas</param>
+        /// <param name="mensaje">mensaje</param>
         public void MostrarMensajeError(TipoMensajeEnum tipo, string mensaje)
         {
             MostrarMensajeError(tipo, mensaje, "Mensaje");
         }
+        /// <summary>
+        /// Setea el mensaje a mostrar
+        /// </summary>
+        /// <param name="mensaje">mensaje</param>
+        /// <param name="titulo">titulo del modal</param>
         public void MostrarMensajeError(string mensaje, string titulo)
         {
             MostrarMensajeError(TipoMensajeEnum.MostrarAlertaYModal, mensaje, titulo);
         }
-
+        /// <summary>
+        /// Setea el mensaje a mostrar
+        /// </summary>
+        /// <param name="tipo">Alerta, Modal o Ambos</param>
+        /// <param name="mensaje">mennsaje</param>
+        /// <param name="titulo">titulo</param>
         public void MostrarMensajeError(TipoMensajeEnum tipo, string mensaje, string titulo)
         {
             msjError.MostrarMensaje(tipo, mensaje, titulo);
         }
         #endregion
         #region MensajeConfirmacion
+        /// <summary>
+        /// Setea el mensaje a mostrar
+        /// </summary>
+        /// <param name="mensaje">mensaje</param>
+        /// <param name="eventoConfirmacion">evento que se llama si se confirma</param>
         public void MostrarMensajeConfirmacion(string mensaje, EventHandler eventoConfirmacion)
         {
             MostrarMensajeConfirmacion(mensaje, "Mensaje", eventoConfirmacion, CancelacionMensaje);
         }
+        /// <summary>
+        /// Setea el mensaje a mostrar
+        /// </summary>
+        /// <param name="mensaje">mensaje</param>
+        /// <param name="eventoConfirmacion">evento que se llama si se confirma</param>
+        /// <param name="eventoCancelacion">evento que se llama si no se confirma</param>
         public void MostrarMensajeConfirmacion(string mensaje, EventHandler eventoConfirmacion, EventHandler eventoCancelacion)
         {
             MostrarMensajeConfirmacion(mensaje, "Mensaje", eventoConfirmacion, eventoCancelacion);
         }
-
+        /// <summary>
+        /// Setea el mensaje a mostrar
+        /// </summary>
+        /// <param name="mensaje">mensaje</param>
+        /// <param name="titulo">titulo</param>
+        /// <param name="eventoConfirmacion">evento que se llama si se confirma</param>
         public void MostrarMensajeConfirmacion(string mensaje, string titulo, EventHandler eventoConfirmacion)
         {
             MostrarMensajeConfirmacion(mensaje, titulo, eventoConfirmacion, CancelacionMensaje);
         }
+        /// <summary>
+        /// Setea el mensaje a mostrar
+        /// </summary>
+        /// <param name="mensaje">mensaje</param>
+        /// <param name="titulo">titulo</param>
+        /// <param name="eventoConfirmacion">evento que se llama si se confirma</param>
+        /// <param name="eventoCancelacion">evento que se llama si no se confirma</param>
         public void MostrarMensajeConfirmacion(string mensaje, string titulo, EventHandler eventoConfirmacion, EventHandler eventoCancelacion)
         {
             ConfirmarMensaje = eventoConfirmacion;
@@ -87,11 +148,17 @@ namespace Web
             msjConfirmacion.MostrarMensaje(mensaje, titulo);
         }
         #endregion
+        /// <summary>
+        /// Guarda el evento que se debe llamar si se confirma
+        /// </summary>
         public EventHandler ConfirmarMensaje
         {
             get { return (EventHandler)Session["EventoConfirmacion"]; }
             set { Session["EventoConfirmacion"] = value; }
         }
+        /// <summary>
+        /// Guarda el evento que se debe llamar si no se confirma
+        /// </summary>
         public EventHandler CancelarMensaje
         {
             get { return (EventHandler)Session["EventoCancelacion"]; }
