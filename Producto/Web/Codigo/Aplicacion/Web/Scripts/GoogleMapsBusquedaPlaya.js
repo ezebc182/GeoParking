@@ -81,7 +81,7 @@ function marcarPunto() {
     deleteCirculos();
 
     //toma, arma y la direccion y la busca
-    var address = document.getElementById('txtCalle').value + " " + document.getElementById('txtNumero').value + "," + document.getElementById('txtBuscar').value ;
+    var address = document.getElementById('txtDireccion').value + "," + document.getElementById('txtBuscar').value;
     geocoder.geocode({ 'address': address }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);

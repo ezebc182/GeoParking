@@ -78,8 +78,10 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-road"></span></span>
                                 <div class="input-group">
-                                    <input id="txtCalle" name="txtCalle" type="text" placeholder="Dirección"
+
+                                    <input id="txtDireccion" name="txtCalle" type="text" placeholder="Dirección"
                                         class="form-control">
+
                                     <span class="input-group-btn">
                                         <button type="button" class="btn-warning btn pull-right"
                                             id="marcarPunto">
