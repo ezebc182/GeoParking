@@ -36,7 +36,7 @@
     <form runat="server" class="container">
 
         <!-- Barra de navegación-->
-        <div class="col-12" style="height: 50px">
+        <div class="col-12" >
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
                 <!-- El logotipo y el icono que despliega el menú se agrupan
 			       para mostrarlos mejor en los dispositivos móviles -->
@@ -55,12 +55,21 @@
 
                 <!-- Agrupar los enlaces de navegación, los formularios y cualquier
 			       otro elemento que se pueda ocultar al minimizar la barra -->
-                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <div class="collapse navbar-collapse ">
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="./Playa.aspx">Administración de playas</a></li>
-                        <li><a href="./AdministracionUsuarios.aspx">Administración de usuarios</a></li>
-                        <li class="dropdown disabled">
+                        <li id="admPlayas"><a href="./Playa.aspx">Administración de playas</a></li>
+                        <li id="admUsuarios" class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administración de usuarios 
+                                 <b class="caret"></b>
+                            </a>
+                             <ul class="dropdown-menu">
+                                <li><a href="AdministracionUsuarios.aspx?action=NuevoRol">Nuevo Rol</a></li>
+                                <li><a href="AdministracionUsuarios.aspx?action=AsignarRol">Asignar rol a usuario</a></li>                                
+                                <li><a href="AdministracionUsuarios.aspx?action=AsignarPermiso">Asignar permiso a rol</a></li>
+                            </ul>
+                        </li>
+                        <li id="admPOI"class="dropdown disabled">
                             <a href="#" class="disabled dropdown-toggle" data-toggle="dropdown">Administración POI
                                 <b class="caret"></b>
                             </a>
@@ -74,8 +83,8 @@
                         <% var usuario = Session["Usuario"];
                            if (Session["Usuario"] == null)
                            { %>
-                        <li><a href="#login" data-keyboard="false" data-backdrop="static" data-toggle="modal"
-                            data-target="#login">Ingresar</a></li>
+                        <li><a  href="#login" data-keyboard="false" data-backdrop="static" data-toggle="modal"
+                            data-target="#login"><b>Ingresar</b></a></li>
                         <% }
                            else
                            {

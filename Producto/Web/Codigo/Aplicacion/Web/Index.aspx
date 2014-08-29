@@ -38,23 +38,9 @@
      <!--Scripts para autocomplete (no eliminar)-->
     <script src="Scripts/Autocomplete.js"></script>   
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
-   <script src="./Scripts/grayscale.js"></script>
-    
-
-    <%--    <div id="imagenPricipal">
-        <asp:Image ID="imagen" class="img-thumbnail" runat="server" ImageUrl="~/img/Banner.png" ImageAlign="Middle" />
-    </div>
-    <div class="buscadrPrincipal">
-        <div class="col-sm-4 col-md-4 col-lg-4 text-center"></div>
-        <!--Eliminar esta columna-->
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            <asp:TextBox ID="txtBuscar" CssClass="form-control input-lg autosuggest" runat="server" ClientIDMode="Static"></asp:TextBox>
-        </div>
-        <div class="col-sm-2 col-md-2 col-lg-2">
-            <asp:Button ID="btnBuscar" CssClass="btn-primary btn btn-lg" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4"></div>
-        <!--Eliminar esta columna-->
-    </div>  
-    --%>
+   <script>
+       $("#admUsuarios").addClass("hidden");
+       $("#admPlayas").addClass("hidden");
+       $("#admPOI").addClass("hidden");
+   </script>
 </asp:Content>

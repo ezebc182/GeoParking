@@ -86,6 +86,7 @@ namespace Web
             string playasDeCiudad = geoServicio.ObtenerPlayasDeCiudad(ciudadBuscada);
             if (playasDeCiudad=="[]")
             {
+                
                 master.MostrarMensajeInformacion("No hay resultados para la ciudad seleccionada", "Resultado Busqueda");                
             }
             return playasDeCiudad;
