@@ -47,7 +47,7 @@
                             <div class="form-group">
                                 <label for="txtPrecio" class="col-sm-2 col-md-2 col-lg-2 control-label">Precio</label>
                                 <div class="col-sm-10 col-md-10 col-lg-10">
-                                    <asp:TextBox runat="server" CssClass="form-control " data-bv-numeric-separator="," data-bv-numeric-message="Ingrese un precio válido."  ID="txtPrecio" min="0" data-bv-greaterThan-message="Ingrese un valor numérico"/>
+                                    <asp:TextBox runat="server" CssClass="form-control " data-bv-numeric-separator="," data-bv-numeric-message="Ingrese un precio válido."  ID="txtPrecio"  data-bv-greaterThan-message="Ingrese un valor numérico"   data-bv-regexp-message="Ingrese un valor válido" pattern="[+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*)(?:[eE][+-]?\d+)?"/>
                                 </div>
                             </div>
                             <div class="form-group pull-right">

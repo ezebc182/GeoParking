@@ -1,25 +1,16 @@
 ﻿/*Estilos del Mapa*/
 
-      /*body{        
-        text-align: center;
-        margin: 0px;
-        padding: 0px;
-        
-      }
-
-      .todo
-      {
-        text-align: center;
-      }*/
-
-      #map-canvas {
-        width: 900px;
-        height: 427px;
-     
-     
-        border-radius: 5px;
-     
-      }
+#busquedaAvanzada
+{
+    height:427px !important;
+}
+#map-canvas
+{
+    width: 900px;
+    height: 427px;
+    margin-top: 0;
+    border-radius: 5px;
+}
 
 
 #panel
