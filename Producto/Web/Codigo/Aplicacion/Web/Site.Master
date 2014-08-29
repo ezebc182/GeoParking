@@ -17,6 +17,9 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css" type="text/css">
+    <!-- glyphicons extra -->
+
+    <link href="Bootstrap/css/bootstrap.icon-large.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="./Styles/MapaAbmPlaya.css" type="text/css">
     <link rel="stylesheet" href="./Styles/bootstrapValidator.min.css" type="text/css" />
     <!-- Media Queries-->

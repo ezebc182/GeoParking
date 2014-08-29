@@ -61,6 +61,8 @@
     <Content Include="AdministracionUsuarios.aspx" />
     <Content Include="AsignarPermisoARol.aspx" />
     <Content Include="AsignarRol.aspx" />
+    <Content Include="Bootstrap\css\bootstrap.icon-large.min.css" />
+    <Content Include="Bootstrap\fonts\glyphicons.png" />
     <Content Include="BusquedaPlaya.aspx" />
     <Content Include="Controles\Servicio.ascx" />
     <Content Include="Controles\Horarios.ascx" />

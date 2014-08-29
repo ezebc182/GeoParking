@@ -54,7 +54,7 @@ namespace Web
         /// </summary>
         public void CargarComboTiposPlayas()
         {
-            FormHelper.CargarCombo(ddlTipoPlaya, gestor.BuscarTipoPlayas(), "Nombre", "Id", "Seleccione");
+            FormHelper.CargarCombo(ddlTipoPlaya, gestor.BuscarTipoPlayas(), "Nombre", "Id", "Tipo de playa");
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Web
         /// </summary>
         public void CargarComboTiposVehiculos()
         {
-            FormHelper.CargarCombo(ddlTipoVehiculo, gestor.BuscarTipoVehiculos(), "Nombre", "Id", "Seleccione");
+            FormHelper.CargarCombo(ddlTipoVehiculo, gestor.BuscarTipoVehiculos(), "Nombre", "Id", "Tipo de vehículo");
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Web
         /// </summary>
         public void CargarComboDiasAtencion()
         {
-            FormHelper.CargarCombo(ddlDiasAtencion, gestor.BuscarDiasDeAtencion(), "Nombre", "Id", "Seleccione");
+            FormHelper.CargarCombo(ddlDiasAtencion, gestor.BuscarDiasDeAtencion(), "Nombre", "Id", "Días de atención");
         }
 
         /// <summary>

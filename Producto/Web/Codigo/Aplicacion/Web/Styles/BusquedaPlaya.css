@@ -1,6 +1,6 @@
 ﻿/*Estilos del Mapa*/
 
-      body{        
+      /*body{        
         text-align: center;
         margin: 0px;
         padding: 0px;
@@ -10,26 +10,26 @@
       .todo
       {
         text-align: center;
-      }
+      }*/
 
       #map-canvas {
         width: 900px;
-        height: 500px;
-        text-align: center;
-        border:5px;
+        height: 427px;
+     
+     
         border-radius: 5px;
-        border-color: black;
-        border-style: groove;
+     
       }
 
 
-      #panel {
-        position: absolute;
-        top: 5px;
-        left: 50%;
-        margin-left: -180px;
-        z-index: 5;
-        background-color: #fff;
-        padding: 5px;
-        border: 1px solid #999;
-      }
+#panel
+{
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    margin-left: -180px;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+}
