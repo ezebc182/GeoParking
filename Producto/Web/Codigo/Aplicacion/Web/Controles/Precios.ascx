@@ -11,9 +11,11 @@
             <h3 class="panel-title">Precios</h3>
         </div>
         <div class="panel-body">
+            
             <asp:UpdatePanel runat="server" ID="upFormulario">
+                
                 <ContentTemplate>
-
+                    <div class="formulario" data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok" data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
                     <div id="divSeccionFormulario" runat="server" class=" ">
                         <div class="form-horizontal" role="form">
 
@@ -45,7 +47,7 @@
                             <div class="form-group">
                                 <label for="txtPrecio" class="col-sm-2 col-md-2 col-lg-2 control-label">Precio</label>
                                 <div class="col-sm-10 col-md-10 col-lg-10">
-                                    <asp:TextBox type="number" min="0" runat="server" CssClass="form-control " data-bv-numeric-separator="," data-bv-numeric-message="Ingrese un precio válido."  ID="txtPrecio" />
+                                    <asp:TextBox runat="server" CssClass="form-control " data-bv-numeric-separator="," data-bv-numeric-message="Ingrese un precio válido."  ID="txtPrecio" min="0" data-bv-greaterThan-message="Ingrese un valor numérico"/>
                                 </div>
                             </div>
                             <div class="form-group pull-right">
@@ -70,27 +72,12 @@
                             </Columns>
                         </asp:GridView>
                     </div>
+                        </div>
                 </ContentTemplate>
+                    
             </asp:UpdatePanel>
+                </div>
 
-        </div>
+        
     </div>
 </div>
-<script type="text/javascript">
-
-    function mostrarFormularioPrecio() {
-        //var mostrar = $('#TopContent_ucPrecios_divSeccionFormulario').hasClass("hidden");
-        //if (mostrar) {
-        //    $('#TopContent_ucPrecios_divSeccionFormulario').removeClass("hidden");
-        //    $('#TopContent_ucPrecios_divSeccionPrecio').addClass("hidden");
-        //    $('#TopContent_ucPrecios_btnAgregarPrecio').addClass("hidden");
-        //}
-        //else {
-        //    $('#TopContent_ucPrecios_divSeccionFormulario').addClass("hidden");
-        //    $('#TopContent_ucPrecios_divSeccionPrecio').removeClass("hidden");
-        //    $('#TopContent_ucPrecios_btnAgregarPrecio').removeClass("hidden");
-        //}
-
-    }
-
-</script>

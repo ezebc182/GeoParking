@@ -36,7 +36,7 @@
     <form runat="server" class="container">
 
         <!-- Barra de navegación-->
-        <div class="col-12" >
+        <div class="col-12" style="height: 60px;">
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
                 <!-- El logotipo y el icono que despliega el menú se agrupan
 			       para mostrarlos mejor en los dispositivos móviles -->
@@ -60,16 +60,18 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li id="admPlayas"><a href="./Playa.aspx">Administración de playas</a></li>
                         <li id="admUsuarios" class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administración de usuarios 
-                                 <b class="caret"></b>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administración de usuarios
+                                <b class="caret"></b>
                             </a>
-                             <ul class="dropdown-menu">
+                            <ul class="dropdown-menu">
                                 <li><a href="AdministracionUsuarios.aspx?action=NuevoRol">Nuevo Rol</a></li>
-                                <li><a href="AdministracionUsuarios.aspx?action=AsignarRol">Asignar rol a usuario</a></li>                                
-                                <li><a href="AdministracionUsuarios.aspx?action=AsignarPermiso">Asignar permiso a rol</a></li>
+                                <li><a href="AdministracionUsuarios.aspx?action=AsignarRol">Asignar rol a usuario</a>
+                                </li>
+                                <li><a href="AdministracionUsuarios.aspx?action=AsignarPermiso">Asignar permiso a rol</a>
+                                </li>
                             </ul>
                         </li>
-                        <li id="admPOI"class="dropdown disabled">
+                        <li id="admPOI" class="dropdown disabled">
                             <a href="#" class="disabled dropdown-toggle" data-toggle="dropdown">Administración POI
                                 <b class="caret"></b>
                             </a>
@@ -83,7 +85,7 @@
                         <% var usuario = Session["Usuario"];
                            if (Session["Usuario"] == null)
                            { %>
-                        <li><a  href="#login" data-keyboard="false" data-backdrop="static" data-toggle="modal"
+                        <li><a href="#login" data-keyboard="false" data-backdrop="static" data-toggle="modal"
                             data-target="#login"><b>Ingresar</b></a></li>
                         <% }
                            else
@@ -124,75 +126,75 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
-                            class="sr-only">Close</span></button>
+                        <button type="button" class="close" data-dismiss="modal" onclick="javascript:this.resetForm()">
+                            <span aria-hidden="true">&times;</span><span
+                                class="sr-only">Close</span></button>
                         <h4 class="modal-title text-center"><span class="glyphicon glyphicon-user"></span><strong>
                             Iniciar Sesion</strong></h4>
                     </div>
                     <div class="modal-body">
-                        <div class="row">
+                        <div class="formulario" data-bv-message="This value is not valid"
+                            data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                            data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                            data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                            <div class="row">
 
-                            <div class="col-lg-6 " style="padding-right: 10px; border-right: 1px solid #ccc;">
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <asp:TextBox ID="txtUsuarioLogin" placeholder="Usuario o E-mail" TabIndex="1" CssClass="form-control input-lg"
-                                            runat="server"></asp:TextBox>
-                                        <%--<asp:Label Enabled="false" runat="server" ForeColor="#a94442" class="control-label" Text=" Usuario o E-mail invalido" Visible="true"><span class="glyphicon glyphicon-remove" style="vertical-align:middle"> Usuario</span></asp:Label>--%>
-                                        <%--                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
-                                            ControlToValidate="txtUsuarioLogin"
-                                            ErrorMessage="Usuario o E-mail invalido"
-                                            ForeColor="#a94442"><span class="glyphicon glyphicon-remove" > Debe ingresar un Usuario o E-mail</span>
-                                        </asp:RequiredFieldValidator>--%>
+
+                                <div class="col-lg-6 " style="padding-right: 10px; border-right: 1px solid #ccc;">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <asp:TextBox ID="txtUsuarioLogin" placeholder="Usuario o E-mail" TabIndex="1" CssClass="form-control input-lg"
+                                                runat="server" data-bv-message="El usuario no es válido" name="username"
+                                                data-bv-notempty="true"
+                                                data-bv-notempty-message="Ingrese su usuario"></asp:TextBox>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <asp:TextBox ID="txtContraseñaLogin" AutoPostBack="false" placeholder="Contraseña"
+                                                TabIndex="2" CssClass="form-control input-lg" runat="server" TextMode="Password"
+                                                data-bv-notempty="true"
+                                                data-bv-notempty-message="Ingrese su contraseña"></asp:TextBox>
+
+                                        </div>
+                                    </div>
+
+                                    <asp:Button ID="btnIniciarSesion" Text="Iniciar Sesion" UseSubmitBehavior="false"
+                                        OnClick="btnIniciarSesion_Click" TabIndex="3" CssClass="btn btn-primary btn-block btn-sm"
+                                        runat="server" />
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <h4 class="modal-title text-center">¿No Tienes cuenta?</h4>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+
+                                            <button type="button" id="btnRegistrarse" class="btn btn-success btn-block btn-sm"
+                                                onclick="$('#registrar').modal({keyboard: false, show: true, backdrop: 'static'});">
+                                                Registrarse</button>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <ul>
+                                                <li><a href="#olvideContraseña">Olvidé mi contraseña.</a></li>
+                                                <li><a href="#olvideUsuario">Olvidé mi nombre de usuario.</a></li>
+                                                <li><a href="#mail">No me llegó el email de confirmación.</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <asp:TextBox ID="txtContraseñaLogin" AutoPostBack="false" placeholder="Contraseña"
-                                            TabIndex="2" CssClass="form-control input-lg" runat="server" TextMode="Password"></asp:TextBox>
-                                        <%--                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"
-                                            ControlToValidate="txtContraseñaLogin"
-                                            ErrorMessage="Usuario o E-mail invalido"
-                                            ForeColor="#a94442"><span class="glyphicon glyphicon-remove"> Debe ingresar una contraseña</span>
-                                        </asp:RequiredFieldValidator>--%>
-                                    </div>
-                                </div>
-
-                                <asp:Button ID="btnIniciarSesion" Text="Iniciar Sesion" UseSubmitBehavior="false"
-                                    OnClick="btnIniciarSesion_Click" TabIndex="3" CssClass="btn btn-primary btn-block btn-sm"
-                                    runat="server" />
                             </div>
 
-                            <div class="col-lg-6">
-                                <h4 class="modal-title text-center">¿No Tienes cuenta?</h4>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-
-                                        <button type="button" id="btnRegistrarse" class="btn btn-success btn-block btn-sm"
-                                            onclick="$('#registrar').modal({keyboard: false, show: true, backdrop: 'static'});">
-                                            Registrarse</button>
-
-                                        <button type="button" id="btnRegistrarse" class="btn btn-success btn-block btn-sm"
-                                            tabindex="4" onclick="AbrirModalRegistro()">Registrarse</button>
-
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <ul>
-                                            <li><a href="#olvideContraseña">Olvidé mi contraseña.</a></li>
-                                            <li><a href="#olvideUsuario">Olvidé mi nombre de usuario.</a></li>
-                                            <li><a href="#mail">No me llegó el email de confirmación.</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-
                     </div>
+                    <!-- /.modal-content -->
                 </div>
-                <!-- /.modal-content -->
+                <!-- /.modal-dialog -->
             </div>
-            <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
         <div class="modal fade" id="registrar">
@@ -205,66 +207,226 @@
                             Registro de Usuario - Complete con sus Datos</strong></h4>
                     </div>
                     <div class="modal-body">
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <asp:TextBox ID="txtNombre" placeholder="Nombre" CssClass="form-control input-lg"
-                                        runat="server" TabIndex="1"></asp:TextBox>
+                        <div class="formulario" data-bv-message="This value is not valid"
+                            data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                            data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                            data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <asp:TextBox ID="txtNombre" placeholder="Nombre" CssClass="form-control input-lg"
+                                            runat="server" TabIndex="1" data-bv-notempty="true"
+                                            data-bv-notempty-message="El nombre es requerido"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <asp:TextBox ID="txtApellido" placeholder="Apellido" CssClass="form-control input-lg"
+                                            runat="server" TabIndex="2" data-bv-notempty="true"
+                                            data-bv-notempty-message="El apellido es requerido"></asp:TextBox>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <asp:TextBox ID="txtApellido" placeholder="Apellido" CssClass="form-control input-lg"
-                                        runat="server" TabIndex="2"></asp:TextBox>
+                            <div class="form-group">
+                                <asp:TextBox ID="txtUsuarioRegistro" placeholder="Usuario" CssClass="form-control input-lg"
+                                    runat="server" TabIndex="3"
+                                    data-bv-message="El usuario no es válido" name="username"
+                                    data-bv-notempty="true"
+                                    data-bv-notempty-message="El nombre de usuario es requerido"
+                                    data-bv-regexp="true"
+                                    data-bv-regexp-regexp="^[a-zA-Z0-9_\.]+$"
+                                    data-bv-regexp-message="El nombre de usuario puede estar compuesto por letras, número"
+                                    data-bv-stringlength="true"
+                                    data-bv-stringlength-min="6"
+                                    data-bv-stringlength-max="30"
+                                    data-bv-stringlength-message="El nombre de usuario debe contener al menos 6 caracteres y hasta un máximo de 30"
+                                    data-bv-different="true"
+                                    data-bv-different-field="ctl00$txtContraseñaRepetir"
+                                    data-bv-different-message="El usuario y la contraseña no pueden ser iguales">
+
+                                </asp:TextBox>
+                            </div>
+                            <div class="form-group">
+                                <asp:TextBox ID="txtEmailRegistro" data-bv-notempty="true" data-bv-notempty-message="El email es requerido"
+                                    data-bv-emailaddress-message="Ingrese un formato de email correcto." placeholder="Email"
+                                    CssClass="form-control input-lg" type="email" runat="server" TextMode="Email"
+                                    TabIndex="4">
+
+                                </asp:TextBox>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div id="pass1" class="form-group">
+                                        <asp:TextBox ID="txtContraseña" placeholder="Contraseña" CssClass="form-control input-lg"
+                                            runat="server" TextMode="Password" TabIndex="5" data-bv-notempty="true" name="contraseña1"
+                                            data-bv-notempty-message="La contraseña es requerida"
+                                            data-bv-identical="true"
+                                            data-bv-identical-field="ctl00$txtContraseñaRepetir"
+                                            data-bv-identical-message="Las contraseñas no son iguales"
+                                            data-bv-different="true"
+                                            data-bv-different-field="ctl00$txtUsuarioRegistro"
+                                            data-bv-different-message="La contraseña no puede ser igual que el nombre de usuario">
+
+                                        </asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div id="pass2" class="form-group">
+                                        <asp:TextBox ID="txtContraseñaRepetir" name="contraseña2" placeholder="Repetir Contraseña"
+                                            CssClass="form-control input-lg"
+                                            runat="server" TextMode="Password" TabIndex="6"
+                                            data-bv-notempty="true"
+                                            data-bv-notempty-message="Confirme la contraseña"
+                                            data-bv-identical="true"
+                                            data-bv-identical-field="ctl00$txtContraseña"
+                                            data-bv-identical-message="Las contraseñas no son iguales"
+                                            data-bv-different="true"
+                                            data-bv-different-field="ctl00$txtUsuarioRegistro"
+                                            data-bv-different-message="La contraseña no puede ser igual que el nombre de usuario"></asp:TextBox>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <asp:TextBox ID="txtUsuarioRegistro" placeholder="Usuario" CssClass="form-control input-lg"
-                                runat="server" TabIndex="3"></asp:TextBox>
-                        </div>
-                        <div class="form-group">
-                            <asp:TextBox ID="txtEmailRegistro" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
-                                placeholder="Email" CssClass="form-control input-lg" runat="server" TextMode="Email"
-                                TabIndex="4"></asp:TextBox>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div id="pass1" class="form-group">
-                                    <asp:TextBox ID="txtContraseña" placeholder="Contraseña" CssClass="form-control input-lg"
-                                        runat="server" TextMode="Password" TabIndex="5"></asp:TextBox>
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <span class="button-checkbox">
+                                        <input id="chAceptar" type="checkbox" tabindex="7" onclick="javascript: validar()" />
+                                        Acepto terminos
+                                    </span>
                                 </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div id="pass2" class="form-group">
-                                    <asp:TextBox ID="txtContraseñaRepetir" placeholder="Repetir Contraseña" CssClass="form-control input-lg"
-                                        runat="server" TextMode="Password" TabIndex="6" onBlur="javascript:validarPasswords()"></asp:TextBox>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4 col-md-4">
-                                <span class="button-checkbox">
-                                    <input id="chAceptar" type="checkbox" tabindex="7">
-                                    Acepto terminos
-                                </span>
-                            </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8">
-                                Haciendo Click en <strong class="label label-primary">Registrar</strong>,usted acepta
-                                <a href="#" data-toggle="modal" data-target="#t_and_c_m">Terminos y Condiciones</a>
-                                de este sitio incluido el uso de Cookies.
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    Haciendo Click en <strong class="label label-primary">Registrar</strong>,usted acepta
+                                    <a href="#" data-toggle="modal" data-target="#t_and_c_m">Terminos y Condiciones</a>
+                                    de este sitio incluido el uso de Cookies.
 			
+                                </div>
                             </div>
-                        </div>
 
-                        <hr class="colorgraph">
-                        <div class="row">
-                            <div class="col-xs-12 col-md-12">
-                                <asp:Button ID="btnRegistrar" Text="Registrarse" Enabled="false" CssClass="btn btn-primary btn-block btn-lg"
-                                    runat="server" OnClick="btnRegistrar_Click" TabIndex="7" />
+                            <%-- <div class="formulario"
+                                data-bv-message="This value is not valid"
+                                data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Full name</label>
+                                    <div class="col-lg-4">
+                                        <input type="text" class="form-control" name="firstName" placeholder="First name"
+                                            data-bv-notempty="true"
+                                            data-bv-notempty-message="The first name is required and cannot be empty" />
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input type="text" class="form-control" name="lastName" placeholder="Last name"
+                                            data-bv-notempty="true"
+                                            data-bv-notempty-message="The last name is required and cannot be empty" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Username</label>
+                                    <div class="col-lg-5">
+                                        <input type="text" class="form-control" name="username"
+                                            data-bv-message="The username is not valid"
+                                            data-bv-notempty="true"
+                                            data-bv-notempty-message="The username is required and cannot be empty"
+                                            data-bv-regexp="true"
+                                            data-bv-regexp-regexp="^[a-zA-Z0-9_\.]+$"
+                                            data-bv-regexp-message="The username can only consist of alphabetical, number, dot and underscore"
+                                            data-bv-stringlength="true"
+                                            data-bv-stringlength-min="6"
+                                            data-bv-stringlength-max="30"
+                                            data-bv-stringlength-message="The username must be more than 6 and less than 30 characters long"
+                                            data-bv-different="true"
+                                            data-bv-different-field="password"
+                                            data-bv-different-message="The username and password cannot be the same as each other" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Email address</label>
+                                    <div class="col-lg-5">
+                                        <input class="form-control" name="email" type="email"
+                                            data-bv-emailaddress="true"
+                                            data-bv-emailaddress-message="The input is not a valid email address" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Password</label>
+                                    <div class="col-lg-5">
+                                        <input type="password" class="form-control" name="password"
+                                            data-bv-notempty="true"
+                                            data-bv-notempty-message="The password is required and cannot be empty"
+                                            data-bv-identical="true"
+                                            data-bv-identical-field="confirmPassword"
+                                            data-bv-identical-message="The password and its confirm are not the same"
+                                            data-bv-different="true"
+                                            data-bv-different-field="username"
+                                            data-bv-different-message="The password cannot be the same as username" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Retype password</label>
+                                    <div class="col-lg-5">
+                                        <input type="password" class="form-control" name="confirmPassword"
+                                            data-bv-notempty="true"
+                                            data-bv-notempty-message="The confirm password is required and cannot be empty"
+                                            data-bv-identical="true"
+                                            data-bv-identical-field="password"
+                                            data-bv-identical-message="The password and its confirm are not the same"
+                                            data-bv-different="true"
+                                            data-bv-different-field="username"
+                                            data-bv-different-message="The password cannot be the same as username" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Languages</label>
+                                    <div class="col-lg-5">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="languages[]" value="english"
+                                                    data-bv-message="Please specify at least one language you can speak"
+                                                    data-bv-notempty="true" />
+                                                English
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="languages[]" value="french" />
+                                                French
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="languages[]" value="german" />
+                                                German
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="languages[]" value="russian" />
+                                                Russian
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="languages[]" value="other" />
+                                                Other
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>--%>
+                            <hr class="colorgraph">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12">
+                                    <asp:Button ID="btnRegistrar" Text="Registrarse" Enabled="false" CssClass="btn btn-primary btn-block btn-lg"
+                                        runat="server" OnClick="btnRegistrar_Click" TabIndex="7" />
+                                </div>
                             </div>
-                        </div>
 
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -314,11 +476,7 @@
         $('#registrar').modal('show');
     }
 
-    function validarPasswords() {
-        if (!($('').val === $('').val)) {
-            document.getElementById().title = "Las contraseñas no coinciden";
-        }
-    }
+    $(".formulario").bootstrapValidator();
 </script>
 
 </html>

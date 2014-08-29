@@ -34,7 +34,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
 
 
-    <div>
+       <div class="formulario" data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok" data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
         <!--Cabecera con formulario para buscar en otra ciudad y cambiar el mapa-->
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="col-sm-4 col-md-4 col-lg-4">
@@ -65,7 +65,7 @@
 
 
         <div class="col-md-3 col-sm-3 col-lg-3 collapse well" id="busquedaAvanzada">
-            <div class="form-horizontal">
+            <div class="formulario form-horizontal" data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok" data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
                 <fieldset>
 
                     <!-- Form Name -->
@@ -149,7 +149,7 @@
     glyphicon-usd"></span></span>
                                 <%--<label class="col-md-4 control-label" for="txtMinPrecio">Precios</label>--%>
                                 <input id="txtMinPrecio" name="txtMinPrecio" class="form-control" placeholder="Desde"
-                                    type="text">
+                                     data-bv-numeric-separator="," data-bv-numeric-message="Ingrese un precio válido."  min="0" data-bv-greaterThan-message="Ingrese un valor numérico">
                             </div>
                         </div>
 
@@ -160,7 +160,7 @@
     glyphicon-usd"></span></span>
                                 <%--<label class="col-md-4 control-label" for="txtMaxPrecio">Precios</label>--%>
                                 <input id="txtMaxPrecio" name="txtMaxPrecio" class="form-control" placeholder="Hasta"
-                                    type="text">
+                                     data-bv-numeric-separator="," data-bv-numeric-message="Ingrese un precio válido."  min="0" data-bv-greaterThan-message="Ingrese un valor numérico">
                             </div>
                         </div>
                     </div>
@@ -369,6 +369,8 @@
 
 
         });
+
+        $(".formulario").bootstrapValidator();
         function agrandarMapa() {
             $("#map-canvas").css("width", "1070px");
             $("#map-canvas").css("height", "427px");            

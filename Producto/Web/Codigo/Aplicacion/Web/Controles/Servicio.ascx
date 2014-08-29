@@ -19,11 +19,11 @@
                             <div class="form-group">
                                 <label for="ddlTipoVehiculo" class="col-sm-2 col-md-2 col-lg-2 control-label">Tipo de Vehiculo</label>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <asp:DropDownList runat="server" CssClass="form-control" ID="ddlTipoVehiculo" data-bv-notempty="true" data-bv-notempty-message="Seleccione un tipo de vehículo." />
+                                    <asp:DropDownList runat="server" CssClass="form-control" ID="ddlTipoVehiculo" />
                                 </div>
                                 <label for="txtCapacidad" class="col-sm-2 col-md-2 col-lg-2 control-label">Capacidad</label>
                                 <div class="col-sm-2 col-md-2 col-lg-2">
-                                    <asp:TextBox runat="server" CssClass="form-control" ID="txtCapacidad" type="number" data-bv-integer-message="La capacidad debe ser un número entero." data-bv-notempty="true" data-bv-notempty-message="La capacidad es requerida." data-bv-regexp-regexp="^[0-9]" data-bv-regexp-message="Ingrese números." min="1" />
+                                    <asp:TextBox runat="server" CssClass="form-control" ID="txtCapacidad" data-bv-regexp-regexp="/^\d+$(\.\d+)?/g" data-bv-regexp-message="Ingrese números." min="0" data-bv-greaterThan-message="Ingrese un valor numérico" />
                                 </div>
 
                             </div>

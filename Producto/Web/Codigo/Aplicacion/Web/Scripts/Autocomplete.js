@@ -21,5 +21,6 @@ function SearchText() {
 }
 
 $(document).ready(function () {
+
     SearchText();
 });

@@ -43,7 +43,7 @@
 
             <asp:UpdatePanel runat="server" ID="upFormulario">
                 <ContentTemplate>
-                    <div id="divSeccionFormulario2" runat="server" class=" hidden ">
+                    <div id="divSeccionFormulario2" runat="server" class=" hidden formulario " data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok" data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
                         <div class="form-group">
                             <label for="txtCalle" class="col-sm-2 col-md-2 col-lg-2 control-label">Calle</label>
                             <div class="col-sm-6 col-md-6 col-lg-6">
@@ -51,11 +51,11 @@
                             </div>
                             <label for="txtNumero" class="col-sm-1 col-md-1 col-lg-1 control-label">Número</label>
                             <div class="col-sm-2 col-md-2 col-lg-2">
-                                <asp:TextBox runat="server" type="number" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="La altura es requerida." ID="txtNumero" />
+                                <asp:TextBox runat="server" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="La altura es requerida." ID="txtNumero" min="0" data-bv-greaterThan-message="Ingrese un valor numérico" />
                             </div>
                             <div class="col-sm-1 col-md-1 col-lg-1">
                                 <button id="btnBuscarEnMapa" runat="server" class="glyphicon glyphicon-map-marker btn btn-warning pull-right"
-                                    tooltip="Buscar en mapa" onclick="codeAddress()" />
+                                    tooltip="Buscar en mapa" onclick="codeAddress()"  style="height:34px;"/>
                                 <asp:TextBox runat="server" ID="txtDireccion" CssClass="hidden" />
                             </div>
                             <div class="form-group">
