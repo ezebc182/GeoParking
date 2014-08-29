@@ -1,8 +1,4 @@
 ﻿
-$(document).ready(function () {
-    SearchText();
-});
-
 function SearchText() {
     $(".autosuggest").autocomplete({
         source: function (request, response) {
@@ -13,7 +9,8 @@ function SearchText() {
                 data: "{'pre':'" + document.getElementById('txtBuscar').value + "'}",
                 dataType: "json",
                 success: function (data) {
-                    response(data.d);
+                    var array = eval(data.d);
+                    response(array);
                 },
                 error: function (result) {
                     alert("Error");
@@ -22,3 +19,7 @@ function SearchText() {
         }
     });
 }
+
+$(document).ready(function () {
+    SearchText();
+});
