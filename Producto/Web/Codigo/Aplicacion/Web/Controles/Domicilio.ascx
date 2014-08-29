@@ -14,8 +14,6 @@
             <asp:UpdatePanel runat="server" ID="UpdatePanel2">
                 <ContentTemplate>
                     <div id="divSeccionFormulario1" runat="server" class="hidden ">
-
-
                         <div class="form-group">
                             <label for="ddlProvincia" class="col-sm-2 col-md-2 col-lg-2 control-label">Provincia</label>
                             <div class="col-sm-10 col-md-10 col-lg-10">
@@ -25,27 +23,28 @@
                         <div class="form-group">
                             <label for="ddlDepartamento" class="col-sm-2 col-md-2 col-lg-2 control-label">Departamento</label>
                             <div class="col-sm-10 col-md-10 col-lg-10">
-                                <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ID="ddlDepartamento" 
+                                <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required" ID="ddlDepartamento"
                                     OnSelectedIndexChanged="ddlDepartamento_SelectedIndexChanged" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="ddlCiudad" class="col-sm-2 col-md-2 col-lg-2 control-label">Ciudad</label>
                             <div class="col-sm-10 col-md-10 col-lg-10">
-                                <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control required"  ID="ddlCiudad" />
+                                <asp:DropDownList runat="server" AutoPostBack="false" CssClass="form-control required" ID="ddlCiudad" />
                             </div>
                         </div>
                     </div>
                 </ContentTemplate>
 
             </asp:UpdatePanel>
-            <div class="form-group">
-                <asp:TextBox id="latitud" class="hidden" runat="server"/>
-                <asp:TextBox id="longitud" class="hidden" runat="server" />
-                <asp:UpdatePanel runat="server" ID="upFormulario">
-                    <ContentTemplate>
-                        <div id="divSeccionFormulario2" runat="server" class=" hidden ">
+            <asp:TextBox ID="latitud" class="hidden" runat="server" />
+            <asp:TextBox ID="longitud" class="hidden" runat="server" />
 
+
+            <asp:UpdatePanel runat="server" ID="upFormulario">
+                <ContentTemplate>
+                    <div id="divSeccionFormulario2" runat="server" class=" hidden ">
+                        <div class="form-group">
                             <label for="txtCalle" class="col-sm-2 col-md-2 col-lg-2 control-label">Calle</label>
                             <div class="col-sm-6 col-md-6 col-lg-6">
                                 <asp:TextBox runat="server" type="text" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="La calle es requerida." ID="txtCalle" />
@@ -57,11 +56,8 @@
                             <div class="col-sm-1 col-md-1 col-lg-1">
                                 <button id="btnBuscarEnMapa" runat="server" class="glyphicon glyphicon-map-marker btn btn-warning pull-right"
                                     tooltip="Buscar en mapa" onclick="codeAddress()" />
-                                <asp:TextBox runat="server"  ID="txtDireccion" CssClass="hidden" />
+                                <asp:TextBox runat="server" ID="txtDireccion" CssClass="hidden" />
                             </div>
-
-
-
                             <div class="form-group">
                                 <div class="col-sm-2 col-md-2 col-lg-2"></div>
                                 <div id="pnlMapa" class="col-sm-10 col-md-10 col-lg-10">
@@ -75,11 +71,11 @@
                                 <asp:LinkButton runat="server" ID="btnCancelar" CssClass="btn btn-lg" Text="<span class='glyphicon glyphicon-remove-circle'></span>" ForeColor="Red" BackColor="Transparent" OnClick="btnCancelar_Click" OnClientClick="ocultarPanel()" />
                             </div>
                         </div>
-
-                    </ContentTemplate>
-                </asp:UpdatePanel>
-            </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </div>
+
 
         <asp:UpdatePanel runat="server" ID="UpdatePanel3">
             <ContentTemplate>

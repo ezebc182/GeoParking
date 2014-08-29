@@ -29,6 +29,8 @@ namespace Web.GeoService {
     [System.Web.Services.WebServiceBindingAttribute(Name="Service1Soap", Namespace="http://tempuri.org/")]
     public partial class Service1 : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
+        private System.Threading.SendOrPostCallback GetNombreCiudadesOperationCompleted;
+        
         private System.Threading.SendOrPostCallback ObtenerPlayasDeCiudadOperationCompleted;
         
         private System.Threading.SendOrPostCallback ObtenerPlayasDeCiudadPorFiltroOperationCompleted;
@@ -72,10 +74,42 @@ namespace Web.GeoService {
         }
         
         /// <remarks/>
+        public event GetNombreCiudadesCompletedEventHandler GetNombreCiudadesCompleted;
+        
+        /// <remarks/>
         public event ObtenerPlayasDeCiudadCompletedEventHandler ObtenerPlayasDeCiudadCompleted;
         
         /// <remarks/>
         public event ObtenerPlayasDeCiudadPorFiltroCompletedEventHandler ObtenerPlayasDeCiudadPorFiltroCompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetNombreCiudades", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string GetNombreCiudades(string pre) {
+            object[] results = this.Invoke("GetNombreCiudades", new object[] {
+                        pre});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetNombreCiudadesAsync(string pre) {
+            this.GetNombreCiudadesAsync(pre, null);
+        }
+        
+        /// <remarks/>
+        public void GetNombreCiudadesAsync(string pre, object userState) {
+            if ((this.GetNombreCiudadesOperationCompleted == null)) {
+                this.GetNombreCiudadesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetNombreCiudadesOperationCompleted);
+            }
+            this.InvokeAsync("GetNombreCiudades", new object[] {
+                        pre}, this.GetNombreCiudadesOperationCompleted, userState);
+        }
+        
+        private void OnGetNombreCiudadesOperationCompleted(object arg) {
+            if ((this.GetNombreCiudadesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetNombreCiudadesCompleted(this, new GetNombreCiudadesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ObtenerPlayasDeCiudad", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -165,6 +199,32 @@ namespace Web.GeoService {
                 return true;
             }
             return false;
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.33440")]
+    public delegate void GetNombreCiudadesCompletedEventHandler(object sender, GetNombreCiudadesCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.33440")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetNombreCiudadesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetNombreCiudadesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
         }
     }
     

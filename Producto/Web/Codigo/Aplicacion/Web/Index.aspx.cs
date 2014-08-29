@@ -13,6 +13,9 @@ namespace Web
     {
         static GestorBusquedaPlayas gestor;
 
+        //Referencia al servicio web "GeoService"
+        private static GeoService.Service1 geoServicio = new GeoService.Service1();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             gestor = new GestorBusquedaPlayas();
@@ -25,17 +28,10 @@ namespace Web
         /// </summary>
         /// <param name="pre">prefijo o principio del nombre de la ciudad</param>
         /// <returns>Lista de string con nombre de ciudades que comienzan con "pre"</returns>
-        [WebMethod]        
-        public static List<string> GetNombreCiudades(string pre)
+        [WebMethod]
+        public static string GetNombreCiudades(string pre)
         {
-            //lista de normbres de payas
-            List<string> nombrePlayas = new List<string>();
-
-            //realizar la consulta y setear la lista
-            nombrePlayas = gestor.GetNombreCiudades(pre);
-
-            //retorna la lista
-            return nombrePlayas;
+            return geoServicio.GetNombreCiudades(pre);            
         }
 
         /// <summary>

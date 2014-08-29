@@ -109,7 +109,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </Content>
-    <Content Include="Web References\GeoService\GeoService.disco" />
+    <None Include="Web References\GeoService\GeoService.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -246,11 +246,11 @@
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Web References\GeoService\GeoService.wsdl" />
-    <Content Include="Web References\GeoService\Reference.map">
+    <None Include="Web References\GeoService\GeoService.wsdl" />
+    <None Include="Web References\GeoService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

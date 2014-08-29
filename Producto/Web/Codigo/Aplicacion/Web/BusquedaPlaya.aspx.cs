@@ -70,8 +70,11 @@ namespace Web
         /// </summary>
         public void CargarComboDiasAtencion()
         {
+
             FormHelper.CargarCombo(ddlDiasAtencion, gestor.BuscarDiasDeAtencion(), "Nombre", "Id", "Días de atención");
         }
+
+
 
         /// <summary>
         /// Buscar las playas de estacionamiento de la ciudad seleccionada en el Index

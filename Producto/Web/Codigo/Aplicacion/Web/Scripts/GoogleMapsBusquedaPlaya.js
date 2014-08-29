@@ -251,10 +251,7 @@ $(function () {
                 else {
                     var preciohasta = "0";
                 }
-
-
-                //var preciodesde = document.getElementById('txtMinPrecio').value;
-                //var preciohasta = document.getElementById('txtMaxPrecio').value;
+                
                 var horadesde = document.getElementById('ddlHoraDesde').value;
                 var horahasta = document.getElementById('ddlHoraHasta').value;   
                         
