@@ -19,14 +19,13 @@ namespace Web
         private static SiteMaster master;
 
         //Ciudad buscada por el usuario
-        private static String ciudadBuscada;
+        public static String ciudadBuscada;
 
         //gestor de busqueda de playas
         private static GestorBusquedaPlayas gestor;
 
         //Referencia al servicio web "GeoService"
         private static GeoService.Service1 geoServicio = new GeoService.Service1();
-
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -39,7 +38,6 @@ namespace Web
 
                 if (Session["ciudad"] != null)
                 {
-                    txtBuscar.Text = Session["ciudad"].ToString();
                     ciudadBuscada = Session["ciudad"].ToString();
                 }
 
@@ -75,13 +73,10 @@ namespace Web
             FormHelper.CargarCombo(ddlDiasAtencion, gestor.BuscarDiasDeAtencion(), "Nombre", "Id", "Seleccione");
         }
 
-        /*NOTA IMPORTANTE:
-         Se ha heliminado el codigo de busqueda y filtrado de playas, 
-         el mismo a pasado a formar parte de un servicio web "GeoService".
-         Por motivos de implementacion aun los meotodos de esta pagina se
-         siguen implementando como WebMethod, ya que aun no se puede realizar
-         la conexion directa de ajax al servicio web. Lo importante es que 
-         el codigo ya no esta en behind*/
+        /// <summary>
+        /// Buscar las playas de estacionamiento de la ciudad seleccionada en el Index
+        /// </summary>
+        /// <returns>Lista de playas de la ciudad</returns>
         [WebMethod]
         public static string ObtenerPlayasDeCiudad()
         {
@@ -93,6 +88,35 @@ namespace Web
             return playasDeCiudad;
         }
 
+        /// <summary>
+        /// Buscar las playas de estacionamiento de la nueva ciudad seleccionada
+        /// </summary>
+        /// <returns>Lista de playas de la ciudad</returns>
+        [WebMethod]
+        public static string ObtenerPlayasDeCiudadNueva(string ciudad)
+        {
+            ciudadBuscada = ciudad;
+
+            string playasDeCiudad = geoServicio.ObtenerPlayasDeCiudad(ciudadBuscada);
+            if (playasDeCiudad == "[]")
+            {
+                master.MostrarMensajeInformacion("No hay resultados para la ciudad seleccionada", "Resultado Busqueda");
+            }
+            return playasDeCiudad;
+        }
+
+        /// <summary>
+        /// Busca las playas de estacionamiento segun los criterios por
+        /// los que haya filtrado el usuario
+        /// </summary>
+        /// <param name="tipoPlaya">tipo de playa</param>
+        /// <param name="tipoVehiculo">tipo de vehiculo</param>
+        /// <param name="diaAtencion">dia de atencion</param>
+        /// <param name="precioDesde">precio minimo</param>
+        /// <param name="precioHasta">precio maximo</param>
+        /// <param name="horaDesde">hora de apertura</param>
+        /// <param name="horaHasta">hora de cierre</param>
+        /// <returns>Lista de playas que cumplan con los criterios especificados</returns>
         [WebMethod]
         public static string ObtenerPlayasDeCiudadPorFiltro(int tipoPlaya, int tipoVehiculo, int diaAtencion, string precioDesde, string precioHasta, int horaDesde, int horaHasta)
         {

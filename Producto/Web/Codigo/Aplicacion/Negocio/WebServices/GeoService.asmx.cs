@@ -41,7 +41,10 @@ namespace WebServices
                 json += p.ToJSONRepresentation() + ",";
             }
 
-            json = json.Substring(0, json.Length - 1);
+            if (playas.Count != 0)
+            {
+                json = json.Substring(0, json.Length - 1);
+            }
             json += "]";
 
             return json;
@@ -74,7 +77,10 @@ namespace WebServices
                 json += p.ToJSONRepresentation() + ",";
             }
 
-            json = json.Substring(0, json.Length - 1);
+            if (playas.Count != 0)
+            {
+                json = json.Substring(0, json.Length - 1);
+            }
             json += "]";
 
             return json;

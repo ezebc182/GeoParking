@@ -70,6 +70,7 @@
     <Content Include="Controles\Mensajes\Info.ascx" />
     <Content Include="Controles\Mensajes\Confirmacion.ascx" />
     <Content Include="img\Banner.png" />
+    <Content Include="img\maracdorParking.png" />
     <Content Include="img\parking1.jpg" />
     <Content Include="Index.aspx" />
     <Content Include="Playa.aspx" />
@@ -89,6 +90,7 @@
     <Content Include="Scripts\GoogleMaps.js" />
     <Content Include="Scripts\GoogleMapsBusquedaPlaya.js" />
     <Content Include="Scripts\horarios.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\paneles.js" />

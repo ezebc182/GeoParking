@@ -6,20 +6,31 @@
     <!--Estilos del mapa y su panel-->
     <link href="Styles/BusquedaPlaya.css" rel="stylesheet" />
 
+     <!--Estilo para el autocomplete-->
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+
     <!--Script de google mas-->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
     <!--Script jquery -->
     <script src="Scripts/jquery.min.js"></script>
+   
 
     <!--Script para el mapa de toda la pagina-->
-    <script src="Scripts/GoogleMapsBusquedaPlaya.js"></script>
+    <script src="Scripts/GoogleMapsBusquedaPlaya.js"></script> 
+     
+    <!--script de autocomplete-->
+    <script src="Scripts/Autocomplete.js"></script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="TopContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-
+  
+   <!--Scripts para autocomplete (no eliminar)-->
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
+   <script src="./Scripts/grayscale.js"></script>
+    
     <div>
         <br />
         <br />
@@ -28,11 +39,11 @@
         <!--Cabecera con formulario para buscar en otra ciudad y cambiar el mapa-->
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="col-sm-4 col-md-4 col-lg-4">
-                <asp:TextBox ID="txtBuscar" CssClass="form-control input-lg" placeholder="Buscar en otra ciudad..."
-                    runat="server" ClientIDMode="Static"></asp:TextBox>
+                <input type="text" class="form-control input-lg autosuggest" value="" id="txtBuscar" placeholder="Buscar en otra ciudad..." />
+                
             </div>
             <div class="col-sm-2 col-md-2 col-lg-2">
-                <input type="button" class="btn-primary btn btn-lg" value="Buscar" id="btnBuscarPorCiudad" />
+                <input type="button" class="btn-primary btn btn-lg" value="Filtrar" id="Button1" />
             </div>
             <div class="col-sm-2 col-md-2 col-lg-2">
                 <button type="button" class="btn-warning btn btn-lg" id="btnBusquedaAvanzada" data-toggle="collapse"

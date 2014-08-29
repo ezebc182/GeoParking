@@ -8,6 +8,8 @@
     <!--Estilo para el autocomplete-->
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 
+    <!--script de autocomplete-->
+    <script src="Scripts/Autocomplete.js"></script>
 
 </asp:Content>
 
@@ -33,40 +35,11 @@
         </div>
     </header>
 
-    <!--Scripts jquery del auto complete-->
-
-    <%--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>--%>
-
-<%--    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>--%>
-
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
-    <script src="./Scripts/grayscale.js"></script>
-    <!--Script de la funcion autocomplete-->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            SearchText();
-        });
-        function SearchText() {
-            $(".autosuggest").autocomplete({
-                source: function (request, response) {
-                    $.ajax({
-                        type: "POST",
-                        contentType: "application/json; charset=utf-8",
-                        url: "Index.aspx/GetNombreCiudades",
-                        data: "{'pre':'" + document.getElementById('txtBuscar').value + "'}",
-                        dataType: "json",
-                        success: function (data) {
-                            response(data.d);
-                        },
-                        error: function (result) {
-                            alert("Error");
-                        }
-                    });
-                }
-            });
-        }
-    </script>
-
+     <!--Scripts para autocomplete (no eliminar)-->
+    <script src="Scripts/Autocomplete.js"></script>   
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
+   <script src="./Scripts/grayscale.js"></script>
+    
 
     <%--    <div id="imagenPricipal">
         <asp:Image ID="imagen" class="img-thumbnail" runat="server" ImageUrl="~/img/Banner.png" ImageAlign="Middle" />

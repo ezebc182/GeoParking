@@ -40,11 +40,23 @@ namespace ReglasDeNegocio
             //busco los objeto ciudad, si el nombre comienza con el valor de "pre"
             IList<Ciudad> ciudades = gestorDireccion.BuscarCiudadesPorNombre(pre);
 
-            //recorro las ciudades y solo obtengo su nombre
-            foreach (var ciudad in ciudades)
-            {
-                nombreCiudades.Add(ciudad.Nombre);
-            }
+            int contador = 5;
+
+            if (ciudades.Count < 5)
+                contador = ciudades.Count;           
+
+            for (int i = 0; i < contador; i++)
+			{
+                nombreCiudades.Add(ciudades[i].Nombre);
+			 
+			}
+
+            ////recorro las ciudades y solo obtengo su nombre
+            //foreach (var ciudad in ciudades)
+            //{   
+            //    if()
+            //    nombreCiudades.Add(ciudad.Nombre);
+            //}
 
             //retorno la lista de nombres
             return nombreCiudades;

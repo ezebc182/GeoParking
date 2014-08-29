@@ -11,9 +11,11 @@ var infowindow = new google.maps.InfoWindow({
     content: ''
 });
 
+//INICIALIZA EL MAPA AL CARGAR LA PAGINA
+function initialize() {
 
-    //INICIALIZA EL MAPA AL CARGAR LA PAGINA
-    function initialize() {
+    //var ciudad = <%=ciudadBuscada%>;
+    //document.getElementById('txtBuscar').value =ciudad;
 
         //variable para la busqueda con una direccion
         geocoder = new google.maps.Geocoder();
@@ -115,7 +117,8 @@ function marcarPunto() {
 function addMarker(location) {
     var marker = new google.maps.Marker({
         position: location,
-        map: map
+        map: map,
+        icon: './img/maracdorParking.png'
     });
 
     //agrega informacion al marcador
@@ -173,30 +176,56 @@ function deleteCirculos() {
 
 //SETEA COMO METODO DE INICIO AL CARGAR LA PAGINA
 google.maps.event.addDomListener(window, 'load', initialize);
-
         
-    //AGREGAR MARCADORES DE LAS PLAYAS DE LA CIUDAD BUSCADA EN EL INDEX
-    function getPlayas() {
+//AGREGAR MARCADORES DE LAS PLAYAS DE LA CIUDAD BUSCADA EN EL INDEX
+function getPlayas() {
 
-        //peticionAjax
+            //peticionAjax
+            $.ajax({
+                type: "POST",
+                url: "BusquedaPlaya.aspx/ObtenerPlayasDeCiudad",
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    cargarPlayas(response);                   
+                },
+                error: function (result) {
+                    alert('ERROR ' + result.status + ' ' + result.statusText);
+                }
+            });
+}
+
+//METODO DE BUSQUEDA EN CIUDAD NUEVA
+$(function () {
+    $('#Button1').click(function () {
+
+        //borramos los marcadores de busquedas anteriores
+        deleteMarkers();
+
+        //tomo el valor de la nueva ciudad
+        var ciudadNueva = document.getElementById('txtBuscar').value;
+
+        //consulta Ajax con la ciudad nueva como parametro
         $.ajax({
             type: "POST",
-            url: "BusquedaPlaya.aspx/ObtenerPlayasDeCiudad",
-            data: "{}",
+            url: "BusquedaPlaya.aspx/ObtenerPlayasDeCiudadNueva",
+            data: '{ciudad:"'+ciudadNueva+'"}',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                cargarPlayas(response);                   
+                cargarPlayas(response);
             },
-            error: function (result) {
-                alert('ERROR ' + result.status + ' ' + result.statusText);
+            error: function (response) {
+                alert('ERROR ' + response.status + ' ' + response.statusText);
             }
         });
-    }
 
-            
-        //METODO DE BUSQUEDA POR FILTROS
-        $(function () {
+    });
+});
+ 
+//METODO DE BUSQUEDA POR FILTROS
+$(function () {
             $('#btnBuscar').click(function () {
 
                 //borramos los marcadores de busquedas anteriores
@@ -207,15 +236,17 @@ google.maps.event.addDomListener(window, 'load', initialize);
                 var tipovehiculo = document.getElementById('ddlTipoVehiculo').value;
                 var diaatencion = document.getElementById('ddlDiasAtencion').value;
 
-                if (Number.isInteger(document.getElementById('txtMinPrecio').value)) {
-                    var preciodesde = document.getElementById('txtMinPrecio').value;
+                var minPrecio = document.getElementById('txtMinPrecio').value;
+                if (Number.isInteger(parseInt(minPrecio))) {
+                    var preciodesde = minPrecio;
                 }
                 else {
                     var preciodesde = "0";
                 }
 
-                if (Number.isInteger(document.getElementById('txtMaxPrecio').value)) {
-                    var preciohasta = document.getElementById('txtMaxPrecio').value;
+                var maxPrecio = document.getElementById('txtMaxPrecio').value;
+                if (Number.isInteger(parseInt(maxPrecio))) {
+                    var preciohasta = maxPrecio;
                 }
                 else {
                     var preciohasta = "0";
@@ -245,18 +276,21 @@ google.maps.event.addDomListener(window, 'load', initialize);
                     }
                 });
 
-            });
+            });         
         });
 
+//METODO DE LAS TABS DE INFORMACION DE LAS PLAYAS
+$(function () {
+                $("#tabs").tabs();
+          });
 
-    //carga las playas de estacionamiento en el mapa
-    function cargarPlayas(response) {
+//carga las playas de estacionamiento en el mapa
+function cargarPlayas(response) {
 
         //leo las playas de estacionamiento
         var playas = (typeof response.d) == 'string' ?
                            eval('(' + response.d + ')') :
                            response.d;
-        alert(response);
 
         if (playas.length == 0)
             alert("No se encontraron resultados con los filtros seleccionados");
@@ -264,16 +298,38 @@ google.maps.event.addDomListener(window, 'load', initialize);
         //analizo la cada una y armo el contenio del marcador
         for (var i = 0; i < playas.length; i++) {
 
-            contenido = "<div>Nombre: " + playas[i].Nombre + "</div>" +
-                        "<div>Mail: " + playas[i].Mail + "</div>" +
-                        "<div>Telefono: " + playas[i].Telefono + "</div>" +
-                        "<div>Tipo Playa: " + playas[i].TipoPlaya + "</div>";
+            contenido = "";
+
+            contenido += "<div class='tabbable' id='tabs-23'>" +
+                            "<ul class='nav nav-tabs'>" +
+                              "<li class='active'>" +
+                                "<a href='#panel-1' data-toggle='tab'>Datos Generales</a>" +
+                              "</li>" +
+                              "<li>" +
+                                "<a href='#panel-2' data-toggle='tab'>Horarios</a>" +
+                              "</li>" +
+                               "<li>" +
+                                "<a href='#panel-3' data-toggle='tab'>Precios</a>" +
+                              "</li>" +
+                            "</ul>" +
+                            "<div class='tab-content'>";  
+ 
+
+            //PRIMER TAB
+            contenido += "<div class='tab-pane active' id='panel-1'>"+
+            "<p>";
+              
+            "<div>Nombre: " + playas[i].Nombre + "</div>" +
+           "<div>Mail: " + playas[i].Mail + "</div>" +
+           "<div>Telefono: " + playas[i].Telefono + "</div>" +
+           "<div>Tipo Playa: " + playas[i].TipoPlaya + "</div>"
+
 
             //agregamos las direcciones
-            contenido += "<div><h6>DIRECCIONES<h6></div>";
+            contenido += "<div><h6>DIRECCION<h6></div>";
             var direcciones = eval(playas[i].Direcciones);
             for (var j = 0; j < direcciones.length; j++) {
-                contenido += "<div>Calle: " + direcciones[j].Calle + " - Numero: " + direcciones[j].Numero + "</div>";
+                contenido += "<div>Calle: " + direcciones[j].Calle + " - N°: " + direcciones[j].Numero + "</div>";
             }
 
             //agregamos los servicios
@@ -283,24 +339,41 @@ google.maps.event.addDomListener(window, 'load', initialize);
                 contenido += "<div>Tipo Vehiculo: " + servicios[K].TipoVehiculo + " - Capacidad: " + servicios[K].Capacidad + "</div>";
             }
 
+            contenido += "</p></div>";   
+
+            //SEGUNDO TAB
+            contenido += "<div class='tab-pane' id='panel-2'>" +
+            "<p>";
+
             //agregamos los horarios
             contenido += "<div><h6>HORARIOS<h6></div>";
             var horarios = eval(playas[i].Horarios);
             for (var l = 0; l < horarios.length; l++) {
-                contenido += "<div>Dia: " + horarios[l].Dia + " - Desde: " + horarios[l].HoraDesde + " - Hasta: " + horarios[l].HoraHasta + "</div>";
+                contenido += "<div>" + horarios[l].Dia + " - Desde: " + horarios[l].HoraDesde + " - Hasta: " + horarios[l].HoraHasta + "</div>";
             }
 
+            contenido += "</p></div>";                
+   
+            //TERCER TAB
+            contenido += "<div class='tab-pane' id='panel-3'>" +
+            "<p>";
+    
             //agregamos los precios
             contenido += "<div><h6>PRECIOS<h6></div>";
             var precios = eval(playas[i].Precios);
             for (var m = 0; m < precios.length; m++) {
-                contenido += "<div>Tipo Vehiculo: " + precios[m].TipoVehiculo + " - Dia: " + precios[m].Dia + " - Tiempo: " + precios[m].Tiempo + " - Monto: " + precios[m].Monto + "</div>";
+                contenido += "<div>" + precios[m].TipoVehiculo + " - " + precios[m].Dia + " - " + precios[m].Tiempo + " $" + precios[m].Monto + "</div>";
             }
+
+            contenido += "</p></div>";
+     
+            contenido += "</div></div>";
 
             //creamos el marcador                      
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(playas[i].Latitud, playas[i].Longitud),
-                map: map
+                map: map,
+                icon: './img/maracdorParking.png'
             });
 
             //seteamos al contenido
@@ -317,7 +390,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
         }
     }
 
-    $(function () {
+//marcar punto por una direccion
+$(function () {
         $('#marcarPunto').click(function () {
             marcarPunto();
         });
