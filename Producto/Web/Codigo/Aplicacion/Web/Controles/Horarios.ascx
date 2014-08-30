@@ -49,8 +49,9 @@
                             </div>
                             <div class="form-group pull-right">
                                 <asp:LinkButton runat="server" ID="btnGuardar" CssClass="btn btn-lg" Text="<span class='glyphicon glyphicon-ok-circle'></span>"
-                                    ForeColor="Green" BackColor="Transparent" OnClientClick="ocultarPanel()" OnClick="btnGuardar_Click" />
-                               <asp:LinkButton runat="server" ID="btnCancelar" CssClass="btn btn-lg" Text="<span class='glyphicon glyphicon-remove-circle'></span>" ForeColor="Red" BackColor="Transparent"  OnClientClick="ocultarPanel()" />
+                                    ForeColor="Green" BackColor="Transparent" OnClientClick="ocultarPanel(this)" OnClick="btnGuardar_Click" />
+                               <asp:LinkButton runat="server" ID="btnCancelar" CssClass="btn btn-lg" Text="<span class='glyphicon glyphicon-remove-circle'></span>"
+                                    ForeColor="Red" BackColor="Transparent"  OnClientClick="ocultarPanel(this)" OnClick="btnCancelar_Click" />
                                 
                             </div>
                         </div>
