@@ -25,8 +25,8 @@ function initialize() {
 
         //opciones basicas del mapa
         var mapOptions = {
-            zoom: 15,
-            center: puntoPlaza,
+            zoom: 12,
+            //center: puntoPlaza,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
@@ -55,7 +55,20 @@ function buscarCiudadSession() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
+
             document.getElementById('txtBuscar').value = response.d;
+
+            //toma, arma y la direccion y la busca
+            var address = document.getElementById('txtBuscar').value + ", Argentina";
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    map.setZoom(12);
+                } else {
+                    alert('La ciudad no ha podido encontrarse');
+                }
+            });
+
         },
         error: function (response) {
             alert('ERROR ' + response.status + ' ' + response.statusText);
@@ -231,8 +244,20 @@ $(function () {
             data: '{ciudad:"'+ciudadNueva+'"}',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: function (response) {
-                cargarPlayas(response);
+            success: function (response) {                  
+
+                //toma, arma y la direccion y la busca
+                var address = document.getElementById('txtBuscar').value + ", Argentina";
+                geocoder.geocode({ 'address': address }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        map.setCenter(results[0].geometry.location);
+                        map.setZoom(12);
+                        cargarPlayas(response);
+                    } else {
+                        alert('La ciudad no ha podido encontrarse');
+                    }
+                });
+                
             },
             error: function (response) {
                 alert('ERROR ' + response.status + ' ' + response.statusText);
