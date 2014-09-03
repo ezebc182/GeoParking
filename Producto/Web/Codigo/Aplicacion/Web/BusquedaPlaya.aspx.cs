@@ -30,7 +30,7 @@ namespace Web
         protected void Page_Load(object sender, EventArgs e)
         {
             master = (SiteMaster)Master;
-
+         
             gestor = new GestorBusquedaPlayas();
 
             if (!Page.IsPostBack)
@@ -85,8 +85,7 @@ namespace Web
         {
             string playasDeCiudad = geoServicio.ObtenerPlayasDeCiudad(ciudadBuscada);
             if (playasDeCiudad=="[]")
-            {
-                
+            {                
                 master.MostrarMensajeInformacion("No hay resultados para la ciudad seleccionada", "Resultado Busqueda");                
             }
             return playasDeCiudad;
