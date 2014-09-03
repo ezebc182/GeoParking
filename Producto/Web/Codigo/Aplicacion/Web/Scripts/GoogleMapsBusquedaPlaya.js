@@ -25,8 +25,8 @@ function initialize() {
 
         //opciones basicas del mapa
         var mapOptions = {
-            zoom: 15,
-            center: puntoPlaza,
+            zoom: 12,
+            //center: puntoPlaza,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
@@ -55,7 +55,20 @@ function buscarCiudadSession() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
+
             document.getElementById('txtBuscar').value = response.d;
+
+            //toma, arma y la direccion y la busca
+            var address = document.getElementById('txtBuscar').value + ", Argentina";
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    map.setZoom(12);
+                } else {
+                    alert('La ciudad no ha podido encontrarse');
+                }
+            });
+
         },
         error: function (response) {
             alert('ERROR ' + response.status + ' ' + response.statusText);
@@ -231,8 +244,22 @@ $(function () {
             data: '{ciudad:"'+ciudadNueva+'"}',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: function (response) {
-                cargarPlayas(response);
+            success: function (response) {                  
+
+                //toma, arma y la direccion y la busca
+                var address = document.getElementById('txtBuscar').value + ", Argentina";
+                geocoder.geocode({ 'address': address }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        map.setCenter(results[0].geometry.location);
+                        map.setZoom(12);
+                        
+                        cargarPlayas(response);                        
+
+                    } else {
+                        alert('La ciudad no ha podido encontrarse');
+                    }
+                });
+                
             },
             error: function (response) {
                 alert('ERROR ' + response.status + ' ' + response.statusText);
@@ -307,101 +334,101 @@ function cargarPlayas(response) {
                            eval('(' + response.d + ')') :
                            response.d;
 
-        if (playas.length == 0)
-            alert("No se encontraron resultados con los filtros seleccionados");
+        if (playas.length > 0) {
 
-        //analizo la cada una y armo el contenio del marcador
-        for (var i = 0; i < playas.length; i++) {
+            //analizo la cada una y armo el contenio del marcador
+            for (var i = 0; i < playas.length; i++) {
 
-            contenido = "";
+                contenido = "";
 
-            contenido += "<div class='tabbable' id='tabs-23'>" +
-                            "<ul class='nav nav-tabs'>" +
-                              "<li class='active'>" +
-                                "<a href='#panel-1' data-toggle='tab'>Datos Generales</a>" +
-                              "</li>" +
-                              "<li>" +
-                                "<a href='#panel-2' data-toggle='tab'>Horarios</a>" +
-                              "</li>" +
-                               "<li>" +
-                                "<a href='#panel-3' data-toggle='tab'>Precios</a>" +
-                              "</li>" +
-                            "</ul>" +
-                            "<div class='tab-content'>";  
- 
-
-            //PRIMER TAB
-            contenido += "<div class='tab-pane active' id='panel-1'>"+
-            "<p>";
-              
-            "<div>Nombre: " + playas[i].Nombre + "</div>" +
-           "<div>Mail: " + playas[i].Mail + "</div>" +
-           "<div>Telefono: " + playas[i].Telefono + "</div>" +
-           "<div>Tipo Playa: " + playas[i].TipoPlaya + "</div>"
+                contenido += "<div class='tabbable' id='tabs-23'>" +
+                                "<ul class='nav nav-tabs'>" +
+                                  "<li class='active'>" +
+                                    "<a href='#panel-1' data-toggle='tab'>Datos Generales</a>" +
+                                  "</li>" +
+                                  "<li>" +
+                                    "<a href='#panel-2' data-toggle='tab'>Horarios</a>" +
+                                  "</li>" +
+                                   "<li>" +
+                                    "<a href='#panel-3' data-toggle='tab'>Precios</a>" +
+                                  "</li>" +
+                                "</ul>" +
+                                "<div class='tab-content'>";
 
 
-            //agregamos las direcciones
-            contenido += "<div><h6>DIRECCION<h6></div>";
-            var direcciones = eval(playas[i].Direcciones);
-            for (var j = 0; j < direcciones.length; j++) {
-                contenido += "<div>Calle: " + direcciones[j].Calle + " - N°: " + direcciones[j].Numero + "</div>";
-            }
+                //PRIMER TAB
+                contenido += "<div class='tab-pane active' id='panel-1'>" +
+                "<p>";
 
-            //agregamos los servicios
-            contenido += "<div><h6>SERVICIOS<h6></div>";
-            var servicios = eval(playas[i].Servicios);
-            for (var K = 0; K < servicios.length; K++) {
-                contenido += "<div>Tipo Vehiculo: " + servicios[K].TipoVehiculo + " - Capacidad: " + servicios[K].Capacidad + "</div>";
-            }
+                "<div>Nombre: " + playas[i].Nombre + "</div>" +
+               "<div>Mail: " + playas[i].Mail + "</div>" +
+               "<div>Telefono: " + playas[i].Telefono + "</div>" +
+               "<div>Tipo Playa: " + playas[i].TipoPlaya + "</div>"
 
-            contenido += "</p></div>";   
 
-            //SEGUNDO TAB
-            contenido += "<div class='tab-pane' id='panel-2'>" +
-            "<p>";
+                //agregamos las direcciones
+                contenido += "<div><h6>DIRECCION<h6></div>";
+                var direcciones = eval(playas[i].Direcciones);
+                for (var j = 0; j < direcciones.length; j++) {
+                    contenido += "<div>Calle: " + direcciones[j].Calle + " - N°: " + direcciones[j].Numero + "</div>";
+                }
 
-            //agregamos los horarios
-            contenido += "<div><h6>HORARIOS<h6></div>";
-            var horarios = eval(playas[i].Horarios);
-            for (var l = 0; l < horarios.length; l++) {
-                contenido += "<div>" + horarios[l].Dia + " - Desde: " + horarios[l].HoraDesde + " - Hasta: " + horarios[l].HoraHasta + "</div>";
-            }
+                //agregamos los servicios
+                contenido += "<div><h6>SERVICIOS<h6></div>";
+                var servicios = eval(playas[i].Servicios);
+                for (var K = 0; K < servicios.length; K++) {
+                    contenido += "<div>Tipo Vehiculo: " + servicios[K].TipoVehiculo + " - Capacidad: " + servicios[K].Capacidad + "</div>";
+                }
 
-            contenido += "</p></div>";                
-   
-            //TERCER TAB
-            contenido += "<div class='tab-pane' id='panel-3'>" +
-            "<p>";
-    
-            //agregamos los precios
-            contenido += "<div><h6>PRECIOS<h6></div>";
-            var precios = eval(playas[i].Precios);
-            for (var m = 0; m < precios.length; m++) {
-                contenido += "<div>" + precios[m].TipoVehiculo + " - " + precios[m].Dia + " - " + precios[m].Tiempo + " $" + precios[m].Monto + "</div>";
-            }
+                contenido += "</p></div>";
 
-            contenido += "</p></div>";
-     
-            contenido += "</div></div>";
+                //SEGUNDO TAB
+                contenido += "<div class='tab-pane' id='panel-2'>" +
+                "<p>";
 
-            //creamos el marcador                      
-            var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(playas[i].Latitud, playas[i].Longitud),
-                map: map,
-                icon: './img/maracdorParking.png'
-            });
+                //agregamos los horarios
+                contenido += "<div><h6>HORARIOS<h6></div>";
+                var horarios = eval(playas[i].Horarios);
+                for (var l = 0; l < horarios.length; l++) {
+                    contenido += "<div>" + horarios[l].Dia + " - Desde: " + horarios[l].HoraDesde + " - Hasta: " + horarios[l].HoraHasta + "</div>";
+                }
 
-            //seteamos al contenido
-            (function (marker, contenido) {
-                google.maps.event.addListener(marker, 'click', function () {
-                    infowindow.setContent(contenido);
-                    infowindow.open(map, marker);
+                contenido += "</p></div>";
+
+                //TERCER TAB
+                contenido += "<div class='tab-pane' id='panel-3'>" +
+                "<p>";
+
+                //agregamos los precios
+                contenido += "<div><h6>PRECIOS<h6></div>";
+                var precios = eval(playas[i].Precios);
+                for (var m = 0; m < precios.length; m++) {
+                    contenido += "<div>" + precios[m].TipoVehiculo + " - " + precios[m].Dia + " - " + precios[m].Tiempo + " $" + precios[m].Monto + "</div>";
+                }
+
+                contenido += "</p></div>";
+
+                contenido += "</div></div>";
+
+                //creamos el marcador                      
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(playas[i].Latitud, playas[i].Longitud),
+                    map: map,
+                    icon: './img/maracdorParking.png'
                 });
-            })(marker, contenido);
 
-            //agregamos el marcador al array
-            markers.push(marker);
+                //seteamos al contenido
+                (function (marker, contenido) {
+                    google.maps.event.addListener(marker, 'click', function () {
+                        infowindow.setContent(contenido);
+                        infowindow.open(map, marker);
+                    });
+                })(marker, contenido);
 
+                //agregamos el marcador al array
+                markers.push(marker);
+
+            }
         }
     }
 
