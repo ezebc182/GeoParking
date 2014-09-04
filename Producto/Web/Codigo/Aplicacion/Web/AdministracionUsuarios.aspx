@@ -12,8 +12,8 @@
             <div class="row">
                 <div class="formulario" data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
                     data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
-                    <asp:Panel ID="panelNuevoRol" runat="server">
-                        <div class="col-md-4" id="divNuevoRol">
+                    <asp:Panel ID="panelNuevoRol" class="col-md-12" runat="server">
+                        <div class="col-md-4 col-md-offset-4" id="divNuevoRol">
 
 
                             <%--ABMC ROL--%>
@@ -39,8 +39,8 @@
                             <%--FIN ABMC ROL--%>
                         </div>
                     </asp:Panel>
-                    <asp:Panel ID="panelAsignarRol" runat="server">
-                        <div class="col-md-4" id="divAsignarRolAUsuario">
+                    <asp:Panel ID="panelAsignarRol" class="col-md-12" runat="server">
+                        <div class="col-md-4 col-md-offset-4" id="divAsignarRolAUsuario">
                             <%--ASIGNAR ROL--%>
 
                             <h3><span class="glyphicon glyphicon-eye-open"></span>&nbsp;Asignar rol a usuario
@@ -61,8 +61,8 @@
                     </asp:Panel>
 
                     <%--FIN ASIGNAR ROL--%>
-                    <asp:Panel ID="panelAsignarPermiso" runat="server">
-                        <div class="col-md-4" id="divAsignarPermisoARol">
+                    <asp:Panel ID="panelAsignarPermiso" class="col-md-12" runat="server">
+                        <div class="col-md-4 col-md-offset-4" id="divAsignarPermisoARol">
                             <%--ASIGNARPERMISOAROL--%>
 
                             <h3><span class="glyphicon glyphicon-check"></span>&nbsp;Asignar permiso a rol</h3>
@@ -89,13 +89,14 @@
 
                 </div>
             </div>
-            <asp:Panel ID="panelBotones" runat="server" CssClass="pull-right">
-                <div id="divBotones" class="form-group">
-                    <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success btn-lg" Text="Guardar"
+            <asp:Panel ID="panelBotones" class="col-md-12" runat="server">
+                <div id="divBotones" class="form-group col-md-4 col-md-offset-4">
+                    <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success btn-lg pull-right" Text="Guardar"
                         OnClick="btnGuardar_Click" />
-                    <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-lg" Text="Cancelar"
+                    <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-lg pull-right" Text="Cancelar"
                         AutoPostBack="True" OnClick="btnCancelar_Click" />
                 </div>
+
             </asp:Panel>
         </div>
 

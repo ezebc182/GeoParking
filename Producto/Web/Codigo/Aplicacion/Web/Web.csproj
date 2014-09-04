@@ -57,10 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ABMRol.aspx" />
     <Content Include="AdministracionUsuarios.aspx" />
-    <Content Include="AsignarPermisoARol.aspx" />
-    <Content Include="AsignarRol.aspx" />
     <Content Include="Bootstrap\css\bootstrap.icon-large.min.css" />
     <Content Include="Bootstrap\fonts\glyphicons.png" />
     <Content Include="BusquedaPlaya.aspx" />
@@ -115,33 +112,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ABMRol.aspx.cs">
-      <DependentUpon>ABMRol.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ABMRol.aspx.designer.cs">
-      <DependentUpon>ABMRol.aspx</DependentUpon>
-    </Compile>
     <Compile Include="AdministracionUsuarios.aspx.cs">
       <DependentUpon>AdministracionUsuarios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdministracionUsuarios.aspx.designer.cs">
       <DependentUpon>AdministracionUsuarios.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="AsignarPermisoARol.aspx.cs">
-      <DependentUpon>AsignarPermisoARol.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AsignarPermisoARol.aspx.designer.cs">
-      <DependentUpon>AsignarPermisoARol.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="AsignarRol.aspx.cs">
-      <DependentUpon>AsignarRol.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AsignarRol.aspx.designer.cs">
-      <DependentUpon>AsignarRol.aspx</DependentUpon>
     </Compile>
     <Compile Include="BusquedaPlaya.aspx.cs">
       <DependentUpon>BusquedaPlaya.aspx</DependentUpon>

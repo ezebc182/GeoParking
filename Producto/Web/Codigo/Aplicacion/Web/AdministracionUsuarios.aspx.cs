@@ -34,7 +34,9 @@ namespace Web
                     case "AsignarPermiso":
                         CargarPanelAsignarPermiso();
                         break;
-                    default: break;
+                    default:
+                        Response.Redirect("/Index.aspx");
+                        break;
                 }
             }
         }
