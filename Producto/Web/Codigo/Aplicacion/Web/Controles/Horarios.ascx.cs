@@ -173,6 +173,12 @@ namespace Web.Controles
             HabilitarFormulario(true);
         }
 
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            HabilitarFormulario(false);
+        }
+
         #endregion
         #region properties
 

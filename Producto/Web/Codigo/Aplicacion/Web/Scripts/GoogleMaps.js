@@ -29,7 +29,6 @@ GoogleMaps.initialize = function () {
         addMarker(event.latLng);
         $('[id *= latitud]').first().val(event.latLng.lat().toString());
         $('[id *= longitud]').first().val(event.latLng.lng().toString());
-
     });
 
     // Adds a marker at the center of the map.
@@ -52,8 +51,10 @@ function addMarker(location) {
 
 // seteo seteo el marcador en el mapa
 function setAllMap(map) {
-    if (markers.length > 0){
-        markers[0].setMap(map);
+    if (markers.length > 0) {
+        for (var i in markers) {
+            markers[i].setMap(map);
+        }
     }
 }
 
