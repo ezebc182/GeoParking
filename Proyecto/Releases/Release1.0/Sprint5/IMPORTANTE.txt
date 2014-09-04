@@ -1,0 +1,5 @@
+En este sprint el equipo de trabajo dejo pendientes las tareas a realizar para un proximo sprint debido a que los integrantes del equipo se dedicaron a rendir examenes.
+Las historias a realizar a partir del sprint 6 son las siguientes:
+1)Buscar Playas de Estacionamiento mas cercanas a mi punto de interes
+2)Registracion de Usuario
+3)Gestionar Permisos de Usuario

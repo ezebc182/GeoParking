@@ -1,0 +1,362 @@
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	    <title>Gestión de playas</title>
+
+	    <!-- Bootstrap -->
+	    <link href="./bootstrap/bootstrap3/css/bootstrap.min.css" rel="stylesheet"> 
+	   	<!-- Media Queries-->
+	   	<link rel="stylesheet" type="text/css" href="./css/media-queries.css">
+	   	<header>
+		   	<!-- Barra de navegación-->
+		  	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			  <!-- El logotipo y el icono que despliega el menú se agrupan
+			       para mostrarlos mejor en los dispositivos móviles -->
+			  <div class="navbar-header">
+			    <button type="button" class="navbar-toggle" data-toggle="collapse"
+			            data-target=".navbar-ex1-collapse">
+			      <span class="sr-only">Desplegar navegación</span>
+			      <span class="icon-bar"></span>
+			      <span class="icon-bar"></span>
+			      <span class="icon-bar"></span>
+			    </button>
+			    <a class="navbar-brand" href="./index.html">Geo Parking Logo</a>
+			  </div>
+			 
+			  <!-- Agrupar los enlaces de navegación, los formularios y cualquier
+			       otro elemento que se pueda ocultar al minimizar la barra -->
+			  <div class="collapse navbar-collapse navbar-ex1-collapse">
+				    <ul class="nav navbar-nav">
+				      <li class="active"><a href="#">Administración de playas</a></li>
+				      <li class="disabled"><a href="#">Administración de usuarios</a></li>
+				      <li class="dropdown disabled">
+				        <a href="#" class="disabled dropdown-toggle" data-toggle="dropdown">
+				          Administración POI <b class="caret"></b>
+				        </a>
+				        <ul class="disabled dropdown-menu">
+				          <li><a href="#">Nuevo</a></li>
+				          <li><a href="#">Consultar</a></li>
+				          <li class="divider"></li>
+				          <li><a href="#">Exportar?</a></li>
+				        </ul>				        
+				      </li>
+				      <li class="divider-vertical"></li>				        
+				      
+				     <li class="dropdown">
+				        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				          Ayuda <b class="caret"></b>
+				        </a>
+				        <ul class="dropdown-menu">
+				          <li><a href="#">Registrar playa</a></li>
+				          <li><a href="#">Consultar playa</a></li>
+				          <li class="divider"></li>
+				          <li><a href="#">Eliminar playa</a></li>
+				        </ul>				        
+				      </li>		
+				    </ul>
+				</div>
+			</nav>
+		</header>
+
+	
+  </head>
+
+  <!--BODY-->
+
+  <body>
+  		<!--Mensaje de confirmación-->
+		<div class="modal fade" id="mensajeOK">
+    		<div class="modal-dialog">
+    			<div class="modal-content">
+    				<div class="modal-header">
+    					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    					<h4 class="modal-title">Mensaje:</h4>
+    				</div>
+    				<div class="modal-body">
+    					<div class="success">
+    						<h4 class="text-justify"><i class="glyphicon glyphicon-ok"></i>&nbsp; La playa ha sido registrada/modificada con éxito!</h4>
+    					</div>
+    				</div>
+    				<div class="modal-footer">
+    					<button type="button" class="btn btn-success" data-dismiss="modal" data-target="#pnlResultados" data-toggle="">Ok</button>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+
+    	<!-- Form para datos de playa-->
+    	<div class="modal fade" id="modificarPlaya">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title">Registrar/Modificar playa</h4>
+		      </div>
+		      <div class="modal-body">
+		        <form class="form-horizontal" id="frmPlayas"data-toggle="validator"role="form">
+				  
+		        			<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#home" role="tab" data-toggle="tab">Home</a></li>
+  <li><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+  <li><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
+  <li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="home">
+  	<div class="form-group">
+				    <label for="txtNombre" class="col-sm-2 control-label">Nombre</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" id="txtNombre" placeholder="Nombre" required>
+				    </div>
+				  </div>
+				  <div class="form-group">
+					  	<label for="ddlTipoPlaya" class="col-sm-2 control-label">Tipo</label>
+					 		<div class="col-sm-10">
+								 <select id="ddlTipoPlaya"class="form-control">
+								    <option value="techada">Techada</option>
+								    <option value="descubierta">Descubierta</option>
+								    <option value="otra">Otra</option>
+								</select>
+							</div>
+				  </div>
+				  <div class="form-group">
+				    <label for="txtDireccion" class="col-sm-2 control-label">Dirección</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" id="txtDireccion" placeholder="Dirección" required>
+				    </div>
+				  </div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="checkboxes"></label>
+					<div class="col-sm-10" >
+						<div class="pnlMapa">
+				    		<!-- <div class="panel panel-default">
+								<div class="panel-heading">Visualizador de playas</div>
+								<div class="panel-body"> -->
+									<div style="height:150px;width:100%;">
+									<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3405.354927622744!2d-64.19870917428585!3d-31.404345855577667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1402786472621" width="100%" height="100%" frameborder="3" style="border:2">
+									</iframe>
+									</div>
+									<br>									
+								<!-- </div> -->
+							<!-- </div> -->
+						
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="txtLatitud" placeholder="Latitud" required>
+						</div>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="txtLongitud" placeholder="Longitud" required>
+						</div>
+			    	</div>
+			    	</div>
+				</div>
+  </div>
+  <div class="tab-pane" id="profile">...</div>
+  <div class="tab-pane" id="messages">...</div>
+  <div class="tab-pane" id="settings">...</div>
+</div>
+
+				<label for="tiposVehiculo" class="col-sm-2 control-label">Precios</label>
+				<div class="form-group col-sm-10">
+					<table id="tiposVehiculo" class="table table-hover">
+						<thead>
+						    <tr>
+						    	<th>#</th>
+							    <th>Capacidad</th>
+							    <th>Precio por hora</th>
+							</tr>
+						</thead>
+					    <tbody >
+						    
+					    </tbody>
+					</table>
+				</div>
+				
+				<div class="form-group">
+					<label for="txtCapacidad" class="col-sm-2 control-label">Horarios</label>
+				    <div class="col-sm-4">
+				      <input type="time" class="form-control" id="txtHoraDesde">
+				    </div>
+				    <div class="col-sm-4">
+				      <input type="time" class="form-control" id="txtHoraHasta">
+				    </div>
+				    <div class="col-sm-2">
+					    <label class="checkbox inline" for="cbMotos">
+							<input type="checkbox" id="cbTodoElDia" value="1">24 hs
+						</label>
+					</div>
+				</div>
+
+		
+			</form>	
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+		        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mensajeOK" data-dismiss="modal"> Guardar</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+  	<div class="container-fluid">
+    	<div class="jumbotron" style="margin-top:5%;">
+			<div class="page-header">
+				<h1>Administración de playas <small>Consulta</small></h1>
+			</div>
+    			<form class="form-horizontal" role="form">
+	    			<div class="form-group" id="busquedaPlayas">
+	   					<div class="col-md-8">
+			  				<input id="txtNombre" class="form-control input-lg" placeholder="Nombre playa">
+			    			</input>
+						</div>	
+						<div class="col-md-4">
+							<a class="btn-primary btn btn-lg" id="btnBuscar">Buscar</a>
+							<a class="btn-success btn btn-lg" id="btnNuevo" data-toggle="modal" data-target="#modificarPlaya">Nueva</a>
+						</div>
+	    			</div>
+	    		</form>
+    	</div>
+    	<!-- Resultados de búsqueda -->
+    	<div id="pnlResultados" class="container-fluid" hidden>
+    		<div class="panel panel-primary">
+			<div class="panel-heading">Resultados <span style="background-color:white;color:black;"class="badge" id="cantidadPlayas"></span>
+			</div>
+			
+    		<div class="panel-body">
+    			<div id ="resultadosBusqueda" class="table-responsive">	    		
+					<table id="listadoPlayas" class="table table-hover">
+						<thead>
+						    <tr>
+							    <th>#ID</th>
+							    <th>Nombre</th>
+							    <th>Dirección</th>
+							    <th>Capacidad</th>
+							    <th>Tipo</th>
+							    <th>Extras</th>
+							    <th>Opciones</th>
+							</tr>
+						</thead>
+					    <tbody >
+						    <tr>
+							    <td>1</td>
+							    <td>PLaya 1</td>
+							    <td>Dirección 1</td>
+							    <td>Capacidad 1</td>
+							     <td>Techada</td>
+							    <td>Bici y Moto</td>
+							    <td>
+							    	<a data-toggle="modal" data-target="#modificarPlaya" id="editar" href="#" class="editar glyphicon glyphicon-pencil" tooltip="Editar" data-toggle="tooltip" data-placement="top" title="Editar"></a>
+							    	<a href="#" class="eliminar glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Eliminar" id="eliminar"></a>
+							    	<a href="#" class="ver glyphicon glyphicon-search" data-toggle="tooltip" data-placement="top" title="Ver" id="buscar"></a>
+							    </td>
+							   							    
+						    </tr>
+						    <tr>
+							    <td>2</td>
+							    <td>Playa 2</td>
+							    <td>Dirección 2</td>
+							    <td>Capacidad 2</td>
+							    <td>Descubierta</td>
+							    <td>Moto</td>
+							    <td>
+							    	<a data-toggle="modal" data-target="#modificarPlaya" id="editar2" href="#" class=" editar glyphicon glyphicon-pencil" tooltip="Editar" data-toggle="tooltip" data-placement="top" title="Editar"></a>
+							    	<a href="#" class="eliminar glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Eliminar" id="eliminar2"></a>
+							    	<a href="#" class="ver glyphicon glyphicon-search" data-toggle="tooltip" data-placement="top" title="Ver" id="buscar2"></a>
+							    </td>
+							    
+						    </tr>
+						    <tr>
+						    <td>3</td>
+							    <td>Playa 3</td>
+							    <td>Dirección 3</td>
+							    <td>Capacidad 3</td>
+							    <td>Techada</td>
+							    <td>Moto</td>
+							    <td>
+							    	<a data-toggle="modal" data-target="#modificarPlaya" id="editar3" href="#" class=" editar glyphicon glyphicon-pencil" tooltip="Editar" data-toggle="tooltip" data-placement="top" title="Editar"></a>
+							    	<a href="#" class="eliminar glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Eliminar" id="eliminar3"></a>
+							    	<a href="#" class="ver glyphicon glyphicon-search" data-toggle="tooltip" data-placement="top" title="Ver" id="buscar3"></a>
+							    </td>
+							    
+						    </tr>
+						   
+					    </tbody>
+					</table>
+					<ul class="pagination center-block">
+					  <li><a href="#">&laquo;</a></li>
+					  <li  class="active"><a href="#">1</a></li>
+					  <li><a href="#">2</a></li>
+					  <li><a href="#">3</a></li>
+					  <li><a href="#">4</a></li>
+					  <li><a href="#">5</a></li>
+					  <li><a href="#">&raquo;</a></li>
+					</ul>
+				</div>
+    		</div>
+    		</div>
+    	</div>
+    
+    <!-- FOOTER -->
+
+
+    <footer class="footer">
+    </footer>
+    </div>
+
+
+     <!-- JS -->
+    <script src="./jquery/jquery.min.js"></script>
+    <script src="./bootstrap/bootstrap3/js/bootstrap.min.js"></script>
+    <script src="./js/validator.js"></script>
+    
+    <script>
+	    $(document).ready(function(){
+	    	/*pre seteo los campos del horario
+	    	var ahora = new Date();
+	    	ahora= ahora.getHours() + ":" + ahora.getMinutes() +": "+ "pm";
+	    	alert(ahora);
+	    	var horaActual = new Date(1970, 1, 1, 7, 34);
+	    	$('#txtHoraDesde').valueAsDate(ahora);
+			*/
+
+
+	    	//activa los validadores del formulario
+	    	$('frmPlayas').validator();
+	    	//activa los tooltips de bootstrap
+	    	$('#listadoPlayas>tbody>tr>td>a.eliminar').tooltip();
+	    	$('#listadoPlayas>tbody>tr>td>a.editar').tooltip();
+	    	$('#listadoPlayas>tbody>tr>td>a.ver').tooltip();
+
+	    	/*Al iniciar cuenta las filas que tiene cargada la tabla. Client-side */
+	    	contarFilas();
+
+	    	/*Muestra los resultados de la búsqueda*/
+
+		    $('#btnBuscar').click(function() {
+					
+		    		$("#pnlResultados").show("slow");
+		    	
+		    });
+
+		    /*Cuenta la cantidad de filas de la tabla*/
+			function contarFilas(){
+		     var numFilas = $("#listadoPlayas>tbody>tr").length;
+		     $('#cantidadPlayas').text(numFilas);
+		 	}
+
+  			 $("#listadoPlayas>tbody>tr>td>#eliminar3").live("click", function(){
+  				$(this).parent("tr:first").remove()
+			});
+		     
+		});    
+    </script>
+ 
+  
+  </body>
+</html>
