@@ -1,9 +1,0 @@
-Sino podemos utilizar la aplicacion GPS del celular otra alternativa seria de la siguiente manera
-
-UTILIZAR LA FUNCION COMO LLEGAR DE GOOGLE MAPAS, los pasos serina los siguientes:
-1)Tomar coordenada de la cochera elegida
-2)Tomar coordenada del coche
-3)Programar(usar) la funcion "Como llegar" con los dos puntos
-4)Mostrar mapa con el resultado
-5)Esperar 20 segundos (variable, de acuerdo a pruebas que realizemos)
-6)Repetir pasos de 1 al 5

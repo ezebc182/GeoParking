@@ -1,5 +1,0 @@
-Leo:  empezar el gant y terminar WBS online
-Eze:  comenzar estudio inicial y terminar WBS online
-Lucas: comenzar estudio inicial y terminar WBS online 
-Nacho: terminar repositorio y terminar WBS online
-Marcos: revisar gant y terminar WBS online y revisar el cuestionario
