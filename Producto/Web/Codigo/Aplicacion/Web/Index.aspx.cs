@@ -18,6 +18,7 @@ namespace Web
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            txtBuscar.Focus();
             gestor = new GestorBusquedaPlayas();
         }
         

@@ -227,3 +227,7 @@ Producto/Web/Codigo/Aplicacion/Datos/App.config
 *.config
 Producto/Web/Codigo/Aplicacion/Datos/App.config
 Producto/Web/Codigo/Aplicacion/Web/Web.config
+Producto/Web/Codigo/packages/Selenium.WebDriver.2.42.0/lib/net35/WebDriver.xml
+Producto/Web/Codigo/packages/Selenium.WebDriver.2.42.0/lib/net40/WebDriver.dll
+Producto/Web/Codigo/packages/Selenium.WebDriver.2.42.0/lib/net40/WebDriver.xml
+Producto/Web/Codigo/packages/Selenium.WebDriver.2.42.0/Selenium.WebDriver.2.42.0.nupkg

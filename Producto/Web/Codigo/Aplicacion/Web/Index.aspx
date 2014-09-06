@@ -18,12 +18,11 @@
         <div class="intro-body">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
+                    <div class="">
 
-                        <h1 class="brand-heading"><span style="color: red;">Geo</span>Parking</h1>
-                        <%--<img id="cel" src="./img/cel.png">--%>
+                        <h1 class="brand-heading"><span style="color: red;">Geo</span>Parking</h1>                   
                         <p class="intro-text">Estacioná de manera fácil, rápida y efectiva.</p>
-                        <div class="input-group">                            
+                        <div class="input-group col-lg-4 col-lg-offset-4">                            
                             <asp:TextBox ID="txtBuscar" CssClass="form-control input-lg autosuggest" runat="server" ClientIDMode="Static" placeholder="Ingresá tu ciudad"></asp:TextBox>
                             <div class="input-group-btn">
                                 <asp:Button ID="btnBuscar" CssClass="btn-primary btn btn-lg" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />                                
