@@ -11,13 +11,16 @@ namespace Web
 {
     public partial class Index : System.Web.UI.Page
     {
+        
         static GestorBusquedaPlayas gestor;
+        SiteMaster master;
 
         //Referencia al servicio web "GeoService"
         private static GeoService.Service1 geoServicio = new GeoService.Service1();
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            master = (SiteMaster)Master;
             gestor = new GestorBusquedaPlayas();
         }
         

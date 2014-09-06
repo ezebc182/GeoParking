@@ -23,6 +23,11 @@ namespace Web
             gestor = new GestorPlaya();
             master = (SiteMaster)Master;
 
+            if (SessionUsuario == null)
+            {
+                Response.Redirect("/Index.aspx");
+            }
+
             if (!Page.IsPostBack)
             {
                 CargarComboTiposPlayas();
@@ -173,6 +178,12 @@ namespace Web
             gvResultados.Visible = true;
 
             hfFilasGrilla.Value = gvResultados.Rows.Count.ToString();
+        }
+
+        public Usuario SessionUsuario
+        {
+            get { return (Usuario)Session["Usuario"]; }
+            set { Session["Usuario"] = value; }
         }
 
         #region properties

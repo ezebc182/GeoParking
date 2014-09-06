@@ -13,6 +13,7 @@ namespace Web
     public partial class SiteMaster : System.Web.UI.MasterPage
     {
         GestorUsuario gestor;
+        GestorRol gestorRol;
 
         protected void Page_Load(object sender, EventArgs e)
         
@@ -24,6 +25,7 @@ namespace Web
             if (SessionUsuario != null)
             {
                 lblLogin.Text = SessionUsuario.NombreUsuario;
+               
             }
         }
 
@@ -187,6 +189,7 @@ namespace Web
                 {
                     SessionUsuario = resultado;
                     lblLogin.Text = SessionUsuario.NombreUsuario;
+                    Response.Redirect(Request.RawUrl); 
                 }
             }
         }
@@ -241,6 +244,29 @@ namespace Web
         {
             get { return txtContraseña.Text; }
             set { txtContraseña.Text = value; }
+        }
+
+        private void OcultarOpciones(int id)
+        {
+           var resultado = gestorRol.BuscarPermisosPorRol(gestorRol.BuscarRol(id));
+           foreach (var item in resultado)
+	        {
+		        switch (item.Id)
+	            {
+                    case 1: 
+                    break;
+                    case 2:
+                    break;
+                    case 3:
+                    break;
+                    case 4:
+                    break;
+                    case 5:
+                    break;
+                    case 6:
+                    break;
+                }
+	        }
         }
 
         #endregion

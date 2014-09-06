@@ -38,9 +38,4 @@
      <!--Scripts para autocomplete (no eliminar)-->
     <script src="Scripts/Autocomplete.js"></script>   
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
-   <script>
-       $("#admUsuarios").addClass("hidden");
-       $("#admPlayas").addClass("hidden");
-       $("#admPOI").addClass("hidden");
-   </script>
 </asp:Content>

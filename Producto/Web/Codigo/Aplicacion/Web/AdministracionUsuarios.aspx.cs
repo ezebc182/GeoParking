@@ -19,6 +19,10 @@ namespace Web
         {
             gestorUsuario = new GestorUsuario();
             master = (SiteMaster)Master;
+            if (SessionUsuario == null)
+            {
+                Response.Redirect("/Index.aspx");
+            }
             if (!Page.IsPostBack)
             {
                 string action = Request.QueryString["action"];
@@ -267,8 +271,12 @@ namespace Web
             }
         }
         #endregion
-        
-        
+
+        public Usuario SessionUsuario
+        {
+            get { return (Usuario)Session["Usuario"]; }
+            set { Session["Usuario"] = value; }
+        }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {

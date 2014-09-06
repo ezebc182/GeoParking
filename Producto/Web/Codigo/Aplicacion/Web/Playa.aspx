@@ -399,9 +399,6 @@
 
     </script>
     <script>
-        $("#admUsuarios").removeClass("hidden");
-        $("#admPlayas").removeClass("hidden");
-        $("#admPOI").removeClass("hidden");
-        $("#admPlayas").addClass("active");
+        $("#admPlayas").addClass("hidden");
     </script>
 </asp:Content>
