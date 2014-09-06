@@ -21,6 +21,7 @@ namespace Web
         protected void Page_Load(object sender, EventArgs e)
         {
             master = (SiteMaster)Master;
+            txtBuscar.Focus();
             gestor = new GestorBusquedaPlayas();
         }
         

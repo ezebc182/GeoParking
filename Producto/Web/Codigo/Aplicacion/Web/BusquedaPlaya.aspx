@@ -12,11 +12,7 @@
 
     <!--Script de google mas-->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-
-    <!--Script jquery -->
-    <script src="Scripts/jquery.min.js"></script>
-
-
+    
     <!--Script para el mapa de toda la pagina-->
     <script src="Scripts/GoogleMapsBusquedaPlaya.js"></script>
 

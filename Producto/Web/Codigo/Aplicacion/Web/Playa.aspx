@@ -7,6 +7,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <link type="text/css" href="./Styles/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./Styles/MapaAbmPlaya.css" type="text/css">
     <!--Script de google mas-->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
@@ -325,7 +326,7 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
-    
+    <script src="Scripts/jquery.min.js"></script>
     <script src="./Scripts/GoogleMaps.js" type="text/javascript"></script>
     <script src="./Scripts/paneles.js"></script>
     <script src="./Scripts/contarFilas.js"></script>

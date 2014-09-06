@@ -28,7 +28,13 @@
     function Alerta_openModalInfo() {
         $('#MensajeModalInfo').modal('show');
 
-
     }
 
+    function Alerta_openModalInfo(mensaje, titulo) {
+        $('#msjInfo_lblMensajeModal').text(mensaje);
+        $('#msjInfo_lblTitulo').text(titulo);
+        $('#MensajeModalInfo').modal('show');
+
+
+    }
 </script>

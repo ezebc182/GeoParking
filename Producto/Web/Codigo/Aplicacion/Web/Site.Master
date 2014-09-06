@@ -13,14 +13,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gestión de playas</title>
+    <title>GeoParking -Buscar playa</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css" type="text/css">
-    <!-- glyphicons extra -->
-
-    <link href="Bootstrap/css/bootstrap.icon-large.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="./Styles/MapaAbmPlaya.css" type="text/css">
+    <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css" type="text/css">        
     <link rel="stylesheet" href="./Styles/bootstrapValidator.min.css" type="text/css" />
     <!-- Media Queries-->
     <link rel="stylesheet" type="text/css" href="./Styles/media-queries.css">
@@ -28,15 +24,13 @@
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 </head>
 <body>
-    <script src="./Scripts/jquery.min.js" type="text/javascript"></script>
-    <script src="./Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="./Scripts/bootstrapValidator.min.js" type="text/javascript"></script>
+   
 
 
-    <form runat="server" class="container">
+    <form runat="server" class="container-fluid" >
 
         <!-- Barra de navegación-->
-        <div class="col-12" style="height: 60px;">
+        <div style="height: 60px;">
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
                 <!-- El logotipo y el icono que despliega el menú se agrupan
 			       para mostrarlos mejor en los dispositivos móviles -->
@@ -340,6 +334,11 @@
             </div>
         </div>
     </form>
+
+
+     <script src="./Scripts/jquery.min.js" type="text/javascript"></script>
+    <script src="./Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="./Scripts/bootstrapValidator.min.js" type="text/javascript"></script>
 </body>
 
 <script type="text/javascript">
