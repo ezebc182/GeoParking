@@ -65,13 +65,13 @@ function buscarCiudadSession() {
                     map.setCenter(results[0].geometry.location);
                     map.setZoom(12);
                 } else {
-                    alert('La ciudad no ha podido encontrarse');
+                    Alerta_openModalInfo("La ciudad no ha podido encontrarse","Resultado de Busqueda")
                 }
             });
 
         },
         error: function (response) {
-            alert('ERROR ' + response.status + ' ' + response.statusText);
+            Alerta_openModalError('ERROR ' + response.status + ' ' + response.statusText, 'Error');
         }
     });
 }
@@ -137,7 +137,7 @@ function marcarPunto() {
             circulos.push(puntoInteres);
 
         } else {
-            alert('La direccion establecida no ha podido encontrarse');
+            Alerta_openModalInfo('La direccion establecida no ha podido encontrarse', 'Resultado de la Busqueda');
         }
     });
 
@@ -222,7 +222,7 @@ function getPlayas() {
                     cargarPlayas(response);                   
                 },
                 error: function (result) {
-                    alert('ERROR ' + result.status + ' ' + result.statusText);
+                    Alerta_openModalError('ERROR ' + result.status + ' ' + result.statusText, 'Error');
                 }
             });
 }
@@ -256,13 +256,13 @@ $(function () {
                         cargarPlayas(response);                        
 
                     } else {
-                        alert('La ciudad no ha podido encontrarse');
+                        Alerta_openModalInfo('La ciudad no ha podido encontrarse', 'Resultado de la Busqueda' );
                     }
                 });
                 
             },
             error: function (response) {
-                alert('ERROR ' + response.status + ' ' + response.statusText);
+                Alerta_openModalError('ERROR ' + response.status + ' ' + response.statusText, 'Error');
             }
         });
 
@@ -314,7 +314,7 @@ $(function () {
                         cargarPlayas(response);
                     },
                     error: function (result) {
-                        alert('ERROR ' + result.status + ' ' + result.statusText);
+                        Alerta_openModalError('ERROR ' + result.status + ' ' + result.statusText, 'Error');
                     }
                 });
 

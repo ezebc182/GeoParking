@@ -17,18 +17,20 @@
             <div class="modal-footer">
                 <button class="btn btn-info" data-dismiss="modal" aria-hidden="true">Aceptar</button>
             </div>
-        </>
+            </>
+        </div>
     </div>
 </div>
-    </div>
 
 <script type="text/javascript">
 
 
     function Alerta_openModalError() {
         $('#MensajeModalError').modal('show');
-
-
     }
-
+    function Alerta_openModalError(mensaje, titulo) {
+        $('#msjError_lblMensajeModal').text(mensaje);
+        $('#msjError_lblTitulo').text(titulo);
+        $('#MensajeModalError').modal('show');
+    }
 </script>

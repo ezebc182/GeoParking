@@ -27,10 +27,8 @@
 
     function Alerta_openModalConfirmacion() {
         $('#MensajeModalConfirmacion').modal('show');
-
-
     }
-
+    
     function Alerta_cerrarModalConfirmacion() {
         $('#MensajeModalConfirmacion').modal('hide');
     }
