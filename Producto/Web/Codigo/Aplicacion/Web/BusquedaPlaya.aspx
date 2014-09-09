@@ -12,7 +12,7 @@
 
     <!--Script de google mas-->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-    
+
     <!--Script para el mapa de toda la pagina-->
     <script src="Scripts/GoogleMapsBusquedaPlaya.js"></script>
 
@@ -29,31 +29,35 @@
     <!--Scripts para autocomplete (no eliminar)-->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
 
-
-       <div class="formulario" data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok" data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+    <div class="page-header">
+        <h2>Búsqueda de playas</h2>
+    </div>
+    <div class="formulario" data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+        data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
         <!--Cabecera con formulario para buscar en otra ciudad y cambiar el mapa-->
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="col-sm-4 col-md-4 col-lg-4">
-                <input type="text" class="form-control input-lg autosuggest" value="" id="txtBuscar"
-                    placeholder="Buscar en otra ciudad..." />
+        <div class="form-inline" style="margin-bottom:2%;">
+            <div class="form-group" style="width:40%;">
+                <div class="input-group" >
+                    <input type="text" class="form-control input-lg autosuggest" value="" id="txtBuscar"
+                        placeholder="Buscar en otra ciudad..." />
 
-            </div>
+                    <div class="input-group-btn">
+                        <button type="button" class="btn-primary btn btn-lg" id="Button1">
+                            <span class="glyphicon glyphicon-filter"></span>&nbsp;Filtrar</button>
+                    </div>
 
-            <div class="col-sm-2 col-md-2 col-lg-2">
-                <button type="button" class="btn-primary btn btn-lg" id="Button1"><span class="glyphicon glyphicon-filter">
-                    </span>&nbsp;Filtrar</button>
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-2">
+                </div>
+                </div>
+            <div class="form-group">
                 <button type="button" class="btn-warning btn btn-lg" id="btnBusquedaAvanzada" data-toggle="collapse"
                     data-target="#busquedaAvanzada" onclick="ajustarMapa()">
                     <span class="glyphicon glyphicon-cog"></span>&nbsp;Búsqueda
                     avanzada</button>
-
             </div>
-
-            <hr class="col-sm-12 col-md-12 col-lg-12" />
+                
+            
         </div>
-        <hr />
+
 
         <!--Columna con los fitros de la busqueda-->
 
@@ -61,7 +65,8 @@
 
 
         <div class="col-md-3 col-sm-3 col-lg-3 collapse well" id="busquedaAvanzada">
-            <div class="formulario form-horizontal" data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok" data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+            <div class="formulario form-horizontal" data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
                 <fieldset>
 
                     <!-- Form Name -->
@@ -70,7 +75,7 @@
                     <!-- Text input-->
                     <div class="form-group">
                         <div class="col-md-12 col-sm-12 col-lg-12">
-                            
+
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-road"></span></span>
                                 <div class="input-group">
@@ -96,7 +101,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-star"></span>
                                 </span>
-                              
+
 
                                 <asp:DropDownList ID="ddlTipoPlaya" CssClass="form-control"
                                     runat="server" ClientIDMode="Static">
@@ -112,7 +117,7 @@
                                 <span class="input-group-addon"><span class="glyphicon
     glyphicon-align-justify"></span>
                                 </span>
-                              
+
                                 <asp:DropDownList ID="ddlTipoVehiculo" CssClass="form-control"
                                     runat="server" ClientIDMode="Static">
                                 </asp:DropDownList>
@@ -126,7 +131,7 @@
                                 <span class="input-group-addon"><span class="glyphicon
     glyphicon-calendar"></span>
                                 </span>
-                              
+
 
                                 <asp:DropDownList ID="ddlDiasAtencion" CssClass="form-control"
                                     runat="server" ClientIDMode="Static">
@@ -140,9 +145,11 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon
     glyphicon-usd"></span></span>
-                              
+
                                 <input id="txtMinPrecio" name="txtMinPrecio" class="form-control" placeholder="0"
-                                    data-bv-regexp-message="Ingrese un valor válido" pattern="[+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*)(?:[eE][+-]?\d+)?"  data-bv-lessThan-inclusive="true" data-bv-lessThan-message="Precio desde debe ser menor que precio hasta" data-bv-lessThan-value="txtMaxPrecio ">
+                                    data-bv-regexp-message="Ingrese un valor válido" pattern="[+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*)(?:[eE][+-]?\d+)?"
+                                    data-bv-lessthan-inclusive="true" data-bv-lessthan-message="Precio desde debe ser menor que precio hasta"
+                                    data-bv-lessthan-value="txtMaxPrecio ">
                             </div>
                         </div>
 
@@ -151,9 +158,11 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon
     glyphicon-usd"></span></span>
-                              
+
                                 <input id="txtMaxPrecio" name="txtMaxPrecio" class="form-control" placeholder="10"
-                                       data-bv-regexp-message="Ingrese un valor válido" pattern="[+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*)(?:[eE][+-]?\d+)?"  data-bv-greaterThan-inclusive="true" data-bv-greaterThan-message="Precio hasta debe ser mayor que precio desde" data-bv-greaterThan-value="txtMinPrecio">
+                                    data-bv-regexp-message="Ingrese un valor válido" pattern="[+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*)(?:[eE][+-]?\d+)?"
+                                    data-bv-greaterthan-inclusive="true" data-bv-greaterthan-message="Precio hasta debe ser mayor que precio desde"
+                                    data-bv-greaterthan-value="txtMinPrecio">
                             </div>
                         </div>
                     </div>
@@ -164,7 +173,7 @@
                             <div class="input-group">
                                 <span class=" input-group-addon"><span class="glyphicon
         glyphicon-time"></span></span>
-                              
+
                                 <asp:DropDownList ID="ddlHoraDesde" CssClass="form-control"
                                     runat="server" ClientIDMode="Static">
                                     <asp:ListItem Value="0">00</asp:ListItem>
@@ -191,7 +200,7 @@
                             <div class="input-group">
                                 <span class=" input-group-addon"><span class="glyphicon
     glyphicon-time"></span></span>
-                             
+
                                 <asp:DropDownList ID="ddlHoraHasta" CssClass="form-control" runat="server" ClientIDMode="Static">
                                     <asp:ListItem Value="0">00</asp:ListItem>
                                     <asp:ListItem Value="2">02</asp:ListItem>
@@ -250,7 +259,7 @@
             $("#admPlayas").addClass("hidden");
             $("#admPOI").addClass("hidden");
             agrandarMapa();
-            
+
 
 
         });
@@ -258,20 +267,20 @@
         $(".formulario").bootstrapValidator();
         function agrandarMapa() {
             $("#map-canvas").css("width", "1070px");
-            $("#map-canvas").css("height", "427px");            
+            $("#map-canvas").css("height", "427px");
             $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Búsqueda Avanzada");
-            
+
         }
 
         function ajustarMapa() {
             if (cantClick % 2 == 0) {
-                
+
                 $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Ocultar Avanzada");
                 $("#map-canvas").fadeIn(3000, function () {
                     $("#map-canvas").css("width", "800px");
                     $("#map-canvas").css("height", "427px");
                 });
-                
+
             }
             else {
                 agrandarMapa();

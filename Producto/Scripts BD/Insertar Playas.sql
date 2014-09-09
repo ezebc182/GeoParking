@@ -3,7 +3,7 @@ Script Alta de playas de estacionamiento
 @ezebc182
 fecha:07/09/2014
 ******************************************/
-USE [BD_Geoparking]
+USE [DB_9B3453_Geoparking]
 -------------------------------------------- Playa 1
 
 /*Datos Generales*/

@@ -58,9 +58,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdministracionUsuarios.aspx" />
+    <Content Include="Ayuda.aspx" />
     <Content Include="Bootstrap\css\bootstrap.icon-large.min.css" />
     <Content Include="Bootstrap\fonts\glyphicons.png" />
     <Content Include="BusquedaPlaya.aspx" />
+    <Content Include="Contacto.aspx" />
     <Content Include="Controles\Servicio.ascx" />
     <Content Include="Controles\Horarios.ascx" />
     <Content Include="Controles\Precios.ascx" />
@@ -68,9 +70,15 @@
     <Content Include="Controles\Mensajes\Error.ascx" />
     <Content Include="Controles\Mensajes\Info.ascx" />
     <Content Include="Controles\Mensajes\Confirmacion.ascx" />
+    <Content Include="img\android.png" />
+    <Content Include="img\apple.png" />
     <Content Include="img\Banner.png" />
+    <Content Include="img\facebook.png" />
     <Content Include="img\maracdorParking.png" />
     <Content Include="img\parking1.jpg" />
+    <Content Include="img\twitter.png" />
+    <Content Include="img\whatsapp.png" />
+    <Content Include="img\windows.png" />
     <Content Include="Index.aspx" />
     <Content Include="Playa.aspx" />
     <Content Include="Bootstrap\css\bootstrap-theme.css" />
@@ -119,6 +127,13 @@
     <Compile Include="AdministracionUsuarios.aspx.designer.cs">
       <DependentUpon>AdministracionUsuarios.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Ayuda.aspx.cs">
+      <DependentUpon>Ayuda.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ayuda.aspx.designer.cs">
+      <DependentUpon>Ayuda.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BusquedaPlaya.aspx.cs">
       <DependentUpon>BusquedaPlaya.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -131,6 +146,13 @@
     <Compile Include="ClasesJsonVista\PlayaJSON.cs" />
     <Compile Include="ClasesJsonVista\PrecioJSON.cs" />
     <Compile Include="ClasesJsonVista\ServicioJSON.cs" />
+    <Compile Include="Contacto.aspx.cs">
+      <DependentUpon>Contacto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contacto.aspx.designer.cs">
+      <DependentUpon>Contacto.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Controles\Servicio.ascx.cs">
       <DependentUpon>Servicio.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

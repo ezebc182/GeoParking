@@ -400,6 +400,9 @@
 
     </script>
     <script>
-        $("#admPlayas").addClass("hidden");
+        $("#admPlayas").removeClass("hidden");
+        $("#admPOI").removeClass("hidden");
+        $("#admUsuarios").removeClass("hidden");
+        $("#admPlayas").addClass("active");
     </script>
 </asp:Content>

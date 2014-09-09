@@ -14,9 +14,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>GeoParking -Buscar playa</title>
-
+    <!-- Javascript -->
+    <script src="./Scripts/jquery.min.js" type="text/javascript"></script>
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css" type="text/css">        
+    <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="./Styles/bootstrapValidator.min.css" type="text/css" />
     <!-- Media Queries-->
     <link rel="stylesheet" type="text/css" href="./Styles/media-queries.css">
@@ -24,10 +25,10 @@
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 </head>
 <body>
-   
 
 
-    <form runat="server" class="container-fluid" >
+
+    <form runat="server" class="container-fluid">
 
         <!-- Barra de navegación-->
         <div style="height: 60px;">
@@ -86,13 +87,15 @@
                            {
                         %>
                         <li>
-                            <label style="color: black; padding-top: 15px;"><span class="glyphicon glyphicon-user"></span>
+                            <label style="color: black; padding-top: 15px;">
+                                <span class="glyphicon glyphicon-user"></span>
                                 <strong>
                                     <asp:Label ID="lblLogin" runat="server"></asp:Label>
                                     |
                                 <asp:LinkButton ID="btnCerrarSesion" OnClick="btnCerrarSesion_Click" Text="Cerrar Sesion"
                                     ForeColor="Black" runat="server"></asp:LinkButton>
-                                </strong></label>
+                                </strong>
+                            </label>
                         </li>
                         <% } %>
                         <li class="divider-vertical"></li>
@@ -123,7 +126,8 @@
                         <button type="button" class="close" data-dismiss="modal" onclick="javascript:this.resetForm()">
                             <span aria-hidden="true">&times;</span><span
                                 class="sr-only">Close</span></button>
-                        <h4 class="modal-title text-center"><span class="glyphicon glyphicon-user"></span><strong>Iniciar Sesion</strong></h4>
+                        <h4 class="modal-title text-center"><span class="glyphicon glyphicon-user"></span><strong>
+                            Iniciar Sesion</strong></h4>
                     </div>
                     <div class="modal-body">
 
@@ -155,7 +159,7 @@
                                     <asp:UpdatePanel ID="panel1" runat="server">
                                         <ContentTemplate>
                                             <asp:Button ID="btnIniciarSesion" Text="Iniciar Sesion" UseSubmitBehavior="false"
-                                                OnClick="btnIniciarSesion_Click"  TabIndex="3" CssClass="btn btn-primary btn-block btn-sm"
+                                                OnClick="btnIniciarSesion_Click" TabIndex="3" CssClass="btn btn-primary btn-block btn-sm"
                                                 runat="server" />
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
@@ -200,7 +204,8 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" onclick="javascript:this.resetForm()">
                             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title text-center"><span class="glyphicon glyphicon-user"></span><strong>Registro de Usuario - Complete con sus Datos</strong></h4>
+                        <h4 class="modal-title text-center"><span class="glyphicon glyphicon-user"></span><strong>
+                            Registro de Usuario - Complete con sus Datos</strong></h4>
                     </div>
                     <div class="modal-body">
                         <div class="formulario" data-bv-message="This value is not valid"
@@ -336,10 +341,16 @@
     </form>
 
 
-     <script src="./Scripts/jquery.min.js" type="text/javascript"></script>
+    
     <script src="./Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="./Scripts/bootstrapValidator.min.js" type="text/javascript"></script>
+  
+    <asp:ContentPlaceHolder ID="footer" runat="server">
+
+    </asp:ContentPlaceHolder>
 </body>
+
+
 
 <script type="text/javascript">
 
@@ -354,7 +365,7 @@
         }
 
     }
-        $(".formulario").bootstrapValidator();
+    $(".formulario").bootstrapValidator();
 
 
     function AbrirModalRegistro() {
