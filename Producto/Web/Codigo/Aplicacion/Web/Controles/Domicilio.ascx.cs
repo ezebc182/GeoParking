@@ -45,6 +45,8 @@ namespace Web.Controles
         {
             FormHelper.CargarCombo(ddlCiudad, ((IList<Ciudad>)(gestor.BuscarCiudadesPorDepartamentoId(IdDepartamentoSeleccionado))).OrderBy(c => c.Nombre), "Nombre", "Id", "Seleccione");
         }
+
+
         /// <summary>
         /// Agrega una lista de domicilios a la grilla de domicilios
         /// </summary>
@@ -144,11 +146,16 @@ namespace Web.Controles
         /// </summary>
         public void LimpiarCampos()
         {
-            IdProvinciaSeleccionada = 0;
-            Calle = "";
-            Numero = null;
-            if (Domicilios.Count > 0) LimpiarCombos();
-
+            if (Domicilios.Count == 0 || IdProvinciaSeleccionada == 0)
+            {
+                HabilitarCombos(true);
+                LimpiarCombos();
+                IdProvinciaSeleccionada = 0;
+                Calle = "";
+                Numero = null;
+            }
+            else
+                HabilitarCombos(false);
         }
 
         /// <summary>
@@ -156,10 +163,17 @@ namespace Web.Controles
         /// </summary>
         public void LimpiarCombos()
         {
-            FormHelper.LimpiarCombo(ddlCiudad);
-            FormHelper.LimpiarCombo(ddlDepartamento);
+            LimpiarCombo(ddlCiudad);
+            LimpiarCombo(ddlDepartamento);
             HabilitarCombos(true);
         }
+
+        public void LimpiarCombo(DropDownList combo)
+        {
+            if (combo.Items != null) combo.SelectedIndex = -1;
+            FormHelper.LimpiarCombo(combo);
+        }
+
         /// <summary>
         /// Establece las propiedades de los controles para cuando el usuario esta viendo.
         /// </summary>
@@ -179,7 +193,7 @@ namespace Web.Controles
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario1, false);
             FormHelper.CambiarVisibilidadControl(divSeccionFormulario2, false);
             FormHelper.CambiarVisibilidadControl(divSeccionGrillaDomicilios, true);
-            FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, true); 
+            FormHelper.CambiarVisibilidadControl(btnAgregarDomicilio, true);
             gvDomicilios.Columns[7].Visible = true;
         }
         /// <summary>
@@ -268,6 +282,9 @@ namespace Web.Controles
         {
             CargarComboDepartamentos();
             IdDepartamentoSeleccionado = 0;
+            ddlDepartamento.Enabled = true;
+            LimpiarCombo(ddlCiudad);
+            ddlCiudad.Enabled = false;
         }
 
 
@@ -281,6 +298,7 @@ namespace Web.Controles
         {
             CargarComboCiudades();
             IdCiudadSeleccionada = 0;
+            ddlCiudad.Enabled = true;
         }
 
         #endregion

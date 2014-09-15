@@ -390,6 +390,9 @@
 
             if ($("[id *= ucDomicilio][id *= btnAgregar]").attr("class").search("hidden") > 0) {
                 GoogleMaps.initialize();
+                $('[id*= ucDomicilio] [id*=divSeccionFormulario1] [id*=ddl]').change(function () {
+                    codeAddress();
+                });
             }
             contarFilas();
             $("#MainContent_btnBuscar").click(function () {
