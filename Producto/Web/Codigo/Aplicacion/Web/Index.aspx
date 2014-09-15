@@ -14,7 +14,7 @@
     <script src="Scripts/Autocomplete.js"></script>
     <!--Scripts para autocomplete (no eliminar)-->
     <script src="Scripts/jquery.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>    
 
 </asp:Content>
 
@@ -38,11 +38,17 @@
         </div>
     </div>
     <!-- Aca debería evaluarse según el rol de usuario -->
-    <script>
-        $('#admPOI').addClass("hidden");
-        $('#admPlayas').addClass("hidden");
-        $('#admUsuarios').addClass("hidden");
-    </script>
+    <%--<script>
+        var rol = '<%=master.rolId%>';
+        if (rol == 1) {
+        }
+        else {
+
+            $('#admPOI').addClass("hidden");
+            $('#admPlayas').addClass("hidden");
+            $('#admUsuarios').addClass("hidden");
+        }
+    </script>--%>
 
 
 

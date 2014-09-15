@@ -16,7 +16,7 @@ namespace Web
     public partial class BusquedaPlaya : System.Web.UI.Page
     {
         //referencia a la master
-        private static SiteMaster master;
+        public static SiteMaster master;
 
         //Ciudad buscada por el usuario
         public static String ciudadBuscada;
@@ -30,7 +30,7 @@ namespace Web
         protected void Page_Load(object sender, EventArgs e)
         {
             master = (SiteMaster)Master;
-         
+                                 
             gestor = new GestorBusquedaPlayas();
 
             if (!Page.IsPostBack)

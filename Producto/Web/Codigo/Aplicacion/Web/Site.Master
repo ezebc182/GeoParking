@@ -372,9 +372,28 @@
         $('#login').modal('hide');
         $('#registrar').modal('show');
     }
-
-
 </script>
+
+    <script>
+        var rol = '<%=rolId%>';
+        if (rol == 1) {
+            $('#admPOI').addClass("hidden");
+            $('#admPlayas').addClass("hidden");
+            $('#admUsuarios').addClass("hidden");
+        }
+        else if (rol == 2) {
+            $('#admUsuarios').addClass("hidden");
+        }
+        else if (rol == 3) {
+            //no bloqueo nada porque es el superadmin 
+        }
+        else {
+            //bloqueo todo 
+            $('#admPOI').addClass("hidden");
+            $('#admPlayas').addClass("hidden");
+            $('#admUsuarios').addClass("hidden");
+        }
+    </script>
 
 </html>
 

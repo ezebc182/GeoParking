@@ -141,7 +141,7 @@
                     </div>
                     <!-- Prepended text-->
                     <div class="form-group">
-                        <div class="col-md-6">
+                        <div class="col-md-9">   
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon
     glyphicon-usd"></span></span>
@@ -152,11 +152,12 @@
                                     data-bv-lessthan-value="txtMaxPrecio ">
                             </div>
                         </div>
-
+                        <br />
                         <!-- Prepended text-->
-                        <div class="col-md-6">
+                        <div class="col-md-9">
+                            
                             <div class="input-group">
-                                <span class="input-group-addon"><span class="glyphicon
+                                 <span class="input-group-addon"><span class="glyphicon
     glyphicon-usd"></span></span>
 
                                 <input id="txtMaxPrecio" name="txtMaxPrecio" class="form-control" placeholder="10"
@@ -252,18 +253,22 @@
         </div>
     </div>
 
+    <!-- Aca debería evaluarse según el rol de usuario -->
+    <%--<script>
+        var rol = '<%=master.rolId%>';
+        if (rol == 1) {
+        }
+        else {
+
+            $('#admPOI').addClass("hidden");
+            $('#admPlayas').addClass("hidden");
+            $('#admUsuarios').addClass("hidden");
+        }
+    </script>--%>
+
     <script>
         var cantClick = 0;
-        $(document).ready(function () {
-            $("#admUsuarios").addClass("hidden");
-            $("#admPlayas").addClass("hidden");
-            $("#admPOI").addClass("hidden");
-            agrandarMapa();
-
-
-
-        });
-
+       
         $(".formulario").bootstrapValidator();
         function agrandarMapa() {
             $("#map-canvas").css("width", "1070px");
