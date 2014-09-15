@@ -1,7 +1,14 @@
 {
   "project": {
-    "projectSettingsVersion": "1.0",
+    "projectSettingsVersion": "1.1",
     "projectFiles": {},
-    "projectDirectories": {}
+    "projectDirectories": {},
+    "initialAutoPluginCount": 29,
+    "currentService": {
+      "methodapi": "Info",
+      "endPoint": "Google-Play-Services",
+      "service": "AdMob",
+      "category": "Advertising"
+    }
   }
 }

@@ -13,14 +13,15 @@ namespace Web
     {
         
         static GestorBusquedaPlayas gestor;
-        SiteMaster master;
-
+        public SiteMaster master;
+        
+        
         //Referencia al servicio web "GeoService"
         private static GeoService.Service1 geoServicio = new GeoService.Service1();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            master = (SiteMaster)Master;
+            master = (SiteMaster)Master;            
             //txtBuscar.Focus();
             gestor = new GestorBusquedaPlayas();
         }

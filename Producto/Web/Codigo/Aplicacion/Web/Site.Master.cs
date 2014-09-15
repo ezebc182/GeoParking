@@ -15,6 +15,8 @@ namespace Web
         GestorUsuario gestor;
         GestorRol gestorRol;
 
+        public int rolId;
+
         protected void Page_Load(object sender, EventArgs e)
         
         {
@@ -25,6 +27,7 @@ namespace Web
             if (SessionUsuario != null)
             {
                 lblLogin.Text = SessionUsuario.NombreUsuario;
+                rolId = SessionUsuario.RolId;
                
             }
         }
@@ -274,6 +277,16 @@ namespace Web
         protected void btnCerrarSesion_Click(object sender, EventArgs e)
         {
             SessionUsuario = null;
+            rolId = 0;
+
+            string[] segmentosURL = HttpContext.Current.Request.Url.Segments;
+            string pagina = segmentosURL[segmentosURL.Length - 1];
+
+            if (pagina == "Playa.aspx" || pagina == "AdministracionUsuarios.aspx")
+            {
+                Response.Redirect("Index.aspx");
+            }
+            
         }
 
     }

@@ -16,14 +16,14 @@ namespace Web
         //gestor encargado de todas las funcionalidades del ABM
         GestorPlaya gestor;
         //Master de la pagina, para poder mostrar mensajes.
-        SiteMaster master;
+        public SiteMaster master;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             gestor = new GestorPlaya();
             master = (SiteMaster)Master;
 
-            if (SessionUsuario == null)
+            if (SessionUsuario == null || SessionUsuario.RolId==1)
             {
                 Response.Redirect("/Index.aspx");
             }

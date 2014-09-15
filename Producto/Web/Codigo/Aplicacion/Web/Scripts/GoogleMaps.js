@@ -29,11 +29,12 @@ GoogleMaps.initialize = function () {
         addMarker(event.latLng);
         $('[id *= latitud]').first().val(event.latLng.lat().toString());
         $('[id *= longitud]').first().val(event.latLng.lng().toString());
-    });
+    });    
 
     // Adds a marker at the center of the map.
     addMarker(haightAshbury);
 }
+
 
 //Agregar el marcador en la posicion establecida
 function addMarker(location) {
@@ -49,6 +50,13 @@ function addMarker(location) {
         icon: './img/maracdorParking.png'
         
     });
+
+    //evento al soltar le marcador para que tome la nueva posicion
+    google.maps.event.addListener(marker, 'dragend', function () {
+        $('[id *= latitud]').first().val(marker.getPosition().lat());
+        $('[id *= longitud]').first().val(marker.getPosition().lng());        
+    });
+
     markers.push(marker);
 }
 
@@ -88,11 +96,18 @@ function codeAddress() {
             map.setCenter(results[0].geometry.location);
             var marker = new google.maps.Marker({
                 map: map,
-                position: results[0].geometry.location
+                position: results[0].geometry.location,
+                icon: './img/maracdorParking.png'
             });
 
             $('[id *= latitud]').first().val(results[0].geometry.location.lat().toString());
             $('[id *= longitud]').first().val(results[0].geometry.location.lng().toString());
+
+            //evento al soltar le marcador para que tome la nueva posicion
+            google.maps.event.addListener(marker, 'dragend', function () {
+                $('[id *= latitud]').first().val(marker.getPosition().lat());
+                $('[id *= longitud]').first().val(marker.getPosition().lng());
+            });
 
             markers.push(marker);
         } else {
@@ -107,6 +122,12 @@ function codeAddress() {
 
                     $('[id *= latitud]').first().val(results[0].geometry.location.lat().toString());
                     $('[id *= longitud]').first().val(results[0].geometry.location.lng().toString());
+
+                    //evento al soltar le marcador para que tome la nueva posicion
+                    google.maps.event.addListener(marker, 'dragend', function () {                        
+                        $('[id *= latitud]').first().val(marker.getPosition().lat());
+                        $('[id *= longitud]').first().val(marker.getPosition().lng());
+                    });
 
                     markers.push(marker);
                 } else {

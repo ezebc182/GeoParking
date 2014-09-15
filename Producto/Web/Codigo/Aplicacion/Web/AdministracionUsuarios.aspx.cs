@@ -14,12 +14,12 @@ namespace Web
     {
         GestorRol gestorRol = new GestorRol();
         GestorUsuario gestorUsuario;
-        SiteMaster master;
+        public SiteMaster master;
         protected void Page_Load(object sender, EventArgs e)
         {
             gestorUsuario = new GestorUsuario();
             master = (SiteMaster)Master;
-            if (SessionUsuario == null)
+            if (SessionUsuario == null || SessionUsuario.RolId==1 || SessionUsuario.RolId==3)
             {
                 Response.Redirect("/Index.aspx");
             }
