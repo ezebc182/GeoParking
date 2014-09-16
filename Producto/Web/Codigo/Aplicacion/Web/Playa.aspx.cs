@@ -254,8 +254,8 @@ namespace Web
         /// </summary>
         public int TipoPlayaSeleccionada
         {
-            get { return ddlTipoPlaya.SelectedIndex; }
-            set { ddlTipoPlaya.SelectedIndex = value; }
+            get { return Int32.Parse(ddlTipoPlaya.SelectedValue); }
+            set { ddlTipoPlaya.SelectedValue = value.ToString(); }
         }
         /// <summary>
         /// Mensaje de exito

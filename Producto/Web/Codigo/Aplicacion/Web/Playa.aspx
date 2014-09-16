@@ -240,7 +240,7 @@
                     <button id="btnAceptar" runat="server" class="btn hidden" data-dismiss="modal">Aceptar</button>
                 </div>
                 <div class="modal-footer">
-                    <asp:UpdatePanel runat="server" ID="upBotones">
+                    <asp:UpdatePanel runat="server" ID="upBotones" UpdateMode="Always" ChildrenAsTriggers="true">
                         <ContentTemplate>
                             <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-lg" OnClick="btnCancelar_Click" data-dismiss="modal" Text="Cancelar"></asp:Button>
                             <asp:Button ID="btnGuardar" runat="server" CssClass="btn disabled btn-success btn-lg" OnClick="btnGuardar_Click" Text="Guardar"></asp:Button>
