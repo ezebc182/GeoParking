@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8283/" />
+<title>1</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">1</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/Index.aspx</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//form[@id='ctl01']/div[3]/nav/div[2]/ul/li[4]/a/b</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=txtUsuarioLogin</td>
+	<td>superadmin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=txtContraseñaLogin</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=btnIniciarSesion</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=Administración de playas</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Administración de playas</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=MainContent_btnNuevo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=TopContent_txtNombre</td>
+	<td>CPA_Playa1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=TopContent_txtTelefono</td>
+	<td>999999</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=TopContent_txtMail</td>
+	<td>CPA_mail@CPAmail.com</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=TopContent_ddlTipoPlaya</td>
+	<td>label=CPA_TipoPlaya1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=TopContent_ucServicios_btnAgregarServicio</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=TopContent_ucServicios_ddlTipoVehiculo</td>
+	<td>label=CPA_TipoVehiculo1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=TopContent_ucServicios_txtCapacidad</td>
+	<td>9</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span.glyphicon.glyphicon-ok-circle</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=TopContent_ucServicios_gvServicios_btnQuitar_0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#TopContent_ucDomicilios_btnAgregarDomicilio &gt; span.glyphicon.glyphicon-plus</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=TopContent_ucDomicilios_ddlProvincia</td>
+	<td>label=Cordoba</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=#TopContent_ucDomicilios_ddlDepartamento &gt; option[value=&quot;0&quot;]</td>
+	<td>label=Seleccione</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=TopContent_ucDomicilios_ddlDepartamento</td>
+	<td>label=Capital</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=option[value=&quot;213&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=#TopContent_ucDomicilios_ddlCiudad &gt; option[value=&quot;0&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=TopContent_ucDomicilios_ddlCiudad</td>
+	<td>label=Cordoba</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=option[value=&quot;1560&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=TopContent_ucDomicilios_txtCalle</td>
+	<td>Colon</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=TopContent_ucDomicilios_txtNumero</td>
+	<td>4850</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=TopContent_ucDomicilios_btnBuscarEnMapa</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#TopContent_ucDomicilios_btnGuardar &gt; span.glyphicon.glyphicon-ok-circle</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//table[@id='TopContent_ucDomicilios_gvDomicilios']/tbody/tr[2]/td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=2. Horarios</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=TopContent_ucHorarios_btnAgregarHorario</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=TopContent_ucHorarios_ddlDias</td>
+	<td>label=CPA_DiasDeAtencion1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=txtHasta</td>
+	<td>10:00:00</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=chk24Horas</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#TopContent_ucHorarios_btnGuardar &gt; span.glyphicon.glyphicon-ok-circle</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=TopContent_ucHorarios_gvHorarios_btnQuitar_0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=3. Precios</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#TopContent_ucPrecios_btnAgregarPrecio &gt; span.glyphicon.glyphicon-plus</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=TopContent_ucPrecios_ddlTipoVehiculo</td>
+	<td>label=CPA_TipoVehiculo1</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=TopContent_ucPrecios_ddlTipoHorario</td>
+	<td>label=CPA_TipoHorario1</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=TopContent_ucPrecios_ddlDias</td>
+	<td>label=CPA_DiasDeAtencion1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=TopContent_ucPrecios_txtPrecio</td>
+	<td>9</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#TopContent_ucPrecios_btnGuardar &gt; span.glyphicon.glyphicon-ok-circle</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//table[@id='TopContent_ucPrecios_gvPrecios']/tbody/tr[2]/td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=TopContent_btnGuardar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//div[@id='MensajeModalInfo']/div/div/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//div[@id='MensajeModalInfo']/div/div/div</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
