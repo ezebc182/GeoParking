@@ -5,6 +5,9 @@ function obtenerPlayasDeCiudad(ciudad){
     if(ciudad === "Río Cuarto"){
         return playasDeRioCuarto;
     }
+    else{
+        return playasDeCordoba;
+    }
 }
 var playasDeCordoba = [
     {

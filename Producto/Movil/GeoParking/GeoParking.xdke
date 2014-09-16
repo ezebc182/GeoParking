@@ -3,7 +3,7 @@
     "projectSettingsVersion": "1.1",
     "projectFiles": {},
     "projectDirectories": {},
-    "initialAutoPluginCount": 29,
+    "initialAutoPluginCount": 0,
     "currentService": {
       "methodapi": "Info",
       "endPoint": "Google-Play-Services",
