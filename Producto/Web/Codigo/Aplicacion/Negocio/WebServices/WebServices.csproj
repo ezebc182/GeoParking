@@ -58,7 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GeoService.asmx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeoService.asmx.cs">

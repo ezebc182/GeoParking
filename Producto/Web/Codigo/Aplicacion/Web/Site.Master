@@ -22,6 +22,8 @@
     <!-- Media Queries-->
     <link rel="stylesheet" type="text/css" href="./Styles/media-queries.css">
 
+    <link href="Styles/Master.css" rel="stylesheet" />
+
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 </head>
 <body>
@@ -93,7 +95,7 @@
                                     <asp:Label ID="lblLogin" runat="server"></asp:Label>
                                     |
                                 <asp:LinkButton ID="btnCerrarSesion" OnClick="btnCerrarSesion_Click" Text="Cerrar Sesion"
-                                    ForeColor="Black" runat="server"></asp:LinkButton>
+                                     runat="server"></asp:LinkButton>
                                 </strong>
                             </label>
                         </li>

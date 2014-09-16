@@ -19,7 +19,7 @@ namespace Web
         {
             gestorUsuario = new GestorUsuario();
             master = (SiteMaster)Master;
-            if (SessionUsuario == null || SessionUsuario.RolId==1 || SessionUsuario.RolId==3)
+            if (SessionUsuario == null || SessionUsuario.RolId==1 || SessionUsuario.RolId==2)
             {
                 Response.Redirect("/Index.aspx");
             }

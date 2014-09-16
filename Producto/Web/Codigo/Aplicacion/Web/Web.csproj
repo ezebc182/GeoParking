@@ -109,6 +109,7 @@
     <Content Include="Styles\BusquedaPlaya.css" />
     <Content Include="Styles\index.css" />
     <Content Include="Styles\MapaAbmPlaya.css" />
+    <Content Include="Styles\Master.css" />
     <Content Include="Styles\media-queries.css" />
     <Content Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
