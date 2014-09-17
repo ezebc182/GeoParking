@@ -4,6 +4,7 @@
 	<title>Your New Application</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+    <script src="xhr.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <!--<script src="./Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>-->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
@@ -29,6 +30,7 @@
         }
 		</style>
 	<script src='intelxdk.js'></script>
+    <script src="cordova.js"></script>
 	<script type="text/javascript">
 		/* Intel native bridge is available */
 		var onDeviceReady=function(){
@@ -37,6 +39,7 @@
 		};
 		document.addEventListener("intel.xdk.device.ready",onDeviceReady,false);
 	</script>
+    <link href="cargarMapa.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <!-- content goes here-->
@@ -44,8 +47,8 @@
         <div id="map-canvas" class="fullscreen"></div>
     </div>
     
-    <script src="./js/cargarMapa.js"></script><!-- trabaja con el mapa cuando se inicializa -->
-    <script src="./js/obtenerPlayas.js"></script> <!-- aca va a estar la comunicacion con nuestro web service -->
+    <script src="./js/Propios/cargarMapa.js"></script><!-- trabaja con el mapa cuando se inicializa -->
+    <script src="./js/Propios/obtenerPlayas.js"></script> <!-- aca va a estar la comunicacion con nuestro web service -->
 	
     <!--<button id="obtenerPosicion" onclick="obtenerPosicionActual()">Obtener Posicion</button>
     <label id="lblMensaje">mensaje</label> -->
