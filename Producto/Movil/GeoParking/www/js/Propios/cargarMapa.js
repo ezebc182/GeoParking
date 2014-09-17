@@ -11,8 +11,9 @@ var infowindow = new google.maps.InfoWindow({
     content: ''
 });
 
-var directionsDisplay = new google.maps.DirectionsRenderer();
-directionsDisplay.suppressMarkers = true;
+var directionsDisplay = new google.maps.DirectionsRenderer({
+    suppressMarkers: true
+});
 var directionsService = new google.maps.DirectionsService();
 
 var posicionActual;
