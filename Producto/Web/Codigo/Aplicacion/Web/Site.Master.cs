@@ -192,7 +192,7 @@ namespace Web
                 {
                     SessionUsuario = resultado;
                     lblLogin.Text = SessionUsuario.NombreUsuario;
-                    Response.Redirect(Request.RawUrl); 
+                    Response.Redirect(Request.Url.AbsolutePath); 
                 }
             }
         }
