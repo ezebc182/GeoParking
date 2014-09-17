@@ -141,26 +141,26 @@
                     </div>
                     <!-- Prepended text-->
                     <div class="form-group">
-                        <div class="col-md-9">   
+                        <div class="col-md-6 col-sm-6 col-lg-6"">   
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon
     glyphicon-usd"></span></span>
 
-                                <input id="txtMinPrecio" name="txtMinPrecio" class="form-control" placeholder="0"
+                                <input id="txtMinPrecio" name="txtMinPrecio" maxlength="3" class="form-control" placeholder="0"
                                     data-bv-regexp-message="Ingrese un valor válido" pattern="[+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*)(?:[eE][+-]?\d+)?"
                                     data-bv-lessthan-inclusive="true" data-bv-lessthan-message="Precio desde debe ser menor que precio hasta"
                                     data-bv-lessthan-value="txtMaxPrecio ">
                             </div>
                         </div>
-                        <br />
+                        
                         <!-- Prepended text-->
-                        <div class="col-md-9">
+                        <div class="col-md-6 col-sm-6 col-lg-6"">
                             
                             <div class="input-group">
                                  <span class="input-group-addon"><span class="glyphicon
     glyphicon-usd"></span></span>
 
-                                <input id="txtMaxPrecio" name="txtMaxPrecio" class="form-control" placeholder="10"
+                                <input id="txtMaxPrecio" name="txtMaxPrecio" maxlength="3" class="form-control" placeholder="10"
                                     data-bv-regexp-message="Ingrese un valor válido" pattern="[+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*)(?:[eE][+-]?\d+)?"
                                     data-bv-greaterthan-inclusive="true" data-bv-greaterthan-message="Precio hasta debe ser mayor que precio desde"
                                     data-bv-greaterthan-value="txtMinPrecio">
@@ -230,7 +230,6 @@
             <input type="button" class="btn-primary btn btn-block" value="Filtrar"
                 id="btnBuscar" />
 
-
         </div>
 
 
@@ -253,27 +252,17 @@
         </div>
     </div>
 
-    <!-- Aca debería evaluarse según el rol de usuario -->
-    <%--<script>
-        var rol = '<%=master.rolId%>';
-        if (rol == 1) {
-        }
-        else {
-
-            $('#admPOI').addClass("hidden");
-            $('#admPlayas').addClass("hidden");
-            $('#admUsuarios').addClass("hidden");
-        }
-    </script>--%>
-
+   
     <script>
         var cantClick = 0;
        
         $(".formulario").bootstrapValidator();
         function agrandarMapa() {
-            $("#map-canvas").css("width", "1070px");
-            $("#map-canvas").css("height", "427px");
             $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Búsqueda Avanzada");
+            $("#busquedaAvanzada").hide();
+            $("#map-canvas").css("width", "1100px");
+            $("#map-canvas").css("height", "427px");
+            
 
         }
 
@@ -282,9 +271,11 @@
 
                 $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Ocultar Avanzada");
                 $("#map-canvas").fadeIn(3000, function () {
-                    $("#map-canvas").css("width", "800px");
+                    $("#map-canvas").css("width", "850px");
                     $("#map-canvas").css("height", "427px");
+
                 });
+                $("#busquedaAvanzada").show();
 
             }
             else {

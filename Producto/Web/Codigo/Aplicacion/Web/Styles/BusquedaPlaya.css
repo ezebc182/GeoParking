@@ -6,7 +6,7 @@
 }
 #map-canvas
 {
-    width: 900px;
+    width: 1100px;
     height: 427px;
     margin-top: 0;
     border-radius: 5px;
@@ -23,4 +23,9 @@
     background-color: #fff;
     padding: 5px;
     border: 1px solid #999;
+}
+
+#txtMaxPrecio, #txtMinPrecio {
+    padding-left: 7px;
+    padding-right: 5px;
 }
