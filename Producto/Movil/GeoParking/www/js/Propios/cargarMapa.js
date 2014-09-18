@@ -135,7 +135,7 @@ function initialize() {
     geocoder = new google.maps.Geocoder();
     //opciones basicas del mapa
     var mapOptions = {
-        zoom: 17,
+        zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     //crea el mapa en el div "map-canvas" y le setea las opciones
@@ -143,5 +143,5 @@ function initialize() {
     //centro el mapa en la posicion actual del movil.
     setTimeout(function () {
         obtenerPosicionActual();
-    }, 5000);
+    }, 100);
 }
