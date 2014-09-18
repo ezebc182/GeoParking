@@ -89,7 +89,7 @@
                            {
                         %>
                         <li>
-                            <label style="color: black; padding-top: 15px;">
+                            <label style="color: white; padding-top: 15px;">
                                 <span class="glyphicon glyphicon-user"></span>
                                 <strong>
                                     <asp:Label ID="lblLogin" runat="server"></asp:Label>
@@ -158,13 +158,13 @@
 
                                         </div>
                                     </div>
-                                    <asp:UpdatePanel ID="panel1" runat="server">
-                                        <ContentTemplate>
+<%--                                    <asp:UpdatePanel ID="panel1" runat="server">
+                                        <ContentTemplate>--%>
                                             <asp:Button ID="btnIniciarSesion" Text="Iniciar Sesion" UseSubmitBehavior="false"
                                                 OnClick="btnIniciarSesion_Click" TabIndex="3" CssClass="btn btn-primary btn-block btn-sm"
                                                 runat="server" />
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
+<%--                                        </ContentTemplate>
+                                    </asp:UpdatePanel>--%>
                                 </div>
 
                                 <div class="col-lg-6">
