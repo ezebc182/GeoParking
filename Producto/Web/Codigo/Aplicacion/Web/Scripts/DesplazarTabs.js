@@ -1,6 +1,7 @@
 ﻿
 function abrirTab(id) {
 
+
     switch (id) {
         case ("btnPaso1_2"):
 
