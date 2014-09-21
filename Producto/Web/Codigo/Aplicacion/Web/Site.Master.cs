@@ -18,7 +18,6 @@ namespace Web
         public int rolId;
 
         protected void Page_Load(object sender, EventArgs e)
-        
         {
             gestor = new GestorUsuario();
             msjConfirmacion.Si += ConfirmarMensaje;
@@ -28,8 +27,11 @@ namespace Web
             {
                 lblLogin.Text = SessionUsuario.NombreUsuario;
                 rolId = SessionUsuario.RolId;
-               
+
             }
+            // Validaciones y Carga para el Login de Usuario
+            txtContraseñaLogin.Attributes.Add("value", txtContraseñaLogin.Text);
+            gestor.Login(txtUsuarioLogin.Text, txtContraseñaLogin.Text);
         }
 
         #region mensajes
@@ -70,13 +72,13 @@ namespace Web
         {
             msjInfo.MostrarMensaje(tipo, mensaje, titulo);
         }
-#endregion
+        #endregion
         #region MensajeError
         /// <summary>
         /// Setea el mensaje a mostrar
         /// </summary>
         /// <param name="mensaje">mensaje</param>
-        public void MostrarMensajeError( string mensaje)
+        public void MostrarMensajeError(string mensaje)
         {
             MostrarMensajeError(TipoMensajeEnum.MostrarAlertaYModal, mensaje, "Mensaje");
         }
@@ -170,9 +172,9 @@ namespace Web
             set { Session["EventoCancelacion"] = value; }
         }
         #endregion
-        protected void ConfirmacionMensaje(object sender, EventArgs e){}
-        protected void CancelacionMensaje(object sender, EventArgs e){}
-        
+        protected void ConfirmacionMensaje(object sender, EventArgs e) { }
+        protected void CancelacionMensaje(object sender, EventArgs e) { }
+
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
             if (txtApellido.Text != "" && txtNombre.Text != "" && txtContraseña.Text != "" && txtContraseñaRepetir.Text != ""
@@ -185,14 +187,71 @@ namespace Web
 
         protected void btnIniciarSesion_Click(object sender, EventArgs e)
         {
-            if (txtUsuarioLogin.Text != "" && txtContraseñaLogin.Text != "")
+            ValidarCampos(false, false);
+            var resultado = gestor.Login(txtUsuarioLogin.Text, txtContraseñaLogin.Text);
+            var usuarioValido = gestor.ValidarUsuarioYMailIngresado(txtUsuarioLogin.Text);
+            if (resultado != null)
             {
-                var resultado = gestor.Login(txtUsuarioLogin.Text, txtContraseñaLogin.Text);
-                if (resultado != null)
+                SessionUsuario = resultado;
+                lblLogin.Text = SessionUsuario.NombreUsuario;
+                Response.Redirect(Request.Url.AbsolutePath);
+                txtUsuarioLogin.Text = "";
+                txtContraseñaLogin.Text = "";
+            }
+            else
+            {
+                ValidarCampos(false, false);
+            }
+            if (usuarioValido != null)
+            {
+                ValidarCampos(true, false);
+            }
+        }
+
+        private void ValidarCampos(bool UsuarioValido, bool ContraseñaValida)
+        {
+
+            if (string.IsNullOrWhiteSpace(txtUsuarioLogin.Text))
+            {
+                divUsuarioLogin.Attributes["class"] = "form-group has-feedback has-error";
+                iconUsuarioLogin.Attributes["style"] = "top: 7px; display: block;";
+                lblUsuarioLogin.Text = "Debe ingresar un usuario o e-mail";
+            }
+            else
+            {
+                if (UsuarioValido)
                 {
-                    SessionUsuario = resultado;
-                    lblLogin.Text = SessionUsuario.NombreUsuario;
-                    Response.Redirect(Request.Url.AbsolutePath); 
+                    divUsuarioLogin.Attributes["class"] = "form-group has-feedback has-success ";
+                    iconUsuarioLogin.Attributes["style"] = "top: 7px; display: block;";
+                    iconUsuarioLogin.Attributes["class"] = "form-control-feedback glyphicon glyphicon-ok";
+                    lblUsuarioLogin.Text = "";
+                }
+                else
+                {
+                    divUsuarioLogin.Attributes["class"] = "form-group has-feedback has-error";
+                    iconUsuarioLogin.Attributes["style"] = "top: 7px; display: block;";
+                    lblUsuarioLogin.Text = "Usuario o e-mail Incorrecto";
+                }
+            }
+            if (string.IsNullOrWhiteSpace(txtContraseñaLogin.Text))
+            {
+                divContraseñaLogin.Attributes["class"] = "form-group has-feedback has-error";
+                iconContraseñaLogin.Attributes["style"] = "top: 7px; display: block;";
+                lblContraseñaLogin.Text = "Debe ingresar una contraseña";
+            }
+            else
+            {
+                if (ContraseñaValida)
+                {
+                    divContraseñaLogin.Attributes["class"] = "form-group ";
+                    iconContraseñaLogin.Attributes["style"] = "display: none;";
+                    lblContraseñaLogin.Text = "";
+                }
+                else
+                {
+                    divContraseñaLogin.Attributes["class"] = "form-group has-feedback has-error";
+                    iconContraseñaLogin.Attributes["style"] = "top: 7px; display: block;";
+                    lblContraseñaLogin.Text = "Contraseña Incorrecta";
                 }
             }
         }
@@ -251,25 +310,25 @@ namespace Web
 
         private void OcultarOpciones(int id)
         {
-           var resultado = gestorRol.BuscarPermisosPorRol(gestorRol.BuscarRol(id));
-           foreach (var item in resultado)
-	        {
-		        switch (item.Id)
-	            {
-                    case 1: 
-                    break;
+            var resultado = gestorRol.BuscarPermisosPorRol(gestorRol.BuscarRol(id));
+            foreach (var item in resultado)
+            {
+                switch (item.Id)
+                {
+                    case 1:
+                        break;
                     case 2:
-                    break;
+                        break;
                     case 3:
-                    break;
+                        break;
                     case 4:
-                    break;
+                        break;
                     case 5:
-                    break;
+                        break;
                     case 6:
-                    break;
+                        break;
                 }
-	        }
+            }
         }
 
         #endregion
@@ -286,7 +345,7 @@ namespace Web
             {
                 Response.Redirect("Index.aspx");
             }
-            
+
         }
 
     }

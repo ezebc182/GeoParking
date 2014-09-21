@@ -81,6 +81,12 @@ namespace ReglasDeNegocio
             return resultado.FirstOrDefault();
         }
 
+        public Usuario ValidarUsuarioYMailIngresado(string usuario)
+        {
+            IList<Usuario> resultado = usuarioDao.FindWhere(x => x.NombreUsuario.Equals(usuario) || x.Mail.Equals(usuario));
+            return resultado.FirstOrDefault();
+        }
+
         public Usuario ValidarEmailIngresado(string email)
         {
             IList<Usuario> resultado = usuarioDao.FindWhere(x => x.Mail.Equals(email));

@@ -5783,4 +5783,7 @@ button.close {
     display: none !important;
   }
 }
+.loadinggif {
+    background:url('/img/loading.gif') no-repeat right center;
+}
 /*# sourceMappingURL=bootstrap.css.map */

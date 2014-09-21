@@ -49,6 +49,24 @@ namespace Web {
         protected global::System.Web.UI.ScriptManager scriptManager;
         
         /// <summary>
+        /// Control upLogin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upLogin;
+        
+        /// <summary>
+        /// Control divUsuarioLogin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divUsuarioLogin;
+        
+        /// <summary>
         /// Control txtUsuarioLogin.
         /// </summary>
         /// <remarks>
@@ -56,6 +74,33 @@ namespace Web {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtUsuarioLogin;
+        
+        /// <summary>
+        /// Control iconUsuarioLogin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl iconUsuarioLogin;
+        
+        /// <summary>
+        /// Control lblUsuarioLogin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUsuarioLogin;
+        
+        /// <summary>
+        /// Control divContraseñaLogin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divContraseñaLogin;
         
         /// <summary>
         /// Control txtContraseñaLogin.
@@ -67,13 +112,22 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox txtContraseñaLogin;
         
         /// <summary>
-        /// Control panel1.
+        /// Control iconContraseñaLogin.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel panel1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl iconContraseñaLogin;
+        
+        /// <summary>
+        /// Control lblContraseñaLogin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblContraseñaLogin;
         
         /// <summary>
         /// Control btnIniciarSesion.
@@ -83,6 +137,15 @@ namespace Web {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnIniciarSesion;
+        
+        /// <summary>
+        /// Control UpdatePanel2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
         
         /// <summary>
         /// Control txtNombre.
