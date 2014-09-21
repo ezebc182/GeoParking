@@ -89,13 +89,13 @@
                            {
                         %>
                         <li>
-                            <label style="color: black; padding-top: 15px;">
+                            <label style="color: white; padding-top: 15px;">
                                 <span class="glyphicon glyphicon-user"></span>
                                 <strong>
                                     <asp:Label ID="lblLogin" runat="server"></asp:Label>
                                     |
                                 <asp:LinkButton ID="btnCerrarSesion" OnClick="btnCerrarSesion_Click" Text="Cerrar Sesion"
-                                     runat="server"></asp:LinkButton>
+                                    runat="server"></asp:LinkButton>
                                 </strong>
                             </label>
                         </li>
@@ -122,77 +122,73 @@
         </asp:ScriptManager>
 
         <div class="modal fade" id="login">
-            <div class="modal-dialog">
+            <div class="modal-dialog" id="modall">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" onclick="javascript:this.resetForm()">
-                            <span aria-hidden="true">&times;</span><span
-                                class="sr-only">Close</span></button>
-                        <h4 class="modal-title text-center"><span class="glyphicon glyphicon-user"></span><strong>
-                            Iniciar Sesion</strong></h4>
+                        <button type="button" class="close" data-dismiss="modal" onclick="">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title text-center"><span class="glyphicon glyphicon-user"></span><strong>Iniciar Sesion</strong></h4>
                     </div>
                     <div class="modal-body">
-
-                        <div class="formulario" data-bv-message="This value is not valid"
-                            data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
-                            data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
-                            data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
-                            <div class="row">
-
-
-                                <div class="col-lg-6 " style="padding-right: 10px; border-right: 1px solid #ccc;">
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <asp:TextBox ID="txtUsuarioLogin" placeholder="Usuario o E-mail" TabIndex="1" CssClass="form-control input-lg"
-                                                runat="server" data-bv-message="El usuario no es válido" name="username"
-                                                data-bv-notempty="true"
-                                                data-bv-notempty-message="Ingrese su usuario"></asp:TextBox>
+                        <div class="row">
+                            <asp:UpdatePanel ID="upLogin" runat="server">
+                                <ContentTemplate>
+                                    <div class="col-lg-6 " style="padding-right: 10px; border-right: 1px solid #ccc;">
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div runat="server" id="divUsuarioLogin" class="form-group">
+                                                <asp:TextBox ID="txtUsuarioLogin" placeholder="Usuario o E-mail" TabIndex="1" CssClass="texto form-control input-lg"
+                                                    runat="server" Text=""></asp:TextBox>
+                                                <i runat="server" id="iconUsuarioLogin" style="display: none" data-bv-icon-for="ctl00$txtUsuarioLogin">
+                                                </i>
+                                                <small class="help-block" style="display: block;" data-bv-validator="notEmpty" data-bv-for="ctl00$txtUsuarioLogin" data-bv-result="INVALID">
+                                                    <asp:Label ID="lblUsuarioLogin" runat="server" />
+                                                </small>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <asp:TextBox ID="txtContraseñaLogin" AutoPostBack="false" placeholder="Contraseña"
-                                                TabIndex="2" CssClass="form-control input-lg" runat="server" TextMode="Password"
-                                                data-bv-notempty="true"
-                                                data-bv-notempty-message="Ingrese su contraseña"></asp:TextBox>
-
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div runat="server" id="divContraseñaLogin" class="form-group">
+                                                <asp:TextBox ID="txtContraseñaLogin" placeholder="Contraseña"
+                                                    TabIndex="2" CssClass="form-control input-lg" runat="server" TextMode="Password" Text=""></asp:TextBox>
+                                                <i runat="server" id="iconContraseñaLogin" class="texto form-control-feedback glyphicon glyphicon-remove" style="display: none;" data-bv-icon-for="ctl00$txtContraseñaLogin"></i>
+                                                <small class="help-block" style="display: block;" data-bv-validator="notEmpty" data-bv-for="ctl00$txtContraseñaLogin" data-bv-result="INVALID">
+                                                    <asp:Label ID="lblContraseñaLogin" runat="server" />
+                                                </small>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <asp:UpdatePanel ID="panel1" runat="server">
-                                        <ContentTemplate>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+
                                             <asp:Button ID="btnIniciarSesion" Text="Iniciar Sesion" UseSubmitBehavior="false"
                                                 OnClick="btnIniciarSesion_Click" TabIndex="3" CssClass="btn btn-primary btn-block btn-sm"
                                                 runat="server" />
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <h4 class="modal-title text-center">¿No Tienes cuenta?</h4>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-
-                                            <button type="button" id="btnRegistrarse" class="btn btn-success btn-block btn-sm"
-                                                onclick="$('#registrar').modal({keyboard: false, show: true, backdrop: 'static'});">
-                                                Registrarse</button>
-
 
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <ul>
-                                                <li><a href="#olvideContraseña">Olvidé mi contraseña.</a></li>
-                                                <li><a href="#olvideUsuario">Olvidé mi nombre de usuario.</a></li>
-                                                <li><a href="#mail">No me llegó el email de confirmación.</a></li>
-                                            </ul>
-                                        </div>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                            <div class="col-lg-6">
+                                <h4 class="modal-title text-center">¿No Tienes cuenta?</h4>
+                                <br />
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+
+                                        <button type="button" id="btnRegistrarse" class="btn btn-success btn-block btn-sm"
+                                            onclick="$('#login').modal('hide'); $('#registrar').modal({keyboard: false, show: true, backdrop: 'static'});">
+                                            Registrarse</button>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <ul>
+                                            <li><a href="#olvideContraseña">Olvidé mi contraseña.</a></li>
+                                            <li><a href="#olvideUsuario">Olvidé mi nombre de usuario.</a></li>
+                                            <li><a href="#mail">No me llegó el email de confirmación.</a></li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                     <!-- /.modal-content -->
                 </div>
@@ -204,114 +200,115 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" onclick="javascript:this.resetForm()">
-                            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title text-center"><span class="glyphicon glyphicon-user"></span><strong>
-                            Registro de Usuario - Complete con sus Datos</strong></h4>
+                        <button type="button" class="close" data-dismiss="modal" onclick="">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title text-center"><span class="glyphicon glyphicon-user"></span><strong>Registro de Usuario - Complete con sus Datos</strong></h4>
                     </div>
                     <div class="modal-body">
                         <div class="formulario" data-bv-message="This value is not valid"
                             data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
                             data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
                             data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <asp:TextBox ID="txtNombre" placeholder="Nombre" CssClass="form-control input-lg"
-                                            runat="server" TabIndex="10" data-bv-notempty="true"
-                                            data-bv-notempty-message="El nombre es requerido"></asp:TextBox>
+                            <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                <ContentTemplate>
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <asp:TextBox ID="txtNombre" placeholder="Nombre" CssClass="texto form-control input-lg"
+                                                    runat="server" TabIndex="10" data-bv-notempty="true"
+                                                    data-bv-notempty-message="El nombre es requerido"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <asp:TextBox ID="txtApellido" placeholder="Apellido" CssClass="texto form-control input-lg"
+                                                    runat="server" TabIndex="11" data-bv-notempty="true"
+                                                    data-bv-notempty-message="El apellido es requerido"></asp:TextBox>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <asp:TextBox ID="txtApellido" placeholder="Apellido" CssClass="form-control input-lg"
-                                            runat="server" TabIndex="11" data-bv-notempty="true"
-                                            data-bv-notempty-message="El apellido es requerido"></asp:TextBox>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <asp:TextBox ID="txtUsuarioRegistro" placeholder="Usuario" CssClass="form-control input-lg"
-                                    runat="server" TabIndex="12"
-                                    data-bv-message="El usuario no es válido" name="username"
-                                    data-bv-notempty="true"
-                                    data-bv-notempty-message="El nombre de usuario es requerido"
-                                    data-bv-regexp="true"
-                                    data-bv-regexp-regexp="^[a-zA-Z0-9_\.]+$"
-                                    data-bv-regexp-message="El nombre de usuario puede estar compuesto por letras, número"
-                                    data-bv-stringlength="true"
-                                    data-bv-stringlength-min="6"
-                                    data-bv-stringlength-max="30"
-                                    data-bv-stringlength-message="El nombre de usuario debe contener al menos 6 caracteres y hasta un máximo de 30"
-                                    data-bv-different="true"
-                                    data-bv-different-field="ctl00$txtContraseñaRepetir"
-                                    data-bv-different-message="El usuario y la contraseña no pueden ser iguales">
-
-                                </asp:TextBox>
-                            </div>
-                            <div class="form-group">
-                                <asp:TextBox ID="txtEmailRegistro" data-bv-notempty="true" data-bv-notempty-message="El email es requerido"
-                                    data-bv-emailaddress-message="Ingrese un formato de email correcto." placeholder="Email"
-                                    CssClass="form-control input-lg" type="email" runat="server" TextMode="Email"
-                                    TabIndex="13">
-
-                                </asp:TextBox>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div id="pass1" class="form-group">
-                                        <asp:TextBox ID="txtContraseña" placeholder="Contraseña" CssClass="form-control input-lg"
-                                            runat="server" TextMode="Password" TabIndex="14" data-bv-notempty="true" name="contraseña1"
-                                            data-bv-notempty-message="La contraseña es requerida"
-                                            data-bv-identical="true"
-                                            data-bv-identical-field="ctl00$txtContraseñaRepetir"
-                                            data-bv-identical-message="Las contraseñas no son iguales"
+                                        <asp:TextBox ID="txtUsuarioRegistro" placeholder="Usuario" CssClass="texto form-control input-lg"
+                                            runat="server" TabIndex="12"
+                                            data-bv-message="El usuario no es válido" name="username"
+                                            data-bv-notempty="true"
+                                            data-bv-notempty-message="El nombre de usuario es requerido"
+                                            data-bv-regexp="true"
+                                            data-bv-regexp-regexp="^[a-zA-Z0-9_\.]+$"
+                                            data-bv-regexp-message="El nombre de usuario puede estar compuesto por letras, número"
+                                            data-bv-stringlength="true"
+                                            data-bv-stringlength-min="6"
+                                            data-bv-stringlength-max="30"
+                                            data-bv-stringlength-message="El nombre de usuario debe contener al menos 6 caracteres y hasta un máximo de 30"
                                             data-bv-different="true"
-                                            data-bv-different-field="ctl00$txtUsuarioRegistro"
-                                            data-bv-different-message="La contraseña no puede ser igual que el nombre de usuario">
+                                            data-bv-different-field="ctl00$txtContraseñaRepetir"
+                                            data-bv-different-message="El usuario y la contraseña no pueden ser iguales">
 
                                         </asp:TextBox>
                                     </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div id="pass2" class="form-group">
-                                        <asp:TextBox ID="txtContraseñaRepetir" name="contraseña2" placeholder="Repetir Contraseña"
-                                            CssClass="form-control input-lg"
-                                            runat="server" TextMode="Password" TabIndex="15"
-                                            data-bv-notempty="true"
-                                            data-bv-notempty-message="Confirme la contraseña"
-                                            data-bv-identical="true"
-                                            data-bv-identical-field="ctl00$txtContraseña"
-                                            data-bv-identical-message="Las contraseñas no son iguales"
-                                            data-bv-different="true"
-                                            data-bv-different-field="ctl00$txtUsuarioRegistro"
-                                            data-bv-different-message="La contraseña no puede ser igual que el nombre de usuario"></asp:TextBox>
+                                    <div class="form-group">
+                                        <asp:TextBox ID="txtEmailRegistro" data-bv-notempty="true" data-bv-notempty-message="El email es requerido"
+                                            data-bv-emailaddress-message="Ingrese un formato de email correcto." placeholder="Email"
+                                            CssClass="texto form-control input-lg" type="email" runat="server" TextMode="Email"
+                                            TabIndex="13">
+
+                                        </asp:TextBox>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <span class="button-checkbox">
-                                        <input id="chAceptar" type="checkbox" tabindex="16" onclick="javascript: validar()" />
-                                        Acepto terminos
-                                    </span>
-                                </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8">
-                                    Haciendo Click en <strong class="label label-primary">Registrar</strong>,usted acepta
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <div id="pass1" class="form-group">
+                                                <asp:TextBox ID="txtContraseña" placeholder="Contraseña" CssClass="texto form-control input-lg"
+                                                    runat="server" TextMode="Password" TabIndex="14" data-bv-notempty="true" name="contraseña1"
+                                                    data-bv-notempty-message="La contraseña es requerida"
+                                                    data-bv-identical="true"
+                                                    data-bv-identical-field="ctl00$txtContraseñaRepetir"
+                                                    data-bv-identical-message="Las contraseñas no son iguales"
+                                                    data-bv-different="true"
+                                                    data-bv-different-field="ctl00$txtUsuarioRegistro"
+                                                    data-bv-different-message="La contraseña no puede ser igual que el nombre de usuario">
+
+                                                </asp:TextBox>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <div id="pass2" class="form-group">
+                                                <asp:TextBox ID="txtContraseñaRepetir" name="contraseña2" placeholder="Repetir Contraseña"
+                                                    CssClass="texto form-control input-lg"
+                                                    runat="server" TextMode="Password" TabIndex="15"
+                                                    data-bv-notempty="true"
+                                                    data-bv-notempty-message="Confirme la contraseña"
+                                                    data-bv-identical="true"
+                                                    data-bv-identical-field="ctl00$txtContraseña"
+                                                    data-bv-identical-message="Las contraseñas no son iguales"
+                                                    data-bv-different="true"
+                                                    data-bv-different-field="ctl00$txtUsuarioRegistro"
+                                                    data-bv-different-message="La contraseña no puede ser igual que el nombre de usuario"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4">
+                                            <span class="button-checkbox">
+                                                <input id="chAceptar" type="checkbox" tabindex="16" onclick="javascript: validar()" />
+                                                Acepto terminos
+                                            </span>
+                                        </div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8">
+                                            Haciendo Click en <strong class="label label-primary">Registrar</strong>,usted acepta
                                     <a href="#" data-toggle="modal" data-target="#t_and_c_m">Terminos y Condiciones</a>
-                                    de este sitio incluido el uso de Cookies.
+                                            de este sitio incluido el uso de Cookies.
 			
-                                </div>
+                                        </div>
+                                    </div>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </div>
+                        <hr class="colorgraph">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <asp:Button ID="btnRegistrar" Text="Registrar" Enabled="false" CssClass="btn btn-primary btn-block btn-lg"
+                                    runat="server" OnClick="btnRegistrar_Click" TabIndex="17" />
                             </div>
-                            <hr class="colorgraph">
-                            <div class="row">
-                                <div class="col-xs-12 col-md-12">
-                                    <asp:Button ID="btnRegistrar" Text="Registrarse" Enabled="false" CssClass="btn btn-primary btn-block btn-lg"
-                                        runat="server" OnClick="btnRegistrar_Click" TabIndex="17" />
-                                </div>
-                            </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -343,12 +340,11 @@
     </form>
 
 
-    
+
     <script src="./Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="./Scripts/bootstrapValidator.min.js" type="text/javascript"></script>
-  
-    <asp:ContentPlaceHolder ID="footer" runat="server">
 
+    <asp:ContentPlaceHolder ID="footer" runat="server">
     </asp:ContentPlaceHolder>
 </body>
 
@@ -369,33 +365,28 @@
     }
     $(".formulario").bootstrapValidator();
 
-
-    function AbrirModalRegistro() {
-        $('#login').modal('hide');
-        $('#registrar').modal('show');
-    }
 </script>
 
-    <script>
-        var rol = '<%=rolId%>';
-        if (rol == 1) {
-            $('#admPOI').addClass("hidden");
-            $('#admPlayas').addClass("hidden");
-            $('#admUsuarios').addClass("hidden");
-        }
-        else if (rol == 2) {
-            $('#admUsuarios').addClass("hidden");
-        }
-        else if (rol == 3) {
-            //no bloqueo nada porque es el superadmin 
-        }
-        else {
-            //bloqueo todo 
-            $('#admPOI').addClass("hidden");
-            $('#admPlayas').addClass("hidden");
-            $('#admUsuarios').addClass("hidden");
-        }
-    </script>
+<script>
+    var rol = '<%=rolId%>';
+    if (rol == 1) {
+        $('#admPOI').addClass("hidden");
+        $('#admPlayas').addClass("hidden");
+        $('#admUsuarios').addClass("hidden");
+    }
+    else if (rol == 2) {
+        $('#admUsuarios').addClass("hidden");
+    }
+    else if (rol == 3) {
+        //no bloqueo nada porque es el superadmin 
+    }
+    else {
+        //bloqueo todo 
+        $('#admPOI').addClass("hidden");
+        $('#admPlayas').addClass("hidden");
+        $('#admUsuarios').addClass("hidden");
+    }
+</script>
 
 </html>
 
