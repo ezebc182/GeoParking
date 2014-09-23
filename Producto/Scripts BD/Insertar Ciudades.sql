@@ -1,3 +1,4 @@
+SET IDENTITY_INSERT [dbo].[Ciudads] ON
 INSERT [dbo].[Ciudads] ([Id], [FechaAlta], [FechaBaja], [Nombre], [DepartamentoId]) VALUES (1, CAST(0x0000A36001242166 AS DateTime), NULL, N'16 De Julio', 1)
 INSERT [dbo].[Ciudads] ([Id], [FechaAlta], [FechaBaja], [Nombre], [DepartamentoId]) VALUES (2, CAST(0x0000A36001242166 AS DateTime), NULL, N'17 De Agosto', 2)
 INSERT [dbo].[Ciudads] ([Id], [FechaAlta], [FechaBaja], [Nombre], [DepartamentoId]) VALUES (3, CAST(0x0000A36001242166 AS DateTime), NULL, N'20 De Junio', 3)
@@ -5490,3 +5491,4 @@ INSERT [dbo].[Ciudads] ([Id], [FechaAlta], [FechaBaja], [Nombre], [DepartamentoI
 INSERT [dbo].[Ciudads] ([Id], [FechaAlta], [FechaBaja], [Nombre], [DepartamentoId]) VALUES (5437, CAST(0x0000A36001242166 AS DateTime), NULL, N'Yacuchina', 566)
 INSERT [dbo].[Ciudads] ([Id], [FechaAlta], [FechaBaja], [Nombre], [DepartamentoId]) VALUES (5438, CAST(0x0000A36001242166 AS DateTime), NULL, N'Yanimas', 572)
 INSERT [dbo].[Ciudads] ([Id], [FechaAlta], [FechaBaja], [Nombre], [DepartamentoId]) VALUES (5439, CAST(0x0000A36001242166 AS DateTime), NULL, N'Yerba Buena', 571)
+SET IDENTITY_INSERT [dbo].[Ciudads] OFF

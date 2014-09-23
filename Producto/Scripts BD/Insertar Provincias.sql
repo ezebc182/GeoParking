@@ -1,4 +1,5 @@
- INSERT [dbo].[Provincias] ([Id], [Nombre], [FechaAlta], [FechaBaja]) VALUES (1, N'Buenos Aires y Cap.', CAST(0x0000A3600124352D AS DateTime), NULL)
+SET IDENTITY_INSERT [dbo].[Provincias] ON
+INSERT [dbo].[Provincias] ([Id], [Nombre], [FechaAlta], [FechaBaja]) VALUES (1, N'Buenos Aires y Cap.', CAST(0x0000A3600124352D AS DateTime), NULL)
 INSERT [dbo].[Provincias] ([Id], [Nombre], [FechaAlta], [FechaBaja]) VALUES (2, N'Catamarca', CAST(0x0000A3600124352D AS DateTime), NULL)
 INSERT [dbo].[Provincias] ([Id], [Nombre], [FechaAlta], [FechaBaja]) VALUES (3, N'Chaco', CAST(0x0000A3600124352D AS DateTime), NULL)
 INSERT [dbo].[Provincias] ([Id], [Nombre], [FechaAlta], [FechaBaja]) VALUES (4, N'Chubut', CAST(0x0000A3600124352D AS DateTime), NULL)
@@ -21,3 +22,4 @@ INSERT [dbo].[Provincias] ([Id], [Nombre], [FechaAlta], [FechaBaja]) VALUES (20,
 INSERT [dbo].[Provincias] ([Id], [Nombre], [FechaAlta], [FechaBaja]) VALUES (21, N'Santiago Del Estero', CAST(0x0000A3600124352D AS DateTime), NULL)
 INSERT [dbo].[Provincias] ([Id], [Nombre], [FechaAlta], [FechaBaja]) VALUES (22, N'Tierra Del Fuego', CAST(0x0000A3600124352D AS DateTime), NULL)
 INSERT [dbo].[Provincias] ([Id], [Nombre], [FechaAlta], [FechaBaja]) VALUES (23, N'Tucuman', CAST(0x0000A3600124352D AS DateTime), NULL)
+SET IDENTITY_INSERT [dbo].[Provincias] OFF

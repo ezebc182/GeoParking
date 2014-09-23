@@ -1,3 +1,4 @@
+SET IDENTITY_INSERT [dbo].[Departamentoes] ON
 INSERT [dbo].[Departamentoes] ([Id], [Nombre], [ProvinciaId], [FechaAlta], [FechaBaja]) VALUES (1, N'Azul', 1, CAST(0x0000A36001242D45 AS DateTime), NULL)
 INSERT [dbo].[Departamentoes] ([Id], [Nombre], [ProvinciaId], [FechaAlta], [FechaBaja]) VALUES (2, N'Puan', 1, CAST(0x0000A36001242D45 AS DateTime), NULL)
 INSERT [dbo].[Departamentoes] ([Id], [Nombre], [ProvinciaId], [FechaAlta], [FechaBaja]) VALUES (3, N'La Matanza', 1, CAST(0x0000A36001242D45 AS DateTime), NULL)
@@ -576,3 +577,4 @@ INSERT [dbo].[Departamentoes] ([Id], [Nombre], [ProvinciaId], [FechaAlta], [Fech
 INSERT [dbo].[Departamentoes] ([Id], [Nombre], [ProvinciaId], [FechaAlta], [FechaBaja]) VALUES (572, N'Graneros', 23, CAST(0x0000A36001242D45 AS DateTime), NULL)
 INSERT [dbo].[Departamentoes] ([Id], [Nombre], [ProvinciaId], [FechaAlta], [FechaBaja]) VALUES (573, N'Famailla', 23, CAST(0x0000A36001242D45 AS DateTime), NULL)
 INSERT [dbo].[Departamentoes] ([Id], [Nombre], [ProvinciaId], [FechaAlta], [FechaBaja]) VALUES (574, N'Capital', 23, CAST(0x0000A36001242D45 AS DateTime), NULL)
+SET IDENTITY_INSERT [dbo].[Departamentoes] OFF
