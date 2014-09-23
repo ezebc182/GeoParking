@@ -122,7 +122,7 @@
         </asp:ScriptManager>
 
         <div class="modal fade" id="login">
-            <div class="modal-dialog" id="modall">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" onclick="">
@@ -138,8 +138,7 @@
                                             <div runat="server" id="divUsuarioLogin" class="form-group">
                                                 <asp:TextBox ID="txtUsuarioLogin" placeholder="Usuario o E-mail" TabIndex="1" CssClass="texto form-control input-lg"
                                                     runat="server" Text=""></asp:TextBox>
-                                                <i runat="server" id="iconUsuarioLogin" style="display: none" data-bv-icon-for="ctl00$txtUsuarioLogin">
-                                                </i>
+                                                <i runat="server" id="iconUsuarioLogin" style="display: none" data-bv-icon-for="ctl00$txtUsuarioLogin"></i>
                                                 <small class="help-block" style="display: block;" data-bv-validator="notEmpty" data-bv-for="ctl00$txtUsuarioLogin" data-bv-result="INVALID">
                                                     <asp:Label ID="lblUsuarioLogin" runat="server" />
                                                 </small>
@@ -227,9 +226,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div id="divUsuarioRegistro" class="form-group">
                                         <asp:TextBox ID="txtUsuarioRegistro" placeholder="Usuario" CssClass="texto form-control input-lg"
-                                            runat="server" TabIndex="12"
+                                            runat="server" TabIndex="12" AutoCompleteType="Search" OnTextChanged="txtUsuarioRegistro_TextChanged"
                                             data-bv-message="El usuario no es válido" name="username"
                                             data-bv-notempty="true"
                                             data-bv-notempty-message="El nombre de usuario es requerido"
@@ -242,7 +241,8 @@
                                             data-bv-stringlength-message="El nombre de usuario debe contener al menos 6 caracteres y hasta un máximo de 30"
                                             data-bv-different="true"
                                             data-bv-different-field="ctl00$txtContraseñaRepetir"
-                                            data-bv-different-message="El usuario y la contraseña no pueden ser iguales">
+                                            data-bv-different-message="El usuario y la contraseña no pueden ser iguales"
+                                            data-bv-onsuccess="onFieldSuccess">
 
                                         </asp:TextBox>
                                     </div>
@@ -300,18 +300,19 @@
 			
                                         </div>
                                     </div>
+
+                                    </div>
+                        <hr class="colorgraph">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-12">
+                                            <asp:Button ID="btnRegistrar" Text="Registrar" Enabled="false" UseSubmitBehavior="false" CssClass="btn btn-primary btn-block btn-lg"
+                                                runat="server" OnClick="btnRegistrar_Click" TabIndex="17" />
+                                        </div>
+                                    </div>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
-                        <hr class="colorgraph">
-                        <div class="row">
-                            <div class="col-xs-12 col-md-12">
-                                <asp:Button ID="btnRegistrar" Text="Registrar" Enabled="false" CssClass="btn btn-primary btn-block btn-lg"
-                                    runat="server" OnClick="btnRegistrar_Click" TabIndex="17" />
-                            </div>
-                        </div>
                     </div>
-                </div>
             </div>
         </div>
 
@@ -363,7 +364,13 @@
         }
 
     }
+
     $(".formulario").bootstrapValidator();
+
+
+    function onFieldSuccess(e, data) {
+        $("#txtUsuarioRegistro").css('background', 'url(/img/loading.gif);');
+    };
 
 </script>
 

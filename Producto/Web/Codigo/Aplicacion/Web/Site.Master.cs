@@ -348,5 +348,14 @@ namespace Web
 
         }
 
+        protected void txtUsuarioRegistro_TextChanged(object sender, EventArgs e)
+        {
+            var resultado = gestor.ValidarUsuarioIngresado(txtUsuarioRegistro.Text);
+            if (resultado != null)
+            {
+
+            }
+        }
+
     }
 }
