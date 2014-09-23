@@ -2,8 +2,6 @@
 var map;
 //array de marcadores
 var markers = [];
-//array de circulos
-var circulos = [];
 //contenido del marcador
 var contenido = "";
 //variable infoWindows que se seteara al marcador 
@@ -56,8 +54,6 @@ function addMarker(location) {
     });
     (function(marker,origen){
         google.maps.event.addListener(marker, 'click', function() {
-//            var latitude = marker.getPosition.lat();
-//            var longitude = marker.getPosition.lng();
             ir(posicionActual, marker.getPosition(), "DRIVING","METRIC");
         });
     })(marker,posicionActual);
