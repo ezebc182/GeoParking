@@ -1,7 +1,4 @@
-﻿body {
-}
-
-b {
+﻿b {
     color: white !important;
 }
 
@@ -19,8 +16,4 @@ b {
 
 #lblLogin,#btnCerrarSesion {
     color:white;
-}
-
-.loadinggif {
-    background:url('/img/loading.gif') no-repeat right center;
 }
