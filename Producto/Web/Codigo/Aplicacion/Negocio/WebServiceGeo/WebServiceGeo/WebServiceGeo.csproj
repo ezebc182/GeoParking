@@ -39,9 +39,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Entidades">
-      <HintPath>..\..\..\Dropbox\PROYECTO FINAL REPOSITORIO\GeoParking\Producto\Web\Codigo\Aplicacion\Negocio\ReglasDeNegocio\bin\Debug\Entidades.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
@@ -55,7 +52,7 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="ReglasDeNegocio">
-      <HintPath>..\..\..\Dropbox\PROYECTO FINAL REPOSITORIO\GeoParking\Producto\Web\Codigo\Aplicacion\Negocio\ReglasDeNegocio\bin\Debug\ReglasDeNegocio.dll</HintPath>
+      <HintPath>..\..\ReglasDeNegocio\bin\Debug\ReglasDeNegocio.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -297,6 +294,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Entidades\Entidades.csproj">
+      <Project>{d8060039-8b31-4b88-a318-20fb89972151}</Project>
+      <Name>Entidades</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
