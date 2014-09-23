@@ -14,11 +14,11 @@ namespace WebServiceGeo.Controllers
         private static GestorBusquedaPlayas gestor = new GestorBusquedaPlayas();
 
         // GET api/playas
-        public string Get()
+        public string GetPlayas([FromUri] String ciudad)
         {
             //busco en la BD
             IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
-            playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorCiudad("Cordoba");
+            playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorCiudad(ciudad);
             
             string json = "[";
 

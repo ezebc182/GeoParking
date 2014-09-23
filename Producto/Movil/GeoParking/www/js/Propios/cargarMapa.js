@@ -96,9 +96,10 @@ function obtenerCiudadDePosicion(posicion){
             var i = direcciones.results.length - 3;
              //aca tengo la ciudad para llamar al servicio de geoparking que devuelve playas en base a la ciudad
             var ciudad = (direcciones.results[i].formatted_address).split(",")[0];
-            var playasDeCiudad = obtenerPlayasDeCiudad(ciudad);
-            agregarPlayasAMapa(playasDeCiudad);
-            showMarkers();
+            obtenerPlayasDeCiudad(ciudad);
+            //var playasDeCiudad = obtenerPlayasDeCiudad(ciudad);
+            /*agregarPlayasAMapa(playasDeCiudad);
+            showMarkers();*/
         }
         else{
             mensajeErrorConexion("Error de conexion, Por favor habilite la localizacion para continuar");
