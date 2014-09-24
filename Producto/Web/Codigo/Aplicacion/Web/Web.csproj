@@ -115,7 +115,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </Content>
-    <None Include="Web References\GeoService\GeoService.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -232,11 +231,6 @@
     </Compile>
     <Compile Include="Util\Enumeraciones.cs" />
     <Compile Include="Util\FormHelper.cs" />
-    <Compile Include="Web References\GeoService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Site.Master" />
@@ -245,11 +239,6 @@
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <None Include="Web References\GeoService\GeoService.wsdl" />
-    <None Include="Web References\GeoService\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -272,19 +261,6 @@
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferenceUrl Include="http://localhost:33543/GeoService.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\GeoService\</RelPath>
-      <UpdateFromURL>http://localhost:33543/GeoService.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>Web_GeoService_Service1</CachedSettingsPropName>
-    </WebReferenceUrl>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

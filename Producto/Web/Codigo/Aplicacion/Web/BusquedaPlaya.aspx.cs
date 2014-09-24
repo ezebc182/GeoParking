@@ -24,9 +24,6 @@ namespace Web
         //gestor de busqueda de playas
         private static GestorBusquedaPlayas gestor;
 
-        //Referencia al servicio web "GeoService"
-        private static GeoService.Service1 geoServicio = new GeoService.Service1();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             master = (SiteMaster)Master;
@@ -83,12 +80,27 @@ namespace Web
         [WebMethod]
         public static string ObtenerPlayasDeCiudad()
         {
-            string playasDeCiudad = geoServicio.ObtenerPlayasDeCiudad(ciudadBuscada);
-            if (playasDeCiudad=="[]")
+            IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
+            playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorCiudad(ciudadBuscada);
+
+            string json = "[";
+
+            foreach (var p in playas)
+            {
+                json += p.ToJSONRepresentation() + ",";
+            }
+
+            if (playas.Count != 0)
+            {
+                json = json.Substring(0, json.Length - 1);
+            }
+            json += "]";
+
+            if (json == "[]")
             {                
                 master.MostrarMensajeInformacion("No hay resultados para la ciudad seleccionada", "Resultado Busqueda");                
             }
-            return playasDeCiudad;
+            return json;
         }
 
         /// <summary>
@@ -100,12 +112,27 @@ namespace Web
         {
             ciudadBuscada = ciudad;
 
-            string playasDeCiudad = geoServicio.ObtenerPlayasDeCiudad(ciudadBuscada);
-            if (playasDeCiudad == "[]")
+            IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
+            playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorCiudad(ciudadBuscada);
+
+            string json = "[";
+
+            foreach (var p in playas)
+            {
+                json += p.ToJSONRepresentation() + ",";
+            }
+
+            if (playas.Count != 0)
+            {
+                json = json.Substring(0, json.Length - 1);
+            }
+            json += "]";
+
+            if (json == "[]")
             {
                 master.MostrarMensajeInformacion("No hay resultados para la ciudad seleccionada", "Resultado Busqueda");
             }
-            return playasDeCiudad;
+            return json;
         }
 
         /// <summary>
@@ -123,12 +150,28 @@ namespace Web
         [WebMethod]
         public static string ObtenerPlayasDeCiudadPorFiltro(int tipoPlaya, int tipoVehiculo, int diaAtencion, string precioDesde, string precioHasta, int horaDesde, int horaHasta)
         {
-            string playasFiltradas = geoServicio.ObtenerPlayasDeCiudadPorFiltro(ciudadBuscada,tipoPlaya, tipoVehiculo, diaAtencion, precioDesde, precioHasta, horaDesde, horaHasta);
-            if (playasFiltradas == "[]")
+            IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
+
+            playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorFiltro(ciudadBuscada, tipoPlaya, tipoVehiculo, diaAtencion, Decimal.Parse(precioDesde), Decimal.Parse(precioHasta), horaDesde, horaHasta);
+
+            string json = "[";
+
+            foreach (var p in playas)
+            {
+                json += p.ToJSONRepresentation() + ",";
+            }
+
+            if (playas.Count != 0)
+            {
+                json = json.Substring(0, json.Length - 1);
+            }
+            json += "]";
+
+            if (json == "[]")
             {
                 master.MostrarMensajeInformacion(TipoMensajeEnum.MensajeModal, "No hay resultados para los filtros aplicados", "Resultado Busqueda");
             }
-            return playasFiltradas;
+            return json;
         }
 
         /// <summary>

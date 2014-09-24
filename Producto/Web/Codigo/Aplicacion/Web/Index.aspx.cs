@@ -6,6 +6,8 @@ using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ReglasDeNegocio;
+using System.Text;
+using System.Web.Script.Serialization;
 
 namespace Web
 {
@@ -13,12 +15,8 @@ namespace Web
     {
         
         static GestorBusquedaPlayas gestor;
-        public SiteMaster master;
+        public SiteMaster master;        
         
-        
-        //Referencia al servicio web "GeoService"
-        private static GeoService.Service1 geoServicio = new GeoService.Service1();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             master = (SiteMaster)Master;            
@@ -36,7 +34,20 @@ namespace Web
         [WebMethod]
         public static string GetNombreCiudades(string pre)
         {
-            return geoServicio.GetNombreCiudades(pre);            
+            //lista de normbres de payas
+            List<string> nombrePlayas = new List<string>();
+
+            //realizar la consulta y setear la lista
+            nombrePlayas = gestor.GetNombreCiudades(pre);
+
+            //Pasamos la colección a formato JSON. Se guardará en jsonLista:
+            StringBuilder jsonLista = new StringBuilder();
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            js.Serialize(nombrePlayas, jsonLista);
+
+            //retorna la lista
+            return jsonLista.ToString();
+                        
         }
 
         /// <summary>
