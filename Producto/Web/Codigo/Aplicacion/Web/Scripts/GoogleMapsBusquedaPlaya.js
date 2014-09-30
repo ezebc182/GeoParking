@@ -430,6 +430,7 @@ function cargarPlayas(response) {
 
             }
         }
+        else Alerta_openModalInfo('No se han encontrado playas con los filtros seleccionados.', 'Resultado de la Busqueda')
     }
 
 //marcar punto por una direccion
