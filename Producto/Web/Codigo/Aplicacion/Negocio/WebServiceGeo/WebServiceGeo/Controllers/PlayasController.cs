@@ -13,7 +13,7 @@ namespace WebServiceGeo.Controllers
     {
         private static GestorBusquedaPlayas gestor = new GestorBusquedaPlayas();
 
-        // GET api/playas
+        // GET api/GetPlayas/cordoba
         public string GetPlayas([FromUri] String ciudad)
         {
             //busco en la BD

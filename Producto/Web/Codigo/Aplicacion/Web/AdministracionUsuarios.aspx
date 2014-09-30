@@ -92,9 +92,9 @@
             </div>
             <asp:Panel ID="panelBotones" class="col-md-12" runat="server">
                 <div id="divBotones" class="form-group col-md-4 col-md-offset-4">
-                    <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success btn-lg pull-right" Text="Guardar"
+                    <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success btn-md pull-right" Text="Guardar"
                         OnClick="btnGuardar_Click" />
-                    <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-lg pull-right" Text="Cancelar"
+                    <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-md pull-right" Text="Cancelar"
                         AutoPostBack="True" OnClick="btnCancelar_Click" />
                 </div>
 
