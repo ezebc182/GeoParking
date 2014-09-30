@@ -13,7 +13,6 @@ namespace Web
     public partial class SiteMaster : System.Web.UI.MasterPage
     {
         GestorUsuario gestor;
-        GestorRol gestorRol;
 
         public int rolId;
 
@@ -30,7 +29,6 @@ namespace Web
 
             }
             // Validaciones y Carga para el Login de Usuario
-            txtContraseñaLogin.Attributes.Add("value", txtContraseñaLogin.Text);
             gestor.Login(txtUsuarioLogin.Text, txtContraseñaLogin.Text);
         }
 
@@ -230,6 +228,7 @@ namespace Web
                 {
                     divUsuarioLogin.Attributes["class"] = "form-group has-feedback has-error";
                     iconUsuarioLogin.Attributes["style"] = "top: 7px; display: block;";
+                    iconUsuarioLogin.Attributes["class"] = "form-control-feedback glyphicon glyphicon-remove";
                     lblUsuarioLogin.Text = "Usuario o e-mail Incorrecto";
                 }
             }
@@ -241,16 +240,11 @@ namespace Web
             }
             else
             {
-                if (ContraseñaValida)
-                {
-                    divContraseñaLogin.Attributes["class"] = "form-group ";
-                    iconContraseñaLogin.Attributes["style"] = "display: none;";
-                    lblContraseñaLogin.Text = "";
-                }
-                else
+                if (!ContraseñaValida)
                 {
                     divContraseñaLogin.Attributes["class"] = "form-group has-feedback has-error";
                     iconContraseñaLogin.Attributes["style"] = "top: 7px; display: block;";
+                    iconContraseñaLogin.Attributes["class"] = "form-control-feedback glyphicon glyphicon-remove";
                     lblContraseñaLogin.Text = "Contraseña Incorrecta";
                 }
             }
@@ -308,29 +302,6 @@ namespace Web
             set { txtContraseña.Text = value; }
         }
 
-        private void OcultarOpciones(int id)
-        {
-            var resultado = gestorRol.BuscarPermisosPorRol(gestorRol.BuscarRol(id));
-            foreach (var item in resultado)
-            {
-                switch (item.Id)
-                {
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
-                    case 6:
-                        break;
-                }
-            }
-        }
-
         #endregion
 
         protected void btnCerrarSesion_Click(object sender, EventArgs e)
@@ -350,11 +321,7 @@ namespace Web
 
         protected void txtUsuarioRegistro_TextChanged(object sender, EventArgs e)
         {
-            var resultado = gestor.ValidarUsuarioIngresado(txtUsuarioRegistro.Text);
-            if (resultado != null)
-            {
 
-            }
         }
 
     }

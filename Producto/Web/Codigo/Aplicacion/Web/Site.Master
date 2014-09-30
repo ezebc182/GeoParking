@@ -136,9 +136,9 @@
                                     <div class="col-lg-6 " style="padding-right: 10px; border-right: 1px solid #ccc;">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div runat="server" id="divUsuarioLogin" class="form-group">
-                                                <asp:TextBox ID="txtUsuarioLogin" placeholder="Usuario o E-mail" TabIndex="1" CssClass="texto form-control input-lg"
+                                                <asp:TextBox ID="txtUsuarioLogin" placeholder="Usuario o E-mail" TabIndex="1" CssClass="form-control input-lg cleanLogin"
                                                     runat="server" Text=""></asp:TextBox>
-                                                <i runat="server" id="iconUsuarioLogin" style="display: none" data-bv-icon-for="ctl00$txtUsuarioLogin"></i>
+                                                <i runat="server" id="iconUsuarioLogin" style="display: none" class="form-control-feedback glyphicon glyphicon-remove" data-bv-icon-for="ctl00$txtUsuarioLogin"></i>
                                                 <small class="help-block" style="display: block;" data-bv-validator="notEmpty" data-bv-for="ctl00$txtUsuarioLogin" data-bv-result="INVALID">
                                                     <asp:Label ID="lblUsuarioLogin" runat="server" />
                                                 </small>
@@ -147,8 +147,8 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div runat="server" id="divContraseñaLogin" class="form-group">
                                                 <asp:TextBox ID="txtContraseñaLogin" placeholder="Contraseña"
-                                                    TabIndex="2" CssClass="form-control input-lg" runat="server" TextMode="Password" Text=""></asp:TextBox>
-                                                <i runat="server" id="iconContraseñaLogin" class="texto form-control-feedback glyphicon glyphicon-remove" style="display: none;" data-bv-icon-for="ctl00$txtContraseñaLogin"></i>
+                                                    TabIndex="2" CssClass="form-control input-lg cleanLogin" runat="server" TextMode="Password" Text=""></asp:TextBox>
+                                                <i runat="server" id="iconContraseñaLogin" class="form-control-feedback glyphicon glyphicon-remove" style="display: none;" data-bv-icon-for="ctl00$txtContraseñaLogin"></i>
                                                 <small class="help-block" style="display: block;" data-bv-validator="notEmpty" data-bv-for="ctl00$txtContraseñaLogin" data-bv-result="INVALID">
                                                     <asp:Label ID="lblContraseñaLogin" runat="server" />
                                                 </small>
@@ -228,7 +228,7 @@
                                     </div>
                                     <div id="divUsuarioRegistro" class="form-group">
                                         <asp:TextBox ID="txtUsuarioRegistro" placeholder="Usuario" CssClass="texto form-control input-lg"
-                                            runat="server" TabIndex="12" AutoCompleteType="Search" OnTextChanged="txtUsuarioRegistro_TextChanged"
+                                            runat="server" TabIndex="12" OnTextChanged="txtUsuarioRegistro_TextChanged"
                                             data-bv-message="El usuario no es válido" name="username"
                                             data-bv-notempty="true"
                                             data-bv-notempty-message="El nombre de usuario es requerido"
@@ -313,6 +313,7 @@
                             </asp:UpdatePanel>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
 
@@ -367,10 +368,40 @@
 
     $(".formulario").bootstrapValidator();
 
+    var pageMgr = Sys.WebForms.PageRequestManager.getInstance();
+    pageMgr.add_endRequest(function (e) {
+        $('#txtUsuarioLogin').on('input', function () {
+            $("#divUsuarioLogin").attr("class", "form-group");
+            $("#iconUsuarioLogin").attr("style", "display:none");
+            $("#lblUsuarioLogin").attr("style", "display:none");
+            $("#divContraseñaLogin").attr("class", "form-group");
+            $("#iconContraseñaLogin").attr("style", "display:none");
+            $("#lblContraseñaLogin").attr("style", "display:none");
+        });
+        $('#txtContraseñaLogin').on('input', function () {
+            $("#divContraseñaLogin").attr("class", "form-group");
+            $("#iconContraseñaLogin").attr("style", "display:none");
+            $("#lblContraseñaLogin").attr("style", "display:none");
+        });
+    });
+
 
     function onFieldSuccess(e, data) {
-        $("#txtUsuarioRegistro").css('background', 'url(/img/loading.gif);');
+        alert("hola");
+        $("#txtUsuarioRegistro").css('background', 'url(/img/ajax-loader.gif);');
     };
+
+    $('#login').on('hidden.bs.modal', function () {
+        $(".formulario").bootstrapValidator('resetForm', true);
+        $("#divUsuarioLogin").attr("class", "form-group");
+        $("#iconUsuarioLogin").attr("style", "display:none");
+        $("#lblUsuarioLogin").attr("style", "display:none");
+        $("#divContraseñaLogin").attr("class", "form-group");
+        $("#iconContraseñaLogin").attr("style", "display:none");
+        $("#lblContraseñaLogin").attr("style", "display:none");
+        $(".cleanLogin").val("");
+
+    });
 
 </script>
 
