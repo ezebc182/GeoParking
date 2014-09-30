@@ -233,6 +233,7 @@ $(function () {
 
         //borramos los marcadores de busquedas anteriores
         deleteMarkers();
+        deleteCirculos();
 
         //tomo el valor de la nueva ciudad
         var ciudadNueva = document.getElementById('txtBuscar').value;
