@@ -9,8 +9,11 @@ var infowindow = new google.maps.InfoWindow({
     content: ''
 });
 
+
+
 var directionsDisplay = new google.maps.DirectionsRenderer({
-    suppressMarkers: true
+    suppressMarkers: true,
+    polylineOptions: { strokeColor: "#61B2FE" }
 });
 var directionsService = new google.maps.DirectionsService();
 
@@ -29,10 +32,15 @@ function ir(origen, destino, modoViaje, sistema) {
     };
     directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
+            if(modoViaje==="WALKING"){directionsDisplay.polylineOptions.strokeColor="#B01515";
+            }
+            else{directionsDisplay.polylineOptions.strokeColor="#61B2FE"}
+            
             directionsDisplay.setMap(map);
-            //directionsDisplay.setPanel($("#panel_ruta").get(0));
+            directionsDisplay.setPanel($("#panel_ruta").get(0));
             directionsDisplay.setDirections(response);
-        } else {
+            }
+        else {
             mensajeErrorConexion("Error al Calcular la ruta");
         }
     });
@@ -50,7 +58,7 @@ function addMarker(location) {
     var marker = new google.maps.Marker({
         position: location,
         map: map,
-        icon: './img/maracdorParking.png'
+        icon: './img/marcadorParking.png'
     });
     (function(marker,origen){
         google.maps.event.addListener(marker, 'click', function() {
@@ -116,6 +124,7 @@ function agregarPlayasAMapa(playas){
 function agregarPlayaAMapa(playa){
     var posicionDePlaya = new google.maps.LatLng(playa.Latitud, playa.Longitud);
     addMarker(posicionDePlaya);
+    
 }
 
 function loading(componente, on){
@@ -126,6 +135,9 @@ function loading(componente, on){
         componente.removeClass("loadingOn");
     }
 }
+ function mostrarBotones(){
+            $('#grupoDeBotones').removeClass('hidden');
+        }
 function initialize() {
     loading($("#map-canvas"), true);
     //variable para la busqueda con una direccion
@@ -140,5 +152,6 @@ function initialize() {
     //centro el mapa en la posicion actual del movil.
     setTimeout(function () {
         obtenerPosicionActual();
-    }, 100);
+        mostrarBotones();
+    }, 3000);
 }
