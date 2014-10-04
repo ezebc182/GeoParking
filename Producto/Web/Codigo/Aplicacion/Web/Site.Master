@@ -46,7 +46,7 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <a class="navbar-brand" href="./Index.aspx">Geo Parking Logo</a>
+                    <a class="navbar-brand" href="./Index.aspx"><span style="color: red; font-size:35px;">GEO</span><span style="color: white;font-size:35px;">PARKING</span></a>
 
                 </div>
 
