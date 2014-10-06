@@ -1,62 +1,73 @@
 
 var ubicacionAuto;
 var cantClick=0;
+
+
+
 function guardarUbicacion(){
-    
+    getlocal();
      intel.xdk.notification.confirm("Desea guardar la posición de su vehículo?", 'guardarVehiculo', "Recordar posición vehículo", "Si", "No");
         
-        //Process the event for the confirmed message
-        function receiveConfirm(e)
-                {
+        //Toma la respuesta brindada por el usuario
+        function receiveConfirm(e){
                         if( e.id == 'guardarVehiculo' )
                         {
                                 if( e.success == true && e.answer == true ) 
                                 {
-                                    
-                                    ubicacionAuto = playaElegida;
-                                    
-                                    intel.xdk.notification.alert("Posición vehículo guardada!","GeoParking - Éxito","Aceptar");  
+                                    ubicacionAuto = playaElegida; //NO ANDA
+                                   // Mensaje de confirmación <NO ANDA>
+                                    intel.xdk.notification.alert("Posición del vehículo guardada!","GeoParking - Éxito","Aceptar");  
                                 }
                             
                         }
-                } 
-    ubicacionAuto = playaElegida;
+        } 
+    //HARDCODEADO
+ubicacionAuto = playaElegida;
 	
 	
 }
+
+
 function trazarRegreso(){
-     intel.xdk.notification.confirm("Desea visualizar el camino hacia su vehículo?", 'volverAlVehiculo', "Desplazarse hacia posición vehículo", "Si", "No");
-        
-        //Process the event for the confirmed message
-        function receiveConfirm(e)
-                {
-                        if( e.id == 'volverAlVehiculo' )
-                        {
-                                if( e.success == true && e.answer == true ) 
-                                {
-	obtenerPosicionActual();
-	ir(posicionActual,ubicacionAuto,"WALKING","METRIC");
-                                }
-                        }
-                }
-    obtenerPosicionActual();
-	ir(posicionActual,ubicacionAuto,"WALKING","METRIC");
+         intel.xdk.notification.confirm("Desea visualizar el camino hacia su vehículo?", 'volverAlVehiculo', "Desplazarse hacia posición vehículo", "Si", "No");
+
+            //Toma la respuesta brindada por el usuario
+            function receiveConfirm(e)
+                    {
+                            if( e.id == 'volverAlVehiculo' )
+                            {
+                                    if( e.success == true && e.answer == true ) 
+                                    {
+                                        obtenerPosicionActual();
+                                        intel.xdk.notification.alert("Trazando ruta a                    vehículo","GeoParking","Aceptar");  
+                                        ir(posicionActual,ubicacionAuto,"WALKING","METRIC");                                                       
+                                    }
+                            }
+                    }
+    //HARDCODEADO
+        obtenerPosicionActual();
+        ir(posicionActual,ubicacionAuto,"WALKING","METRIC");
 }
 function mostrarIndicaciones(){
     if(cantClick%2==0){
+//        $('#modalTrazado').modal();
+        
+        
         $('.fullscreen').css('height','70%');
         $('#panel_ruta').removeClass('hidden');    
-        $('#panel_ruta').attr('title','Ocultar navegación');   
+        
     }
     else{
+        
         $('.fullscreen').css('height','100%');
         $('#panel_ruta').addClass('hidden');    
-        $('#panel_ruta').attr('title','Mostrar navegación');   
+        
     }
     cantClick++;
     
     
 }
+
 // function aCuantoEstoy(){
 //
 //

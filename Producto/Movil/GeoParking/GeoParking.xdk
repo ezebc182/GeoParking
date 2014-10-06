@@ -5,7 +5,7 @@
       "type": "Blank Project",
       "src": "blankProject",
       "projectGuid": "d067fe5b-acdc-4cfd-a86a-d5d9d898fa8d",
-      "lastModifiedDate": 1410904246187,
+      "lastModifiedDate": 1412482476120,
       "creationDate": 1410300872591
     },
     "sourceDirectory": "www",
@@ -32,42 +32,7 @@
     "cordovaPluginsDirectory": "plugins",
     "cordovaPlugins": [
       {
-        "id": "org.apache.cordova.device-motion",
-        "version": "0.2.4",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.camera",
-        "version": "0.2.9",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.media-capture",
-        "version": "0.2.8",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.device-orientation",
-        "version": "0.3.6",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
         "id": "org.apache.cordova.network-information",
-        "version": "0.2.8",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.contacts",
         "version": "0.2.8",
         "selectedState": "Auto",
         "data": {},
@@ -88,69 +53,8 @@
         "paramvals": {}
       },
       {
-        "id": "org.apache.cordova.file",
-        "version": "0.2.5",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.geolocation",
-        "version": "0.3.5",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.globalization",
-        "version": "0.2.7",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.inappbrowser",
-        "version": "0.3.0",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.media",
-        "version": "0.2.8",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.dialogs",
-        "version": "0.2.5",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.vibration",
-        "version": "0.3.5",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
         "id": "org.apache.cordova.splashscreen",
         "version": "0.2.5",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.accelerometer",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.audio",
         "selectedState": "Auto",
         "data": {},
         "paramvals": {}
@@ -160,76 +64,19 @@
         "selectedState": "Auto",
         "data": {},
         "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.cache",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.camera",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.contacts",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.device",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.display",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.facebook",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.file",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.geolocation",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.notification",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.player",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
       }
     ],
     "buildConfigurations": {
       "Android": {
         "platform_": "android",
         "name_": "Android",
-        "preferences_": {},
+        "preferences_": {
+          "android-targetedSdkVersion": "4.2",
+          "android-minSdkVersion": "2.2"
+        },
         "isActive_": true,
         "appName_": "GeoParking",
-        "appID_": "not.yet.specified",
+        "appID_": "com.android.geoparking",
         "appAccess_": "*",
         "icons_": [
           {
@@ -265,8 +112,9 @@
         "crosswalkVersion_": "stable",
         "appVersion_": "1.0.0",
         "runtime_": "Cordova 3.x",
-        "appDescription_": "GeoParking es una aplicacion para localizar y alcanzar plazas de estacionamiento",
-        "appAuthor_": "Geoparking S.A"
+        "appDescription_": "GeoParking : Estacioná de manera rápida, fácil y eficiente.",
+        "appAuthor_": "Geoparking S.A",
+        "appVersionCode_": "1"
       },
       "Android-Crosswalk": {
         "platform_": "android",
