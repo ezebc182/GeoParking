@@ -18,8 +18,15 @@ namespace Datos
         /// </summary>  
         public Repositorio()
         {
-            //Contexto especifico del contexto
-            contexto = ContextoBD.getInstace();
+            ////Contexto especifico del contexto
+            //try
+            //{
+            //    contexto = new ContextoBD();
+            //}
+            //catch (Exception e)
+            //{
+            //    throw new DataBaseException(e.Message, e);
+            //}
         }
 
         /// <summary>
@@ -27,7 +34,13 @@ namespace Datos
         /// </summary>
         protected DbSet<TEntity> DbSet
         {
-            get { return contexto.Set<TEntity>(); }
+            get
+            {
+                contexto = new ContextoBD();
+                
+                    return contexto.Set<TEntity>();
+                
+            }
         }
 
         /// <summary>
@@ -37,16 +50,8 @@ namespace Datos
         /// <returns>una entidad</returns>
         public TEntity FindById(int id)
         {
-            try
-            {
-                var lista = DbSet.Where(x => x.Id == id).ToList<TEntity>();
-                return lista[0];
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-            
+            var lista = DbSet.Where(x => x.Id == id).ToList<TEntity>();
+            return lista[0];
         }
 
         /// <summary>
@@ -74,28 +79,47 @@ namespace Datos
         /// </summary>
         /// <param name="entity">entidad a crear</param>
         /// <returns>la entidad creada</returns>
-        public TEntity Create(TEntity entity)
+        public virtual TEntity Create(TEntity entity)
         {
-            var result = DbSet.Add(entity);
-            contexto.SaveChanges();
-            return result;
+            using (contexto = new ContextoBD())
+            {
+                var result = DbSet.Add(entity);
+                try
+                {
+                    contexto.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw new DataBaseException(e.Message, e);
+                }
+                return result;
+            }
         }
 
         /// <summary>
         /// elimina segun una consulta
         /// </summary>
         /// <param name="predicate">consulta</param>
-        /// <returns>0 sino se realizo la accion</returns>
+        /// <returns>0 sino se realizo la accion, -1 si dio error</returns>
         public int Delete(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
         {
-            var objects = FindWhere(predicate);
-            foreach (var obj in objects)
+            using (contexto = new ContextoBD())
             {
-                obj.FechaBaja = DateTime.Now;
-                Update(obj);
+                var objects = FindWhere(predicate);
+                foreach (var obj in objects)
+                {
+                    obj.FechaBaja = DateTime.Now;
+                    Update(obj);
+                }
+                try
+                {
+                    return contexto.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw new DataBaseException(e.Message, e);
+                }
             }
-            return contexto.SaveChanges();
-            // TODO: Control de excepciones
         }
 
         /// <summary>
@@ -105,12 +129,34 @@ namespace Datos
         /// <returns>0 sino se realizo ninguna accion</returns>
         public virtual int Update(TEntity t)
         {
-            var currentEntity = FindById(t.Id);
-            var entry = contexto.Entry(currentEntity);
-            
-            //DbSet.Attach(t);
-            entry.CurrentValues.SetValues(t);
-            return contexto.SaveChanges();
+            using (contexto = new ContextoBD())
+            {
+                var currentEntity = FindById(t.Id);
+                var entry = contexto.Entry(currentEntity);
+                
+                entry.CurrentValues.SetValues(t);
+                try
+                {
+                    return contexto.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw new DataBaseException(e.Message, e);
+                }
+            }
         }
+    }
+
+    public class DataBaseException : Exception
+    {
+        public DataBaseException(string msj)
+            : base(msj)
+        {
+        }
+        public DataBaseException(string msj, Exception innerException)
+            : base(msj, innerException)
+        {
+        }
+
     }
 }

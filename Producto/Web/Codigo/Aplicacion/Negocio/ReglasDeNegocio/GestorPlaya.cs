@@ -14,6 +14,7 @@ namespace ReglasDeNegocio
         GestorDireccion gestorDireccion;
         IRepositorioPlayaDeEstacionamiento playaDao;
         IRepositorioTipoDePlaya tipoPlayaDao;
+        IRepositorioTiempo tiempoDao;
         IRepositorioDiaAtencion diaAtencionDao;
         IRepositorioTipoVehiculo tipoVehiculoDao;
         IRepositorioHorario horarioDao;
@@ -33,6 +34,7 @@ namespace ReglasDeNegocio
             horarioDao = new RepositorioHorario();
             servicioDao = new RepositorioServicio();
             precioDao = new RepositorioPrecio();
+            tiempoDao = new RepositorioTiempo();
         }
         /// <summary>
         /// Constructor utilizado en unit test
@@ -74,7 +76,14 @@ namespace ReglasDeNegocio
 
             if (resultado.Ok)
             {
-                playaDao.Create(playa);
+                try
+                {
+                    playaDao.Create(playa);
+                }
+                catch (DataBaseException e)
+                {
+                    resultado.AgregarMensaje("Se ha producido un error de base de datos");
+                }
             }
 
             return resultado;
@@ -208,8 +217,14 @@ namespace ReglasDeNegocio
 
             if (resultado.Ok)
             {
-                playaDao.Update(playa);
-
+                try
+                {
+                    playaDao.Update(playa);
+                }
+                catch (DataBaseException e)
+                {
+                    resultado.AgregarMensaje("Se ha producido un error de base de datos.");
+                }
             }
             return resultado;
         }
@@ -240,7 +255,14 @@ namespace ReglasDeNegocio
 
             if (resultado.Ok)
             {
-                playaDao.Delete(m => m.Id == idPlaya);
+                try
+                {
+                    playaDao.Delete(m => m.Id == idPlaya);
+                }
+                catch (DataBaseException e)
+                {
+                    resultado.AgregarMensaje("Se ha producido un error de base de datos.");
+                }
             }
 
             return resultado;
@@ -340,6 +362,8 @@ namespace ReglasDeNegocio
             foreach (var precio in lista)
             {
                 precio.DiaAtencion = diaAtencionDao.FindWhere(d => d.Id == precio.DiaAtencionId).First();
+                precio.TipoVehiculo = tipoVehiculoDao.FindWhere(t => t.Id == precio.TipoVehiculoId).First();
+                precio.Tiempo = tiempoDao.FindWhere(t => t.Id == precio.TiempoId).First();
             }
             return lista;
         }

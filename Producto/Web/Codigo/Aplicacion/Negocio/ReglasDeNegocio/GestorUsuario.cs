@@ -109,7 +109,9 @@ namespace ReglasDeNegocio
         }
         public Usuario BuscarUsuarioPorId(int id)
         {
-            return usuarioDao.FindById(id);
+            var usuario = usuarioDao.FindById(id);
+            usuario.Rol = rolDao.FindById(usuario.RolId);
+            return usuario;
         }
         public Rol BuscarRolPorUsuarioId(int id)
         {
@@ -119,13 +121,17 @@ namespace ReglasDeNegocio
         {
             return rolDao.FindAll();
         }
-        public void AsigarRolAUsuario(int idUsuario, int idRol)
+        public Resultado AsigarRolAUsuario(int idUsuario, int idRol)
         {
+            Resultado resultado = new Resultado();
+
             Usuario usuario = usuarioDao.FindById(idUsuario);
             usuario.RolId = idRol;
             Rol rol = rolDao.FindById(idRol);
             usuario.Rol = rol;
             usuarioDao.Update(usuario);
+
+            return resultado;
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Entidades;
 using ReglasDeNegocio;
 using Web.Util;
+using ReglasDeNegocio.Util;
 
 namespace Web
 {
@@ -19,7 +20,7 @@ namespace Web
         {
             gestorUsuario = new GestorUsuario();
             master = (SiteMaster)Master;
-            if (SessionUsuario == null || SessionUsuario.RolId==1 || SessionUsuario.RolId==2)
+            if (SessionUsuario == null || SessionUsuario.RolId == 1 || SessionUsuario.RolId == 2)
             {
                 Response.Redirect("/Index.aspx");
             }
@@ -50,16 +51,18 @@ namespace Web
             panelNuevoRol.Visible = true;
             panelAsignarRol.Visible = false;
             panelAsignarPermiso.Visible = false;
-            
+
         }
-        private void crearRol()
+        private Resultado crearRol()
         {
+            Resultado resultado;
             Rol rolNuevo = new Rol();
             rolNuevo.Nombre = txtNombre.Text;
             rolNuevo.Descripcion = txtDescripcion.Text;
-            gestorRol.CrearRol(rolNuevo);
+            resultado = gestorRol.CrearRol(rolNuevo);
+            return resultado;
         }
-        
+
         #endregion
 
         #region PanelAsignarRol
@@ -84,10 +87,9 @@ namespace Web
         }
         private bool hayCambiosPorGuardarEnAsignarRol()
         {
-            Usuario usuarioSeleccionado = gestorUsuario.BuscarUsuarioPorId(int.Parse(ddlUsuario.SelectedValue));
-            return usuarioSeleccionado.RolId != int.Parse(ddlRol.SelectedValue);
-
+            return UsuarioSeleccionado.RolId != IdRolSeleccionado;
         }
+
         public void limpiarComponentesAsignarRol()
         {
             ddlRol.SelectedIndex = 0;
@@ -104,25 +106,18 @@ namespace Web
             FormHelper.CargarCombo(ddlRol, gestorUsuario.BuscarRoles(), "Nombre", "Id", "Seleccione");
             if (ddlUsuario.SelectedIndex != 0)
             {
-                Usuario usuarioSeleccionado = gestorUsuario.BuscarUsuarioPorId(int.Parse(ddlUsuario.SelectedValue));
+                Usuario usuarioSeleccionado = gestorUsuario.BuscarUsuarioPorId(IdUsuarioSeleccionado);
                 if (usuarioSeleccionado != null)
                 {
                     ddlRol.SelectedValue = usuarioSeleccionado.Rol.Id.ToString();
                 }
             }
         }
-        private void guardarRolAUsuario()
+        private Resultado guardarRolAUsuario()
         {
-            try
-            {
-                gestorUsuario.AsigarRolAUsuario(int.Parse(ddlUsuario.SelectedValue), int.Parse(ddlRol.SelectedValue));
-                master.MostrarMensajeInformacion("El rol '" + ddlRol.SelectedItem.Text + "' ha sido asignado al usuario '" + ddlUsuario.SelectedItem.Text + "'", "Rol guardado con éxito.");
-                limpiarComponentesAsignarRol();
-            }
-            catch (Exception)
-            {
-                master.MostrarMensajeError("No se pudo asignar el rol '" + ddlRol.SelectedItem.Text + "' al usuario '" + ddlUsuario.SelectedItem.Text + "'", "Error al guardar el rol");
-            }
+            Resultado resultado;
+            resultado = gestorUsuario.AsigarRolAUsuario(IdUsuarioSeleccionado, IdRolSeleccionado);            
+            return resultado;
         }
         protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -166,7 +161,6 @@ namespace Web
         private void seleccionarPermisosDeRol()
         {
             Rol rol = gestorRol.BuscarRol(int.Parse(ddlRolPermisos.SelectedValue));
-            rol.Permisos = gestorRol.BuscarPermisosPorRol(rol);
             foreach (Permiso permiso in rol.Permisos)
             {
                 cblPermiso.Items.FindByValue(permiso.Id.ToString()).Selected = true;
@@ -179,51 +173,74 @@ namespace Web
                 cblPermiso.Items[i].Selected = false;
             }
         }
-        private void AsignarPermisosARol()
+        private Resultado AsignarPermisosARol()
         {
-            Rol rolSeleccionado = tomarRolSeleccionado();
+            Resultado resultado;
+
+            Rol rolSeleccionado = RolSeleccionado;
             IList<Permiso> permisos = tomarPermisosSeleccionados();
 
-            if (hayCambiosPorGuardarAsignarPermiso(rolSeleccionado, permisos))
+            foreach (Permiso permiso in permisos)
             {
-                //rolSeleccionado.Permisos = permisos;
-                foreach (Permiso permiso in permisos)
+                if (!(rolSeleccionado.Permisos.Contains(permiso)))
                 {
-                    if (!(rolSeleccionado.Permisos.Contains(permiso)))
-                    {
-                        rolSeleccionado.Permisos.Add(permiso);
-                    }
+                    rolSeleccionado.Permisos.Add(permiso);
                 }
-                foreach (Permiso permiso in permisos)
-                {
-                    if (!(permiso.Roles.Contains(rolSeleccionado)))
-                    {
-                        permiso.Roles.Add(rolSeleccionado);
-                    }
-                }
-                gestorRol.GuardarRol(rolSeleccionado);
-                master.MostrarMensajeInformacion(
-                "Los permisos han sido guardados para el rol '"
-                + rolSeleccionado.Nombre
-                + "'"
-                , "Rol guardado con éxito.");
             }
-            else
+            foreach (Permiso permiso in permisos)
             {
-                master.MostrarMensajeError(
-                    "No se encontraron cambios para el rol'"
-                    + ddlRolPermisos.SelectedItem.Text + "'",
-                    "Error al guardar el rol");
+                if (!(permiso.Roles.Contains(rolSeleccionado)))
+                {
+                    permiso.Roles.Add(rolSeleccionado);
+                }
             }
+            resultado = gestorRol.GuardarRol(rolSeleccionado);
 
+            return resultado;
         }
-        private Rol tomarRolSeleccionado()
+
+
+        private int IdRolSeleccionado
         {
-            return gestorRol.BuscarRol(int.Parse(ddlRolPermisos.SelectedValue));
+            get
+            {
+                if (panelAsignarPermiso.Visible)
+                {
+                    return int.Parse(ddlRolPermisos.SelectedValue);
+                }
+                else if (panelAsignarRol.Visible)
+                {
+                    return int.Parse(ddlRol.SelectedValue);
+                }
+                else return 0;
+            }
+        }
+        public Usuario UsuarioSeleccionado
+        {
+            get
+            {
+                return gestorUsuario.BuscarUsuarioPorId(IdUsuarioSeleccionado);
+            }
+        }
+
+        public Rol RolSeleccionado
+        {
+            get
+            {
+                if (panelAsignarPermiso.Visible)
+                {
+                    return gestorRol.BuscarRol(IdRolSeleccionado);
+                }
+                else if (panelAsignarRol.Visible)
+                {
+                    return gestorRol.BuscarRol(IdRolSeleccionado);
+                }
+                else return null;
+            }
         }
         protected void cblPermiso_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnGuardar.Enabled = ddlRolPermisos.SelectedIndex != 0 && hayCambiosPorGuardarAsignarPermiso(tomarRolSeleccionado(), tomarPermisosSeleccionados());
+            btnGuardar.Enabled = ddlRolPermisos.SelectedIndex != 0 && hayCambiosPorGuardarAsignarPermiso(RolSeleccionado, tomarPermisosSeleccionados());
         }
         private IList<Permiso> tomarPermisosSeleccionados()
         {
@@ -280,27 +297,47 @@ namespace Web
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+            Resultado resultado = new Resultado();
+            String mensaje = "";
+            string titulo = "Rol guardado con éxito.";
+
             if (panelNuevoRol.Visible)
             {
-                crearRol();
+                resultado = crearRol();
+                mensaje = "El Rol " + txtNombre.Text +" se creo correctamente.";
                 txtDescripcion.Text = "";
                 txtNombre.Text = "";
             }
             else if (panelAsignarRol.Visible)
             {
-                guardarRolAUsuario();
+                resultado = guardarRolAUsuario();
+                mensaje = "El Rol " + RolSeleccionado.Nombre + " se asigno correctamente al usuario " + UsuarioSeleccionado.Nombre + ".";
+                limpiarComponentesAsignarRol();
             }
             else if (panelAsignarPermiso.Visible)
             {
                 if (ddlRolPermisos.SelectedIndex != 0)
                 {
-                    AsignarPermisosARol();
+                    if (hayCambiosPorGuardarAsignarPermiso(RolSeleccionado, tomarPermisosSeleccionados()))
+                    {
+                        resultado = AsignarPermisosARol();
+                        mensaje = "Los permisos han sido guardados para el rol '" + RolSeleccionado.Nombre + "'";
+                    }
+                    else
+                    {
+                        mensaje = "No se encontraron cambios para el rol'" + ddlRolPermisos.SelectedItem.Text + "'";
+                    }
+
                 }
                 ddlRolPermisos.SelectedIndex = 0;
                 LimpiarCheckboxListPermisos();
                 cblPermiso.Enabled = false;
             }
+
+            if (resultado.Ok)
+                master.MostrarMensajeInformacion(TipoMensajeEnum.MostrarAlertaYModal, mensaje, titulo);
         }
+
         public int IdUsuarioSeleccionado
         {
             get { return string.IsNullOrEmpty(ddlUsuario.SelectedValue) ? 0 : Convert.ToInt32(ddlUsuario.SelectedValue); }

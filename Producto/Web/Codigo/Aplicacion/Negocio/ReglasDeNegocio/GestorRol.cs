@@ -60,14 +60,24 @@ namespace ReglasDeNegocio
             return permiso;
         }
 
-        public int GuardarRol(Rol rol)
+        public Resultado GuardarRol(Rol rol)
         {
-            return rolDao.Update(rol);
+            Resultado resultado = new Resultado();
+
+            rolDao.Update(rol);
+
+            return resultado;
         }
 
-        public Rol CrearRol(Rol rol)
+        public Resultado CrearRol(Rol rol)
         {
-            return rolDao.Create(rol);
+            Resultado resultado = new Resultado();
+
+            if (resultado.Ok)
+            {
+                rolDao.Create(rol);
+            }
+            return resultado;
         }
     }
 }

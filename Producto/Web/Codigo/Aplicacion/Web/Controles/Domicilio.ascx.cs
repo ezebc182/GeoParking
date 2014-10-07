@@ -146,7 +146,7 @@ namespace Web.Controles
         /// </summary>
         public void LimpiarCampos()
         {
-            if (Domicilios.Count == 0 || IdProvinciaSeleccionada == 0)
+            if (Domicilios.Count == 0)
             {
                 HabilitarCombos(true);
                 LimpiarCombos();
@@ -155,7 +155,14 @@ namespace Web.Controles
                 Numero = null;
             }
             else
+            {
                 HabilitarCombos(false);
+                IdProvinciaSeleccionada = Domicilios[0].Provincia.Id;
+                CargarComboDepartamentos();
+                IdDepartamentoSeleccionado = Domicilios[0].Departamento.Id;
+                CargarComboCiudades();
+                IdCiudadSeleccionada = Domicilios[0].Ciudad.Id;
+            }
         }
 
         /// <summary>

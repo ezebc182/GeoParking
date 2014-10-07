@@ -60,7 +60,59 @@ namespace Datos
 
     public class RepositorioPlayaDeEstacionamiento : Repositorio<PlayaDeEstacionamiento>, IRepositorioPlayaDeEstacionamiento
     {
+        public override PlayaDeEstacionamiento Create(PlayaDeEstacionamiento entity)
+        {
+            using (contexto = new ContextoBD())
+            {
+                Update(entity);
+                //foreach (var direccion in entity.Direcciones)
+                //{
+                //    direccion.PlayaDeEstacionamiento = entity;
+                //    contexto.Set<Ciudad>().Attach(direccion.Ciudad);
+                //    contexto.Set<Departamento>().Attach(direccion.Departamento);
+                //    contexto.Set<Provincia>().Attach(direccion.Provincia);
+                //    contexto.Set<Direccion>().Add(direccion);
+                //    contexto.Entry(direccion).Reference(d=>d.Ciudad).IsLoaded= true;
+                //}
+                //foreach (var horario in entity.Horarios)
+                //{
+                //    horario.PlayaDeEstacionamiento = entity;
+                //    contexto.Set<DiaAtencion>().Attach(horario.DiaAtencion);
+                //    contexto.Set<Horario>().Add(horario);
+                //    contexto.Entry(horario).Reference(h => h.DiaAtencion).IsLoaded = true;
 
+                //}
+                //foreach (var precio in entity.Precios)
+                //{
+                //    precio.PlayaDeEstacionamiento = entity;
+                //    contexto.Set<Tiempo>().Attach(precio.Tiempo);
+                //    contexto.Set<TipoVehiculo>().Attach(precio.TipoVehiculo);
+                //    contexto.Set<Precio>().Add(precio);
+                //    contexto.Entry(precio).Reference(p => p.Tiempo).IsLoaded = true;
+                //    contexto.Entry(precio).Reference(p => p.TipoVehiculo).IsLoaded = true;
+                //}
+                //foreach (var servicio in entity.Servicios)
+                //{
+                //    servicio.PlayaDeEstacionamiento = entity;
+                //    contexto.Set<Servicio>().Add(servicio);
+                //    contexto.Entry(servicio).Reference(s => s.TipoVehiculo).IsLoaded = true;
+                //}
+
+                //var playa = new PlayaDeEstacionamiento { Nombre = entity.Nombre, TipoPlaya = entity.TipoPlaya, TipoPlayaId = entity.TipoPlayaId, Mail = entity.Mail, Telefono = entity.Telefono };
+
+                //var result = DbSet.Add(playa);
+                //try
+                //{
+                //    contexto.SaveChanges();
+                //    Update(entity);
+                //}
+                //catch (Exception e)
+                //{
+                //    throw new DataBaseException(e.Message, e);
+                //}
+                return entity;// result;
+            }
+        }
         public override int Update(PlayaDeEstacionamiento t)
         {
             var entry = contexto.Entry(t);

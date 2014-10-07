@@ -12,19 +12,19 @@ namespace Datos
     public class ContextoBD: DbContext
     {
         //instancia del singleton        
-        private static ContextoBD instancia = null;
+        private ContextoBD instancia = null;
 
         /// <summary>
         /// Crea o retorna el contexto de la BD
         /// </summary>
         /// <returns>instancia del contexto</returns>
-        public static ContextoBD getInstace()
-        {
-            if (instancia == null)
-                instancia = new ContextoBD();
+        //public static ContextoBD getInstace()
+        //{
+        //    if (instancia == null)
+        //        instancia = new ContextoBD();
 
-            return instancia;
-        }
+        //    return instancia;
+        //}
 
         /// <summary>
         /// Crea el contexto con la BD, con el name "BD_Geoparking" en el webConfig 
@@ -33,6 +33,7 @@ namespace Datos
         {
             Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
+            
         }
 
         /// <summary>

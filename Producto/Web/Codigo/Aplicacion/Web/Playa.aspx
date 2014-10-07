@@ -269,7 +269,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <asp:LinkButton runat="server" CssClass="btn-primary btn btn-lg" ID="btnBuscar" Text="Buscar" OnClick="btnBuscar_Click"></asp:LinkButton>
-                                    <asp:LinkButton runat="server" CssClass="btn-success btn btn-lg" ID="btnNuevo" Text="Nueva" OnClick="btnNuevo_Click" OnClientClick="$('#modificarPlaya').modal({keyboard: false, show: true, backdrop: 'static'});"></asp:LinkButton>
+                                    <asp:LinkButton runat="server" CssClass="btn-success btn btn-lg" ID="btnNuevo" Text="Nueva" OnClick="btnNuevo_Click" OnClientClick="abrirModalPlaya()"></asp:LinkButton>
                                 </div>
                             </div>
                         </div>
@@ -308,7 +308,7 @@
                                                         CommandName="Ver" data-toggle="modal" data-target="#modificarPlaya" Text="&#9733;" />
 
                                                     <asp:Button ToolTip="Modificar" ID="btnEditar" runat="server" CssClass="btn btn-default" CommandArgument="<%# Container.DataItemIndex %>"
-                                                        CommandName="Editar" data-toggle="modal" data-target="#modificarPlaya" Text="&#9839;" />
+                                                        CommandName="Editar" OnClientClick="abrirModalPlaya()" Text="&#9839;" />
 
                                                     <asp:Button ToolTip="Eliminar" ID="btnEliminar" runat="server" CssClass="btn btn-default eliminacion" CommandArgument="<%# Container.DataItemIndex %>"
                                                         CommandName="Eliminar" Text="&#9747;" />
@@ -368,6 +368,11 @@
             else {
                 $('[id*=upBotones] [id*=btnGuardar]').first().addClass('disabled');
             }
+        }
+
+        function abrirModalPlaya() {
+            $('#modificarPlaya').modal({ keyboard: false, show: true, backdrop: 'static' });
+            $('#myTab a:first').tab('show')
         }
 
         pageManager = Sys.WebForms.PageRequestManager.getInstance();
