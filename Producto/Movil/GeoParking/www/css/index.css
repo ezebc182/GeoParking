@@ -1,0 +1,17 @@
+   html, body {
+            height: 98%;
+        }
+        .fullscreen{
+            height: 100%;
+            width: 100%;
+        }
+        #map-canvas {
+            position: fixed !important;
+            left: 0;
+            top: 0;
+            text-align: center;
+        }
+  /* Prevent copy paste for all elements except text fields */
+        *  { -webkit-user-select:none; -webkit-tap-highlight-color:rgba(255, 255, 255, 0); }
+        input, textarea  { -webkit-user-select:text; }
+        body { background-color:white; color:black }

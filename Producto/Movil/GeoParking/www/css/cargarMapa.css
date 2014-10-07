@@ -1,6 +1,6 @@
-.loadingOn
-{
-    background-image: url('img/loading3.gif');
+.loadingOn{
+    
+    background-image: url('../img/logo.gif');
     background-position: center;
     background-repeat: no-repeat;
 }

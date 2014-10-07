@@ -37,9 +37,9 @@ namespace Datos
             get
             {
                 contexto = new ContextoBD();
-                
-                    return contexto.Set<TEntity>();
-                
+
+                return contexto.Set<TEntity>();
+
             }
         }
 
@@ -67,11 +67,13 @@ namespace Datos
         /// busca todas las entidades de acuerdo a una consulta
         /// </summary>
         /// <param name="predicate">consulta</param>
-        /// <returns>lista de entidades</returns>
+        /// <returns>lista de entidades o null si no se encuentra nada</returns>
         public IList<TEntity> FindWhere(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
         {
-            var lista = DbSet.Where(predicate).ToList<TEntity>();
-            return lista;
+            var lista = DbSet.Where(predicate);
+
+            return lista.ToList<TEntity>();
+
         }
 
         /// <summary>
@@ -133,7 +135,7 @@ namespace Datos
             {
                 var currentEntity = FindById(t.Id);
                 var entry = contexto.Entry(currentEntity);
-                
+
                 entry.CurrentValues.SetValues(t);
                 try
                 {

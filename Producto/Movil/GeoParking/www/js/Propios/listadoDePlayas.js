@@ -1,3 +1,6 @@
+var playaElegida;
+
+
 function crearListado(playas) {
     var acordion = crearAcordion(playas);
     $("#panelListado").append(acordion);
@@ -9,7 +12,9 @@ function agregarClickAPlaya(playa){
         $("#acordion").remove();
         $("#btnVerListado").show();
         $("#pnlMapa").show();
+        
         ir(posicionActual, posicionPlayaGoogle, "DRIVING","METRIC");
+        playaElegida=posicionPlayaGoogle;
     };
     return eventoClick;
 }
@@ -19,9 +24,9 @@ function calcularDistanciaPlaya(playa){
     var lon1 = parseFloat(playa.Longitud);
     var lat2 = parseFloat(posicionActual.k);
     var lon2 = parseFloat(posicionActual.B);
-    var distancia = distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) * 100;
+    var distancia = distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) * 1000;
     distancia = distancia.toFixed(2);
-    return distancia + " metros";
+    return distancia;
 }
 function crearAcordion(playas){
     var acordion = document.createElement("div");
@@ -29,20 +34,23 @@ function crearAcordion(playas){
     acordion.className = "fullscreen";
     for(var i = 0; i < playas.length; i++){
         var playa = playas[i];
-        var header = document.createElement("h3");
-        header.innerHTML = crearHeaderParaPlaya(playa);
-        var contenedor = document.createElement("div");
-        var botonIr = document.createElement("input");
-        botonIr.type = "button";
-        botonIr.style = "position: relative; float: right; height: 100%; width: 20%;";
-        botonIr.value = "Ir a esta Playa";
-        botonIr.onclick = agregarClickAPlaya(playa);
-        contenedor.appendChild(botonIr);
-        var label = document.createElement("label");
-        label.innerHTML = crearDescripcionParaPlaya(playa);
-        contenedor.appendChild(label);
-        acordion.appendChild(header);
-        acordion.appendChild(contenedor);
+        var distancia = calcularDistanciaPlaya(playa);
+        if(distancia <= 500){
+            var header = document.createElement("h3");
+            header.innerHTML = crearHeaderParaPlaya(playa);
+            var contenedor = document.createElement("div");
+            var label = document.createElement("label");
+            label.innerHTML = crearDescripcionParaPlaya(playa);
+            contenedor.appendChild(label);
+            acordion.appendChild(header);
+            acordion.appendChild(contenedor);
+            var botonIr = document.createElement("input");
+            botonIr.className="btn btn-default pull-right"
+            botonIr.type = "button";
+            botonIr.value = "Ir";
+            botonIr.onclick = agregarClickAPlaya(playa);
+            contenedor.appendChild(botonIr);
+        }
     }
     return acordion;
 }
@@ -68,8 +76,6 @@ function crearDescripcionParaPlaya(playa){
 function crearHeaderParaPlaya(playa){
     var header = "";
     header += playa.Nombre;
-    header += " - ";
-    header += calcularDistanciaPlaya(playa);
     return header;
 
 }

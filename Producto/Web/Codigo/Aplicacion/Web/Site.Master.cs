@@ -34,6 +34,8 @@ namespace Web
                 }
             }
 
+            btnRegistrar.Enabled = false;
+
             // Validaciones y Carga para el Login de Usuario
             if (!string.IsNullOrEmpty(txtUsuarioLogin.Text) || !string.IsNullOrEmpty(txtContraseña.Text))
             {
@@ -189,73 +191,62 @@ namespace Web
             {
                 Usuario usuario = CargarEntidad();
                 var resultado = gestor.RegistrarUsuario(usuario);
+                MostrarMensajeInformacion(TipoMensajeEnum.MensajeModal,"El usuario "+ usuario.NombreUsuario +" se ha registrado con exito!!" , "Registro de Usuario");
             }
         }
 
         protected void btnIniciarSesion_Click(object sender, EventArgs e)
         {
-            ValidarCampos(false, false);
+            ValidarCampos();
+            var guardarContraseña = txtContraseñaLogin.Text;
             var resultado = gestor.Login(txtUsuarioLogin.Text, txtContraseñaLogin.Text);
-            var usuarioValido = gestor.ValidarUsuarioYMailIngresado(txtUsuarioLogin.Text);
             if (resultado != null)
             {
                 SessionUsuario = resultado;
                 lblLogin.Text = SessionUsuario.NombreUsuario;
                 Response.Redirect(Request.Url.AbsolutePath);
-                txtUsuarioLogin.Text = "";
-                txtContraseñaLogin.Text = "";
             }
             else
             {
-                ValidarCampos(false, false);
-            }
-            if (usuarioValido != null)
-            {
-                ValidarCampos(true, false);
+                ValidarCampos();
+                pass.Value = txtContraseñaLogin.Text;
             }
         }
 
-        private void ValidarCampos(bool UsuarioValido, bool ContraseñaValida)
+        private void ValidarCampos()
         {
-
-            if (string.IsNullOrWhiteSpace(txtUsuarioLogin.Text))
-            {
-                divUsuarioLogin.Attributes["class"] = "form-group has-feedback has-error";
-                iconUsuarioLogin.Attributes["style"] = "top: 7px; display: block;";
-                lblUsuarioLogin.Text = "Debe ingresar un usuario o e-mail";
-            }
-            else
-            {
-                if (UsuarioValido)
-                {
-                    divUsuarioLogin.Attributes["class"] = "form-group has-feedback has-success ";
-                    iconUsuarioLogin.Attributes["style"] = "top: 7px; display: block;";
-                    iconUsuarioLogin.Attributes["class"] = "form-control-feedback glyphicon glyphicon-ok";
-                    lblUsuarioLogin.Text = "";
-                }
-                else
-                {
-                    divUsuarioLogin.Attributes["class"] = "form-group has-feedback has-error";
-                    iconUsuarioLogin.Attributes["style"] = "top: 7px; display: block;";
-                    iconUsuarioLogin.Attributes["class"] = "form-control-feedback glyphicon glyphicon-remove";
-                    lblUsuarioLogin.Text = "Usuario o e-mail Incorrecto";
-                }
-            }
-            if (string.IsNullOrWhiteSpace(txtContraseñaLogin.Text))
+            if (string.IsNullOrWhiteSpace(txtContraseñaLogin.Text) && !string.IsNullOrWhiteSpace(txtUsuarioLogin.Text))
             {
                 divContraseñaLogin.Attributes["class"] = "form-group has-feedback has-error";
                 iconContraseñaLogin.Attributes["style"] = "top: 7px; display: block;";
                 lblContraseñaLogin.Text = "Debe ingresar una contraseña";
+                divUsuarioLogin.Attributes["class"] = "form-group";
+                iconUsuarioLogin.Attributes["style"] = "none";
+                iconUsuarioLogin.Attributes["class"] = "";
+                lblUsuarioLogin.Text = "";
             }
-            else
+            if (string.IsNullOrWhiteSpace(txtUsuarioLogin.Text))
             {
-                if (!ContraseñaValida)
-                {
-                    divContraseñaLogin.Attributes["class"] = "form-group has-feedback has-error";
-                    iconContraseñaLogin.Attributes["style"] = "top: 7px; display: block;";
-                    iconContraseñaLogin.Attributes["class"] = "form-control-feedback glyphicon glyphicon-remove";
-                    lblContraseñaLogin.Text = "Contraseña Incorrecta";
-                }
+                divUsuarioLogin.Attributes["class"] = "form-group has-feedback has-error";
+                iconUsuarioLogin.Attributes["style"] = "top: 7px; display: block;";
+                iconUsuarioLogin.Attributes["class"] = "form-control-feedback glyphicon glyphicon-remove";
+                lblUsuarioLogin.Text = "Debe ingresar un usuario o e-mail";
+                divContraseñaLogin.Attributes["class"] = "form-group";
+                iconContraseñaLogin.Attributes["class"] = "";
+                iconContraseñaLogin.Attributes["style"] = "none";
+                lblContraseñaLogin.Text = "";
+
+            }
+            if (!string.IsNullOrWhiteSpace(txtContraseñaLogin.Text) && !string.IsNullOrWhiteSpace(txtUsuarioLogin.Text))
+            {
+                divUsuarioLogin.Attributes["class"] = "form-group has-feedback has-error";
+                iconUsuarioLogin.Attributes["style"] = "top: 7px; display: block;";
+                iconUsuarioLogin.Attributes["class"] = "form-control-feedback glyphicon glyphicon-remove";
+                lblUsuarioLogin.Text = "";
+                divContraseñaLogin.Attributes["class"] = "form-group has-feedback has-error";
+                iconContraseñaLogin.Attributes["style"] = "top: 7px; display: block;";
+                iconContraseñaLogin.Attributes["class"] = "form-control-feedback glyphicon glyphicon-remove";
+                lblContraseñaLogin.Text = "Usuario y/o contraseña incorrectos";
             }
         }
 
@@ -330,7 +321,11 @@ namespace Web
 
         protected void txtUsuarioRegistro_TextChanged(object sender, EventArgs e)
         {
+            var resultado = gestor.ValidarUsuarioIngresado(txtUsuarioRegistro.Text);
+            if (resultado != null)
+            {
 
+            }
         }
 
     }
