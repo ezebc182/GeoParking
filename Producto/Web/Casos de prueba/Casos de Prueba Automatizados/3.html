@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8283/" />
+<title>3</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">3</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/Playa.aspx</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=MainContent_txtFiltroNombre</td>
+	<td>CPA_Playa2</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=MainContent_btnBuscar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.panel.panel-primary &gt; div.panel-heading</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=cantidadPlayas</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=MainContent_gvResultados_btnEliminar_0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>//div[@id='MensajeModalConfirmacion']/div/div/div</td>
+	<td>× Confirmar Eliminacion</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=msjConfirmacion_lblMensajeModal</td>
+	<td>exact:¿Quiere eliminar la playa CPA_Playa2?</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=msjConfirmacion_btnSi</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=MainContent_btnBuscar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=cantidadPlayas</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>css=td</td>
+	<td>No se encontraron Playas para los filtros utilizados</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=td</td>
+	<td>No se encontraron Playas para los filtros utilizados</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

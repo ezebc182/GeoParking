@@ -251,7 +251,51 @@
 	<td>//div[@id='MensajeModalInfo']/div/div/div</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>click</td>
+	<td>css=#MensajeModalInfo &gt; div.modal-dialog &gt; div.modal-content &gt; div.modal-footer &gt; button.btn.btn-info</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=MainContent_btnBuscar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Ingresar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=txtUsuarioLogin</td>
+	<td>superadmin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=txtContraseñaLogin</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=btnIniciarSesion</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Administración de playas</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=MainContent_btnBuscar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=msjInfo_lblMensajeModal</td>
+	<td>La playa fue registrada correctamente.</td>
+</tr>
 </tbody></table>
 </body>
 </html>
