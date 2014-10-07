@@ -21,15 +21,24 @@ namespace Web
             gestor = new GestorUsuario();
             msjConfirmacion.Si += ConfirmarMensaje;
             msjConfirmacion.No += CancelarMensaje;
-
-            if (SessionUsuario != null)
+            if (!IsPostBack)
             {
-                lblLogin.Text = SessionUsuario.NombreUsuario;
-                rolId = SessionUsuario.RolId;
-
+                if (SessionUsuario != null)
+                {
+                    if (!SessionUsuario.Rol.Permisos.Any(x => Request.Url.AbsolutePath.Contains(x.Url)))
+                    {
+                        Response.Redirect("/Index.aspx");
+                    }
+                    lblLogin.Text = SessionUsuario.NombreUsuario;
+                    rolId = SessionUsuario.RolId;
+                }
             }
+
             // Validaciones y Carga para el Login de Usuario
-            gestor.Login(txtUsuarioLogin.Text, txtContraseñaLogin.Text);
+            if (!string.IsNullOrEmpty(txtUsuarioLogin.Text) || !string.IsNullOrEmpty(txtContraseña.Text))
+            {
+                gestor.Login(txtUsuarioLogin.Text, txtContraseñaLogin.Text);
+            }
         }
 
         #region mensajes

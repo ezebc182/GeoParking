@@ -13,10 +13,13 @@ namespace ReglasDeNegocio
     {
         IRepositorioUsuario usuarioDao;
         IRepositorioRol rolDao;
+        IRepositorioPermiso permisoDao;
         Encriptacion cifrar;
+
 
         public GestorUsuario()
         {
+            permisoDao = new RepositorioPermiso();
             usuarioDao = new RepositorioUsuario();
             rolDao = new RepositorioRol();
             cifrar = new Encriptacion();
@@ -71,8 +74,10 @@ namespace ReglasDeNegocio
         public Usuario Login(string usuario,string contraseña)
         {
             string cifrada = Encriptar(contraseña);
-            IList<Usuario> resultado = usuarioDao.FindWhere(x => (x.Mail.Equals(usuario) || x.NombreUsuario.Equals(usuario)) && x.Contraseña.Equals(cifrada));
-            return resultado.FirstOrDefault();
+            Usuario resultado = usuarioDao.FindWhere(x => (x.Mail.Equals(usuario) || x.NombreUsuario.Equals(usuario)) && x.Contraseña.Equals(cifrada)).First();
+            resultado.Rol = rolDao.FindWhere(x => x.Id == resultado.RolId).First();
+            resultado.Rol.Permisos = permisoDao.FindWhere(x=>x.Roles.Any(p=>p.Id == resultado.RolId)); 
+            return resultado;
         }
 
         public Usuario ValidarUsuarioIngresado(string usuario)

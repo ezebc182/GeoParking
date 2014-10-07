@@ -20,10 +20,7 @@ namespace Web
         {
             gestorUsuario = new GestorUsuario();
             master = (SiteMaster)Master;
-            if (SessionUsuario == null || SessionUsuario.RolId == 1 || SessionUsuario.RolId == 2)
-            {
-                Response.Redirect("/Index.aspx");
-            }
+            
             if (!Page.IsPostBack)
             {
                 string action = Request.QueryString["action"];

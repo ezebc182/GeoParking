@@ -22,6 +22,12 @@ namespace SIRAD.Web.Controls.Alerts
                 lblMensajeModal.InnerHtml = value;
             }
         }
+        public string Titulo
+        {
+            get { return lblTitulo.InnerText;}
+            set { lblTitulo.InnerHtml = value; }
+        }
+
         public void MostrarMensaje(string msj)
         {
             MostrarMensaje(TipoMensajeEnum.MostrarAlertaYModal, msj, "Error");
@@ -35,7 +41,9 @@ namespace SIRAD.Web.Controls.Alerts
 
         public void MostrarMensaje(TipoMensajeEnum tipo,string msj, string titulo)
         {
+            Titulo = titulo;
             Mensaje = msj;
+
             switch (tipo)
             {
                 case TipoMensajeEnum.MensajeAlerta:

@@ -23,11 +23,6 @@ namespace Web
             gestor = new GestorPlaya();
             master = (SiteMaster)Master;
 
-            if (SessionUsuario == null || SessionUsuario.RolId==1)
-            {
-                Response.Redirect("/Index.aspx");
-            }
-
             if (!Page.IsPostBack)
             {
                 CargarComboTiposPlayas();

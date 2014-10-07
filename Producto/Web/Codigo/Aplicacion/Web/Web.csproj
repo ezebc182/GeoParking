@@ -88,6 +88,7 @@
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Bootstrap\js\bootstrap.js" />
     <Content Include="Bootstrap\js\bootstrap.min.js" />
+    <Content Include="Scripts\app-block.js" />
     <Content Include="Scripts\Autocomplete.js" />
     <Content Include="Scripts\bootstrapValidator.min.js" />
     <Content Include="Scripts\bv-lenguaje.js" />
@@ -98,6 +99,7 @@
     <Content Include="Scripts\GoogleMapsBusquedaPlaya.js" />
     <Content Include="Scripts\horarios.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.blockUI.min.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\paneles.js" />
