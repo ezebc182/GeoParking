@@ -46,7 +46,7 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <a class="navbar-brand" href="./Index.aspx"><span style="color: red; font-size:35px;">GEO</span><span style="color: white;font-size:35px;">PARKING</span></a>
+                    <a class="navbar-brand" href="./Index.aspx"><span style="color: red; font-size: 35px;">GEO</span><span style="color: white; font-size: 35px;">PARKING</span></a>
 
                 </div>
 
@@ -152,11 +152,12 @@
                                                 <small class="help-block" style="display: block;" data-bv-validator="notEmpty" data-bv-for="ctl00$txtContraseñaLogin" data-bv-result="INVALID">
                                                     <asp:Label ID="lblContraseñaLogin" runat="server" />
                                                 </small>
+                                                <asp:HiddenField ID="pass" runat="server" />
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
 
-                                            <asp:Button ID="btnIniciarSesion" Text="Iniciar Sesion" UseSubmitBehavior="false"
+                                            <asp:Button ID="btnIniciarSesion" Text="Iniciar Sesion" UseSubmitBehavior="true"
                                                 OnClick="btnIniciarSesion_Click" TabIndex="3" CssClass="btn btn-primary btn-block btn-sm"
                                                 runat="server" />
 
@@ -240,9 +241,9 @@
                                             data-bv-stringlength-max="30"
                                             data-bv-stringlength-message="El nombre de usuario debe contener al menos 6 caracteres y hasta un máximo de 30"
                                             data-bv-different="true"
-                                            data-bv-different-field="ctl00$txtContraseñaRepetir"
+                                            data-bv-different-field="ctl00$txtContraseña"
                                             data-bv-different-message="El usuario y la contraseña no pueden ser iguales"
-                                            data-bv-onsuccess="onFieldSuccess">
+                                            data-bv-live="disabled">
 
                                         </asp:TextBox>
                                     </div>
@@ -265,7 +266,11 @@
                                                     data-bv-identical-message="Las contraseñas no son iguales"
                                                     data-bv-different="true"
                                                     data-bv-different-field="ctl00$txtUsuarioRegistro"
-                                                    data-bv-different-message="La contraseña no puede ser igual que el nombre de usuario">
+                                                    data-bv-different-message="La contraseña no puede ser igual que el nombre de usuario"
+                                                    data-bv-stringlength="true"
+                                                    data-bv-stringlength-min="6"
+                                                    data-bv-stringlength-max="30"
+                                                    data-bv-stringlength-message="El nombre de usuario debe contener al menos 6 caracteres y hasta un máximo de 30">
 
                                                 </asp:TextBox>
                                             </div>
@@ -279,6 +284,10 @@
                                                     data-bv-notempty-message="Confirme la contraseña"
                                                     data-bv-identical="true"
                                                     data-bv-identical-field="ctl00$txtContraseña"
+                                                    data-bv-stringlength="true"
+                                                    data-bv-stringlength-min="6"
+                                                    data-bv-stringlength-max="30"
+                                                    data-bv-stringlength-message="El nombre de usuario debe contener al menos 6 caracteres y hasta un máximo de 30"
                                                     data-bv-identical-message="Las contraseñas no son iguales"
                                                     data-bv-different="true"
                                                     data-bv-different-field="ctl00$txtUsuarioRegistro"
@@ -370,6 +379,7 @@
 
     var pageMgr = Sys.WebForms.PageRequestManager.getInstance();
     pageMgr.add_endRequest(function (e) {
+        $('#txtContraseñaLogin').val($('#pass').val());
         $('#txtUsuarioLogin').on('input', function () {
             $("#divUsuarioLogin").attr("class", "form-group");
             $("#iconUsuarioLogin").attr("style", "display:none");
@@ -383,12 +393,24 @@
             $("#iconContraseñaLogin").attr("style", "display:none");
             $("#lblContraseñaLogin").attr("style", "display:none");
         });
+
     });
 
 
     function onFieldSuccess(e, data) {
-        alert("hola");
         $("#txtUsuarioRegistro").css('background', 'url(/img/ajax-loader.gif);');
+    };
+
+    function onFieldStatus(e, data) {
+        // Do something ...
+        // $(e.target)    --> The form instance
+        // data.field     --> The field name
+        // data.element   --> The field element
+        // data.validator -
+        alert($(e.target));
+        alert(data.field);
+        alert(data.elment);
+        alert(data.validator);
     };
 
     $('#login').on('hidden.bs.modal', function () {
