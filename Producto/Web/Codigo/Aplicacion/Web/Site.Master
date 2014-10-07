@@ -244,9 +244,8 @@
                                             data-bv-stringlength-max="30"
                                             data-bv-stringlength-message="El nombre de usuario debe contener al menos 6 caracteres y hasta un máximo de 30"
                                             data-bv-different="true"
-                                            data-bv-different-field="ctl00$txtContraseña"
-                                            data-bv-different-message="El usuario y la contraseña no pueden ser iguales"
-                                            data-bv-live="disabled">
+                                            data-bv-different-field="ctl00$txtContraseñaRepetir"
+                                            data-bv-different-message="El usuario y la contraseña no pueden ser iguales">
 
                                         </asp:TextBox>
                                     </div>
@@ -317,7 +316,7 @@
                         <hr class="colorgraph">
                                     <div class="row">
                                         <div class="col-xs-12 col-md-12">
-                                            <asp:Button ID="btnRegistrar" Text="Registrar" Enabled="false" UseSubmitBehavior="false" CssClass="btn btn-primary btn-block btn-lg"
+                                            <asp:Button ID="btnRegistrar" Text="Registrar" Enabled="false" UseSubmitBehavior="true" CssClass="btn btn-primary btn-block btn-lg"
                                                 runat="server" OnClick="btnRegistrar_Click" TabIndex="17" />
                                         </div>
                                     </div>

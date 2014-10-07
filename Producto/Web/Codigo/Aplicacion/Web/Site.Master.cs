@@ -28,6 +28,7 @@ namespace Web
                 rolId = SessionUsuario.RolId;
 
             }
+            btnRegistrar.Enabled = false;
             // Validaciones y Carga para el Login de Usuario
             gestor.Login(txtUsuarioLogin.Text, txtContraseñaLogin.Text);
         }
@@ -180,6 +181,7 @@ namespace Web
             {
                 Usuario usuario = CargarEntidad();
                 var resultado = gestor.RegistrarUsuario(usuario);
+                MostrarMensajeInformacion(TipoMensajeEnum.MensajeModal,"El usuario "+ usuario.NombreUsuario +" se ha registrado con exito!!" , "Registro de Usuario");
             }
         }
 
