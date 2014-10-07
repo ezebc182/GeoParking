@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Web SQL Storage</title>
+    <script language="javascript" type="text/javascript">   
+        
+        var db = createTable();
+        
+        function getopenDb() { 
+            try {
+                if (window.openDatabase) {                    
+                    return window.openDatabase;                    
+                } else {
+                    alert('No HTML5 support');
+                    return undefined;
+                }
+            }
+            catch (e) {
+                alert(e);
+                return undefined;
+            }            
+        }
+        function createTable() {
+            var openDB = getopenDb();
+            if(!openDB)
+            {                
+                return;               
+            }
+            else
+            {
+                db = openDB('mydatabase', '1.0', 'my db', 10*1024*1024);
+                db.transaction(function (t) { //t = transaction
+                t.executeSql('CREATE TABLE IF NOT EXISTS myTable(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL DEFAULT "JohnDoe", age INT NOT NULL);', [], null, null);               
+                
+            });
+            selRows();
+            return db;
+            }            
+        }
+        function insert() {
+            if(!db)
+            {                
+                return;                
+            }
+            var name = document.getElementById("name").value;
+            var age = document.getElementById("age").value;
+        
+            db.transaction(function (t) { //t = transaction
+                t.executeSql("INSERT INTO myTable('name','age') values('" + name + "'," + age + ");", [], null, null);
+                alert("Row Inserted!");
+                selRows();
+            });
+        }
+        function selRows() {
+            
+            var q = "select * from myTable";
+            
+            db.transaction(function (t) { //t = transaction
+                t.executeSql(q, null, function (t, data) {
+                    var html = "<table><tr><td>ID</td><td>Name</td><td>Age</td></tr>";
+                    for (var i = 0; i < data.rows.length; i++) {
+                        html += "<tr><td>" + data.rows.item(i).id + "</td><td>" + data.rows.item(i).name + "</td><td>" + data.rows.item(i).age + "</td></tr>";
+                    }
+                    html += "</table>";
+                    var el = document.getElementById("main");
+                    el.innerHTML = html;
+                });
+            });
+        }
+        
+        function clearDB() {
+            if(!db)
+            {                
+                return;                
+            }
+            if(confirm('Clear the entire table?')) {
+                db.transaction(function(t) {
+                    t.executeSql('DELETE FROM myTable');
+                });
+                selRows();
+            }
+        }
+        
+    </script>
+    <style>
+        *{font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;}
+        fieldset{border-radius: 5px;padding:20px;}        
+        .btn {
+            border-radius: 5px;
+            border:1px solid #000;
+            background-color:#cccccc;
+            padding:5px;
+        }
+        table{
+            border: 1px; solid; #000;
+        }
+        
+    </style>
+</head>
+<body>
+<fieldset>
+<legend>Web SQL Storage</legend>
+<h4>Insert Rows</h4>
+Name: <input type="text" id="name" /> Age: <input type="text" id="age" /><a href="javascript:void(0);" class="btn" onclick="insert();">Insert</a>
+<a href="javascript:void(0);" class="btn" onclick="clearDB();">Clear</a>
+</fieldset>
+<div id="main"></div>
+</body>
+</html>

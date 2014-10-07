@@ -1,7 +1,8 @@
 function obtenerPlayasDeCiudad(ciudad){
     if(ciudad === "Capital") ciudad = "cordoba";
-    var uri = 'http://ifrigerio-001-site1.smarterasp.net/api/playas/getPlayas?ciudad=' + ciudad;
+    //var uri = 'http://ifrigerio-001-site1.smarterasp.net/api/playas/getPlayas?ciudad=' + ciudad;
     //var uri = 'http://localhost:5027/api/playas/getPlayas?ciudad=' + ciudad;
+    var uri = 'http://localhost:33357/api/playas/getPlayas?ciudad=' + ciudad;
     $.ajax({
 			type: "GET",
 			url: uri,
@@ -14,7 +15,7 @@ function obtenerPlayasDeCiudad(ciudad){
                 
 			},
 			error: function(jqXHR, textStatus, errorThrown ){
-				alert("ERROR");
+				alert("Error de conexión con el servidor, por favor inténtelo nuevamente más tarde.");
 			}
 		});
 }

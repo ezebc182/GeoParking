@@ -17,3 +17,13 @@
 #lblLogin,#btnCerrarSesion {
     color:white;
 }
+
+#btnIngresar:hover{
+        
+    background-color:green;
+    
+}
+#frmContacto{
+    float:none;
+    margin:auto;
+}
