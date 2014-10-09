@@ -40,6 +40,21 @@ namespace Datos
     public class RepositorioUsuario : Repositorio<Usuario>, IRepositorioUsuario { }
     public class RepositorioRol : Repositorio<Rol>, IRepositorioRol
     {
+        public override IList<Rol> FindAll()
+        {
+            return DbSet
+                 .Include("Permisos")
+                .ToList();
+        }
+
+        public override IList<Rol> FindWhere(Func<Rol, bool> predicate)
+        {
+            var lista = DbSet
+                .Include("Permisos")
+                .Where(predicate);
+
+            return lista.ToList();
+        }
         public override int Update(Rol t)
         {
             RepositorioPermiso repoPermisos = new RepositorioPermiso();
@@ -56,7 +71,24 @@ namespace Datos
             }
         }
     }
-    public class RepositorioPermiso : Repositorio<Permiso>, IRepositorioPermiso { }
+    public class RepositorioPermiso : Repositorio<Permiso>, IRepositorioPermiso 
+    {
+        public override IList<Permiso> FindAll()
+        {
+            return DbSet
+                 .Include("Roles")
+                .ToList();
+        }
+
+        public override IList<Permiso> FindWhere(Func<Permiso, bool> predicate)
+        {
+            var lista = DbSet
+                .Include("Roles")
+                .Where(predicate);
+
+            return lista.ToList();
+        }
+    }
 
     public class RepositorioPlayaDeEstacionamiento : Repositorio<PlayaDeEstacionamiento>, IRepositorioPlayaDeEstacionamiento
     {
