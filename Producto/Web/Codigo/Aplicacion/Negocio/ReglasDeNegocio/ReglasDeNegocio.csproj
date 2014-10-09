@@ -49,6 +49,7 @@
     <Compile Include="GestorUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\Encriptacion.cs" />
+    <Compile Include="Util\predicates.cs" />
     <Compile Include="Util\Resultado.cs" />
   </ItemGroup>
   <ItemGroup>

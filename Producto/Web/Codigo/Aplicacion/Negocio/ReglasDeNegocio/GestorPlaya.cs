@@ -390,71 +390,89 @@ namespace ReglasDeNegocio
         public IList<PlayaDeEstacionamiento> BuscarPlayasPorCiudad(string ciudad)
         {
             //aca va un findwehere
-
+            
             var lista= playaDao.FindWhere(p => p.Direcciones.Any(d => d.Ciudad.Nombre == ciudad) && !p.FechaBaja.HasValue);
-            foreach (var playa in lista)
-            {
-                CargarPlaya(playa);
-            }
+            
             return lista;
         }
 
         public IList<PlayaDeEstacionamiento> BuscarPlayasPorFiltro(string ciudad, int tipoPlaya, int tipoVehiculo, int diasAtencion, decimal precioDesde, decimal precioHasta,
              int horaDesde, int horaHasta)
         {
+            Func<PlayaDeEstacionamiento, bool> consulta = null;
+            
             var query = from p in playaDao.FindAll()
                         where !p.FechaBaja.HasValue
                         select p;            
 
             if (tipoPlaya != 0)
             {
-                query = query.Where(p => p.TipoPlayaId==tipoPlaya);
-                //lista = (IList<PlayaDeEstacionamiento>)lista.Where(p => p.TipoPlayaId == tipoPlaya);
-            }
+                if (consulta != null)
+                {
+                    consulta = consulta.And(p => p.TipoPlayaId == tipoPlaya);
+                }
+                else consulta = p => p.TipoPlayaId == tipoPlaya;
+                }
 
             if (tipoVehiculo != 0)
             {
-                query = query.Where(p => p.Servicios.Any(s => s.TipoVehiculoId==tipoVehiculo));
-                //lista = (IList<PlayaDeEstacionamiento>)lista.Where(p => p.Servicios.Any(s => s.TipoVehiculoId == tipoVehiculo));
-            }
+                if (consulta != null)
+                {
+                    consulta = consulta.And(p => p.Servicios.Any(s => s.TipoVehiculoId == tipoVehiculo));
+                }
+                else consulta = p => p.Servicios.Any(s => s.TipoVehiculoId == tipoVehiculo);
+                }
 
             if (diasAtencion != 0)
             {
-                query = query.Where(p => p.Horarios.Any(h => h.DiaAtencionId == diasAtencion));
-                //lista = (IList<PlayaDeEstacionamiento>)lista.Where(p => p.Horarios.Any(h => h.DiaAtencionId == diasAtencion));
-            }
+                if (consulta != null)
+                {
+                    consulta = consulta.And(p => p.Horarios.Any(h => h.DiaAtencionId == diasAtencion));
+                }
+                else consulta = p => p.Horarios.Any(h => h.DiaAtencionId == diasAtencion);
+                }
 
             if (precioDesde != 0)
             {
-                query = query.Where(p => p.Precios.Any(prec => prec.Monto >= precioDesde));
-                //lista = (IList<PlayaDeEstacionamiento>)lista.Where(p => p.Precios.Any(prec => prec.Monto>= precioDesde));
-            }
+                if (consulta != null)
+                {
+                    consulta = consulta.And(p => p.Precios.Any(prec => prec.Monto >= precioDesde));
+                }
+                else consulta = p => p.Precios.Any(prec => prec.Monto >= precioDesde);
+                }
 
             if (precioHasta != 0)
             {
+                if (consulta != null)
+                {
+                    consulta = consulta.And(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
+                }
+                else consulta = p => p.Precios.Any(prec => prec.Monto <= precioHasta);
                 query = query.Where(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
                 //lista = (IList<PlayaDeEstacionamiento>)lista.Where(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
             }
 
             if (horaDesde != 0)
             {
-                query = query.Where(p => p.Horarios.Any(h => int.Parse(h.HoraDesde.Substring(0, 2)) <= horaDesde));
-                //lista = (IList<PlayaDeEstacionamiento>)lista.Where(p => p.Horarios.Any(h => int.Parse( h.HoraDesde.Substring(0,2) ) <= horaDesde ));
-            }
+                if (consulta != null)
+                {
+                    consulta = consulta.And(p => p.Horarios.Any(h => int.Parse(h.HoraDesde.Substring(0, 2)) <= horaDesde));
+                }
+                else consulta = p => p.Horarios.Any(h => int.Parse(h.HoraDesde.Substring(0, 2)) <= horaDesde);
+               }
 
             if (horaHasta != 0)
             {
-                query = query.Where(p => p.Horarios.Any(h => int.Parse(h.HoraHasta.Substring(0, 2)) >= horaHasta));
-                //lista = (IList<PlayaDeEstacionamiento>)lista.Where(p => p.Horarios.Any(h => int.Parse(h.HoraHasta.Substring(0, 2)) >= horaHasta ));
-            }
+                if (consulta!=null)
+                {
+                consulta = consulta.And(p => p.Horarios.Any(h => int.Parse(h.HoraHasta.Substring(0, 2)) >= horaHasta));
+                }
+                else consulta = p => p.Horarios.Any(h => int.Parse(h.HoraHasta.Substring(0, 2)) >= horaHasta);
+               }
 
-            var lista = query.ToList<PlayaDeEstacionamiento>();
+            var listaPlayas = playaDao.FindWhere(consulta);
 
-            foreach (var playa in lista)
-            {
-                CargarPlaya(playa);
-            }
-            return lista;
+            return listaPlayas;
         }
     }
 }

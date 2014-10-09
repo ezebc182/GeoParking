@@ -27,7 +27,8 @@ namespace Web
                 {
                     if (!SessionUsuario.Rol.Permisos.Any(x => Request.Url.AbsolutePath.Contains(x.Url)))
                     {
-                        Response.Redirect("/Index.aspx");
+                        if (!Request.Url.AbsolutePath.Equals("/Index.aspx"))
+                            Response.Redirect("/Index.aspx?r="+Request.Url.AbsolutePath);
                     }
                     lblLogin.Text = SessionUsuario.NombreUsuario;
                     rolId = SessionUsuario.RolId;

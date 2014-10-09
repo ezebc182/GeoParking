@@ -28,8 +28,8 @@ namespace Datos
     //Clases DAO para cada entidad que heredan de la clase Repositorio
     public class RepositorioTipoDePlaya : Repositorio<TipoPlaya>, IRepositorioTipoDePlaya { }
     public class RepositorioTipoVehiculo : Repositorio<TipoVehiculo>, IRepositorioTipoVehiculo { }
-    public class RepositorioServicio : Repositorio<Servicio>, IRepositorioServicio { }
-    public class RepositorioDireccion : Repositorio<Direccion>, IRepositorioDireccion { }
+    public class RepositorioServicio : Repositorio<Servicio>, IRepositorioServicio {    }
+    public class RepositorioDireccion : Repositorio<Direccion>, IRepositorioDireccion {}
     public class RepositorioHorario : Repositorio<Horario>, IRepositorioHorario { }
     public class RepositorioPrecio : Repositorio<Precio>, IRepositorioPrecio { }
     public class RepositorioDiaAtencion : Repositorio<DiaAtencion>, IRepositorioDiaAtencion { }
@@ -60,56 +60,45 @@ namespace Datos
 
     public class RepositorioPlayaDeEstacionamiento : Repositorio<PlayaDeEstacionamiento>, IRepositorioPlayaDeEstacionamiento
     {
+        
+        public override IList<PlayaDeEstacionamiento> FindAll()
+        {
+            return DbSet
+                 .Include("Direcciones.Ciudad")
+                .Include("Direcciones.Ciudad.Departamento")
+                .Include("Direcciones.Ciudad.Departamento.Provincia")
+                .Include("Horarios.DiaAtencion")
+                .Include("Precios.DiaAtencion")
+                .Include("Precios.TipoVehiculo")
+                .Include("Precios.Tiempo")
+                .Include("Servicios.TipoVehiculo")
+                .Include("TipoPlaya")
+                .ToList();
+        }
+
+        public override IList<PlayaDeEstacionamiento> FindWhere(Func<PlayaDeEstacionamiento, bool> predicate)
+        {
+            var lista = DbSet
+                .Include("Direcciones.Ciudad")
+                .Include("Direcciones.Ciudad.Departamento")
+                .Include("Direcciones.Ciudad.Departamento.Provincia")
+                .Include("Horarios.DiaAtencion")
+                .Include("Precios.DiaAtencion")
+                .Include("Precios.TipoVehiculo")
+                .Include("Precios.Tiempo")
+                .Include("Servicios.TipoVehiculo")
+                .Include("TipoPlaya")
+                .Where(predicate);
+
+            return lista.ToList();
+        }
+        
         public override PlayaDeEstacionamiento Create(PlayaDeEstacionamiento entity)
         {
             using (contexto = new ContextoBD())
             {
                 Update(entity);
-                //foreach (var direccion in entity.Direcciones)
-                //{
-                //    direccion.PlayaDeEstacionamiento = entity;
-                //    contexto.Set<Ciudad>().Attach(direccion.Ciudad);
-                //    contexto.Set<Departamento>().Attach(direccion.Departamento);
-                //    contexto.Set<Provincia>().Attach(direccion.Provincia);
-                //    contexto.Set<Direccion>().Add(direccion);
-                //    contexto.Entry(direccion).Reference(d=>d.Ciudad).IsLoaded= true;
-                //}
-                //foreach (var horario in entity.Horarios)
-                //{
-                //    horario.PlayaDeEstacionamiento = entity;
-                //    contexto.Set<DiaAtencion>().Attach(horario.DiaAtencion);
-                //    contexto.Set<Horario>().Add(horario);
-                //    contexto.Entry(horario).Reference(h => h.DiaAtencion).IsLoaded = true;
 
-                //}
-                //foreach (var precio in entity.Precios)
-                //{
-                //    precio.PlayaDeEstacionamiento = entity;
-                //    contexto.Set<Tiempo>().Attach(precio.Tiempo);
-                //    contexto.Set<TipoVehiculo>().Attach(precio.TipoVehiculo);
-                //    contexto.Set<Precio>().Add(precio);
-                //    contexto.Entry(precio).Reference(p => p.Tiempo).IsLoaded = true;
-                //    contexto.Entry(precio).Reference(p => p.TipoVehiculo).IsLoaded = true;
-                //}
-                //foreach (var servicio in entity.Servicios)
-                //{
-                //    servicio.PlayaDeEstacionamiento = entity;
-                //    contexto.Set<Servicio>().Add(servicio);
-                //    contexto.Entry(servicio).Reference(s => s.TipoVehiculo).IsLoaded = true;
-                //}
-
-                //var playa = new PlayaDeEstacionamiento { Nombre = entity.Nombre, TipoPlaya = entity.TipoPlaya, TipoPlayaId = entity.TipoPlayaId, Mail = entity.Mail, Telefono = entity.Telefono };
-
-                //var result = DbSet.Add(playa);
-                //try
-                //{
-                //    contexto.SaveChanges();
-                //    Update(entity);
-                //}
-                //catch (Exception e)
-                //{
-                //    throw new DataBaseException(e.Message, e);
-                //}
                 return entity;// result;
             }
         }

@@ -32,7 +32,7 @@ namespace Datos
         /// <summary>
         /// DbSet de la entidad
         /// </summary>
-        protected DbSet<TEntity> DbSet
+        protected virtual DbSet<TEntity> DbSet
         {
             get
             {
@@ -48,7 +48,7 @@ namespace Datos
         /// </summary>
         /// <param name="id">ID de la entidad</param>
         /// <returns>una entidad</returns>
-        public TEntity FindById(int id)
+        public virtual TEntity FindById(int id)
         {
             var lista = DbSet.Where(x => x.Id == id).ToList<TEntity>();
             return lista[0];
@@ -58,7 +58,7 @@ namespace Datos
         /// busca todas las entidades
         /// </summary>
         /// <returns>lista de todas las entidades</returns>
-        public IList<TEntity> FindAll()
+        public virtual IList<TEntity> FindAll()
         {
             return DbSet.ToList<TEntity>();
         }
@@ -68,7 +68,7 @@ namespace Datos
         /// </summary>
         /// <param name="predicate">consulta</param>
         /// <returns>lista de entidades o null si no se encuentra nada</returns>
-        public IList<TEntity> FindWhere(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
+        public virtual IList<TEntity> FindWhere(Func<TEntity, bool> predicate)
         {
             var lista = DbSet.Where(predicate);
 
@@ -103,7 +103,7 @@ namespace Datos
         /// </summary>
         /// <param name="predicate">consulta</param>
         /// <returns>0 sino se realizo la accion, -1 si dio error</returns>
-        public int Delete(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
+        public int Delete(Func<TEntity, bool> predicate)
         {
             using (contexto = new ContextoBD())
             {

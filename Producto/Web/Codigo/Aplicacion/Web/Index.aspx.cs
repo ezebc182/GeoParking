@@ -20,6 +20,12 @@ namespace Web
         protected void Page_Load(object sender, EventArgs e)
         {
             master = (SiteMaster)Master;
+            if (!IsPostBack)
+            {
+                var queryString = Request.QueryString["r"] as string;
+                if (queryString != null)
+                    master.MostrarMensajeError(Util.TipoMensajeEnum.MensajeModal, "No tiene permiso para acceder a " + queryString,"Acceso denegado.");
+            }
             txtBuscar.Focus();
             gestor = new GestorBusquedaPlayas();
         }

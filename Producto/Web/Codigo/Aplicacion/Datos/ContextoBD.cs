@@ -46,5 +46,6 @@ namespace Datos
         public DbSet<Usuario> usuarios { get; set; }
         public DbSet<Rol> roles { get; set; }
         public DbSet<Permiso> permisos { get; set; }
+        public DbSet<Direccion> direcciones { get; set; }
     }
 }

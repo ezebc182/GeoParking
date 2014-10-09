@@ -41,9 +41,9 @@ namespace ReglasDeNegocio
         /// <param name="direccion"></param>
         private void CargarDireccion(Direccion direccion)
         {
-            direccion.Ciudad = BuscarCiudadPorId(direccion.CiudadId);
-            direccion.Departamento = BuscarDepartamentoPorCiudadId(direccion.CiudadId);
-            direccion.Provincia = BuscarProvinciaPorDepartamentoId(direccion.Departamento.Id);
+            if (direccion.Ciudad == null) direccion.Ciudad = BuscarCiudadPorId(direccion.CiudadId);
+            if (direccion.Departamento == null) direccion.Departamento = BuscarDepartamentoPorCiudadId(direccion.CiudadId);
+            if (direccion.Provincia == null) direccion.Provincia = BuscarProvinciaPorDepartamentoId(direccion.Departamento.Id);
         }
         /// <summary>
         /// Busca una direccion por su Id

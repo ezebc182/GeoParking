@@ -27,7 +27,7 @@ namespace Datos
         /// </summary>
         /// <param name="predicate">consulta</param>
         /// <returns>lista de entidades encontradas</returns>
-        IList<TEntity> FindWhere(Expression<Func<TEntity, bool>> predicate);
+        IList<TEntity> FindWhere(Func<TEntity, bool> predicate);
 
         /// <summary>
         /// crea una entidad
@@ -41,7 +41,7 @@ namespace Datos
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns>0 sino se realizo ninguna accion</returns>
-        int Delete(Expression<Func<TEntity, bool>> predicate);
+        int Delete(Func<TEntity, bool> predicate);
 
         /// <summary>
         /// actualiza una entidad

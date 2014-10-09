@@ -8,8 +8,8 @@ namespace SIRAD.Web.Controls.Alerts
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Alert.Visible = false;
-        }
+                Alert.Visible = false;
+         }
         /// <summary>
         /// Setea el mensaje de error
         /// </summary>
