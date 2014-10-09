@@ -29,10 +29,9 @@ namespace Repositorios
             return lista;
         }
 
-        public IList<Ciudad> FindWhere(System.Linq.Expressions.Expression<Func<Ciudad, bool>> predicate)
+        public IList<Ciudad> FindWhere(Func<Ciudad, bool> predicate)
         {
-            Func<Ciudad, bool> func = predicate.Compile();
-            Predicate<Ciudad> pred = t => func(t);
+            Predicate<Ciudad> pred = t => predicate(t);
 
             return lista.FindAll(pred);
         }
@@ -43,10 +42,10 @@ namespace Repositorios
             return t;
         }
 
-        public int Delete(System.Linq.Expressions.Expression<Func<Ciudad, bool>> predicate)
+        public int Delete(Func<Ciudad, bool> predicate)
         {
-             Func<Ciudad, bool> func = predicate.Compile();
-            Predicate<Ciudad> pred = t => func(t);
+             
+            Predicate<Ciudad> pred = t => predicate(t);
             var borrar = lista.FindAll(pred);
             foreach (var item in borrar)
             {
@@ -61,5 +60,6 @@ namespace Repositorios
             Create(t);
             return 1;
         }
+
     }
 }

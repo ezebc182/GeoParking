@@ -19,7 +19,7 @@ namespace Repositorios
             throw new NotImplementedException();
         }
 
-        public IList<Entidades.TipoPlaya> FindWhere(System.Linq.Expressions.Expression<Func<Entidades.TipoPlaya, bool>> predicate)
+        public IList<Entidades.TipoPlaya> FindWhere(Func<Entidades.TipoPlaya, bool> predicate)
         {
             throw new NotImplementedException();
         }
@@ -29,7 +29,7 @@ namespace Repositorios
             throw new NotImplementedException();
         }
 
-        public int Delete(System.Linq.Expressions.Expression<Func<Entidades.TipoPlaya, bool>> predicate)
+        public int Delete(Func<Entidades.TipoPlaya, bool> predicate)
         {
             throw new NotImplementedException();
         }

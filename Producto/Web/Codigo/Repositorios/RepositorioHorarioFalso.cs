@@ -23,7 +23,7 @@ namespace Repositorios
             throw new NotImplementedException();
         }
 
-        public IList<Horario> FindWhere(System.Linq.Expressions.Expression<Func<Horario, bool>> predicate)
+        public IList<Horario> FindWhere(Func<Horario, bool> predicate)
         {
             throw new NotImplementedException();
         }
@@ -33,7 +33,7 @@ namespace Repositorios
             throw new NotImplementedException();
         }
 
-        public int Delete(System.Linq.Expressions.Expression<Func<Horario, bool>> predicate)
+        public int Delete(Func<Horario, bool> predicate)
         {
             throw new NotImplementedException();
         }

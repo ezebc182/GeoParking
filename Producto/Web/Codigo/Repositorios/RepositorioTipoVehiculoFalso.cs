@@ -20,7 +20,7 @@ namespace Repositorios
             throw new NotImplementedException();
         }
 
-        public IList<Entidades.TipoVehiculo> FindWhere(System.Linq.Expressions.Expression<Func<Entidades.TipoVehiculo, bool>> predicate)
+        public IList<Entidades.TipoVehiculo> FindWhere(Func<Entidades.TipoVehiculo, bool> predicate)
         {
             throw new NotImplementedException();
         }
@@ -30,7 +30,7 @@ namespace Repositorios
             throw new NotImplementedException();
         }
 
-        public int Delete(System.Linq.Expressions.Expression<Func<Entidades.TipoVehiculo, bool>> predicate)
+        public int Delete(Func<Entidades.TipoVehiculo, bool> predicate)
         {
             throw new NotImplementedException();
         }

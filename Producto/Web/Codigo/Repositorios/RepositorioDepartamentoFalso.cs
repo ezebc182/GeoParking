@@ -30,10 +30,9 @@ namespace Repositorios
             return lista;
         }
 
-        public IList<Departamento> FindWhere(System.Linq.Expressions.Expression<Func<Departamento, bool>> predicate)
+        public IList<Departamento> FindWhere(Func<Departamento, bool> predicate)
         {
-            Func<Departamento, bool> func = predicate.Compile();
-            Predicate<Departamento> pred = t => func(t);
+            Predicate<Departamento> pred = t => predicate(t);
 
             return lista.FindAll(pred);
         }
@@ -44,10 +43,10 @@ namespace Repositorios
             return t;
         }
 
-        public int Delete(System.Linq.Expressions.Expression<Func<Departamento, bool>> predicate)
+        public int Delete(Func<Departamento, bool> predicate)
         {
-            Func<Departamento, bool> func = predicate.Compile();
-            Predicate<Departamento> pred = t => func(t);
+            
+            Predicate<Departamento> pred = t => predicate(t);
             var borrar = lista.FindAll(pred);
             foreach (var item in borrar)
             {

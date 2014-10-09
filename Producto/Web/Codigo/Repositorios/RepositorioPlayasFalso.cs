@@ -58,10 +58,9 @@ namespace Repositorios
             return lista;
         }
 
-        public IList<PlayaDeEstacionamiento> FindWhere(System.Linq.Expressions.Expression<Func<Entidades.PlayaDeEstacionamiento, bool>> predicate)
+        public IList<PlayaDeEstacionamiento> FindWhere(Func<Entidades.PlayaDeEstacionamiento, bool> predicate)
         {
-            Func<PlayaDeEstacionamiento, bool> func = predicate.Compile();
-            Predicate<PlayaDeEstacionamiento> pred = t => func(t);
+            Predicate<PlayaDeEstacionamiento> pred = t => predicate(t);
 
             var lista = FindAll().ToList<PlayaDeEstacionamiento>();
             return lista.FindAll(pred);
@@ -72,7 +71,7 @@ namespace Repositorios
             throw new NotImplementedException();
         }
 
-        public int Delete(System.Linq.Expressions.Expression<Func<PlayaDeEstacionamiento, bool>> predicate)
+        public int Delete(Func<PlayaDeEstacionamiento, bool> predicate)
         {
             throw new NotImplementedException();
         }

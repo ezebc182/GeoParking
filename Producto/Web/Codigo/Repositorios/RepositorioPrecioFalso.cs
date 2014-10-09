@@ -22,7 +22,7 @@ namespace Repositorios
             throw new NotImplementedException();
         }
 
-        public IList<Precio> FindWhere(System.Linq.Expressions.Expression<Func<Precio, bool>> predicate)
+        public IList<Precio> FindWhere(Func<Precio, bool> predicate)
         {
             throw new NotImplementedException();
         }
@@ -32,7 +32,7 @@ namespace Repositorios
             throw new NotImplementedException();
         }
 
-        public int Delete(System.Linq.Expressions.Expression<Func<Precio, bool>> predicate)
+        public int Delete(Func<Precio, bool> predicate)
         {
             throw new NotImplementedException();
         }
