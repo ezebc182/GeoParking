@@ -1,0 +1,61 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Administrador.master.cs" Inherits="Web.Administrador" %>
+		
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="Styles/style.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="TopContent" runat="server">
+    <asp:ContentPlaceHolder ID="TopContent" runat="server">
+
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="row">
+		<div id="sidebar-left" class="col-xs-2 col-sm-2">
+			<ul class="nav main-menu">
+				<li>
+					<a href="#" class="active">
+						<i class=""></i>
+						<span class="">Administracion Playas</span>
+					</a>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle">
+						<i class=""></i>
+						<span class="hidden-xs">Administracion Usuarios</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="" href="#">Nuevo Rol</a></li>
+						<li><a class="" href="#">Asignar Rol a Usuario</a></li>
+						<li><a class="" href="#">Asignar Permisos a Rol</a></li>
+						
+					</ul>
+				</li>				
+			</ul>
+		</div>
+		<!--Start Content-->
+		<asp:ContentPlaceHolder id="MainContent" runat="server">
+			
+		</asp:ContentPlaceHolder>
+		<!--End Content-->
+</div>
+
+</asp:Content>
+<asp:Content ID="Content4" ContentPlaceHolderID="helpContent" runat="server">
+    <asp:ContentPlaceHolder ID="helpContent" runat="server"></asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="Content5" ContentPlaceHolderID="footer" runat="server">
+    <asp:ContentPlaceHolder ID="footer" runat="server"></asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="Content6" ContentPlaceHolderID="ScriptContent" runat="server">
+    <asp:ContentPlaceHolder ID="ScriptContent" runat="server">
+
+    </asp:ContentPlaceHolder>
+    <script src="Scripts/administracion.js"></script>
+</asp:Content>
+
+
+
+
+	

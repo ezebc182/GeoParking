@@ -47,7 +47,7 @@
                     </button>
 
                     <%--<a class="navbar-brand" href="./Index.aspx"><span style="color: red; font-size: 35px;">GEO</span><span style="color: white; font-size: 35px;">PARKING</span></a>--%>
-                    <a class="navbar-brand" href="./Index.aspx"><span style="color: red; font-family:Impact;font-size:20px;text-shadow: 4px 4px 4px grey;">GEO</span><span style="color: white;font-size:20px;font-family:Impact;text-shadow: 4px 4px 4px grey;">PARKING</span></a>
+                    <a class="navbar-brand" href="./Index.aspx"><span style="color: red; font-family: Impact; font-size: 20px; text-shadow: 4px 4px 4px grey;">GEO</span><span style="color: white; font-size: 20px; font-family: Impact; text-shadow: 4px 4px 4px grey;">PARKING</span></a>
 
                 </div>
 
@@ -55,55 +55,55 @@
 			       otro elemento que se pueda ocultar al minimizar la barra -->
                 <div class="collapse navbar-collapse ">
                     <div class="container">
-                    <ul class="nav navbar-nav navbar-right">
-                        
-                        <li id="admPlayas"><a href="./Playa.aspx">Administración de playas</a></li>
-                        <li id="admUsuarios" class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administración de usuarios
+                        <ul class="nav navbar-nav navbar-right">
+
+                            <li id="admPlayas"><a href="./Playa.aspx">Administración de playas</a></li>
+                            <li id="admUsuarios" class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administración de usuarios
                                 <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="AdministracionUsuarios.aspx?action=NuevoRol">Nuevo Rol</a></li>
-                                <li><a href="AdministracionUsuarios.aspx?action=AsignarRol">Asignar rol a usuario</a>
-                                </li>
-                                <li><a href="AdministracionUsuarios.aspx?action=AsignarPermiso">Asignar permiso a rol</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li id="admPOI" class="dropdown disabled">
-                            <a href="#" class="disabled dropdown-toggle" data-toggle="dropdown">Administración POI
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="AdministracionUsuarios.aspx?action=NuevoRol">Nuevo Rol</a></li>
+                                    <li><a href="AdministracionUsuarios.aspx?action=AsignarRol">Asignar rol a usuario</a>
+                                    </li>
+                                    <li><a href="AdministracionUsuarios.aspx?action=AsignarPermiso">Asignar permiso a rol</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="admPOI" class="dropdown disabled">
+                                <a href="#" class="disabled dropdown-toggle" data-toggle="dropdown">Administración POI
                                 <b class="caret"></b>
-                            </a>
-                            <ul class="disabled dropdown-menu">
-                                <li><a href="#">Nuevo</a></li>
-                                <li><a href="#">Consultar</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Exportar?</a></li>
-                            </ul>
-                        </li>
-                        <% var usuario = Session["Usuario"];
-                           if (Session["Usuario"] == null)
-                           { %>
-                        <li><a id="btnIngresar" class=" btn-success " href="#login" data-keyboard="false" data-backdrop="static" data-toggle="modal"
-                            data-target="#login"><b>Ingresar</b></a></li>
-                        <% }
+                                </a>
+                                <ul class="disabled dropdown-menu">
+                                    <li><a href="#">Nuevo</a></li>
+                                    <li><a href="#">Consultar</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Exportar?</a></li>
+                                </ul>
+                            </li>
+                            <% var usuario = Session["Usuario"];
+                               if (Session["Usuario"] == null)
+                               { %>
+                            <li><a id="btnIngresar" class=" btn-success " href="#login" data-keyboard="false" data-backdrop="static" data-toggle="modal"
+                                data-target="#login"><b>Ingresar</b></a></li>
+                            <% }
                            else
                            {
-                        %>
-                        <li>
-                            <label style="color: white; padding-top: 15px;">
-                                <span class="glyphicon glyphicon-user"></span>
-                                <strong>
-                                    <asp:Label ID="lblLogin" runat="server"></asp:Label>
-                                    |
+                            %>
+                            <li>
+                                <label style="color: white; padding-top: 15px;">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <strong>
+                                        <asp:Label ID="lblLogin" runat="server"></asp:Label>
+                                        |
                                 <asp:LinkButton ID="btnCerrarSesion" OnClick="btnCerrarSesion_Click" Text="Cerrar Sesion"
                                     runat="server"></asp:LinkButton>
-                                </strong>
-                            </label>
-                        </li>
-                        <% } %>
-                        <li class="divider-vertical"></li>
-                       <%-- <li class="dropdown">
+                                    </strong>
+                                </label>
+                            </li>
+                            <% } %>
+                            <li class="divider-vertical"></li>
+                            <%-- <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ayuda <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
@@ -114,8 +114,8 @@
                                     data-toggle="modal" data-target="#acercaDe">Acerca de</a></li>
                             </ul>
                         </li>--%>
-                    </ul>
-                        </div>
+                        </ul>
+                    </div>
                 </div>
             </nav>
         </div>
@@ -361,61 +361,55 @@
 
     <asp:ContentPlaceHolder ID="footer" runat="server">
     </asp:ContentPlaceHolder>
-</body>
 
+    <script type="text/javascript">
 
+        var checker = document.getElementById('chAceptar');
+        var sendbtn = document.getElementById('btnRegistrar');
+        // when unchecked or checked, run the function
+        checker.onchange = function () {
+            if (this.checked) {
+                sendbtn.disabled = false;
+            } else {
+                sendbtn.disabled = true;
+            }
 
-<script type="text/javascript">
-
-    var checker = document.getElementById('chAceptar');
-    var sendbtn = document.getElementById('btnRegistrar');
-    // when unchecked or checked, run the function
-    checker.onchange = function () {
-        if (this.checked) {
-            sendbtn.disabled = false;
-        } else {
-            sendbtn.disabled = true;
         }
 
-    }
+        $(".formulario").bootstrapValidator();
 
-    $(".formulario").bootstrapValidator();
+        var pageMgr = Sys.WebForms.PageRequestManager.getInstance();
+        pageMgr.add_endRequest(function (e) {
+            $('#txtContraseñaLogin').val($('#pass').val());
+            $('#txtUsuarioLogin').on('input', function () {
+                $("#divUsuarioLogin").attr("class", "form-group");
+                $("#iconUsuarioLogin").attr("style", "display:none");
+                $("#lblUsuarioLogin").attr("style", "display:none");
+                $("#divContraseñaLogin").attr("class", "form-group");
+                $("#iconContraseñaLogin").attr("style", "display:none");
+                $("#lblContraseñaLogin").attr("style", "display:none");
+            });
+            $('#txtContraseñaLogin').on('input', function () {
+                $("#divContraseñaLogin").attr("class", "form-group");
+                $("#iconContraseñaLogin").attr("style", "display:none");
+                $("#lblContraseñaLogin").attr("style", "display:none");
+            });
 
-    var pageMgr = Sys.WebForms.PageRequestManager.getInstance();
-    pageMgr.add_endRequest(function (e) {
-        $('#txtContraseñaLogin').val($('#pass').val());
-        $('#txtUsuarioLogin').on('input', function () {
+        });
+
+        $('#login').on('hidden.bs.modal', function () {
+            $(".formulario").bootstrapValidator('resetForm', true);
             $("#divUsuarioLogin").attr("class", "form-group");
             $("#iconUsuarioLogin").attr("style", "display:none");
             $("#lblUsuarioLogin").attr("style", "display:none");
             $("#divContraseñaLogin").attr("class", "form-group");
             $("#iconContraseñaLogin").attr("style", "display:none");
             $("#lblContraseñaLogin").attr("style", "display:none");
-        });
-        $('#txtContraseñaLogin').on('input', function () {
-            $("#divContraseñaLogin").attr("class", "form-group");
-            $("#iconContraseñaLogin").attr("style", "display:none");
-            $("#lblContraseñaLogin").attr("style", "display:none");
+            $(".cleanLogin").val("");
+
         });
 
-    });
-
-    $('#login').on('hidden.bs.modal', function () {
-        $(".formulario").bootstrapValidator('resetForm', true);
-        $("#divUsuarioLogin").attr("class", "form-group");
-        $("#iconUsuarioLogin").attr("style", "display:none");
-        $("#lblUsuarioLogin").attr("style", "display:none");
-        $("#divContraseñaLogin").attr("class", "form-group");
-        $("#iconContraseñaLogin").attr("style", "display:none");
-        $("#lblContraseñaLogin").attr("style", "display:none");
-        $(".cleanLogin").val("");
-
-    });
-
-</script>
-
-<script>
-    var rol = '<%=rolId%>';
+        var rol = '<%=rolId%>';
     if (rol == 1) {
         $('#admPOI').addClass("hidden");
         $('#admPlayas').addClass("hidden");
@@ -433,7 +427,10 @@
         $('#admPlayas').addClass("hidden");
         $('#admUsuarios').addClass("hidden");
     }
-</script>
+    </script>
+    <asp:ContentPlaceHolder ID="ScriptContent" runat="server">
+    </asp:ContentPlaceHolder>
 
+</body>
 </html>
 

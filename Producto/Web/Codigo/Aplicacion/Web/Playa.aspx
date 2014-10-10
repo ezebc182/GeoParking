@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Playa.aspx.cs" Inherits="Web.Playa" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Administrador.master" AutoEventWireup="true" CodeBehind="Playa.aspx.cs" Inherits="Web.Playa" %>
 
 <%@ Register Src="~/Controles/Domicilio.ascx" TagName="domicilios" TagPrefix="domicilios" %>
 <%@ Register Src="~/Controles/Precios.ascx" TagName="precios" TagPrefix="precios" %>
@@ -371,8 +371,8 @@
         }
 
         function abrirModalPlaya() {
-            $('#modificarPlaya').modal({ keyboard: false, show: true, backdrop: 'static' });
-            $('#myTab a:first').tab('show')
+            $('[id*=modificarPlaya]').modal({ keyboard: false, show: true, backdrop: 'static' });
+            $('[id*=myTab] a:first').tab('show')
         }
 
         pageManager = Sys.WebForms.PageRequestManager.getInstance();

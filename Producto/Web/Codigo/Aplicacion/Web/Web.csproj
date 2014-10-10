@@ -70,6 +70,7 @@
     <Content Include="Controles\Mensajes\Error.ascx" />
     <Content Include="Controles\Mensajes\Info.ascx" />
     <Content Include="Controles\Mensajes\Confirmacion.ascx" />
+    <Content Include="ejemploPanel.aspx" />
     <Content Include="img\android.png" />
     <Content Include="img\apple.png" />
     <Content Include="img\facebook.png" />
@@ -88,6 +89,7 @@
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Bootstrap\js\bootstrap.js" />
     <Content Include="Bootstrap\js\bootstrap.min.js" />
+    <Content Include="Scripts\administracion.js" />
     <Content Include="Scripts\app-block.js" />
     <Content Include="Scripts\Autocomplete.js" />
     <Content Include="Scripts\bootstrapValidator.min.js" />
@@ -117,6 +119,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </Content>
+    <Content Include="Styles\style.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -128,6 +131,13 @@
     </Compile>
     <Compile Include="AdministracionUsuarios.aspx.designer.cs">
       <DependentUpon>AdministracionUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador.master.cs">
+      <DependentUpon>Administrador.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administrador.master.designer.cs">
+      <DependentUpon>Administrador.master</DependentUpon>
     </Compile>
     <Compile Include="Ayuda.aspx.cs">
       <DependentUpon>Ayuda.aspx</DependentUpon>
@@ -204,6 +214,13 @@
     <Compile Include="Controles\Mensajes\Confirmacion.ascx.designer.cs">
       <DependentUpon>Confirmacion.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ejemploPanel.aspx.cs">
+      <DependentUpon>ejemploPanel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ejemploPanel.aspx.designer.cs">
+      <DependentUpon>ejemploPanel.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -241,6 +258,7 @@
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Administrador.master" />
     <None Include="Properties\PublishProfiles\Geoparking.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
