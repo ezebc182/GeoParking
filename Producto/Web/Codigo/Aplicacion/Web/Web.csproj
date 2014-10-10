@@ -72,7 +72,6 @@
     <Content Include="Controles\Mensajes\Confirmacion.ascx" />
     <Content Include="img\android.png" />
     <Content Include="img\apple.png" />
-    <Content Include="img\Banner.png" />
     <Content Include="img\facebook.png" />
     <Content Include="img\maracdorParking.png" />
     <Content Include="img\parking1.jpg" />
@@ -242,6 +241,7 @@
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Properties\PublishProfiles\Geoparking.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

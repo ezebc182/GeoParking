@@ -25,13 +25,22 @@ namespace Web
             {
                 if (SessionUsuario != null)
                 {
-                    if (!SessionUsuario.Rol.Permisos.Any(x => Request.Url.AbsolutePath.Contains(x.Url)))
+                    if (!Request.Url.AbsolutePath.Equals("/Index.aspx", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        if (!Request.Url.AbsolutePath.Equals("/Index.aspx"))
-                            Response.Redirect("/Index.aspx?r="+Request.Url.AbsolutePath);
+                        if (!SessionUsuario.Rol.Permisos.Any(x => Request.Url.Segments[1].Equals(x.Url, StringComparison.CurrentCultureIgnoreCase)))
+                        {
+                            Response.Redirect("/Index.aspx?r=" + Request.Url.AbsolutePath);
+                        }
                     }
                     lblLogin.Text = SessionUsuario.NombreUsuario;
                     rolId = SessionUsuario.RolId;
+                }
+                else
+                {
+                    if (!Request.Url.AbsolutePath.Equals("/Index.aspx", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                            Response.Redirect("/Index.aspx?r=" + Request.Url.AbsolutePath);
+                    }
                 }
             }
 
