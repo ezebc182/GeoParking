@@ -70,7 +70,6 @@
     <Content Include="Controles\Mensajes\Error.ascx" />
     <Content Include="Controles\Mensajes\Info.ascx" />
     <Content Include="Controles\Mensajes\Confirmacion.ascx" />
-    <Content Include="ejemploPanel.aspx" />
     <Content Include="img\android.png" />
     <Content Include="img\apple.png" />
     <Content Include="img\facebook.png" />
@@ -213,13 +212,6 @@
     </Compile>
     <Compile Include="Controles\Mensajes\Confirmacion.ascx.designer.cs">
       <DependentUpon>Confirmacion.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="ejemploPanel.aspx.cs">
-      <DependentUpon>ejemploPanel.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ejemploPanel.aspx.designer.cs">
-      <DependentUpon>ejemploPanel.aspx</DependentUpon>
     </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>

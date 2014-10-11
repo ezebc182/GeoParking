@@ -18,7 +18,7 @@ namespace WebServiceGeo.Controllers
         {
             //busco en la BD
             IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
-            playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorCiudad(ciudad);
+            playas = (IList<PlayaDeEstacionamiento>)gestor.buscarPlayasPorCiudad(ciudad);
             
             string json = "[";
 

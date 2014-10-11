@@ -26,21 +26,21 @@ namespace Web
                 if (SessionUsuario != null)
                 {
                     if (!Request.Url.AbsolutePath.Equals("/Index.aspx", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        if (!SessionUsuario.Rol.Permisos.Any(x => Request.Url.Segments[1].Equals(x.Url, StringComparison.CurrentCultureIgnoreCase)))
-                        {
-                            Response.Redirect("/Index.aspx?r=" + Request.Url.AbsolutePath);
-                        }
-                    }
+                        if (!Request.Url.AbsolutePath.Equals("/BusquedaPlaya.aspx", StringComparison.CurrentCultureIgnoreCase))
+                            if (!SessionUsuario.Rol.Permisos.Any(x => Request.Url.Segments[1].Equals(x.Url, StringComparison.CurrentCultureIgnoreCase)))
+                            {
+                                Response.Redirect("/Index.aspx?r=" + Request.Url.AbsolutePath);
+                            }
+                    
                     lblLogin.Text = SessionUsuario.NombreUsuario;
                     rolId = SessionUsuario.RolId;
                 }
                 else
                 {
                     if (!Request.Url.AbsolutePath.Equals("/Index.aspx", StringComparison.CurrentCultureIgnoreCase))
-                    {
+                        if (!Request.Url.AbsolutePath.Equals("/BusquedaPlaya.aspx", StringComparison.CurrentCultureIgnoreCase))
                             Response.Redirect("/Index.aspx?r=" + Request.Url.AbsolutePath);
-                    }
+                    
                 }
             }
 
@@ -201,7 +201,7 @@ namespace Web
             {
                 Usuario usuario = CargarEntidad();
                 var resultado = gestor.RegistrarUsuario(usuario);
-                MostrarMensajeInformacion(TipoMensajeEnum.MensajeModal,"El usuario "+ usuario.NombreUsuario +" se ha registrado con exito!!" , "Registro de Usuario");
+                MostrarMensajeInformacion(TipoMensajeEnum.MensajeModal, "El usuario " + usuario.NombreUsuario + " se ha registrado con exito!!", "Registro de Usuario");
             }
         }
 
