@@ -55,6 +55,7 @@
     <Compile Include="DiaAtencion.cs" />
     <Compile Include="Direccion.cs" />
     <Compile Include="EntidadBase.cs" />
+    <Compile Include="EstadisticaConsultas.cs" />
     <Compile Include="Horario.cs" />
     <Compile Include="Permiso.cs" />
     <Compile Include="PlayaDeEstacionamiento.cs" />
