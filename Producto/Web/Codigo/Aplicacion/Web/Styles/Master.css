@@ -27,3 +27,8 @@
     float:none;
     margin:auto;
 }
+
+input, button, .btn, span, modal-content,modal-dialog, select,.dropdown,.dropdown-menu,.jumbotron, .form-control,.label {
+    border-radius:0 !important;
+
+}
