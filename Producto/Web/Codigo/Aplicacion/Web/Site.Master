@@ -35,26 +35,25 @@
         <!-- Barra de navegación-->
         <div style="height: 60px;">
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-                <!-- El logotipo y el icono que despliega el menú se agrupan
+                <div class="container-fluid">
+                    <!-- El logotipo y el icono que despliega el menú se agrupan
 			       para mostrarlos mejor en los dispositivos móviles -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse"
-                        data-target=".navbar-ex1-collapse">
-                        <span class="sr-only">Desplegar navegación</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Desplegar navegación</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
 
-                    <%--<a class="navbar-brand" href="./Index.aspx"><span style="color: red; font-size: 35px;">GEO</span><span style="color: white; font-size: 35px;">PARKING</span></a>--%>
-                    <a class="navbar-brand" href="./Index.aspx"><span style="color: red; font-family: Impact; font-size: 20px; text-shadow: 4px 4px 4px grey;">GEO</span><span style="color: white; font-size: 20px; font-family: Impact; text-shadow: 4px 4px 4px grey;">PARKING</span></a>
+                        <%--<a class="navbar-brand" href="./Index.aspx"><span style="color: red; font-size: 35px;">GEO</span><span style="color: white; font-size: 35px;">PARKING</span></a>--%>
+                        <a class="navbar-brand" href="./Index.aspx"><span style="color: red; font-family: Impact; font-size: 20px; text-shadow: 4px 4px 4px grey;">GEO</span><span style="color: white; font-size: 20px; font-family: Impact; text-shadow: 4px 4px 4px grey;">PARKING</span></a>
 
-                </div>
+                    </div>
 
-                <!-- Agrupar los enlaces de navegación, los formularios y cualquier
+                    <!-- Agrupar los enlaces de navegación, los formularios y cualquier
 			       otro elemento que se pueda ocultar al minimizar la barra -->
-                <div class="collapse navbar-collapse ">
-                    <div class="container">
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
 
                             <li id="admPlayas"><a href="./Playa.aspx">Administración de playas</a></li>
@@ -87,8 +86,8 @@
                             <li><a id="btnIngresar" class=" btn-success " href="#login" data-keyboard="false" data-backdrop="static" data-toggle="modal"
                                 data-target="#login"><b>Ingresar</b></a></li>
                             <% }
-                           else
-                           {
+                               else
+                               {
                             %>
                             <li>
                                 <label style="color: white; padding-top: 15px;">
@@ -116,7 +115,9 @@
                         </li>--%>
                         </ul>
                     </div>
+                    <!-- /.navbar-collapse -->
                 </div>
+                <!-- /.container-fluid -->
             </nav>
         </div>
 
@@ -410,23 +411,23 @@
         });
 
         var rol = '<%=rolId%>';
-    if (rol == 1) {
-        $('#admPOI').addClass("hidden");
-        $('#admPlayas').addClass("hidden");
-        $('#admUsuarios').addClass("hidden");
-    }
-    else if (rol == 2) {
-        $('#admUsuarios').addClass("hidden");
-    }
-    else if (rol == 3) {
-        //no bloqueo nada porque es el superadmin 
-    }
-    else {
-        //bloqueo todo 
-        $('#admPOI').addClass("hidden");
-        $('#admPlayas').addClass("hidden");
-        $('#admUsuarios').addClass("hidden");
-    }
+        if (rol == 1) {
+            $('#admPOI').addClass("hidden");
+            $('#admPlayas').addClass("hidden");
+            $('#admUsuarios').addClass("hidden");
+        }
+        else if (rol == 2) {
+            $('#admUsuarios').addClass("hidden");
+        }
+        else if (rol == 3) {
+            //no bloqueo nada porque es el superadmin 
+        }
+        else {
+            //bloqueo todo 
+            $('#admPOI').addClass("hidden");
+            $('#admPlayas').addClass("hidden");
+            $('#admUsuarios').addClass("hidden");
+        }
     </script>
     <asp:ContentPlaceHolder ID="ScriptContent" runat="server">
     </asp:ContentPlaceHolder>
