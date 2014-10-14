@@ -2,6 +2,11 @@
     color: white !important;
 }
 
+.navbar-default {
+    background-color:black;
+    border-color:white;
+}
+
 .navbar-default .navbar-nav>li>a {
     color: white;
 }
