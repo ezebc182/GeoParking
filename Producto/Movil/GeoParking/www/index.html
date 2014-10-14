@@ -3,74 +3,70 @@
 
 <head>
     <title>GeoParking</title>
-        <link rel="stylesheet" href="./css/jquery-ui.css">
-        <link rel="stylesheet" href="./js/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="./css/index.css">
-        <link href="./css/cargarMapa.css" rel="stylesheet" type="text/css" />
-        <link href="./css/guardarUbicacion.css" rel="stylesheet" type="text/css" />
-        <script src="./js/jquery.js"></script>
-        <script src="./js/jquery-ui.js"></script>
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
-        <script src="./js/Propios/guardarDatos.js"></script>
-   
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+    <link rel="stylesheet" href="./css/jquery-ui.css">
+    <link rel="stylesheet" href="./js/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link href="./css/cargarMapa.css" rel="stylesheet" type="text/css" />
+    <link href="./css/guardarUbicacion.css" rel="stylesheet" type="text/css" />
+    <link href="./css/customAlert.css" type="text/css" rel="stylesheet">
+    <link href="./js/bootstrap-dialog.min.css" rel="stylesheet" type="text/css">
+
 </head>
 
 <body>
 
     <!-- BODY -->
-    
-        <div id="panelListado"></div>
-        <div id="pnlMapa" class="fullscreen">
-            <div id="map-canvas" class="fullscreen"></div>
-        </div>
-        <div id="grupoDeBotones" class="btn-group-vertical pull-right hidden">
-            <button title="Ver listado playas" class="btn-lg btn btn-primary" id="btnVerListado" onclick="verListado()"><span class="glyphicon glyphicon-list"></span>
-            </button>
-            <button title="Guardar mi ubicación" class="btn-lg btn btn-success" id="btnGuardarUbicacion" onclick="guardarUbicacion()"><span class="glyphicon glyphicon-map-marker"></span>
-            </button>
-            <button title="Volver a mi auto" class="btn-lg btn btn-danger" id="btnTrazarRegreso" onclick="trazarRegreso()"><span class="glyphicon glyphicon-user"></span>
-            </button>
-            <button title="Mostrar navegación" class="btn-lg btn btn-default" id="mostrarIndicaciones" onclick="mostrarIndicaciones()"><span class="glyphicon glyphicon-road"></span>
-            </button>
+    <div class="container">
+        <div class="contenido">
+            <div id="panelListado" class="fullscreen"></div>
+            <div id="pnlMapa">
+                <div id="map-canvas" class="fullscreen"></div>
+            </div>
 
-
+            <div class="hidden" id="panel_ruta"></div>
         </div>
-        
-        
-        <div id="modalTrazado" class="modal fade">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-                <h4 class="modal-title">Ruta de navegación</h4>
-              </div>
-              <div class="modal-body">
-                <div id="panel_ruta"></div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>              
-              </div>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+        <div class="footer">
+            <div id="grupoDeBotones" class="btn-group  hidden">
+                <button title="Ubicarme" class="btn-lg btn btn-default" id="btnUbicarme" onclick="ubicarMiPosicion()"><span class="glyphicon glyphicon-screenshot"></span>
+                </button>
+                <button title="Ver listado playas" class="btn-lg btn btn-default" id="btnVerListado" onclick="verListado()"><span class="glyphicon glyphicon-list"></span>
+                </button>
+                <button title="Guardar mi ubicación" class="btn-lg btn btn-default" id="btnGuardarUbicacion" onclick="guardarUbicacion()"><span class="glyphicon glyphicon-map-marker"></span>
+                </button>
+                <button title="Volver a mi auto" class="btn-lg btn btn-default" id="btnTrazarRegreso" onclick="trazarRegreso()"><span class="glyphicon glyphicon-user"></span>
+                </button>
+                <button title="Mostrar navegación" class="btn-lg btn btn-default" id="mostrarIndicaciones" onclick="mostrarIndicaciones()"><span class="glyphicon glyphicon-road"></span>
+                </button>
+                <a href="preferences.html" class="btn-lg btn btn-default"><span class="glyphicon glyphicon-cog"></a>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Scripts -->
-     <script src="xhr.js"></script>
+    <script src="xhr.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script src='intelxdk.js'></script>
     <script src="cordova.js"></script>
     <script src="./js/index.js"></script>
-      <script src="./js/Propios/funcionesDistancia.js"></script>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/jquery-ui.js"></script>
+    <script src="./js/Propios/guardarDatos.js"></script>
+    <script src="./js/Propios/funcionesDistancia.js"></script>
     <script src="./js/Propios/listadoDePlayas.js"></script>
     <script src="./js/Propios/obtenerRutaDeRegreso.js"></script>
     <script src="./js/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./js/bootstrap-dialog.min.js"></script>
     <script src="./js/Propios/cargarMapa.js"></script>
     <!-- trabaja con el mapa cuando se inicializa -->
     <script src="./js/Propios/obtenerPlayas.js"></script>
+
     <!-- web service -->
-  
+
     <script>
+        /* Intel native bridge is available */
         var playas = [];
         $(document).ready(function () {
             initialize();
@@ -79,6 +75,7 @@
         function verListado() {
             $("#pnlMapa").hide();
             crearListado(playas);
+
         }
     </script>
 </body>
