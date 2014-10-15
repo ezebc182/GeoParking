@@ -11,6 +11,8 @@ var infowindow = new google.maps.InfoWindow({
 
 var marker;
 var usuario;
+var enviarDatosBandera = true;
+var destino = null;
 
 var directionsDisplay = new google.maps.DirectionsRenderer({
     suppressMarkers: true,
@@ -21,6 +23,10 @@ var directionsDisplay = new google.maps.DirectionsRenderer({
 var directionsService = new google.maps.DirectionsService();
 
 var posicionActual;
+
+var enRecorrido = false;
+
+var actualizadorDePosicion;
 
 function mensajeErrorConexion(mensaje) {
     BootstrapDialog.show({
@@ -69,6 +75,44 @@ function ir(origen, destino, modoViaje, sistema) {
     });
 }
 
+function mantenerPosicionActualActualizada(){
+    var actualizarPosicion = function(){
+        var functionSuccess = function(p){
+            posicionActual = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
+            removeCarMarker();
+            addCarMarker(posicionActual);
+            if(enRecorrido){
+                var lat1 = parseFloat(posicionActual.k);
+                var lon1 = parseFloat(posicionActual.B);
+                var lat2 = parseFloat(destino.k);
+                var lon2 = parseFloat(destino.B);
+                if(distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) >= 0.02){
+                    directionsDisplay.setMap(null);
+                        ir(posicionActual, destino, "DRIVING","METRIC");
+                }
+                else{
+                    clearInterval(actualizadorDePosicion);
+                    directionsDisplay.setMap(null);
+                }
+                
+            }
+        };
+        var funcionError = function(error){
+
+        };
+        navigator.geolocation.getCurrentPosition(functionSuccess, funcionError);
+    };
+    actualizadorDePosicion = setInterval(actualizarPosicion,3000);
+}
+function removeCarMarker(){
+    for(var i = 0; i < markers.length; i++){
+        var marcadorActual = markers[i];
+        if(marcadorActual.icon  === './img/marcadorAuto22.png'){
+            markers.splice(i,1);
+            marcadorActual.setMap(null);
+        }
+    }
+}
 
 function addCarMarker(location) {
     usuario = new google.maps.Marker({
@@ -94,8 +138,9 @@ function addUserMarker(location) {
         icon: './img/usuario2.png'
     });
     markers.push(marker);
+    marker.setMap(map);
+    //showMarkers();
 }
-
 function ubicarMiPosicion() {
     map.setCenter(usuario.getPosition());
     usuario.setAnimation(google.maps.Animation.BOUNCE);
@@ -106,22 +151,23 @@ function ubicarMiPosicion() {
 
 }
 
-function addMarker(location) {
-
-    marker = new google.maps.Marker({
+function addMarker(location, playa) {
+    var marker = new google.maps.Marker({
         position: location,
         map: map,
         icon: './img/marcadorParking2.png'
     });
-    (function (marker, origen) {
-        google.maps.event.addListener(marker, 'click', function () {
-            ir(posicionActual, marker.getPosition(), "DRIVING", "METRIC");
+    (function(marker,origen){
+        google.maps.event.addListener(marker, 'click', function() {
+            destino = marker.getPosition();
+            ir(posicionActual, destino, "DRIVING","METRIC");
         });
-    })(marker, posicionActual);
-
+        enRecorrido = true;
+        /*var uri = "http://ifrigerio-001-site1.smarterasp.net/api/playas/getPlayas?idPlaya=" + playa.ID + "&idTipoVehiculo=" + idTipoVehiculo + "&latitud=" + posicionActual.k + "&longitud=" + posicionActual.B;
+        $.getJSON(uri);*/
+    })(marker,posicionActual);
     markers.push(marker);
 }
-
 
 function setAllMap(map) {
     for (var i = 0; i < markers.length; i++) {
@@ -162,6 +208,7 @@ function obtenerPosicionActual() {
             obtenerCiudadDePosicion(posicionInterna);
             loading($("#map-canvas"), false);
         }
+        mantenerPosicionActualActualizada();
     };
     var errorFunction = function () {
         mensajeErrorConexion("Error de conexion, Por favor habilite la localizacion para continuar");
@@ -198,9 +245,7 @@ function agregarPlayasAMapa(playas) {
 
 function agregarPlayaAMapa(playa) {
     var posicionDePlaya = new google.maps.LatLng(playa.Latitud, playa.Longitud);
-    addMarker(posicionDePlaya);
-
-
+    addMarker(posicionDePlaya,  playa);
 }
 
 function loading(componente, on) {
