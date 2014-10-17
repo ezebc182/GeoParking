@@ -12,8 +12,8 @@ namespace WebServiceGeo.Controllers
     public class PlayasController : ApiController
     {
         private static GestorBusquedaPlayas gestor = new GestorBusquedaPlayas();
-
-        // GET api/GetPlayas/cordoba
+        private static GestorTiposVehiculo gestorTipoVehiculos = new GestorTiposVehiculo();
+        // GET api/Playas/GetPlayas/cordoba
         public string GetPlayas([FromUri] String ciudad)
         {
             //busco en la BD
@@ -35,6 +35,24 @@ namespace WebServiceGeo.Controllers
 
             return json;            
             
+        }
+        //api/Playas/GetTiposVehiculos
+        public string GetTiposVehiculo()
+        {
+            string json = "[";
+            IList<TipoVehiculo> lista = gestorTipoVehiculos.ObtenerTiposDeVehiculo();
+            foreach (TipoVehiculo item in lista)
+            {
+                json += item.ToJSONRepresentation();
+                json += ",";
+            }
+            if (lista.Count != 0)
+            {
+                json = json.Substring(0, json.Length - 1);
+            }
+            json += "]";
+            return json;
+
         }
 
         // GET api/playas/5

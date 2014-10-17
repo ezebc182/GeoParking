@@ -399,6 +399,7 @@ namespace ReglasDeNegocio
         public IList<PlayaDeEstacionamiento> BuscarPlayasPorFiltro(string ciudad, int tipoPlaya, int tipoVehiculo, int diasAtencion, decimal precioDesde, decimal precioHasta,
              int horaDesde, int horaHasta)
         {
+
             Func<PlayaDeEstacionamiento, bool> consulta = p => !p.FechaBaja.HasValue;
 
             if (!string.IsNullOrEmpty(ciudad))
@@ -449,7 +450,9 @@ namespace ReglasDeNegocio
                     consulta = consulta.And(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
                 }
                 else consulta = p => p.Precios.Any(prec => prec.Monto <= precioHasta);
-                
+
+                //lista = (IList<PlayaDeEstacionamiento>)lista.Where(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
+
             }
 
             if (horaDesde != 0)

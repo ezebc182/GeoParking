@@ -5,7 +5,7 @@
       "type": "Blank Project",
       "src": "blankProject",
       "projectGuid": "d067fe5b-acdc-4cfd-a86a-d5d9d898fa8d",
-      "lastModifiedDate": 1412482476120,
+      "lastModifiedDate": 1412742202564,
       "creationDate": 1410300872591
     },
     "sourceDirectory": "www",
@@ -64,6 +64,13 @@
         "selectedState": "Auto",
         "data": {},
         "paramvals": {}
+      },
+      {
+        "id": "org.apache.cordova.geolocation",
+        "version": "0.3.5",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {}
       }
     ],
     "buildConfigurations": {
@@ -80,28 +87,28 @@
         "appAccess_": "*",
         "icons_": [
           {
-            "relPath": "img/GeoParkingLogo.png",
-            "density": "xhdpi",
-            "height": 96,
-            "width": 96
+            "relPath": "img/GPV_36.png",
+            "density": "ldpi",
+            "height": 36,
+            "width": 36
           },
           {
-            "relPath": "img/GeoParkingLogo72.png",
-            "density": "hdpi",
-            "height": 72,
-            "width": 72
-          },
-          {
-            "relPath": "img/GeoParkingLogo48.png",
+            "relPath": "img/GPV_48.png",
             "density": "mdpi",
             "height": 48,
             "width": 48
           },
           {
-            "relPath": "img/GeoParkingLogo36.png",
-            "density": "ldpi",
-            "height": 36,
-            "width": 36
+            "relPath": "img/GPV_72.png",
+            "density": "hdpi",
+            "height": 72,
+            "width": 72
+          },
+          {
+            "relPath": "img/GPV_96.png",
+            "density": "xhdpi",
+            "height": 96,
+            "width": 96
           }
         ],
         "splashes_": [],

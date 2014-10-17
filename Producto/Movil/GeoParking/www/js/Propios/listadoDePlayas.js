@@ -2,9 +2,21 @@ var playaElegida;
 
 
 function crearListado(playas) {
-    var acordion = crearAcordion(playas);
-    $("#panelListado").append(acordion);
-    $(acordion).accordion();
+    if($("#acordion").length === 0){
+        var acordion = crearAcordion(playas);
+        if($(acordion).children().length > 2){
+            $("#pnlMapa").hide();
+            $("#panelListado").append(acordion);
+            $(acordion).accordion();
+        }
+        else{
+            mensajeErrorConexion("No se encontraron playas cercanas");
+        }
+    }
+    else{
+        $("#acordion").remove();
+        $("#pnlMapa").show();
+    }
 }
 function agregarClickAPlaya(playa){
     var posicionPlayaGoogle = new google.maps.LatLng(playa.Latitud, playa.Longitud);
@@ -35,7 +47,7 @@ function crearAcordion(playas){
     for(var i = 0; i < playas.length; i++){
         var playa = playas[i];
         var distancia = calcularDistanciaPlaya(playa);
-        if(distancia <= 500){
+        if(distancia <= obtenerDistanciaPredeterminada()){
             var header = document.createElement("h3");
             header.innerHTML = crearHeaderParaPlaya(playa);
             var contenedor = document.createElement("div");
@@ -54,6 +66,13 @@ function crearAcordion(playas){
     }
     return acordion;
 }
+function obtenerDistanciaPredeterminada(){
+    var configuraciones = localStorage.getItem("Configuraciones");
+    if(configuraciones !== null){
+        configuraciones = jQuery.parseJSON(configuraciones);
+    }
+    return configuraciones.radio;
+}
 function crearDescripcionParaPlaya(playa){
     var descripcion = "Direccion: ";
     descripcion += playa.Direcciones[0].Calle;
@@ -64,12 +83,21 @@ function crearDescripcionParaPlaya(playa){
     descripcion += playa.TipoPlaya;
     descripcion += "<br>";
     descripcion += "Precios: ";
-    for(var i = 0; i < playa.Precios.lengh; i++){
+    for(var i = 0; i < playa.Precios.length; i++){
         descripcion += "<br>";
-        descripcion += "    ";
+        descripcion += "&emsp;&emsp;";
         descripcion += playa.Precios[i].TipoVehiculo;
-        descripcion += " ";
+        descripcion += ": $";
         descripcion += parseFloat(playa.Precios[i].Monto).toFixed(2);
+    }
+    descripcion += "<br>";
+    descripcion += "Capacidad: ";
+    for(var i = 0; i < playa.Servicios.length; i++){
+        descripcion += "<br>";
+        descripcion += "&emsp;&emsp;";
+        descripcion += playa.Servicios[i].TipoVehiculo;
+        descripcion += ": ";
+        descripcion += playa.Servicios[i].Capacidad;
     }
     return descripcion;
 }

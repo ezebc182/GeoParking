@@ -149,7 +149,7 @@ function addMarker(location) {
     var marker = new google.maps.Marker({
         position: location,
         map: map,
-        icon: './img/maracdorParking.png'
+        icon: './img/marcadorParking2.png'
     });
 
     //agrega informacion al marcador
@@ -254,7 +254,15 @@ $(function () {
                         map.setCenter(results[0].geometry.location);
                         map.setZoom(12);
                         
-                        cargarPlayas(response);                        
+                        cargarPlayas(response);
+
+                        document.getElementById('ddlTipoPlaya').value=0;
+                        document.getElementById('ddlTipoVehiculo').value=0;
+                        document.getElementById('ddlDiasAtencion').value=0;
+                        document.getElementById('txtMinPrecio').value =0;
+                        document.getElementById('txtMaxPrecio').value =0;
+                        document.getElementById('ddlHoraDesde').value=0;
+                        document.getElementById('ddlHoraHasta').value=0;
 
                     } else {
                         Alerta_openModalInfo('La ciudad no ha podido encontrarse', 'Resultado de la Busqueda' );
@@ -361,10 +369,10 @@ function cargarPlayas(response) {
                 contenido += "<div class='tab-pane active' id='panel-1'>" +
                 "<p>";
 
-                "<div>Nombre: " + playas[i].Nombre + "</div>" +
-               "<div>Mail: " + playas[i].Mail + "</div>" +
-               "<div>Telefono: " + playas[i].Telefono + "</div>" +
-               "<div>Tipo Playa: " + playas[i].TipoPlaya + "</div>"
+                contenido += "<div><strong>Nombre:</strong> " + playas[i].Nombre + "</div>" +
+               "<div><strong>Mail:</strong>" + playas[i].Mail + "</div>" +
+               "<div><strong>Telefono:</strong> " + playas[i].Telefono + "</div>" +
+               "<div><strong>Tipo Playa:</strong> " + playas[i].TipoPlaya + "</div>";
 
 
                 //agregamos las direcciones
@@ -415,7 +423,7 @@ function cargarPlayas(response) {
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(playas[i].Latitud, playas[i].Longitud),
                     map: map,
-                    icon: './img/maracdorParking.png'
+                    icon: './img/marcadorParking2.png'
                 });
 
                 //seteamos al contenido

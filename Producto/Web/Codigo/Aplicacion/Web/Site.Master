@@ -137,7 +137,7 @@
                         <div class="row">
                             <asp:UpdatePanel ID="upLogin" runat="server">
                                 <ContentTemplate>
-                                    <div class="col-lg-6 " style="padding-right: 10px; border-right: 1px solid #ccc;">
+                                    <div class="col-xs-6 col-sm-6 col-md-6" style="padding-right: 10px; border-right: 1px solid #ccc;">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div runat="server" id="divUsuarioLogin" class="form-group">
                                                 <asp:TextBox ID="txtUsuarioLogin" placeholder="Usuario o E-mail" TabIndex="1" CssClass="form-control input-lg cleanLogin"
@@ -169,7 +169,7 @@
                                     </div>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
-                            <div class="col-lg-6">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
                                 <h4 class="modal-title text-center">¿No Tienes cuenta?</h4>
                                 <br />
                                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -396,6 +396,10 @@
                 $("#lblContraseñaLogin").attr("style", "display:none");
             });
 
+        });
+
+        $('#login').on('shown.bs.modal', function () {
+            $("#txtUsuarioLogin").focus();
         });
 
         $('#login').on('hidden.bs.modal', function () {
