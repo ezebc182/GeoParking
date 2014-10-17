@@ -87,3 +87,25 @@ function setearValoresDeConfiguraciones(){
         $('#radio').val(config.radio);
     }
 }
+function cargarTiposDeVehiculo(){
+    var tiposVehiculos = obtenerTiposDeVehiculos();
+    for(var i = 0; i < tiposVehiculos.length; i++){
+        var option = document.createElement("option");
+        option.value = tiposVehiculos[i].Id;
+        option.innerHTML = tiposVehiculos[i].Nombre;
+        $('#tipoVehiculo').append(option);
+    }
+}
+function obtenerTiposDeVehiculos(){
+    var uri = "http://ifrigerio-001-site1.smarterasp.net/api/playas/GetTiposVehiculo";
+    var tiposVehiculos = null;
+    $.ajax({
+        type : "GET",
+        async : false,
+        url : uri,
+        success : function(response){
+            tiposVehiculos = jQuery.parseJSON(response);
+        }
+    });
+    return tiposVehiculos;
+}

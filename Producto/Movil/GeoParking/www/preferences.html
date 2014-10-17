@@ -36,10 +36,6 @@
                         <label class="" for="tipoVehiculo">Seleccione su vehiculo:</label>
                         <p>Indique el tipo de vehículo para poder filtrar la búsqueda de las playas.</p>
                         <select class="form-control" id="tipoVehiculo">
-                            <option id="auto" value="auto">Auto</option>
-                            <option id="utilitario" value="utilitario">Utilitario</option>
-                            <option id="moto" value="moto">Moto</option>
-                            <option id="bicicleta" value="bicicleta">Bicicleta</option>
                         </select>
                     </div>
 
@@ -83,6 +79,7 @@
 
     <script>
         $(document).ready(function () {
+            cargarTiposDeVehiculo();
             setearValoresDeConfiguraciones();
             mostrarMetros($('#radio').val());
         });
