@@ -391,7 +391,7 @@ namespace ReglasDeNegocio
         {
             //aca va un findwehere
             
-            var lista= playaDao.FindWhere(p => p.Direcciones.Any(d => d.Ciudad.Nombre == ciudad) && !p.FechaBaja.HasValue);
+            var lista= playaDao.FindWhere(p => p.Direcciones.Any(d => d.Ciudad.Nombre.Equals(ciudad, StringComparison.OrdinalIgnoreCase)) && !p.FechaBaja.HasValue);
             
             return lista;
         }
@@ -399,12 +399,13 @@ namespace ReglasDeNegocio
         public IList<PlayaDeEstacionamiento> BuscarPlayasPorFiltro(string ciudad, int tipoPlaya, int tipoVehiculo, int diasAtencion, decimal precioDesde, decimal precioHasta,
              int horaDesde, int horaHasta)
         {
-            Func<PlayaDeEstacionamiento, bool> consulta = null;
-            
-            var query = from p in playaDao.FindAll()
-                        where !p.FechaBaja.HasValue
-                        select p;            
+            Func<PlayaDeEstacionamiento, bool> consulta = p => !p.FechaBaja.HasValue;
 
+            if (!string.IsNullOrEmpty(ciudad))
+            {
+                consulta.And(p => p.Direcciones.Any(d => d.Ciudad.Nombre.Equals(ciudad, StringComparison.OrdinalIgnoreCase)));
+            }
+            
             if (tipoPlaya != 0)
             {
                 if (consulta != null)
@@ -448,8 +449,7 @@ namespace ReglasDeNegocio
                     consulta = consulta.And(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
                 }
                 else consulta = p => p.Precios.Any(prec => prec.Monto <= precioHasta);
-                query = query.Where(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
-                //lista = (IList<PlayaDeEstacionamiento>)lista.Where(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
+                
             }
 
             if (horaDesde != 0)
@@ -459,16 +459,16 @@ namespace ReglasDeNegocio
                     consulta = consulta.And(p => p.Horarios.Any(h => int.Parse(h.HoraDesde.Substring(0, 2)) <= horaDesde));
                 }
                 else consulta = p => p.Horarios.Any(h => int.Parse(h.HoraDesde.Substring(0, 2)) <= horaDesde);
-               }
+            }
 
             if (horaHasta != 0)
             {
-                if (consulta!=null)
+                if (consulta != null)
                 {
-                consulta = consulta.And(p => p.Horarios.Any(h => int.Parse(h.HoraHasta.Substring(0, 2)) >= horaHasta));
+                    consulta = consulta.And(p => p.Horarios.Any(h => int.Parse(h.HoraHasta.Substring(0, 2)) >= horaHasta));
                 }
                 else consulta = p => p.Horarios.Any(h => int.Parse(h.HoraHasta.Substring(0, 2)) >= horaHasta);
-               }
+            }
 
             var listaPlayas = playaDao.FindWhere(consulta);
 

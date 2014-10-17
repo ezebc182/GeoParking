@@ -11,9 +11,6 @@ function SearchText() {
                 success: function (data) {
                     var array = eval(data.d);
                     response(array);
-                },
-                error: function (result) {
-                    alert("Error");
                 }
             });
         }

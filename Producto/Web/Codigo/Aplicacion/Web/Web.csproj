@@ -79,6 +79,7 @@
     <Content Include="Controles\Mensajes\Error.ascx" />
     <Content Include="Controles\Mensajes\Info.ascx" />
     <Content Include="Controles\Mensajes\Confirmacion.ascx" />
+    <Content Include="DensidadConsultasPorFechas.aspx" />
     <Content Include="img\android.png" />
     <Content Include="img\apple.png" />
     <Content Include="img\facebook.png" />
@@ -105,6 +106,7 @@
     <Content Include="Scripts\datetimepicker.min.js" />
     <Content Include="Scripts\contarFilas.js" />
     <Content Include="Scripts\DesplazarTabs.js" />
+    <Content Include="Scripts\GoogleMapsEstadisticas.js" />
     <Content Include="Scripts\GoogleMaps.js" />
     <Content Include="Scripts\GoogleMapsBusquedaPlaya.js" />
     <Content Include="Scripts\horarios.js" />
@@ -221,6 +223,13 @@
     </Compile>
     <Compile Include="Controles\Mensajes\Confirmacion.ascx.designer.cs">
       <DependentUpon>Confirmacion.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DensidadConsultasPorFechas.aspx.cs">
+      <DependentUpon>DensidadConsultasPorFechas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DensidadConsultasPorFechas.aspx.designer.cs">
+      <DependentUpon>DensidadConsultasPorFechas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>

@@ -150,7 +150,7 @@ namespace ReglasDeNegocio
         /// <returns>Lista de ciudades que comienzan con...</returns>
         public IList<Ciudad> BuscarCiudadesPorNombre(string prefijoNombre)
         {
-            return ciudadDao.FindWhere(c => c.Nombre.StartsWith(prefijoNombre,StringComparison.CurrentCultureIgnoreCase));
+            return ciudadDao.FindWhere(c => c.Nombre.StartsWith(prefijoNombre,StringComparison.OrdinalIgnoreCase));
         }
 
     }

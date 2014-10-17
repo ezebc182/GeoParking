@@ -25,9 +25,9 @@ namespace Web
             {
                 if (SessionUsuario != null)
                 {
-                    if (!Request.Url.AbsolutePath.Equals("/Index.aspx", StringComparison.CurrentCultureIgnoreCase))
-                        if (!Request.Url.AbsolutePath.Equals("/BusquedaPlaya.aspx", StringComparison.CurrentCultureIgnoreCase))
-                            if (!SessionUsuario.Rol.Permisos.Any(x => Request.Url.Segments[1].Equals(x.Url, StringComparison.CurrentCultureIgnoreCase)))
+                    if (!Request.Url.AbsolutePath.Equals("/Index.aspx", StringComparison.OrdinalIgnoreCase))
+                        if (!Request.Url.AbsolutePath.Equals("/BusquedaPlaya.aspx", StringComparison.OrdinalIgnoreCase))
+                            if (!SessionUsuario.Rol.Permisos.Any(x => Request.Url.Segments[1].Equals(x.Url, StringComparison.OrdinalIgnoreCase)))
                             {
                                 Response.Redirect("/Index.aspx?r=" + Request.Url.AbsolutePath);
                             }
@@ -37,8 +37,9 @@ namespace Web
                 }
                 else
                 {
-                    if (!Request.Url.AbsolutePath.Equals("/Index.aspx", StringComparison.CurrentCultureIgnoreCase))
-                        if (!Request.Url.AbsolutePath.Equals("/BusquedaPlaya.aspx", StringComparison.CurrentCultureIgnoreCase))
+                    if (!Request.Url.AbsolutePath.Equals("/Index.aspx", StringComparison.OrdinalIgnoreCase))
+                        if (!Request.Url.AbsolutePath.Equals("/BusquedaPlaya.aspx", StringComparison.OrdinalIgnoreCase))
+                            if (!Request.Url.AbsolutePath.Equals("/DensidadConsultasPorFechas.aspx", StringComparison.OrdinalIgnoreCase))
                             Response.Redirect("/Index.aspx?r=" + Request.Url.AbsolutePath);
                     
                 }

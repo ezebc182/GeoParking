@@ -215,24 +215,17 @@
                                     <asp:ListItem Value="18">18</asp:ListItem>
                                     <asp:ListItem Value="20">20</asp:ListItem>
                                     <asp:ListItem Value="22">22</asp:ListItem>
-                                    <asp:ListItem Value="23" Selected="True">24</asp:ListItem>
+                                    <asp:ListItem Value="24" Selected="True">24</asp:ListItem>
                                 </asp:DropDownList>
                             </div>
                         </div>
                     </div>
-
                 </fieldset>
             </div>
-
-
             <!--Buscar-->
-
             <input type="button" class="btn-primary btn btn-block" value="Filtrar"
                 id="btnBuscar" />
-
         </div>
-
-
 
         <div class="col-sm-9 col-md-9 col-lg-9">
             <!--Rectangulo del Mapa-->

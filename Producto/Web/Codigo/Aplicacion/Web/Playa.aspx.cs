@@ -21,7 +21,7 @@ namespace Web
         protected void Page_Load(object sender, EventArgs e)
         {
             gestor = new GestorPlaya();
-            master = (SiteMaster)(Master.Master);
+            master = (SiteMaster)(Master);
 
             if (!Page.IsPostBack)
             {
