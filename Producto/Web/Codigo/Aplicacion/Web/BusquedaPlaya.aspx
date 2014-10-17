@@ -254,8 +254,9 @@
         function agrandarMapa() {
             $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Búsqueda Avanzada");
             $("#busquedaAvanzada").hide();
-            $("#map-canvas").css("width", "1100px");
-            $("#map-canvas").css("height", "427px");
+            $("#map-canvas").css("width", "1170px");
+            $("#map-canvas").css("height", "427px");            
+            $("#map-canvas").css("border-color", "gray");
             
 
         }
@@ -265,8 +266,10 @@
 
                 $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Ocultar Avanzada");
                 $("#map-canvas").fadeIn(3000, function () {
-                    $("#map-canvas").css("width", "850px");
+                    $("#map-canvas").css("width", "877px");
                     $("#map-canvas").css("height", "427px");
+                    $("#map-canvas").css("margin-left", "1px");
+                    $("#map-canvas").css("border-color", "#e3e3e3");
 
                 });
                 $("#busquedaAvanzada").show();

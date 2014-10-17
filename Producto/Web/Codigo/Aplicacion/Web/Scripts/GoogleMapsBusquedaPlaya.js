@@ -4,6 +4,8 @@ var map;
 var markers = [];
 //array de circulos
 var circulos = [];
+//marcador del centro de circulo
+var marcadorCirculo = [];
 //contenido del marcador
 var contenido = "";
 //variable infoWindows que se seteara al marcador 
@@ -103,6 +105,25 @@ function dibujarPunto(event) {
 
     //agrega el nuevo circulo a un array de circulos
     circulos.push(puntoInteres);
+
+    //creamos el marcador                      
+    var marker = new google.maps.Marker({
+        position: event.latLng,
+        map: map
+    });
+
+    //seteamos al contenido
+    (function (marker, contenido) {
+        google.maps.event.addListener(marker, 'mouseover', function () {
+            infowindow.setContent("Usted esta aquí");
+            infowindow.open(map, marker);
+        });
+    })(marker, contenido);
+
+    //agregamos el marcador al array
+    marcadorCirculo.push(marker);    
+
+    map.setZoom(15);
 }
 
 //AGREGA UN PUNTO DE INTERES A PARTIR DE UNA DIRECCION (calle y numero + la ciudad)
@@ -135,6 +156,25 @@ function marcarPunto() {
 
             //agrega el nuevo circulo a un array de circulos
             circulos.push(puntoInteres);
+
+            //creamos el marcador                      
+            var marker = new google.maps.Marker({
+                position: results[0].geometry.location,
+                map: map
+            });
+
+            //seteamos al contenido
+            (function (marker, contenido) {
+                google.maps.event.addListener(marker, 'mouseover', function () {
+                    infowindow.setContent("Usted esta aquí");
+                    infowindow.open(map, marker);
+                });
+            })(marker, contenido);
+
+            //agregamos el marcador al array
+            marcadorCirculo.push(marker);
+
+            map.setZoom(15);
 
         } else {
             Alerta_openModalInfo('La direccion establecida no ha podido encontrarse', 'Resultado de la Busqueda');
@@ -178,6 +218,14 @@ function setAllMapCirculos(map) {
     }
 }
 
+//SETEO TODOS LOS MARCADORES DE CIRULO EN EL MAPA
+function setAllMapMarcadorCirculo(map) {
+    for (var i = 0; i < marcadorCirculo.length; i++) {
+        marcadorCirculo[i].setMap(map);
+    }
+}
+
+
 //REMUEVE TODOS LOS MARCADORES DEL MAPA
 function clearMarkers() {
     setAllMap(null);
@@ -186,6 +234,12 @@ function clearMarkers() {
 //REMUEVE TODOS LOS CIRCULOS DEL MAPA
 function clearCirculos() {
     setAllMapCirculos(null);
+}
+
+
+//REMUEVE TODOS LOS MARCADORES DE CIRCULOS DEL MAPA
+function clearMarcadorCirculo() {
+    setAllMapMarcadorCirculo(null);
 }
 
 //MUESTRA TODOS LOS MARCADORES EN EL MAPA
@@ -203,6 +257,8 @@ function deleteMarkers() {
 function deleteCirculos() {
     clearCirculos();
     circulos = [];
+    clearMarcadorCirculo();
+    marcadorCirculo = [];
 }
 
 //SETEA COMO METODO DE INICIO AL CARGAR LA PAGINA
