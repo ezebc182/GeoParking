@@ -1,6 +1,7 @@
 var ubicacionAuto;
 var cantClick = 0;
 var modo = 1;
+var regresoAVehiculo = false;
 
 
 function guardarUbicacion() {
@@ -15,6 +16,7 @@ function guardarUbicacion() {
             action: function (ventanaRecordar) {
                 obtenerPosicionActual();
                 ubicacionAuto = posicionActual;
+                localStorage.setItem("UbicacionVehiculo",JSON.stringify(ubicacionAuto));
                 ventanaRecordar.close();
                 var mdConfirmacion = new BootstrapDialog({
                     closable: false,
@@ -55,8 +57,12 @@ function trazarRegreso() {
             label: 'Si',
             cssClass: 'btn-success',
             action: function (ventanaRecordar) {
-                obtenerPosicionActual();
-
+                //obtenerPosicionActual();
+                var ubicacionAVolver = localStorage.getItem("UbicacionVehiculo");
+                ubicacionAVolver = jQuery.parseJSON(ubicacionAVolver);
+                ubicacionAVolver = new google.maps.LatLng(ubicacionAVolver.k, ubicacionAVolver.B);
+                destino = ubicacionAVolver;
+                agregarMarkadorPosicionAuto(ubicacionAVolver);
                 ventanaRecordar.close();
                 var mdConfirmacion = new BootstrapDialog({
                     closable: false,
@@ -66,7 +72,9 @@ function trazarRegreso() {
                         label: 'Ok',
                         cssClass: 'btn-default',
                         action: function (ventanaExito) {
-                            ir(posicionActual, ubicacionAuto, "WALKING", "METRIC");
+                            regresoAVehiculo = true;
+                            enRecorrido = false;
+                            ir(posicionActual, ubicacionAVolver, "WALKING", "METRIC");
                             ventanaExito.close();
                         }
                     }],
@@ -103,4 +111,14 @@ function mostrarIndicaciones() {
             }]
     });
 
+}
+
+function agregarMarkadorPosicionAuto(posicion){
+                marker = new google.maps.Marker({
+                    position: posicion,
+                    map: map,
+                    icon: './img/marcadorAuto.png'
+                });
+                markers.push(marker);
+                marker.setMap(map);
 }

@@ -91,10 +91,26 @@ function mantenerPosicionActualActualizada(){
                         ir(posicionActual, destino, "DRIVING","METRIC");
                 }
                 else{
-                    clearInterval(actualizadorDePosicion);
+                    enRecorrido = false;
+                    //clearInterval(actualizadorDePosicion);
                     directionsDisplay.setMap(null);
                 }
                 
+            }
+            else if(regresoAVehiculo){
+                var lat1 = parseFloat(posicionActual.k);
+                var lon1 = parseFloat(posicionActual.B);
+                var lat2 = parseFloat(destino.k);
+                var lon2 = parseFloat(destino.B);
+                if(distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) >= 0.02){
+                    directionsDisplay.setMap(null);
+                        ir(posicionActual, destino, "WALKING","METRIC");
+                }
+                else{
+                    regresoAVehiculo = false;
+                    //clearInterval(actualizadorDePosicion);
+                    directionsDisplay.setMap(null);
+                }
             }
         };
         var funcionError = function(error){
@@ -163,6 +179,7 @@ function addMarker(location, playa) {
             ir(posicionActual, destino, "DRIVING","METRIC");
         });
         enRecorrido = true;
+        regresoAVehiculo = false;
         /*var uri = "http://ifrigerio-001-site1.smarterasp.net/api/playas/getPlayas?idPlaya=" + playa.ID + "&idTipoVehiculo=" + idTipoVehiculo + "&latitud=" + posicionActual.k + "&longitud=" + posicionActual.B;
         $.getJSON(uri);*/
     })(marker,posicionActual);

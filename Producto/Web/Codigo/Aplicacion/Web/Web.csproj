@@ -67,7 +67,6 @@
   <ItemGroup>
     <Content Include="AdministracionUsuarios.aspx" />
     <Content Include="Ayuda.aspx" />
-    <Content Include="Bootstrap\css\administracion.css" />
     <Content Include="Bootstrap\css\bootstrap.icon-large.min.css" />
     <Content Include="Bootstrap\fonts\glyphicons.png" />
     <Content Include="BusquedaPlaya.aspx" />
