@@ -254,7 +254,15 @@ $(function () {
                         map.setCenter(results[0].geometry.location);
                         map.setZoom(12);
                         
-                        cargarPlayas(response);                        
+                        cargarPlayas(response);
+
+                        document.getElementById('ddlTipoPlaya').value=0;
+                        document.getElementById('ddlTipoVehiculo').value=0;
+                        document.getElementById('ddlDiasAtencion').value=0;
+                        document.getElementById('txtMinPrecio').value =0;
+                        document.getElementById('txtMaxPrecio').value =0;
+                        document.getElementById('ddlHoraDesde').value=0;
+                        document.getElementById('ddlHoraHasta').value=0;
 
                     } else {
                         Alerta_openModalInfo('La ciudad no ha podido encontrarse', 'Resultado de la Busqueda' );
