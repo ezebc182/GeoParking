@@ -47,7 +47,7 @@ function crearAcordion(playas){
     for(var i = 0; i < playas.length; i++){
         var playa = playas[i];
         var distancia = calcularDistanciaPlaya(playa);
-        if(distancia <= 500){
+        if(distancia <= obtenerDistanciaPredeterminada()){
             var header = document.createElement("h3");
             header.innerHTML = crearHeaderParaPlaya(playa);
             var contenedor = document.createElement("div");
@@ -65,6 +65,13 @@ function crearAcordion(playas){
         }
     }
     return acordion;
+}
+function obtenerDistanciaPredeterminada(){
+    var configuraciones = localStorage.getItem("Configuraciones");
+    if(configuraciones !== null){
+        configuraciones = jQuery.parseJSON(configuraciones);
+    }
+    return configuraciones.radio;
 }
 function crearDescripcionParaPlaya(playa){
     var descripcion = "Direccion: ";

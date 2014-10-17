@@ -41,6 +41,7 @@ function guardarConfiguracion() {
         "radio": $('#radio').val(),
         "gps": estadoCheck()
     }
+    localStorage.setItem("Configuraciones",JSON.stringify(config));
     BootstrapDialog.show({
         title: "Configuración guardada!",
         message: "<h4>Datos de configuración:</h4>" +
@@ -70,4 +71,19 @@ function guardarConfiguracion() {
             }]
     });
 
+}
+
+function leerConfiguracionGuardada(){
+    var configuraciones = localStorage.getItem("Configuraciones");
+    if(configuraciones !== null){
+        configuraciones = jQuery.parseJSON(configuraciones);
+    }
+    return configuraciones;
+}
+function setearValoresDeConfiguraciones(){
+    var config = leerConfiguracionGuardada();
+    if(config !== null){
+        $('#tipoVehiculo').val(config.tipoVehiculo);
+        $('#radio').val(config.radio);
+    }
 }
