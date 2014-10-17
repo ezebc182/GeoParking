@@ -47,7 +47,7 @@
                         </button>
 
                         <%--<a class="navbar-brand" href="./Index.aspx"><span style="color: red; font-size: 35px;">GEO</span><span style="color: white; font-size: 35px;">PARKING</span></a>--%>
-                        <a class="navbar-brand" href="./Index.aspx"><span style="color: red; font-family: Impact; font-size: 20px; text-shadow: 4px 4px 4px grey;">GEO</span><span style="color: white; font-size: 20px; font-family: Impact; text-shadow: 4px 4px 4px grey;">PARKING</span></a>
+                        <a class="navbar-brand" href="./Index.aspx"><span style="color: red; font-family: Impact; font-size: 20px; text-shadow: 1px 1px 1px grey;">GEO</span><span style="color: white; font-size: 20px; font-family: Impact; text-shadow: 1px 1px 1px grey;">PARKING</span></a>
 
                     </div>
 
@@ -83,7 +83,7 @@
                             <% var usuario = Session["Usuario"];
                                if (Session["Usuario"] == null)
                                { %>
-                            <li><a id="btnIngresar" class=" btn-success " href="#login" data-keyboard="false" data-backdrop="static" data-toggle="modal"
+                            <li><a id="btnIngresar" class=" btn-primary " href="#login" data-keyboard="false" data-backdrop="static" data-toggle="modal"
                                 data-target="#login"><b>Ingresar</b></a></li>
                             <% }
                                else
