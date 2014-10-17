@@ -43,7 +43,7 @@
 
                     <div class="input-group-btn">
                         <button type="button" class="btn-primary btn btn-lg" id="Button1">
-                            <span class="glyphicon glyphicon-filter"></span>&nbsp;Filtrar</button>
+                            <span class="glyphicon glyphicon-search"></span>&nbsp;Buscar</button>
                     </div>
 
                 </div>
@@ -203,7 +203,7 @@
     glyphicon-time"></span></span>
 
                                 <asp:DropDownList ID="ddlHoraHasta" CssClass="form-control" runat="server" ClientIDMode="Static">
-                                    <asp:ListItem Value="0">00</asp:ListItem>
+                                    <asp:ListItem Value="0" Selected="True">00</asp:ListItem>
                                     <asp:ListItem Value="2">02</asp:ListItem>
                                     <asp:ListItem Value="4">04</asp:ListItem>
                                     <asp:ListItem Value="6">06</asp:ListItem>
@@ -215,7 +215,7 @@
                                     <asp:ListItem Value="18">18</asp:ListItem>
                                     <asp:ListItem Value="20">20</asp:ListItem>
                                     <asp:ListItem Value="22">22</asp:ListItem>
-                                    <asp:ListItem Value="23" Selected="True">24</asp:ListItem>
+                                    <asp:ListItem Value="23">24</asp:ListItem>
                                 </asp:DropDownList>
                             </div>
                         </div>

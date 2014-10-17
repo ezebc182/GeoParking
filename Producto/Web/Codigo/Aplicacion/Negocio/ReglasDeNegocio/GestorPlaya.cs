@@ -401,6 +401,10 @@ namespace ReglasDeNegocio
         {
             Func<PlayaDeEstacionamiento, bool> consulta = null;
             
+            //ESTO NUNCA LO USAS..... LO DEBERIAS PONER COMO LA BASE DE LA CONSULTA... YO INTENTE PERO
+            //DE LA FORMA EN QUE LO HACES VOS NO ME ANDA......  O SEA LA CONSULTA DE POR SI DEBE TENER ESTE PEDAZO DE 
+            //CODIGO POR MAS QUE NO FILTRE POR NADA, PORQUE SINO LLEGA AL FINAL Y NUNCA TOCO LA VARIABLE CONSULTA Y QUEDO EN NULL Y TE TIRA ERROR
+            //SOLUCIONANDO ESO YA ANDARIAN LOS FILTROS.. YA QUE CUANDO LAS HORAS SON 00 Y 00 NO FILTRAN POR HORA Y SE DEBERIAN VER TODAS
             var query = from p in playaDao.FindAll()
                         where !p.FechaBaja.HasValue
                         select p;            
@@ -448,7 +452,11 @@ namespace ReglasDeNegocio
                     consulta = consulta.And(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
                 }
                 else consulta = p => p.Precios.Any(prec => prec.Monto <= precioHasta);
+
+                //QUE HACE ESTO ACA???????????????
                 query = query.Where(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
+
+
                 //lista = (IList<PlayaDeEstacionamiento>)lista.Where(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
             }
 
@@ -470,6 +478,7 @@ namespace ReglasDeNegocio
                 else consulta = p => p.Horarios.Any(h => int.Parse(h.HoraHasta.Substring(0, 2)) >= horaHasta);
                }
 
+            //SINO PONES LO QUE TE DIGO ARRIBA ACA LLEGA NULL LA VARIABLE CONSULTA... 
             var listaPlayas = playaDao.FindWhere(consulta);
 
             return listaPlayas;
