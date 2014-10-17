@@ -30,9 +30,9 @@ namespace Entidades
         [NotMapped]
         public Provincia Provincia { get; set; }
         [NotMapped]
-        public string DepartamentoStr { get { return Departamento != null ? Departamento.Nombre : ""; } }
+        public string DepartamentoStr { get { return Ciudad != null ? Ciudad.Departamento.Nombre : ""; } }
         [NotMapped]
-        public string ProvinciaStr { get { return Provincia != null ? Provincia.Nombre : ""; } }
+        public string ProvinciaStr { get { return Ciudad != null ? Ciudad.Departamento.Provincia.Nombre : ""; } }
         [NotMapped]
         public string CiudadStr { get { return Ciudad != null ? Ciudad.Nombre : ""; } }
 

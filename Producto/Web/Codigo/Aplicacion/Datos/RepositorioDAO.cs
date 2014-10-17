@@ -29,8 +29,8 @@ namespace Datos
     //Clases DAO para cada entidad que heredan de la clase Repositorio
     public class RepositorioTipoDePlaya : Repositorio<TipoPlaya>, IRepositorioTipoDePlaya { }
     public class RepositorioTipoVehiculo : Repositorio<TipoVehiculo>, IRepositorioTipoVehiculo { }
-    public class RepositorioServicio : Repositorio<Servicio>, IRepositorioServicio {    }
-    public class RepositorioDireccion : Repositorio<Direccion>, IRepositorioDireccion {}
+    public class RepositorioServicio : Repositorio<Servicio>, IRepositorioServicio { }
+    public class RepositorioDireccion : Repositorio<Direccion>, IRepositorioDireccion { }
     public class RepositorioHorario : Repositorio<Horario>, IRepositorioHorario { }
     public class RepositorioPrecio : Repositorio<Precio>, IRepositorioPrecio { }
     public class RepositorioDiaAtencion : Repositorio<DiaAtencion>, IRepositorioDiaAtencion { }
@@ -73,7 +73,7 @@ namespace Datos
             }
         }
     }
-    public class RepositorioPermiso : Repositorio<Permiso>, IRepositorioPermiso 
+    public class RepositorioPermiso : Repositorio<Permiso>, IRepositorioPermiso
     {
         public override IList<Permiso> FindAll()
         {
@@ -94,7 +94,7 @@ namespace Datos
 
     public class RepositorioPlayaDeEstacionamiento : Repositorio<PlayaDeEstacionamiento>, IRepositorioPlayaDeEstacionamiento
     {
-        
+
         public override IList<PlayaDeEstacionamiento> FindAll()
         {
             return DbSet
@@ -126,36 +126,48 @@ namespace Datos
 
             return lista.ToList();
         }
-        
+
         public override PlayaDeEstacionamiento Create(PlayaDeEstacionamiento entity)
         {
-            using (contexto = new ContextoBD())
-            {
-                Update(entity);
+            Update(entity);
+            return entity;
+        }
 
-                return entity;// result;
+        public override int Delete(Func<PlayaDeEstacionamiento, bool> predicate)
+        {
+            var cont = 0;
+            var objects = FindWhere(predicate);
+            foreach (var obj in objects)
+            {
+                obj.FechaBaja = DateTime.Now;
+                cont += Update(obj);
             }
+            return cont;
         }
         public override int Update(PlayaDeEstacionamiento t)
         {
-            var entry = contexto.Entry(t);
-            if (entry.State == System.Data.Entity.EntityState.Detached)
+            using (contexto = new ContextoBD())
             {
-                contexto.UpdateGraph(t, map => map
-                    .OwnedCollection(p => p.Direcciones, with => with
-                        .AssociatedEntity(d => d.PlayaDeEstacionamiento))
-                    .OwnedCollection(p => p.Horarios, with => with
-                    .AssociatedEntity(h => h.PlayaDeEstacionamiento))
-                    .OwnedCollection(p => p.Precios, with => with
-                    .AssociatedEntity(p => p.PlayaDeEstacionamiento))
-                    .OwnedCollection(p => p.Servicios, with => with
-                    .AssociatedEntity(s => s.PlayaDeEstacionamiento))
-                    );
-                return contexto.SaveChanges();
-            }
-            else
-            {
-                return base.Update(t);
+                var entry = contexto.Entry(t);
+                if (entry.State == System.Data.Entity.EntityState.Detached)
+                {
+                    contexto.UpdateGraph(t, map => map
+                        .OwnedCollection(p => p.Direcciones, with => with
+                            .AssociatedEntity(d => d.PlayaDeEstacionamiento))
+                        .OwnedCollection(p => p.Horarios, with => with
+                        .AssociatedEntity(h => h.PlayaDeEstacionamiento))
+                        .OwnedCollection(p => p.Precios, with => with
+                        .AssociatedEntity(p => p.PlayaDeEstacionamiento))
+                        .OwnedCollection(p => p.Servicios, with => with
+                        .AssociatedEntity(s => s.PlayaDeEstacionamiento))
+                        );
+                    return contexto.SaveChanges();
+                }
+
+                else
+                {
+                    return base.Update(t);
+                }
             }
         }
 

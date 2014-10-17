@@ -300,10 +300,10 @@ namespace ReglasDeNegocio
         {
             var lista = playaDao.FindWhere(m => m.Nombre.Contains(nombre) && !m.FechaBaja.HasValue);
 
-            foreach (var playa in lista)
-            {
-                CargarPlaya(playa);
-            }
+            //foreach (var playa in lista)
+            //{
+            //    CargarPlaya(playa);
+            //}
             return lista;
         }
         /// <summary>

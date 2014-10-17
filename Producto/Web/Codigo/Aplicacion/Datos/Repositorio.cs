@@ -103,25 +103,16 @@ namespace Datos
         /// </summary>
         /// <param name="predicate">consulta</param>
         /// <returns>0 sino se realizo la accion, -1 si dio error</returns>
-        public int Delete(Func<TEntity, bool> predicate)
+        public virtual int Delete(Func<TEntity, bool> predicate)
         {
-            using (contexto = new ContextoBD())
+            var cont = 0;
+            var objects = FindWhere(predicate);
+            foreach (var obj in objects)
             {
-                var objects = FindWhere(predicate);
-                foreach (var obj in objects)
-                {
-                    obj.FechaBaja = DateTime.Now;
-                    Update(obj);
-                }
-                try
-                {
-                    return contexto.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    throw new DataBaseException(e.Message, e);
-                }
+                obj.FechaBaja = DateTime.Now;
+                cont += Update(obj);
             }
+            return cont;
         }
 
         /// <summary>

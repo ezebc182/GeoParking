@@ -254,7 +254,7 @@
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div>
-        <asp:UpdatePanel ID="upBusqueda" runat="server">
+        <asp:UpdatePanel ID="upBusqueda" runat="server" UpdateMode="Conditional">
             <ContentTemplate>
                 <div class="container-fluid">
                     <div class="jumbotron" style="margin-top: 5%;">

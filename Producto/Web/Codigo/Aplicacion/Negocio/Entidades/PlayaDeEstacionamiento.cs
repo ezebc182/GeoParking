@@ -62,7 +62,7 @@ namespace Entidades
         [NotMapped]
         public string Ciudad { get { return Direcciones.Count > 0 ? Direcciones[0].CiudadStr : ""; } }
         [NotMapped]
-        public string Provincia { get { return Direcciones.Count > 0 ? Direcciones[0].ProvinciaStr : ""; } }
+        public string Provincia { get { return Direcciones.Count > 0 ? Direcciones[0].Ciudad.Departamento.Provincia.Nombre : ""; } }
 
         #endregion
 
