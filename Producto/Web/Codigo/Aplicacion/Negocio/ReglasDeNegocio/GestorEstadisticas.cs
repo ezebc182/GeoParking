@@ -22,10 +22,12 @@ namespace ReglasDeNegocio
         public void GuardarConsulta(int idPlaya,int idTipoVehiculo,string latitud,string longitud)
         {
             EstadisticaConsultas consulta = new EstadisticaConsultas();
-            consulta.Hora = DateTime.Now; 
-            consulta.Ciudad = playaDao.FindById(idPlaya).Direcciones[0].CiudadId;
+            consulta.Hora = DateTime.Now;
+            PlayaDeEstacionamiento playa = playaDao.FindWhere(p =>p.Id == idPlaya)[0];
+            consulta.IdTipoVehiculo = idTipoVehiculo;
+            consulta.Ciudad = playa.Direcciones[0].CiudadId;
             consulta.IdPlaya = idPlaya;
-            consulta.IdTipoPlaya = (int)playaDao.FindById(idPlaya).TipoPlayaId;
+            consulta.IdTipoPlaya = (int)playa.TipoPlayaId;
             consulta.latitud = latitud;
             consulta.longitud = longitud;
 
