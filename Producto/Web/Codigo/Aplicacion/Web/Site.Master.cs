@@ -201,14 +201,26 @@ namespace Web
                 && txtEmailRegistro.Text != "" && txtUsuarioRegistro.Text != "")
             {
                 Usuario usuario = CargarEntidad();
-                var resultado = gestor.RegistrarUsuario(usuario);
-                Response.Redirect(Request.Url.AbsolutePath);
-                registrar.Visible = false;
-                MostrarMensajeInformacion(TipoMensajeEnum.MensajeModal, "El usuario " + usuario.NombreUsuario + " se ha registrado con exito!!", "Registro de Usuario");
+                var usuarioValido = gestor.ValidarUsuarioIngresado(usuario.NombreUsuario);
+                var mailValido = gestor.ValidarEmailIngresado(usuario.Mail);
+                if (usuarioValido != null)
+                {
+                    Error = "El nombre de usuario ingresado ya esta en uso, elija otro.";
+                }
+                if (mailValido != null)
+                {
+                    Error = "Ya hay un usuario registrado con este e-mail.";
+                }
+                if (mailValido == null && usuarioValido == null)
+                {
+                    gestor.RegistrarUsuario(usuario);
+                    hfregistro.Value = "true";
+                    MostrarMensajeInformacion(TipoMensajeEnum.MensajeModal, "El usuario " + usuario.NombreUsuario + " se ha registrado con exito!!", "Registro de Usuario");
+                }
             }
             else
             {
-                Error = "Debe completar todos los campos";
+                Error = "Debe completar todos los campos.";
             }
         }
 

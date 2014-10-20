@@ -200,7 +200,7 @@
             </div>
         </div>
         <!-- /.modal -->
-        <div class="modal fade" id="registrar" runat="server">
+        <div class="modal fade" id="registrar">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -332,6 +332,7 @@
                                         <asp:Button ID="btnRegistrar" Text="Registrar" UseSubmitBehavior="true" CssClass="btn btn-primary btn-block btn-lg"
                                             runat="server" OnClick="btnRegistrar_Click" TabIndex="17" />
                                     </div>
+                                    <asp:HiddenField runat="server" ID="hfregistro" Value="false"/>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
@@ -375,7 +376,6 @@
     </asp:ContentPlaceHolder>
 
     <script type="text/javascript">
-
         var checker = document.getElementById('chAceptar');
         var sendbtn = document.getElementById('btnRegistrar');
         // when unchecked or checked, run the function
@@ -420,6 +420,10 @@
 
             }
             $(".formulario").bootstrapValidator();
+            if ($("#hfregistro").val() == "true")
+            {
+                $('#registrar').modal('hide');
+            }
         });
 
         $('#login').on('shown.bs.modal', function () {
