@@ -202,7 +202,13 @@ namespace Web
             {
                 Usuario usuario = CargarEntidad();
                 var resultado = gestor.RegistrarUsuario(usuario);
+                Response.Redirect(Request.Url.AbsolutePath);
+                registrar.Visible = false;
                 MostrarMensajeInformacion(TipoMensajeEnum.MensajeModal, "El usuario " + usuario.NombreUsuario + " se ha registrado con exito!!", "Registro de Usuario");
+            }
+            else
+            {
+                Error = "Debe completar todos los campos";
             }
         }
 
@@ -339,5 +345,17 @@ namespace Web
             }
         }
 
+        /// <summary>
+        /// Mensaje de error
+        /// </summary>
+        public string Error
+        {
+            get { return lblMensajeError.Text; }
+            set
+            {
+                lblMensajeError.Text = value;
+                FormHelper.CambiarVisibilidadControl(divAlertError, !string.IsNullOrEmpty(value));
+            }
+        }
     }
 }
