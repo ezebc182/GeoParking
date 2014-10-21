@@ -99,7 +99,6 @@
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Bootstrap\js\bootstrap.js" />
     <Content Include="Bootstrap\js\bootstrap.min.js" />
-    <Content Include="Proxy.aspx" />
     <Content Include="Scripts\administracion.js" />
     <Content Include="Scripts\app-block.js" />
     <Content Include="Scripts\Autocomplete.js" />
@@ -245,13 +244,6 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="Proxy.aspx.cs">
-      <DependentUpon>Proxy.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Proxy.aspx.designer.cs">
-      <DependentUpon>Proxy.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
