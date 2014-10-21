@@ -228,6 +228,7 @@
     </Compile>
     <Compile Include="DensidadConsultasPorFechas.aspx.cs">
       <DependentUpon>DensidadConsultasPorFechas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="DensidadConsultasPorFechas.aspx.designer.cs">
       <DependentUpon>DensidadConsultasPorFechas.aspx</DependentUpon>

@@ -35,7 +35,19 @@ namespace Datos
     public class RepositorioPrecio : Repositorio<Precio>, IRepositorioPrecio { }
     public class RepositorioDiaAtencion : Repositorio<DiaAtencion>, IRepositorioDiaAtencion { }
     public class RepositorioTiempo : Repositorio<Tiempo>, IRepositorioTiempo { }
-    public class RepositorioCiudad : Repositorio<Ciudad>, IRepositorioCiudad { }
+    public class RepositorioCiudad : Repositorio<Ciudad>, IRepositorioCiudad 
+    {
+
+        public override Ciudad FindById(int id)
+        {
+            var lista = DbSet
+                    .Include("Departamento")
+                    .Include("Departamento.Provincia")
+                    .Where(p => p.Id == id);
+
+            return lista.FirstOrDefault();
+        }
+    }
     public class RepositorioDepartamento : Repositorio<Departamento>, IRepositorioDepartamento { }
     public class RepositorioProvincia : Repositorio<Provincia>, IRepositorioProvincia { }
     public class RepositorioEstadisticaConsultas : Repositorio<EstadisticaConsultas>, IRepositorioEstadisticaConsultas { }
