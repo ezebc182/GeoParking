@@ -258,7 +258,7 @@
                             <div class="form-group">
                                 <asp:TextBox ID="txtEmailRegistro" data-bv-notempty="true" data-bv-notempty-message="El email es requerido"
                                     data-bv-emailaddress-message="Ingrese un formato de email correcto." placeholder="Email"
-                                    CssClass="form-control input-lg" type="email" runat="server" TextMode="Email"
+                                    CssClass="form-control input-lg" runat="server" type="email"
                                     TabIndex="13">
                                 </asp:TextBox>
                             </div>
