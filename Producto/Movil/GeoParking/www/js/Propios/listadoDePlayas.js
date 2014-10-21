@@ -70,8 +70,9 @@ function obtenerDistanciaPredeterminada(){
     var configuraciones = localStorage.getItem("Configuraciones");
     if(configuraciones !== null){
         configuraciones = jQuery.parseJSON(configuraciones);
+        return parseInt(configuraciones.radio);
     }
-    return configuraciones.radio;
+    return 500;
 }
 function crearDescripcionParaPlaya(playa){
     var descripcion = "Direccion: ";
