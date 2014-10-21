@@ -47,6 +47,12 @@ namespace ReglasDeNegocio
             }
             return permisos;
         }
+
+        public IList<Rol> BuscarRolesPorPermiso(Permiso permiso)
+        {
+            IList<Rol> roles = rolDao.FindWhere(x => x.Permisos.Any(p => p.Id == permiso.Id));
+            return roles;
+        }
         public Rol BuscarRol(int idRol)
         {
             Rol rol = rolDao.FindById(idRol);
@@ -56,7 +62,7 @@ namespace ReglasDeNegocio
         public Permiso BuscarPermiso(int id)
         {
             Permiso permiso = permisoDao.FindById(id);
-            permiso.Roles = rolDao.FindWhere(p => p.Permisos.Any(r => p.Id == permiso.Id));
+            permiso.Roles = BuscarRolesPorPermiso(permiso);
             return permiso;
         }
 
@@ -66,6 +72,12 @@ namespace ReglasDeNegocio
 
             rolDao.Update(rol);
 
+            return resultado;
+        }
+
+        public Resultado GuardarPermiso(IList<Permiso> permiso)
+        {
+            Resultado resultado = new Resultado();
             return resultado;
         }
 

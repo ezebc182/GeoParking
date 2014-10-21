@@ -69,7 +69,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li id="admPOI" class="dropdown disabled">
+<%--                            <li id="admPOI" class="dropdown disabled">
                                 <a href="#" class="disabled dropdown-toggle" data-toggle="dropdown">Administración POI
                                 <b class="caret"></b>
                                 </a>
@@ -79,7 +79,7 @@
                                     <li class="divider"></li>
                                     <li><a href="#">Exportar?</a></li>
                                 </ul>
-                            </li>
+                            </li>--%>
                             <% var usuario = Session["Usuario"];
                                if (Session["Usuario"] == null)
                                { %>

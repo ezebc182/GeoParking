@@ -175,24 +175,8 @@ namespace Web
             Resultado resultado;
 
             Rol rolSeleccionado = RolSeleccionado;
-            IList<Permiso> permisos = tomarPermisosSeleccionados();
-
-            foreach (Permiso permiso in permisos)
-            {
-                if (!(rolSeleccionado.Permisos.Contains(permiso)))
-                {
-                    rolSeleccionado.Permisos.Add(permiso);
-                }
-            }
-            foreach (Permiso permiso in permisos)
-            {
-                if (!(permiso.Roles.Contains(rolSeleccionado)))
-                {
-                    permiso.Roles.Add(rolSeleccionado);
-                }
-            }
+            rolSeleccionado.Permisos = tomarPermisosSeleccionados();
             resultado = gestorRol.GuardarRol(rolSeleccionado);
-
             return resultado;
         }
 
@@ -234,10 +218,6 @@ namespace Web
                 }
                 else return null;
             }
-        }
-        protected void cblPermiso_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            btnGuardar.Enabled = ddlRolPermisos.SelectedIndex != 0 && hayCambiosPorGuardarAsignarPermiso(RolSeleccionado, tomarPermisosSeleccionados());
         }
         private IList<Permiso> tomarPermisosSeleccionados()
         {

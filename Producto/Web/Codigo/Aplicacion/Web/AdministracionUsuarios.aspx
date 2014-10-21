@@ -77,7 +77,7 @@
                                         <label for="ddlRol" class="col-sm-2 col-md-2 col-lg-2 control-label">Permisos</label>
                                         <br />
                                         <div>
-                                            <asp:CheckBoxList ID="cblPermiso" runat="server" AutoPostBack="True" OnSelectedIndexChanged="cblPermiso_SelectedIndexChanged">
+                                            <asp:CheckBoxList ID="cblPermiso" runat="server">
                                             </asp:CheckBoxList>
                                         </div>
                                     </div>
