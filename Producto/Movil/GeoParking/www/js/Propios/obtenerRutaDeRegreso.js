@@ -16,7 +16,7 @@ function guardarUbicacion() {
             action: function (ventanaRecordar) {
                 obtenerPosicionActual();
                 ubicacionAuto = posicionActual;
-                localStorage.setItem("UbicacionVehiculo",JSON.stringify(ubicacionAuto));
+                localStorage.setItem("UbicacionVehiculo", JSON.stringify(ubicacionAuto));
                 ventanaRecordar.close();
                 var mdConfirmacion = new BootstrapDialog({
                     closable: false,
@@ -97,10 +97,12 @@ function trazarRegreso() {
 function mostrarIndicaciones() {
 
     $('#panel_ruta').removeClass('hidden');
+
+
     BootstrapDialog.show({
 
         title: "Ruta de navegación",
-        message: $('#panel_ruta').val(),
+        message: $('#panel_ruta'),
         type: BootstrapDialog.TYPE_INFO,
         buttons: [{
             label: 'Cerrar',
@@ -113,12 +115,12 @@ function mostrarIndicaciones() {
 
 }
 
-function agregarMarkadorPosicionAuto(posicion){
-                marker = new google.maps.Marker({
-                    position: posicion,
-                    map: map,
-                    icon: './img/marcadorAuto.png'
-                });
-                markers.push(marker);
-                marker.setMap(map);
+function agregarMarkadorPosicionAuto(posicion) {
+    marker = new google.maps.Marker({
+        position: posicion,
+        map: map,
+        icon: './img/posicionGuardada.png'
+    });
+    markers.push(marker);
+    marker.setMap(map);
 }

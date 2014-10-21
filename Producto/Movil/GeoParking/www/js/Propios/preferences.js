@@ -7,46 +7,51 @@ function redirect() {
     window.location.replace("index.html");
 }
 
-function cambiarEstado() {
-    estadoCheck($('#myonoffswitch').prop("checked"));
-    //    if (cantClickCheck % 2 == 0) {
-    //        $('#myonoffswitch').prop("checked", true);
-    //    } else {
-    //        $('#myonoffswitch').prop("checked", false);
-    //    }
-    //    cantClickCheck++;
-
-
-
-}
 
 function estadoCheck(estado) {
-    //    var rta;
-    //    rta = $('#myonoffswitch').prop("checked");
     if (estado == true) {
 
-        return "Encencido";
+        return "Encendido";
     } else if (estado == false) {
 
         return "Apagado";
     }
 }
 
+function convertirEstadoCheck(estadoOnOff) {
+    if (estadoOnOff === 'Encendido') {
+        return true;
 
+    } else {
+        return false;
+    }
+}
 
+function traducirTipoVehiculo() {
+
+    return $('#tipoVehiculo').find(':selected').text();
+
+}
 
 function guardarConfiguracion() {
+    var configGPS = convertirEstadoCheck(estadoCheck($('#myonoffswitch').prop("checked")));
+
+
     config = {
         "tipoVehiculo": $('#tipoVehiculo').val(),
         "radio": $('#radio').val(),
-        "gps": estadoCheck()
+        "gps": configGPS
     }
-    localStorage.setItem("Configuraciones",JSON.stringify(config));
+    var tipoVehiculoDevuelto = traducirTipoVehiculo();
+
+    localStorage.setItem("Configuraciones", JSON.stringify(config));
+    config["gps"] = estadoCheck($('#myonoffswitch').prop("checked"));
+
     BootstrapDialog.show({
         title: "Configuración guardada!",
         message: "<h4>Datos de configuración:</h4>" +
             "<ul class='well'>" +
-            "<li>Tipo vehiculo: " + config["tipoVehiculo"] + "</li>" +
+            "<li>Tipo vehiculo: " + tipoVehiculoDevuelto + "</li>" +
             "<li>Alcance: " + config["radio"] + " metros</li>" +
             "<li>GPS: " + config["gps"] + "</li>" +
             "</ul>" + "<br>" +
@@ -73,37 +78,41 @@ function guardarConfiguracion() {
 
 }
 
-function leerConfiguracionGuardada(){
+function leerConfiguracionGuardada() {
     var configuraciones = localStorage.getItem("Configuraciones");
-    if(configuraciones !== null){
+    if (configuraciones !== null) {
         configuraciones = jQuery.parseJSON(configuraciones);
     }
     return configuraciones;
 }
-function setearValoresDeConfiguraciones(){
+
+function setearValoresDeConfiguraciones() {
     var config = leerConfiguracionGuardada();
-    if(config !== null){
+    if (config !== null) {
         $('#tipoVehiculo').val(config.tipoVehiculo);
         $('#radio').val(config.radio);
+        $('#myonoffswitch').prop("checked", config.gps)
     }
 }
-function cargarTiposDeVehiculo(){
+
+function cargarTiposDeVehiculo() {
     var tiposVehiculos = obtenerTiposDeVehiculos();
-    for(var i = 0; i < tiposVehiculos.length; i++){
+    for (var i = 0; i < tiposVehiculos.length; i++) {
         var option = document.createElement("option");
         option.value = tiposVehiculos[i].Id;
         option.innerHTML = tiposVehiculos[i].Nombre;
         $('#tipoVehiculo').append(option);
     }
 }
-function obtenerTiposDeVehiculos(){
+
+function obtenerTiposDeVehiculos() {
     var uri = "http://ifrigerio-001-site1.smarterasp.net/api/playas/GetTiposVehiculo";
     var tiposVehiculos = null;
     $.ajax({
-        type : "GET",
-        async : false,
-        url : uri,
-        success : function(response){
+        type: "GET",
+        async: false,
+        url: uri,
+        success: function (response) {
             tiposVehiculos = jQuery.parseJSON(response);
         }
     });

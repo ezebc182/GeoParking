@@ -10,25 +10,31 @@
     <link rel="stylesheet" href="./css/index.css">
     <link href="./css/cargarMapa.css" rel="stylesheet" type="text/css" />
     <link href="./css/guardarUbicacion.css" rel="stylesheet" type="text/css" />
-    <link href="./css/customAlert.css" type="text/css" rel="stylesheet">
     <link href="./js/bootstrap-dialog.min.css" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="./js/jQuery.mmenu-master/demo/css/demo.css" />
+    <link type="text/css" rel="stylesheet" href="./js/jQuery.mmenu-master/src/css/jquery.mmenu.all.css" />
 
 </head>
 
 <body>
 
-    <!-- BODY -->
-    <div class="container">
-        <div class="contenido">
-            <div id="panelListado" class="fullscreen"></div>
-            <div id="pnlMapa">
-                <div id="map-canvas" class="fullscreen"></div>
-            </div>
-
-            <div class="hidden" id="panel_ruta"></div>
+    <div id="page">
+        <div class="header">
+            <a href="#menu"></a>
+            <span>GEO PARKING</span>
         </div>
-        <div class="footer">
-            <div id="grupoDeBotones" class="btn-group  hidden">
+        <div class="content">
+            <!-- BODY -->
+
+            <div class="mapa">
+                <div id="panelListado" class="fullscreen"></div>
+                <div id="pnlMapa">
+                    <div id="map-canvas" class="fullscreen"></div>
+                </div>
+
+                <div class="hidden" id="panel_ruta"></div>
+            </div>
+            <div id="grupoDeBotones" class="btn-group">
                 <button title="Ubicarme" class="btn-lg btn btn-default" id="btnUbicarme" onclick="ubicarMiPosicion()"><span class="glyphicon glyphicon-screenshot"></span>
                 </button>
                 <button title="Ver listado playas" class="btn-lg btn btn-default" id="btnVerListado" onclick="verListado()"><span class="glyphicon glyphicon-list"></span>
@@ -39,10 +45,27 @@
                 </button>
                 <button title="Mostrar navegación" class="btn-lg btn btn-default" id="mostrarIndicaciones" onclick="mostrarIndicaciones()"><span class="glyphicon glyphicon-road"></span>
                 </button>
-                <a href="preferences.html" class="btn-lg btn btn-default"><span class="glyphicon glyphicon-cog"></a>
             </div>
+
         </div>
+        <nav id="menu">
+            <ul>
+                <li><a href="#"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a>
+                </li>
+                <li><a href="preferences.html"><span class="glyphicon glyphicon-cog"></span>&nbsp;Configuración</a> 
+                </li>
+                <li class="divider"></li>
+                <li><a href="contacto.html"><span class="glyphicon glyphicon-user"></span>&nbsp;Contacto</a>
+                </li>
+            </ul>
+        </nav>
+
     </div>
+
+
+
+
+
 
 
     <!-- Scripts -->
@@ -62,7 +85,12 @@
     <script src="./js/Propios/cargarMapa.js"></script>
     <!-- trabaja con el mapa cuando se inicializa -->
     <script src="./js/Propios/obtenerPlayas.js"></script>
-
+    <script src="./js/jQuery.mmenu-master/src/js/jquery.mmenu.min.all.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('nav#menu').mmenu();
+        });
+    </script>
     <!-- web service -->
 
     <script>
