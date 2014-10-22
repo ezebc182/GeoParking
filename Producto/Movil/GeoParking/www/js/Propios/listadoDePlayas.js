@@ -4,7 +4,7 @@ var playaElegida;
 function crearListado(playas) {
     if($("#acordion").length === 0){
         var acordion = crearAcordion(playas);
-        if($(acordion).children().length > 2){
+        if($(acordion).children().length >= 2){
             $("#pnlMapa").hide();
             $("#panelListado").append(acordion);
             $(acordion).accordion();

@@ -19,17 +19,17 @@
 <body>
 
     <div id="page">
-        <div class="header">
-            <a href="#menu"></a>
-            <span>GEO PARKING</span>
+        <div class="header" style="position: absolute; top: 0px; left: 0px; z-index:1000;">
+            <a href="#menu" style="z-index:1000;"></a>
+            <span style="z-index:1000;">GEO PARKING</span>
         </div>
         <div class="content">
             <!-- BODY -->
 
             <div class="mapa">
                 <div id="panelListado" class="fullscreen"></div>
-                <div id="pnlMapa">
-                    <div id="map-canvas" class="fullscreen"></div>
+                <div id="pnlMapa" style="z-index:1;">
+                    <div id="map-canvas" class="fullscreen" style="z-index:1;"></div>
                 </div>
 
                 <div class="hidden" id="panel_ruta"></div>
@@ -48,7 +48,7 @@
             </div>
 
         </div>
-        <nav id="menu">
+        <nav id="menu" style="z-index:1000;">
             <ul>
                 <li><a href="#"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a>
                 </li>
@@ -88,7 +88,7 @@
     <script src="./js/jQuery.mmenu-master/src/js/jquery.mmenu.min.all.js"></script>
     <script type="text/javascript">
         $(function () {
-            $('nav#menu').mmenu();
+            //$('nav#menu').mmenu();
         });
     </script>
     <!-- web service -->
@@ -97,6 +97,7 @@
         /* Intel native bridge is available */
         var playas = [];
         $(document).ready(function () {
+            $('nav#menu').mmenu();
             initialize();
         });
 

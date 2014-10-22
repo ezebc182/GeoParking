@@ -28,6 +28,8 @@ var enRecorrido = false;
 
 var actualizadorDePosicion;
 
+var tipoDestino = null;
+
 function mensajeErrorConexion(mensaje) {
     BootstrapDialog.show({
 
@@ -81,7 +83,7 @@ function mantenerPosicionActualActualizada(){
             posicionActual = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
             removeCarMarker();
             addCarMarker(posicionActual);
-            if(enRecorrido){
+            if(tipoDestino === "playa"){
                 var lat1 = parseFloat(posicionActual.k);
                 var lon1 = parseFloat(posicionActual.B);
                 var lat2 = parseFloat(destino.k);
@@ -91,13 +93,13 @@ function mantenerPosicionActualActualizada(){
                         ir(posicionActual, destino, "DRIVING","METRIC");
                 }
                 else{
-                    enRecorrido = false;
+                    tipoDestino = null;
                     //clearInterval(actualizadorDePosicion);
                     directionsDisplay.setMap(null);
                 }
                 
             }
-            else if(regresoAVehiculo){
+            else if(tipoDestino === "ubicacion"){
                 var lat1 = parseFloat(posicionActual.k);
                 var lon1 = parseFloat(posicionActual.B);
                 var lat2 = parseFloat(destino.k);
@@ -107,7 +109,7 @@ function mantenerPosicionActualActualizada(){
                         ir(posicionActual, destino, "WALKING","METRIC");
                 }
                 else{
-                    regresoAVehiculo = false;
+                    tipoDestino = null;
                     //clearInterval(actualizadorDePosicion);
                     directionsDisplay.setMap(null);
                 }
@@ -135,6 +137,18 @@ function addCarMarker(location) {
         position: location,
         map: map,
         icon: './img/marcadorAuto22.png',
+    });
+    infoWindow = new google.maps.InfoWindow();
+    google.maps.event.addListener(usuario, 'ready', function () {
+        infoWindow.setContent("Tu posición");
+    });
+    markers.push(usuario);
+}
+function addCarMarkerFirstTime(location){
+    usuario = new google.maps.Marker({
+        position: location,
+        map: map,
+        icon: './img/marcadorAuto22.png',
         animation: google.maps.Animation.DROP,
 
 
@@ -144,7 +158,6 @@ function addCarMarker(location) {
         infoWindow.setContent("Tu posición");
     });
     markers.push(usuario);
-
 }
 
 function addUserMarker(location) {
@@ -176,6 +189,7 @@ function addMarker(location, playa) {
     (function(marker,origen,playa){
         google.maps.event.addListener(marker, 'click', function() {
             destino = marker.getPosition();
+            tipoDestino = "playa";
             var configuraciones = localStorage.getItem("Configuraciones");
             var tipoDeVehiculo = 0;
             if(configuraciones !== null){
@@ -189,6 +203,7 @@ function addMarker(location, playa) {
             }
             var uri = "http://ifrigerio-001-site1.smarterasp.net/api/Estadisticas/GetGuardarConsulta?idPlaya=" + playa.Id + "&idTipoVehiculo=" + tipoDeVehiculo + "&latitud=" + posicionActual.k + "&longitud=" + posicionActual.B;
             $.getJSON(uri);
+            regresoAVehiculo = false;
             ir(posicionActual, destino, "DRIVING","METRIC");
         });
         enRecorrido = true;
@@ -226,7 +241,7 @@ function obtenerPosicionActual() {
             if (modo === '2') {
                 addUserMarker(posicionGoogle);
             } else {
-                addCarMarker(posicionGoogle);
+                addCarMarkerFirstTime(posicionGoogle);
 
             }
             var posicionInterna = {

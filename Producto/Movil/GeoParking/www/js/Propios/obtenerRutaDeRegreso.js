@@ -72,8 +72,7 @@ function trazarRegreso() {
                         label: 'Ok',
                         cssClass: 'btn-default',
                         action: function (ventanaExito) {
-                            regresoAVehiculo = true;
-                            enRecorrido = false;
+                            tipoDestino = "ubicacion";
                             ir(posicionActual, ubicacionAVolver, "WALKING", "METRIC");
                             ventanaExito.close();
                         }
