@@ -203,13 +203,13 @@ namespace Web
                 Usuario usuario = CargarEntidad();
                 var usuarioValido = gestor.ValidarUsuarioIngresado(usuario.NombreUsuario);
                 var mailValido = gestor.ValidarEmailIngresado(usuario.Mail);
-                if (usuarioValido != null)
-                {
-                    Error = "El nombre de usuario ingresado ya esta en uso, elija otro.";
-                }
                 if (mailValido != null)
                 {
                     Error = "Ya hay un usuario registrado con este e-mail.";
+                }
+                if (usuarioValido != null)
+                {
+                    Error = "El nombre de usuario ingresado ya esta en uso, elija otro.";
                 }
                 if (mailValido == null && usuarioValido == null)
                 {
