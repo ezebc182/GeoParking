@@ -81,6 +81,7 @@
     <Content Include="Controles\Mensajes\Info.ascx" />
     <Content Include="Controles\Mensajes\Confirmacion.ascx" />
     <Content Include="DensidadConsultasPorFechas.aspx" />
+    <Content Include="Estadisticas.aspx" />
     <Content Include="img\android.png" />
     <Content Include="img\apple.png" />
     <Content Include="img\facebook.png" />
@@ -232,6 +233,12 @@
     </Compile>
     <Compile Include="DensidadConsultasPorFechas.aspx.designer.cs">
       <DependentUpon>DensidadConsultasPorFechas.aspx</DependentUpon>
+    <Compile Include="Estadisticas.aspx.cs">
+      <DependentUpon>Estadisticas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Estadisticas.aspx.designer.cs">
+      <DependentUpon>Estadisticas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>

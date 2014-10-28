@@ -39,7 +39,7 @@ namespace Web
                 {
                     if (!Request.Url.AbsolutePath.Equals("/Index.aspx", StringComparison.OrdinalIgnoreCase))
                         if (!Request.Url.AbsolutePath.Equals("/BusquedaPlaya.aspx", StringComparison.OrdinalIgnoreCase))
-                            if (!Request.Url.AbsolutePath.Equals("/DensidadConsultasPorFechas.aspx", StringComparison.OrdinalIgnoreCase))
+                            if (!Request.Url.AbsolutePath.Equals("/Estadisticas.aspx", StringComparison.OrdinalIgnoreCase))
                             Response.Redirect("/Index.aspx?r=" + Request.Url.AbsolutePath);
                     
                 }

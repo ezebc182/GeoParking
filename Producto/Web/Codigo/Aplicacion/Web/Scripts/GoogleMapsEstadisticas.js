@@ -8,6 +8,11 @@ var pointArray = new Array();
 var heatmap = new Array();
 //array de los valores de los range
 var min = new Array();
+var max = new Array();
+//año seleccionado en el txt range
+var ano;
+var IdHM = 0;
+var IdHMAnt = 0;
 
 function initialize(IdMapa) {
 
@@ -27,7 +32,7 @@ function initialize(IdMapa) {
     //crea el mapa en el div "map-canvas" y le setea las opciones
     maps.push(new google.maps.Map(document.getElementById('map-' + IdMapa),
         mapOptions));
-
+ 
     //Se agrega un array de marcadores para usar con el mapa actual, un array de puntos, y uno de heatmaps
     if (markers.length !== IdMapa - 1) {
         markers.push(new Array());
@@ -36,56 +41,76 @@ function initialize(IdMapa) {
     }
 
     calcularIdHM(IdMapa);
-    //recuperamos las playas de la ciudad
-    getPlayas(IdMapa, IdHM);
+    //recuperamos las consultas de la ciudad
+    getConsultas(IdMapa, IdHM);
 }
 
-//AGREGAR MARCADORES DE LAS PLAYAS DE LA CIUDAD BUSCADA EN EL INDEX
-function getPlayas(IdMapa, IdHM) {
+//AGREGAR MARCADORES DE LAS consultas DE LA CIUDAD BUSCADA EN EL INDEX
+function getConsultas(IdMapa, IdHM) {
 
     //peticionAjax
     $.ajax({
         type: "POST",
-        url: "DensidadConsultasPorFechas.aspx/ObtenerPlayasDeCiudad",
-        data: "{}",
+        url: "Estadisticas.aspx/ObtenerConsultasDeCiudad",
+        data: "{'ciudadNombre': 'Cordoba'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            var playasArray = (typeof response.d) == 'string' ?
+            var consultasArray = (typeof response.d) == 'string' ?
                            eval('(' + response.d + ')') :
                            response.d;
 
-            var playas = new Array();
+            
+            
+            //Cargar por año
+            for (i = 0; i < max[IdMapa] - min[IdMapa]; i++) {
+                var consultas = new Array();
+                var consultasArrayAno = new Array();
+                //Consultas por año
+                for (var j = 0; j < consultasArray.length; j++) {
 
-            for (i = 0; i < playasArray.length; i++) {
+                    var date = new Date(consultasArray[j].Hora);
+                    if (date.getFullYear() == parseInt(ano, 10) + i) {
+                        consultasArrayAno.push(consultasArray[j]);
+                    }
+                
+                }
 
-                playas.push(new google.maps.LatLng(playasArray[i].Latitud, playasArray[i].Longitud));
+                for (j = 0; j < consultasArrayAno.length; j++) {
+                    if (consultasArrayAno[j] !== undefined) {
+                        consultas.push(new google.maps.LatLng(consultasArrayAno[j].Latitud, consultasArrayAno[j].Longitud));
+                    }
+                }
+                markers[IdMapa][i] = consultas;
+                cargarHeatMap(IdMapa, i);
             }
-            markers[IdMapa][IdHM] = playas;
-            cargarHeatMap(IdMapa, IdHM);
+            heatmap[IdMapa][0].setMap(heatmap[IdMapa][0].getMap() ? null : maps[IdMapa]);
         },
         error: function (result) {
             Alerta_openModalError('ERROR ' + result.status + ' ' + result.statusText, 'Error');
         }
     });
 }
-function cargarHeatMap(IdMapa, IdHM) {
+function cargarHeatMap(IdMapa, i) {
 
-    pointArray[IdMapa][IdHM] = new google.maps.MVCArray(markers[IdMapa][IdHM]);
+    pointArray[IdMapa][i] = new google.maps.MVCArray(markers[IdMapa][i]);
 
-    heatmap[IdMapa][IdHM] = new google.maps.visualization.HeatmapLayer({
-        data: pointArray[IdMapa][IdHM],
-        map: maps[IdMapa]
+    heatmap[IdMapa][i] = new google.maps.visualization.HeatmapLayer({
+        data: pointArray[IdMapa][i]
     });
 }
 function calcularIdHM(IdMapa) {
+    //se guarda el indice anterior
+    IdHMAnt = IdHM;
     //Se setea el mes elegido del mapa
     ano = $('[id*=txtMes-' + IdMapa + ']').val();
     min[IdMapa] = $('[id*=txtMes-' + IdMapa + ']').attr('min');
-    IdHM = ano - min
+    max[IdMapa] = $('[id*=txtMes-' + IdMapa + ']').attr('max');
+    IdHM = ano - min[IdMapa]
 }
 
 function toggleHeatmap(IdMapa) {
     calcularIdHM(IdMapa);
-    heatmap[IdMapa][IdHM].setMap(heatmap[Id][IdHM].getMap() ? null : maps[IdMapa]);
+    heatmap[IdMapa][IdHM].setMap(heatmap[IdMapa][IdHM].getMap() ? null : maps[IdMapa]);
+    heatmap[IdMapa][IdHMAnt].setMap(heatmap[IdMapa][IdHMAnt].getMap() ? null : maps[IdMapa]);
 }

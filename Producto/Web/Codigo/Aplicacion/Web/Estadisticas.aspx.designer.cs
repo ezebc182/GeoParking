@@ -10,6 +10,6 @@
 namespace Web {
     
     
-    public partial class DensidadConsultasPorFechas {
+    public partial class Estadisticas {
     }
 }

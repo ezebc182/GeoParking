@@ -9,45 +9,45 @@ using System.Web.Services;
 
 namespace Web
 {
-    public partial class DensidadConsultasPorFechas : System.Web.UI.Page
+    public partial class Estadisticas : System.Web.UI.Page
     {
         //referencia a la master
         public static SiteMaster master;
 
         //gestor de busqueda de playas
-        private static GestorBusquedaPlayas gestor;
+        private static GestorEstadisticas gestor;
+       
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            master = (SiteMaster)Master.Master;
+            master = (SiteMaster)Master;
 
-            gestor = new GestorBusquedaPlayas();
+            gestor = new GestorEstadisticas();
 
             if (!Page.IsPostBack)
             {
 
                
             }
-
         }
 
         /// <summary>
-        /// Buscar las playas de estacionamiento de la ciudad seleccionada en el Index
+        /// Buscar las consultas de la ciudad seleccionada
         /// </summary>
-        /// <returns>Lista de playas de la ciudad</returns>
+        /// <returns>Lista de consultas en la ciudad</returns>
         [WebMethod]
-        public static string ObtenerPlayasDeCiudad()
+        public static string ObtenerConsultasDeCiudad(string ciudadNombre)
         {
-            var playas = gestor.buscarPlayasPorCiudad("Cordoba");
+            var consultas = gestor.GetEstadisticasConsultasPorCiudad(ciudadNombre);
 
             string json = "[";
 
-            foreach (var p in playas)
+            foreach (var p in consultas)
             {
                 json += p.ToJSONRepresentation() + ",";
             }
 
-            if (playas.Count != 0)
+            if (consultas.Count != 0)
             {
                 json = json.Substring(0, json.Length - 1);
             }
