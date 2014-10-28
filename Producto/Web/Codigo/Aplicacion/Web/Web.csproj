@@ -80,7 +80,6 @@
     <Content Include="Controles\Mensajes\Error.ascx" />
     <Content Include="Controles\Mensajes\Info.ascx" />
     <Content Include="Controles\Mensajes\Confirmacion.ascx" />
-    <Content Include="DensidadConsultasPorFechas.aspx" />
     <Content Include="Estadisticas.aspx" />
     <Content Include="img\android.png" />
     <Content Include="img\apple.png" />
@@ -227,12 +226,6 @@
     <Compile Include="Controles\Mensajes\Confirmacion.ascx.designer.cs">
       <DependentUpon>Confirmacion.ascx</DependentUpon>
     </Compile>
-    <Compile Include="DensidadConsultasPorFechas.aspx.cs">
-      <DependentUpon>DensidadConsultasPorFechas.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DensidadConsultasPorFechas.aspx.designer.cs">
-      <DependentUpon>DensidadConsultasPorFechas.aspx</DependentUpon>
     <Compile Include="Estadisticas.aspx.cs">
       <DependentUpon>Estadisticas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
