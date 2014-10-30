@@ -19,7 +19,8 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="intro">
+   <asp:Panel runat="server" ID="panel1" DefaultButton="btnBuscar">
+     <div class="intro">
         <div class="intro-body">
             <div class="container">
                 <div class="row">
@@ -37,7 +38,7 @@
             </div>
         </div>
     </div>
-
+       </asp:Panel>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="footer" runat="server">
     <div class="container-fluid">
