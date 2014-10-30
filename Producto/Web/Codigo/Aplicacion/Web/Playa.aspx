@@ -300,22 +300,13 @@
                                             <asp:BoundField DataField="Ciudad" HeaderText="Ciudad" />
                                             <asp:BoundField DataField="Provincia" HeaderText="Provincia" />
                                             <asp:BoundField DataField="Extras" HeaderText="Extras" />
-                                            <asp:TemplateField HeaderText="Acciones">
-                                                <ItemStyle CssClass="grilla-columna-accion" />
-                                                <ItemTemplate>
 
-                                                    <asp:Button ToolTip="Ver" ID="btnVer" runat="server" CssClass="btn btn-default" CommandArgument="<%# Container.DataItemIndex %>"
-                                                        CommandName="Ver" data-toggle="modal" data-target="#modificarPlaya" Text="&#9733;" />
-
-                                                    <asp:Button ToolTip="Modificar" ID="btnEditar" runat="server" CssClass="btn btn-default" CommandArgument="<%# Container.DataItemIndex %>"
-                                                        CommandName="Editar" OnClientClick="abrirModalPlaya()" Text="&#9839;" />
-
-                                                    <asp:Button ToolTip="Eliminar" ID="btnEliminar" runat="server" CssClass="btn btn-default eliminacion" CommandArgument="<%# Container.DataItemIndex %>"
-                                                        CommandName="Eliminar" Text="&#9747;" />
-
-
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
+                                            <asp:ButtonField CommandName="Ver" ButtonType="Link" HeaderText="Ver" 
+                                                Text="<i aria-hidden='true' class='glyphicon glyphicon-search'></i>" ControlStyle-CssClass="btn btn-default"></asp:ButtonField>
+                                            <asp:ButtonField CommandName="Modificar" ButtonType="Link" HeaderText="Editar"
+                                                Text="<i aria-hidden='true' class='glyphicon glyphicon-pencil'></i>" ControlStyle-CssClass="btn btn-default"></asp:ButtonField>
+                                            <asp:ButtonField CommandName="Eliminar" ButtonType="Link" HeaderText="Eliminar"
+                                                Text="<i aria-hidden='true' class='glyphicon glyphicon-trash'></i>" ControlStyle-CssClass="btn btn-default"></asp:ButtonField>
 
                                         </Columns>
                                     </asp:GridView>

@@ -326,23 +326,30 @@ namespace Web
                 case "Eliminar":
                     //elimina la playa y muestra el resultado.                    
                     master.MostrarMensajeConfirmacion("¿Quiere eliminar la playa " + playa.Nombre + "?", "Confirmar Eliminacion", EliminarPlaya);
+                    AbrirModal();
                     break;
                 case "Editar":
                     Titulo.Text = "Editar";
                     //Carga los campos del formulario con la playa a editar
                     CargarCamposFormulario(playa);
                     ConfigurarEditar();
+                    AbrirModal();
                     break;
                 case "Ver":
                     Titulo.Text = "Ver";
                     //Carga los campos del formulario con la playa a editar
                     CargarCamposFormulario(playa);
                     ConfigurarVer();
-
+                    AbrirModal();
                     break;
                 default:
                     break;
             }
+        }
+
+        private void AbrirModal()
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "abrirModal", "$(function() { abrirModalPlaya(); });", true);
         }
         /// <summary>
         /// Evento que se ejecuta cuando se llena la grilla con datos
@@ -351,16 +358,16 @@ namespace Web
         /// <param name="e"></param>
         protected void gvResultados_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                //Boton Editar
-                var btn = (Button)e.Row.FindControl("btnEditar");
-                btn.CommandArgument = e.Row.RowIndex.ToString();
+            //if (e.Row.RowType == DataControlRowType.DataRow)
+            //{
+            //    //Boton Editar
+            //    var btn = (Button)e.Row.FindControl("btnEditar");
+            //    btn.CommandArgument = e.Row.RowIndex.ToString();
 
-                //Boton Eliminar
-                btn = (Button)e.Row.FindControl("btnEliminar");
-                btn.CommandArgument = e.Row.RowIndex.ToString();
-            }
+            //    //Boton Eliminar
+            //    btn = (Button)e.Row.FindControl("btnEliminar");
+            //    btn.CommandArgument = e.Row.RowIndex.ToString();
+            //}
         }
 
 
