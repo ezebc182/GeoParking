@@ -74,7 +74,7 @@
 
             var div = '<div class="col-sm-12 col-md-12 col-lg-12">\
 <div id="map-'+cont+'" style="height: 250px; width:100%;"></div>\
-<input id="txtMes-'+cont+'" type="range" value="2014" min="2014" max="2020" step="1" \
+<input id="txtMes-'+cont+'" type="range" value="2014" min="2000" max="2020" step="1" \
             onchange= toggleHeatmap('+cont+')\
             oninput= toggleHeatmap('+cont+')\
             /></div>'

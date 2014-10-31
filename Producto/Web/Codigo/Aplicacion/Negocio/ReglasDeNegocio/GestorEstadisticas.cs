@@ -10,7 +10,7 @@ namespace ReglasDeNegocio
 {
     public class GestorEstadisticas
     {
-        IRepositorioEstadisticaConsultas estadisticaConsultasDao;
+        RepositorioEstadisticaConsultas estadisticaConsultasDao;
         IRepositorioPlayaDeEstacionamiento playaDao;
         IRepositorioCiudad ciudadDao;
 
@@ -39,10 +39,11 @@ namespace ReglasDeNegocio
         {
             return ciudadDao.FindWhere(c => c.Nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
         }
+
         public IList<EstadisticaConsultas> GetEstadisticasConsultasPorCiudad(String ciudadNombre)
         {
             var ciudadId = getCiudad(ciudadNombre).Id;
-            return estadisticaConsultasDao.FindWhere(e => e.Ciudad == ciudadId);
+            return estadisticaConsultasDao.FindByCiudad(ciudadId);
         }
 
         public IList<EstadisticaConsultas> GetEstadisticasPorCiudadYTipoVehiculo(string ciudadNombre, int idTipoVehiculo)
@@ -54,5 +55,7 @@ namespace ReglasDeNegocio
         {
             return estadisticaConsultasDao.FindAll();
         }
+
+
     }
 }

@@ -35,6 +35,34 @@ namespace Datos
     public class RepositorioPrecio : Repositorio<Precio>, IRepositorioPrecio { }
     public class RepositorioDiaAtencion : Repositorio<DiaAtencion>, IRepositorioDiaAtencion { }
     public class RepositorioTiempo : Repositorio<Tiempo>, IRepositorioTiempo { }
+    public class RepositorioDepartamento : Repositorio<Departamento>, IRepositorioDepartamento { }
+    public class RepositorioProvincia : Repositorio<Provincia>, IRepositorioProvincia { }
+    public class RepositorioUsuario : Repositorio<Usuario>, IRepositorioUsuario { }
+    public class RepositorioEstadisticaConsultas : Repositorio<EstadisticaConsultas>, IRepositorioEstadisticaConsultas 
+    {
+
+        public IList<EstadisticaConsultas> FindByCiudad(int idCiudad)
+        {
+            using (var contexto = new ContextoBD())
+            {
+                var ciudad = new System.Data.SqlClient.SqlParameter("ciudad", idCiudad);
+                var fechaDesde = new System.Data.SqlClient.SqlParameter("fechaDesde", new DateTime(2000, 1, 1));
+                var fechaHasta = new System.Data.SqlClient.SqlParameter("fechaHasta", new DateTime(2014,12,31));
+
+                return contexto.Database.SqlQuery<EstadisticaConsultas>("execute spGetEstadisticasByFilters @ciudad, @fechaDesde, @fechaHasta", ciudad, fechaDesde, fechaHasta).ToList();
+            }
+        }
+
+        public IList<EstadisticaConsultas> FindByCiudadYFechaDesdeHasta(int idCiudad, DateTime desde, DateTime hasta)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<EstadisticaConsultas> FindByCiudadYTipoVehiculo(int idCiudad, int idTipoVehiculo)
+        {
+            throw new NotImplementedException();
+        }
+    }
     public class RepositorioCiudad : Repositorio<Ciudad>, IRepositorioCiudad 
     {
 
@@ -48,10 +76,6 @@ namespace Datos
             return lista.FirstOrDefault();
         }
     }
-    public class RepositorioDepartamento : Repositorio<Departamento>, IRepositorioDepartamento { }
-    public class RepositorioProvincia : Repositorio<Provincia>, IRepositorioProvincia { }
-    public class RepositorioEstadisticaConsultas : Repositorio<EstadisticaConsultas>, IRepositorioEstadisticaConsultas { }
-    public class RepositorioUsuario : Repositorio<Usuario>, IRepositorioUsuario { }
     public class RepositorioRol : Repositorio<Rol>, IRepositorioRol
     {
         public override IList<Rol> FindAll()

@@ -70,7 +70,7 @@ function getConsultas(IdMapa, IdHM) {
                 for (var j = 0; j < consultasArray.length; j++) {
 
                     var date = new Date(consultasArray[j].Hora);
-                    if (date.getFullYear() == parseInt(ano, 10) + i) {
+                    if (date.getFullYear() == parseInt(min[IdMapa], 10) + i) {
                         consultasArrayAno.push(consultasArray[j]);
                     }
                 
