@@ -18,8 +18,7 @@
 
     <!--script de autocomplete-->
     <script src="Scripts/Autocomplete.js"></script>
-
-
+      
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="TopContent" runat="server">
@@ -42,7 +41,7 @@
                         placeholder="Buscar en otra ciudad..." />
 
                     <div class="input-group-btn">
-                        <button type="button" class="btn-primary btn btn-lg" id="Button1">
+                        <button type="button" class="btn-primary btn btn-lg" id="Button1" title="Buscar Ciudad">
                             <span class="glyphicon glyphicon-search"></span>&nbsp;Buscar</button>
                     </div>
 
@@ -50,11 +49,15 @@
                 </div>
             <div class="form-group">
                 <button type="button" class="btn-warning btn btn-lg" id="btnBusquedaAvanzada" data-toggle="collapse"
-                    data-target="#busquedaAvanzada" onclick="ajustarMapa()">
+                    data-target="#busquedaAvanzada" onclick="ajustarMapa()" title="Busqueda Avanzada">
                     <span class="glyphicon glyphicon-cog"></span>&nbsp;Búsqueda
                     avanzada</button>
             </div>
-                
+            <div class="form-group">
+                <button type="button" class="btn-default btn btn-lg" id="limpiarBusqueda" onclick="limpiarMapa();" title="Limpiar Mapa">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+            </div>
             
         </div>
 
@@ -149,7 +152,7 @@
                                 <input id="txtMinPrecio" name="txtMinPrecio" maxlength="3" class="form-control" placeholder="0"
                                     data-bv-regexp-message="Ingrese un valor válido" pattern="[+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*)(?:[eE][+-]?\d+)?"
                                     data-bv-lessthan-inclusive="true" data-bv-lessthan-message="Precio desde debe ser menor que precio hasta"
-                                    data-bv-lessthan-value="txtMaxPrecio ">
+                                    data-bv-lessthan-value="txtMaxPrecio" title="Precio Minimo">
                             </div>
                         </div>
                         
@@ -163,7 +166,7 @@
                                 <input id="txtMaxPrecio" name="txtMaxPrecio" maxlength="3" class="form-control" placeholder="10"
                                     data-bv-regexp-message="Ingrese un valor válido" pattern="[+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*)(?:[eE][+-]?\d+)?"
                                     data-bv-greaterthan-inclusive="true" data-bv-greaterthan-message="Precio hasta debe ser mayor que precio desde"
-                                    data-bv-greaterthan-value="txtMinPrecio">
+                                    data-bv-greaterthan-value="txtMinPrecio" title="Precio Maximo">
                             </div>
                         </div>
                     </div>
