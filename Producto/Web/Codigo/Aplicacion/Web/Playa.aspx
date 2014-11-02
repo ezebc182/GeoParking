@@ -143,7 +143,7 @@
                 <div class="container-fluid">
                     <div class="jumbotron" style="margin-top: 5%;">
                         <div class="page-header">
-                            <h1>Administración de playas <small>Consulta</small></h1>
+                            <h1>Administración de playas</h1>
                         </div>
                         <div class="form-horizontal" role="form">
                             <div class="form-group" id="busquedaPlayas">

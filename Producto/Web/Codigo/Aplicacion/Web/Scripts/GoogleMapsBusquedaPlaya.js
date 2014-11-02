@@ -425,26 +425,32 @@ function cargarPlayas(response) {
                 contenido += "<div class='tab-pane active' id='panel-1'>" +
                 "<p>";
 
-                contenido += "<div><strong>Nombre:</strong> " + playas[i].Nombre + "</div>" +
-               "<div><strong>Mail:</strong>" + playas[i].Mail + "</div>" +
-               "<div><strong>Telefono:</strong> " + playas[i].Telefono + "</div>" +
-               "<div><strong>Tipo Playa:</strong> " + playas[i].TipoPlaya + "</div>";
+                contenido += "<table class='table table-responsive'>";
 
+                contenido += "<tr><td> <strong>Nombre:</strong> </td> <td>" + playas[i].Nombre + " </td> </tr>" +
+               "<tr><td> <strong>Mail:</strong> </td> <td>" + playas[i].Mail + " </td> </tr>" +
+               "<tr><td> <strong>Telefono:</strong> </td> <td>" + playas[i].Telefono + " </td> </tr>" +
+               "<tr><td> <strong>Tipo Playa:</strong> </td> <td>" + playas[i].TipoPlaya + " </td> </tr>";
+
+                contenido += "</table>";
 
                 //agregamos las direcciones
                 contenido += "<div><h6>DIRECCION<h6></div>";
+                contenido += "<table>";
                 var direcciones = eval(playas[i].Direcciones);
                 for (var j = 0; j < direcciones.length; j++) {
-                    contenido += "<div>Calle: " + direcciones[j].Calle + " - N°: " + direcciones[j].Numero + "</div>";
+                    contenido += "<tr><td> <strong>Calle:</strong>  </td> <td>" + direcciones[j].Calle + ":  </td> <td> <strong> N° </strong>: </td> <td>" + direcciones[j].Numero + " </td> </tr>";
                 }
+                contenido += "</table>";
 
                 //agregamos los servicios
                 contenido += "<div><h6>SERVICIOS<h6></div>";
+                contenido += "<table>";
                 var servicios = eval(playas[i].Servicios);
                 for (var K = 0; K < servicios.length; K++) {
-                    contenido += "<div>Tipo Vehiculo: " + servicios[K].TipoVehiculo + " - Capacidad: " + servicios[K].Capacidad + "</div>";
+                    contenido += "<tr><td> <strong>Tipo Vehiculo:</strong> </td> <td>" + servicios[K].TipoVehiculo + ":  </td> <td> <strong> Capacidad: </strong> </td> <td>" + servicios[K].Capacidad + " </td> </tr>";
                 }
-
+                contenido += "</table>";
                 contenido += "</p></div>";
 
                 //SEGUNDO TAB
@@ -453,11 +459,12 @@ function cargarPlayas(response) {
 
                 //agregamos los horarios
                 contenido += "<div><h6>HORARIOS<h6></div>";
+                contenido += "<table>";
                 var horarios = eval(playas[i].Horarios);
                 for (var l = 0; l < horarios.length; l++) {
-                    contenido += "<div>" + horarios[l].Dia + " - Desde: " + horarios[l].HoraDesde + " - Hasta: " + horarios[l].HoraHasta + "</div>";
+                    contenido += "<tr><td>" + horarios[l].Dia + "</td> <td> - <strong>Desde:</strong></td> <td> " + horarios[l].HoraDesde + "</td> <td> - <strong>Hasta:</strong> </td> <td>" + horarios[l].HoraHasta + "</td> </tr>";
                 }
-
+                contenido += "</table>";
                 contenido += "</p></div>";
 
                 //TERCER TAB
@@ -466,11 +473,13 @@ function cargarPlayas(response) {
 
                 //agregamos los precios
                 contenido += "<div><h6>PRECIOS<h6></div>";
+                contenido += "<table>";
                 var precios = eval(playas[i].Precios);
                 for (var m = 0; m < precios.length; m++) {
-                    contenido += "<div>" + precios[m].TipoVehiculo + " - " + precios[m].Dia + " - " + precios[m].Tiempo + " $" + precios[m].Monto + "</div>";
+                    //contenido += "<div>" + precios[m].TipoVehiculo + " - " + precios[m].Dia + " - " + precios[m].Tiempo + " $" + precios[m].Monto + "</div>";
+                    contenido += "<tr><td>" + precios[m].TipoVehiculo + "</td> <td> - " + precios[m].Tiempo + ":</td> <td> $" + precios[m].Monto + "</td> </tr>";
                 }
-
+                contenido += "</table>"
                 contenido += "</p></div>";
 
                 contenido += "</div></div>";
@@ -504,5 +513,12 @@ $(function () {
             marcarPunto();
         });
 });
+
+//limpiar el mapa
+function limpiarMapa()
+{
+    clearCirculos();
+    clearMarcadorCirculo();
+}
 
 
