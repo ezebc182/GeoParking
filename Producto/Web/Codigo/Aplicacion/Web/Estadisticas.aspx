@@ -25,7 +25,7 @@
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#anuales-0">Estadisticas Anuales
                         </a>
-                        <a id="btnAgregarComparacion" class="pull-right" onclick="agregarComparacion()">+</a>
+                        <%--<a id="btnAgregarComparacion" class="pull-right" onclick="agregarComparacion()">+</a>--%>
                     </h4>
                 </div>
                 <div id="anuales-0" class="panel-collapse collapse in">
