@@ -10,7 +10,7 @@ DECLARE @tipoVehiculo as int
 DECLARE @latitud as decimal(9,7)
 DECLARE @longitud as decimal(9,7) 
 
-SET @anyo = 2013
+SET @anyo = 1999
 SET @mes  = 0
 SET @playa = 0
 SET @tipoPlaya = 0
@@ -32,7 +32,7 @@ SET @mes = @mes + 1
 DECLARE @i as int
 DECLARE @randomCorte as int
 SET @i = 0
-SET @randomCorte = ROUND( 8 + rand()*6, 0)
+SET @randomCorte = ROUND( 80 + rand()*40, 0)
 WHILE @i < @randomCorte
 BEGIN
   SET @i = @i + 1
@@ -61,27 +61,27 @@ BEGIN
 
   IF @anyo < 2002 
   BEGIN	 
-	 IF (@random < 0.3) 
+	 IF (@random < 0.5) 
 		BEGIN
-			SET @latitud = -31.419706 + (rand()/120);
-			SET @longitud = -64.190120 + (rand()/120);
+			SET @latitud = -31.419706 + (@rLat * rand()/120);
+			SET @longitud = -64.190120 + (@rLong * rand()/120);
 		END
 		ELSE 
 		BEGIN
-			IF (@random < 0.7)
+			IF (@random < 0.8)
 			BEGIN
-				SET @latitud = -31.419706 + (rand()/50);
-				SET @longitud = -64.190120 + (rand()/50);
+				SET @latitud = -31.419706 + (@rLat * rand()/50);
+			SET @longitud = -64.190120 + (@rLong * rand()/50);
 			END
 			ELSE
 				BEGIN
-					SET @latitud = -31.419706 + (rand()/15);
-					SET @longitud = -64.190120 + (rand()/15);
+					SET @latitud = -31.419706 + (@rLat * rand()/15);
+					SET @longitud = -64.190120 + (@rLong * rand()/15);
 				END
 		END
 	END
 	ELSE
-	IF @anyo < 2015 
+	IF @anyo < 2005 
   BEGIN	 
 	 IF (@random < 0.5) 
 		BEGIN
@@ -92,18 +92,18 @@ BEGIN
 		BEGIN
 			IF (@random < 0.8)
 			BEGIN
-				SET @latitud = -31.419706 + (@rLat * rand()/50);
+				SET @latitud = -31.396557 + (@rLat * rand()/50);
 				SET @longitud = -64.207458 + (@rLong * rand()/50);
 			END
 			ELSE
 				BEGIN
-					SET @latitud = -31.419706 + (@rLat * rand()/17);
+					SET @latitud = -31.396557 + (@rLat * rand()/17);
 					SET @longitud = -64.207458 + (@rLong * rand()/17);
 				END
 		END
 	END
 	ELSE
-	IF @anyo < 2016 
+	IF @anyo < 2009
   BEGIN	 
 	 IF (@random < 0.5) 
 		BEGIN
@@ -125,46 +125,46 @@ BEGIN
 		END
 	END
 	ELSE
-	IF @anyo < 2018 
+	IF @anyo < 2012 
   BEGIN	 
-	 IF (@random < 0.3) 
+	 IF (@random < 0.5) 
 		BEGIN
-			SET @latitud = -31.419706 + (rand()/100);
-			SET @longitud = -64.190120 + (rand()/100);
+			SET @latitud = -31.419706 + (@rLat * rand()/120);
+			SET @longitud = -64.190120 + (@rLong * rand()/120);
 		END
 		ELSE 
 		BEGIN
-			IF (@random < 0.7)
+			IF (@random < 0.8)
 			BEGIN
-				SET @latitud = -31.419706 + (rand()/10);
-				SET @longitud = -64.190120 + (rand()/10);
+				SET @latitud = -31.419706 + (@rLat * rand()/50);
+				SET @longitud = -64.190120 + (@rLong * rand()/50);
 			END
 			ELSE
 				BEGIN
-					SET @latitud = -31.419706 + (rand()/5);
-					SET @longitud = -64.190120 + (rand()/5);
+					SET @latitud = -31.419706 + (@rLat * rand()/17);
+					SET @longitud = -64.190120 + (@rLong * rand()/17);
 				END
 		END
 	END
 	ELSE
-	IF @anyo < 2021 
+	IF @anyo < 2015 
   BEGIN	 
-	 IF (@random < 0.3) 
+	 IF (@random < 0.5) 
 		BEGIN
-			SET @latitud = -31.404469 + (rand()/100);
-			SET @longitud = -64.167976 + (rand()/100);
+			SET @latitud = -31.404469 + (@rLat * rand()/120);
+			SET @longitud = -64.167976 + (@rLong * rand()/120);
 		END
 		ELSE 
 		BEGIN
-			IF (@random < 0.7)
+			IF (@random < 0.8)
 			BEGIN
-				SET @latitud = -31.404469 + (rand()/10);
-				SET @longitud = -64.167976 + (rand()/10);
+				SET @latitud = -31.404469 + (@rLat * rand()/50);
+				SET @longitud = -64.167976 + (@rLong * rand()/50);
 			END
 			ELSE
 				BEGIN
-					SET @latitud = -31.404469 + (rand()/5);
-					SET @longitud = -64.167976 + (rand()/5);
+					SET @latitud = -31.404469 + (@rLat * rand()/17);
+					SET @longitud = -64.167976 + (@rLong * rand()/17);
 				END
 		END
 	END

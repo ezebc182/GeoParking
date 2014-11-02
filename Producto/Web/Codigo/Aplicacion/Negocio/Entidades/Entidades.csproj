@@ -51,6 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ciudad.cs" />
+    <Compile Include="EstadisticaPorTipoPlayaDto.cs" />
+    <Compile Include="EstadisticaPorTipoVehiculoDto.cs" />
+    <Compile Include="EstadisticaDensidadDto.cs" />
     <Compile Include="Departamento.cs" />
     <Compile Include="DiaAtencion.cs" />
     <Compile Include="Direccion.cs" />

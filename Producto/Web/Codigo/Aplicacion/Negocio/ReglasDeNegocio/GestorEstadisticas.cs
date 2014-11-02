@@ -40,22 +40,27 @@ namespace ReglasDeNegocio
             return ciudadDao.FindWhere(c => c.Nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
         }
 
-        public IList<EstadisticaConsultas> GetEstadisticasConsultasPorCiudad(String ciudadNombre)
+        public IList<EstadisticaDensidadDto> GetEstadisticasConsultasPorCiudad(String ciudadNombre, DateTime? desde, DateTime? hasta)
         {
             var ciudadId = getCiudad(ciudadNombre).Id;
-            return estadisticaConsultasDao.FindByCiudad(ciudadId);
+            return estadisticaConsultasDao.GetConsultasByCiudad(ciudadId, desde, hasta);
         }
 
-        public IList<EstadisticaConsultas> GetEstadisticasPorCiudadYTipoVehiculo(string ciudadNombre, int idTipoVehiculo)
+        public IList<EstadisticaPorTipoVehiculoDto> GetEstadisticasPorCiudadYTipoVehiculo(String ciudadNombre, DateTime? desde, DateTime? hasta)
         {
-            return estadisticaConsultasDao.FindWhere(e => e.Ciudad == getCiudad(ciudadNombre).Id && e.IdTipoVehiculo == idTipoVehiculo);
+            var ciudadId = getCiudad(ciudadNombre).Id;
+            return estadisticaConsultasDao.GetConsultasTipoVehiculoByCiudad(ciudadId, desde, hasta);
+        }
+
+        public IList<EstadisticaPorTipoPlayaDto> GetEstadisticasPorCiudadYTipoPlaya(String ciudadNombre, DateTime? desde, DateTime? hasta)
+        {
+            var ciudadId = getCiudad(ciudadNombre).Id;
+            return estadisticaConsultasDao.GetConsultasTipoPlayaByCiudad(ciudadId, desde, hasta);
         }
 
         public IList<EstadisticaConsultas> GetEstadisticasConsultas()
         {
             return estadisticaConsultasDao.FindAll();
         }
-
-
     }
 }

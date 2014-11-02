@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using ReglasDeNegocio;
 using System.Web.Services;
+using System.Text;
+using Web.Util;
 
 namespace Web
 {
@@ -36,30 +38,100 @@ namespace Web
         /// </summary>
         /// <returns>Lista de consultas en la ciudad</returns>
         [WebMethod]
-        public static string ObtenerConsultasDeCiudad(string ciudadNombre)
+        public static string ObtenerConsultasDeCiudad(string ciudadNombre, string desde, string hasta)
         {
-            var consultas = gestor.GetEstadisticasConsultasPorCiudad(ciudadNombre);
+            var fechaDesde = FormHelper.ObtenerFecha(desde);
+            var fechaHasta = FormHelper.ObtenerFecha(hasta);
+            
+            var consultas = gestor.GetEstadisticasConsultasPorCiudad(ciudadNombre, fechaDesde, fechaHasta);
 
-            string json = "[";
+            StringBuilder json = new StringBuilder("[");
 
             foreach (var p in consultas)
             {
-                json += p.ToJSONRepresentation() + ",";
+                json.Append(p.ToJSONRepresentation());
+                json.Append(",");
             }
 
             if (consultas.Count != 0)
             {
-                json = json.Substring(0, json.Length - 1);
+                json.Remove(json.Length-1, 1);
             }
-            json += "]";
+            json.Append("]");
 
-            if (json == "[]")
+            if (json.Equals("[]"))
             {
                 master.MostrarMensajeInformacion("No hay resultados para la ciudad seleccionada", "Resultado Busqueda");
             }
-            return json;
+            return json.ToString();
         }
 
+        /// <summary>
+        /// busca la cantidad de consultas por ano agrupadas por tipo de playa
+        /// </summary>
+        /// <returns>Lista de consultas en la ciudad</returns>
+        [WebMethod]
+        public static string ObtenerCantidadConsultasDeCiudadPorTipoPlaya(string ciudadNombre, string desde, string hasta)
+        {
+            var fechaDesde = FormHelper.ObtenerFecha(desde);
+            var fechaHasta = FormHelper.ObtenerFecha(hasta);
+
+            var consultas = gestor.GetEstadisticasPorCiudadYTipoPlaya(ciudadNombre, fechaDesde, fechaHasta);
+
+            StringBuilder json = new StringBuilder("[");
+
+            foreach (var p in consultas)
+            {
+                json.Append(p.ToJSONRepresentation());
+                json.Append(",");
+            }
+
+            if (consultas.Count != 0)
+            {
+                json.Remove(json.Length - 1, 1);
+            }
+            json.Append("]");
+
+            if (json.Equals("[]"))
+            {
+                master.MostrarMensajeInformacion("No hay resultados para la ciudad seleccionada", "Resultado Busqueda");
+            }
+            return json.ToString();
+        }
+
+
+        /// <summary>
+        /// busca la cantidad de consultas por ano agrupadas por tipo de vehiculo
+        /// </summary>
+        /// <returns>Lista de consultas en la ciudad</returns>
+        [WebMethod]
+        public static string ObtenerCantidadConsultasDeCiudadPorTipoVehiculo(string ciudadNombre, string desde, string hasta)
+        {
+            var fechaDesde = FormHelper.ObtenerFecha(desde);
+            var fechaHasta = FormHelper.ObtenerFecha(hasta);
+
+            var consultas = gestor.GetEstadisticasPorCiudadYTipoVehiculo(ciudadNombre, fechaDesde, fechaHasta);
+
+            StringBuilder json = new StringBuilder("[");
+
+            foreach (var p in consultas)
+            {
+                json.Append(p.ToJSONRepresentation());
+                json.Append(",");
+            }
+
+            if (consultas.Count != 0)
+            {
+                json.Remove(json.Length - 1, 1);
+            }
+            json.Append("]");
+
+            if (json.Equals("[]"))
+            {
+                master.MostrarMensajeInformacion("No hay resultados para la ciudad seleccionada", "Resultado Busqueda");
+            }
+            return json.ToString();
+        }
 
     }
 }

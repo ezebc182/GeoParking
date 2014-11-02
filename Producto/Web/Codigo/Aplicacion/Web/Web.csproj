@@ -108,7 +108,7 @@
     <Content Include="Scripts\datetimepicker.min.js" />
     <Content Include="Scripts\contarFilas.js" />
     <Content Include="Scripts\DesplazarTabs.js" />
-    <Content Include="Scripts\GoogleMapsEstadisticas.js" />
+    <Content Include="Scripts\Estadisticas.js" />
     <Content Include="Scripts\GoogleMaps.js" />
     <Content Include="Scripts\GoogleMapsBusquedaPlaya.js" />
     <Content Include="Scripts\horarios.js" />
@@ -116,6 +116,7 @@
     <Content Include="Scripts\jquery.blockUI.min.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\morris.min.js" />
     <Content Include="Scripts\paneles.js" />
     <Content Include="Scripts\resetearControles.js" />
     <Content Include="Scripts\validador.js" />
@@ -131,6 +132,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </Content>
+    <Content Include="Styles\morris.css" />
     <Content Include="Styles\style.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
