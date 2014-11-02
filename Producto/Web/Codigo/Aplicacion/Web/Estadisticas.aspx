@@ -69,31 +69,27 @@
                         <div id="PanelesEstadisticas" class="hidden">
                             <div id="datosGrales" class="col-sm-12 col-md-12 col-lg-12">
 
-                                <input id="txtMes-0" type="range" step="1"
-                                    oninput="cambiarRange(cont)" min="2010" max="2014" value="2014" />
-
                                 <div class="form-horizontal">
-                                    <div class="form-inline">
-                                        <div class="form-group">
-                                            <div class="input-group input-group-lg col-sm-4 col-md-4 col-lg-4">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
-                                                <input value="Ciudad" class="form-control input-lg" readonly="true" id="txtCiudad" />
-                                            </div>
+                                    <div class="form-group">
+
+                                        <div class="input-group input-group-lg col-sm-4 col-md-4 col-lg-4">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
+                                            <input value="Ciudad" class="form-control input-lg" readonly="true" id="txtCiudad" />
                                         </div>
-                                        <div class="form-group">
-                                            <div class="input-group input-group-lg col-sm-4 col-md-4 col-lg-4">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                                <input value="Año" class="form-control input-lg" readonly="true" id="txtAno" />
-                                            </div>
+
+                                        <div class="input-group input-group-lg col-sm-4 col-md-4 col-lg-4">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            <input value="Año" class="form-control input-lg" readonly="true" id="txtAno" />
                                         </div>
-                                        <div class="form-group">
-                                            <div class="input-group input-group-lg col-sm-4 col-md-4 col-lg-4">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                                                <input class="form-control input-lg" readonly="true" id="txtConsultas" />
-                                            </div>
+
+                                        <div class="input-group input-group-lg col-sm-4 col-md-4 col-lg-4">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                            <input class="form-control input-lg" readonly="true" id="txtConsultas" />
                                         </div>
                                     </div>
                                 </div>
+                                <input id="txtMes-0" type="range" step="1"
+                                    oninput="cambiarRange(cont)" min="2010" max="2014" value="2014" />
                             </div>
                             <div class="panel panel-default col-sm-12 col-md-12 col-lg-12">
                                 <div class="panel-heading">
