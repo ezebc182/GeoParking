@@ -57,7 +57,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    $(".formulario").bootstrapValidator();
-</script>

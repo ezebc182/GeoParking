@@ -296,9 +296,10 @@ namespace ReglasDeNegocio
         /// </summary>
         /// <param name="nombre">Nombre de la playa a buscar</param>
         /// <returns>Lista de playas que coinciden con los parametros de busqueda</returns>
-        public IList<PlayaDeEstacionamiento> BuscarPlayaPorNombre(string nombre)
+        public IList<PlayaDeEstacionamiento> BuscarPlayaPorNombre(string ciudad, string nombre)
         {
-            var lista = playaDao.FindWhere(m => m.Nombre.Contains(nombre) && !m.FechaBaja.HasValue);
+            var lista = playaDao.FindWhere(m => m.Direcciones.Any(d => d.Ciudad.Nombre.Equals(ciudad,StringComparison.OrdinalIgnoreCase)) 
+                && m.Nombre.Contains(nombre) && !m.FechaBaja.HasValue);
 
             //foreach (var playa in lista)
             //{

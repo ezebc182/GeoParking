@@ -166,7 +166,7 @@ namespace Web
         private void ActualizarGrilla()
         {
             //lleno la grilla
-            gvResultados.DataSource = gestor.BuscarPlayaPorNombre(txtFiltroNombre.Text);
+            gvResultados.DataSource = gestor.BuscarPlayaPorNombre(txtBuscar.Text, txtFiltroNombre.Text);
             gvResultados.DataBind();
 
             //la hago visible (no se como lo vas a hacer yo lo hice asi porque necesitaba verla)

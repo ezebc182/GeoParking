@@ -11,10 +11,14 @@
     <!--Script de google mas-->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
+
+    <!--Estilo para el autocomplete-->
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css"
+        rel="stylesheet" type="text/css" />
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="TopContent" runat="server">
-
+    
     <div class="modal fade" id="modificarPlaya">
         <div class="modal-dialog  modal-lg ">
             <div class=" modal-content">
@@ -40,8 +44,8 @@
 
                     <div runat="server" id="divModal" class="form-horizontal" role="form">
                         <ul class="nav nav-tabs" id="myTab">
-                            <li runat="server" id="tabDatosGrales" class="active"><a href="#datosGrales" data-toggle="tab"  onclick="habilitarBotonGuardar(false)" >1. Datos Generales</a></li>
-                            <li runat="server" id="tabHorarios"><a href="#horarios" data-toggle="tab" onclick="habilitarBotonGuardar(false)" >2. Horarios</a></li>
+                            <li runat="server" id="tabDatosGrales" class="active"><a href="#datosGrales" data-toggle="tab" onclick="habilitarBotonGuardar(false)">1. Datos Generales</a></li>
+                            <li runat="server" id="tabHorarios"><a href="#horarios" data-toggle="tab" onclick="habilitarBotonGuardar(false)">2. Horarios</a></li>
                             <li runat="server" id="tabPrecios"><a href="#precios" data-toggle="tab" onclick="habilitarBotonGuardar(true)">3. Precios</a></li>
                         </ul>
 
@@ -147,7 +151,11 @@
                         </div>
                         <div class="form-horizontal" role="form">
                             <div class="form-group" id="busquedaPlayas">
-                                <div class="col-md-8">
+                                <div class="col-md-4">
+                                    <asp:TextBox ID="txtBuscar" CssClass="form-control input-lg autosuggest" runat="server"
+                                        ClientIDMode="Static" placeholder="Ciudad" autofocus></asp:TextBox>
+                                </div>
+                                <div class="col-md-4">
                                     <asp:TextBox ID="txtFiltroNombre" CssClass="form-control input-lg" runat="server" placeholder="Nombre de playa">
                                     </asp:TextBox>
                                 </div>
@@ -185,7 +193,7 @@
                                             <asp:BoundField DataField="Provincia" HeaderText="Provincia" />
                                             <asp:BoundField DataField="Extras" HeaderText="Vehiculos" />
 
-                                            <asp:ButtonField CommandName="Ver" ButtonType="Link" HeaderText="Ver" 
+                                            <asp:ButtonField CommandName="Ver" ButtonType="Link" HeaderText="Ver"
                                                 Text="<i aria-hidden='true' class='glyphicon glyphicon-search'></i>" ControlStyle-CssClass="btn btn-default"></asp:ButtonField>
                                             <asp:ButtonField CommandName="Editar" ButtonType="Link" HeaderText="Editar"
                                                 Text="<i aria-hidden='true' class='glyphicon glyphicon-pencil'></i>" ControlStyle-CssClass="btn btn-default"></asp:ButtonField>
@@ -202,12 +210,16 @@
         </asp:UpdatePanel>
     </div>
     <script src="Scripts/jquery.min.js"></script>
+       <!--Scripts para autocomplete (no eliminar)-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
     <script src="./Scripts/GoogleMaps.js" type="text/javascript"></script>
     <script src="./Scripts/paneles.js"></script>
     <script src="./Scripts/contarFilas.js"></script>
     <script src="./Scripts/DesplazarTabs.js"></script>
     <script src="./Scripts/moment.js"></script>
     <script src="./Scripts/datetimepicker.min.js"></script>
+        <!--script de autocomplete-->
+    <script src="Scripts/Autocomplete.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -252,7 +264,7 @@
 
         pageManager = Sys.WebForms.PageRequestManager.getInstance();
         pageManager.add_endRequest(function () {
-
+            SearchText();
             $('.formulario').bootstrapValidator();
 
             $('#txtLatitud').val($('latitud').val())
@@ -288,5 +300,5 @@
         $("#admUsuarios").removeClass("hidden");
         $("#admPlayas").addClass("active");
     </script>
-    
+
 </asp:Content>
