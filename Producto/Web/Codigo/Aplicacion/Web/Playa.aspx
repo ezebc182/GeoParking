@@ -183,7 +183,7 @@
                                             <asp:BoundField DataField="Numero" HeaderText="Numero" />
                                             <asp:BoundField DataField="Ciudad" HeaderText="Ciudad" />
                                             <asp:BoundField DataField="Provincia" HeaderText="Provincia" />
-                                            <asp:BoundField DataField="Extras" HeaderText="Extras" />
+                                            <asp:BoundField DataField="Extras" HeaderText="Vehiculos" />
 
                                             <asp:ButtonField CommandName="Ver" ButtonType="Link" HeaderText="Ver" 
                                                 Text="<i aria-hidden='true' class='glyphicon glyphicon-search'></i>" ControlStyle-CssClass="btn btn-default"></asp:ButtonField>

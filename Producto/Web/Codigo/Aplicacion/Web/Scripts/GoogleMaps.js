@@ -47,7 +47,7 @@ function addMarker(location) {
         position: location,
         draggable:true,
         map: map,
-        icon: './img/maracdorParking.png'
+        icon: './img/marcadorParking2.png'
         
     });
 
@@ -97,7 +97,7 @@ function codeAddress() {
             var marker = new google.maps.Marker({
                 map: map,
                 position: results[0].geometry.location,
-                icon: './img/maracdorParking.png'
+                icon: './img/marcadorParking2.png'
             });
 
             $('[id *= latitud]').first().val(results[0].geometry.location.lat().toString());
