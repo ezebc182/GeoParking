@@ -66,7 +66,9 @@
                                 <asp:BoundField HeaderText="Precio" DataField="Monto" />
                                 <asp:TemplateField HeaderText="Acciones">
                                     <ItemTemplate>
-                                        <asp:Button runat="server" ID="btnQuitar" CommandName="Quitar" Text="&#9747;" CssClass="btn btn-danger eliminacion" CommandArgument="<% # Container.DataItemIndex%>" />
+                                        <asp:LinkButton runat="server" ID="btnQuitar" CommandName="Quitar"
+                                             Text="<span class='glyphicon glyphicon-remove'></span>" CssClass="btn btn-danger btn-xs eliminacion" 
+                                            CommandArgument="<% # Container.DataItemIndex%>" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>

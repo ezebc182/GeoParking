@@ -18,7 +18,7 @@ SET @tipoVehiculo = 0
 SET @latitud = 00.0000000
 SET @longitud = 00.0000000
 
-WHILE @anyo < 2015 -- Desde 2001 - 2014
+WHILE @anyo < 2015 -- Desde 2000 - 2014
 BEGIN
 SET @anyo  = @anyo + 1
 SET @mes = 0
@@ -37,11 +37,23 @@ WHILE @i < @randomCorte
 BEGIN
   SET @i = @i + 1
   
- SET @playa = 24 + ROUND(rand() * 37 + 1, 0)
+ SET @playa = 24 + ROUND(rand() * 19 + 1, 0)
  SET @tipoPlaya = (SELECT p.TipoPlayaId
 					FROM PlayaDeEstacionamientoes as p
-					WHERE p.Id = 25)
-  SET @tipoVehiculo = ROUND(rand() * 3 + 1, 0)
+					WHERE p.Id = @playa)
+  declare @rTipoVehiculo as decimal(7,5)
+  set @rTipoVehiculo = rand()
+  SET @tipoVehiculo = 
+						CASE 
+							WHEN @rTipoVehiculo < 0.5
+								THEN 1
+							WHEN @rTipoVehiculo < 0.75
+								THEN 2
+							WHEN @rTipoVehiculo < 0.95
+								THEN 3
+							ELSE 4
+						END
+						
   
   DECLARE @random as decimal(7,5)
   SET @random = rand()
@@ -61,14 +73,14 @@ BEGIN
 
   IF @anyo < 2002 
   BEGIN	 
-	 IF (@random < 0.5) 
+	 IF (@random < 0.35) 
 		BEGIN
 			SET @latitud = -31.419706 + (@rLat * rand()/120);
 			SET @longitud = -64.190120 + (@rLong * rand()/120);
 		END
 		ELSE 
 		BEGIN
-			IF (@random < 0.8)
+			IF (@random < 0.7)
 			BEGIN
 				SET @latitud = -31.419706 + (@rLat * rand()/50);
 			SET @longitud = -64.190120 + (@rLong * rand()/50);
@@ -83,14 +95,14 @@ BEGIN
 	ELSE
 	IF @anyo < 2005 
   BEGIN	 
-	 IF (@random < 0.5) 
+	 IF (@random < 0.35) 
 		BEGIN
 			SET @latitud = -31.396557 + (@rLat * rand()/120);
 			SET @longitud = -64.207458 + (@rLong * rand()/120);
 		END
 		ELSE 
 		BEGIN
-			IF (@random < 0.8)
+			IF (@random < 0.7)
 			BEGIN
 				SET @latitud = -31.396557 + (@rLat * rand()/50);
 				SET @longitud = -64.207458 + (@rLong * rand()/50);

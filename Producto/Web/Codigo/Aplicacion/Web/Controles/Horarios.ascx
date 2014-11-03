@@ -67,9 +67,9 @@
                                 <asp:BoundField HeaderText="Hasta" DataField="HoraHasta" />
                                 <asp:TemplateField HeaderText="Acciones">
                                     <ItemTemplate>
-                                        <asp:Button runat="server" ToolTip="Eliminar" ID="btnQuitar" CommandName="Quitar"
-                                            CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn btn-danger eliminacion"
-                                            Text="&#9747;" />
+                                        <asp:LinkButton runat="server" ToolTip="Eliminar" ID="btnQuitar" CommandName="Quitar"
+                                            CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn btn-xs btn-danger eliminacion"
+                                            Text="<span class='glyphicon glyphicon-remove'></span>" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>

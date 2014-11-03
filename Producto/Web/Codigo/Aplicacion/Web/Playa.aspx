@@ -187,7 +187,7 @@
 
                                             <asp:ButtonField CommandName="Ver" ButtonType="Link" HeaderText="Ver" 
                                                 Text="<i aria-hidden='true' class='glyphicon glyphicon-search'></i>" ControlStyle-CssClass="btn btn-default"></asp:ButtonField>
-                                            <asp:ButtonField CommandName="Modificar" ButtonType="Link" HeaderText="Editar"
+                                            <asp:ButtonField CommandName="Editar" ButtonType="Link" HeaderText="Editar"
                                                 Text="<i aria-hidden='true' class='glyphicon glyphicon-pencil'></i>" ControlStyle-CssClass="btn btn-default"></asp:ButtonField>
                                             <asp:ButtonField CommandName="Eliminar" ButtonType="Link" HeaderText="Eliminar"
                                                 Text="<i aria-hidden='true' class='glyphicon glyphicon-trash'></i>" ControlStyle-CssClass="btn btn-default"></asp:ButtonField>

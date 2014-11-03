@@ -44,7 +44,8 @@
                                 <asp:BoundField HeaderText="Capacidad" DataField="Capacidad" />
                                 <asp:TemplateField HeaderText="Acciones">
                                     <ItemTemplate>
-                                        <asp:Button runat="server" ID="btnQuitar" CommandName="Quitar" CssClass="btn btn-danger" Text="&#9747;" CommandArgument="<%# Container.DataItemIndex %>" />
+                                        <asp:LinkButton runat="server" ID="btnQuitar" CommandName="Quitar" CssClass="btn btn-xs btn-danger" 
+                                            Text="<span class='glyphicon glyphicon-remove'></span>" CommandArgument="<%# Container.DataItemIndex %>" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
