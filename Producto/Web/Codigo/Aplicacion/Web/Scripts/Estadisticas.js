@@ -15,8 +15,10 @@ var min = new Array();
 var max = new Array();
 //año seleccionado en el txt range
 var ano;
-var IdHM = 0;
-var IdHMAnt = 0;
+var IdLayer = new Array();
+var IdLayerAnt = new Array();
+var donut = new Array();
+var bar = new Array();
 
 function initialize(IdMapa) {
 
@@ -27,8 +29,10 @@ function initialize(IdMapa) {
         heatmap.push(new Array());
         cantTipoPlaya.push(new Array());
         cantTipoVehiculo.push(new Array());
+        IdLayer.push(0);
+        IdLayerAnt.push(0);
     }
-    calcularIdHM(IdMapa);
+    calcularIdLayer(IdMapa);
 
     cargarConsultasPorTipoPlaya(IdMapa);
     cargarConsultasPorTipoVehiculo(IdMapa);
@@ -129,18 +133,19 @@ function cargarConsultasPorTipoVehiculo(IdMapa) {
 }
 
 function cargarGraficoCantidadTipoPlayas(IdMapa) {
-    Morris.Donut({
+  donut[IdMapa] = new  Morris.Donut({
         element: 'consultasTipoPlaya-' + IdMapa,
-        data: cantTipoPlaya[IdMapa][IdHM]
+        data: cantTipoPlaya[IdMapa][IdLayer[IdMapa]]
     });
 };
 function cargarGraficoCantidadTipoVehiculos(IdMapa) {
-    Morris.Bar({
+   bar[IdMapa] = new Morris.Bar({
         element: 'consultasTipoVehiculo-' + IdMapa,
-        data: cantTipoVehiculo[IdMapa][IdHM],
+        data: cantTipoVehiculo[IdMapa][IdLayer[IdMapa]],
         xkey: 'label',
         ykeys: ['value'],
-        labels: ['Consultas']
+        labels: ['Consultas'],
+        hideHover: 'true'
     });
 };
 
@@ -159,17 +164,26 @@ function cargarConsultas(IdMapa) {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
+    
     //crea el mapa en el div "map-canvas" y le setea las opciones
-    maps.push(new google.maps.Map(document.getElementById('map-' + IdMapa),
-        mapOptions));
-
-
+    maps.push(new google.maps.Map(document.getElementById('map-'+IdMapa), mapOptions));
+    
+   
     //recuperamos las consultas de la ciudad
-    getConsultas(IdMapa, IdHM);
+    getConsultas(IdMapa);
 }
 
-//AGREGAR MARCADORES DE LAS consultas DE LA CIUDAD BUSCADA EN EL INDEX
-function getConsultas(IdMapa, IdHM) {
+function centrarMapa(IdMapa) {
+    var ciudad = $('#anuales-'+IdMapa + ' [id*=txtBuscar]').first().val(); 
+    var address = ciudad + ", Argentina";
+    geocoder.geocode({ 'address': address }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            maps[IdMapa].setCenter(results[0].geometry.location);
+        } 
+    });
+};
+
+function getConsultas(IdMapa) {
 
     var fechaDesde = $('[id=fechaDesde]').val();
     var fechaHasta = $('[id=fechaHasta]').val();
@@ -210,7 +224,7 @@ function getConsultas(IdMapa, IdHM) {
                 markers[IdMapa][i] = consultas;
                 cargarHeatMap(IdMapa, i);
             }
-            heatmap[IdMapa][IdHM].setMap(heatmap[IdMapa][IdHM].getMap() ? null : maps[IdMapa]);
+            heatmap[IdMapa][IdLayer[IdMapa]].setMap(heatmap[IdMapa][IdLayer[IdMapa]].getMap() ? null : maps[IdMapa]);
             cambiarCantidadConsultas(IdMapa);
         },
         error: function (result) {
@@ -226,33 +240,33 @@ function cargarHeatMap(IdMapa, i) {
         data: pointArray[IdMapa][i]
     });
 }
-function calcularIdHM(IdMapa) {
+function calcularIdLayer(IdMapa) {
     //se guarda el indice anterior
-    IdHMAnt = IdHM;
+    IdLayerAnt[IdMapa] = IdLayer[IdMapa];
     //Se setea el mes elegido del mapa
-    ano = $('[id*=txtMes-' + IdMapa + ']').val();
-    min[IdMapa] = $('[id*=txtMes-' + IdMapa + ']').attr('min');
-    max[IdMapa] = $('[id*=txtMes-' + IdMapa + ']').attr('max');
-    IdHM = ano - min[IdMapa]
+    ano = $('#anuales-'+IdMapa+' [id=txtMes]').val();
+    min[IdMapa] = $('#anuales-' + IdMapa + ' [id=txtMes]').attr('min');
+    max[IdMapa] = $('#anuales-' + IdMapa + ' [id=txtMes]').attr('max');
+    IdLayer[IdMapa] = ano - min[IdMapa]
 };
 
 function toggleHeatmap(IdMapa) {
-    heatmap[IdMapa][IdHM].setMap(heatmap[IdMapa][IdHM].getMap() ? null : maps[IdMapa]);
-    heatmap[IdMapa][IdHMAnt].setMap(null);
+    heatmap[IdMapa][IdLayer[IdMapa]].setMap(heatmap[IdMapa][IdLayer[IdMapa]].getMap() ? null : maps[IdMapa]);
+    heatmap[IdMapa][IdLayerAnt[IdMapa]].setMap(null);
 };
 
 function cambiarRange(IdMapa) {
-    calcularIdHM(IdMapa);
+    calcularIdLayer(IdMapa);
     cambiarAno(IdMapa);
     cambiarCantidadConsultas(IdMapa);
     toggleHeatmap(IdMapa);
-    cargarGraficoCantidadTipoPlayas(IdMapa, IdHM);
-    cargarGraficoCantidadTipoVehiculos(IdMapa, IdHM);
+    cargarGraficoCantidadTipoPlayas(IdMapa);
+    cargarGraficoCantidadTipoVehiculos(IdMapa);
 };
 
 function cambiarAno(IdMapa) {
     $('#anuales-'+IdMapa + ' [id=txtAno]').val(ano);
 };
 function cambiarCantidadConsultas(IdMapa){
-    $('#anuales-'+IdMapa + ' [id=txtConsultas]').val(markers[IdMapa][IdHM].length)
+    $('#anuales-'+IdMapa + ' [id=txtConsultas]').val(markers[IdMapa][IdLayer[IdMapa]].length)
 };
