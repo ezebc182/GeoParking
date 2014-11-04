@@ -37,3 +37,8 @@ input, button, .btn, span, modal-content,modal-dialog, select,.dropdown,.dropdow
     border-radius:0 !important;
 
 }
+
+#session {
+    padding-right: 10px;
+padding-left: 10px;
+}

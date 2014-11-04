@@ -57,6 +57,7 @@
                         <ul class="nav navbar-nav navbar-right">
 
                             <li id="admPlayas"><a href="./Playa.aspx">Administración de playas</a></li>
+                            <li id="admEstadisticas"><a href="./Estadisticas.aspx">Reportes Estadisticos</a></li>
                             <li id="admUsuarios" class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administración de usuarios
                                 <b class="caret"></b>
@@ -90,7 +91,7 @@
                                {
                             %>
                             <li>
-                                <label style="color: white; padding-top: 15px;">
+                                <label id="session" style="color: white; padding-top: 15px;">
                                     <span class="glyphicon glyphicon-user"></span>
                                     <strong>
                                         <asp:Label ID="lblLogin" runat="server"></asp:Label>
@@ -447,9 +448,11 @@
             $('#admPOI').addClass("hidden");
             $('#admPlayas').addClass("hidden");
             $('#admUsuarios').addClass("hidden");
+            $('#admEstadisticas').addClass("hidden");
         }
         else if (rol == 2) {
             $('#admUsuarios').addClass("hidden");
+            
         }
         else if (rol == 3) {
             //no bloqueo nada porque es el superadmin 
@@ -458,6 +461,7 @@
             //bloqueo todo 
             $('#admPOI').addClass("hidden");
             $('#admPlayas').addClass("hidden");
+            $('#admEstadisticas').addClass("hidden");
             $('#admUsuarios').addClass("hidden");
         }
     </script>

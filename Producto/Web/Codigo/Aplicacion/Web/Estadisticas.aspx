@@ -294,5 +294,10 @@
 
         };
     </script>
+     <script>
+         $("#admPlayas").removeClass("active");
+         $("#admUsuarios").removeClass("active");
+         $("#admEstadisticas").addClass("active");
+    </script>
 
 </asp:Content>

@@ -26,11 +26,11 @@ namespace Web
                 if (SessionUsuario != null)
                 {
                     if (!Request.Url.AbsolutePath.Equals("/Index.aspx", StringComparison.OrdinalIgnoreCase))
-                        if (!Request.Url.AbsolutePath.Equals("/BusquedaPlaya.aspx", StringComparison.OrdinalIgnoreCase))
-                            if (!SessionUsuario.Rol.Permisos.Any(x => Request.Url.Segments[1].Equals(x.Url, StringComparison.OrdinalIgnoreCase)))
-                            {
-                                Response.Redirect("/Index.aspx?r=" + Request.Url.AbsolutePath);
-                            }
+                        if (!Request.Url.AbsolutePath.Equals("/BusquedaPlaya.aspx", StringComparison.OrdinalIgnoreCase))                           
+                                if (!SessionUsuario.Rol.Permisos.Any(x => Request.Url.Segments[1].Equals(x.Url, StringComparison.OrdinalIgnoreCase)))
+                                {
+                                    Response.Redirect("/Index.aspx?r=" + Request.Url.AbsolutePath);
+                                }
                     
                     lblLogin.Text = SessionUsuario.NombreUsuario;
                     rolId = SessionUsuario.RolId;
@@ -38,8 +38,7 @@ namespace Web
                 else
                 {
                     if (!Request.Url.AbsolutePath.Equals("/Index.aspx", StringComparison.OrdinalIgnoreCase))
-                        if (!Request.Url.AbsolutePath.Equals("/BusquedaPlaya.aspx", StringComparison.OrdinalIgnoreCase))
-                            if (!Request.Url.AbsolutePath.Equals("/Estadisticas.aspx", StringComparison.OrdinalIgnoreCase))
+                        if (!Request.Url.AbsolutePath.Equals("/BusquedaPlaya.aspx", StringComparison.OrdinalIgnoreCase))                            
                             Response.Redirect("/Index.aspx?r=" + Request.Url.AbsolutePath);
                     
                 }
@@ -341,7 +340,7 @@ namespace Web
             string[] segmentosURL = HttpContext.Current.Request.Url.Segments;
             string pagina = segmentosURL[segmentosURL.Length - 1];
 
-            if (pagina == "Playa.aspx" || pagina == "AdministracionUsuarios.aspx")
+            if (pagina == "Playa.aspx" || pagina == "AdministracionUsuarios.aspx" || pagina == "Estadisticas.aspx")
             {
                 Response.Redirect("Index.aspx");
             }
