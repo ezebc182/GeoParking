@@ -28,19 +28,22 @@
                             </div>
                             <div class="form-group">
                                 <label for="txtDesde" class="col-sm-2 col-md-2 col-lg-2 control-label">Desde</label>
-                                <div class="col-sm-3 col-md-3 col-lg-3 input-group date horarios" id="dtpDesde">
-                                    <asp:TextBox type="time" value="09:00:00" runat="server" CssClass="form-control " ID="txtDesde" data-bv-notempty="true"
-                                        data-bv-notempty-message="Ingrese horario hasta" ClientIDMode="Static" />
+                                <div class="col-sm-3 col-md-3 col-lg-3 ">
+                                <div class="input-group date horarios" id="dtpDesde">
+                                    <asp:TextBox type="time" value="09:00" runat="server" CssClass="form-control " ID="txtDesde" data-bv-notempty="true"
+                                        data-bv-notempty-message="Ingrese horario hasta" ClientIDMode="Static" disabled="true"/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                                 </div>
-
+                                </div>
                                 <label for="txtHasta" class="col-sm-2 col-md-2 col-lg-2 control-label">Hasta</label>
-                                <div class="col-sm-3 col-md-3 col-lg-3 input-group date horarios" id="dtpHasta">
-                                    <asp:TextBox type="time" value="23:59:00" runat="server" CssClass="form-control " ID="txtHasta" data-bv-notempty="true"
+                                <div class="col-sm-3 col-md-3 col-lg-3 ">
+                                <div class="input-group date horarios" id="dtpHasta">
+                                    <asp:TextBox type="time" value="23:59" runat="server" CssClass="form-control " ID="txtHasta" data-bv-notempty="true"
                                         data-bv-notempty-message="Ingrese horario hasta" data-bv-greaterthan-inclusive="false"
                                         data-bv-greaterthan-message="Horario hasta no puede ser inferior a horario desde."
-                                        data-bv-greaterthan-value="txtDesde" ClientIDMode="Static"  />
+                                        data-bv-greaterthan-value="txtDesde" ClientIDMode="Static" disabled="true" />
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                                </div>
                                 </div>
                                 <div class="col-sm-2 col-md-2 col-lg-2">
                                     <%--24 hs<input type="checkbox" id="chk24Horas" checked />--%>
@@ -87,30 +90,36 @@
         //$(".horarios").datetimepicker({
         //    pickDate: false
         //});
-        var check24 = document.getElementById('chk24Horas');
-        var horaDesde = document.getElementById('txtDesde');
-        var horaHasta = document.getElementById('txtHasta');
+        
         // when unchecked or checked, run the function
-        check24.onchange = function () {
+        $('[id*=chk24Horas]').first().change(function () {
             if (this.checked) {
-                horaDesde.disabled = false;
-                horaHasta.disabled = false;
+                document.getElementById('txtDesde').disabled = false;
+                document.getElementById('txtHasta').disabled = false;
             } else {
-                horaDesde.disabled = true;
-                horaHasta.disabled = true;
+                document.getElementById('txtDesde').disabled = true;
+                document.getElementById('txtHasta').disabled = true;
             }
 
-        }
+        });
 
-
-      
-      
     });
     pageManager = Sys.WebForms.PageRequestManager.getInstance();
     pageManager.add_endRequest(function () {
         //$(".horarios").datetimepicker({
         //    pickDate: false
         //});
+        $('[id*=chk24Horas]').first().change(function () {
+            if (this.checked) {
+                document.getElementById('txtDesde').disabled = true;
+                document.getElementById('txtHasta').disabled = true;
+            } else {
+                document.getElementById('txtDesde').disabled = false;
+                document.getElementById('txtHasta').disabled = false;  
+            }
+
+        });
+
 
     });
 

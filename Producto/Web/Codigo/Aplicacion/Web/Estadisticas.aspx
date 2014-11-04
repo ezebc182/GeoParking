@@ -268,10 +268,12 @@
             var id = $(e).parents('[id*=anuales]').first().attr('numero');
             if (cont == 0) { $('#btnAgregarComparacion').removeClass('hidden');}
 
-            $('#txtCiudad').val($('#anuales-' + id + ' [id=txtBuscar]').val());
+            
+            $('#anuales-' + id + ' [id=txtMes]').attr('min', ($('#anuales-' + id + ' [id=fechaDesde]').val()));
+            $('#anuales-' + id + ' [id=txtMes]').attr('max', ($('#anuales-' + id + ' [id=fechaHasta]').val()));
+            $('#anuales-' + id + ' [id=txtMes]').attr('value', ($('#anuales-' + id + ' [id=fechaHasta]').val()));
+            $('#anuales-' + id + ' [id=txtCiudad]').val($('#anuales-' + id + ' [id=txtBuscar]').val());
             $('#anuales-' + id + ' [id=txtAno]').val($('#anuales-' + id + ' [id=txtMes]').val());
-            $('#anuales-' + id + ' [id=txtMes]').attr('min', ($('#fechaDesde').val()));
-            $('#anuales-' + id + ' [id=txtMes]').attr('max', ($('#fechaHasta').val()));
             initialize(cont);
             $('#anuales-' + id + ' [id=PanelesEstadisticas]').removeClass('hidden');
             $('#anuales-' + id + ' [id=Configuracion]').addClass('hidden');
