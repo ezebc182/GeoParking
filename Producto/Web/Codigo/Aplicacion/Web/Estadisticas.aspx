@@ -73,17 +73,17 @@
                                     <div class="form-horizontal">
                                         <div class="form-group">
 
-                                            <div class="input-group input-group-lg col-sm-4 col-md-4 col-lg-4">
+                                            <div class="input-group input-group-lg col-sm-3 col-md-3 col-lg-3">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
                                                 <input value="Ciudad" class="form-control input-lg" readonly="true" id="txtCiudad" />
                                             </div>
 
-                                            <div class="input-group input-group-lg col-sm-4 col-md-4 col-lg-4">
+                                            <div class="input-group input-group-lg col-sm-3 col-md-3 col-lg-3">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                                 <input value="Año" class="form-control input-lg" readonly="true" id="txtAno" />
                                             </div>
 
-                                            <div class="input-group input-group-lg col-sm-4 col-md-4 col-lg-4">
+                                            <div class="input-group input-group-lg col-sm-3 col-md-3 col-lg-3">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                                                 <input class="form-control input-lg" readonly="true" id="txtConsultas" />
                                             </div>

@@ -299,7 +299,7 @@ namespace ReglasDeNegocio
         public IList<PlayaDeEstacionamiento> BuscarPlayaPorNombre(string ciudad, string nombre)
         {
             var lista = playaDao.FindWhere(m => m.Direcciones.Any(d => d.Ciudad.Nombre.Equals(ciudad,StringComparison.OrdinalIgnoreCase)) 
-                && m.Nombre.Contains(nombre) && !m.FechaBaja.HasValue);
+                &&  m.Nombre.ToUpper().Contains(nombre.ToUpper()) && !m.FechaBaja.HasValue);
 
             //foreach (var playa in lista)
             //{
