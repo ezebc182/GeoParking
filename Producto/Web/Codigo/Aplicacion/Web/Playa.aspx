@@ -113,7 +113,6 @@
                             </div>
 
                             <div class="tab-pane" id="precios">
-                                <div class="form-group ">
                                     <precios:precios runat="server" ID="ucPrecios" OnErrorHandler="MostrarErrorPrecio"></precios:precios>
                                     <div class="col-md-2 form-group pull-right">
                                         <a href="#" class="btn btn-primary pull-left" id="btnPaso3_2" data-toggle="tab" data-target="#horarios" onclick="javascript:abrirTab(this.id)"><span class='glyphicon glyphicon-chevron-left'></span></a>
@@ -121,7 +120,6 @@
                                     </div>
 
                                 </div>
-                            </div>
 
                         </div>
                     </div>
