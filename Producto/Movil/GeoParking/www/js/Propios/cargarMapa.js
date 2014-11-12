@@ -110,7 +110,6 @@ function mantenerPosicionActualActualizada(){
                 }
                 else{
                     tipoDestino = null;
-                    //clearInterval(actualizadorDePosicion);
                     directionsDisplay.setMap(null);
                 }
             }
@@ -120,7 +119,7 @@ function mantenerPosicionActualActualizada(){
         };
         navigator.geolocation.getCurrentPosition(functionSuccess, funcionError);
     };
-    actualizadorDePosicion = setInterval(actualizarPosicion,3000);
+    actualizadorDePosicion = setInterval(actualizarPosicion,5000);
 }
 function removeCarMarker(){
     for(var i = 0; i < markers.length; i++){
@@ -265,11 +264,14 @@ function obtenerCiudadDePosicion(posicion) {
     var uri = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + posicion.latitud + "," + posicion.longitud + "&sensor=true";
     var funcionCiudad = function (direcciones) {
         if (direcciones.status === "OK" && direcciones.results.length > 3) {
-            //en esta posicion siempre se muestra el formato ciudad, provincia, pais
+            var ciudad = obtenerCiudadDeResultadoGoogle(direcciones.results);
+            obtenerPlayasDeCiudad(ciudad);
+            
+            
+            /*//en esta posicion siempre se muestra el formato ciudad, provincia, pais
             var i = direcciones.results.length - 3;
             //aca tengo la ciudad para llamar al servicio de geoparking que devuelve playas en base a la ciudad
-            var ciudad = (direcciones.results[i].formatted_address).split(",")[0];
-            obtenerPlayasDeCiudad(ciudad);
+            var ciudad = (direcciones.results[i].formatted_address).split(",")[0];*/
 
         } else {
             mensajeErrorConexion("Error de conexion, Por favor habilite la localizacion para continuar");
@@ -278,7 +280,20 @@ function obtenerCiudadDePosicion(posicion) {
     };
     $.getJSON(uri).done(funcionCiudad);
 }
-
+function obtenerCiudadDeResultadoGoogle(results){
+    for(var i = 0; i < results.length; i++){
+        var resultado = results[i];
+        var tipos = resultado.types;
+        for(var j = 0;j< tipos.length; j++){
+            if(tipos[j] === "route"){
+                return resultado.formatted_address.split(",")[1].latinize().trim();
+            }
+            else if(tipos[j] === "locality"){
+                return resultado.formatted_address.split(",")[0].latinize();
+            }
+        }
+    }
+}
 function agregarPlayasAMapa(playas) {
     for (var i = 0; i < playas.length; i++) {
         agregarPlayaAMapa(playas[i]);
