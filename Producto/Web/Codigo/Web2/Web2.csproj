@@ -136,6 +136,9 @@
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\index.css" />
+    <Content Include="css\index\owl.carousel.css" />
+    <Content Include="css\index\popuo-box.css" />
+    <Content Include="css\index\style.css" />
     <Content Include="css\plugins\morris.css" />
     <Content Include="css\sb-admin.css" />
     <Content Include="font-awesome-4.1.0\css\font-awesome.css" />
