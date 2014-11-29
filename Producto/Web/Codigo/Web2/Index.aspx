@@ -2,6 +2,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 
+    <title>GeoParking-Inicio</title>
+
     <%--<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />--%>
 		<%--<link rel="shortcut icon" href="images/fav.png" />	--%>
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -72,13 +74,14 @@
     </div>
     
     <br />
-    <br />
-    <br />
+    
     
     <script src="js/index/responsiveslides.min.js"></script>
 
     <!--features-->
 			<div id="fea" class="features">
+                <br />
+    <br />
 				<div class="container">
 					<div class="section-head text-center">
 						<h3><span class="frist"> </span>AMAZING FEATURES<span class="second"> </span></h3>
