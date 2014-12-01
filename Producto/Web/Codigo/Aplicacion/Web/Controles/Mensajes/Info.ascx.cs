@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web.UI;
-using Web.Util;
+using Web2.Util;
 
 namespace SIRAD.Web.Controls.Alerts
 {

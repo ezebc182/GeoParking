@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Web.ClasesJsonVista
+namespace Web2.ClasesJsonVista
 {
     public class PrecioJSON
     {

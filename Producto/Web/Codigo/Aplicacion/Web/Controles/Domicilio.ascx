@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Domicilio.ascx.cs" Inherits="Web.Controles.DomicilioControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Domicilio.ascx.cs" Inherits="Web2.Controles.DomicilioControl" %>
 <div id="divPanel">
     <asp:UpdatePanel runat="server" ID="UpdatePanel1">
         <ContentTemplate>

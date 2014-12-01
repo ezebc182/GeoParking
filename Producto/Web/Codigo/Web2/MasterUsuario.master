@@ -18,6 +18,9 @@
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <%--estilos de bootstrao validator--%>
+    <link rel="stylesheet" href="./css/bootstrapValidator.min.css" type="text/css" />
+
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
 
@@ -101,6 +104,11 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrapValidator.min.js"></script>
+
+           
 
 	<!-- end: JavaScript-->
 

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Horarios.ascx.cs" Inherits="Web.Controles.HorarioControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Horarios.ascx.cs" Inherits="Web2.Controles.HorarioControl" %>
 
 <div id="divPanel">
     <asp:UpdatePanel runat="server" ID="UpdatePanel1">

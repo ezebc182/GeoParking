@@ -6,10 +6,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Entidades;
 using ReglasDeNegocio;
-using Web.Util;
+using Web2.Util;
 using ReglasDeNegocio.Util;
 
-namespace Web
+namespace Web2
 {
     public partial class AdministracionUsuarios : System.Web.UI.Page
     {

@@ -7,9 +7,9 @@ using System.Web.UI.WebControls;
 using Entidades;
 using System.Text;
 using ReglasDeNegocio;
-using Web.Util;
+using Web2.Util;
 
-namespace Web.Controles
+namespace Web2.Controles
 {
     public partial class DomicilioControl : System.Web.UI.UserControl
     {

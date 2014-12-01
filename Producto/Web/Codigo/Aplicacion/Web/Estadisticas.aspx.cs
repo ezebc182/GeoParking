@@ -7,9 +7,9 @@ using System.Web.UI.WebControls;
 using ReglasDeNegocio;
 using System.Web.Services;
 using System.Text;
-using Web.Util;
+using Web2.Util;
 
-namespace Web
+namespace Web2
 {
     public partial class Estadisticas : System.Web.UI.Page
     {

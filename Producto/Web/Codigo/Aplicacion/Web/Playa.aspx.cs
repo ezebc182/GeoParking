@@ -6,10 +6,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Entidades;
 using ReglasDeNegocio;
-using Web.Controles;
-using Web.Util;
+using Web2.Controles;
+using Web2.Util;
 
-namespace Web
+namespace Web2
 {
     public partial class Playa : System.Web.UI.Page
     {

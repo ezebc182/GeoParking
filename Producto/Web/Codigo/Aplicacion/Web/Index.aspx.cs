@@ -9,7 +9,7 @@ using ReglasDeNegocio;
 using System.Text;
 using System.Web.Script.Serialization;
 
-namespace Web
+namespace Web2
 {
     public partial class Index : System.Web.UI.Page
     {

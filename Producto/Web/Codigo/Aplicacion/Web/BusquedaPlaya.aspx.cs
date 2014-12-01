@@ -9,9 +9,9 @@ using ReglasDeNegocio;
 using Entidades;
 using System.Text;
 using System.Web.Script.Serialization;
-using Web.Util;
-using Web.ClasesJsonVista;
-namespace Web
+using Web2.Util;
+using Web2.ClasesJsonVista;
+namespace Web2
 {
     public partial class BusquedaPlaya : System.Web.UI.Page
     {

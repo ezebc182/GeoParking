@@ -1,0 +1,50 @@
+﻿/*Estilos de busqueda playa*/
+body {
+    background-color:#F8F8F8 ;
+}
+
+#contenidoBusquedaPlaya {
+    padding-left:50px;
+}
+
+#busquedaAvanzada
+{
+    height:427px !important;
+    border-radius:0px;
+    margin-bottom:-10px;
+    border:solid gray;
+}
+#map-canvas
+{
+    width: 1260px;
+    height: 427px;
+    margin-top: 0;
+    border-radius: 0px;
+    border:solid;
+    border-color:gray;
+    margin-left:-30px !important;
+}
+
+
+
+#panel
+{
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    margin-left: -180px;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+}
+
+#txtMaxPrecio, #txtMinPrecio {
+    padding-left: 7px;
+    padding-right: 5px;
+}
+
+.page-header {
+    margin-top:65px !important;
+
+}

@@ -7,7 +7,7 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Web {
+namespace Web2 {
     
     
     public partial class Estadisticas {

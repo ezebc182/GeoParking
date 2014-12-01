@@ -6,9 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Entidades;
 using ReglasDeNegocio;
-using Web.Util;
+using Web2.Util;
 
-namespace Web
+namespace Web2
 {
     public partial class SiteMaster : System.Web.UI.MasterPage
     {

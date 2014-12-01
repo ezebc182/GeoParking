@@ -7,7 +7,7 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Web.Controles {
+namespace Web2.Controles {
     
     
     public partial class DomicilioControl {

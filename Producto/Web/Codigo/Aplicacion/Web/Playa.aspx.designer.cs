@@ -7,7 +7,7 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Web {
+namespace Web2 {
     
     
     public partial class Playa {
@@ -172,7 +172,7 @@ namespace Web {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::Web.Controles.ServicioControl ucServicios;
+        protected global::Web2.Controles.ServicioControl ucServicios;
         
         /// <summary>
         /// Control ucDomicilios.
@@ -181,7 +181,7 @@ namespace Web {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::Web.Controles.DomicilioControl ucDomicilios;
+        protected global::Web2.Controles.DomicilioControl ucDomicilios;
         
         /// <summary>
         /// Control ucHorarios.
@@ -190,7 +190,7 @@ namespace Web {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::Web.Controles.HorarioControl ucHorarios;
+        protected global::Web2.Controles.HorarioControl ucHorarios;
         
         /// <summary>
         /// Control ucPrecios.
@@ -199,7 +199,7 @@ namespace Web {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::Web.Controles.PrecioControl ucPrecios;
+        protected global::Web2.Controles.PrecioControl ucPrecios;
         
         /// <summary>
         /// Control btnAceptar.

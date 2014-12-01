@@ -6,9 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using ReglasDeNegocio;
 using Entidades;
-using Web.Util;
+using Web2.Util;
 
-namespace Web.Controles
+namespace Web2.Controles
 {
     public partial class HorarioControl : System.Web.UI.UserControl
     {
