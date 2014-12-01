@@ -8,37 +8,54 @@
 
     <!--Script para el mapa de toda la pagina-->
     <script src="js/GoogleMapsBusquedaPlaya.js"></script>
+
+    <%--jquery para angular--%>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <%--js para angular--%>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>      
+        
+    <%--estilos para ng-grid angular.js--%>
+    <link rel="stylesheet" type="text/css" href="http://angular-ui.github.com/ng-grid/css/ng-grid.css" />
+
+    <%--js para ng-grid angular--%>
+    <script type="text/javascript" src="http://angular-ui.github.com/ng-grid/lib/ng-grid.debug.js"></script>
+
+    <%--js angular de la aplicacion--%>
+    <script src="js/controllerBusquedaPlayaAngular.js"></script>
    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div id="contenidoBusquedaPlaya">
-         <div class="page-header">
+    <div id="contenidoBusquedaPlaya" ng-app="myApp" ng-controller="MyCtrl">
+         <%--<div class="page-header">
         <h2>Búsqueda de playas</h2>
-    </div>
+    </div>--%>
     <div class="formulario" data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
         data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
         <!--Cabecera con formulario para buscar en otra ciudad y cambiar el mapa-->
-        <div class="form-inline" style="margin-bottom:2%;">
+        <div class="form-inline" style="margin-bottom:1%;">
             <div class="form-group" style="width:40%;">
                 <div class="input-group" >
-                    <input type="text" class="form-control input-lg autosuggest" value="" id="txtBuscar"
+                    <input type="text" class="form-control input-md autosuggest" value="" id="txtBuscar"
                         placeholder="Buscar en otra ciudad..." />
 
                     <div class="input-group-btn">
-                        <button type="button" class="btn-primary btn btn-lg" id="Button1" title="Buscar Ciudad">
+                        <button type="button" class="btn-primary btn btn-md" id="Button1" title="Buscar Ciudad">
                             <span class="glyphicon glyphicon-search"></span>&nbsp;Buscar</button>
                     </div>
 
                 </div>
                 </div>
             <div class="form-group">
-                <button type="button" class="btn-warning btn btn-lg" id="btnBusquedaAvanzada" data-toggle="collapse"
+                <button type="button" class="btn-warning btn btn-md" id="btnBusquedaAvanzada" data-toggle="collapse"
                     data-target="#busquedaAvanzada" onclick="ajustarMapa()" title="Busqueda Avanzada">
                     <span class="glyphicon glyphicon-cog"></span>&nbsp;Búsqueda
                     avanzada</button>
+                <button type="button" class="btn-warning btn btn-md" id="btnListado" ng-click="listar();" title="Busqueda Avanzada">
+                    <span class="glyphicon glyphicon-cog"></span>&nbsp;Ver Listado</button>
             </div>
             <div class="form-group">
-                <button type="button" class="btn-default btn btn-lg" id="limpiarBusqueda" onclick="limpiarMapa();" title="Limpiar Mapa">
+                <button type="button" class="btn-default btn btn-md" id="limpiarBusqueda" onclick="limpiarMapa();" title="Limpiar Mapa">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
             </div>
@@ -217,7 +234,7 @@
 
         <div class="col-sm-9 col-md-9 col-lg-9">
             <!--Rectangulo del Mapa-->
-            <div id="pnlMapa" class="col-sm-12 col-md-12 col-lg-12">
+            <div id="pnlMapa" class="col-sm-12 col-md-12 col-lg-12" ng-hide="mostrarGrilla">
                 <div id="map-canvas"></div>
                 <asp:TextBox runat="server" CssClass="form-control col-sm-5 col-md-5
     col-lg-5 required hidden"
@@ -228,7 +245,8 @@
             </div>
             <!--Rectangulo de la Grilla-->
             <div>
-                <asp:GridView ID="gvPlayas" runat="server"></asp:GridView>
+                <%--grilla angular--%>
+                <div id="grillaPlayas" class="gridStyle" ng-grid="gridOptions" ng-show="mostrarGrilla"></div>     
             </div>
         </div>
     </div>
@@ -241,9 +259,12 @@
             $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Búsqueda Avanzada");
             $("#busquedaAvanzada").hide();
             $("#map-canvas").css("width", "1260px");
-            $("#map-canvas").css("height", "427px");
+            $("#map-canvas").css("height", "500px");
             $("#map-canvas").css("border-color", "gray");
             $("#map-canvas").css("margin-left", "-30px");
+
+        
+            
         }
 
         function ajustarMapa() {
@@ -252,9 +273,11 @@
                 $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Ocultar Avanzada");
                 $("#map-canvas").fadeIn(3000, function () {
                     $("#map-canvas").css("width", "931px");
-                    $("#map-canvas").css("height", "427px");
+                    $("#map-canvas").css("height", "500");
                     $("#map-canvas").css("border-color", "gray");
                     $("#map-canvas").css("margin-left", "-10px");
+
+                 
 
                 });
                 $("#busquedaAvanzada").show();

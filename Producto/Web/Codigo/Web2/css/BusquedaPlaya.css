@@ -5,11 +5,12 @@ body {
 
 #contenidoBusquedaPlaya {
     padding-left:50px;
+    margin-top:70px;
 }
 
 #busquedaAvanzada
 {
-    height:427px !important;
+    height:500px !important;
     border-radius:0px;
     margin-bottom:-10px;
     border:solid gray;
@@ -17,7 +18,7 @@ body {
 #map-canvas
 {
     width: 1260px;
-    height: 427px;
+    height: 500px;
     margin-top: 0;
     border-radius: 0px;
     border:solid;
@@ -47,4 +48,12 @@ body {
 .page-header {
     margin-top:65px !important;
 
+}
+
+/*Estilos de la grilla*/
+.gridStyle {
+    border: solid gray;
+    width: 1260px; 
+    height: 500px;
+    margin-left: -15px;
 }
