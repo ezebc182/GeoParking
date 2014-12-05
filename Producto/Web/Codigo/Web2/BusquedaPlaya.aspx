@@ -7,7 +7,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
     <!--Script para el mapa de toda la pagina-->
-    <script src="js/GoogleMapsBusquedaPlaya.js"></script>
+    <%--<script src="js/GoogleMapsBusquedaPlaya.js"></script>--%>
 
     <%--jquery para angular--%>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -36,11 +36,11 @@
         <div class="form-inline" style="margin-bottom:1%;">
             <div class="form-group" style="width:40%;">
                 <div class="input-group" >
-                    <input type="text" class="form-control input-md autosuggest" value="" id="txtBuscar"
+                    <input type="text" class="form-control input-md autosuggest" value="" id="txtBuscar" ng-model="ciudad"
                         placeholder="Buscar en otra ciudad..." />
 
                     <div class="input-group-btn">
-                        <button type="button" class="btn-primary btn btn-md" id="Button1" title="Buscar Ciudad">
+                        <button type="button" class="btn-primary btn btn-md" id="Button1" title="Buscar Ciudad" ng-click="buscarPlayasCiudad()">
                             <span class="glyphicon glyphicon-search"></span>&nbsp;Buscar</button>
                     </div>
 
@@ -51,11 +51,10 @@
                     data-target="#busquedaAvanzada" onclick="ajustarMapa()" title="Busqueda Avanzada">
                     <span class="glyphicon glyphicon-cog"></span>&nbsp;Búsqueda
                     avanzada</button>
-                <button type="button" class="btn-warning btn btn-md" id="btnListado" ng-click="listar();" title="Busqueda Avanzada">
-                    <span class="glyphicon glyphicon-cog"></span>&nbsp;Ver Listado</button>
+                <button type="button" class="btn-warning btn btn-md" id="btnListado" ng-click="listar();" title="Busqueda Avanzada">Ver Listado</button>
             </div>
             <div class="form-group">
-                <button type="button" class="btn-default btn btn-md" id="limpiarBusqueda" onclick="limpiarMapa();" title="Limpiar Mapa">
+                <button type="button" class="btn-default btn btn-md" id="limpiarBusqueda" ng-click="limpiarMapa();" title="Limpiar Mapa">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
             </div>
@@ -64,10 +63,6 @@
 
 
         <!--Columna con los fitros de la busqueda-->
-
-
-
-
         <div class="col-md-3 col-sm-3 col-lg-3 collapse well" id="busquedaAvanzada">
             <div class="formulario form-horizontal" data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
                 data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
@@ -85,11 +80,11 @@
                                 <div class="input-group">
 
                                     <input id="txtDireccion" name="txtCalle" type="text" placeholder="Dirección"
-                                        class="form-control">
+                                        class="form-control" ng-model="direccion">
 
                                     <span class="input-group-btn">
                                         <button type="button" class="btn-warning btn pull-right"
-                                            id="marcarPunto">
+                                            id="marcarPunto" ng-click="marcarPunto()">
                                             <span class="glyphicon glyphicon-map-marker"></span>
                                         </button>
                                     </span>
@@ -229,7 +224,7 @@
             </div>
             <!--Buscar-->
             <input type="button" class="btn-primary btn btn-block" value="Filtrar"
-                id="btnBuscar" />
+                id="btnBuscar" ng-click="filtrar()"/>
         </div>
 
         <div class="col-sm-9 col-md-9 col-lg-9">
@@ -255,16 +250,14 @@
         var cantClick = 0;
 
         $(".formulario").bootstrapValidator();
+
         function agrandarMapa() {
             $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Búsqueda Avanzada");
             $("#busquedaAvanzada").hide();
             $("#map-canvas").css("width", "1260px");
             $("#map-canvas").css("height", "500px");
             $("#map-canvas").css("border-color", "gray");
-            $("#map-canvas").css("margin-left", "-30px");
-
-        
-            
+            $("#map-canvas").css("margin-left", "-30px");           
         }
 
         function ajustarMapa() {
@@ -276,18 +269,13 @@
                     $("#map-canvas").css("height", "500");
                     $("#map-canvas").css("border-color", "gray");
                     $("#map-canvas").css("margin-left", "-10px");
-
-                 
-
                 });
                 $("#busquedaAvanzada").show();
-
             }
             else {
                 agrandarMapa();
             }
             cantClick++;
-
         }
     </script>
 </asp:Content>

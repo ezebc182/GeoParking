@@ -17,7 +17,7 @@ var infowindow = new google.maps.InfoWindow({
 function initialize() {
 
     //recupera el nombre de la ciudad buscada
-    buscarCiudadSession();
+    //buscarCiudadSession();
 
     //variable para la busqueda con una direccion
     geocoder = new google.maps.Geocoder();
@@ -204,6 +204,8 @@ function addMarker(location) {
 
 }
 
+//----------------------------------------
+
 //SETEO TODOS LOS MARCADORES EN EL MAPA
 function setAllMap(map) {
     for (var i = 0; i < markers.length; i++) {
@@ -289,6 +291,7 @@ $(function () {
 
         //borramos los marcadores de busquedas anteriores
         deleteMarkers();
+        //borramos circulos de posibles busquedas anteriores
         deleteCirculos();
 
         //tomo el valor de la nueva ciudad
