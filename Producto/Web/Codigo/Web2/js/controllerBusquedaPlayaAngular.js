@@ -203,6 +203,10 @@ app.controller('MyCtrl', function ($scope, $http) {
             }
         }  
 
+
+        if (mostrarBusquedaAvanzada == true) {
+            $scope.ajustarMapa();
+        }
         $scope.listar();//$scope.mostrarGrilla = false;//oculto la grilla        
         $scope.map.setZoom(20);//zoom mapa      
         $scope.crearInfoWindows(playa);//crea el info para esa playa y lo muestra
