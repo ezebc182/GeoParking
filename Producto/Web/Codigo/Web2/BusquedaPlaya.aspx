@@ -48,7 +48,7 @@
                 </div>
             <div class="form-group">
                 <button type="button" class="btn-warning btn btn-md" id="btnBusquedaAvanzada" data-toggle="collapse"
-                    data-target="#busquedaAvanzada" onclick="ajustarMapa()" title="Busqueda Avanzada">
+                    data-target="#busquedaAvanzada"  ng-click="ajustarMapa()" title="Busqueda Avanzada">
                     <span class="glyphicon glyphicon-cog"></span>&nbsp;Búsqueda
                     avanzada</button>
                 <button type="button" class="btn-warning btn btn-md" id="btnListado" ng-click="listar();" title="Busqueda Avanzada">Ver Listado</button>
@@ -63,7 +63,7 @@
 
 
         <!--Columna con los fitros de la busqueda-->
-        <div class="col-md-3 col-sm-3 col-lg-3 collapse well" id="busquedaAvanzada">
+        <div class="col-md-3 col-sm-3 col-lg-3 collapse well" id="busquedaAvanzada" >
             <div class="formulario form-horizontal" data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
                 data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
                 <fieldset>
@@ -239,7 +239,7 @@
                     ID="txtLongitud" ClientIDMode="Static" />
             </div>
             <!--Rectangulo de la Grilla-->
-            <div>
+            <div id="contenedorGrilla" class="table-responsive">
                 <%--grilla angular--%>
                 <div id="grillaPlayas" class="gridStyle" ng-grid="gridOptions" ng-show="mostrarGrilla"></div>     
             </div>
@@ -247,35 +247,9 @@
     </div>
     </div>   
     <script>
-        var cantClick = 0;
+        
 
         $(".formulario").bootstrapValidator();
-
-        function agrandarMapa() {
-            $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Búsqueda Avanzada");
-            $("#busquedaAvanzada").hide();
-            $("#map-canvas").css("width", "1260px");
-            $("#map-canvas").css("height", "500px");
-            $("#map-canvas").css("border-color", "gray");
-            $("#map-canvas").css("margin-left", "-30px");           
-        }
-
-        function ajustarMapa() {
-            if (cantClick % 2 == 0) {
-
-                $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Ocultar Avanzada");
-                $("#map-canvas").fadeIn(3000, function () {
-                    $("#map-canvas").css("width", "931px");
-                    $("#map-canvas").css("height", "500");
-                    $("#map-canvas").css("border-color", "gray");
-                    $("#map-canvas").css("margin-left", "-10px");
-                });
-                $("#busquedaAvanzada").show();
-            }
-            else {
-                agrandarMapa();
-            }
-            cantClick++;
-        }
+        
     </script>
 </asp:Content>

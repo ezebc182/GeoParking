@@ -10,11 +10,10 @@ app.controller('MyCtrl', function ($scope, $http) {
     $scope.marcadorCirculo = [];//marcadores de circulos    
     var contenido = "";//contenido infowindow de marcador   
     var infowindow = new google.maps.InfoWindow({ content: '' });//infowindow vacio
-
-    //playas de la BD de la ciudad buscada
-    $scope.playasBD = [];
-
-    $scope.mostrarGrilla = false;
+    var playas = [];//playas que recupera de la BD
+    var mostrarBusquedaAvanzada = false;
+    $scope.playasGrilla = [];//playas de la grilla de la ciudad buscada       
+    $scope.mostrarGrilla = false;//true: se muestra grilla , false: se muestra mapa
 
     //opciones de la grilla
     $scope.filterOptions = {
@@ -28,7 +27,7 @@ app.controller('MyCtrl', function ($scope, $http) {
         currentPage: 1
     };
 
-    /*seteo de la paginacion por cambio de pagina*/
+    /*SETEO DE LA PAGINACION POR CAMBIO DE PAGINA*/
     $scope.setPagingData = function (data, page, pageSize) {
         var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
         $scope.myData = pagedData;
@@ -38,72 +37,36 @@ app.controller('MyCtrl', function ($scope, $http) {
         }
     };
 
-    /*sincronizacion con los datos*/
+    /*SINCRONIZACION DE LOS DATOS*/
     $scope.getPagedDataAsync = function (pageSize, page, searchText) {
         setTimeout(function () {
             var data;
             if (searchText) {
-                var ft = searchText.toLowerCase();
-                $http({
-                    url: "reclamos.php",//mi pagina de begin
-                    method: "POST",
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    data: $.param({
-                        ciudad: $scope.ciudad //ciudad guardada en el modelo (textbox)
-                    })
-                }).success(function (largeLoad, status, headers, config) {
-                    datos = eval(JSON.stringify(largeLoad));
+                var ft = searchText.toLowerCase();                
+                
+                datos = eval(JSON.stringify($scope.playasGrilla));
 
-                    data = datos.filter(function (item) {
-                        return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
-                    });
-                    $scope.setPagingData(data, page, pageSize);
-                }).error(function (data, status, headers, config) {
-                    alert(status);
+                data = datos.filter(function (item) {
+                    return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
                 });
+
+                $scope.setPagingData(data, page, pageSize);              
 
             }
-            else {
-
-                datos = [{ 'id': "1", 'nombre': "Playa Patio Olmos", 'tipoPlaya': "techada", 'direccion': "Bv San Juan 298", 'vehiculos': "Autos y motos", 'precios': "$9" },
-                            { 'id': "2", 'nombre': "Playa Verde", 'tipoPlaya': "descubierta", 'direccion': "Bv San Juan 298", 'vehiculos': "Autos, motos y bicis", 'precios': "$12" },
-                            { 'id': "3", 'nombre': "Playa Dean Funes", 'tipoPlaya': "techada", 'direccion': "Bv San Juan 298", 'vehiculos': "Autos y motos", 'precios': "$19" },
-                            { 'id': "4", 'nombre': "Estrada Panking", 'tipoPlaya': "descubierta", 'direccion': "Bv San Juan 298", 'vehiculos': "Autos", 'precios': "$14" },
-                            { 'id': "5", 'nombre': "Playa Bolivar", 'tipoPlaya': "techada", 'direccion': "Bv San Juan 298", 'vehiculos': "Autos", 'precios': "$16" },
-                            { 'id': "6", 'nombre': "Playa Mitre", 'tipoPlaya': "subterranea", 'direccion': "Bv San Juan 298", 'vehiculos': "Autos y motos", 'precios': "$14" },
-                            { 'id': "7", 'nombre': "Playa Azul", 'tipoPlaya': "techada", 'direccion': "Bv San Juan 298", 'vehiculos': "Autos, motos y bicis", 'precios': "$23" }];
-                $scope.setPagingData(datos, page, pageSize);
-
-                $http({
-                    url: "reclamos.php",//mi pagina de begin
-                    method: "POST",
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    data: $.param({
-                        ciudad: $scope.ciudad //ciudad guardada en el modelo (textbox)
-                    })
-                }).success(function (largeLoad, status, headers, config) {
-
-                    datos = eval(JSON.stringify(largeLoad));
-                    $scope.setPagingData(datos, page, pageSize);
-
-                }).error(function (data, status, headers, config) {
-                    alert(status);
-                });
+            else {                            
+                    $scope.setPagingData($scope.playasGrilla, page, pageSize);                
             }
         }, 100);
-    };
+    };    
 
-    //sincronizacion al inicio de la aplicacion
-    //$scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
-
-    //escucha de los cambios de paginacion
+    /*ESCUCHA CAMBIOS DE LA PAGINACION*/
     $scope.$watch('pagingOptions', function (newVal, oldVal) {
         if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
             $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
         }
     }, true);
 
-    //escucha de los cambios en los filtros
+    /*ESCUCHA CAMBIOS DE LOS FILTROS*/
     $scope.$watch('filterOptions', function (newVal, oldVal) {
         if (newVal !== oldVal) {
             $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
@@ -137,31 +100,171 @@ app.controller('MyCtrl', function ($scope, $http) {
         ]
 
     };
+   
+    /*CREA EL INFOWINDOWS PARA UNA PLAYA*/
+    $scope.crearInfoWindows = function (playa) {
 
-    /*permite mostrar la playa seleccionada en el mapa*/
-    $scope.ir = function (row) {
+        infoWindow = new google.maps.InfoWindow();
 
-        //entidad seleccionada
-        var playa = row.entity;
+        contenido = "";
 
-        alert("voy a playa de estacionamiento")
-    };
+        contenido += "<div class='tabbable' id='tabs-23'>" +
+                        "<ul class='nav nav-tabs'>" +
+                          "<li class='active'>" +
+                            "<a href='#panel-1' data-toggle='tab'>Datos Generales</a>" +
+                          "</li>" +
+                          "<li>" +
+                            "<a href='#panel-2' data-toggle='tab'>Horarios</a>" +
+                          "</li>" +
+                           "<li>" +
+                            "<a href='#panel-3' data-toggle='tab'>Precios</a>" +
+                          "</li>" +
+                        "</ul>" +
+                        "<div class='tab-content'>";
 
 
-    /*Muestra la grilla o la esconde si esta activa*/
-    $scope.listar = function () {
-        if ($scope.mostrarGrilla == false) {
-            $scope.mostrarGrilla = true;
-            $("#btnListado").html("Ver Mapa")
+        //PRIMER TAB
+        contenido += "<div class='tab-pane active' id='panel-1'>" +
+        "<p>";
+
+        contenido += "<table class='table table-responsive'>";
+
+        contenido += "<tr><td> <strong>Nombre:</strong> </td> <td>" + playa.Nombre + " </td> </tr>" +
+       "<tr><td> <strong>Mail:</strong> </td> <td>" + playa.Mail + " </td> </tr>" +
+       "<tr><td> <strong>Telefono:</strong> </td> <td>" + playa.Telefono + " </td> </tr>" +
+       "<tr><td> <strong>Tipo Playa:</strong> </td> <td>" + playa.TipoPlaya + " </td> </tr>";
+
+        contenido += "</table>";
+
+        //agregamos las direcciones
+        contenido += "<div><h6>DIRECCION<h6></div>";
+        contenido += "<table>";
+        var direcciones = eval(playa.Direcciones);
+        for (var j = 0; j < direcciones.length; j++) {
+            contenido += "<tr><td> <strong>Calle:</strong>  </td> <td>" + direcciones[j].Calle + ":  </td> <td> <strong> N° </strong>: </td> <td>" + direcciones[j].Numero + " </td> </tr>";
         }
-        else {
-            $scope.mostrarGrilla = false;
-            $("#btnListado").html("Ver Listado")
+        contenido += "</table>";
+
+        //agregamos los servicios
+        contenido += "<div><h6>SERVICIOS<h6></div>";
+        contenido += "<table>";
+        var servicios = eval(playa.Servicios);
+        for (var K = 0; K < servicios.length; K++) {
+            contenido += "<tr><td> <strong>Tipo Vehiculo:</strong> </td> <td>" + servicios[K].TipoVehiculo + ":  </td> <td> <strong> Capacidad: </strong> </td> <td>" + servicios[K].Capacidad + " </td> </tr>";
         }
+        contenido += "</table>";
+        contenido += "</p></div>";
+
+        //SEGUNDO TAB
+        contenido += "<div class='tab-pane' id='panel-2'>" +
+        "<p>";
+
+        //agregamos los horarios
+        contenido += "<div><h6>HORARIOS<h6></div>";
+        contenido += "<table>";
+        var horarios = eval(playa.Horarios);
+        for (var l = 0; l < horarios.length; l++) {
+            contenido += "<tr><td>" + horarios[l].Dia + "</td> <td> - <strong>Desde:</strong></td> <td> " + horarios[l].HoraDesde + "</td> <td> - <strong>Hasta:</strong> </td> <td>" + horarios[l].HoraHasta + "</td> </tr>";
+        }
+        contenido += "</table>";
+        contenido += "</p></div>";
+
+        //TERCER TAB
+        contenido += "<div class='tab-pane' id='panel-3'>" +
+        "<p>";
+
+        //agregamos los precios
+        contenido += "<div><h6>PRECIOS<h6></div>";
+        contenido += "<table>";
+        var precios = eval(playa.Precios);
+        for (var m = 0; m < precios.length; m++) {
+            //contenido += "<div>" + precios[m].TipoVehiculo + " - " + precios[m].Dia + " - " + precios[m].Tiempo + " $" + precios[m].Monto + "</div>";
+            contenido += "<tr><td>" + precios[m].TipoVehiculo + "</td> <td> - " + precios[m].Tiempo + ":</td> <td> $" + precios[m].Monto + "</td> </tr>";
+        }
+        contenido += "</table>"
+        contenido += "</p></div>";
+
+         contenido += "</div></div>";
+
+        infoWindow.setContent(
+            '' + contenido + ''
+        );
+
+        infoWindow.setPosition(new google.maps.LatLng(playa.Latitud, playa.Longitud));
+        infoWindow.open($scope.map);
     }
 
+    /*PERMITE MOSTRAR LAPLAYA SELECCIONADA EN EL MAPA*/
+    $scope.ir = function (row) {          
+
+        for (var i = 0; i < playas.length; i++) {
+            if (playas[i].Id == row.entity.Id) {
+                var playa = playas[i];
+            }
+        }  
+
+        $scope.listar();//$scope.mostrarGrilla = false;//oculto la grilla        
+        $scope.map.setZoom(20);//zoom mapa      
+        $scope.crearInfoWindows(playa);//crea el info para esa playa y lo muestra
+        $scope.map.setCenter(new google.maps.LatLng(playa.Latitud, playa.Longitud));//centro el mapa en la playa              
+    }
+
+    /*AGRANDA EL MAPA PARA MOSTRARLO COMPLETO (CUANDO NO ESTA LA BUQUEDA AVANZADA)*/
+    $scope.agrandarMapa = function () {
+        $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Búsqueda Avanzada");
+        $("#busquedaAvanzada").hide();        
+        $("#map-canvas").css("width", "1260px");
+        $("#map-canvas").css("height", "500px");
+        $("#map-canvas").css("border-color", "gray");
+        $("#map-canvas").css("margin-left", "-30px");
+    }
+
+    /*MUESTRA LA GRILLA O LA ESCONDE SI ESTA ACTIVA*/
+    $scope.listar = function () {
+        if ($scope.mostrarGrilla == false) {
+            if (mostrarBusquedaAvanzada == false) {
+                $("#contenedorGrilla").removeClass("table-responsive");
+            }
+            $scope.mostrarGrilla = true;
+            $("#btnListado").html("Ver Mapa");
+        }
+        else {
+            $scope.mostrarGrilla = false;         
+            $("#btnListado").html("Ver Listado")           
+        }
+       
+    }
+
+    /*AJUSTA EL TAMAÑO DEL MAPA AL ABRIR LA BUSQUEDA AVANZADA*/
+    $scope.ajustarMapa = function () {
+        if (mostrarBusquedaAvanzada == false) {         
+                $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Ocultar Avanzada");//            
+                $("#map-canvas").fadeIn(3000, function () {
+                    $("#map-canvas").css("width", "931px");
+                    $("#map-canvas").css("height", "500");
+                    $("#map-canvas").css("border-color", "gray");
+                    $("#map-canvas").css("margin-left", "-10px");
+                });
+                $("#contenedorGrilla").addClass("table-responsive");
+                $("#busquedaAvanzada").show();                
+                mostrarBusquedaAvanzada = true;              
+        }
+        else 
+        {
+            $scope.agrandarMapa();
+            $("#contenedorGrilla").removeClass("table-responsive");
+            mostrarBusquedaAvanzada = false;
+        }
+       
+    }    
+
     /*BUSCO LAS PLAYAS DE LA NUEVA CIUDAD*/
-    $scope.buscarPlayasCiudad = function () {        
+    $scope.buscarPlayasCiudad = function () {
+
+        $scope.playasGrilla = [];//vacio las playas a mostrar en la grila
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, 1, $scope.filterOptions.filterText);//sincronizo los datos con la grilla
+
+        $scope.listar();//$scope.mostrarGrilla = false;//oculto la grilla y muestro el mapa
 
         //borramos marcadores y circulos
         $scope.deleteMarkers();
@@ -201,15 +304,16 @@ app.controller('MyCtrl', function ($scope, $http) {
 
         }).error(function (data, status, headers, config) {
             alert('ERROR ' + data.status + ' ' + data.statusText, 'Error');
-        });
-
-      
+        });      
     }   
 
     /*FILTRO LAS PLAYAS*/
     $scope.filtrar = function () {
         alert("aca realizo el filtrado de las playas")
 
+        $scope.playasGrilla = [];//vacio las playas a mostrar en la grila
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, 1, $scope.filterOptions.filterText);//sincronizo los datos con la grilla
+        
         //borramos los marcadores de busquedas anteriores
         $scope.deleteMarkers();
 
@@ -459,7 +563,7 @@ app.controller('MyCtrl', function ($scope, $http) {
     $scope.cargarPlayas = function (response) {
 
         //leo las playas de estacionamiento
-        var playas = (typeof response.d) == 'string' ? eval('(' + response.d + ')') : response.d;
+        playas = (typeof response.d) == 'string' ? eval('(' + response.d + ')') : response.d;
 
         if (playas.length > 0) {
             //analizo la cada una y armo el contenio del marcador
@@ -558,7 +662,7 @@ app.controller('MyCtrl', function ($scope, $http) {
                         infowindow.setContent(contenido);
                         infowindow.open($scope.map, marker);
                     });
-                })(marker, contenido);
+                })(marker, contenido);               
 
                 //agregamos el marcador al array
                 $scope.markers.push(marker);
@@ -572,7 +676,7 @@ app.controller('MyCtrl', function ($scope, $http) {
     $scope.cargarPlayasGrilla = function (response) {
 
         //vacio la variable
-        $scope.playasBD = [];
+        $scope.playasGrilla = [];
 
         //leo las playas de estacionamiento
         var playas = (typeof response.d) == 'string' ? eval('(' + response.d + ')') : response.d;
@@ -607,13 +711,16 @@ app.controller('MyCtrl', function ($scope, $http) {
                     Precios += precios[m].TipoVehiculo + " - " + precios[m].Tiempo + ": $" + precios[m].Monto + "\n";
                 }
 
-                $scope.playasBD.push({ Id: Id, Nombre: Nombre, TipoPlaya: TipoPlaya, Direccion: Direccion, Vehiculos: Vehiculos, Precios: Precios });
+                var latitud = playas[i].Latitud;
+                var longitud = playas[i].Longitud;
+
+                $scope.playasGrilla.push({ Id: Id, Nombre: Nombre, TipoPlaya: TipoPlaya, Direccion: Direccion, Vehiculos: Vehiculos, Precios: Precios, Latitud:latitud, Longitud:longitud });
 
 
             }
         }        
         
-        $scope.setPagingData($scope.playasBD, $scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize);
+        $scope.setPagingData($scope.playasGrilla, $scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize);
     }
 
     /*AGREGAR MARCADORES DE LAS PLAYAS DE LA CIUDAD BUSCADA EN EL INDEX [mantenida en session]*/
@@ -625,6 +732,9 @@ app.controller('MyCtrl', function ($scope, $http) {
             data: $.param({})
         }).success(function (response) {
 
+            $scope.playasGrilla = [];//vacio las playas a mostrar en la grila
+            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, 1, $scope.filterOptions.filterText);//sincronizo los datos con la grilla
+            
             $scope.cargarPlayas(response);//carga las playas en el mapa
 
             $scope.cargarPlayasGrilla(response);//carga las playas en la grilla               
@@ -638,7 +748,18 @@ app.controller('MyCtrl', function ($scope, $http) {
     $scope.limpiarMapa = function() {
         $scope.clearCirculos();
         $scope.clearMarcadorCirculo();
-    }
+
+        //ubica el mapa en la ciudad
+        var address = $scope.ciudad + ", Argentina";
+        $scope.geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                $scope.map.setCenter(results[0].geometry.location);
+                $scope.map.setZoom(12);
+            } else {
+                alert("La ciudad no ha podido encontrarse")
+            }
+        });
+    }    
 
     /*INICIALIZA EL MAPA AL CARGAR LA PAGINA*/
     $scope.inicializarMapa = function () {
@@ -658,10 +779,5 @@ app.controller('MyCtrl', function ($scope, $http) {
 
     /*SETEA COMO METODO DE INICIO AL CARGAR LA PAGINA*/
     google.maps.event.addDomListener(window, 'load', $scope.inicializarMapa);
-    //inicializacion de la pagina (en duda por si no funciona la linea anterior)
-    //$scope.inicializarMapa();
-
-
-
-
+    
 });
