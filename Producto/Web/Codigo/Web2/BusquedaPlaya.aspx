@@ -3,8 +3,14 @@
     <!--Estilos del mapa y su panel-->
     <link href="css/BusquedaPlaya.css" rel="stylesheet" />   
 
+     
+    <%--<script src="js/autocompleteCiudades.js"></script>--%>
+    
+    <%-- validadores js --%>
+    <%--script src="js/bootstrapValidator.min.js"></script> NO ANDAN--%>
+
     <!--Script de google mas-->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 
     <!--Script para el mapa de toda la pagina-->
     <%--<script src="js/GoogleMapsBusquedaPlaya.js"></script>--%>
@@ -35,12 +41,12 @@
         <!--Cabecera con formulario para buscar en otra ciudad y cambiar el mapa-->
         <div class="form-inline" style="margin-bottom:1%;">
             <div class="form-group" style="width:40%;">
-                <div class="input-group" >
+                <div class="input-group" style="width: 85%;">
                     <input type="text" class="form-control input-md autosuggest" value="" id="txtBuscar" ng-model="ciudad"
                         placeholder="Buscar en otra ciudad..." />
 
                     <div class="input-group-btn">
-                        <button type="button" class="btn-primary btn btn-md" id="Button1" title="Buscar Ciudad" ng-click="buscarPlayasCiudad()">
+                        <button type="button" class="btn-primary btn btn-md" id="txtBuscar" title="Buscar Ciudad" ng-click="buscarPlayasCiudad()">
                             <span class="glyphicon glyphicon-search"></span>&nbsp;Buscar</button>
                     </div>
 

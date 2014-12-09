@@ -42,22 +42,22 @@ app.controller('MyCtrl', function ($scope, $http) {
         setTimeout(function () {
             var data;
             if (searchText) {
-                var ft = searchText.toLowerCase();                
-                
+                var ft = searchText.toLowerCase();
+
                 datos = eval(JSON.stringify($scope.playasGrilla));
 
                 data = datos.filter(function (item) {
                     return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
                 });
 
-                $scope.setPagingData(data, page, pageSize);              
+                $scope.setPagingData(data, page, pageSize);
 
             }
-            else {                            
-                    $scope.setPagingData($scope.playasGrilla, page, pageSize);                
+            else {
+                $scope.setPagingData($scope.playasGrilla, page, pageSize);
             }
         }, 100);
-    };    
+    };
 
     /*ESCUCHA CAMBIOS DE LA PAGINACION*/
     $scope.$watch('pagingOptions', function (newVal, oldVal) {
@@ -89,9 +89,9 @@ app.controller('MyCtrl', function ($scope, $http) {
         multiSelect: false,
         columnDefs://definir las columnas a tener en la grilla
         [
-        { field: 'Id', displayName: 'Id', width: "30px"},
+        { field: 'Id', displayName: 'Id', width: "30px" },
         { field: 'Nombre', displayName: 'Nombre', width: "200px" },
-        { field: 'TipoPlaya', displayName: 'Tipo Playa', width:"100px" },
+        { field: 'TipoPlaya', displayName: 'Tipo Playa', width: "100px" },
         { field: 'Direccion', displayName: 'Direccion' },
         { field: 'Vehiculos', displayName: 'Vehiculos', width: "200px" },
         { field: 'Precios', displayName: 'Precios' },
@@ -100,7 +100,19 @@ app.controller('MyCtrl', function ($scope, $http) {
         ]
 
     };
-   
+
+    /*OMITE LOS ACENTOS DE UNA CADENA, PARA QUE EL NOMBRE DE LA CIUDAD
+    SEA COMPATIBLE CON LA BD*/
+    $scope.omitirAcentos = function(text) {
+        var acentos = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç";
+        var original = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc";
+        for (var i = 0; i < acentos.length; i++) {
+            text = text.replace(acentos.charAt(i), original.charAt(i));
+        }
+        return text;
+    }
+
+
     /*CREA EL INFOWINDOWS PARA UNA PLAYA*/
     $scope.crearInfoWindows = function (playa) {
 
@@ -184,7 +196,7 @@ app.controller('MyCtrl', function ($scope, $http) {
         contenido += "</table>"
         contenido += "</p></div>";
 
-         contenido += "</div></div>";
+        contenido += "</div></div>";
 
         infoWindow.setContent(
             '' + contenido + ''
@@ -195,13 +207,13 @@ app.controller('MyCtrl', function ($scope, $http) {
     }
 
     /*PERMITE MOSTRAR LAPLAYA SELECCIONADA EN EL MAPA*/
-    $scope.ir = function (row) {          
+    $scope.ir = function (row) {
 
         for (var i = 0; i < playas.length; i++) {
             if (playas[i].Id == row.entity.Id) {
                 var playa = playas[i];
             }
-        }  
+        }
 
 
         if (mostrarBusquedaAvanzada == true) {
@@ -216,7 +228,7 @@ app.controller('MyCtrl', function ($scope, $http) {
     /*AGRANDA EL MAPA PARA MOSTRARLO COMPLETO (CUANDO NO ESTA LA BUQUEDA AVANZADA)*/
     $scope.agrandarMapa = function () {
         $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Búsqueda Avanzada");
-        $("#busquedaAvanzada").hide();        
+        $("#busquedaAvanzada").hide();
         $("#map-canvas").css("width", "1260px");
         $("#map-canvas").css("height", "500px");
         $("#map-canvas").css("border-color", "gray");
@@ -233,34 +245,33 @@ app.controller('MyCtrl', function ($scope, $http) {
             $("#btnListado").html("Ver Mapa");
         }
         else {
-            $scope.mostrarGrilla = false;         
-            $("#btnListado").html("Ver Listado")           
+            $scope.mostrarGrilla = false;
+            $("#btnListado").html("Ver Listado")
         }
-       
+
     }
 
     /*AJUSTA EL TAMAÑO DEL MAPA AL ABRIR LA BUSQUEDA AVANZADA*/
     $scope.ajustarMapa = function () {
-        if (mostrarBusquedaAvanzada == false) {         
-                $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Ocultar Avanzada");//            
-                $("#map-canvas").fadeIn(3000, function () {
-                    $("#map-canvas").css("width", "931px");
-                    $("#map-canvas").css("height", "500");
-                    $("#map-canvas").css("border-color", "gray");
-                    $("#map-canvas").css("margin-left", "-10px");
-                });
-                $("#contenedorGrilla").addClass("table-responsive");
-                $("#busquedaAvanzada").show();                
-                mostrarBusquedaAvanzada = true;              
+        if (mostrarBusquedaAvanzada == false) {
+            $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Ocultar Avanzada");//            
+            $("#map-canvas").fadeIn(3000, function () {
+                $("#map-canvas").css("width", "931px");
+                $("#map-canvas").css("height", "500");
+                $("#map-canvas").css("border-color", "gray");
+                $("#map-canvas").css("margin-left", "-10px");
+            });
+            $("#contenedorGrilla").addClass("table-responsive");
+            $("#busquedaAvanzada").show();
+            mostrarBusquedaAvanzada = true;
         }
-        else 
-        {
+        else {
             $scope.agrandarMapa();
             $("#contenedorGrilla").removeClass("table-responsive");
             mostrarBusquedaAvanzada = false;
         }
-       
-    }    
+
+    }
 
     /*BUSCO LAS PLAYAS DE LA NUEVA CIUDAD*/
     $scope.buscarPlayasCiudad = function () {
@@ -268,24 +279,31 @@ app.controller('MyCtrl', function ($scope, $http) {
         $scope.playasGrilla = [];//vacio las playas a mostrar en la grila
         $scope.getPagedDataAsync($scope.pagingOptions.pageSize, 1, $scope.filterOptions.filterText);//sincronizo los datos con la grilla
 
-        $scope.listar();//$scope.mostrarGrilla = false;//oculto la grilla y muestro el mapa
+        if ($scope.mostrarGrilla == true) {
+            $scope.listar();//$scope.mostrarGrilla = false;//oculto la grilla y muestro el mapa
+        }
 
         //borramos marcadores y circulos
         $scope.deleteMarkers();
         $scope.deleteCirculos();
 
+        $scope.ciudad = document.getElementById('txtBuscar').value;        
+
         //tomo el valor de la nueva ciudad
-        var ciudadNueva = $scope.ciudad;
+        var direccionCiudad = $scope.ciudad.split(',');
+        var ciudad = direccionCiudad[0];
+        var ciudadNueva = $scope.omitirAcentos(ciudad);
 
         $http({
             url: "BusquedaPlaya.aspx/ObtenerPlayasDeCiudadNueva",//mi pagina de begin
             method: "POST",
             headers: { 'Content-Type': 'application/json' },  // agregar a para webmethod con parametros
-            data: { ciudad: ciudadNueva }            
-        }).success(function (response) {        
+            data: { ciudad: ciudadNueva }
+        }).success(function (response) {
 
             //toma la direccion y la busca
-            var address = ciudadNueva + ", Argentina";
+            var address = $scope.ciudad;
+           
             $scope.geocoder.geocode({ 'address': address }, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     $scope.map.setCenter(results[0].geometry.location);
@@ -308,8 +326,8 @@ app.controller('MyCtrl', function ($scope, $http) {
 
         }).error(function (data, status, headers, config) {
             alert('ERROR ' + data.status + ' ' + data.statusText, 'Error');
-        });      
-    }   
+        });
+    }
 
     /*FILTRO LAS PLAYAS*/
     $scope.filtrar = function () {
@@ -317,7 +335,7 @@ app.controller('MyCtrl', function ($scope, $http) {
 
         $scope.playasGrilla = [];//vacio las playas a mostrar en la grila
         $scope.getPagedDataAsync($scope.pagingOptions.pageSize, 1, $scope.filterOptions.filterText);//sincronizo los datos con la grilla
-        
+
         //borramos los marcadores de busquedas anteriores
         $scope.deleteMarkers();
 
@@ -349,13 +367,15 @@ app.controller('MyCtrl', function ($scope, $http) {
             url: "BusquedaPlaya.aspx/ObtenerPlayasDeCiudadPorFiltro",//mi pagina de begin
             method: "POST",
             headers: { 'Content-Type': 'application/json' },  // agregar a para webmethod con parametros
-            data: {tipoPlaya: tipoplaya,
+            data: {
+                tipoPlaya: tipoplaya,
                 tipoVehiculo: tipovehiculo,
                 diaAtencion: diaatencion,
-                precioDesde: preciodesde, 
-                precioHasta: preciohasta, 
-                horaDesde: horadesde, 
-                horaHasta: horahasta }
+                precioDesde: preciodesde,
+                precioHasta: preciohasta,
+                horaDesde: horadesde,
+                horaHasta: horahasta
+            }
         }).success(function (response) {
 
             $scope.cargarPlayas(response);//cargar playas resultantes de los filtros en el mapa
@@ -363,8 +383,8 @@ app.controller('MyCtrl', function ($scope, $http) {
 
         }).error(function (data, status, headers, config) {
             alert('ERROR ' + data.status + ' ' + data.statusText, 'Error');
-        });        
-    }
+        });
+    }  
 
     /*BUSCA LA CIUDAD EN LA SESSION Y LA LOCALIZA EN EL MAPA*/
     $scope.buscarCiudadSesion = function () {
@@ -374,7 +394,8 @@ app.controller('MyCtrl', function ($scope, $http) {
             data: $.param({})
         }).success(function (response) {
 
-            $scope.ciudad = response.d;//ciudad en la session
+            //$scope.ciudad = $scope.omitirAcentos(response.d);//ciudad en la session
+            $scope.ciudad = response.d;
 
             //toma la ciudad, arma la direccion (solo argentina) y la busca
             var address = $scope.ciudad + ", Argentina";
@@ -666,7 +687,7 @@ app.controller('MyCtrl', function ($scope, $http) {
                         infowindow.setContent(contenido);
                         infowindow.open($scope.map, marker);
                     });
-                })(marker, contenido);               
+                })(marker, contenido);
 
                 //agregamos el marcador al array
                 $scope.markers.push(marker);
@@ -718,12 +739,12 @@ app.controller('MyCtrl', function ($scope, $http) {
                 var latitud = playas[i].Latitud;
                 var longitud = playas[i].Longitud;
 
-                $scope.playasGrilla.push({ Id: Id, Nombre: Nombre, TipoPlaya: TipoPlaya, Direccion: Direccion, Vehiculos: Vehiculos, Precios: Precios, Latitud:latitud, Longitud:longitud });
+                $scope.playasGrilla.push({ Id: Id, Nombre: Nombre, TipoPlaya: TipoPlaya, Direccion: Direccion, Vehiculos: Vehiculos, Precios: Precios, Latitud: latitud, Longitud: longitud });
 
 
             }
-        }        
-        
+        }
+
         $scope.setPagingData($scope.playasGrilla, $scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize);
     }
 
@@ -738,7 +759,7 @@ app.controller('MyCtrl', function ($scope, $http) {
 
             $scope.playasGrilla = [];//vacio las playas a mostrar en la grila
             $scope.getPagedDataAsync($scope.pagingOptions.pageSize, 1, $scope.filterOptions.filterText);//sincronizo los datos con la grilla
-            
+
             $scope.cargarPlayas(response);//carga las playas en el mapa
 
             $scope.cargarPlayasGrilla(response);//carga las playas en la grilla               
@@ -749,7 +770,7 @@ app.controller('MyCtrl', function ($scope, $http) {
     }
 
     /*LIMPIAR MAPA*/
-    $scope.limpiarMapa = function() {
+    $scope.limpiarMapa = function () {
         $scope.clearCirculos();
         $scope.clearMarcadorCirculo();
 
@@ -763,10 +784,19 @@ app.controller('MyCtrl', function ($scope, $http) {
                 alert("La ciudad no ha podido encontrarse")
             }
         });
-    }    
+    }
 
     /*INICIALIZA EL MAPA AL CARGAR LA PAGINA*/
     $scope.inicializarMapa = function () {
+
+        var input = (document.getElementById('txtBuscar'));
+        var options = {
+            types: ['(cities)'],
+            componentRestrictions: { country: 'ar' }
+        };
+        var autocomplete = new google.maps.places.Autocomplete(input,
+        options);        
+
         $scope.buscarCiudadSesion();//ciudad en session
         $scope.geocoder = new google.maps.Geocoder();//busqueda de direccion
 
@@ -783,5 +813,5 @@ app.controller('MyCtrl', function ($scope, $http) {
 
     /*SETEA COMO METODO DE INICIO AL CARGAR LA PAGINA*/
     google.maps.event.addDomListener(window, 'load', $scope.inicializarMapa);
-    
+
 });

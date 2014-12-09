@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Services;
@@ -68,7 +69,13 @@ namespace Web2
             if (txtBuscar.Text != "")
             {
                 //Objeto session con la ciudad
-                Session["ciudad"] = txtBuscar.Text;
+                string[] direccionCiudad =txtBuscar.Text.Split(',');
+
+                string ciudad = direccionCiudad[0];
+                string textoNormalizado = ciudad.Normalize(NormalizationForm.FormD);
+                Regex reg = new Regex("[^a-zA-Z0-9 ]");
+                string ciudadSinAcentos = reg.Replace(textoNormalizado, "");
+                Session["ciudad"] = ciudadSinAcentos;
 
                 //redirijo a la pagina que mostrara los resultados
                 Response.Redirect("BusquedaPlaya.aspx");

@@ -150,7 +150,7 @@
     <Content Include="font-awesome-4.1.0\css\font-awesome.css" />
     <Content Include="font-awesome-4.1.0\css\font-awesome.min.css" />
     <Content Include="font-awesome-4.1.0\fonts\fontawesome-webfont.svg" />
-    <Content Include="font\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="img\index\arrow-2.png" />
     <Content Include="img\index\arrow1.png" />
     <Content Include="img\index\brand-logo1.png" />
@@ -186,6 +186,7 @@
     <Content Include="img\index\to-top1.png" />
     <Content Include="img\index\top-slider-pagenate.png" />
     <Content Include="img\marcadorParking2.png" />
+    <Content Include="js\autocompleteCiudades.js" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\bootstrapValidator.min.js" />
@@ -209,6 +210,7 @@
     <Content Include="js\plugins\morris\morris.js" />
     <Content Include="js\plugins\morris\morris.min.js" />
     <Content Include="js\plugins\morris\raphael.min.js" />
+    <Content Include="js\redireccionador.js" />
     <Content Include="packages.config" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -273,9 +275,9 @@
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="font\glyphicons-halflings-regular.eot" />
-    <Content Include="font\glyphicons-halflings-regular.ttf" />
-    <Content Include="font\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="font-awesome-4.1.0\fonts\fontawesome-webfont.eot" />
     <Content Include="font-awesome-4.1.0\fonts\fontawesome-webfont.ttf" />
     <Content Include="font-awesome-4.1.0\fonts\fontawesome-webfont.woff" />
