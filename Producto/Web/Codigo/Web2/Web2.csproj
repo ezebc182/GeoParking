@@ -198,6 +198,8 @@
     <Content Include="js\index\move-top.js" />
     <Content Include="js\index\owl.carousel.js" />
     <Content Include="js\index\responsiveslides.min.js" />
+    <Content Include="js\jquery.dataTables.css" />
+    <Content Include="js\jquery.dataTables.min.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\jquery.min.js" />
     <Content Include="js\plugins\flot\excanvas.min.js" />
@@ -206,6 +208,7 @@
     <Content Include="js\plugins\flot\jquery.flot.pie.js" />
     <Content Include="js\plugins\flot\jquery.flot.resize.js" />
     <Content Include="js\plugins\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="js\jquery-1.11.1.min.js" />
     <Content Include="js\plugins\morris\morris-data.js" />
     <Content Include="js\plugins\morris\morris.js" />
     <Content Include="js\plugins\morris\morris.min.js" />
@@ -215,6 +218,7 @@
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Index.aspx" />
+    <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin.aspx.cs">
@@ -256,6 +260,13 @@
     </Compile>
     <Compile Include="Util\Enumeraciones.cs" />
     <Compile Include="Util\FormHelper.cs" />
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Aplicacion\Negocio\Entidades\Entidades.csproj">

@@ -54,7 +54,14 @@ body {
 .gridStyle {
     border: solid gray;
     width: 1255px; 
-    height: 500px;
-    margin-left: -15px;       
+    max-height: 500px;
+    margin-left: -15px;     
+     background-color:white;  
 }
+
+thead {
+    background-color:gray;
+    color:white;
+}
+
 

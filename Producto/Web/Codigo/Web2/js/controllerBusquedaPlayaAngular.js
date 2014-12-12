@@ -1,5 +1,5 @@
 ﻿//aplicacion angular con modulo de ng-grid
-var app = angular.module('myApp', ['ngGrid']);
+var app = angular.module('myApp', []);
 
 //controlador de la aplicacion (busqueda playa)
 app.controller('MyCtrl', function ($scope, $http) {
@@ -13,93 +13,25 @@ app.controller('MyCtrl', function ($scope, $http) {
     var playas = [];//playas que recupera de la BD
     var mostrarBusquedaAvanzada = false;
     $scope.playasGrilla = [];//playas de la grilla de la ciudad buscada       
-    $scope.mostrarGrilla = false;//true: se muestra grilla , false: se muestra mapa
+    $scope.mostrarGrilla = false;//true: se muestra grilla , false: se muestra mapa   
+    $scope.resultado = [];
 
-    //opciones de la grilla
-    $scope.filterOptions = {
-        filterText: ''
-        // useExternalFilter: true
-    };
-    $scope.totalServerItems = 0;
-    $scope.pagingOptions = {
-        pageSizes: [5, 10, 20],
-        pageSize: 5,
-        currentPage: 1
-    };
+    $scope.currentPage = 0;
+    $scope.pageSize = 8;
+    
+    $scope.$watch('a', function () {
+        $scope.currentPage = 0;
+        $scope.numberOfPages();
+    });
 
-    /*SETEO DE LA PAGINACION POR CAMBIO DE PAGINA*/
-    $scope.setPagingData = function (data, page, pageSize) {
-        var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
-        $scope.myData = pagedData;
-        $scope.totalServerItems = data.length;
-        if (!$scope.$$phase) {
-            $scope.$apply();
-        }
-    };
+    $scope.$watch('pageSize', function () {
+        $scope.currentPage = 0;
+        $scope.numberOfPages();
+    });
 
-    /*SINCRONIZACION DE LOS DATOS*/
-    $scope.getPagedDataAsync = function (pageSize, page, searchText) {
-        setTimeout(function () {
-            var data;
-            if (searchText) {
-                var ft = searchText.toLowerCase();
-
-                datos = eval(JSON.stringify($scope.playasGrilla));
-
-                data = datos.filter(function (item) {
-                    return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
-                });
-
-                $scope.setPagingData(data, page, pageSize);
-
-            }
-            else {
-                $scope.setPagingData($scope.playasGrilla, page, pageSize);
-            }
-        }, 100);
-    };
-
-    /*ESCUCHA CAMBIOS DE LA PAGINACION*/
-    $scope.$watch('pagingOptions', function (newVal, oldVal) {
-        if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
-            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
-        }
-    }, true);
-
-    /*ESCUCHA CAMBIOS DE LOS FILTROS*/
-    $scope.$watch('filterOptions', function (newVal, oldVal) {
-        if (newVal !== oldVal) {
-            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
-        }
-    }, true);
-
-    //boton para ir a la playa en el mapa
-    $scope.btnOption = '<div style="text-align:center;"><button id="editBtn" type="button" ng-click="ir(row)"><span class="glyphicon glyphicon-search"></span></span></button></div>';
-
-    //opciones de la grilla
-    $scope.gridOptions = {
-        data: 'myData',
-        enablePaging: true,
-        showFooter: true,
-        totalServerItems: 'totalServerItems',
-        pagingOptions: $scope.pagingOptions,
-        filterOptions: $scope.filterOptions,
-        showGroupPanel: true,
-        enableFiltering: true,
-        multiSelect: false,
-        columnDefs://definir las columnas a tener en la grilla
-        [
-        { field: 'Id', displayName: 'Id', width: "30px" },
-        { field: 'Nombre', displayName: 'Nombre', width: "200px" },
-        { field: 'TipoPlaya', displayName: 'Tipo Playa', width: "100px" },
-        { field: 'Direccion', displayName: 'Direccion' },
-        { field: 'Vehiculos', displayName: 'Vehiculos', width: "200px" },
-        { field: 'Precios', displayName: 'Precios' },
-        { displayName: "Ver", cellTemplate: $scope.btnOption, width: "50px" }
-
-        ]
-
-    };
+    $scope.numberOfPages = function () {
+        return Math.ceil($scope.resultado.length / $scope.pageSize);
+    }
 
     /*OMITE LOS ACENTOS DE UNA CADENA, PARA QUE EL NOMBRE DE LA CIUDAD
     SEA COMPATIBLE CON LA BD*/
@@ -111,7 +43,6 @@ app.controller('MyCtrl', function ($scope, $http) {
         }
         return text;
     }
-
 
     /*CREA EL INFOWINDOWS PARA UNA PLAYA*/
     $scope.crearInfoWindows = function (playa) {
@@ -209,8 +140,10 @@ app.controller('MyCtrl', function ($scope, $http) {
     /*PERMITE MOSTRAR LAPLAYA SELECCIONADA EN EL MAPA*/
     $scope.ir = function (row) {
 
+        alert(row)
+
         for (var i = 0; i < playas.length; i++) {
-            if (playas[i].Id == row.entity.Id) {
+            if (playas[i].Id == row.Id) {
                 var playa = playas[i];
             }
         }
@@ -242,11 +175,11 @@ app.controller('MyCtrl', function ($scope, $http) {
                 $("#contenedorGrilla").removeClass("table-responsive");
             }
             $scope.mostrarGrilla = true;
-            $("#btnListado").html("Ver Mapa");
+            $("#btnListado").html("<span class='glyphicon glyphicon-globe'></span>&nbsp;Ver Mapa");
         }
         else {
             $scope.mostrarGrilla = false;
-            $("#btnListado").html("Ver Listado")
+            $("#btnListado").html("<span class='glyphicon glyphicon-list-alt'></span>&nbsp;Ver Listado")
         }
 
     }
@@ -262,11 +195,13 @@ app.controller('MyCtrl', function ($scope, $http) {
                 $("#map-canvas").css("margin-left", "-10px");
             });
             $("#contenedorGrilla").addClass("table-responsive");
+            $(".gridStyle").css("margin-left","0px");
             $("#busquedaAvanzada").show();
             mostrarBusquedaAvanzada = true;
         }
         else {
             $scope.agrandarMapa();
+            $(".gridStyle").css("margin-left", "-15px");
             $("#contenedorGrilla").removeClass("table-responsive");
             mostrarBusquedaAvanzada = false;
         }
@@ -276,8 +211,7 @@ app.controller('MyCtrl', function ($scope, $http) {
     /*BUSCO LAS PLAYAS DE LA NUEVA CIUDAD*/
     $scope.buscarPlayasCiudad = function () {
 
-        $scope.playasGrilla = [];//vacio las playas a mostrar en la grila
-        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, 1, $scope.filterOptions.filterText);//sincronizo los datos con la grilla
+        $scope.playasGrilla = [];//vacio las playas a mostrar en la grila        
 
         if ($scope.mostrarGrilla == true) {
             $scope.listar();//$scope.mostrarGrilla = false;//oculto la grilla y muestro el mapa
@@ -327,64 +261,7 @@ app.controller('MyCtrl', function ($scope, $http) {
         }).error(function (data, status, headers, config) {
             alert('ERROR ' + data.status + ' ' + data.statusText, 'Error');
         });
-    }
-
-    /*FILTRO LAS PLAYAS*/
-    $scope.filtrar = function () {
-        alert("aca realizo el filtrado de las playas")
-
-        $scope.playasGrilla = [];//vacio las playas a mostrar en la grila
-        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, 1, $scope.filterOptions.filterText);//sincronizo los datos con la grilla
-
-        //borramos los marcadores de busquedas anteriores
-        $scope.deleteMarkers();
-
-        //tomo los valores de los filtros
-        var tipoplaya = document.getElementById('ddlTipoPlaya').value;
-        var tipovehiculo = document.getElementById('ddlTipoVehiculo').value;
-        var diaatencion = document.getElementById('ddlDiasAtencion').value;
-
-        var minPrecio = document.getElementById('txtMinPrecio').value;
-        if (Number.isInteger(parseInt(minPrecio))) {
-            var preciodesde = minPrecio;
-        }
-        else {
-            var preciodesde = "0";
-        }
-
-        var maxPrecio = document.getElementById('txtMaxPrecio').value;
-        if (Number.isInteger(parseInt(maxPrecio))) {
-            var preciohasta = maxPrecio;
-        }
-        else {
-            var preciohasta = "0";
-        }
-
-        var horadesde = document.getElementById('ddlHoraDesde').value;
-        var horahasta = document.getElementById('ddlHoraHasta').value;
-
-        $http({
-            url: "BusquedaPlaya.aspx/ObtenerPlayasDeCiudadPorFiltro",//mi pagina de begin
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' },  // agregar a para webmethod con parametros
-            data: {
-                tipoPlaya: tipoplaya,
-                tipoVehiculo: tipovehiculo,
-                diaAtencion: diaatencion,
-                precioDesde: preciodesde,
-                precioHasta: preciohasta,
-                horaDesde: horadesde,
-                horaHasta: horahasta
-            }
-        }).success(function (response) {
-
-            $scope.cargarPlayas(response);//cargar playas resultantes de los filtros en el mapa
-            $scope.cargarPlayasGrila(response);//cargar playas resultantes en la grilla
-
-        }).error(function (data, status, headers, config) {
-            alert('ERROR ' + data.status + ' ' + data.statusText, 'Error');
-        });
-    }  
+    }   
 
     /*BUSCA LA CIUDAD EN LA SESSION Y LA LOCALIZA EN EL MAPA*/
     $scope.buscarCiudadSesion = function () {
@@ -694,7 +571,7 @@ app.controller('MyCtrl', function ($scope, $http) {
 
             }
         }
-        else Alerta_openModalInfo('No se han encontrado playas con los filtros seleccionados.', 'Resultado de la Busqueda')
+        else alert('No se han encontrado playas con los filtros seleccionados')
     }
 
     /*CARGA LAS PLAYAS EN LA GRILLA*/
@@ -743,9 +620,67 @@ app.controller('MyCtrl', function ($scope, $http) {
 
 
             }
+
+            
         }
 
-        $scope.setPagingData($scope.playasGrilla, $scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize);
+        
+    }
+
+    /*FILTRO LAS PLAYAS*/
+    $scope.filtrar = function () {
+        alert("aca realizo el filtrado de las playas")
+
+        $scope.playasGrilla = [];//vacio las playas a mostrar en la grila
+
+        //borramos los marcadores de busquedas anteriores
+        $scope.deleteMarkers();
+
+        //tomo los valores de los filtros
+        var tipoplaya = document.getElementById('ddlTipoPlaya').value;
+        var tipovehiculo = document.getElementById('ddlTipoVehiculo').value;
+        var diaatencion = document.getElementById('ddlDiasAtencion').value;
+
+        var minPrecio = document.getElementById('txtMinPrecio').value;
+        if (Number.isInteger(parseInt(minPrecio))) {
+            var preciodesde = minPrecio;
+        }
+        else {
+            var preciodesde = "0";
+        }
+
+        var maxPrecio = document.getElementById('txtMaxPrecio').value;
+        if (Number.isInteger(parseInt(maxPrecio))) {
+            var preciohasta = maxPrecio;
+        }
+        else {
+            var preciohasta = "0";
+        }
+
+        var horadesde = document.getElementById('ddlHoraDesde').value;
+        var horahasta = document.getElementById('ddlHoraHasta').value;
+
+        $http({
+            url: "BusquedaPlaya.aspx/ObtenerPlayasDeCiudadPorFiltro",//mi pagina de begin
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },  // agregar a para webmethod con parametros
+            data: {
+                tipoPlaya: tipoplaya,
+                tipoVehiculo: tipovehiculo,
+                diaAtencion: diaatencion,
+                precioDesde: preciodesde,
+                precioHasta: preciohasta,
+                horaDesde: horadesde,
+                horaHasta: horahasta
+            }
+        }).success(function (response) {
+
+            $scope.cargarPlayas(response);//cargar playas resultantes de los filtros en el mapa
+            $scope.cargarPlayasGrilla(response);//cargar playas resultantes en la grilla            
+
+        }).error(function (data, status, headers, config) {
+            alert('ERROR ' + data.status + ' ' + data.statusText, 'Error');
+        });
     }
 
     /*AGREGAR MARCADORES DE LAS PLAYAS DE LA CIUDAD BUSCADA EN EL INDEX [mantenida en session]*/
@@ -757,8 +692,7 @@ app.controller('MyCtrl', function ($scope, $http) {
             data: $.param({})
         }).success(function (response) {
 
-            $scope.playasGrilla = [];//vacio las playas a mostrar en la grila
-            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, 1, $scope.filterOptions.filterText);//sincronizo los datos con la grilla
+            $scope.playasGrilla = [];//vacio las playas a mostrar en la grila            
 
             $scope.cargarPlayas(response);//carga las playas en el mapa
 
@@ -814,4 +748,11 @@ app.controller('MyCtrl', function ($scope, $http) {
     /*SETEA COMO METODO DE INICIO AL CARGAR LA PAGINA*/
     google.maps.event.addDomListener(window, 'load', $scope.inicializarMapa);
 
+});
+
+app.filter('startFrom', function () {
+    return function (input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
 });

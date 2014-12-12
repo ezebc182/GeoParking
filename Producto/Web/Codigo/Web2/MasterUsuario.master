@@ -97,18 +97,10 @@
         
         </asp:ContentPlaceHolder>
 
-        <!-- start: JavaScript-->		
-	
-		<!-- jQuery -->
-    <script src="js/jquery.js"></script>
+        <!-- start: JavaScript-->		      
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrapValidator.min.js"></script>
-
-           
+    <script src="js/bootstrap.min.js"></script>           
 
 	<!-- end: JavaScript-->
 
