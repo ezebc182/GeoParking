@@ -16,5 +16,6 @@ namespace Entidades
         
         public virtual PlayaDeEstacionamiento PlayaDeEstacionamiento { get; set; }
         public virtual TipoVehiculo TipoVehiculo { get; set; }
+        public virtual Evento Evento { get; set; }
     }
 }
