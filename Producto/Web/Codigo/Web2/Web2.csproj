@@ -242,12 +242,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="MasterAdmin.master.cs">
-      <DependentUpon>MasterAdmin.master</DependentUpon>
+    <Compile Include="MasterAdmin.Master.cs">
+      <DependentUpon>MasterAdmin.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MasterUsuario.master.cs">
-      <DependentUpon>MasterUsuario.master</DependentUpon>
+    <Compile Include="MasterUsuario.Master.cs">
+      <DependentUpon>MasterUsuario.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -279,8 +279,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MasterAdmin.master" />
-    <Content Include="MasterUsuario.master" />
+    <Content Include="MasterAdmin.Master" />
+    <Content Include="MasterUsuario.Master" />
     <Content Include="Bootstrap\css\bootstrap-theme.css.map" />
     <Content Include="Bootstrap\css\bootstrap.css.map" />
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.eot" />
