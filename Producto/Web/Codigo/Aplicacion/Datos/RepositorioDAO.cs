@@ -26,6 +26,9 @@ namespace Datos
     public interface IRepositorioRol : IRepositorio<Rol> { }
     public interface IRepositorioPermiso : IRepositorio<Permiso> { }
     public interface IRepositorioEstadisticaConsultas : IRepositorio<EstadisticaConsultas> { }
+    public interface IRepositorioEventos : IRepositorio<Evento> { }
+    public interface IRepositorioDisponibilidadPlayas: IRepositorio<DisponibilidadPlayas> { }
+    public interface IRepositorioHistorialDisponibilidadPlayas : IRepositorio<HistorialDisponibilidadPlayas> { }
 
     //Clases DAO para cada entidad que heredan de la clase Repositorio
     public class RepositorioTipoDePlaya : Repositorio<TipoPlaya>, IRepositorioTipoDePlaya { }
@@ -39,6 +42,14 @@ namespace Datos
     public class RepositorioDepartamento : Repositorio<Departamento>, IRepositorioDepartamento { }
     public class RepositorioProvincia : Repositorio<Provincia>, IRepositorioProvincia { }
     public class RepositorioUsuario : Repositorio<Usuario>, IRepositorioUsuario { }
+    public class RepositorioEvento : Repositorio<Evento>, IRepositorioEventos { }    
+    public class RepositorioDisponibilidadPlayas : Repositorio<DisponibilidadPlayas>, IRepositorioDisponibilidadPlayas { }
+    public class RepositorioHistorialDisponibilidadPlayas : Repositorio<HistorialDisponibilidadPlayas>, IRepositorioHistorialDisponibilidadPlayas { }
+
+
+    /// <summary>
+    /// Repositorios DAO de estadisticas
+    /// </summary>
     public class RepositorioEstadisticaConsultas : Repositorio<EstadisticaConsultas>, IRepositorioEstadisticaConsultas 
     {
         public IList<EstadisticaPorTipoPlayaDto> GetConsultasTipoPlayaByCiudad(int idCiudad)
@@ -154,6 +165,10 @@ namespace Datos
             return GetConsultasByCiudad(idCiudad, null, null);
         }
     }
+    
+    /// <summary>
+    /// Repositorio DAO de localizaciones
+    /// </summary>
     public class RepositorioCiudad : Repositorio<Ciudad>, IRepositorioCiudad 
     {
 
@@ -167,6 +182,10 @@ namespace Datos
             return lista.FirstOrDefault();
         }
     }
+    
+    /// <summary>
+    /// Repositorio DAO de administracion de roles y permisos
+    /// </summary>
     public class RepositorioRol : Repositorio<Rol>, IRepositorioRol
     {
         public override IList<Rol> FindAll()
@@ -219,6 +238,9 @@ namespace Datos
         }
     }
 
+    /// <summary>
+    /// Repositorio DAO de las playas de estacionamiento
+    /// </summary>
     public class RepositorioPlayaDeEstacionamiento : Repositorio<PlayaDeEstacionamiento>, IRepositorioPlayaDeEstacionamiento
     {
 

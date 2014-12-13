@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ciudad.cs" />
+    <Compile Include="DsiponibilidadPlayas.cs" />
     <Compile Include="EstadisticaPorTipoPlayaDto.cs" />
     <Compile Include="EstadisticaPorTipoVehiculoDto.cs" />
     <Compile Include="EstadisticaDensidadDto.cs" />
@@ -59,6 +60,8 @@
     <Compile Include="Direccion.cs" />
     <Compile Include="EntidadBase.cs" />
     <Compile Include="EstadisticaConsultas.cs" />
+    <Compile Include="Evento.cs" />
+    <Compile Include="HistorialDisponibilidadPlayas.cs" />
     <Compile Include="Horario.cs" />
     <Compile Include="Permiso.cs" />
     <Compile Include="PlayaDeEstacionamiento.cs" />

@@ -37,7 +37,7 @@ namespace Web2 {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sidebar-left;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sidebar;
         
         /// <summary>
         /// Control MainContent.

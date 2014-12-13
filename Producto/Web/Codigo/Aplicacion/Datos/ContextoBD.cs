@@ -48,5 +48,8 @@ namespace Datos
         public DbSet<Permiso> permisos { get; set; }
         public DbSet<Direccion> direcciones { get; set; }
         public DbSet<EstadisticaConsultas> estadisticasConsultas { get; set; }
+        public DbSet<Evento> eventos { get; set; }
+        public DbSet<DisponibilidadPlayas> disponibilidadPlayas { get; set; }
+        public DbSet<HistorialDisponibilidadPlayas> historialDisponibilidadPlayas { get; set; }    
     }
 }
