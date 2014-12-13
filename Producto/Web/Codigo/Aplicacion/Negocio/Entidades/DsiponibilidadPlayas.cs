@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,12 @@ namespace Entidades
         public int TipoVehiculoId { get; set; }
         public int Disponibilidad { get; set; }
 
-        public virtual PlayaDeEstacionamiento PlayaDeEstacioamiento { get; set; }
-        public virtual TipoVehiculo TipoVehiculo { get; set; }
+        //public virtual PlayaDeEstacionamiento PlayaDeEstacioamiento { get; set; }
+        //public virtual TipoVehiculo TipoVehiculo { get; set; }
+
+        public string ToJSONRepresentation()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }

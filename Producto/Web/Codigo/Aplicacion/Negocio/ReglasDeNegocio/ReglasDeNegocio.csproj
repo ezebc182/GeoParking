@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GestorBusquedaPlayas.cs" />
+    <Compile Include="GestorDisponibilidad.cs" />
     <Compile Include="GestorEstadisticas.cs" />
     <Compile Include="GestorHorario.cs" />
     <Compile Include="GestorRol.cs" />

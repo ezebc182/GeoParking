@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,8 +15,13 @@ namespace Entidades
         public DateTime FechaHora { get; set; }
         public int Dia { get; set; }
         
-        public virtual PlayaDeEstacionamiento PlayaDeEstacionamiento { get; set; }
-        public virtual TipoVehiculo TipoVehiculo { get; set; }
-        public virtual Evento Evento { get; set; }
+        //public virtual PlayaDeEstacionamiento PlayaDeEstacionamiento { get; set; }
+        //public virtual TipoVehiculo TipoVehiculo { get; set; }
+        //public virtual Evento Evento { get; set; }
+
+        public string ToJSONRepresentation()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }
