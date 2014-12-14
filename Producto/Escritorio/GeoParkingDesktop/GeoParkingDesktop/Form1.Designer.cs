@@ -32,28 +32,33 @@
             this.incioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.coonectarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.paneles = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.btnRegistrarIngreso = new System.Windows.Forms.Button();
+            this.cmbTipoVehiculo = new System.Windows.Forms.ComboBox();
+            this.txtMatriculaIngreso = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.btnRegistrarEgreso = new System.Windows.Forms.Button();
+            this.btnBuscarVehiculo = new System.Windows.Forms.Button();
+            this.txtTiempo = new System.Windows.Forms.TextBox();
+            this.txtTipoVehiculo = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
+            this.txtMatriculaEgreso = new System.Windows.Forms.MaskedTextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtImporte = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.textBox28 = new System.Windows.Forms.TextBox();
+            this.textBox29 = new System.Windows.Forms.TextBox();
+            this.textBox30 = new System.Windows.Forms.TextBox();
+            this.textBox31 = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
             this.textBox24 = new System.Windows.Forms.TextBox();
             this.textBox25 = new System.Windows.Forms.TextBox();
             this.textBox26 = new System.Windows.Forms.TextBox();
@@ -104,13 +109,17 @@
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.textBox28 = new System.Windows.Forms.TextBox();
-            this.textBox29 = new System.Windows.Forms.TextBox();
-            this.textBox30 = new System.Windows.Forms.TextBox();
-            this.textBox31 = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.txtDispAuto = new System.Windows.Forms.TextBox();
+            this.txtDispMoto = new System.Windows.Forms.TextBox();
+            this.txtDispUti = new System.Windows.Forms.TextBox();
+            this.txtDispBici = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this.paneles.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -119,6 +128,7 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -152,23 +162,24 @@
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.salirToolStripMenuItem.Text = "Salir";
             // 
-            // tabControl1
+            // paneles
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(12, 37);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(558, 509);
-            this.tabControl1.TabIndex = 1;
+            this.paneles.Controls.Add(this.tabPage1);
+            this.paneles.Controls.Add(this.tabPage2);
+            this.paneles.Controls.Add(this.tabPage3);
+            this.paneles.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.paneles.Location = new System.Drawing.Point(12, 37);
+            this.paneles.Name = "paneles";
+            this.paneles.SelectedIndex = 0;
+            this.paneles.Size = new System.Drawing.Size(558, 509);
+            this.paneles.TabIndex = 1;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.comboBox2);
-            this.tabPage1.Controls.Add(this.maskedTextBox1);
+            this.tabPage1.Controls.Add(this.groupBox6);
+            this.tabPage1.Controls.Add(this.btnRegistrarIngreso);
+            this.tabPage1.Controls.Add(this.cmbTipoVehiculo);
+            this.tabPage1.Controls.Add(this.txtMatriculaIngreso);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label1);
@@ -180,39 +191,40 @@
             this.tabPage1.Text = "Ingreso";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnRegistrarIngreso
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(157, 231);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(249, 42);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "REGISTRAR INGRESO";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnRegistrarIngreso.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRegistrarIngreso.Location = new System.Drawing.Point(157, 231);
+            this.btnRegistrarIngreso.Name = "btnRegistrarIngreso";
+            this.btnRegistrarIngreso.Size = new System.Drawing.Size(249, 42);
+            this.btnRegistrarIngreso.TabIndex = 10;
+            this.btnRegistrarIngreso.Text = "REGISTRAR INGRESO";
+            this.btnRegistrarIngreso.UseVisualStyleBackColor = true;
+            this.btnRegistrarIngreso.Click += new System.EventHandler(this.btnRegistrarIngreso_Click);
             // 
-            // comboBox2
+            // cmbTipoVehiculo
             // 
-            this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.cmbTipoVehiculo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbTipoVehiculo.FormattingEnabled = true;
+            this.cmbTipoVehiculo.Items.AddRange(new object[] {
             "Automovil",
-            "Utilitario",
             "Motocicleta",
+            "Utilitario",
             "Bicicleta"});
-            this.comboBox2.Location = new System.Drawing.Point(277, 159);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 33);
-            this.comboBox2.TabIndex = 9;
+            this.cmbTipoVehiculo.Location = new System.Drawing.Point(277, 159);
+            this.cmbTipoVehiculo.Name = "cmbTipoVehiculo";
+            this.cmbTipoVehiculo.Size = new System.Drawing.Size(121, 33);
+            this.cmbTipoVehiculo.TabIndex = 9;
             // 
-            // maskedTextBox1
+            // txtMatriculaIngreso
             // 
-            this.maskedTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maskedTextBox1.Location = new System.Drawing.Point(277, 97);
-            this.maskedTextBox1.Mask = "AAA999";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(106, 31);
-            this.maskedTextBox1.TabIndex = 5;
-            this.maskedTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMatriculaIngreso.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMatriculaIngreso.Location = new System.Drawing.Point(277, 97);
+            this.txtMatriculaIngreso.Mask = "AAA999";
+            this.txtMatriculaIngreso.Name = "txtMatriculaIngreso";
+            this.txtMatriculaIngreso.Size = new System.Drawing.Size(106, 31);
+            this.txtMatriculaIngreso.TabIndex = 5;
+            this.txtMatriculaIngreso.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label3
             // 
@@ -247,15 +259,15 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.button3);
-            this.tabPage2.Controls.Add(this.button2);
-            this.tabPage2.Controls.Add(this.textBox3);
-            this.tabPage2.Controls.Add(this.textBox2);
+            this.tabPage2.Controls.Add(this.btnRegistrarEgreso);
+            this.tabPage2.Controls.Add(this.btnBuscarVehiculo);
+            this.tabPage2.Controls.Add(this.txtTiempo);
+            this.tabPage2.Controls.Add(this.txtTipoVehiculo);
             this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.maskedTextBox2);
+            this.tabPage2.Controls.Add(this.txtMatriculaEgreso);
             this.tabPage2.Controls.Add(this.label6);
             this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.textBox1);
+            this.tabPage2.Controls.Add(this.txtImporte);
             this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
@@ -266,41 +278,45 @@
             this.tabPage2.Text = "Egreso";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnRegistrarEgreso
             // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(141, 333);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(246, 41);
-            this.button3.TabIndex = 21;
-            this.button3.Text = "REGISTRAR EGRESO";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnRegistrarEgreso.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRegistrarEgreso.Location = new System.Drawing.Point(141, 333);
+            this.btnRegistrarEgreso.Name = "btnRegistrarEgreso";
+            this.btnRegistrarEgreso.Size = new System.Drawing.Size(246, 41);
+            this.btnRegistrarEgreso.TabIndex = 21;
+            this.btnRegistrarEgreso.Text = "REGISTRAR EGRESO";
+            this.btnRegistrarEgreso.UseVisualStyleBackColor = true;
+            this.btnRegistrarEgreso.Click += new System.EventHandler(this.btnRegistrarEgreso_Click);
             // 
-            // button2
+            // btnBuscarVehiculo
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(322, 65);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(88, 31);
-            this.button2.TabIndex = 20;
-            this.button2.Text = "BUSCAR";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnBuscarVehiculo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarVehiculo.Location = new System.Drawing.Point(322, 65);
+            this.btnBuscarVehiculo.Name = "btnBuscarVehiculo";
+            this.btnBuscarVehiculo.Size = new System.Drawing.Size(88, 31);
+            this.btnBuscarVehiculo.TabIndex = 20;
+            this.btnBuscarVehiculo.Text = "BUSCAR";
+            this.btnBuscarVehiculo.UseVisualStyleBackColor = true;
+            this.btnBuscarVehiculo.Click += new System.EventHandler(this.btnBuscarVehiculo_Click);
             // 
-            // textBox3
+            // txtTiempo
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(266, 182);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(121, 31);
-            this.textBox3.TabIndex = 19;
+            this.txtTiempo.Enabled = false;
+            this.txtTiempo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTiempo.Location = new System.Drawing.Point(266, 182);
+            this.txtTiempo.Name = "txtTiempo";
+            this.txtTiempo.Size = new System.Drawing.Size(121, 31);
+            this.txtTiempo.TabIndex = 19;
             // 
-            // textBox2
+            // txtTipoVehiculo
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(266, 145);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(121, 31);
-            this.textBox2.TabIndex = 18;
+            this.txtTipoVehiculo.Enabled = false;
+            this.txtTipoVehiculo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTipoVehiculo.Location = new System.Drawing.Point(266, 145);
+            this.txtTipoVehiculo.Name = "txtTipoVehiculo";
+            this.txtTipoVehiculo.Size = new System.Drawing.Size(121, 31);
+            this.txtTipoVehiculo.TabIndex = 18;
             // 
             // label8
             // 
@@ -313,15 +329,15 @@
             this.label8.Text = "EGRESO DE VEHICULO";
             this.label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // maskedTextBox2
+            // txtMatriculaEgreso
             // 
-            this.maskedTextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maskedTextBox2.Location = new System.Drawing.Point(209, 65);
-            this.maskedTextBox2.Mask = "AAA999";
-            this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.Size = new System.Drawing.Size(106, 31);
-            this.maskedTextBox2.TabIndex = 15;
-            this.maskedTextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMatriculaEgreso.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMatriculaEgreso.Location = new System.Drawing.Point(209, 65);
+            this.txtMatriculaEgreso.Mask = "AAA999";
+            this.txtMatriculaEgreso.Name = "txtMatriculaEgreso";
+            this.txtMatriculaEgreso.Size = new System.Drawing.Size(106, 31);
+            this.txtMatriculaEgreso.TabIndex = 15;
+            this.txtMatriculaEgreso.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label6
             // 
@@ -343,19 +359,20 @@
             this.label7.TabIndex = 13;
             this.label7.Text = "MATRÍCULA:";
             // 
-            // textBox1
+            // txtImporte
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(266, 226);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(121, 31);
-            this.textBox1.TabIndex = 11;
+            this.txtImporte.Enabled = false;
+            this.txtImporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtImporte.Location = new System.Drawing.Point(266, 220);
+            this.txtImporte.Name = "txtImporte";
+            this.txtImporte.Size = new System.Drawing.Size(121, 31);
+            this.txtImporte.TabIndex = 11;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(162, 233);
+            this.label5.Location = new System.Drawing.Point(162, 227);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(98, 20);
             this.label5.TabIndex = 10;
@@ -365,11 +382,11 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(187, 189);
+            this.label4.Location = new System.Drawing.Point(133, 189);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(73, 20);
+            this.label4.Size = new System.Drawing.Size(127, 20);
             this.label4.TabIndex = 9;
-            this.label4.Text = "TIEMPO:";
+            this.label4.Text = "TIEMPO (horas):";
             // 
             // tabPage3
             // 
@@ -424,6 +441,48 @@
             this.groupBox5.TabIndex = 16;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Precios";
+            // 
+            // textBox28
+            // 
+            this.textBox28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox28.Location = new System.Drawing.Point(263, 141);
+            this.textBox28.Name = "textBox28";
+            this.textBox28.Size = new System.Drawing.Size(61, 22);
+            this.textBox28.TabIndex = 39;
+            // 
+            // textBox29
+            // 
+            this.textBox29.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox29.Location = new System.Drawing.Point(263, 113);
+            this.textBox29.Name = "textBox29";
+            this.textBox29.Size = new System.Drawing.Size(61, 22);
+            this.textBox29.TabIndex = 38;
+            // 
+            // textBox30
+            // 
+            this.textBox30.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox30.Location = new System.Drawing.Point(263, 85);
+            this.textBox30.Name = "textBox30";
+            this.textBox30.Size = new System.Drawing.Size(61, 22);
+            this.textBox30.TabIndex = 37;
+            // 
+            // textBox31
+            // 
+            this.textBox31.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox31.Location = new System.Drawing.Point(263, 57);
+            this.textBox31.Name = "textBox31";
+            this.textBox31.Size = new System.Drawing.Size(61, 22);
+            this.textBox31.TabIndex = 36;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(260, 36);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(73, 16);
+            this.label21.TabIndex = 35;
+            this.label21.Text = "12 HORAS";
             // 
             // textBox24
             // 
@@ -898,61 +957,108 @@
             this.label11.TabIndex = 6;
             this.label11.Text = "Numero";
             // 
-            // textBox28
+            // groupBox6
             // 
-            this.textBox28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox28.Location = new System.Drawing.Point(263, 141);
-            this.textBox28.Name = "textBox28";
-            this.textBox28.Size = new System.Drawing.Size(61, 22);
-            this.textBox28.TabIndex = 39;
+            this.groupBox6.Controls.Add(this.txtDispBici);
+            this.groupBox6.Controls.Add(this.txtDispUti);
+            this.groupBox6.Controls.Add(this.txtDispMoto);
+            this.groupBox6.Controls.Add(this.txtDispAuto);
+            this.groupBox6.Controls.Add(this.label25);
+            this.groupBox6.Controls.Add(this.label24);
+            this.groupBox6.Controls.Add(this.label23);
+            this.groupBox6.Controls.Add(this.label22);
+            this.groupBox6.Location = new System.Drawing.Point(20, 300);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(515, 154);
+            this.groupBox6.TabIndex = 11;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Lugares Disponibles";
             // 
-            // textBox29
+            // label22
             // 
-            this.textBox29.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox29.Location = new System.Drawing.Point(263, 113);
-            this.textBox29.Name = "textBox29";
-            this.textBox29.Size = new System.Drawing.Size(61, 22);
-            this.textBox29.TabIndex = 38;
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(18, 44);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(87, 20);
+            this.label22.TabIndex = 0;
+            this.label22.Text = "Automovil";
             // 
-            // textBox30
+            // label23
             // 
-            this.textBox30.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox30.Location = new System.Drawing.Point(263, 85);
-            this.textBox30.Name = "textBox30";
-            this.textBox30.Size = new System.Drawing.Size(61, 22);
-            this.textBox30.TabIndex = 37;
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(145, 44);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(101, 20);
+            this.label23.TabIndex = 1;
+            this.label23.Text = "Motocicleta";
             // 
-            // textBox31
+            // label24
             // 
-            this.textBox31.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox31.Location = new System.Drawing.Point(263, 57);
-            this.textBox31.Name = "textBox31";
-            this.textBox31.Size = new System.Drawing.Size(61, 22);
-            this.textBox31.TabIndex = 36;
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(287, 44);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(76, 20);
+            this.label24.TabIndex = 2;
+            this.label24.Text = "Utilitario";
             // 
-            // label21
+            // label25
             // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(260, 36);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(73, 16);
-            this.label21.TabIndex = 35;
-            this.label21.Text = "12 HORAS";
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(405, 44);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(77, 20);
+            this.label25.TabIndex = 3;
+            this.label25.Text = "Bicicleta";
+            // 
+            // txtDispAuto
+            // 
+            this.txtDispAuto.Enabled = false;
+            this.txtDispAuto.Location = new System.Drawing.Point(40, 67);
+            this.txtDispAuto.Name = "txtDispAuto";
+            this.txtDispAuto.Size = new System.Drawing.Size(44, 26);
+            this.txtDispAuto.TabIndex = 4;
+            this.txtDispAuto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtDispMoto
+            // 
+            this.txtDispMoto.Enabled = false;
+            this.txtDispMoto.Location = new System.Drawing.Point(176, 67);
+            this.txtDispMoto.Name = "txtDispMoto";
+            this.txtDispMoto.Size = new System.Drawing.Size(44, 26);
+            this.txtDispMoto.TabIndex = 5;
+            this.txtDispMoto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtDispUti
+            // 
+            this.txtDispUti.Enabled = false;
+            this.txtDispUti.Location = new System.Drawing.Point(306, 67);
+            this.txtDispUti.Name = "txtDispUti";
+            this.txtDispUti.Size = new System.Drawing.Size(44, 26);
+            this.txtDispUti.TabIndex = 6;
+            this.txtDispUti.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtDispBici
+            // 
+            this.txtDispBici.Enabled = false;
+            this.txtDispBici.Location = new System.Drawing.Point(423, 67);
+            this.txtDispBici.Name = "txtDispBici";
+            this.txtDispBici.Size = new System.Drawing.Size(44, 26);
+            this.txtDispBici.TabIndex = 7;
+            this.txtDispBici.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(583, 558);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.paneles);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "GeoParking-Desktop";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
+            this.paneles.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
@@ -968,6 +1074,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -979,27 +1087,27 @@
         private System.Windows.Forms.ToolStripMenuItem incioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem coonectarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl paneles;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.ComboBox cmbTipoVehiculo;
+        private System.Windows.Forms.MaskedTextBox txtMatriculaIngreso;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnRegistrarIngreso;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
+        private System.Windows.Forms.MaskedTextBox txtMatriculaEgreso;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtImporte;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button btnRegistrarEgreso;
+        private System.Windows.Forms.Button btnBuscarVehiculo;
+        private System.Windows.Forms.TextBox txtTiempo;
+        private System.Windows.Forms.TextBox txtTipoVehiculo;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TextBox textBox24;
         private System.Windows.Forms.TextBox textBox25;
@@ -1056,6 +1164,15 @@
         private System.Windows.Forms.TextBox textBox30;
         private System.Windows.Forms.TextBox textBox31;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.TextBox txtDispBici;
+        private System.Windows.Forms.TextBox txtDispUti;
+        private System.Windows.Forms.TextBox txtDispMoto;
+        private System.Windows.Forms.TextBox txtDispAuto;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
     }
 }
 
