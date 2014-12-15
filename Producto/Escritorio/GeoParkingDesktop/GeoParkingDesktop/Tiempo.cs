@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace GeoParkingDesktop
 {
-    public class Precio
+    class Tiempo
     {
-        public int tipoVehiculo { get; set; }
-        public int tiempo { get; set; }
-        public double precio { get; set; }
-
+        public int id { get; set; }
+        public string nombre { get; set; }
     }
 }
