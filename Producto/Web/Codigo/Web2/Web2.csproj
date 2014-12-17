@@ -319,6 +319,7 @@
     <Content Include="font-awesome-4.1.0\scss\_spinning.scss" />
     <Content Include="font-awesome-4.1.0\scss\_stacked.scss" />
     <Content Include="font-awesome-4.1.0\scss\_variables.scss" />
+    <None Include="Properties\PublishProfiles\GeoparkingWeb2.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
