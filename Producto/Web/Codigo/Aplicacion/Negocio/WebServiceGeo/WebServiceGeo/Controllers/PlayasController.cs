@@ -58,7 +58,12 @@ namespace WebServiceGeo.Controllers
         // GET api/playas/5
         public string Get(int id)
         {
-            return "value";
+            //busco en la BD
+            PlayaDeEstacionamiento playas = new PlayaDeEstacionamiento();
+            playas = gestor.buscarPlayaPorId(id);
+
+            return playas.ToJSONRepresentation();
+            
         }
 
         // POST api/playas

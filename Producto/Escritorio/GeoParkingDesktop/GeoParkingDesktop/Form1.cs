@@ -16,115 +16,126 @@ namespace GeoParkingDesktop
     {
         PlayaDeEstacionamiento playa = new PlayaDeEstacionamiento();//playa de estacionamiento del sistema  
 
-        int tipoVehiculo;//tipo de vehiculo a actualizar la disponibilidad
+        int tipoVehiculo;//tipo de vehiculo a actualizar la disponibilidad         
 
         public Form1()
-        {
-            //consulta a la API para recuperar los datos de la Playa de Estacionamiento
-
-            //SIMULACION DE PLAYA
-            playa.id = 1;
-            playa.nombre = "Playa Velez Sarfield";
-            playa.email = "playavs@gmail.com";
-            playa.tipoPlaya = 1;
-            playa.dias = 3;
-            playa.horaDesde = "00:00";
-            playa.horaHata = "24:00";
-
-            //creo las disponibiliadaes de acuerdo a los tipos vehiculos y capacidades
-            Disponibilidades dAuto = new Disponibilidades();
-            dAuto.tipoVehiculo = 1;
-            dAuto.disponibilidad = 2;
-
-            Disponibilidades dMoto = new Disponibilidades();
-            dMoto.tipoVehiculo = 2;
-            dMoto.disponibilidad = 2;
-
-            Disponibilidades dUti = new Disponibilidades();
-            dUti.tipoVehiculo = 3;
-            dUti.disponibilidad = 2;
-
-            Disponibilidades dBici = new Disponibilidades();
-            dBici.tipoVehiculo = 4;
-            dBici.disponibilidad = 2;
-           
-
-            playa.disponibilidades.Add(dAuto);
-            playa.disponibilidades.Add(dMoto);
-            playa.disponibilidades.Add(dUti);
-            playa.disponibilidades.Add(dBici);
-            
-
-
-            //creo los precios por hora
-            Precio phAuto= new Precio();
-            phAuto.tipoVehiculo = 1;
-            phAuto.tiempo = 1;//por hora
-            phAuto.precio = 12.00;
-
-            Precio phMoto = new Precio();
-            phMoto.tipoVehiculo = 2;
-            phMoto.tiempo = 1;//por hora
-            phMoto.precio = 6.00;
-
-            Precio phUti = new Precio();
-            phUti.tipoVehiculo = 3;
-            phUti.tiempo = 1;//por hora
-            phUti.precio = 12.00;
-
-            Precio phBici = new Precio();
-            phBici.tipoVehiculo = 4;
-            phBici.tiempo = 1;//por hora
-            phBici.precio = 6.00;
-
-            playa.precios.Add(phAuto);
-            playa.precios.Add(phMoto);
-            playa.precios.Add(phUti);
-            playa.precios.Add(phBici);
-
-
-            //iniciacion de todos los componentes
+        {            
              InitializeComponent();
-
-             cargarDatosPlaya();
-             cargarDisponibilidades();
-
-            
-
-             //string sURL;
-             //sURL = "http://ws.geonames.org/childrenJSON?geonameId='+12+'&callback=getLocation&lang=it'";
-
-             //WebRequest wrGETURL;
-             //wrGETURL = WebRequest.Create(sURL);
-
-             ////WebProxy myProxy = new WebProxy("myproxy", 80);
-             ////myProxy.BypassProxyOnLocal = true;
-
-             ////wrGETURL.Proxy = WebProxy.GetDefaultProxy();
-
-             //Stream objStream;
-             //objStream = wrGETURL.GetResponse().GetResponseStream();
-
-             //StreamReader objReader = new StreamReader(objStream);
-
-             //string sLine = "";
-             //int i = 0;
-
-             //string respuesta = "";
-
-             //while (sLine != null)
-             //{
-             //    i++;
-             //    sLine = objReader.ReadLine();
-             //    if (sLine != null)
-             //        Console.WriteLine("{0}:{1}", i, sLine);
-             //    respuesta += sLine + "\n";
-             //}
-             //MessageBox.Show(respuesta);
-             //Console.ReadLine();
-
         }
+
+        /// <summary>
+        /// configura el sistema de acuerdo a una playa de estacionamiento que se 
+        /// busca por su ID
+        /// </summary>
+        /// <param name="id"></param>
+        public void configurarSistema(int id)
+        {
+            //configuracion de progres bar
+            progressBar1.Visible = true;
+            lblConectar.Visible = true;
+            // Set Minimum to 1 to represent the first file being copied.
+            progressBar1.Minimum = 1;
+            // Set Maximum to the total number of files to copy.
+            progressBar1.Maximum = 10;
+            // Set the initial value of the ProgressBar.
+            progressBar1.Value = 1;
+            // Set the Step property to a value of 1 to represent each file being copied.
+            progressBar1.Step = 1;
+            progressBar1.PerformStep();
+            progressBar1.PerformStep();
+            
+            //consulta a la API para recuperar los datos de la Playa de Estacionamiento
+            string sURL;
+            sURL = "http://localhost:33357/api/Playas/Get/"+id;           
+
+            try
+            {
+                WebRequest wrGETURL;
+                progressBar1.PerformStep();
+                wrGETURL = WebRequest.Create(sURL);
+                progressBar1.PerformStep();
+
+                //WebProxy myProxy = new WebProxy("myproxy", 80);
+                //myProxy.BypassProxyOnLocal = true;
+
+                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
+
+                Stream objStream;
+                objStream = wrGETURL.GetResponse().GetResponseStream();
+                progressBar1.PerformStep();
+
+                StreamReader objReader = new StreamReader(objStream);
+                progressBar1.PerformStep();
+
+                string sLine = objReader.ReadLine();
+                progressBar1.PerformStep();
+
+                //obtengo el objeto playa
+                var deserializado = Newtonsoft.Json.JsonConvert.DeserializeObject(sLine).ToString();
+                var objetoPlaya = Newtonsoft.Json.Linq.JObject.Parse(deserializado);
+                progressBar1.PerformStep();
+
+                //cargos datos generales
+                playa.id = (int)objetoPlaya["Id"];
+                playa.nombre = (string)objetoPlaya["Nombre"];
+                playa.email = (string)objetoPlaya["Mail"];
+                playa.tipoPlaya = int.Parse(objetoPlaya["IdTipoPlaya"].ToString());
+                playa.dias = 3;//falta cambiar las calases
+                playa.horaDesde = "00:00";
+                playa.horaHata = "24:00";
+
+                progressBar1.PerformStep();
+
+                //cargos los servicios
+                var servicios = objetoPlaya["Servicios"];
+
+                foreach (var item in servicios)
+                {
+                    Disponibilidades vehiculo = new Disponibilidades();
+                    vehiculo.tipoVehiculo = int.Parse(item["IdTipoVehiculo"].ToString());
+                    vehiculo.disponibilidad = int.Parse(item["Capacidad"].ToString());
+                    playa.disponibilidades.Add(vehiculo);
+
+                }
+                progressBar1.PerformStep();
+
+
+                //cargo los precios
+                var precios = objetoPlaya["Precios"];
+
+                foreach (var item in precios)
+                {
+                    Precio precio = new Precio();
+                    precio.tipoVehiculo = int.Parse(item["IdTipoVehiculo"].ToString());
+                    precio.tiempo = int.Parse(item["IdTiempo"].ToString());
+                    precio.precio = double.Parse(item["Monto"].ToString());
+                    playa.precios.Add(precio);
+                }
+                progressBar1.PerformStep();
+
+                //muestro los datos de la playa
+                cargarDatosPlaya();
+                progressBar1.PerformStep();
+
+                //mustro las disponibilidades
+                cargarDisponibilidades();
+                progressBar1.PerformStep();
+
+                MessageBox.Show("Sistema configurado correctamente");
+                
+                paneles.Visible = true;
+                progressBar1.Visible = false;
+                lblConectar.Visible = false;
+            }
+            catch (Exception)
+            {
+                
+                MessageBox.Show("Error al iniciar sistmea");
+                progressBar1.Visible = false;
+                lblConectar.Visible = false;
                
+            }       
+        }               
         
         /// <summary>
         /// carga los datos de la playa de estacionamiento para
@@ -148,12 +159,12 @@ namespace GeoParkingDesktop
                     case 1: cargaPreciosAutos(item);//auto
                         chekAuto.Checked = true;
                         break;
-                    case 2: cargaPreciosMotos(item);//moto
-                        chekMoto.Checked = true;
-                        break;
-                    case 3: cargaPreciosUtilitarios(item);//utilitario
+                    case 2: cargaPreciosUtilitarios(item);//utilitario
                         chekUti.Checked = true;
                         break;
+                    case 3: cargaPreciosMotos(item);//moto
+                        chekMoto.Checked = true;
+                        break; 
                     case 4: cargaPreciosBicicletas(item);//bicicleta
                         chekBici.Checked = true;
                         break;
@@ -176,10 +187,10 @@ namespace GeoParkingDesktop
                 {
                     case 1: txtDispAuto.Text = item.disponibilidad.ToString();
                         break;
-                    case 2: txtDispMoto.Text = item.disponibilidad.ToString();
+                    case 2: txtDispUti.Text = item.disponibilidad.ToString();
                         break;
-                    case 3: txtDispUti.Text = item.disponibilidad.ToString();
-                        break;
+                    case 3: txtDispMoto.Text = item.disponibilidad.ToString();
+                        break; 
                     case 4: txtDispBici.Text = item.disponibilidad.ToString();
                         break;
                 }
@@ -208,6 +219,7 @@ namespace GeoParkingDesktop
                        break;
 	        }
         }
+
         /// <summary>
         /// carga los percios para las motos
         /// </summary>
@@ -228,6 +240,7 @@ namespace GeoParkingDesktop
                     break;
             }
         }
+
         /// <summary>
         /// carga los precios para los utilitarios
         /// </summary>
@@ -248,6 +261,7 @@ namespace GeoParkingDesktop
                     break;
             }
         }
+
         /// <summary>
         /// carga los precios para las bicicletas
         /// </summary>
@@ -268,8 +282,7 @@ namespace GeoParkingDesktop
                     break;
             }
         }        
-
-
+        
         /// <summary>
         /// Registra el igreso de un vehiculo a la playa de estacionamiento
         /// </summary>
@@ -283,17 +296,31 @@ namespace GeoParkingDesktop
             DateTime fechaHora = DateTime.Now;//fecha y hora            
             int dia = DateTime.Today.Day;//dia
 
-            //si hay lugares disponibles para ese tipo de vehiculo - registro
-            if (playa.disponibilidades[tipoVehiculo-1].disponibilidad > 0)
+            bool resultado = false;
+
+            foreach (var item in playa.disponibilidades)
             {
-                //ingreso del vehiculo y actualizacion de disponibilidad
-                registrarIngreso(playa.id, tipoVehiculo-1, matricula, evento, fechaHora, dia);
+                if (item.tipoVehiculo == tipoVehiculo) 
+                {
+                    resultado = true;
+
+                    if(item.disponibilidad>0)
+                    {
+                        registrarIngreso(playa.id, tipoVehiculo, matricula, evento, fechaHora, dia);                    
+                    }
+                    else
+                    {
+                        MessageBox.Show("No hay lugares disponibles para este tipo de vehiculo");
+                    }
+                }
             }
-            else
+
+            if (resultado == false)
             {
-                MessageBox.Show("No hay lugares disponibles para este tipo de vehiculo");
+                MessageBox.Show("Esta playa de estacionamiento no alberga este tipo de vehiculo");
             }
         }
+
         /// <summary>
         /// Registra el ingreso del vehiculo a la playa de estacionamiento
         /// </summary>
@@ -311,6 +338,7 @@ namespace GeoParkingDesktop
             //registrar en el API
             actualizarDisponibilidad(idPlaya, tipoVehiculo, evento, fechaHora, dia);
         }
+        
         /// <summary>
         /// Registra el vehiculo en el sistema en la lista de vehiculos estacionados
         /// </summary>
@@ -344,27 +372,37 @@ namespace GeoParkingDesktop
         public void actualizarDisponibilidad(int idPlaya, int tipoVehiculo, int evento, DateTime fechaHora, int dia)
         {
             //aca actualizo la disponibilidad en el sistema (ingreso=se resta un lugar disponible)
-            if (evento == 1)
+            foreach (var item in playa.disponibilidades)
             {
-                playa.disponibilidades[tipoVehiculo].disponibilidad = playa.disponibilidades[tipoVehiculo].disponibilidad - 1;
-            }
-            else
-            {
-                playa.disponibilidades[tipoVehiculo].disponibilidad = playa.disponibilidades[tipoVehiculo].disponibilidad + 1;
+                if (item.tipoVehiculo == tipoVehiculo)
+                {
+                    if (evento == 1)
+                    {
+                        item.disponibilidad = item.disponibilidad - 1;
+                    }
+                    else
+                    {
+                        item.disponibilidad = item.disponibilidad + 1;
+                    }
+
+                    //actualizo los txt
+                    switch (tipoVehiculo)
+                    {
+                        case 1: txtDispAuto.Text = item.disponibilidad.ToString();
+                            break;
+                        case 2: txtDispUti.Text = item.disponibilidad.ToString();
+                            break;
+                        case 3: txtDispMoto.Text = item.disponibilidad.ToString();
+                            break;
+                        case 4: txtDispBici.Text = item.disponibilidad.ToString();
+                            break;
+                    }  
+                    
+                }
             }
 
-            //actualizo los txt
-            switch (tipoVehiculo)
-            {
-                case 0: txtDispAuto.Text = playa.disponibilidades[tipoVehiculo].disponibilidad.ToString();
-                    break;
-                case 1: txtDispMoto.Text = playa.disponibilidades[tipoVehiculo].disponibilidad.ToString(); 
-                    break;
-                case 2: txtDispUti.Text = playa.disponibilidades[tipoVehiculo].disponibilidad.ToString();
-                    break;
-                case 3: txtDispBici.Text = playa.disponibilidades[tipoVehiculo].disponibilidad.ToString();
-                    break;
-            }           
+
+                     
 
             //aca utilizo el acceso a la appi            
         }
@@ -386,13 +424,13 @@ namespace GeoParkingDesktop
                     //muestro lso datos
                     switch(playa.vehiculos[i].tipoVehiculo)
                     {
-                        case 0: txtTipoVehiculo.Text = "Automovil";
-                            break;
-                        case 1: txtTipoVehiculo.Text = "Motocicleta";
+                        case 1: txtTipoVehiculo.Text = "Automovil";
                             break;
                         case 2: txtTipoVehiculo.Text = "Utilitario";
                             break;
-                        case 3: txtTipoVehiculo.Text = "Bicicleta";
+                        case 3: txtTipoVehiculo.Text = "Motocicleta";
+                            break;
+                        case 4: txtTipoVehiculo.Text = "Bicicleta";
                             break;
                     }                    
 
@@ -408,6 +446,7 @@ namespace GeoParkingDesktop
 
             MessageBox.Show("No existe ningun vehiculo con esa matricula");
         }
+        
         /// <summary>
         /// calcular el importe de acuerdo al tipo de vehiculo y al tiempo de permanencia
         /// </summary>
@@ -528,6 +567,7 @@ namespace GeoParkingDesktop
         {
             registrarEgreso(playa.id, tipoVehiculo, txtMatriculaEgreso.Text, 2, DateTime.Now, DateTime.Now.Day);                 
         }
+        
         /// <summary>
         /// registro egreso del vehiculo
         /// </summary>
@@ -545,6 +585,7 @@ namespace GeoParkingDesktop
             //actualizo la disponibilidad
             actualizarDisponibilidad(idPlaya, tipoVehiculo, evento, fechaHora, dia);
         }
+        
         /// <summary>
         /// registrar egreso de vehiculo en el sistema y actulizar disponibilidad en sistema
         /// </summary>
@@ -571,7 +612,6 @@ namespace GeoParkingDesktop
             MessageBox.Show("Error al registrar el egreso del vehiculo");
         }
 
-
         /// <summary>
         /// limpiar formulario ingreso
         /// </summary>
@@ -580,6 +620,7 @@ namespace GeoParkingDesktop
             txtMatriculaIngreso.Text = "";
             cmbTipoVehiculo.SelectedIndex = 0;
         }
+        
         /// <summary>
         /// limpiar formulario egreso
         /// </summary>
@@ -602,6 +643,7 @@ namespace GeoParkingDesktop
             btnCancelarCambios.Enabled = true;
             btnGuardarCambios.Enabled = true;
         }
+
         /// <summary>
         /// habilita los controles del formulario
         /// </summary>
@@ -655,6 +697,7 @@ namespace GeoParkingDesktop
                 txtAbonoBici.Enabled = true;
             }
         }
+
         /// <summary>
         /// desabilita los controles del formulario
         /// </summary>
@@ -696,6 +739,7 @@ namespace GeoParkingDesktop
             txt24hBici.Enabled = false;
             txtAbonoBici.Enabled = false;
         }
+
         /// <summary>
         /// deja en blanco todos los controles de adminsitracion
         /// </summary>
@@ -753,6 +797,7 @@ namespace GeoParkingDesktop
             btnCancelarCambios.Enabled = false;
             btnGuardarCambios.Enabled = false;
         }
+
         /// <summary>
         /// cancelo lso cambios realizados y restaura los campos
         /// con la configuracion anterior
@@ -887,6 +932,27 @@ namespace GeoParkingDesktop
                 txt24hBici.Enabled = false;
                 txtAbonoBici.Enabled = false;
             }
+        }
+
+        /// <summary>
+        /// abre una ventana para ingresar el noombre de la playa y conectarse al sistema
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void coonectarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form2 testDialog = new Form2();
+
+            // Show testDialog as a modal dialog and determine if DialogResult = OK.
+            if (testDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                configurarSistema(int.Parse(testDialog.txtIdPlaya.Text));
+            }
+            else
+            {
+                //MessageBox.Show("Error");
+            }
+            testDialog.Dispose();
         }
 
 

@@ -87,6 +87,8 @@ namespace Entidades
             jw.WriteValue(this.Telefono);
             jw.WritePropertyName("TipoPlaya");
             jw.WriteValue(this.TipoPlayaStr);
+            jw.WritePropertyName("IdTipoPlaya");
+            jw.WriteValue(this.TipoPlayaId);
             jw.WritePropertyName("Latitud");
             jw.WriteValue(this.Direcciones[0].Latitud);
             jw.WritePropertyName("Longitud");
@@ -123,6 +125,8 @@ namespace Entidades
                 jw.WriteStartObject();                
                 jw.WritePropertyName("TipoVehiculo");
                 jw.WriteValue(Servicios[j].TipoVehiculoStr);
+                jw.WritePropertyName("IdTipoVehiculo");
+                jw.WriteValue(Servicios[j].TipoVehiculoId);
                 jw.WritePropertyName("Capacidad");
                 jw.WriteValue(Servicios[j].Capacidad);
                 jw.WriteEndObject();
@@ -163,10 +167,14 @@ namespace Entidades
                 jw.WriteStartObject();               
                 jw.WritePropertyName("TipoVehiculo");
                 jw.WriteValue(Precios[l].TipoVehiculoStr);
+                jw.WritePropertyName("IdTipoVehiculo");
+                jw.WriteValue(Precios[l].TipoVehiculoId);
                 jw.WritePropertyName("Dia");
                 jw.WriteValue(Precios[l].DiaAtencionStr);
                 jw.WritePropertyName("Tiempo");
                 jw.WriteValue(Precios[l].TiempoStr);
+                jw.WritePropertyName("IdTiempo");
+                jw.WriteValue(Precios[l].TiempoId);
                 jw.WritePropertyName("Monto");
                 jw.WriteValue(Precios[l].Monto);
                 jw.WriteEndObject();

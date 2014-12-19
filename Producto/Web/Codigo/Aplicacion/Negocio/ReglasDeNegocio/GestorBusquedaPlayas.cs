@@ -77,6 +77,16 @@ namespace ReglasDeNegocio
         }
 
         /// <summary>
+        /// busca playas por id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public PlayaDeEstacionamiento buscarPlayaPorId(int id)
+        {
+            return gestorPlaya.BuscarPlayaPorId(id);
+        }
+
+        /// <summary>
         /// buscas las playas de determinada ciudad
         /// </summary>
         /// <param name="ciudad">ciudad donde se ubican las playas</param>
