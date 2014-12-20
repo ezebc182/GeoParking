@@ -28,7 +28,7 @@ namespace Entidades
         public virtual IList<Servicio> Servicios { get; set; }
 
         //Horarios (dia, horaDesde, HoraHasta)
-        public virtual IList<Horario> Horarios { get; set; }
+        public virtual Horario Horario { get; set; }
 
         //Precios (Vehiculo, dia, tiempo, precio)
         public virtual IList<Precio> Precios { get; set; }
@@ -59,10 +59,7 @@ namespace Entidades
         public string Calle { get { return Direcciones.Count > 0 ? Direcciones[0].Calle : ""; } }
         [NotMapped]
         public int Numero { get { return Direcciones.Count > 0 ? Direcciones[0].Numero : 0; } }
-        [NotMapped]
-        public string Ciudad { get { return Direcciones.Count > 0 ? Direcciones[0].CiudadStr : ""; } }
-        [NotMapped]
-        public string Provincia { get { return Direcciones.Count > 0 ? Direcciones[0].Ciudad.Departamento.Provincia.Nombre : ""; } }
+        
 
         #endregion
 
@@ -135,25 +132,17 @@ namespace Entidades
             jw.WriteEndArray();
 
             //HORARIOS
-            jw.WritePropertyName("Horarios");
-            jw.WriteStartArray();
+            jw.WritePropertyName("Horario");
+            jw.WriteStartObject();
+            jw.WritePropertyName("Dia");
+            jw.WriteValue(this.Horario.DiaAtencionStr);
+            jw.WritePropertyName("HoraDesde");
+            jw.WriteValue(this.Horario.HoraDesde);
+            jw.WritePropertyName("HoraHasta");
+            jw.WriteValue(this.Horario.HoraHasta);
+            jw.WriteEndObject();
 
-            int k;
-            k = 0;
-
-            for (k = 0; k < this.Horarios.Count; k++)
-            {
-                jw.WriteStartObject();                
-                jw.WritePropertyName("Dia");
-                jw.WriteValue(Horarios[k].DiaAtencionStr);
-                jw.WritePropertyName("HoraDesde");
-                jw.WriteValue(Horarios[k].HoraDesde);
-                jw.WritePropertyName("HoraHasta");
-                jw.WriteValue(Horarios[k].HoraHasta);
-                jw.WriteEndObject();
-            }
-
-            jw.WriteEndArray();            
+                     
 
             //PRECIOS
             jw.WritePropertyName("Precios");
@@ -168,9 +157,7 @@ namespace Entidades
                 jw.WritePropertyName("TipoVehiculo");
                 jw.WriteValue(Precios[l].TipoVehiculoStr);
                 jw.WritePropertyName("IdTipoVehiculo");
-                jw.WriteValue(Precios[l].TipoVehiculoId);
-                jw.WritePropertyName("Dia");
-                jw.WriteValue(Precios[l].DiaAtencionStr);
+                jw.WriteValue(Precios[l].TipoVehiculoId);                
                 jw.WritePropertyName("Tiempo");
                 jw.WriteValue(Precios[l].TiempoStr);
                 jw.WritePropertyName("IdTiempo");

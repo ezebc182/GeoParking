@@ -13,28 +13,14 @@ namespace Entidades
         //Numero
         public int Numero { get; set; }
         //Ciudad
-        public int CiudadId { get; set; }
+        public string Ciudad { get; set; }
         //Playa
         public int? PlayaDeEstacionamientoId { get; set; }
         public virtual PlayaDeEstacionamiento PlayaDeEstacionamiento { get; set; }
 
         //Coordenadas Geograficas
         public string Latitud { get; set; }
-        public string Longitud { get; set; }
-
-        //referencia a ciudad
-        public virtual Ciudad Ciudad { get; set; }
-
-        [NotMapped]
-        public Departamento Departamento { get; set; }
-        [NotMapped]
-        public Provincia Provincia { get; set; }
-        [NotMapped]
-        public string DepartamentoStr { get { return Ciudad != null ? Ciudad.Departamento.Nombre : ""; } }
-        [NotMapped]
-        public string ProvinciaStr { get { return Ciudad != null ? Ciudad.Departamento.Provincia.Nombre : ""; } }
-        [NotMapped]
-        public string CiudadStr { get { return Ciudad != null ? Ciudad.Nombre : ""; } }
+        public string Longitud { get; set; }       
 
     }
 }

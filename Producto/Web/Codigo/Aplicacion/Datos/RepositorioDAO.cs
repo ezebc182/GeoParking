@@ -19,9 +19,6 @@ namespace Datos
     public interface IRepositorioPrecio : IRepositorio<Precio> { }
     public interface IRepositorioDiaAtencion : IRepositorio<DiaAtencion> { }
     public interface IRepositorioTiempo : IRepositorio<Tiempo> { }
-    public interface IRepositorioCiudad : IRepositorio<Ciudad> { }
-    public interface IRepositorioDepartamento : IRepositorio<Departamento> { }
-    public interface IRepositorioProvincia : IRepositorio<Provincia> { }
     public interface IRepositorioUsuario : IRepositorio<Usuario> { }
     public interface IRepositorioRol : IRepositorio<Rol> { }
     public interface IRepositorioPermiso : IRepositorio<Permiso> { }
@@ -39,8 +36,6 @@ namespace Datos
     public class RepositorioPrecio : Repositorio<Precio>, IRepositorioPrecio { }
     public class RepositorioDiaAtencion : Repositorio<DiaAtencion>, IRepositorioDiaAtencion { }
     public class RepositorioTiempo : Repositorio<Tiempo>, IRepositorioTiempo { }
-    public class RepositorioDepartamento : Repositorio<Departamento>, IRepositorioDepartamento { }
-    public class RepositorioProvincia : Repositorio<Provincia>, IRepositorioProvincia { }
     public class RepositorioUsuario : Repositorio<Usuario>, IRepositorioUsuario { }
     public class RepositorioEvento : Repositorio<Evento>, IRepositorioEventos { }    
     public class RepositorioDisponibilidadPlayas : Repositorio<DisponibilidadPlayas>, IRepositorioDisponibilidadPlayas { }
@@ -166,22 +161,7 @@ namespace Datos
         }
     }
     
-    /// <summary>
-    /// Repositorio DAO de localizaciones
-    /// </summary>
-    public class RepositorioCiudad : Repositorio<Ciudad>, IRepositorioCiudad 
-    {
-
-        public override Ciudad FindById(int id)
-        {
-            var lista = DbSet
-                    .Include("Departamento")
-                    .Include("Departamento.Provincia")
-                    .Where(p => p.Id == id);
-
-            return lista.FirstOrDefault();
-        }
-    }
+   
     
     /// <summary>
     /// Repositorio DAO de administracion de roles y permisos
@@ -303,7 +283,7 @@ namespace Datos
                     contexto.UpdateGraph(t, map => map
                         .OwnedCollection(p => p.Direcciones, with => with
                             .AssociatedEntity(d => d.PlayaDeEstacionamiento))
-                        .OwnedCollection(p => p.Horarios, with => with
+                        .OwnedCollection(p => p.Horario, with => with//aca no va coleccion pero no se que va
                         .AssociatedEntity(h => h.PlayaDeEstacionamiento))
                         .OwnedCollection(p => p.Precios, with => with
                         .AssociatedEntity(p => p.PlayaDeEstacionamiento))

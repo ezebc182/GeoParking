@@ -141,33 +141,35 @@ namespace ReglasDeNegocio
         private void ValidarDiasDeAtencion(PlayaDeEstacionamiento playa, Resultado resultado)
         {
 
-            var precios = playa.Precios.Select(p => p.DiaAtencionId).Distinct();
-            var horarios = playa.Horarios.Select(h => h.DiaAtencionId).Distinct();
-            var contador = 0;
-            if (precios.Count() != horarios.Count())
-            {
-                if (precios.Count() > horarios.Count()) { resultado.AgregarMensaje("No puede cargar precios para dias en los que no se atiende al publico."); }
-                else if (precios.Count() < horarios.Count()) { resultado.AgregarMensaje("Debe cargar precios para todos los dias de atencion."); }
-            }
-            else
-            {
-                foreach (var precio in precios)
-                {
-                    foreach (var horario in horarios)
-                    {
-                        if (precio == horario)
-                        {
-                            contador++;
-                            break;
-                        }
-                    }
-                }
-                if (contador != precios.Count())
-                {
-                    resultado.AgregarMensaje("No puede cargar precios para dias en los que no se atiende al publico.");
-                    resultado.AgregarMensaje("Debe cargar precios para todos los dias de atencion.");
-                }
-            }
+            //IMPORTANTE: todo esto cambia por que no hay dias atencion por precio y hay un solo horario, reveer
+
+            //var precios = playa.Precios.Select(p => p.DiaAtencionId).Distinct();
+            //var horarios = playa.Horario.Select(h => h.DiaAtencionId).Distinct();
+            //var contador = 0;
+            //if (precios.Count() != horarios.Count())
+            //{
+            //    if (precios.Count() > horarios.Count()) { resultado.AgregarMensaje("No puede cargar precios para dias en los que no se atiende al publico."); }
+            //    else if (precios.Count() < horarios.Count()) { resultado.AgregarMensaje("Debe cargar precios para todos los dias de atencion."); }
+            //}
+            //else
+            //{
+            //    foreach (var precio in precios)
+            //    {
+            //        foreach (var horario in horarios)
+            //        {
+            //            if (precio == horario)
+            //            {
+            //                contador++;
+            //                break;
+            //            }
+            //        }
+            //    }
+            //    if (contador != precios.Count())
+            //    {
+            //        resultado.AgregarMensaje("No puede cargar precios para dias en los que no se atiende al publico.");
+            //        resultado.AgregarMensaje("Debe cargar precios para todos los dias de atencion.");
+            //    }
+            //}
         }
         /// <summary>
         /// Valida que se hayan ingresado los precios para todos los tipos de vehiculos aceptados y viceversa
@@ -313,7 +315,7 @@ namespace ReglasDeNegocio
         /// <returns>Lista de playas que coinciden con los parametros de busqueda</returns>
         public IList<PlayaDeEstacionamiento> BuscarPlayaPorNombre(string ciudad, string nombre)
         {
-            var lista = playaDao.FindWhere(m => m.Direcciones.Any(d => d.Ciudad.Nombre.Equals(ciudad,StringComparison.OrdinalIgnoreCase)) 
+            var lista = playaDao.FindWhere(m => m.Direcciones.Any(d => d.Ciudad.Equals(ciudad,StringComparison.OrdinalIgnoreCase)) 
                 &&  m.Nombre.ToUpper().Contains(nombre.ToUpper()) && !m.FechaBaja.HasValue);
 
             //foreach (var playa in lista)
@@ -330,7 +332,7 @@ namespace ReglasDeNegocio
         {
             playa.Direcciones = BuscarDireccionesPorPlaya(playa.Id);
             playa.Precios = BuscarPreciosPorPlaya(playa.Id);
-            playa.Horarios = BuscarHorariosPorPlaya(playa.Id);
+            playa.Horario = BuscarHorariosPorPlaya(playa.Id);
             playa.Servicios = BuscarServiciosPorPlaya(playa.Id);
             playa.TipoPlaya = BuscarTipoPlayas().Where(t => t.Id == playa.TipoPlayaId).First();
         }
@@ -377,7 +379,6 @@ namespace ReglasDeNegocio
             var lista =precioDao.FindWhere(d => d.PlayaDeEstacionamientoId == idPlaya);
             foreach (var precio in lista)
             {
-                precio.DiaAtencion = diaAtencionDao.FindWhere(d => d.Id == precio.DiaAtencionId).First();
                 precio.TipoVehiculo = tipoVehiculoDao.FindWhere(t => t.Id == precio.TipoVehiculoId).First();
                 precio.Tiempo = tiempoDao.FindWhere(t => t.Id == precio.TiempoId).First();
             }
@@ -388,14 +389,13 @@ namespace ReglasDeNegocio
         /// </summary>
         /// <param name="idPlaya">Id de la playa de la cual se es buscando los horarios</param>
         /// <returns></returns>
-        public IList<Horario> BuscarHorariosPorPlaya(int idPlaya)
+        public Horario BuscarHorariosPorPlaya(int idPlaya)
         {
-            var lista = horarioDao.FindWhere(d => d.PlayaDeEstacionamientoId == idPlaya);
-            foreach(var horario in lista)
-            {
-                horario.DiaAtencion = diaAtencionDao.FindWhere(d => d.Id == horario.DiaAtencionId).First();
-            }
-            return lista;
+            var horario = horarioDao.FindWhere(d => d.PlayaDeEstacionamientoId == idPlaya).First();
+            
+            horario.DiaAtencion = diaAtencionDao.FindWhere(d => d.Id == horario.DiaAtencionId).First();
+           
+            return horario;
         }
 
         /// <summary>
@@ -407,7 +407,7 @@ namespace ReglasDeNegocio
         {
             //aca va un findwehere
             
-            var lista= playaDao.FindWhere(p => p.Direcciones.Any(d => d.Ciudad.Nombre.Equals(ciudad, StringComparison.OrdinalIgnoreCase)) && !p.FechaBaja.HasValue);
+            var lista= playaDao.FindWhere(p => p.Direcciones.Any(d => d.Ciudad.Equals(ciudad, StringComparison.OrdinalIgnoreCase)) && !p.FechaBaja.HasValue);
             
             return lista;
         }
@@ -420,7 +420,7 @@ namespace ReglasDeNegocio
 
             if (!string.IsNullOrEmpty(ciudad))
             {
-                consulta.And(p => p.Direcciones.Any(d => d.Ciudad.Nombre.Equals(ciudad, StringComparison.OrdinalIgnoreCase)));
+                consulta.And(p => p.Direcciones.Any(d => d.Ciudad.Equals(ciudad, StringComparison.OrdinalIgnoreCase)));
             }
             
             if (tipoPlaya != 0)
@@ -445,9 +445,9 @@ namespace ReglasDeNegocio
             {
                 if (consulta != null)
                 {
-                    consulta = consulta.And(p => p.Horarios.Any(h => h.DiaAtencionId == diasAtencion));
+                    consulta = consulta.And(p => p.Horario.DiaAtencionId == diasAtencion);
                 }
-                else consulta = p => p.Horarios.Any(h => h.DiaAtencionId == diasAtencion);
+                else consulta = p => p.Horario.DiaAtencionId == diasAtencion;
                 }
 
             if (precioDesde != 0)
@@ -475,18 +475,18 @@ namespace ReglasDeNegocio
             {
                 if (consulta != null)
                 {
-                    consulta = consulta.And(p => p.Horarios.Any(h => int.Parse(h.HoraDesde.Substring(0, 2)) <= horaDesde));
+                    consulta = consulta.And(p => int.Parse(p.Horario.HoraDesde.Substring(0, 2)) <= horaDesde);
                 }
-                else consulta = p => p.Horarios.Any(h => int.Parse(h.HoraDesde.Substring(0, 2)) <= horaDesde);
+                else consulta = p => int.Parse(p.Horario.HoraDesde.Substring(0, 2)) <= horaDesde;
             }
 
             if (horaHasta != 0)
             {
                 if (consulta != null)
                 {
-                    consulta = consulta.And(p => p.Horarios.Any(h => int.Parse(h.HoraHasta.Substring(0, 2)) >= horaHasta));
+                    consulta = consulta.And(p => int.Parse(p.Horario.HoraHasta.Substring(0, 2)) >= horaHasta);
                 }
-                else consulta = p => p.Horarios.Any(h => int.Parse(h.HoraHasta.Substring(0, 2)) >= horaHasta);
+                else consulta = p => int.Parse(p.Horario.HoraHasta.Substring(0, 2)) >= horaHasta;
             }
 
             var listaPlayas = playaDao.FindWhere(consulta);

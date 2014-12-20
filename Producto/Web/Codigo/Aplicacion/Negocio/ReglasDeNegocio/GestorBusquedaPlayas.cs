@@ -27,40 +27,7 @@ namespace ReglasDeNegocio
             gestorHorario = new GestorHorario();            
         }
 
-        /// <summary>
-        /// Busca ciudades por nombre de acuerdo a un prefijo
-        /// </summary>
-        /// <param name="pre">prefijo del ombre de la ciudad</param>
-        /// <returns>Lista de nombres de ciudades de comienzan con...</returns>
-        public List<String> GetNombreCiudades(string pre)
-        {
-            //lista de nombres de ciudades a devolver
-            List<string> nombreCiudades = new List<string>();
-
-            //busco los objeto ciudad, si el nombre comienza con el valor de "pre"
-            IList<Ciudad> ciudades = gestorDireccion.BuscarCiudadesPorNombre(pre);
-
-            int contador = 5;
-
-            if (ciudades.Count < 5)
-                contador = ciudades.Count;           
-
-            for (int i = 0; i < contador; i++)
-			{
-                nombreCiudades.Add(ciudades[i].Nombre);
-			 
-			}
-
-            ////recorro las ciudades y solo obtengo su nombre
-            //foreach (var ciudad in ciudades)
-            //{   
-            //    if()
-            //    nombreCiudades.Add(ciudad.Nombre);
-            //}
-
-            //retorno la lista de nombres
-            return nombreCiudades;
-        }
+        
 
         /// <summary>
         /// buscas las playas de determinada ciudad

@@ -35,30 +35,7 @@ namespace Web2
             gestor = new GestorBusquedaPlayas();
         }
 
-        /// <summary>
-        /// Retorna una lista de string con las posibles ciudades de acuerdo
-        /// a lo que el ususario va ingresando(prefijo)
-        /// </summary>
-        /// <param name="pre">prefijo o principio del nombre de la ciudad</param>
-        /// <returns>Lista de string con nombre de ciudades que comienzan con "pre"</returns>
-        [WebMethod]
-        public static string GetNombreCiudades(string pre)
-        {
-            //lista de normbres de payas
-            List<string> nombrePlayas = new List<string>();
-
-            //realizar la consulta y setear la lista
-            nombrePlayas = gestor.GetNombreCiudades(pre);
-
-            //Pasamos la colección a formato JSON. Se guardará en jsonLista:
-            StringBuilder jsonLista = new StringBuilder();
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            js.Serialize(nombrePlayas, jsonLista);
-
-            //retorna la lista
-            return jsonLista.ToString();
-
-        }
+        
 
         /// <summary>
         /// Obtiene la ciudad para filtrar la busqueda y la guarda en la session
