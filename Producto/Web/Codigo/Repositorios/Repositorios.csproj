@@ -43,9 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RepositorioProvinciaFalso.cs" />
-    <Compile Include="RepositorioDepartamentoFalso.cs" />
-    <Compile Include="RepositorioCiudadFalso.cs" />
     <Compile Include="RepositorioDireccionFalso.cs" />
     <Compile Include="RepositorioPrecioFalso.cs" />
     <Compile Include="RepositorioServicioFalso.cs" />

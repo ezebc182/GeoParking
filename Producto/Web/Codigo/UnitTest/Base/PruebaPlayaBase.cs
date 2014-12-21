@@ -16,9 +16,7 @@ namespace UnitTest.Base
         IRepositorioServicio servicioDao;
         IRepositorioPrecio precioDao;
         IRepositorioDireccion direccionDao;
-        IRepositorioCiudad ciudadDao;
-        IRepositorioDepartamento departamentoDao;
-        IRepositorioProvincia provinciaDao;
+       
 
         public GestorPlaya gestor;
         public GestorDireccion gestorDireccion;
@@ -32,10 +30,7 @@ namespace UnitTest.Base
             servicioDao = new RepositorioServicioFalso();
             precioDao = new RepositorioPrecioFalso();
             direccionDao = new RepositorioDireccionFalso();
-            ciudadDao = new RepositorioCiudadFalso();
-            departamentoDao = new RepositorioDepartamentoFalso();
-            provinciaDao = new RepositorioProvinciaFalso();
-            gestorDireccion = new GestorDireccion(direccionDao, ciudadDao, departamentoDao, provinciaDao);
+            gestorDireccion = new GestorDireccion(direccionDao);
             gestor = new GestorPlaya(playaDao, tipoPlayaDao, diaAtencionDao, tipoVehiculoDao, horarioDao, servicioDao, precioDao, gestorDireccion);
             
         }
