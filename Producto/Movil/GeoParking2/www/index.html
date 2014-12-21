@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>nativeDroid - Theme for jQuery Mobile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <!-- FontAwesome - http://fortawesome.github.io/Font-Awesome/ -->
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+
+    <!-- jQueryMobileCSS - original without styling -->
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+
+    <!-- nativeDroid core CSS -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
+
+    <!-- nativeDroid: Light/Dark -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.dark.css" id='jQMnDTheme' />
+
+    <!-- nativeDroid: Color Schemes -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.blue.css" id='jQMnDColor' />
+    <link href="css/index.css" rel="stylesheet" />
+    <!-- jQuery / jQueryMobile Scripts -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+
+
+</head>
+
+<body>
+
+    <div data-role="page" data-theme='b'>
+
+        <div data-role="panel" data-display="push" id="mypanel" data-theme="b">
+            <h4>Menú GeoParking</h4>
+            <ul data-role="listview">
+                <li data-icon='false'><a href="preferences.html"><i class='lIcon fa fa-cog'></i>Configuraciones</a>
+                </li>
+                <li data-icon='false'><a href="contacto.html"><i class='lIcon fa fa-user'></i>Contacto</a>
+                </li>
+            </ul>
+        </div>
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+
+            <a href="#mypanel" data-role='button' data-inline='true'><i class='lIcon fa fa-bars'></i></a>
+
+            <h1>GeoParking</h1>
+        </div>
+
+
+
+        <div class="mapa">
+            <div id="panelListado"></div>
+            <div id="pnlMapa" class="fullscreen">
+                <div id="map-canvas" class="fullscreen"></div>
+            </div>
+
+            <div class="hidden" id="panel_ruta"></div>
+        </div>
+
+
+        <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+
+            <!--BOTONES FOOTER -->
+            <div data-role="navbar">
+                <ul>
+                    <li><a id="btnUbicarme" onclick="ubicarMiPosicion()"><i class='blIcon fa fa-user' ></i></a>
+                    </li>
+                    <li><a id="btnVerListado" onclick="verListado()"><i class='blIcon fa fa-list'></i></a>
+                    </li>
+                    <li><a id="btnGuardarUbicacion" onclick="guardarUbicacion()"><i class='blIcon fa fa-map-marker'></i></a>
+                    </li>
+                    <li><a id="btnTrazarRegreso" onclick="trazarRegreso()"><i class='blIcon fa fa-car'></i></a>
+                    </li>
+                    <li><a id="mostrarIndicaciones" onclick="mostrarIndicaciones()"><i class='blIcon fa fa-road'></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- Scripts -->
+        <script src="xhr.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+        <script src='intelxdk.js'></script>
+        <script src="cordova.js"></script>
+        <script src="./js/index.js"></script>
+
+        <script src="./js/Propios/guardarDatos.js"></script>
+        <script src="./js/Propios/funcionesDistancia.js"></script>
+        <script src="./js/Propios/listadoDePlayas.js"></script>
+        <script src="./js/Propios/obtenerRutaDeRegreso.js"></script>
+
+        <script src="./js/bootstrap-dialog.min.js"></script>
+        <script src="./js/Propios/cargarMapa.js"></script>
+        <!-- trabaja con el mapa cuando se inicializa -->
+        <script src="./js/Propios/obtenerPlayas.js"></script>
+        <script src="./js/Propios/latinise.js"></script>
+        <script src="./js/Propios/listadoDePlayasWidget.js"></script>
+        <script src="./js/Propios/Utils.js"></script>
+
+
+
+        <!-- web service -->
+
+        <script>
+            /* Intel native bridge is available */
+            var playas = [];
+            $(document).ready(function () {
+
+                initialize();
+            });
+
+            function verListado() {
+                $("#panelListado").listadoPlayasWidget({
+                    listadoPlayas: playas
+                });
+
+            }
+        </script>
+</body>
+
+</html>
