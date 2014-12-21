@@ -12,11 +12,9 @@ namespace ReglasDeNegocio
     {
         RepositorioEstadisticaConsultas estadisticaConsultasDao;
         IRepositorioPlayaDeEstacionamiento playaDao;
-        IRepositorioCiudad ciudadDao;
 
         public GestorEstadisticas()
         {
-            ciudadDao = new RepositorioCiudad();
             estadisticaConsultasDao = new RepositorioEstadisticaConsultas();
             playaDao =  new RepositorioPlayaDeEstacionamiento();
         }
@@ -27,7 +25,7 @@ namespace ReglasDeNegocio
             consulta.Hora = DateTime.Now;
             PlayaDeEstacionamiento playa = playaDao.FindWhere(p =>p.Id == idPlaya)[0];
             consulta.IdTipoVehiculo = idTipoVehiculo;
-            consulta.Ciudad = playa.Direcciones[0].CiudadId;
+            
             consulta.IdPlaya = idPlaya;
             consulta.IdTipoPlaya = (int)playa.TipoPlayaId;
             consulta.Latitud = latitud;
@@ -35,28 +33,28 @@ namespace ReglasDeNegocio
 
             estadisticaConsultasDao.Create(consulta);
         }
-        private Ciudad getCiudad(string nombre)
-        {
-            return ciudadDao.FindWhere(c => c.Nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
-        }
+        //private Ciudad getCiudad(string nombre)
+        //{
+        //    return ciudadDao.FindWhere(c => c.Nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+        //}
 
-        public IList<EstadisticaDensidadDto> GetEstadisticasConsultasPorCiudad(String ciudadNombre, DateTime? desde, DateTime? hasta)
-        {
-            var ciudadId = getCiudad(ciudadNombre).Id;
-            return estadisticaConsultasDao.GetConsultasByCiudad(ciudadId, desde, hasta);
-        }
+        //public IList<EstadisticaDensidadDto> GetEstadisticasConsultasPorCiudad(String ciudadNombre, DateTime? desde, DateTime? hasta)
+        //{
+        //    var ciudadId = getCiudad(ciudadNombre).Id;
+        //    return estadisticaConsultasDao.GetConsultasByCiudad(ciudadId, desde, hasta);
+        //}
 
-        public IList<EstadisticaPorTipoVehiculoDto> GetEstadisticasPorCiudadYTipoVehiculo(String ciudadNombre, DateTime? desde, DateTime? hasta)
-        {
-            var ciudadId = getCiudad(ciudadNombre).Id;
-            return estadisticaConsultasDao.GetConsultasTipoVehiculoByCiudad(ciudadId, desde, hasta);
-        }
+        //public IList<EstadisticaPorTipoVehiculoDto> GetEstadisticasPorCiudadYTipoVehiculo(String ciudadNombre, DateTime? desde, DateTime? hasta)
+        //{
+        //    var ciudadId = getCiudad(ciudadNombre).Id;
+        //    return estadisticaConsultasDao.GetConsultasTipoVehiculoByCiudad(ciudadId, desde, hasta);
+        //}
 
-        public IList<EstadisticaPorTipoPlayaDto> GetEstadisticasPorCiudadYTipoPlaya(String ciudadNombre, DateTime? desde, DateTime? hasta)
-        {
-            var ciudadId = getCiudad(ciudadNombre).Id;
-            return estadisticaConsultasDao.GetConsultasTipoPlayaByCiudad(ciudadId, desde, hasta);
-        }
+        //public IList<EstadisticaPorTipoPlayaDto> GetEstadisticasPorCiudadYTipoPlaya(String ciudadNombre, DateTime? desde, DateTime? hasta)
+        //{
+        //    var ciudadId = getCiudad(ciudadNombre).Id;
+        //    return estadisticaConsultasDao.GetConsultasTipoPlayaByCiudad(ciudadId, desde, hasta);
+        //}
 
         public IList<EstadisticaConsultas> GetEstadisticasConsultas()
         {

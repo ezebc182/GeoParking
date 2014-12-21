@@ -112,7 +112,7 @@ namespace Web2
             Mail = playaEditar.Mail;
             TipoPlayaSeleccionada = playaEditar.TipoPlayaId.Value;
             Servicios = playaEditar.Servicios;
-            Horarios = playaEditar.Horarios;
+            //Horarios = playaEditar.Horario;
             Precios = playaEditar.Precios;
             Direcciones = playaEditar.Direcciones;
 
@@ -134,7 +134,7 @@ namespace Web2
                 Servicios = Servicios,
                 Direcciones = Direcciones,
                 Precios = Precios,
-                Horarios = Horarios
+                //Horarios = Horarios
             };
             return playa;
         }

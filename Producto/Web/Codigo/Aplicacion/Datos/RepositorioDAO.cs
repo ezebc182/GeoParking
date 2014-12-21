@@ -283,8 +283,6 @@ namespace Datos
                     contexto.UpdateGraph(t, map => map
                         .OwnedCollection(p => p.Direcciones, with => with
                             .AssociatedEntity(d => d.PlayaDeEstacionamiento))
-                        .OwnedCollection(p => p.Horario, with => with//aca no va coleccion pero no se que va
-                        .AssociatedEntity(h => h.PlayaDeEstacionamiento))
                         .OwnedCollection(p => p.Precios, with => with
                         .AssociatedEntity(p => p.PlayaDeEstacionamiento))
                         .OwnedCollection(p => p.Servicios, with => with

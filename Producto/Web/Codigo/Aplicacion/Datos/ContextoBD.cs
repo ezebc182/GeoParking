@@ -36,6 +36,20 @@ namespace Datos
             
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PlayaDeEstacionamiento>()
+            .HasOptional(p => p.Horario)
+            .WithRequired(h => h.PlayaDeEstacionamiento);
+            
+            modelBuilder.Entity<Horario>()
+                .HasKey(h => h.PlayaDeEstacionamientoId)
+                .Ignore(h => h.Id);
+                
+            base.OnModelCreating(modelBuilder);
+            
+        }
+
         /// <summary>
         /// Conexto(DataSet) para cada objeto en la BD
         /// </summary>

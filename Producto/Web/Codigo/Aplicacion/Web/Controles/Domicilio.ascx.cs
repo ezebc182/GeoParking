@@ -29,21 +29,21 @@ namespace Web2.Controles
         /// </summary>
         public void CargarComboProvincias()
         {
-            FormHelper.CargarCombo(ddlProvincia, ((IList<Provincia>)gestor.BuscarProvincias()).OrderBy(p => p.Nombre), "Nombre", "Id", "Seleccione");
+            //FormHelper.CargarCombo(ddlProvincia, ((IList<Provincia>)gestor.BuscarProvincias()).OrderBy(p => p.Nombre), "Nombre", "Id", "Seleccione");
         }
         /// <summary>
         /// Carga el combo de departamentos, con los departamentos pertenecientes a la provincia seleccionada
         /// </summary>
         public void CargarComboDepartamentos()
         {
-            FormHelper.CargarCombo(ddlDepartamento, ((IList<Departamento>)gestor.BuscarDepartamentosPorProvinciaId(IdProvinciaSeleccionada)).OrderBy(d => d.Nombre), "Nombre", "Id", "Seleccione");
+           // FormHelper.CargarCombo(ddlDepartamento, ((IList<Departamento>)gestor.BuscarDepartamentosPorProvinciaId(IdProvinciaSeleccionada)).OrderBy(d => d.Nombre), "Nombre", "Id", "Seleccione");
         }
         /// <summary>
         /// Carga el combo de ciudades, con las ciudades pertenecientes al departamento seleccionado
         /// </summary>
         public void CargarComboCiudades()
         {
-            FormHelper.CargarCombo(ddlCiudad, ((IList<Ciudad>)(gestor.BuscarCiudadesPorDepartamentoId(IdDepartamentoSeleccionado))).OrderBy(c => c.Nombre), "Nombre", "Id", "Seleccione");
+           // FormHelper.CargarCombo(ddlCiudad, ((IList<Ciudad>)(gestor.BuscarCiudadesPorDepartamentoId(IdDepartamentoSeleccionado))).OrderBy(c => c.Nombre), "Nombre", "Id", "Seleccione");
         }
 
 
@@ -71,12 +71,12 @@ namespace Web2.Controles
                 direccion.Id = int.Parse(gvDomicilios.DataKeys[row.RowIndex].Values[0].ToString());
                 direccion.Calle = row.Cells[0].Text;
                 direccion.Numero = int.Parse(row.Cells[1].Text);
-                direccion.CiudadId = int.Parse(gvDomicilios.DataKeys[row.RowIndex].Values[1].ToString());
+                //direccion.CiudadId = int.Parse(gvDomicilios.DataKeys[row.RowIndex].Values[1].ToString());
                 direccion.Latitud = row.Cells[5].Text;
                 direccion.Longitud = row.Cells[6].Text;
-                direccion.Ciudad = gestor.BuscarCiudadPorId(direccion.CiudadId);
-                direccion.Departamento = gestor.BuscarDepartamentoPorCiudadId(direccion.CiudadId);
-                direccion.Provincia = gestor.BuscarProvinciaPorDepartamentoId(direccion.Departamento.Id);
+                //direccion.Ciudad = gestor.BuscarCiudadPorId(direccion.CiudadId);
+               // direccion.Departamento = gestor.BuscarDepartamentoPorCiudadId(direccion.CiudadId);
+                //direccion.Provincia = gestor.BuscarProvinciaPorDepartamentoId(direccion.Departamento.Id);
                 domicilios.Add(direccion);
             }
             return domicilios;
@@ -131,12 +131,12 @@ namespace Web2.Controles
         private Direccion CargarEntidad()
         {
             var direccion = new Direccion();
-            direccion.Ciudad = gestor.BuscarCiudadPorId(IdCiudadSeleccionada);
-            direccion.CiudadId = direccion.Ciudad.Id;
+            //direccion.Ciudad = gestor.BuscarCiudadPorId(IdCiudadSeleccionada);
+            //direccion.CiudadId = direccion.Ciudad.Id;
             direccion.Calle = Calle;
             direccion.Numero = Numero.Value;
-            direccion.Departamento = gestor.BuscarDepartamentoPorCiudadId(direccion.CiudadId);
-            direccion.Provincia = gestor.BuscarProvinciaPorDepartamentoId(direccion.Departamento.Id);
+            //direccion.Departamento = gestor.BuscarDepartamentoPorCiudadId(direccion.CiudadId);
+            //direccion.Provincia = gestor.BuscarProvinciaPorDepartamentoId(direccion.Departamento.Id);
             direccion.Latitud = Latitud;
             direccion.Longitud = Longitud;
             return direccion;
@@ -157,11 +157,11 @@ namespace Web2.Controles
             else
             {
                 HabilitarCombos(false);
-                IdProvinciaSeleccionada = Domicilios[0].Provincia.Id;
+                //IdProvinciaSeleccionada = Domicilios[0].Provincia.Id;
                 CargarComboDepartamentos();
-                IdDepartamentoSeleccionado = Domicilios[0].Departamento.Id;
+                //IdDepartamentoSeleccionado = Domicilios[0].Departamento.Id;
                 CargarComboCiudades();
-                IdCiudadSeleccionada = Domicilios[0].Ciudad.Id;
+                //IdCiudadSeleccionada = Domicilios[0].Ciudad.Id;
             }
         }
 
@@ -346,10 +346,10 @@ namespace Web2.Controles
         /// <summary>
         /// Obtiene la provincia seleccionada en el combo provincias
         /// </summary>
-        public Provincia ProvinciaSeleccionada
-        {
-            get { return IdProvinciaSeleccionada != 0 ? gestor.BuscarProvinciaPorId(IdProvinciaSeleccionada) : null; }
-        }
+        //public Provincia ProvinciaSeleccionada
+        //{
+        //    get { return IdProvinciaSeleccionada != 0 ? gestor.BuscarProvinciaPorId(IdProvinciaSeleccionada) : null; }
+        //}
         /// <summary>
         /// Obtiene o estableces el id del departamento seleccionado en el combo departamentos
         /// </summary>
@@ -361,10 +361,10 @@ namespace Web2.Controles
         /// <summary>
         /// Obtiene el departamento seleccionado en el combo departamentos
         /// </summary>
-        public Departamento DepartamentoSeleccionado
-        {
-            get { return IdDepartamentoSeleccionado != 0 ? gestor.BuscarDepartamentoPorId(IdDepartamentoSeleccionado) : null; }
-        }
+        //public Departamento DepartamentoSeleccionado
+        //{
+        //    get { return IdDepartamentoSeleccionado != 0 ? gestor.BuscarDepartamentoPorId(IdDepartamentoSeleccionado) : null; }
+        //}
         /// <summary>
         /// Obtiene o establece el id de la ciudad seleccionada
         /// </summary>
@@ -376,10 +376,10 @@ namespace Web2.Controles
         /// <summary>
         /// Obtiene la ciudad seleccionada en el combo ciudades
         /// </summary>
-        public Ciudad CiudadSeleccionada
-        {
-            get { return IdCiudadSeleccionada != 0 ? gestor.BuscarCiudadPorId(IdCiudadSeleccionada) : null; }
-        }
+        //public Ciudad CiudadSeleccionada
+        //{
+        //    get { return IdCiudadSeleccionada != 0 ? gestor.BuscarCiudadPorId(IdCiudadSeleccionada) : null; }
+        //}
         /// <summary>
         /// Obtiene o establece la calle de la direccion
         /// </summary>

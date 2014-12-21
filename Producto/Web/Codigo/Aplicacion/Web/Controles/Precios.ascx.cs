@@ -62,8 +62,8 @@ namespace Web2.Controles
                 precio.TipoVehiculo = gestor.BuscarTipoVehiculoPorId(precio.TipoVehiculoId);
                 precio.TiempoId = int.Parse(gvPrecios.DataKeys[row.RowIndex].Values[2].ToString());
                 precio.Tiempo = gestor.BuscarTiempoPorId(precio.TiempoId);
-                precio.DiaAtencionId = int.Parse(gvPrecios.DataKeys[row.RowIndex].Values[3].ToString());
-                precio.DiaAtencion = gestor.BuscarDiaAtencionPorId(precio.DiaAtencionId);
+                //precio.DiaAtencionId = int.Parse(gvPrecios.DataKeys[row.RowIndex].Values[3].ToString());
+                //precio.DiaAtencion = gestor.BuscarDiaAtencionPorId(precio.DiaAtencionId);
                 precio.Monto = Convert.ToDecimal(row.Cells[3].Text);
 
                 precios.Add(precio);
@@ -93,7 +93,7 @@ namespace Web2.Controles
             foreach (var item in Precios)
             {
 
-                if (item.TiempoId == precio.TiempoId && item.TipoVehiculoId == precio.TipoVehiculoId && item.DiaAtencionId == precio.DiaAtencionId)
+                if (item.TiempoId == precio.TiempoId && item.TipoVehiculoId == precio.TipoVehiculoId /*&& item.DiaAtencionId == precio.DiaAtencionId*/)
                 {
                     OnError("Ya se cargo un precio para los parametros seleccionados.");
                     return false;
@@ -125,8 +125,8 @@ namespace Web2.Controles
             precio.TipoVehiculo = gestor.BuscarTipoVehiculoPorId(IdTipoVehiculoSeleccionado);
             precio.TiempoId = IdTiempoSeleccionado;
             precio.Tiempo = gestor.BuscarTiempoPorId(IdTiempoSeleccionado);
-            precio.DiaAtencionId = IdDiaAtencionSeleccionado;
-            precio.DiaAtencion = gestor.BuscarDiaAtencionPorId(IdDiaAtencionSeleccionado);
+            //precio.DiaAtencionId = IdDiaAtencionSeleccionado;
+            //precio.DiaAtencion = gestor.BuscarDiaAtencionPorId(IdDiaAtencionSeleccionado);
             precio.Monto = Monto.Value;
             return precio;
         }

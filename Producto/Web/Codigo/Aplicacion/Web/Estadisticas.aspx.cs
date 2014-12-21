@@ -37,101 +37,101 @@ namespace Web2
         /// Buscar las consultas de la ciudad seleccionada
         /// </summary>
         /// <returns>Lista de consultas en la ciudad</returns>
-        [WebMethod]
-        public static string ObtenerConsultasDeCiudad(string ciudadNombre, string desde, string hasta)
-        {
-            var fechaDesde = FormHelper.ObtenerFecha(desde);
-            var fechaHasta = FormHelper.ObtenerFecha(hasta);
+        //[WebMethod]
+        //public static string ObtenerConsultasDeCiudad(string ciudadNombre, string desde, string hasta)
+        //{
+        //    var fechaDesde = FormHelper.ObtenerFecha(desde);
+        //    var fechaHasta = FormHelper.ObtenerFecha(hasta);
             
-            var consultas = gestor.GetEstadisticasConsultasPorCiudad(ciudadNombre, fechaDesde, fechaHasta);
+        //    //var consultas = gestor.GetEstadisticasConsultasPorCiudad(ciudadNombre, fechaDesde, fechaHasta); NO HAY MAS CIUDADES, VER DE HACERLO CON LAT LNG
 
-            StringBuilder json = new StringBuilder("[");
+        //    StringBuilder json = new StringBuilder("[");
 
-            foreach (var p in consultas)
-            {
-                json.Append(p.ToJSONRepresentation());
-                json.Append(",");
-            }
+        //    foreach (var p in consultas)
+        //    {
+        //        json.Append(p.ToJSONRepresentation());
+        //        json.Append(",");
+        //    }
 
-            if (consultas.Count != 0)
-            {
-                json.Remove(json.Length-1, 1);
-            }
-            json.Append("]");
+        //    if (consultas.Count != 0)
+        //    {
+        //        json.Remove(json.Length-1, 1);
+        //    }
+        //    json.Append("]");
 
-            if (json.Equals("[]"))
-            {
-                master.MostrarMensajeInformacion("No hay resultados para la ciudad seleccionada", "Resultado Busqueda");
-            }
-            return json.ToString();
-        }
+        //    if (json.Equals("[]"))
+        //    {
+        //        master.MostrarMensajeInformacion("No hay resultados para la ciudad seleccionada", "Resultado Busqueda");
+        //    }
+        //    return json.ToString();
+        //}
 
         /// <summary>
         /// busca la cantidad de consultas por ano agrupadas por tipo de playa
         /// </summary>
         /// <returns>Lista de consultas en la ciudad</returns>
-        [WebMethod]
-        public static string ObtenerCantidadConsultasDeCiudadPorTipoPlaya(string ciudadNombre, string desde, string hasta)
-        {
-            var fechaDesde = FormHelper.ObtenerFecha(desde);
-            var fechaHasta = FormHelper.ObtenerFecha(hasta);
+        //[WebMethod]
+        //public static string ObtenerCantidadConsultasDeCiudadPorTipoPlaya(string ciudadNombre, string desde, string hasta)
+        //{
+        //    var fechaDesde = FormHelper.ObtenerFecha(desde);
+        //    var fechaHasta = FormHelper.ObtenerFecha(hasta);
 
-            var consultas = gestor.GetEstadisticasPorCiudadYTipoPlaya(ciudadNombre, fechaDesde, fechaHasta);
+        //   // var consultas = gestor.GetEstadisticasPorCiudadYTipoPlaya(ciudadNombre, fechaDesde, fechaHasta); NO HAY MAS CIUDADES, HACER CON LAT LNG
 
-            StringBuilder json = new StringBuilder("[");
+        //    StringBuilder json = new StringBuilder("[");
 
-            foreach (var p in consultas)
-            {
-                json.Append(p.ToJSONRepresentation());
-                json.Append(",");
-            }
+        //    foreach (var p in consultas)
+        //    {
+        //        json.Append(p.ToJSONRepresentation());
+        //        json.Append(",");
+        //    }
 
-            if (consultas.Count != 0)
-            {
-                json.Remove(json.Length - 1, 1);
-            }
-            json.Append("]");
+        //    if (consultas.Count != 0)
+        //    {
+        //        json.Remove(json.Length - 1, 1);
+        //    }
+        //    json.Append("]");
 
-            if (json.Equals("[]"))
-            {
-                master.MostrarMensajeInformacion("No hay resultados para la ciudad seleccionada", "Resultado Busqueda");
-            }
-            return json.ToString();
-        }
+        //    if (json.Equals("[]"))
+        //    {
+        //        master.MostrarMensajeInformacion("No hay resultados para la ciudad seleccionada", "Resultado Busqueda");
+        //    }
+        //    return json.ToString();
+        //}
 
 
         /// <summary>
         /// busca la cantidad de consultas por ano agrupadas por tipo de vehiculo
         /// </summary>
         /// <returns>Lista de consultas en la ciudad</returns>
-        [WebMethod]
-        public static string ObtenerCantidadConsultasDeCiudadPorTipoVehiculo(string ciudadNombre, string desde, string hasta)
-        {
-            var fechaDesde = FormHelper.ObtenerFecha(desde);
-            var fechaHasta = FormHelper.ObtenerFecha(hasta);
+        //[WebMethod]
+        //public static string ObtenerCantidadConsultasDeCiudadPorTipoVehiculo(string ciudadNombre, string desde, string hasta)
+        //{
+        //    var fechaDesde = FormHelper.ObtenerFecha(desde);
+        //    var fechaHasta = FormHelper.ObtenerFecha(hasta);
 
-            var consultas = gestor.GetEstadisticasPorCiudadYTipoVehiculo(ciudadNombre, fechaDesde, fechaHasta);
+        //   // var consultas = gestor.GetEstadisticasPorCiudadYTipoVehiculo(ciudadNombre, fechaDesde, fechaHasta); NO HAY CIUDAD, HACER CON LAT LNG
 
-            StringBuilder json = new StringBuilder("[");
+        //    StringBuilder json = new StringBuilder("[");
 
-            foreach (var p in consultas)
-            {
-                json.Append(p.ToJSONRepresentation());
-                json.Append(",");
-            }
+        //    foreach (var p in consultas)
+        //    {
+        //        json.Append(p.ToJSONRepresentation());
+        //        json.Append(",");
+        //    }
 
-            if (consultas.Count != 0)
-            {
-                json.Remove(json.Length - 1, 1);
-            }
-            json.Append("]");
+        //    if (consultas.Count != 0)
+        //    {
+        //        json.Remove(json.Length - 1, 1);
+        //    }
+        //    json.Append("]");
 
-            if (json.Equals("[]"))
-            {
-                master.MostrarMensajeInformacion("No hay resultados para la ciudad seleccionada", "Resultado Busqueda");
-            }
-            return json.ToString();
-        }
+        //    if (json.Equals("[]"))
+        //    {
+        //        master.MostrarMensajeInformacion("No hay resultados para la ciudad seleccionada", "Resultado Busqueda");
+        //    }
+        //    return json.ToString();
+        //}
 
     }
 }

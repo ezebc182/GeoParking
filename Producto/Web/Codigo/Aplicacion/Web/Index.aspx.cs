@@ -44,7 +44,7 @@ namespace Web2
             List<string> nombrePlayas = new List<string>();
 
             //realizar la consulta y setear la lista
-            nombrePlayas = gestor.GetNombreCiudades(pre);
+           // nombrePlayas = gestor.GetNombreCiudades(pre); NO SE USAN MAS LAS CIUDADES
 
             //Pasamos la colección a formato JSON. Se guardará en jsonLista:
             StringBuilder jsonLista = new StringBuilder();
