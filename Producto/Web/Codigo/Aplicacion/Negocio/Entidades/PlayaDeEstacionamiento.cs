@@ -101,6 +101,8 @@ namespace Entidades
             for (i = 0; i < this.Direcciones.Count; i++)
             {
                 jw.WriteStartObject();
+                jw.WritePropertyName("Ciudad");
+                jw.WriteValue(Direcciones[i].Ciudad);
                 jw.WritePropertyName("Calle");
                 jw.WriteValue(Direcciones[i].Calle);
                 jw.WritePropertyName("Numero");
