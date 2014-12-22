@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Entidades
 {
@@ -32,5 +34,24 @@ namespace Entidades
         [NotMapped]
         public string TiempoStr { get { return Tiempo != null ? Tiempo.Nombre : ""; } }
 
+        public String GetPreciosToJSONRepresentation()
+        {
+            StringBuilder sb = new StringBuilder();
+            JsonWriter jw = new JsonTextWriter(new StringWriter(sb));
+
+            jw.WriteStartObject();
+
+            jw.Formatting = Formatting.Indented;
+            jw.WritePropertyName("IdPlaya");
+            jw.WriteValue(this.PlayaDeEstacionamientoId);
+            jw.WritePropertyName("Monto");
+            jw.WriteValue(this.Monto);
+            jw.WritePropertyName("Tiempo");
+            jw.WriteValue(this.TiempoStr);
+
+            jw.WriteEndObject();
+
+            return sb.ToString();
+        }
     }
 }

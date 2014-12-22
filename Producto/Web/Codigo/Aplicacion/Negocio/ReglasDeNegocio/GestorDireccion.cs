@@ -60,6 +60,17 @@ namespace ReglasDeNegocio
             return direcciones;
         }
         /// <summary>
+        /// Busca todas las direcciones de una ciudad
+        /// </summary>
+        /// <param name="idPlaya"></param>
+        /// <returns></returns>
+        public IList<Direccion> BuscarDireccionesPorCiudad(string ciudad)
+        {
+            var direcciones = direccionDao.FindWhere(d => d.Ciudad.Equals(ciudad, StringComparison.OrdinalIgnoreCase));
+            return direcciones;
+        }
+
+        /// <summary>
         /// Busca una ciudad por su id
         /// </summary>
         /// <param name="IdCiudadSeleccionada"></param>
@@ -141,6 +152,9 @@ namespace ReglasDeNegocio
         //{
         //    return ciudadDao.FindWhere(c => c.Nombre.StartsWith(prefijoNombre,StringComparison.OrdinalIgnoreCase));
         //}
-
+        public IList<Direccion> GetDireccionesDePlayasPorCiudadYTipoVehiculo(string ciudad, int tipoVehiculoId)
+        {
+            return direccionDao.GetDireccionesDePlayasPorCiudadYTipoVehiculo(ciudad, tipoVehiculoId);
+        }
     }
 }

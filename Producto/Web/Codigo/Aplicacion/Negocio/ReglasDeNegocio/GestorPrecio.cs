@@ -95,5 +95,9 @@ namespace ReglasDeNegocio
         {
             return diaAtencionDao.FindAll();
         }
+        public IList<Precio> GetPreciosDePlayasPorTipoVehiculoEIdPlayas(string idsPlayas, int tipoVehiculo)
+        {
+            return precioDao.GetPreciosDePlayasPorTipoVehiculoEIdPlayas(idsPlayas, tipoVehiculo);
+        }
     }
 }

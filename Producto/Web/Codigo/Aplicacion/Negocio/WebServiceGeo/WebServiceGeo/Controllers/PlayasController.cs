@@ -6,6 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Text;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
+using System.IO;
+using System.Data;
 
 namespace WebServiceGeo.Controllers
 {
@@ -13,7 +19,9 @@ namespace WebServiceGeo.Controllers
     {
         private static GestorBusquedaPlayas gestor = new GestorBusquedaPlayas();
         private static GestorTiposVehiculo gestorTipoVehiculos = new GestorTiposVehiculo();
-        // GET api/Playas/GetPlayas/cordoba
+        private static GestorDireccion gestorDirecciones = new GestorDireccion();
+        private static GestorPrecio gestorPrecio = new GestorPrecio();
+        // GET api/Playas/GetPlayas?ciudad=cordoba
         public string GetPlayas([FromUri] String ciudad)
         {
             //busco en la BD
@@ -36,6 +44,7 @@ namespace WebServiceGeo.Controllers
             return json;            
             
         }
+        
         //api/Playas/GetTiposVehiculos
         public string GetTiposVehiculo()
         {
@@ -79,6 +88,49 @@ namespace WebServiceGeo.Controllers
         // DELETE api/playas/5
         public void Delete(int id)
         {
+        }
+
+        /**
+         * Obtiene solo las ubicaciones de las playas para cargar los puntos en los mapas
+         * ej. api/Playas/GetUbicacionesPlayas?ciudad=cordoba&tipoVehiculoId=1
+         */
+        public string GetUbicacionesPlayas([FromUri] string ciudad, [FromUri] string tipoVehiculoId)
+        {
+            string json = "[";
+            int tipoVehiculo = Int32.Parse(tipoVehiculoId);
+            IList<Direccion> direcciones = new List<Direccion>();
+            direcciones = (IList<Direccion>)gestorDirecciones.GetDireccionesDePlayasPorCiudadYTipoVehiculo(ciudad,tipoVehiculo);
+            foreach (var p in direcciones)
+            {
+                json += p.GetUbicacionesToJSONRepresentation() + ",";
+            }
+            if (direcciones.Count > 0)
+            {
+                json = json.Substring(0, json.Length - 1);
+            }
+            json += "]";
+            return json;
+        }
+        /**
+         * Obtiene los precios de las playas selecionadas para el tipo de vehiculo seleccionado
+         * ej. api/Playas/GetPreciosPlayas?tipoVehiculoId=1&idPlayas=1,2,3,5
+         */
+        public string GetPreciosPlayas([FromUri] string tipoVehiculoId, [FromUri] string idPlayas)
+        {
+            int tipoVehiculo = int.Parse(tipoVehiculoId);
+            IList<Precio> precios = new List<Precio>();
+            precios = (List<Precio>)gestorPrecio.GetPreciosDePlayasPorTipoVehiculoEIdPlayas(idPlayas, tipoVehiculo);
+            string json = "[";
+            foreach (var item in precios)
+            {
+                json += item.GetPreciosToJSONRepresentation() + ",";
+            }
+            if (precios.Count > 0)
+            {
+                json = json.Substring(0, json.Length - 1);
+            }
+            json += "]";
+            return json;
         }
     }
 }

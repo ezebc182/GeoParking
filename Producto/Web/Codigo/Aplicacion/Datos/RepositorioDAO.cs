@@ -14,9 +14,9 @@ namespace Datos
     public interface IRepositorioTipoDePlaya : IRepositorio<TipoPlaya> { }
     public interface IRepositorioTipoVehiculo : IRepositorio<TipoVehiculo> { }
     public interface IRepositorioServicio : IRepositorio<Servicio> { }
-    public interface IRepositorioDireccion : IRepositorio<Direccion> { }
+    public interface IRepositorioDireccion : IRepositorio<Direccion> { IList<Direccion> GetDireccionesDePlayasPorCiudadYTipoVehiculo(string ciudad, int tipoVehiculoId);}
     public interface IRepositorioHorario : IRepositorio<Horario> { }
-    public interface IRepositorioPrecio : IRepositorio<Precio> { }
+    public interface IRepositorioPrecio : IRepositorio<Precio> { IList<Precio> GetPreciosDePlayasPorTipoVehiculoEIdPlayas(string idsPlayas, int tipoVehiculo);}
     public interface IRepositorioDiaAtencion : IRepositorio<DiaAtencion> { }
     public interface IRepositorioTiempo : IRepositorio<Tiempo> { }
     public interface IRepositorioUsuario : IRepositorio<Usuario> { }
@@ -31,9 +31,25 @@ namespace Datos
     public class RepositorioTipoDePlaya : Repositorio<TipoPlaya>, IRepositorioTipoDePlaya { }
     public class RepositorioTipoVehiculo : Repositorio<TipoVehiculo>, IRepositorioTipoVehiculo { }
     public class RepositorioServicio : Repositorio<Servicio>, IRepositorioServicio { }
-    public class RepositorioDireccion : Repositorio<Direccion>, IRepositorioDireccion { }
+
     public class RepositorioHorario : Repositorio<Horario>, IRepositorioHorario { }
-    public class RepositorioPrecio : Repositorio<Precio>, IRepositorioPrecio { }
+    public class RepositorioPrecio : Repositorio<Precio>, IRepositorioPrecio
+    {
+        //spGetPreciosDePlayasPorTipoVehiculoEIdPlayas
+        public IList<Precio> GetPreciosDePlayasPorTipoVehiculoEIdPlayas(string idsPlayas, int tipoVehiculo)
+        {
+            using (var context = new ContextoBD())
+            {
+                var idsPlayasParameter = new SqlParameter("@ListaIds", idsPlayas);
+                var tipoVehiculoParameter = new SqlParameter("@TipoVehiculoId", tipoVehiculo);
+
+                var result = context.Database
+                    .SqlQuery<Precio>("spGetPreciosDePlayasPorTipoVehiculoEIdPlayas @ListaIds , @TipoVehiculoId", idsPlayasParameter, tipoVehiculoParameter)
+                    .ToList();
+                return result;
+            }
+        }
+    }
     public class RepositorioDiaAtencion : Repositorio<DiaAtencion>, IRepositorioDiaAtencion { }
     public class RepositorioTiempo : Repositorio<Tiempo>, IRepositorioTiempo { }
     public class RepositorioUsuario : Repositorio<Usuario>, IRepositorioUsuario { }
@@ -41,7 +57,22 @@ namespace Datos
     public class RepositorioDisponibilidadPlayas : Repositorio<DisponibilidadPlayas>, IRepositorioDisponibilidadPlayas { }
     public class RepositorioHistorialDisponibilidadPlayas : Repositorio<HistorialDisponibilidadPlayas>, IRepositorioHistorialDisponibilidadPlayas { }
 
+    public class RepositorioDireccion : Repositorio<Direccion>, IRepositorioDireccion
+    {
+        public IList<Direccion> GetDireccionesDePlayasPorCiudadYTipoVehiculo(string ciudad, int tipoVehiculoId)
+        {
+            using (var context = new ContextoBD())
+            {
+                var ciudadParameter = new SqlParameter("@Ciudad", ciudad);
+                var tipoVehiculoParameter = new SqlParameter("@TipoVehiculoId", tipoVehiculoId);
 
+                var result = context.Database
+                    .SqlQuery<Direccion>("spObtenerUbicacionesDePlayasPorCiudadYTipoVehiculo @Ciudad , @TipoVehiculoId", ciudadParameter, tipoVehiculoParameter)
+                    .ToList();
+                return result;
+            }
+        }
+    }
     /// <summary>
     /// Repositorios DAO de estadisticas
     /// </summary>
