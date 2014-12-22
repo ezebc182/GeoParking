@@ -242,12 +242,16 @@ namespace Datos
         public override IList<PlayaDeEstacionamiento> FindWhere(Func<PlayaDeEstacionamiento, bool> predicate)
         {
             var lista = DbSet
-            .Include("Horario.DiaAtencion")
-            .Include("Precios.TipoVehiculo")
-            .Include("Precios.Tiempo")
-            .Include("Servicios.TipoVehiculo")
-            .Include("TipoPlaya")
-            .Where(predicate);
+                .Include("Direcciones.Ciudad")
+                .Include("Direcciones.Ciudad.Departamento")
+                .Include("Direcciones.Ciudad.Departamento.Provincia")
+                .Include("Horarios.DiaAtencion")
+                .Include("Precios.DiaAtencion")
+                .Include("Precios.TipoVehiculo")
+                .Include("Precios.Tiempo")
+                .Include("Servicios.TipoVehiculo")
+                .Include("TipoPlaya")
+                .Where(predicate);
 
             return lista.ToList();
         }
