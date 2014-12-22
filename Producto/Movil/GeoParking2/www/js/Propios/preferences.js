@@ -106,7 +106,7 @@ function cargarTiposDeVehiculo() {
 }
 
 function obtenerTiposDeVehiculos() {
-    var uri = "http://ifrigerio-001-site1.smarterasp.net/api/playas/GetTiposVehiculo";
+    var uri = obtenerURLServer() + "api/playas/GetTiposVehiculo";
     var tiposVehiculos = null;
     $.ajax({
         type: "GET",
