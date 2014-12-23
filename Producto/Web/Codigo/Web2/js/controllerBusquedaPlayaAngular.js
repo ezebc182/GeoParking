@@ -58,10 +58,7 @@ app.controller('MyCtrl', function ($scope, $http) {
                           "</li>" +
                           "<li>" +
                             "<a href='#panel-2' data-toggle='tab'>Horarios</a>" +
-                          "</li>" +
-                           "<li>" +
-                            "<a href='#panel-3' data-toggle='tab'>Precios</a>" +
-                          "</li>" +
+                          "</li>" +                           
                         "</ul>" +
                         "<div class='tab-content'>";
 
@@ -84,48 +81,44 @@ app.controller('MyCtrl', function ($scope, $http) {
         contenido += "<table>";
         var direcciones = eval(playa.Direcciones);
         for (var j = 0; j < direcciones.length; j++) {
-            contenido += "<tr><td> <strong>Calle:</strong>  </td> <td>" + direcciones[j].Calle + ":  </td> <td> <strong> N° </strong>: </td> <td>" + direcciones[j].Numero + " </td> </tr>";
+            contenido += "<tr><td>" + direcciones[j].Calle + ":  </td> <td>" + direcciones[j].Numero + " </td> </tr>";
         }
         contenido += "</table>";
 
-        //agregamos los servicios
-        contenido += "<div><h6>SERVICIOS<h6></div>";
+        //agregamos los horarios
+        contenido += "<div><h6>HORARIO<h6></div>";
         contenido += "<table>";
-        var servicios = eval(playa.Servicios);
-        for (var K = 0; K < servicios.length; K++) {
-            contenido += "<tr><td> <strong>Tipo Vehiculo:</strong> </td> <td>" + servicios[K].TipoVehiculo + ":  </td> <td> <strong> Capacidad: </strong> </td> <td>" + servicios[K].Capacidad + " </td> </tr>";
-        }
-        contenido += "</table>";
+        contenido += "<tr><td>" + playa.Horario.Dia + "</td> <td> <strong>Desde:</strong></td> <td> " + playa.Horario.HoraDesde + "</td> <td> - <strong>Hasta:</strong> </td> <td>" + playa.Horario.HoraHasta + "</td> </tr>";
+        contenido += "</table>";             
+
+        
         contenido += "</p></div>";
 
         //SEGUNDO TAB
         contenido += "<div class='tab-pane' id='panel-2'>" +
         "<p>";
 
-        //agregamos los horarios
-        contenido += "<div><h6>HORARIOS<h6></div>";
-        contenido += "<table>";
-        var horarios = eval(playa.Horarios);
-        for (var l = 0; l < horarios.length; l++) {
-            contenido += "<tr><td>" + horarios[l].Dia + "</td> <td> - <strong>Desde:</strong></td> <td> " + horarios[l].HoraDesde + "</td> <td> - <strong>Hasta:</strong> </td> <td>" + horarios[l].HoraHasta + "</td> </tr>";
+        //agregamos los servicios
+        contenido += "<div><h6>SERVICIOS<h6></div>";
+        contenido += "<table class='table table-responsive'>";
+        var servicios = eval(playa.Servicios);
+        for (var K = 0; K < servicios.length; K++) {
+            contenido += "<tr><td>" + servicios[K].TipoVehiculo + ":  </td> <td> <strong> Capacidad: </strong>" + servicios[K].Capacidad + " </td> </tr>";
         }
         contenido += "</table>";
-        contenido += "</p></div>";
-
-        //TERCER TAB
-        contenido += "<div class='tab-pane' id='panel-3'>" +
-        "<p>";
 
         //agregamos los precios
         contenido += "<div><h6>PRECIOS<h6></div>";
-        contenido += "<table>";
+        contenido += "<table class='table table-responsive'>";
         var precios = eval(playa.Precios);
         for (var m = 0; m < precios.length; m++) {
             //contenido += "<div>" + precios[m].TipoVehiculo + " - " + precios[m].Dia + " - " + precios[m].Tiempo + " $" + precios[m].Monto + "</div>";
-            contenido += "<tr><td>" + precios[m].TipoVehiculo + "</td> <td> - " + precios[m].Tiempo + ":</td> <td> $" + precios[m].Monto + "</td> </tr>";
+            contenido += "<tr><td>" + precios[m].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
         }
         contenido += "</table>"
-        contenido += "</p></div>";
+
+
+        contenido += "</p></div>";        
 
         contenido += "</div></div>";
 
@@ -139,8 +132,6 @@ app.controller('MyCtrl', function ($scope, $http) {
 
     /*PERMITE MOSTRAR LAPLAYA SELECCIONADA EN EL MAPA*/
     $scope.ir = function (row) {
-
-        alert(row)
 
         for (var i = 0; i < playas.length; i++) {
             if (playas[i].Id == row.Id) {
@@ -226,7 +217,9 @@ app.controller('MyCtrl', function ($scope, $http) {
         //tomo el valor de la nueva ciudad
         var direccionCiudad = $scope.ciudad.split(',');
         var ciudad = direccionCiudad[0];
-        var ciudadNueva = $scope.omitirAcentos(ciudad);
+
+        var ciudadNueva = ciudad;
+        //var ciudadNueva = $scope.omitirAcentos(ciudad);
 
         $http({
             url: "BusquedaPlaya.aspx/ObtenerPlayasDeCiudadNueva",//mi pagina de begin
@@ -479,11 +472,8 @@ app.controller('MyCtrl', function ($scope, $http) {
                                     "<a href='#panel-1' data-toggle='tab'>Datos Generales</a>" +
                                   "</li>" +
                                   "<li>" +
-                                    "<a href='#panel-2' data-toggle='tab'>Horarios</a>" +
-                                  "</li>" +
-                                   "<li>" +
-                                    "<a href='#panel-3' data-toggle='tab'>Precios</a>" +
-                                  "</li>" +
+                                    "<a href='#panel-2' data-toggle='tab'>Servicios</a>" +
+                                  "</li>" +                                  
                                 "</ul>" +
                                 "<div class='tab-content'>";
 
@@ -503,52 +493,49 @@ app.controller('MyCtrl', function ($scope, $http) {
 
                 //agregamos las direcciones
                 contenido += "<div><h6>DIRECCION<h6></div>";
-                contenido += "<table>";
+                contenido += "<table class='table table-responsive'>";
                 var direcciones = eval(playas[i].Direcciones);
                 for (var j = 0; j < direcciones.length; j++) {
-                    contenido += "<tr><td> <strong>Calle:</strong>  </td> <td>" + direcciones[j].Calle + ":  </td> <td> <strong> N° </strong>: </td> <td>" + direcciones[j].Numero + " </td> </tr>";
+                    contenido += "<tr><td>" + direcciones[j].Calle + "  </td><td style='text-aline:left'> " + direcciones[j].Numero + " </td> </tr>";
                 }
                 contenido += "</table>";
 
-                //agregamos los servicios
-                contenido += "<div><h6>SERVICIOS<h6></div>";
+                //agregamos los horarios
+                contenido += "<div><h6>HORARIO<h6></div>";
                 contenido += "<table>";
-                var servicios = eval(playas[i].Servicios);
-                for (var K = 0; K < servicios.length; K++) {
-                    contenido += "<tr><td> <strong>Tipo Vehiculo:</strong> </td> <td>" + servicios[K].TipoVehiculo + ":  </td> <td> <strong> Capacidad: </strong> </td> <td>" + servicios[K].Capacidad + " </td> </tr>";
-                }
+                contenido += "<tr><td>" + playas[i].Horario.Dia + "</td> <td> <strong>Desde:</strong></td> <td> " + playas[i].Horario.HoraDesde + "</td> <td> - <strong>Hasta:</strong> </td> <td>" + playas[i].Horario.HoraHasta + "</td> </tr>";
                 contenido += "</table>";
                 contenido += "</p></div>";
+
+                
 
                 //SEGUNDO TAB
                 contenido += "<div class='tab-pane' id='panel-2'>" +
                 "<p>";
 
-                //agregamos los horarios
-                contenido += "<div><h6>HORARIOS<h6></div>";
-                contenido += "<table>";
-                var horarios = eval(playas[i].Horarios);
-                for (var l = 0; l < horarios.length; l++) {
-                    contenido += "<tr><td>" + horarios[l].Dia + "</td> <td> - <strong>Desde:</strong></td> <td> " + horarios[l].HoraDesde + "</td> <td> - <strong>Hasta:</strong> </td> <td>" + horarios[l].HoraHasta + "</td> </tr>";
+                //agregamos los servicios
+                contenido += "<div><h6>SERVICIOS<h6></div>";
+                contenido += "<table class='table table-responsive'>";
+                var servicios = eval(playas[i].Servicios);
+                for (var K = 0; K < servicios.length; K++) {
+                    contenido += "<tr><td>" + servicios[K].TipoVehiculo + ":  </td> <td> <strong> Capacidad: </strong>" + servicios[K].Capacidad + " </td> </tr>";
                 }
                 contenido += "</table>";
-                contenido += "</p></div>";
-
-                //TERCER TAB
-                contenido += "<div class='tab-pane' id='panel-3'>" +
-                "<p>";
+               
 
                 //agregamos los precios
                 contenido += "<div><h6>PRECIOS<h6></div>";
-                contenido += "<table>";
+                contenido += "<table class='table table-responsive'>";
                 var precios = eval(playas[i].Precios);
                 for (var m = 0; m < precios.length; m++) {
                     //contenido += "<div>" + precios[m].TipoVehiculo + " - " + precios[m].Dia + " - " + precios[m].Tiempo + " $" + precios[m].Monto + "</div>";
-                    contenido += "<tr><td>" + precios[m].TipoVehiculo + "</td> <td> - " + precios[m].Tiempo + ":</td> <td> $" + precios[m].Monto + "</td> </tr>";
+                    contenido += "<tr><td>" + precios[m].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
                 }
                 contenido += "</table>"
+                
                 contenido += "</p></div>";
 
+                
                 contenido += "</div></div>";
 
                 //creamos el marcador                      
