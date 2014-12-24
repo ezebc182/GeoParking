@@ -11,14 +11,9 @@ namespace Entidades
 {
     public class Precio : EntidadBase
     {
-
-        //referencia a un TipoVehiculo
-        public int TipoVehiculoId { get; set; }
-        public virtual TipoVehiculo TipoVehiculo { get; set; }
-        //Playa
-        public int? PlayaDeEstacionamientoId { get; set; }
-        public virtual PlayaDeEstacionamiento PlayaDeEstacionamiento { get; set; }
-        
+        //referencia a servicio
+        public int ServicioId { get; set; }
+        public virtual Servicio Servicio { get; set; }
 
         //referecia a un tiempo
         public int TiempoId { get; set; }
@@ -28,9 +23,6 @@ namespace Entidades
         [Column(TypeName="Money")]
         public decimal Monto { get; set; }
 
-        [NotMapped]
-        public string TipoVehiculoStr { get { return TipoVehiculo != null ? TipoVehiculo.Nombre : ""; } }
-       
         [NotMapped]
         public string TiempoStr { get { return Tiempo != null ? Tiempo.Nombre : ""; } }
 

@@ -28,9 +28,10 @@ namespace Entidades
             }
         }
 
-        //capacidad de lugares para el tipo de vehiculo
-        public int Capacidad { get; set; }
-
+        //precio
+        public virtual Precio Precio { get; set; }
+        //capacidad
+        public virtual Capacidad Capacidad { get; set; }
         [NotMapped]
         public string TipoVehiculoStr { get; set; }
 

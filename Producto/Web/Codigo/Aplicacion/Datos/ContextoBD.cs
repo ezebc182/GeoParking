@@ -45,7 +45,23 @@ namespace Datos
             modelBuilder.Entity<Horario>()
                 .HasKey(h => h.PlayaDeEstacionamientoId)
                 .Ignore(h => h.Id);
-                
+
+            modelBuilder.Entity<Servicio>()
+                .HasOptional(s => s.Precio)
+                .WithRequired(p => p.Servicio);
+
+            modelBuilder.Entity<Servicio>()
+                .HasOptional(s => s.Capacidad)
+                .WithRequired(p => p.Servicio);
+
+            modelBuilder.Entity<Precio>()
+                .HasKey(p => p.ServicioId)
+                .Ignore(p => p.Id);
+
+            modelBuilder.Entity<Capacidad>()
+                .HasKey(c => c.ServicioId)
+                .Ignore(c => c.Id);
+
             base.OnModelCreating(modelBuilder);
             
         }

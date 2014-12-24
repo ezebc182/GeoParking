@@ -55,7 +55,7 @@ namespace Web2.Controles
                 servicio.TipoVehiculoId = int.Parse(gvServicios.DataKeys[row.RowIndex].Values[1].ToString());
                 servicio.TipoVehiculo = gestor.BuscarTipoVehiculoPorId(servicio.TipoVehiculoId);
                 servicio.TipoVehiculoStr = row.Cells[0].Text;
-                servicio.Capacidad = int.Parse(row.Cells[1].Text);
+                servicio.Capacidad.Cantidad = int.Parse(row.Cells[1].Text);
 
                 servicios.Add(servicio);
             }
@@ -113,7 +113,7 @@ namespace Web2.Controles
 
             var servicio = new Servicio();
             servicio.TipoVehiculo = gestor.BuscarTipoVehiculoPorId(IdVehiculoSeleccionado);
-            servicio.Capacidad = Capacidad.Value;
+            servicio.Capacidad.Cantidad = Capacidad.Value;
             return servicio;
         }
         /// <summary>

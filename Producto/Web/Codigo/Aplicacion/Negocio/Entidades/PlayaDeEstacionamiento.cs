@@ -127,7 +127,7 @@ namespace Entidades
                 jw.WritePropertyName("IdTipoVehiculo");
                 jw.WriteValue(Servicios[j].TipoVehiculoId);
                 jw.WritePropertyName("Capacidad");
-                jw.WriteValue(Servicios[j].Capacidad);
+                jw.WriteValue(Servicios[j].Capacidad.Cantidad);
                 jw.WriteEndObject();
             }
 
@@ -155,11 +155,9 @@ namespace Entidades
 
             for (l = 0; l < this.Precios.Count; l++)
             {
-                jw.WriteStartObject();               
-                jw.WritePropertyName("TipoVehiculo");
-                jw.WriteValue(Precios[l].TipoVehiculoStr);
-                jw.WritePropertyName("IdTipoVehiculo");
-                jw.WriteValue(Precios[l].TipoVehiculoId);                
+                jw.WriteStartObject();
+                jw.WritePropertyName("Servicio");
+                jw.WriteValue(Precios[l].ServicioId);
                 jw.WritePropertyName("Tiempo");
                 jw.WriteValue(Precios[l].TiempoStr);
                 jw.WritePropertyName("IdTiempo");

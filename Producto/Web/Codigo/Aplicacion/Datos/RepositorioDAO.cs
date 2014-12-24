@@ -316,8 +316,7 @@ namespace Datos
                     contexto.UpdateGraph(t, map => map
                         .OwnedCollection(p => p.Direcciones, with => with
                             .AssociatedEntity(d => d.PlayaDeEstacionamiento))
-                        .OwnedCollection(p => p.Precios, with => with
-                        .AssociatedEntity(p => p.PlayaDeEstacionamiento))
+                        .OwnedCollection(p => p.Precios)
                         .OwnedCollection(p => p.Servicios, with => with
                         .AssociatedEntity(s => s.PlayaDeEstacionamiento))
                         );

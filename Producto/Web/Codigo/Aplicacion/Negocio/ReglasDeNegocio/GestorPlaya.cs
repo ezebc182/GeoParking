@@ -89,7 +89,7 @@ namespace ReglasDeNegocio
                         DisponibilidadPlayas disponibilidad = new DisponibilidadPlayas();
                         disponibilidad.PlayaDeEstacionamientoId = playa.Id;
                         disponibilidad.TipoVehiculoId = item.TipoVehiculoId;
-                        disponibilidad.Disponibilidad = item.Capacidad;
+                        disponibilidad.Disponibilidad = item.Capacidad.Cantidad;
 
                         //creo el registro para el manejo de disponibilidades
                         disponibilidadesDao.Create(disponibilidad);                        
@@ -114,7 +114,7 @@ namespace ReglasDeNegocio
 
             ValidarDatosGrales(playa, resultado);
             ValidarDiasDeAtencion(playa, resultado);
-            ValidarTiposDeVehiculos(playa, resultado);
+            //ValidarTiposDeVehiculos(playa, resultado);
             ValidarDirecciones(playa, resultado);
 
             return resultado;
@@ -176,37 +176,37 @@ namespace ReglasDeNegocio
         /// </summary>
         /// <param name="playa">playa cuyos datos se estan validando</param>
         /// <param name="resultado">Resultado</param>
-        private void ValidarTiposDeVehiculos(PlayaDeEstacionamiento playa, Resultado resultado)
-        {
-            var servicios = playa.Servicios.Select(p => p.TipoVehiculoId).Distinct();
-            var precios = playa.Precios.Select(h => h.TipoVehiculoId).Distinct();
-            var contador = 0;
+        //private void ValidarTiposDeVehiculos(PlayaDeEstacionamiento playa, Resultado resultado)
+        //{
+        //    var servicios = playa.Servicios.Select(p => p.TipoVehiculoId).Distinct();
+        //    var precios = playa.Precios.Select(h => h.TipoVehiculoId).Distinct();
+        //    var contador = 0;
 
-            if (servicios.Count() != precios.Count())
-            {
-                if (servicios.Count() > precios.Count()) { resultado.AgregarMensaje("Debe cargar precios para todos los tipos de vehiculos aceptados."); }
-                else if (servicios.Count() < precios.Count()) { resultado.AgregarMensaje("Se cargaron precios para vehiculos no aceptados en la playa."); }
-            }
-            else
-            {
-                foreach (var servicio in servicios)
-                {
-                    foreach (var precio in precios)
-                    {
-                        if (precio == servicio)
-                        {
-                            contador++;
-                            break;
-                        }
-                    }
-                }
-                if (contador != precios.Count())
-                {
-                    resultado.AgregarMensaje("Debe cargar precios para todos los tipos de vehiculos aceptados.");
-                    resultado.AgregarMensaje("Se cargaron precios para vehiculos no aceptados en la playa.");
-                }
-            }
-        }
+        //    if (servicios.Count() != precios.Count())
+        //    {
+        //        if (servicios.Count() > precios.Count()) { resultado.AgregarMensaje("Debe cargar precios para todos los tipos de vehiculos aceptados."); }
+        //        else if (servicios.Count() < precios.Count()) { resultado.AgregarMensaje("Se cargaron precios para vehiculos no aceptados en la playa."); }
+        //    }
+        //    else
+        //    {
+        //        foreach (var servicio in servicios)
+        //        {
+        //            foreach (var precio in precios)
+        //            {
+        //                if (precio == servicio)
+        //                {
+        //                    contador++;
+        //                    break;
+        //                }
+        //            }
+        //        }
+        //        if (contador != precios.Count())
+        //        {
+        //            resultado.AgregarMensaje("Debe cargar precios para todos los tipos de vehiculos aceptados.");
+        //            resultado.AgregarMensaje("Se cargaron precios para vehiculos no aceptados en la playa.");
+        //        }
+        //    }
+        //}
         /// <summary>
         /// Valida que se haya ingresado al menos una direccion con sus respectivo punto en el mapa
         /// </summary>
@@ -256,7 +256,7 @@ namespace ReglasDeNegocio
 
             ValidarDatosGrales(playa, resultado);
             ValidarDiasDeAtencion(playa, resultado);
-            ValidarTiposDeVehiculos(playa, resultado);
+            //ValidarTiposDeVehiculos(playa, resultado);
             ValidarDirecciones(playa, resultado);
 
             return resultado;
@@ -331,7 +331,7 @@ namespace ReglasDeNegocio
         private void CargarPlaya(PlayaDeEstacionamiento playa)
         {
             playa.Direcciones = BuscarDireccionesPorPlaya(playa.Id);
-            playa.Precios = BuscarPreciosPorPlaya(playa.Id);
+            //playa.Precios = BuscarPreciosPorPlaya(playa.Id);
             playa.Horario = BuscarHorariosPorPlaya(playa.Id);
             playa.Servicios = BuscarServiciosPorPlaya(playa.Id);
             playa.TipoPlaya = BuscarTipoPlayas().Where(t => t.Id == playa.TipoPlayaId).First();
@@ -374,16 +374,16 @@ namespace ReglasDeNegocio
         /// </summary>
         /// <param name="idPlaya">Id de la playa de la cual se esta buscando los precios</param>
         /// <returns></returns>
-        public IList<Precio> BuscarPreciosPorPlaya(int idPlaya)
-        {
-            var lista =precioDao.FindWhere(d => d.PlayaDeEstacionamientoId == idPlaya);
-            foreach (var precio in lista)
-            {
-                precio.TipoVehiculo = tipoVehiculoDao.FindWhere(t => t.Id == precio.TipoVehiculoId).First();
-                precio.Tiempo = tiempoDao.FindWhere(t => t.Id == precio.TiempoId).First();
-            }
-            return lista;
-        }
+        //public IList<Precio> BuscarPreciosPorPlaya(int idPlaya)
+        //{
+        //    var lista =precioDao.FindWhere(d => d.PlayaDeEstacionamientoId == idPlaya);
+        //    foreach (var precio in lista)
+        //    {
+        //        precio.TipoVehiculo = tipoVehiculoDao.FindWhere(t => t.Id == precio.TipoVehiculoId).First();
+        //        precio.Tiempo = tiempoDao.FindWhere(t => t.Id == precio.TiempoId).First();
+        //    }
+        //    return lista;
+        //}
         /// <summary>
         /// Busca los horarios de una playa
         /// </summary>
