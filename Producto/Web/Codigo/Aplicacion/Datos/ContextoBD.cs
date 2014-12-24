@@ -47,16 +47,9 @@ namespace Datos
                 .Ignore(h => h.Id);
 
             modelBuilder.Entity<Servicio>()
-                .HasOptional(s => s.Precio)
-                .WithRequired(p => p.Servicio);
-
-            modelBuilder.Entity<Servicio>()
                 .HasOptional(s => s.Capacidad)
                 .WithRequired(p => p.Servicio);
 
-            modelBuilder.Entity<Precio>()
-                .HasKey(p => p.ServicioId)
-                .Ignore(p => p.Id);
 
             modelBuilder.Entity<Capacidad>()
                 .HasKey(c => c.ServicioId)

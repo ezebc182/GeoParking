@@ -113,7 +113,7 @@ namespace Web2
             TipoPlayaSeleccionada = playaEditar.TipoPlayaId.Value;
             Servicios = playaEditar.Servicios;
             //Horarios = playaEditar.Horario;
-            Precios = playaEditar.Precios;
+            //Precios = playaEditar.Precios;
             Direcciones = playaEditar.Direcciones;
 
         }
@@ -132,8 +132,8 @@ namespace Web2
                 Telefono = Telefono,
                 TipoPlayaId = TipoPlayaSeleccionada,
                 Servicios = Servicios,
-                Direcciones = Direcciones,
-                Precios = Precios,
+                Direcciones = Direcciones
+                //Precios = Precios,
                 //Horarios = Horarios
             };
             return playa;

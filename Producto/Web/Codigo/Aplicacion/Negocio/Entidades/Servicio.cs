@@ -28,8 +28,9 @@ namespace Entidades
             }
         }
 
-        //precio
-        public virtual Precio Precio { get; set; }
+        //Precios (Vehiculo, dia, tiempo, precio)
+        public virtual IList<Precio> Precios { get; set; }
+
         //capacidad
         public virtual Capacidad Capacidad { get; set; }
         [NotMapped]

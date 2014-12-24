@@ -41,5 +41,10 @@ namespace Repositorios
         {
             throw new NotImplementedException();
         }
+
+        public IList<Direccion> GetDireccionesDePlayasPorCiudadYTipoVehiculo(string ciudad, int tipoVehiculoId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

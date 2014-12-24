@@ -41,5 +41,10 @@ namespace Repositorios
         {
             throw new NotImplementedException();
         }
+
+        public IList<Precio> GetPreciosDePlayasPorTipoVehiculoEIdPlayas(string idsPlayas, int tipoVehiculo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

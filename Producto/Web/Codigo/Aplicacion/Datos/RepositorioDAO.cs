@@ -24,7 +24,7 @@ namespace Datos
     public interface IRepositorioPermiso : IRepositorio<Permiso> { }
     public interface IRepositorioEstadisticaConsultas : IRepositorio<EstadisticaConsultas> { }
     public interface IRepositorioEventos : IRepositorio<Evento> { }
-    public interface IRepositorioDisponibilidadPlayas: IRepositorio<DisponibilidadPlayas> { }
+    public interface IRepositorioDisponibilidadPlayas : IRepositorio<DisponibilidadPlayas> { }
     public interface IRepositorioHistorialDisponibilidadPlayas : IRepositorio<HistorialDisponibilidadPlayas> { }
 
     //Clases DAO para cada entidad que heredan de la clase Repositorio
@@ -53,7 +53,7 @@ namespace Datos
     public class RepositorioDiaAtencion : Repositorio<DiaAtencion>, IRepositorioDiaAtencion { }
     public class RepositorioTiempo : Repositorio<Tiempo>, IRepositorioTiempo { }
     public class RepositorioUsuario : Repositorio<Usuario>, IRepositorioUsuario { }
-    public class RepositorioEvento : Repositorio<Evento>, IRepositorioEventos { }    
+    public class RepositorioEvento : Repositorio<Evento>, IRepositorioEventos { }
     public class RepositorioDisponibilidadPlayas : Repositorio<DisponibilidadPlayas>, IRepositorioDisponibilidadPlayas { }
     public class RepositorioHistorialDisponibilidadPlayas : Repositorio<HistorialDisponibilidadPlayas>, IRepositorioHistorialDisponibilidadPlayas { }
 
@@ -76,7 +76,7 @@ namespace Datos
     /// <summary>
     /// Repositorios DAO de estadisticas
     /// </summary>
-    public class RepositorioEstadisticaConsultas : Repositorio<EstadisticaConsultas>, IRepositorioEstadisticaConsultas 
+    public class RepositorioEstadisticaConsultas : Repositorio<EstadisticaConsultas>, IRepositorioEstadisticaConsultas
     {
         public IList<EstadisticaPorTipoPlayaDto> GetConsultasTipoPlayaByCiudad(int idCiudad)
         {
@@ -110,7 +110,7 @@ namespace Datos
             //using (var contexto = new ContextoBD())
             //{
             //    System.Data.SqlClient.SqlParameter fechaDesde, fechaHasta;
-                
+
             //    var ciudad = new System.Data.SqlClient.SqlParameter("ciudad", idCiudad);
             //    if(desde.HasValue)  fechaDesde = new System.Data.SqlClient.SqlParameter("fechaDesde", desde.Value);
             //    else  fechaDesde = new System.Data.SqlClient.SqlParameter("fechaDesde", DBNull.Value);
@@ -167,33 +167,33 @@ namespace Datos
             //    return contexto.Database.SqlQuery<EstadisticaPorTipoVehiculoDto>("execute spGetCantidadConsultasPorTipoVehiculo @ciudad, @fechaDesde, @fechaHasta", ciudad, fechaDesde, fechaHasta).ToList();
             //}
         }
-   
+
         public IList<EstadisticaDensidadDto> GetConsultasByCiudad(int idCiudad, DateTime? desde, DateTime? hasta)
         {
             using (var contexto = new ContextoBD())
             {
                 System.Data.SqlClient.SqlParameter fechaDesde, fechaHasta;
-                
-                var ciudad = new System.Data.SqlClient.SqlParameter("ciudad", idCiudad);
-                if(desde.HasValue)  fechaDesde = new System.Data.SqlClient.SqlParameter("fechaDesde", desde.Value);
-                else  fechaDesde = new System.Data.SqlClient.SqlParameter("fechaDesde", DBNull.Value);
 
-                if(hasta.HasValue) fechaHasta = new System.Data.SqlClient.SqlParameter("fechaHasta", hasta.Value);
+                var ciudad = new System.Data.SqlClient.SqlParameter("ciudad", idCiudad);
+                if (desde.HasValue) fechaDesde = new System.Data.SqlClient.SqlParameter("fechaDesde", desde.Value);
+                else fechaDesde = new System.Data.SqlClient.SqlParameter("fechaDesde", DBNull.Value);
+
+                if (hasta.HasValue) fechaHasta = new System.Data.SqlClient.SqlParameter("fechaHasta", hasta.Value);
                 else fechaHasta = new System.Data.SqlClient.SqlParameter("fechaHasta", DBNull.Value);
 
                 return contexto.Database.SqlQuery<EstadisticaDensidadDto>("execute spGetEstadisticasByFilters @ciudad, @fechaDesde, @fechaHasta", ciudad, fechaDesde, fechaHasta).ToList();
             }
         }
 
-        
+
         public IList<EstadisticaDensidadDto> GetConsultasByCiudad(int idCiudad)
         {
             return GetConsultasByCiudad(idCiudad, null, null);
         }
     }
-    
-   
-    
+
+
+
     /// <summary>
     /// Repositorio DAO de administracion de roles y permisos
     /// </summary>
@@ -280,9 +280,9 @@ namespace Datos
                 //.Include("Direcciones.Ciudad.Departamento.Provincia")
                 .Include("Horario.DiaAtencion")
                 //.Include("Precios.DiaAtencion")
-                .Include("Precios.TipoVehiculo")
-                .Include("Precios.Tiempo")
+                .Include("Servicios.Precios.Tiempo")
                 .Include("Servicios.TipoVehiculo")
+                .Include("Servicios.Capacidad")
                 .Include("TipoPlaya")
                 .Where(predicate);
 
@@ -316,8 +316,9 @@ namespace Datos
                     contexto.UpdateGraph(t, map => map
                         .OwnedCollection(p => p.Direcciones, with => with
                             .AssociatedEntity(d => d.PlayaDeEstacionamiento))
-                        .OwnedCollection(p => p.Precios)
                         .OwnedCollection(p => p.Servicios, with => with
+                        .OwnedCollection(s => s.Precios, con => con
+                            .AssociatedEntity(p => p.Servicio))
                         .AssociatedEntity(s => s.PlayaDeEstacionamiento))
                         );
                     return contexto.SaveChanges();

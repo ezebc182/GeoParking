@@ -92,7 +92,7 @@ namespace ReglasDeNegocio
                         disponibilidad.Disponibilidad = item.Capacidad.Cantidad;
 
                         //creo el registro para el manejo de disponibilidades
-                        disponibilidadesDao.Create(disponibilidad);                        
+                        disponibilidadesDao.Create(disponibilidad);
                     }
                 }
                 catch (DataBaseException e)
@@ -315,8 +315,8 @@ namespace ReglasDeNegocio
         /// <returns>Lista de playas que coinciden con los parametros de busqueda</returns>
         public IList<PlayaDeEstacionamiento> BuscarPlayaPorNombre(string ciudad, string nombre)
         {
-            var lista = playaDao.FindWhere(m => m.Direcciones.Any(d => d.Ciudad.Equals(ciudad,StringComparison.OrdinalIgnoreCase)) 
-                &&  m.Nombre.ToUpper().Contains(nombre.ToUpper()) && !m.FechaBaja.HasValue);
+            var lista = playaDao.FindWhere(m => m.Direcciones.Any(d => d.Ciudad.Equals(ciudad, StringComparison.OrdinalIgnoreCase))
+                && m.Nombre.ToUpper().Contains(nombre.ToUpper()) && !m.FechaBaja.HasValue);
 
             //foreach (var playa in lista)
             //{
@@ -392,9 +392,9 @@ namespace ReglasDeNegocio
         public Horario BuscarHorariosPorPlaya(int idPlaya)
         {
             var horario = horarioDao.FindWhere(d => d.PlayaDeEstacionamientoId == idPlaya).First();
-            
+
             horario.DiaAtencion = diaAtencionDao.FindWhere(d => d.Id == horario.DiaAtencionId).First();
-           
+
             return horario;
         }
 
@@ -406,9 +406,9 @@ namespace ReglasDeNegocio
         public IList<PlayaDeEstacionamiento> BuscarPlayasPorCiudad(string ciudad)
         {
             //aca va un findwehere
-            
-            var lista= playaDao.FindWhere(p => p.Direcciones.Any(d => d.Ciudad.Equals(ciudad, StringComparison.OrdinalIgnoreCase)) && !p.FechaBaja.HasValue);
-            
+
+            var lista = playaDao.FindWhere(p => p.Direcciones.Any(d => d.Ciudad.Equals(ciudad, StringComparison.OrdinalIgnoreCase)) && !p.FechaBaja.HasValue);
+
             return lista;
         }
 
@@ -422,7 +422,7 @@ namespace ReglasDeNegocio
             {
                 consulta.And(p => p.Direcciones.Any(d => d.Ciudad.Equals(ciudad, StringComparison.OrdinalIgnoreCase)));
             }
-            
+
             if (tipoPlaya != 0)
             {
                 if (consulta != null)
@@ -430,7 +430,7 @@ namespace ReglasDeNegocio
                     consulta = consulta.And(p => p.TipoPlayaId == tipoPlaya);
                 }
                 else consulta = p => p.TipoPlayaId == tipoPlaya;
-                }
+            }
 
             if (tipoVehiculo != 0)
             {
@@ -439,7 +439,7 @@ namespace ReglasDeNegocio
                     consulta = consulta.And(p => p.Servicios.Any(s => s.TipoVehiculoId == tipoVehiculo));
                 }
                 else consulta = p => p.Servicios.Any(s => s.TipoVehiculoId == tipoVehiculo);
-                }
+            }
 
             if (diasAtencion != 0)
             {
@@ -448,28 +448,28 @@ namespace ReglasDeNegocio
                     consulta = consulta.And(p => p.Horario.DiaAtencionId == diasAtencion);
                 }
                 else consulta = p => p.Horario.DiaAtencionId == diasAtencion;
-                }
-
-            if (precioDesde != 0)
-            {
-                if (consulta != null)
-                {
-                    consulta = consulta.And(p => p.Precios.Any(prec => prec.Monto >= precioDesde));
-                }
-                else consulta = p => p.Precios.Any(prec => prec.Monto >= precioDesde);
-                }
-
-            if (precioHasta != 0)
-            {
-                if (consulta != null)
-                {
-                    consulta = consulta.And(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
-                }
-                else consulta = p => p.Precios.Any(prec => prec.Monto <= precioHasta);
-
-                //lista = (IList<PlayaDeEstacionamiento>)lista.Where(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
-
             }
+
+            //if (precioDesde != 0)
+            //{
+            //    if (consulta != null)
+            //    {
+            //        consulta = consulta.And(p => p.Precios.Any(prec => prec.Monto >= precioDesde));
+            //    }
+            //    else consulta = p => p.Precios.Any(prec => prec.Monto >= precioDesde);
+            //}
+
+            //if (precioHasta != 0)
+            //{
+            //    if (consulta != null)
+            //    {
+            //        consulta = consulta.And(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
+            //    }
+            //    else consulta = p => p.Precios.Any(prec => prec.Monto <= precioHasta);
+
+            //    //lista = (IList<PlayaDeEstacionamiento>)lista.Where(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
+
+            //}
 
             if (horaDesde != 0)
             {
