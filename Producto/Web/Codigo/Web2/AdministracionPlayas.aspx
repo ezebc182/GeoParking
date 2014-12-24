@@ -270,8 +270,8 @@
     <script type="text/javascript">
         //pasar a un archivo aparte "administracionPlayas.js"
         //var precios = hfPrecios convertir a objeto {id,nombre}
-        var playaCargada = "";
-        
+        var playaCargada;
+
         var tbServiciosHead = function () {
             var $tr = $('<tr> </tr>');
 
@@ -283,29 +283,43 @@
         };
 
         var servicios = {
-            agregar: function (tipoVehiculoId, Capacidad) {
-                //agregar a la tabla el servicio
+            agregar: function (servicio) {
+                //agregar a la tabla el servicio (JSON)
                 var table = $('[id*=tbServicios]');
                 var $tr = $('<tr> </tr>');
 
-                $tr.append('<td tipoVehiculoId=' + '"' + tipoVehiculoId + '"' + '> </td>');
-                $tr.append('<td>' + capacidad + ' </td>');
+                $tr.append('<td tipoVehiculoId=' + '"' + servicio.tipoVehiculoId + '"' + '> </td>');
+                $tr.append('<td>' + servicio.capacidad + ' </td>');
                 $.each(precios, function (i, precio) {
-                    var precioId = $tr.find('th[idPrecio]').eq(i).attr(idPrecio);
-                    $tr.append('<td idPrecio= ' + '"' + precioId + '"' + '> - </td>');
+                    var precioId = $tr.find('th[idPrecio]').eq(i).attr('idPrecio');
+                    var precioEncontrado = false;
+                    $.each(servicio.Precios, function () {
+                        if (id == precioId) {
+                            $tr.append('<td idPrecio= ' + '"' + precioId + '"' + '> ' + monto + '</td>');
+                            precioEncontrado = true;
+                            return false;
+                        }
+                    });
+                    if (!precioEncontrado) {
+                        $tr.append('<td idPrecio= ' + '"' + precioId + '"' + '> - </td>');
+                    }
                 });
 
                 table.append($tr);
             },
             iniciar: function () {
                 //llenar la tabla con el head de hfPrecios y los servicios en el hfServicios
+                var me = this;
                 var $table = $('[id*=tbServicios]');
                 var $tableHead = $('[id*=tbServiciosHead]');
 
                 $tableHead.append(tbServiciosHead);
-                if (this.lista !== "") {
+
+                if (playaCargada !== undefined) {
                     //se esta editando una playa, cargar los servicios en la tabla
-                    playaCargada.Servicios
+                    $.each(playaCargada.Servicios, function () {
+                        me.agregar(this);
+                    });
                 }
             },
             grabar: function () {

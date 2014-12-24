@@ -149,7 +149,7 @@ namespace Entidades
 
                 try
                 {
-                    jw.WriteValue(Servicios[j].Capacidad.Cantidad);
+                    jw.WriteValue(servicio.Capacidad.Cantidad);
                 }
                 catch (Exception)
                 {
