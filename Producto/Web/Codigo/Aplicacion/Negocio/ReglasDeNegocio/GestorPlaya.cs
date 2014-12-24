@@ -305,7 +305,7 @@ namespace ReglasDeNegocio
         public PlayaDeEstacionamiento BuscarPlayaPorId(int idPlaya)
         {
             var playa = playaDao.FindById(idPlaya);
-            CargarPlaya(playa);
+
             return playa;
         }
         /// <summary>
@@ -330,11 +330,11 @@ namespace ReglasDeNegocio
         /// <param name="playa">playa a la que se le van a cargar los datos.</param>
         private void CargarPlaya(PlayaDeEstacionamiento playa)
         {
-            playa.Direcciones = BuscarDireccionesPorPlaya(playa.Id);
-            //playa.Precios = BuscarPreciosPorPlaya(playa.Id);
-            playa.Horario = BuscarHorariosPorPlaya(playa.Id);
-            playa.Servicios = BuscarServiciosPorPlaya(playa.Id);
-            playa.TipoPlaya = BuscarTipoPlayas().Where(t => t.Id == playa.TipoPlayaId).First();
+            //playa.Direcciones = BuscarDireccionesPorPlaya(playa.Id);
+            ////playa.Precios = BuscarPreciosPorPlaya(playa.Id);
+            //playa.Horario = BuscarHorariosPorPlaya(playa.Id);
+            //playa.Servicios = BuscarServiciosPorPlaya(playa.Id);
+            //playa.TipoPlaya = BuscarTipoPlayas().Where(t => t.Id == playa.TipoPlayaId).First();
         }
         /// <summary>
         /// Busca todos los tipos de playas

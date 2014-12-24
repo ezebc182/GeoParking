@@ -20,7 +20,7 @@ namespace Entidades
         public virtual Tiempo Tiempo { get; set; }
 
         //precio
-        [Column(TypeName="Money")]
+        [Column(TypeName = "Money")]
         public decimal Monto { get; set; }
 
         [NotMapped]

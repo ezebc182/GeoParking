@@ -272,6 +272,7 @@ namespace Datos
     public class RepositorioPlayaDeEstacionamiento : Repositorio<PlayaDeEstacionamiento>, IRepositorioPlayaDeEstacionamiento
     {
 
+
         public override IList<PlayaDeEstacionamiento> FindAll()
         {
             return DbSet

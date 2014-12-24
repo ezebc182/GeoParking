@@ -50,8 +50,8 @@ namespace Datos
         /// <returns>una entidad</returns>
         public virtual TEntity FindById(int id)
         {
-            var lista = DbSet.Where(x => x.Id == id).ToList<TEntity>();
-            return lista[0];
+            var entidad = FindWhere(x => x.Id == id).SingleOrDefault<TEntity>();
+            return entidad;
         }
 
         /// <summary>
