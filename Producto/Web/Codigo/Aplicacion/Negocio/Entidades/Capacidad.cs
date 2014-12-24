@@ -8,7 +8,7 @@ namespace Entidades
 {
     public class Capacidad : EntidadBase
     {
-        public int Cantidad { get; set; }
+        public int Cantidad { get { return this.Cantidad == null ? 0 : this.Cantidad; } set { this.Cantidad = value; } }
 
         //servicio
         public int ServicioId { get; set; }

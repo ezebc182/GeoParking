@@ -127,7 +127,14 @@ namespace Entidades
                 jw.WritePropertyName("IdTipoVehiculo");
                 jw.WriteValue(Servicios[j].TipoVehiculoId);
                 jw.WritePropertyName("Capacidad");
-                jw.WriteValue(Servicios[j].Capacidad.Cantidad);
+                try
+                {
+                    jw.WriteValue(Servicios[j].Capacidad.Cantidad);
+                }
+                catch (Exception)
+                {
+                    jw.WriteValue("0");
+                }
                 jw.WriteEndObject();
             }
 
@@ -152,19 +159,21 @@ namespace Entidades
 
             int l;
             l = 0;
-
-            for (l = 0; l < this.Precios.Count; l++)
+            if (this.Precios != null)
             {
-                jw.WriteStartObject();
-                jw.WritePropertyName("Servicio");
-                jw.WriteValue(Precios[l].ServicioId);
-                jw.WritePropertyName("Tiempo");
-                jw.WriteValue(Precios[l].TiempoStr);
-                jw.WritePropertyName("IdTiempo");
-                jw.WriteValue(Precios[l].TiempoId);
-                jw.WritePropertyName("Monto");
-                jw.WriteValue(Precios[l].Monto);
-                jw.WriteEndObject();
+                for (l = 0; l < this.Precios.Count; l++)
+                {
+                    jw.WriteStartObject();
+                    jw.WritePropertyName("Servicio");
+                    jw.WriteValue(Precios[l].ServicioId);
+                    jw.WritePropertyName("Tiempo");
+                    jw.WriteValue(Precios[l].TiempoStr);
+                    jw.WritePropertyName("IdTiempo");
+                    jw.WriteValue(Precios[l].TiempoId);
+                    jw.WritePropertyName("Monto");
+                    jw.WriteValue(Precios[l].Monto);
+                    jw.WriteEndObject();
+                }
             }
 
             jw.WriteEndArray(); 

@@ -32,7 +32,7 @@ namespace Entidades
             jw.WriteStartObject();
                 
             jw.Formatting = Formatting.Indented;
-            jw.WritePropertyName("IdPlaya");
+            jw.WritePropertyName("Id");
             jw.WriteValue(this.PlayaDeEstacionamientoId);
             jw.WritePropertyName("Latitud");
             jw.WriteValue(this.Latitud);

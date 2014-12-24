@@ -39,13 +39,7 @@ namespace WebServiceGeo.Controllers
         /// <returns></returns>
         public string GetDisponibilidadesPlayasPorTipoVehiculo([FromUri] String idPlayas, [FromUri]int idTipoVehiculo)
         {
-            String[] idPlayasArray = idPlayas.Split(',');
-            int[] idPlayasInt = new int[idPlayasArray.Length];
-            for (int i = 0; i < idPlayasArray.Length; i++)
-			{
-                idPlayasInt[i] = Int32.Parse(idPlayasArray[i]);
-			}
-            return Newtonsoft.Json.JsonConvert.SerializeObject(gestor.GetDisponibilidadPlayasPorTipoVehiculo(idPlayasInt, idTipoVehiculo));
+            return Newtonsoft.Json.JsonConvert.SerializeObject(gestor.GetDisponibilidadDePlayasPorTipoVehiculo(idPlayas, idTipoVehiculo));
         }
 
         // GET api/disponibilidad/5

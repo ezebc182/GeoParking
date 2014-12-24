@@ -35,7 +35,7 @@ namespace Entidades
 
             jw.Formatting = Formatting.Indented;
             jw.WritePropertyName("IdPlaya");
-            jw.WriteValue(this.PlayaDeEstacionamientoId);
+            jw.WriteValue(this.Servicio.PlayaDeEstacionamientoId);
             jw.WritePropertyName("Monto");
             jw.WriteValue(this.Monto);
             jw.WritePropertyName("Tiempo");
