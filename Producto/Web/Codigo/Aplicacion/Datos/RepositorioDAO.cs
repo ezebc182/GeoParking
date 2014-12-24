@@ -24,7 +24,8 @@ namespace Datos
     public interface IRepositorioPermiso : IRepositorio<Permiso> { }
     public interface IRepositorioEstadisticaConsultas : IRepositorio<EstadisticaConsultas> { }
     public interface IRepositorioEventos : IRepositorio<Evento> { }
-    public interface IRepositorioDisponibilidadPlayas : IRepositorio<DisponibilidadPlayas> { }
+    public interface IRepositorioDisponibilidadPlayas : IRepositorio<DisponibilidadPlayas> { List<DisponibilidadPlayas> GetDisponibilidadDePlayasPorTipoVehiculo(string idPlayas, int tipoVehiculo);}
+
     public interface IRepositorioHistorialDisponibilidadPlayas : IRepositorio<HistorialDisponibilidadPlayas> { }
 
     //Clases DAO para cada entidad que heredan de la clase Repositorio
@@ -53,8 +54,24 @@ namespace Datos
     public class RepositorioDiaAtencion : Repositorio<DiaAtencion>, IRepositorioDiaAtencion { }
     public class RepositorioTiempo : Repositorio<Tiempo>, IRepositorioTiempo { }
     public class RepositorioUsuario : Repositorio<Usuario>, IRepositorioUsuario { }
-    public class RepositorioEvento : Repositorio<Evento>, IRepositorioEventos { }
-    public class RepositorioDisponibilidadPlayas : Repositorio<DisponibilidadPlayas>, IRepositorioDisponibilidadPlayas { }
+
+    public class RepositorioEvento : Repositorio<Evento>, IRepositorioEventos { }    
+    public class RepositorioDisponibilidadPlayas : Repositorio<DisponibilidadPlayas>, IRepositorioDisponibilidadPlayas
+    {
+        public List<DisponibilidadPlayas> GetDisponibilidadDePlayasPorTipoVehiculo(string idPlayas, int tipoVehiculo)
+        {
+            using (var context = new ContextoBD())
+            {
+                var idsPlayasParameter = new SqlParameter("@ListaIds", idPlayas);
+                var tipoVehiculoParameter = new SqlParameter("@TipoVehiculoId", tipoVehiculo);
+
+                var result = context.Database
+                    .SqlQuery<DisponibilidadPlayas>("spObtenerDisponibilidadPlayasPorTipoVehiculo @ListaIds , @TipoVehiculoId", idsPlayasParameter, tipoVehiculoParameter)
+                    .ToList();
+                return result;
+            }
+        }
+    }
     public class RepositorioHistorialDisponibilidadPlayas : Repositorio<HistorialDisponibilidadPlayas>, IRepositorioHistorialDisponibilidadPlayas { }
 
     public class RepositorioDireccion : Repositorio<Direccion>, IRepositorioDireccion
@@ -259,11 +276,7 @@ namespace Datos
         {
             return DbSet
                 .Include("Direcciones")
-                //.Include("Direcciones.Ciudad")
-                //.Include("Direcciones.Ciudad.Departamento")
-                //.Include("Direcciones.Ciudad.Departamento.Provincia")
                 .Include("Horario.DiaAtencion")
-                //.Include("Precios.DiaAtencion")
                 .Include("Servicios.Precios.Tiempo")
                 .Include("Servicios.TipoVehiculo")
                 .Include("Servicios.Capacidad")
@@ -275,11 +288,7 @@ namespace Datos
         {
             var lista = DbSet
                 .Include("Direcciones")
-                //.Include("Direcciones.Ciudad")
-                //.Include("Direcciones.Ciudad.Departamento")
-                //.Include("Direcciones.Ciudad.Departamento.Provincia")
                 .Include("Horario.DiaAtencion")
-                //.Include("Precios.DiaAtencion")
                 .Include("Servicios.Precios.Tiempo")
                 .Include("Servicios.TipoVehiculo")
                 .Include("Servicios.Capacidad")

@@ -15,6 +15,7 @@ namespace ReglasDeNegocio
         IRepositorioTiempo tiempoDao;
         IRepositorioTipoVehiculo tipoVehiculoDao;
         IRepositorioPrecio precioDao;
+        IRepositorioServicio servicioDao;
 
         public GestorPrecio()
         {
@@ -22,6 +23,7 @@ namespace ReglasDeNegocio
             tiempoDao = new RepositorioTiempo();
             tipoVehiculoDao = new RepositorioTipoVehiculo();
             precioDao = new RepositorioPrecio();
+            servicioDao = new RepositorioServicio();
         }
 
         public GestorPrecio(IRepositorioDiaAtencion diaAtencionDao,
@@ -97,7 +99,14 @@ namespace ReglasDeNegocio
         }
         public IList<Precio> GetPreciosDePlayasPorTipoVehiculoEIdPlayas(string idsPlayas, int tipoVehiculo)
         {
-            return precioDao.GetPreciosDePlayasPorTipoVehiculoEIdPlayas(idsPlayas, tipoVehiculo);
+            IList<Precio> precios = precioDao.GetPreciosDePlayasPorTipoVehiculoEIdPlayas(idsPlayas, tipoVehiculo);
+            foreach (var item in precios)
+            {
+                item.Tiempo = tiempoDao.FindById(item.TiempoId);
+                item.Servicio = servicioDao.FindById(item.ServicioId);
+
+            }
+            return precios;
         }
     }
 }

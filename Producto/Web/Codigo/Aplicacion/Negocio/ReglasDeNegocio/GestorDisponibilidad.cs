@@ -107,6 +107,10 @@ namespace ReglasDeNegocio
             //retorno una lista de disponibilidades oredenadas de mayor a menor
             return OrdenarPorDisponibilidad(disponibilidades);
         }
+        public List<DisponibilidadPlayas> GetDisponibilidadDePlayasPorTipoVehiculo(string idPlayas, int tipoVehiculo)
+        {
+            return disponibilidadPlayas.GetDisponibilidadDePlayasPorTipoVehiculo(idPlayas, tipoVehiculo);
+        }
 
         /// <summary>
         /// Retorna una lista de regsitros de disponibilidad ordenados de mayor a menor

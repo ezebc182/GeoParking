@@ -63,6 +63,22 @@ function toRad(value){
 }
 
 function obtenerURLServer(){
-	return 'http://ifrigerio-001-site1.smarterasp.net/';
-	//return 'http://localhost:33357/';
+	//return 'http://ifrigerio-001-site1.smarterasp.net/';
+	return 'http://localhost:21305/';
+}
+function leerPropiedadTipoVehiculo(){
+    var configuraciones = localStorage.getItem("Configuraciones");
+    if(configuraciones !== null){
+        configuraciones = jQuery.parseJSON(configuraciones);
+        return configuraciones.tipoVehiculo;
+    }
+    return "0";
+}
+function leerPropiedadRadio(){
+    var configuraciones = localStorage.getItem("Configuraciones");
+    if(configuraciones !== null){
+        configuraciones = jQuery.parseJSON(configuraciones);
+        return parseInt(configuraciones.radio);
+    }
+    return 500;
 }

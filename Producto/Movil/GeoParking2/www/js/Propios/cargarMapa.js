@@ -191,17 +191,7 @@ function addMarker(location, playa) {
         google.maps.event.addListener(marker, 'click', function () {
             destino = marker.getPosition();
             tipoDestino = "playa";
-            var configuraciones = localStorage.getItem("Configuraciones");
-            var tipoDeVehiculo = 0;
-            if (configuraciones !== null) {
-                configuraciones = jQuery.parseJSON(configuraciones);
-                if (configuraciones.tipoVehiculo !== null) {
-                    tipoDeVehiculo = parseInt(configuraciones.tipoVehiculo);
-                } else {
-                    tipoDeVehiculo = 0;
-                }
-            }
-            var uri = "http://ifrigerio-001-site1.smarterasp.net/api/Estadisticas/GetGuardarConsulta?idPlaya=" + playa.Id + "&idTipoVehiculo=" + tipoDeVehiculo + "&latitud=" + posicionActual.k + "&longitud=" + posicionActual.B;
+            var uri = "http://ifrigerio-001-site1.smarterasp.net/api/Estadisticas/GetGuardarConsulta?idPlaya=" + playa.Id + "&idTipoVehiculo=" + leerPropiedadTipoVehiculo() + "&latitud=" + posicionActual.k + "&longitud=" + posicionActual.B;
             $.getJSON(uri);
             regresoAVehiculo = false;
             ir(posicionActual, destino, "DRIVING", "METRIC");

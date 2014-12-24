@@ -139,31 +139,14 @@ $.widget( "geoparking.listadoPlayasWidget", {
 	* si no existe ninguna almacenada, devuelve 500 (valor por defecto).
 	*/
 	_obtenerDistanciaPredeterminada : function (){
-		var configuraciones = localStorage.getItem("Configuraciones");
-		if(configuraciones !== null){
-			configuraciones = jQuery.parseJSON(configuraciones);
-			return parseInt(configuraciones.radio);
-		}
-		return 500;
+        leerPropiedadRadio();
 	},
 	/**
 	* Obtiene el tipo de vehiculo almacenado en el localStorage
 	* que fue guardado en el panel configuraciones.
 	*/
 	_obtenerTipoVehiculoPredeterminado : function (){
-		var configuraciones = localStorage.getItem("Configuraciones");
-		if(configuraciones !== null){
-			configuraciones = jQuery.parseJSON(configuraciones);
-			return configuraciones.tipoVehiculo;
-		}
-		return "0";
-	},
-	/**
-	* Obtiene la playa elegida (este metodo es publico)
-	*/
-	obtenerPlayaElegida : function() {
-		var widget = this;
-		return widget.options.playaElegida;
+		leerPropiedadTipoVehiculo();
 	},
 	/**
 	* Filtra el listado de playas recibido por parametro en el widget
@@ -222,7 +205,7 @@ $.widget( "geoparking.listadoPlayasWidget", {
 		var widget = this;
 		var funcionDeOrden = function(a, b){
 			return (parseInt(b.Disponibilidad) - parseInt(a.Disponibilidad));
-		}
+		};
 		widget.options.listadoPlayas = widget.options.listadoPlayas.sort(funcionDeOrden);
 	},
     /**
@@ -245,5 +228,82 @@ $.widget( "geoparking.listadoPlayasWidget", {
             }
         }
         return 0;
-    }
+    },
+	_filtrarUnaPlayaPorUbicacion : function(){
+		var widget = this;
+		var resultado = [];
+		for(var i = 0; i < widget.options.listadoPlayas.length; i++){
+			var playa = widget.options.listadoPlayas[i];
+			if( !(widget._verificarQueExistePlayaEnArray(playa,resultado))){
+				resultado.push(playa);
+			}
+		}
+		return resultado;
+	},
+	_verificarQueExistePlayaEnArray : function(playa,array){
+		for(var j = 0; j<  array.length; j++){
+			if(playa.Id === array[j].Id){
+				return true;
+			}
+		}
+		return false;
+	},
+    /**
+	* Toma el listado de playas seleccionado (deberia ya estar filtrado por distancia)
+	* y pide para esas playas los precios en base al tipo de vehiculo seleccionado
+	*/
+	_obtenerPrecioPlayasSeleccionadas : function(){
+		var widget = this;
+		var idPlayas = [];
+		for(var i = 0; i < widget.options.listadoPlayas.length; i++){
+			var playa = widget.options.listadoPlayas[i];
+			idPlayas.push(playa.Id);
+		}
+		var uri = obtenerURLServer() + 'api/Playas/GetPreciosPlayas?tipoVehiculoId' + widget._obtenerTipoVehiculoPredeterminado() + '&idPlayas=' +idPlayas.toString();
+        var precios;
+        $.ajax({
+            type: "GET",
+            url: uri,
+            async : false,
+            success: function (data) {
+                precios = (typeof data) == 'string' ?
+                    eval('(' + data + ')') :
+                    data;
+                widget._agregarPreciosAPlayas(precios);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                
+            }
+        });
+	},
+    /**
+	* 
+	*/
+    _agregarPreciosAPlayas : function(precios){
+        var widget = this;
+        for(var i = 0; i < widget.options.listadoPlayas.length; i++){
+            var playa = widget.options.listadoPlayas[i];
+            playa['Precios'] = widget._obtenerPreciosDePlaya(playa.Id,precios);
+        }
+    },
+    /**
+	* 
+	*/
+    _obtenerPreciosDePlaya : function(playaId, precios){
+        var preciosDePlaya = []
+        for(var i = 0; i < precios.length; i++){
+            if(precios[i].Id === playaId){
+                preciosDePlaya.push(precios[i]);
+            }
+        }
+        return preciosDePlaya;
+    },
+    /**
+	* Obtiene la playa elegida (este metodo es publico)
+	*/
+	obtenerPlayaElegida : function() {
+		var widget = this;
+		return widget.options.playaElegida;
+	}
 });
