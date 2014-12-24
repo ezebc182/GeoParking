@@ -116,7 +116,7 @@
 
             <div class="container-fluid">
 
-                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                <asp:ContentPlaceHolder ID="Main" runat="server">
 
                         </asp:ContentPlaceHolder>
 
@@ -139,6 +139,9 @@
     <script src="js/bootstrap.min.js"></script>
             <!-- end: JavaScript-->
 
+            <%-- Content para poner el codigo js desde las paginas e importar los scripts --%>
+            <asp:ContentPlaceHolder ID="ScriptContent" runat="server">
+            </asp:ContentPlaceHolder>
         </div>
     </form>
 </body>
