@@ -264,9 +264,9 @@ namespace Datos
                 //.Include("Direcciones.Ciudad.Departamento.Provincia")
                 .Include("Horario.DiaAtencion")
                 //.Include("Precios.DiaAtencion")
-                .Include("Precios.TipoVehiculo")
-                .Include("Precios.Tiempo")
+                .Include("Servicios.Precios.Tiempo")
                 .Include("Servicios.TipoVehiculo")
+                .Include("Servicios.Capacidad")
                 .Include("TipoPlaya")
                 .ToList();
         }

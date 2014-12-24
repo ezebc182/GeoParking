@@ -50,7 +50,6 @@ namespace Datos
                 .HasOptional(s => s.Capacidad)
                 .WithRequired(p => p.Servicio);
 
-
             modelBuilder.Entity<Capacidad>()
                 .HasKey(c => c.ServicioId)
                 .Ignore(c => c.Id);
