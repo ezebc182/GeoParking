@@ -189,6 +189,11 @@
     <Content Include="js\autocompleteCiudades.js" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
+    <Content Include="bootstrap3-editable\css\bootstrap-editable.css" />
+    <Content Include="bootstrap3-editable\img\clear.png" />
+    <Content Include="bootstrap3-editable\img\loading.gif" />
+    <Content Include="bootstrap3-editable\js\bootstrap-editable.js" />
+    <Content Include="bootstrap3-editable\js\bootstrap-editable.min.js" />
     <Content Include="js\bootstrapValidator.min.js" />
     <Content Include="js\controllerBusquedaPlayaAngular.js" />
     <Content Include="js\GoogleMapsBusquedaPlaya.js" />
