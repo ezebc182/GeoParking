@@ -130,6 +130,8 @@ namespace Entidades
                 jw.WritePropertyName("Precios");
                 jw.WriteStartArray();
 
+
+
                 foreach (var precio in servicio.Precios)
                 {
                     jw.WriteStartObject();

@@ -148,7 +148,7 @@
             this.incioToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(583, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(578, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -164,14 +164,14 @@
             // coonectarToolStripMenuItem
             // 
             this.coonectarToolStripMenuItem.Name = "coonectarToolStripMenuItem";
-            this.coonectarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.coonectarToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.coonectarToolStripMenuItem.Text = "Conectar";
             this.coonectarToolStripMenuItem.Click += new System.EventHandler(this.coonectarToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.salirToolStripMenuItem.Text = "Salir";
             // 
             // paneles
@@ -199,7 +199,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(550, 476);
+            this.tabPage1.Size = new System.Drawing.Size(550, 470);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Ingreso";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -375,7 +375,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(550, 476);
+            this.tabPage2.Size = new System.Drawing.Size(659, 470);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Egreso";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1271,7 +1271,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(583, 558);
+            this.ClientSize = new System.Drawing.Size(578, 558);
             this.Controls.Add(this.lblConectar);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.paneles);

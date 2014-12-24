@@ -51,11 +51,11 @@ namespace ReglasDeNegocio
             //2° verificamos el evento
             if(evento==1) //ingreso
             {
-                registroDisponibilidad.Disponibilidad=registroDisponibilidad.Disponibilidad+1;
+                registroDisponibilidad.Disponibilidad=registroDisponibilidad.Disponibilidad-1;
             }
             else //egreso
             {
-                registroDisponibilidad.Disponibilidad=registroDisponibilidad.Disponibilidad-1;
+                registroDisponibilidad.Disponibilidad=registroDisponibilidad.Disponibilidad+1;
             }
 
             try 

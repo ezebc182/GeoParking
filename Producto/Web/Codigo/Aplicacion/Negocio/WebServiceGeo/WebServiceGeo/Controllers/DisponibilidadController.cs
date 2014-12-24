@@ -23,9 +23,9 @@ namespace WebServiceGeo.Controllers
         /// <param name="idTipoVehiculo"></param>
         /// <param name="idEvento"></param>
         /// <param name="dia"></param>
-        public void GetActualizarDisponibilidad([FromUri]int idPlaya, [FromUri]int idTipoVehiculo, [FromUri]int idEvento, [FromUri]int dia)
+        public string GetActualizarDisponibilidad([FromUri]int idPlaya, [FromUri]int idTipoVehiculo, [FromUri]int idEvento, [FromUri]int dia)
         {
-            gestor.ActualizarDisponibilidadPlaya(idPlaya, idTipoVehiculo, idEvento, DateTime.Now, dia);
+            return gestor.ActualizarDisponibilidadPlaya(idPlaya, idTipoVehiculo, idEvento, DateTime.Now, dia).Ok.ToString();
         }
                 
         // GET api/disponibilidad/5

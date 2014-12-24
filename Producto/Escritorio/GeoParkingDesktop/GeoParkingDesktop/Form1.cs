@@ -46,7 +46,7 @@ namespace GeoParkingDesktop
             
             //consulta a la API para recuperar los datos de la Playa de Estacionamiento
             string sURL;
-            sURL = "http://localhost:33357/api/Playas/Get/"+id;           
+            sURL = "http://localhost:21305/api/Playas/Get/" + id;           
 
             try
             {
@@ -127,7 +127,7 @@ namespace GeoParkingDesktop
                 progressBar1.Visible = false;
                 lblConectar.Visible = false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 
                 MessageBox.Show("Error al iniciar sistmea");
@@ -401,10 +401,41 @@ namespace GeoParkingDesktop
                 }
             }
 
+            //aca utilizo el acceso a la appi
+            
+            string sURL;
+            sURL = "http://localhost:21305/api/Disponibilidad/GetActualizarDisponibilidad?idPlaya="+playa.id+"&idTipoVehiculo="+tipoVehiculo+"&idEvento="+evento+"&dia="+DateTime.Now.Day;
 
-                     
+            try
+            {
+                WebRequest wrGETURL;
+                progressBar1.PerformStep();
+                wrGETURL = WebRequest.Create(sURL);
 
-            //aca utilizo el acceso a la appi            
+                //WebProxy myProxy = new WebProxy("myproxy", 80);
+                //myProxy.BypassProxyOnLocal = true;
+
+                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
+
+                Stream objStream;
+                objStream = wrGETURL.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                string sLine = objReader.ReadLine();
+
+                MessageBox.Show(sLine);
+
+                if (sLine == "True")
+                    MessageBox.Show("Actualizacion Existosa");
+                else
+                    MessageBox.Show("no se pudo realizar la actualizacion");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al actualizar disponibilidad en API");
+            }
+               
         }
        
         /// <summary>
