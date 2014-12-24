@@ -2,7 +2,7 @@ function obtenerPlayasDeCiudad(ciudad){
     if(ciudad === "Capital"){
         ciudad = "Cordoba";
     }
-    var uri = obtenerURLServer() + 'api/playas/getPlayas?ciudad=' + ciudad;
+    var uri = obtenerURLServer() + 'api/Playas/GetUbicacionesPlayas?ciudad=' + ciudad + "&tipoVehiculoId=" + leerPropiedadTipoVehiculo();
     $.ajax({
         type: "GET",
         url: uri,
