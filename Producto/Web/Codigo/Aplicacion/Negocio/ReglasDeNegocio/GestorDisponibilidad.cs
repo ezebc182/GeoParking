@@ -72,6 +72,44 @@ namespace ReglasDeNegocio
 
         }
 
+
+        public Resultado ActualizarDisponibilidadGeneralPlaya(int playa, int tipoVehiculo,int disponibilidad, int evento, DateTime fechaHora, int dia)
+        {
+            Resultado resultado = new Resultado();
+
+            //creamos el nuevo registro para el historial
+            HistorialDisponibilidadPlayas registroHistorial = new HistorialDisponibilidadPlayas();
+            registroHistorial.PlayaDeEstacionamietoId = playa;
+            registroHistorial.TipoVehiculoId = tipoVehiculo;
+            registroHistorial.EventoId = evento;
+            registroHistorial.FechaHora = fechaHora;
+            registroHistorial.Dia = dia;
+
+            //lo insertamos en la BD
+            historialDisponibilidadPlayas.Create(registroHistorial);
+
+            //ahora actualizamos la disponibilidad
+            //1° recuperamos el resgistro de la BD a actualizar
+            DisponibilidadPlayas registroDisponibilidad = new DisponibilidadPlayas();
+            registroDisponibilidad = disponibilidadPlayas.FindWhere(d => d.PlayaDeEstacionamientoId == playa && d.TipoVehiculoId == tipoVehiculo).First();
+            
+            registroDisponibilidad.Disponibilidad = disponibilidad;
+            
+            try
+            {
+                //3° actualizamos el registro
+                disponibilidadPlayas.Update(registroDisponibilidad);
+            }
+            catch (Exception)
+            {
+                resultado.AgregarMensaje("Se ha producido un error de base de datos.");
+            }
+
+            return resultado;
+
+        }
+
+
         /// <summary>
         /// retorna la disponibilidad de una playa de estacionamiento
         /// y de acuerdo al tipo vehiculo del que quiera saber la disponibilidad

@@ -23,12 +23,28 @@ namespace WebServiceGeo.Controllers
         /// <param name="idTipoVehiculo"></param>
         /// <param name="idEvento"></param>
         /// <param name="dia"></param>
-        public string GetActualizarDisponibilidad([FromUri]int idPlaya, [FromUri]int idTipoVehiculo, [FromUri]int idEvento, [FromUri]int dia)
+        public string GetActualizarDisponibilidad([FromUri]int idPlaya, [FromUri]int idTipoVehiculo, [FromUri]int idEvento, [FromUri]string fecha)
         {
-            return gestor.ActualizarDisponibilidadPlaya(idPlaya, idTipoVehiculo, idEvento, DateTime.Now, dia).Ok.ToString();
+            return gestor.ActualizarDisponibilidadPlaya(idPlaya, idTipoVehiculo, idEvento, DateTime.Parse(fecha), DateTime.Parse(fecha).Day).Ok.ToString();
         }
-                
-        // GET api/disponibilidad/5
+
+        // GET api/disponibilidad/GetActualizarDisponibilidadGeneral
+        /// <summary>
+        /// actualiza la disponibilidad de un tipo de vehiculo
+        /// ingresando la cantidad exacta de la disponibilidad
+        /// </summary>
+        /// <param name="idPlaya"></param>
+        /// <param name="idTipoVehiculo"></param>
+        /// <param name="disponibilidad"></param>
+        /// <param name="idEvento"></param>
+        /// <param name="fecha"></param>
+        /// <returns>'True' si fue correcta </returns>
+        public string GetActualizarDisponibilidadGeneral([FromUri]int idPlaya, [FromUri]int idTipoVehiculo, [FromUri]int disponibilidad, [FromUri]int idEvento, [FromUri]string fecha)
+        {
+            return gestor.ActualizarDisponibilidadGeneralPlaya(idPlaya, idTipoVehiculo, disponibilidad, idEvento, DateTime.Parse(fecha), DateTime.Parse(fecha).Day).Ok.ToString();
+        }
+
+        // GET api/disponibilidad/GetDisponibilidadesPlayasPorTipoVehiculo
         /// <summary>
         /// Retorna la disponibilidad de una lista de playas de estacionamientos
         /// de acuerdo a un tipo de vehiculo
@@ -42,7 +58,7 @@ namespace WebServiceGeo.Controllers
             return Newtonsoft.Json.JsonConvert.SerializeObject(gestor.GetDisponibilidadDePlayasPorTipoVehiculo(idPlayas, idTipoVehiculo));
         }
 
-        // GET api/disponibilidad/5
+        // GET api/disponibilidad/GetDisponibilidadPlayaPorTipoVehiculo
         /// <summary>
         /// Retorna la disponibilidad de una playa de estacionamiento
         /// de acuerdo a un tipo de vehiculo
@@ -51,9 +67,9 @@ namespace WebServiceGeo.Controllers
         /// <param name="idPlayas"></param>
         /// <param name="idTipoVehiculo"></param>
         /// <returns></returns>
-        public string GetDisponibilidadPlayaPorTipoVehiculo([FromUri] int idPlaya, [FromUri]int idTipoVehiculo)
+        public int GetDisponibilidadPlayaPorTipoVehiculo([FromUri] int idPlaya, [FromUri]int idTipoVehiculo)
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(gestor.GetDisponibilidadPlayaPorTipoVehiculo(idPlaya, idTipoVehiculo));
+            return gestor.GetDisponibilidadPlayaPorTipoVehiculo(idPlaya, idTipoVehiculo);
         }
 
         // POST api/disponibilidad
