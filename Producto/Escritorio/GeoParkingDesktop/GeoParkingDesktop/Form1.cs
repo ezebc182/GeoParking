@@ -93,25 +93,29 @@ namespace GeoParkingDesktop
                 {
                     Disponibilidades vehiculo = new Disponibilidades();
                     vehiculo.tipoVehiculo = int.Parse(item["IdTipoVehiculo"].ToString());
-                    vehiculo.disponibilidad = int.Parse(item["Capacidad"].ToString());
+
+                    //recupero la disponibilidad de cada tipo de vehiculo
+                    vehiculo.disponibilidad = recuperarDisponibilidad(playa.id,vehiculo.tipoVehiculo);
+                    
                     playa.disponibilidades.Add(vehiculo);
 
+                    //cargo los precios
+                    var precios = item["Precios"];
+
+                    foreach (var item2 in precios)
+                    {
+                        Precio precio = new Precio();
+                        precio.tipoVehiculo = vehiculo.tipoVehiculo;
+                        precio.tiempo = int.Parse(item2["IdTiempo"].ToString());
+                        precio.precio = double.Parse(item2["Monto"].ToString());
+                        playa.precios.Add(precio);
+                    }
+                    progressBar1.PerformStep();
+
                 }
+
                 progressBar1.PerformStep();
-
-
-                //cargo los precios
-                var precios = objetoPlaya["Precios"];
-
-                foreach (var item in precios)
-                {
-                    Precio precio = new Precio();
-                    precio.tipoVehiculo = int.Parse(item["IdTipoVehiculo"].ToString());
-                    precio.tiempo = int.Parse(item["IdTiempo"].ToString());
-                    precio.precio = double.Parse(item["Monto"].ToString());
-                    playa.precios.Add(precio);
-                }
-                progressBar1.PerformStep();
+              
 
                 //muestro los datos de la playa
                 cargarDatosPlaya();
@@ -135,6 +139,45 @@ namespace GeoParkingDesktop
                 lblConectar.Visible = false;
                
             }       
+        }
+
+        /// <summary>
+        /// recupera la disponibilidad de un tipo de vehiculo de una playa
+        /// </summary>
+        /// <param name="idPlaya"></param>
+        /// <param name="idTipoVehiculo"></param>
+        /// <returns></returns>
+        private int recuperarDisponibilidad(int idPlaya, int idTipoVehiculo)
+        {
+            string sURL;
+            sURL = "http://localhost:21305/api/Disponibilidad/GetDisponibilidadPlayaPorTipoVehiculo?idPlaya=" + idPlaya + "&idTipoVehiculo=" + idTipoVehiculo;
+
+            try
+            {
+                WebRequest wrGETURL;
+                progressBar1.PerformStep();
+                wrGETURL = WebRequest.Create(sURL);
+
+                //WebProxy myProxy = new WebProxy("myproxy", 80);
+                //myProxy.BypassProxyOnLocal = true;
+
+                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
+
+                Stream objStream;
+                objStream = wrGETURL.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                int sLine = int.Parse(objReader.ReadLine());
+
+
+                return sLine;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al actualizar disponibilidad en API");
+                return 0;
+            }
         }               
         
         /// <summary>
@@ -294,8 +337,7 @@ namespace GeoParkingDesktop
             int tipoVehiculo = (int)cmbTipoVehiculo.SelectedIndex+1;//tipo vehiculo
             int evento = 1;//ingreso
             DateTime fechaHora = DateTime.Now;//fecha y hora            
-            int dia = DateTime.Today.Day;//dia
-
+            
             bool resultado = false;
 
             foreach (var item in playa.disponibilidades)
@@ -306,7 +348,7 @@ namespace GeoParkingDesktop
 
                     if(item.disponibilidad>0)
                     {
-                        registrarIngreso(playa.id, tipoVehiculo, matricula, evento, fechaHora, dia);                    
+                        registrarIngreso(playa.id, tipoVehiculo, matricula, evento, fechaHora);                    
                     }
                     else
                     {
@@ -328,15 +370,14 @@ namespace GeoParkingDesktop
         /// <param name="tipoVehiculo"></param>
         /// <param name="matricula"></param>
         /// <param name="evento"></param>
-        /// <param name="fechaHora"></param>
-        /// <param name="dia"></param>
-        public void registrarIngreso(int idPlaya, int tipoVehiculo, string matricula, int evento, DateTime fechaHora, int dia)
+        /// <param name="fechaHora"></param>        
+        public void registrarIngreso(int idPlaya, int tipoVehiculo, string matricula, int evento, DateTime fechaHora)
         {
             //registro en el sistema
             registrarIngresoEnSistema(matricula, tipoVehiculo, fechaHora);          
             
             //registrar en el API
-            actualizarDisponibilidad(idPlaya, tipoVehiculo, evento, fechaHora, dia);
+            actualizarDisponibilidad(idPlaya, tipoVehiculo, evento, fechaHora);
         }
         
         /// <summary>
@@ -368,8 +409,7 @@ namespace GeoParkingDesktop
         /// <param name="tipoVehiculo"></param>
         /// <param name="evento"></param>
         /// <param name="fechaHora"></param>
-        /// <param name="dia"></param>
-        public void actualizarDisponibilidad(int idPlaya, int tipoVehiculo, int evento, DateTime fechaHora, int dia)
+        public void actualizarDisponibilidad(int idPlaya, int tipoVehiculo, int evento, DateTime fechaHora)
         {
             //aca actualizo la disponibilidad en el sistema (ingreso=se resta un lugar disponible)
             foreach (var item in playa.disponibilidades)
@@ -404,7 +444,7 @@ namespace GeoParkingDesktop
             //aca utilizo el acceso a la appi
             
             string sURL;
-            sURL = "http://localhost:21305/api/Disponibilidad/GetActualizarDisponibilidad?idPlaya="+playa.id+"&idTipoVehiculo="+tipoVehiculo+"&idEvento="+evento+"&dia="+DateTime.Now.Day;
+            sURL = "http://localhost:21305/api/Disponibilidad/GetActualizarDisponibilidad?idPlaya="+playa.id+"&idTipoVehiculo="+tipoVehiculo+"&idEvento="+evento+"&fecha="+fechaHora.ToString();
 
             try
             {
@@ -423,10 +463,9 @@ namespace GeoParkingDesktop
                 StreamReader objReader = new StreamReader(objStream);
 
                 string sLine = objReader.ReadLine();
+                
 
-                MessageBox.Show(sLine);
-
-                if (sLine == "True")
+                if (sLine == "\"True\"")
                     MessageBox.Show("Actualizacion Existosa");
                 else
                     MessageBox.Show("no se pudo realizar la actualizacion");
@@ -596,7 +635,7 @@ namespace GeoParkingDesktop
         /// <param name="e"></param>
         private void btnRegistrarEgreso_Click(object sender, EventArgs e)
         {
-            registrarEgreso(playa.id, tipoVehiculo, txtMatriculaEgreso.Text, 2, DateTime.Now, DateTime.Now.Day);                 
+            registrarEgreso(playa.id, tipoVehiculo, txtMatriculaEgreso.Text, 2, DateTime.Now);                 
         }
         
         /// <summary>
@@ -607,14 +646,18 @@ namespace GeoParkingDesktop
         /// <param name="matricula"></param>
         /// <param name="evento"></param>
         /// <param name="fechaHora"></param>
-        /// <param name="dia"></param>
-        public void registrarEgreso(int idPlaya, int tipoVehiculo, string matricula, int evento, DateTime fechaHora, int dia)
+        public void registrarEgreso(int idPlaya, int tipoVehiculo, string matricula, int evento, DateTime fechaHora)
         {
             //registro el egreso en el sistema
             registrarEgresoEnSistema(txtMatriculaEgreso.Text);
 
             //actualizo la disponibilidad
-            actualizarDisponibilidad(idPlaya, tipoVehiculo, evento, fechaHora, dia);
+            actualizarDisponibilidad(idPlaya, tipoVehiculo, evento, fechaHora);
+
+            //limpio el formulario y emito mensaje de exito
+            limpiarEgreso();
+            MessageBox.Show("SE REGISTRO EL EGRESO EXISTOSAMENTE");
+            paneles.SelectedTab = tabPage1;
         }
         
         /// <summary>
@@ -629,13 +672,7 @@ namespace GeoParkingDesktop
                 if (playa.vehiculos[i].matricula == matricula)
                 {
                     int tipoVehiculo = playa.vehiculos[i].tipoVehiculo;
-                    playa.vehiculos.Remove(playa.vehiculos[i]);
-
-
-                    //limpio el formulario y emito mensaje de exito
-                    limpiarEgreso();
-                    MessageBox.Show("SE REGISTRO EL EGRESO EXISTOSAMENTE");
-                    paneles.SelectedTab=tabPage1;
+                    playa.vehiculos.Remove(playa.vehiculos[i]);                   
                     
                     return;                    
                 }
@@ -986,8 +1023,205 @@ namespace GeoParkingDesktop
             testDialog.Dispose();
         }
 
+        /// <summary>
+        /// habilita editar o actualizar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (btnDisponibilidades.Text == "EDITAR")
+            {
+                //habilito la edicion de disponibilidades
+                txtDispAuto.Enabled = true;
+                txtDispUti.Enabled = true;
+                txtDispMoto.Enabled = true;
+                txtDispBici.Enabled = true;
+                btnDisponibilidades.Text = "ACTUALIZAR";
+                btnDisponibilidadesCancelar.Visible = true;
+            }
+            else
+            {
+                //actualizo las disponibilidades
+                txtDispAuto.Enabled = false;
+                txtDispUti.Enabled = false;
+                txtDispMoto.Enabled = false;
+                txtDispBici.Enabled = false;
+                btnDisponibilidades.Text = "EDITAR";
+                btnDisponibilidadesCancelar.Visible = false;
+                bool resultado = actualizarDisponibilidades();
+                if (resultado)
+                    MessageBox.Show("Disponibilidades actualizadas");
+                else
+                {
+                    txtDispAuto.Text = "";
+                    txtDispUti.Text = "";
+                    txtDispMoto.Text = "";
+                    txtDispBici.Text = "";
+                    cargarDisponibilidades();
+                }
+            }         
+        }
+
+        /// <summary>
+        /// actualizacion de disponibilidad general, separado de los ingreso y egreso de vehiculos
+        /// </summary>
+        /// <param name="idPlaya"></param>
+        /// <param name="idTipoVehiculo"></param>
+        /// <param name="disponibilidad"></param>
+        /// <param name="evento"></param>
+        /// <param name="fecha"></param>
+        public bool actualizarDisponibilidadGeneral(int idPlaya, int idTipoVehiculo, int disponibilidad, int evento, DateTime fecha)
+        {
+            string sURL;
+            sURL = "http://localhost:21305/api/Disponibilidad/GetActualizarDisponibilidadGeneral?idPlaya=" + playa.id + "&idTipoVehiculo=" + idTipoVehiculo + "&disponibilidad=" + disponibilidad + "&idEvento=" + evento + "&fecha=" + fecha.ToString();
+
+            try
+            {
+                WebRequest wrGETURL;
+                progressBar1.PerformStep();
+                wrGETURL = WebRequest.Create(sURL);
+
+                //WebProxy myProxy = new WebProxy("myproxy", 80);
+                //myProxy.BypassProxyOnLocal = true;
+
+                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
+
+                Stream objStream;
+                objStream = wrGETURL.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                string sLine = objReader.ReadLine();
 
 
-       
+                if (sLine == "\"True\""){
+                    MessageBox.Show("Actualizacion Existosa");
+                    return true;
+                }
+                else{
+                    MessageBox.Show("no se pudo realizar la actualizacion");
+                    return false;
+                }
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al actualizar disponibilidad en API");
+                return false;
+            }
+            
+        }
+
+        /// <summary>
+        /// Actualiza las dispoibilidades de la playa
+        /// </summary>
+        /// <returns>true si la actualizacion fue</returns>
+        public bool actualizarDisponibilidades()
+        {
+            //actualiza disponibilidades por acad tipo de vehiculo(auto, utilitario, moto, bici)
+
+            //actualizacion auto
+            if (existeVehiculo(1))//verifica la existencia de este tipo de vehiculo en la playa
+            {
+                //actualiza la disponibilidad y espera una respuesta por true o false (idPlaya, idTipoVehiculo, disponibiliad, evento, fecha)
+                if (!actualizarDisponibilidadGeneral(playa.id, 1, int.Parse(txtDispAuto.Text), 3, DateTime.Now))
+                {
+                    MessageBox.Show("error en la actualizacion de disponibilidad tipo vehiculo Auto");
+                    return false;
+                }
+              
+            }
+            else//setea el campo a vacio por si el usuario lo lleno y no formaba parte de los servicios
+            {
+                txtDispAuto.Text = "";
+            }
+
+            //actualizacion utilitario
+            if (existeVehiculo(2))
+            {
+                if(!actualizarDisponibilidadGeneral(playa.id, 2, int.Parse(txtDispUti.Text), 3, DateTime.Now))
+                {
+                    MessageBox.Show("error en la actualizacion de disponibilidad tipo vehiculo Utilitario");
+                    return false;
+                }
+            }
+            else
+            {
+                txtDispUti.Text = "";
+            }
+
+            //actualizacion moto
+            if (existeVehiculo(3))
+            {
+                if(!actualizarDisponibilidadGeneral(playa.id, 3, int.Parse(txtDispMoto.Text), 3, DateTime.Now))
+                {
+                    MessageBox.Show("error en la actualizacion de disponibilidad tipo vehiculo Motocicleta");
+                    return false;
+                }
+            }
+            else
+            {
+                txtDispMoto.Text = "";
+            }
+
+            //actualizacion bici
+            if (existeVehiculo(4))
+            {
+                if(!actualizarDisponibilidadGeneral(playa.id, 4, int.Parse(txtDispBici.Text), 3, DateTime.Now))
+                {
+                    MessageBox.Show("error en la actualizacion de disponibilidad tipo vehiculo Bicicleta");
+                    return false;
+                }
+            }
+            else
+            {
+                txtDispBici.Text = "";
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// verifica la existencia del tipo de vehiculo en los servicios
+        /// </summary>
+        /// <param name="idTipoVehiculo">tipo de vehiculo</param>
+        /// <returns>true si existe un servicio para ese tipo de vehiculo</returns>
+        public bool existeVehiculo(int idTipoVehiculo)
+        {
+            foreach (var item in playa.disponibilidades)
+            {
+                if (item.tipoVehiculo == idTipoVehiculo)
+                    return true;                
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// cancela la actualizacion de disponibilidades
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDisponibilidadesCancelar_Click(object sender, EventArgs e)
+        {
+            //inhabilita la edicion
+            txtDispAuto.Enabled = false;
+            txtDispUti.Enabled = false;
+            txtDispMoto.Enabled = false;
+            txtDispBici.Enabled = false;
+            btnDisponibilidades.Text = "EDITAR";
+            btnDisponibilidadesCancelar.Visible = false;
+
+            //recuperar las disponibilidades
+            txtDispAuto.Text = "";
+            txtDispUti.Text = "";
+            txtDispMoto.Text = "";
+            txtDispBici.Text = "";
+
+            cargarDisponibilidades();           
+
+            MessageBox.Show("Edicion cancelada");
+        }
+               
     }
 }

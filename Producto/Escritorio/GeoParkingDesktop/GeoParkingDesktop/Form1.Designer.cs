@@ -131,6 +131,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblConectar = new System.Windows.Forms.Label();
+            this.btnDisponibilidades = new System.Windows.Forms.Button();
+            this.btnDisponibilidadesCancelar = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.paneles.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -206,6 +208,8 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.btnDisponibilidadesCancelar);
+            this.groupBox6.Controls.Add(this.btnDisponibilidades);
             this.groupBox6.Controls.Add(this.txtDispBici);
             this.groupBox6.Controls.Add(this.txtDispUti);
             this.groupBox6.Controls.Add(this.txtDispMoto);
@@ -375,7 +379,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(659, 470);
+            this.tabPage2.Size = new System.Drawing.Size(550, 470);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Egreso";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1267,6 +1271,29 @@
             this.lblConectar.Text = "CONECTANDO";
             this.lblConectar.Visible = false;
             // 
+            // btnDisponibilidades
+            // 
+            this.btnDisponibilidades.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDisponibilidades.Location = new System.Drawing.Point(188, 114);
+            this.btnDisponibilidades.Name = "btnDisponibilidades";
+            this.btnDisponibilidades.Size = new System.Drawing.Size(150, 26);
+            this.btnDisponibilidades.TabIndex = 8;
+            this.btnDisponibilidades.Text = "EDITAR";
+            this.btnDisponibilidades.UseVisualStyleBackColor = true;
+            this.btnDisponibilidades.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnDisponibilidadesCancelar
+            // 
+            this.btnDisponibilidadesCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDisponibilidadesCancelar.Location = new System.Drawing.Point(344, 114);
+            this.btnDisponibilidadesCancelar.Name = "btnDisponibilidadesCancelar";
+            this.btnDisponibilidadesCancelar.Size = new System.Drawing.Size(123, 26);
+            this.btnDisponibilidadesCancelar.TabIndex = 9;
+            this.btnDisponibilidadesCancelar.Text = "CANCELAR";
+            this.btnDisponibilidadesCancelar.UseVisualStyleBackColor = true;
+            this.btnDisponibilidadesCancelar.Visible = false;
+            this.btnDisponibilidadesCancelar.Click += new System.EventHandler(this.btnDisponibilidadesCancelar_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1405,6 +1432,8 @@
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label lblConectar;
+        private System.Windows.Forms.Button btnDisponibilidades;
+        private System.Windows.Forms.Button btnDisponibilidadesCancelar;
     }
 }
 
