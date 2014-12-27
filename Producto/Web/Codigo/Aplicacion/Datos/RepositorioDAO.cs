@@ -36,6 +36,15 @@ namespace Datos
     public class RepositorioHorario : Repositorio<Horario>, IRepositorioHorario { }
     public class RepositorioPrecio : Repositorio<Precio>, IRepositorioPrecio
     {
+        public override IList<Precio> FindWhere(Func<Precio, bool> predicate)
+        {
+            var lista = DbSet
+                .Include("Servicio")
+                .Where(predicate);
+
+            return lista.ToList();
+        }
+
         //spGetPreciosDePlayasPorTipoVehiculoEIdPlayas
         public IList<Precio> GetPreciosDePlayasPorTipoVehiculoEIdPlayas(string idsPlayas, int tipoVehiculo)
         {
@@ -266,6 +275,7 @@ namespace Datos
         }
     }
 
+  
     /// <summary>
     /// Repositorio DAO de las playas de estacionamiento
     /// </summary>
