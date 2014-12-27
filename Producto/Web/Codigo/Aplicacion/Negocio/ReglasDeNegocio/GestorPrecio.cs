@@ -16,6 +16,7 @@ namespace ReglasDeNegocio
         IRepositorioTipoVehiculo tipoVehiculoDao;
         IRepositorioPrecio precioDao;
         IRepositorioServicio servicioDao;
+        
 
         public GestorPrecio()
         {
@@ -35,6 +36,34 @@ namespace ReglasDeNegocio
             this.tiempoDao = tiempoDao;
             this.tipoVehiculoDao = tipoVehiculoDao;
             this.diaAtencionDao = diaAtencionDao;
+        }
+
+        /// <summary>
+        /// actualiza el precio de una playa de estacionamiento teniendo
+        /// en cuenta el tiempo y el tipo de vahiculo
+        /// </summary>
+        /// <param name="idPlaya"></param>
+        /// <param name="idTiempo"></param>
+        /// <param name="idTipoVehiculo"></param>
+        /// <param name="precio"></param>
+        /// <returns></returns>
+        public Resultado ActualizarPrecioPlaya(int idPlaya, int idTiempo, int idTipoVehiculo, double precio)
+        {
+            Resultado resultado = new Resultado();
+
+            try
+            {
+                Precio precioRecuperado = precioDao.FindWhere(p => p.TiempoId == idTiempo && p.Servicio.TipoVehiculoId == idTipoVehiculo && p.Servicio.PlayaDeEstacionamientoId == idPlaya).First();
+                precioRecuperado.Monto = Decimal.Parse(precio.ToString());
+                precioDao.Update(precioRecuperado);
+                
+            }
+            catch (Exception e)
+            {
+                resultado.AgregarMensaje("Se ha producido un error de base de datos.");
+            }
+
+            return resultado;
         }
 
         /// <summary>
