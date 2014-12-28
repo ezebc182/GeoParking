@@ -45,5 +45,24 @@ namespace Entidades
 
             return sb.ToString();
         }
+        public String GetPreciosConIdPlayasComoJSON()
+        {
+            StringBuilder sb = new StringBuilder();
+            JsonWriter jw = new JsonTextWriter(new StringWriter(sb));
+
+            jw.WriteStartObject();
+
+            jw.Formatting = Formatting.Indented;
+            jw.WritePropertyName("IdPlaya");
+            jw.WriteValue(this.Servicio.PlayaDeEstacionamientoId);
+            jw.WritePropertyName("Monto");
+            jw.WriteValue(this.Monto);
+            jw.WritePropertyName("Tiempo");
+            jw.WriteValue(this.TiempoStr);
+
+            jw.WriteEndObject();
+
+            return sb.ToString();
+        }
     }
 }

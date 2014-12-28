@@ -66,8 +66,10 @@ $.widget( "geoparking.listadoPlayasWidget", {
 	*/
 	_cargarListado : function(){
 		var widget = this;
-		var listado = document.createElement("ul");		
+		var listado = document.createElement("ul");	
+        widget._filtrarUnaPlayaPorUbicacion();
 		widget._obtenerDisponibilidadParaPlayas();
+        widget._obtenerPrecioPlayasSeleccionadas();
         widget._ordenarPlayasPorDisponiblidad();
 		for(var i = 0; i < widget.options.listadoPlayas.length; i++){
 			var playa = widget.options.listadoPlayas[i];
@@ -86,16 +88,16 @@ $.widget( "geoparking.listadoPlayasWidget", {
         header.innerHTML = widget._crearHeaderParaPlaya(playa);
 		
 		var parrafoDireccion = document.createElement("p");
-		var	direccion = playa.Direcciones[0].Calle;
+		var	direccion = playa.Calle;
 		direccion += " ";
-		direccion += playa.Direcciones[0].Numero;
+		direccion += playa.Numero;
 		parrafoDireccion.innerHTML=direccion;
 		
 		var parrafoDistancia = document.createElement("p");
 		parrafoDistancia.className="ui-li-aside";
 		var strongDistnacia = document.createElement("strong");
 		var distancia = widget._calcularDistanciaPlaya(playa);
-		strongDistnacia.innerHTML=distancia;
+		strongDistnacia.innerHTML=distancia + ' metros';
 		
 		//Todos los append
 		parrafoDistancia.appendChild(strongDistnacia);
@@ -107,9 +109,10 @@ $.widget( "geoparking.listadoPlayasWidget", {
 	},
 	_crearHeaderParaPlaya : function(playa){
 		var header = "";
-		header += playa.Nombre;
-		header += " - ";
-		header += playa.Precios[0].Monto;
+		//header += playa.Nombre;
+        header += "Nombre de la playa"; //me estaria faltando pedir el nombre de la playa, ya veo en que llamada lo agrego.
+        header += " - $";
+        header += playa.Precios[0].Monto;
 		return header;
 	},
 	_crearEventoClickAPlaya : function (playa){
@@ -139,14 +142,14 @@ $.widget( "geoparking.listadoPlayasWidget", {
 	* si no existe ninguna almacenada, devuelve 500 (valor por defecto).
 	*/
 	_obtenerDistanciaPredeterminada : function (){
-        leerPropiedadRadio();
+        return leerPropiedadRadio();
 	},
 	/**
 	* Obtiene el tipo de vehiculo almacenado en el localStorage
 	* que fue guardado en el panel configuraciones.
 	*/
 	_obtenerTipoVehiculoPredeterminado : function (){
-		leerPropiedadTipoVehiculo();
+		return leerPropiedadTipoVehiculo();
 	},
 	/**
 	* Filtra el listado de playas recibido por parametro en el widget
@@ -259,7 +262,7 @@ $.widget( "geoparking.listadoPlayasWidget", {
 			var playa = widget.options.listadoPlayas[i];
 			idPlayas.push(playa.Id);
 		}
-		var uri = obtenerURLServer() + 'api/Playas/GetPreciosPlayas?tipoVehiculoId' + widget._obtenerTipoVehiculoPredeterminado() + '&idPlayas=' +idPlayas.toString();
+		var uri = obtenerURLServer() + 'api/Playas/GetPreciosPlayas?tipoVehiculoId=' + widget._obtenerTipoVehiculoPredeterminado() + '&idPlayas=' +idPlayas.toString();
         var precios;
         $.ajax({
             type: "GET",
@@ -293,7 +296,7 @@ $.widget( "geoparking.listadoPlayasWidget", {
     _obtenerPreciosDePlaya : function(playaId, precios){
         var preciosDePlaya = []
         for(var i = 0; i < precios.length; i++){
-            if(precios[i].Id === playaId){
+            if(precios[i].IdPlaya === playaId){
                 preciosDePlaya.push(precios[i]);
             }
         }

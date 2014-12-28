@@ -3,6 +3,7 @@ function obtenerPlayasDeCiudad(ciudad){
         ciudad = "Cordoba";
     }
     var uri = obtenerURLServer() + 'api/Playas/GetUbicacionesPlayas?ciudad=' + ciudad + "&tipoVehiculoId=" + leerPropiedadTipoVehiculo();
+    //var uri = obtenerURLServer() + 'api/playas/getPlayas?ciudad=' + ciudad;
     $.ajax({
         type: "GET",
         url: uri,

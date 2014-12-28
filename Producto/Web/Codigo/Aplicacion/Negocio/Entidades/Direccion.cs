@@ -38,6 +38,11 @@ namespace Entidades
             jw.WriteValue(this.Latitud);
             jw.WritePropertyName("Longitud");
             jw.WriteValue(this.Longitud);
+            jw.WritePropertyName("Calle");
+            jw.WriteValue(this.Calle);
+            jw.WritePropertyName("Numero");
+            jw.WriteValue(this.Numero);
+
                 
             jw.WriteEndObject();
 

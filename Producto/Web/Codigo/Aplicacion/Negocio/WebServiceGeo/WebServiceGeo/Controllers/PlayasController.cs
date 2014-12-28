@@ -123,7 +123,7 @@ namespace WebServiceGeo.Controllers
             string json = "[";
             foreach (var item in precios)
             {
-                json += item.GetPreciosToJSONRepresentation() + ",";
+                json += item.GetPreciosConIdPlayasComoJSON() + ",";
             }
             if (precios.Count > 0)
             {
