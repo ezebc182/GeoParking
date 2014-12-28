@@ -92,7 +92,7 @@ namespace ReglasDeNegocio
         /// <param name="x12">precio por 12 horas</param>
         /// <param name="x24">precio por 24 horas</param>
         /// <param name="abono">precio por mes</param>
-        /// <returns>'True' si la operacion se realizo correctamente</returns>
+        /// <returns>Objeto resultado configurado de acuerdo a como se realizo la operacion</returns>
         public Resultado RegistrarServicioPlaya(int idPlaya, int idTipoVechiculo, int capacidad, double x1, double x6, double x12, double x24, double abono)
         {
             Resultado resultado = new Resultado();
@@ -164,6 +164,33 @@ namespace ReglasDeNegocio
 
                 //creacion del servicio
                 servicioDao.Create(servicio);
+            }
+            catch (Exception)
+            {
+                resultado.AgregarMensaje("Se ha producido un error de base de datos.");
+            }
+
+            return resultado;
+        }
+
+        /// <summary>
+        /// Actualiza la capacidad de un servicio
+        /// </summary>
+        /// <param name="idPlaya">id de la playa a modificar</param>
+        /// <param name="idTipoVechiculo">id del tipo de vehiculo del servicio</param>
+        /// <param name="capacidad">nueva capacidad</param>
+        /// <returns>Objeto resultado configurado de acuerdo a como se realizo la operacion</returns>
+        public Resultado ActualizarCapacidadServicio(int idPlaya, int idTipoVechiculo, int capacidad)
+        {
+            Resultado resultado = new Resultado();
+
+            try
+            {
+                Servicio servicioRecuperado = servicioDao.FindWhere(s => s.PlayaDeEstacionamientoId == idPlaya && s.TipoVehiculoId == idTipoVechiculo).First();
+
+                servicioRecuperado.Capacidad.Cantidad=capacidad;
+
+                servicioDao.Update(servicioRecuperado);
             }
             catch (Exception)
             {

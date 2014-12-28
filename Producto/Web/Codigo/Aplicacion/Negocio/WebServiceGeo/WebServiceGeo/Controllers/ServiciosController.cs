@@ -41,11 +41,23 @@ namespace WebServiceGeo.Controllers
         /// <param name="x24">precio por 24 horas</param>
         /// <param name="abono">precio por mes</param>
         /// <returns></returns>
-        public string getRegistrarServicio([FromUri]int idPlaya, [FromUri]int idTipoVechiculo, [FromUri]int capacidad, [FromUri]double x1, [FromUri]double x6, [FromUri]double x12, [FromUri]double x24, [FromUri]double abono)
+        public string GetRegistrarServicio([FromUri]int idPlaya, [FromUri]int idTipoVechiculo, [FromUri]int capacidad, [FromUri]double x1, [FromUri]double x6, [FromUri]double x12, [FromUri]double x24, [FromUri]double abono)
         {
             return gestor.RegistrarServicioPlaya( idPlaya,  idTipoVechiculo,  capacidad,  x1, x6, x12, x24, abono).Ok.ToString();
         }
 
+        /// <summary>
+        /// actualiza la capacidad de un servicio
+        /// </summary>
+        /// <param name="idPlaya">id de la playa</param>
+        /// <param name="idTipoVechiculo">id del tipo de vehiculo del servicio</param>
+        /// <param name="capacidad">capacidad</param>
+        /// <returns>'True' si la operacion se realizo correctamente</returns>
+        public string GetActualizarCapacidadServicio([FromUri]int idPlaya, [FromUri]int idTipoVechiculo, [FromUri]int capacidad)
+        {
+            return gestor.ActualizarCapacidadServicio(idPlaya, idTipoVechiculo, capacidad).Ok.ToString();
+        }
+        
         // GET api/servicios/5
         public string Get(int id)
         {
