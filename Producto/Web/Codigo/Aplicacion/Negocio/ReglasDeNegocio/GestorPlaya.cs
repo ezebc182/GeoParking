@@ -520,5 +520,87 @@ namespace ReglasDeNegocio
 
             return listaPlayas;
         }
+
+        /// <summary>
+        /// Actualiza el tipo de la playa
+        /// </summary>
+        /// <param name="idPlaya">id de la playa a modificar</param>
+        /// <param name="idTipoPlaya">id del nuevo tipo de la playa</param>
+        /// <returns>Objeto resultado configurado de acuerdo a como se realizo la operacion</returns>
+        public Resultado ActualizarTipoPlaya(int idPlaya, int idTipoPlaya)
+        {
+            Resultado resultado = new Resultado();
+
+            try
+            {
+                PlayaDeEstacionamiento playa = playaDao.FindById(idPlaya);
+                playa.TipoPlayaId = idTipoPlaya;
+                playaDao.Update(playa);
+            }
+            catch (Exception)
+            {
+                resultado.AgregarMensaje("Se ha producido un error en la Base de Datos");
+            }
+
+            return resultado;
+        }
+
+        /// <summary>
+        /// Actualiza el Nombre y el Email de la playa
+        /// </summary>
+        /// <param name="idPlaya">id de la playa a modificar</param>
+        /// <param name="nombrePlaya">nuevo nombre de la playa</param>
+        /// <param name="emailPlaya">nuevo email de la playa</param>
+        /// <returns>Objeto resultado configurado de acuerdo a como se realizo la operacion</returns>
+        public Resultado ActualizarNombreEmailPlaya(int idPlaya, string nombrePlaya, string emailPlaya)
+        {
+            Resultado resultado = new Resultado();
+
+            try
+            {
+                PlayaDeEstacionamiento playa = playaDao.FindById(idPlaya);
+                playa.Nombre=nombrePlaya;
+                playa.Mail = emailPlaya;
+                playaDao.Update(playa);
+            }
+            catch (Exception)
+            {
+                resultado.AgregarMensaje("Se ha producido un error en la Base de Datos");
+            }
+
+            return resultado;
+        }
+
+        /// <summary>
+        /// Actualiza el horario de la playa
+        /// </summary>
+        /// <param name="idPlaya">id de la playa a modificar</param>
+        /// <param name="idDiaAtencion">id del nuevo dia de atencion</param>
+        /// <param name="horaDesde">nueva hora de apertura</param>
+        /// <param name="horaHasta">nueva hora de cierre</param>
+        /// <returns>Objeto resultado configurado de acuerdo a como se realizo la operacion</returns>
+        public Resultado ActualizarHorarioPlaya(int idPlaya, int idDiaAtencion, string horaDesde, string horaHasta)
+        {
+            Resultado resultado = new Resultado();
+
+            try
+            {
+                PlayaDeEstacionamiento playa = playaDao.FindById(idPlaya);
+
+                Horario horario = playa.Horario;
+                horario.DiaAtencionId = idDiaAtencion;
+                horario.HoraDesde = horaDesde;
+                horario.HoraHasta = horaHasta;
+
+                playa.Horario = horario;
+                playaDao.Update(playa);
+            }
+            catch (Exception)
+            {
+                resultado.AgregarMensaje("Se ha producido un error en la Base de Datos");
+            }
+
+            return resultado;
+        }
     }
 }

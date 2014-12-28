@@ -18,6 +18,7 @@ namespace WebServiceGeo.Controllers
     public class PlayasController : ApiController
     {
         private static GestorBusquedaPlayas gestor = new GestorBusquedaPlayas();
+        private static GestorPlaya gestorPlaya = new GestorPlaya();
         private static GestorTiposVehiculo gestorTipoVehiculos = new GestorTiposVehiculo();
         private static GestorDireccion gestorDirecciones = new GestorDireccion();
         private static GestorPrecio gestorPrecio = new GestorPrecio();
@@ -132,5 +133,43 @@ namespace WebServiceGeo.Controllers
             json += "]";
             return json;
         }
+
+        /// <summary>
+        /// pemite actualizar el tipo de la playa
+        /// </summary>
+        /// <param name="idPlaya">id de la playa</param>
+        /// <param name="idTipoPlaya">id del nuevo tipo de la playa</param>
+        /// <returns>'True' si la operacion se realizo correctamente</returns>
+        public string GetActualizarTipoPlaya([FromUri] int idPlaya,[FromUri] int idTipoPlaya)
+        {
+            return gestorPlaya.ActualizarTipoPlaya(idPlaya, idTipoPlaya).Ok.ToString();
+        }
+
+        /// <summary>
+        /// permite actualizar el Nombre y el Email de la playa
+        /// </summary>
+        /// <param name="idPlaya">id de la playa</param>
+        /// <param name="nombrePlaya">nombre de l aplaya</param>
+        /// <param name="emailPlaya">email de la playa</param>
+        /// <returns>'True' si la operacion se realizo correctamente</returns>
+        public string GetActualizarNombreEmailPlaya([FromUri] int idPlaya,[FromUri] string nombrePlaya, [FromUri] string emailPlaya)
+        {
+            return gestorPlaya.ActualizarNombreEmailPlaya(idPlaya,nombrePlaya,emailPlaya).Ok.ToString();
+        }
+
+        /// <summary>
+        /// permite actualzar el horario de la playa
+        /// </summary>
+        /// <param name="idPlaya">id de la playa</param>
+        /// <param name="idDiaAtencion">id del dia de atencion</param>
+        /// <param name="horaDesde">hora de apertura</param>
+        /// <param name="horaHasta">hora de cierre</param>
+        /// <returns>'True' si la operacion se realizo correctamente</returns>
+        public string GetActualizarHorarioPlaya([FromUri] int idPlaya, [FromUri] int idDiaAtencion, [FromUri] string horaDesde, [FromUri] string horaHasta)
+        {
+            return gestorPlaya.ActualizarHorarioPlaya(idPlaya, idDiaAtencion, horaDesde, horaHasta).Ok.ToString();
+        }
+
+        
     }
 }
