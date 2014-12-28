@@ -127,6 +127,13 @@
   <ItemGroup>
     <Content Include="Admin.aspx" />
     <Content Include="AdministracionPlayas.aspx" />
+    <Content Include="bootstrapformhelpers\css\bootstrap-formhelpers.css" />
+    <Content Include="bootstrapformhelpers\css\bootstrap-formhelpers.min.css" />
+    <Content Include="bootstrapformhelpers\img\bootstrap-formhelpers-countries.flags-LICENSE.txt" />
+    <Content Include="bootstrapformhelpers\img\bootstrap-formhelpers-countries.flags.png" />
+    <Content Include="bootstrapformhelpers\img\bootstrap-formhelpers-currencies.flags.png" />
+    <Content Include="bootstrapformhelpers\img\bootstrap-formhelpers-googlefonts.png" />
+    <Content Include="bootstrapformhelpers\js\bootstrap-formhelpers.js" />
     <Content Include="Bootstrap\css\bootstrap-theme.css" />
     <Content Include="Bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="Bootstrap\css\bootstrap.css" />
@@ -196,6 +203,7 @@
     <Content Include="bootstrap3-editable\js\bootstrap-editable.min.js" />
     <Content Include="js\bootstrapValidator.min.js" />
     <Content Include="js\controllerBusquedaPlayaAngular.js" />
+    <Content Include="js\GoogleMapsAdministracionPlaya.js" />
     <Content Include="js\GoogleMapsBusquedaPlaya.js" />
     <Content Include="js\index\easing.js" />
     <Content Include="js\index\jquery.magnific-popup.js" />
