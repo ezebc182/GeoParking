@@ -173,7 +173,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-lg-5 col-md-5 col-sm-5 ">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 ">
                                             <div class="form-group ">
                                                 <label for="txtNumero" class="control-label">Número:</label>
                                                 <div class="controls">
@@ -187,7 +187,12 @@
                                                             <button id="btnAgregarDireccion" type="button"
                                                                 class="glyphicon glyphicon-plus btn btn-success">
                                                             </button>
-
+                                                            <button id="btnAceptarEdicionDireccion" type="button"
+                                                                class="glyphicon glyphicon-ok btn btn-success" style="visibility: hidden;">
+                                                            </button>
+                                                            <button id="btnCancelarEdicionDireccion" type="button"
+                                                                class="glyphicon glyphicon-remove btn btn-danger" style="display: none;">
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -228,8 +233,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button id="btnCancelar" class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                        <button id="btnGuardar" class="btn btn-success btn-lg">Guardar</button>
+                        <button id="btnCancelar" type="button" class="btn btn-lg" data-dismiss="modal">Cancelar</button>
+                        <button id="btnGuardar" type="button" class="btn btn-success btn-lg">Guardar</button>
                     </div>
                 </div>
             </div>
@@ -245,13 +250,13 @@
             </div>
 
             <div class="col-lg-2 col-md-2 col-sm-2">
-                <button class="btn-success btn btn-lg glyphicon glyphicon-plus" id="btnNuevaPlaya" type="button"> Nueva Playa</button>
+                <button class="btn-success btn btn-lg glyphicon glyphicon-plus" id="btnNuevaPlaya" type="button">Nueva Playa</button>
             </div>
         </div>
     </div>
 
 
-    
+
 </asp:Content>
 
 <asp:Content runat="server" ID="Script" ContentPlaceHolderID="ScriptContent">
@@ -270,8 +275,20 @@
 
         var playa = {
             iniciar: function () {
+                this.limpiar();
                 servicios.iniciar();
                 direcciones.iniciar();
+            },
+            limpiar: function () {
+                $('[id*=txtNombre]').val("");
+                $('[id*=txtMail]').val("");
+                $('[id*=txtTelefono]').val("");
+                $('[id*=ddlTipoPlaya] [value=0]').prop("selected", true);
+                $('[id*=txtDesde]').val("08:00");
+                $('[id*=txtHasta]').val("22:00");
+                $('[id*=ddlDias] [value=0]').prop("selected", true);
+                servicios.limpiar();
+                direcciones.limpiar();
             },
             guardar: function () {
                 var id;
@@ -313,6 +330,7 @@
             tiempos: $.parseJSON($('[id*=hfTiempos]').val()),
 
             agregar: function (servicio) {
+                var me = this;
                 var $tableBody = $('[id*=tbServiciosBody]');
                 var $tr = $('<tr idServicio="' + servicio.Id + '"> </tr>');
 
@@ -332,27 +350,35 @@
                         $tr.append('<td> <a id="txtEditablePrecio" data-type="text" data-emptytext="Ingrese Precio" data-title="Ingrese precio" data-pk="' + tiempoId + '"</a> </td>');
                     }
                 });
-                $tr.append('<td>X</td>'); //poner imagen de eliminar!
+                $tr.append('<td> <a id="btnQuitarServicio" class="glyphicon glyphicon-remove"></a></td>');
                 $tableBody.append($tr);
                 this.cantidad++;
                 this.OcultarTipoVehiculoEnCombo(servicio.TipoVehiculoId);
                 $('[id*=txtCapacidad]').val('');
                 $('[id*=ddlTipoVehiculo] [value=0]').prop("selected", true);
 
-                $('[id*=Editable]').editable({ mode: 'inline' })
+                $('[id*=Editable]').editable({ mode: 'inline' });
+                $('[id*=btnQuitarServicio]').click(function () { me.eliminar(servicio); });
             },
-            Eliminar: function (servicioId) {
-                var $tr = $('[id*=tbServicios][idServicio=' + servicioId + ']');
+            eliminar: function (servicio) {
+                var $tr = $('[id*=tbServicios] [tipoVehiculoId=' + servicio.TipoVehiculoId + ']').parents('tr').first();
                 var idTipoVehiculo = $tr.find('[tipoVehiculoId]').attr('tipoVehiculoId');
                 this.MostrarTipoVehiculoEnCombo(idTipoVehiculo);
                 $tr.remove();
-                this.cantidad--;
             },
             MostrarTipoVehiculoEnCombo: function (id) {
                 $('[id*=ddlTipoVehiculo] [value=' + id + ']').toggle();
             },
             OcultarTipoVehiculoEnCombo: function (id) {
                 $('[id*=ddlTipoVehiculo] [value=' + id + ']').toggle();
+            },
+            limpiar: function () {
+                var me = this;
+                $.each(this.lista(), function (i, servicio) {
+                    me.eliminar(servicio);
+                });
+                var $tableHeadTrs = $('[id*=tbServiciosHead] tr');
+                $tableHeadTrs.remove();
             },
             iniciar: function () {
                 //llenar la tabla con el head de hfPrecios y los servicios en el hfServicios
@@ -413,7 +439,19 @@
             iniciar: function () {
                 GoogleMaps.initialize();
             },
+            limpiar: function () {
+                var me = this;
+                $('[id*=txtBuscar]').val("");
+                $('[id*=txtBuscar]').prop('disabled', false);
+                $('[id*=txtCalle]').val("");
+                $('[id*=txtNumero]').val("");
+
+                $.each($('#tbDirecciones>tBody>tr'), function (i, direccion) {
+                    me.eliminar(direccion);
+                });
+            },
             agregar: function (direccion) {
+                var me = this;
                 var $tableBody = $('[id*=tbDireccionesBody]');
                 var $tr = $('<tr idDireccion="' + direccion.Id + '"> </tr>');
 
@@ -423,13 +461,60 @@
                 $tr.append('<td style="display:none;">' + direccion.Latitud + ' </td>');
                 $tr.append('<td style="display:none;">' + direccion.Longitud + ' </td>');
 
-                $tr.append('<td><a id="btnEditar" class="glyphicon glyphicon-edit"></a>   <a id="btnQuitar" class="glyphicon glyphicon-remove"></a></td>');
+                $tr.append('<td><a id="btnEditarDireccion" class="glyphicon glyphicon-edit"></a>   <a id="btnQuitarDireccion" class="glyphicon glyphicon-remove"></a></td>');
 
                 $tableBody.append($tr);
-                $('[id*=txtBuscar]').prop('disabled', true)
-            },
-            eliminar: function (id) {
+                $('[id*=txtBuscar]').prop('disabled', true);
 
+                $('[id*=btnQuitarDireccion]').click(function () {
+                    me.eliminar($tr);
+                });
+                $('[id*=btnEditarDireccion]').click(function () {
+                    me.editar($tr, direccion);
+                });
+                $('[id*=txtCalle]').val("");
+                $('[id*=txtNumero]').val("");
+
+            },
+            cargarCampos: function (direccion) {
+                $('[id*=txtBuscar]').val(direccion.Ciudad);
+                $('[id*=txtCalle]').first().val(direccion.Calle);
+                $('[id*=txtNumero]').first().val(direccion.Numero);
+                $('[id*=txtBuscar]').first().val(direccion.Ciudad);
+                $('[id*=latitud]').first().val(direccion.Latitud);
+                $('[id*=longitud]').first().val(direccion.Longitud);
+            },
+            editar: function ($tr, direccion) {
+                var me = this;
+                me.cargarCampos(direccion);
+                var cantidad = $('[id*=tbDireccionesBody] tr').length;
+
+                if (cantidad == 1) {
+                    $('[id*=txtBuscar]').prop('disabled', false);
+                    $('[id*=txtBuscar]').focus();
+                }
+                else {
+                    $('[id*=txtCalle]').focus();
+                }
+
+                $('[id*=btnAgregarDireccion]').hide();
+                $('[id*=btnAceptarEdicionDireccion]').css("visibility", "visible");
+                $('[id*=btnCancelarEdicionDireccion]').show();
+                $('[id*=btnAceptarEdicionDireccion]').click(function () {
+                    $tr.remove();
+                    $('[id*=btnAgregarDireccion]').click();
+                    $('[id*=btnAgregarDireccion]').show();
+                    $('[id*=btnAceptarEdicionDireccion]').css("visibility", "hidden");
+                    $('[id*=btnCancelarEdicionDireccion]').hide();
+                });
+            },
+            eliminar: function ($tr) {
+                $tr.remove();
+                var cantidad = $('[id*=tbDireccionesBody] tr').length;
+                if (cantidad == 0) {
+                    $('[id*=txtBuscar]').val("");
+                    $('[id*=txtBuscar]').prop('disabled', false);
+                }
             },
             lista: function () {
                 //JSON de lista de direcciones en la tabla
@@ -521,6 +606,7 @@
             });
 
             $('[id*=btnNuevaPlaya]').on("click", function () {
+                playa.iniciar();
                 $('#modificarPlaya').modal({
                     backdrop: false,
                     keyboard: false,
@@ -529,10 +615,10 @@
             });
 
             $('#tabDireccion').on("click", function () {
+                direcciones.iniciar();
                 setTimeout(function () { GoogleMaps.resize(); }, 200);
             });
 
-            playa.iniciar();
 
         });
 

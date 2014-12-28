@@ -25,7 +25,7 @@ namespace Web2
                 CargarCombos();
                 hfTiempos.Value = gestor.BuscarTiemposDeAtencionJSON();
             }
-            
+
         }
 
         [WebMethod]
@@ -34,18 +34,17 @@ namespace Web2
             var playa = new PlayaDeEstacionamiento().ToObjectRepresentation(playaJSON);
             var resultado = gestor.RegistrarPlaya(playa);
 
-            HttpResponse Response = HttpContext.Current.Response;
 
             if (resultado.Ok)
             {
                 return "true";
             }
-            else
-            {
-                Response.Clear();
-                Response.StatusCode = 500;
-                Response.Write(resultado.MensajesString());
-            }
+            HttpResponse Response = HttpContext.Current.Response;
+
+            Response.Clear();
+            Response.StatusCode = 500;
+            Response.Write(resultado.MensajesString());
+
             return "false";
         }
 
