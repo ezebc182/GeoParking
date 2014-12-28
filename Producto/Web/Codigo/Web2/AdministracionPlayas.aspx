@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterAdmin.master" AutoEventWireup="true" CodeBehind="AdministracionPlayas.aspx.cs" Inherits="Web2.AdministracionPlayas" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
+    <link href="bootstrapformhelpers/css/bootstrap-formhelpers.min.css" rel="stylesheet" />
+    <link href="js/GoogleMapsAdministracionPlaya.js" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
     <%-- Id playa en edicion o viendo --%>
@@ -92,29 +95,28 @@
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-4">
                                                 <div class="form-group ">
-                                                    <label for="ddlDesde" class="control-label">Desde:</label>
-                                                    <asp:DropDownList runat="server" ID="ddlDesde" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="Seleccione el dia" />
+                                                    <label for="bfhDesde" class="control-label">Desde:</label>
+                                                    <div id="txtDesde" class="bfh-timepicker" data-time="08:00" style="background-color: white;"></div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-4 pull-right">
                                                 <div class="form-group ">
-
-                                                    <label for="ddlHasta" class="control-label">Hasta:</label>
-                                                    <asp:DropDownList runat="server" ID="ddlHasta" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="Seleccione el dia" />
+                                                    <label for="txtHasta" class="control-label">Hasta:</label>
+                                                    <div id="txtHasta" class="bfh-timepicker" data-time="22:00" style="background-color: white;"></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <%-- Servicios --%>
-
+                                    <asp:HiddenField ID="hfTiempos" runat="server" />
                                     <h4>Servicios</h4>
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-6 pull-left">
                                             <div class="col-lg-6 col-md-6 col-sm-6 pull-left">
                                                 <div class="form-group ">
                                                     <label for="ddlTipoVehiculo" class="control-label">Tipo Vehiculo:</label>
-                                                    <asp:DropDownList runat="server" ID="ddlTipoVehiculo" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="Seleccione el dia" />
+                                                    <asp:DropDownList runat="server" ID="ddlTipoVehiculo" CssClass="form-control" data-bv-notempty="true" data-bv-notempty-message="Seleccione el dia" />
                                                 </div>
                                             </div>
 
@@ -123,9 +125,9 @@
                                                     <label for="txtCapacidad" class="control-label">Capacidad:</label>
                                                     <div class="controls">
                                                         <div class="input-group">
-                                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtCapacidad" data-bv-notempty="true" data-bv-notempty-message="El email es requerido" data-bv-emailaddress-message="Ingrese un formato de email correcto." />
+                                                            <input class="form-control bfh-number" id="txtCapacidad" />
                                                             <div class="input-group-btn">
-                                                                <button id="btnAgregar" class="btn btn-success">Agregar</button>
+                                                                <button id="btnAgregarServicio" type="button" class="btn btn-success">Agregar</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -135,33 +137,10 @@
                                     </div>
                                     <div>
                                         <table id="tbServicios" class="table table-hover table-responsive">
-                                            <thead>
-                                                <tr>
-                                                    <th>Tipo Vehiculo</th>
-                                                    <th>Capacidad</th>
-                                                    <th>$ x Hora</th>
-                                                    <th>$ x 4hs</th>
-                                                    <th>$ x 6hs</th>
-                                                    <th>$ x 12hs</th>
-                                                    <th>$ x 24hs</th>
-                                                    <th>$ x abono</th>
-                                                </tr>
+                                            <thead id="tbServiciosHead">
                                             </thead>
                                             <tbody id="tbServiciosBody">
-                                                <%--agregar dinamicamente con jquery--%>
-                                                <tr>
-                                                    <td idtipovehiculo="0">Tipo Vehiculo</td>
-                                                    <td>Capacidad</td>
-                                                    <td idtiempo="0">$ x Hora</td>
-                                                    <td idtiempo="1">$ x 4hs</td>
-                                                    <td idtiempo="2">$ x 6hs</td>
-                                                    <td idtiempo="3">$ x 12hs</td>
-                                                    <td idtiempo="4">$ x 24hs</td>
-                                                    <td idtiempo="5">$ x abono</td>
-                                                    <td><span>X</span></td>
-                                                </tr>
                                             </tbody>
-
                                         </table>
                                     </div>
                                 </div>
@@ -174,25 +153,84 @@
 
                                     </div>--%>
                             </div>
-                        </div>
 
-                        <div class="tab-pane" id="direccion">
-                            <%-- <div class="form-group ">
-                                    <horarios:horarios runat="server" id="ucHorarios" onerrorhandler="MostrarErrorHorario"></horarios:horarios>
-                                    <div class="col-md-2 form-group pull-right">
-                                        <a href="#" class="btn btn-primary pull-left" id="btnPaso2_1" data-toggle="tab" data-target="#datosGrales" onclick="javascript:abrirTab(this.id)"><span class='glyphicon glyphicon-chevron-left'></span></a>
-                                        <a href="#" class="btn btn-primary pull-right" id="btnPaso2_3" data-toggle="tab" data-target="#precios" onclick="javascript:abrirTab(this.id)"><span class='glyphicon glyphicon-chevron-right'></span></a>
+                            <div class="tab-pane fade" id="direccion">
 
-                                    </div>--%>
+                                <h4>Direcciones</h4>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 pull-left">
+                                        <div class="form-group ">
+                                            <label for="txtBuscar" class="control-label">Ciudad:</label>
+                                            <input id="txtBuscar" type="text" class="form-control autosuggest" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                        <div class="col-lg-5 col-md-5 col-sm-5">
+                                            <div class="form-group ">
+                                                <label for="txtCalle" class="control-label">Calle:</label>
+                                                <input id="txtCalle" class="form-control" type="text" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-5 col-md-5 col-sm-5 ">
+                                            <div class="form-group ">
+                                                <label for="txtNumero" class="control-label">Número:</label>
+                                                <div class="controls">
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="number" id="txtNumero" />
+
+                                                        <div class="input-group-btn">
+                                                            <button id="btnBuscarEnMapa" type="button" class="glyphicon glyphicon-map-marker btn btn-warning"
+                                                                onclick="codeAddress()">
+                                                            </button>
+                                                            <button id="btnAgregarDireccion" type="button"
+                                                                class="glyphicon glyphicon-plus btn btn-success">
+                                                            </button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div id="divMapa">
+                                    <input id="latitud" type="hidden" />
+                                    <input id="longitud" type="hidden" />
+                                    <div class="form-group">
+                                        <div id="pnlMapa">
+                                            <div id="map-canvas" style="height: 300px"></div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div>
+                                    <table id="tbDirecciones" class="table table-hover table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>Calle</th>
+                                                <th>Numero</th>
+                                                <th>Ciudad</th>
+                                                <th style="display: none;">Latitud</th>
+                                                <th style="display: none;">Longitud</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbDireccionesBody">
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
 
-                </div>
-
-                <div class="modal-footer">
-
-                    <%--<asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-lg" OnClick="btnCancelar_Click" data-dismiss="modal" Text="Cancelar"></asp:Button>
-                    <asp:Button ID="btnGuardar" runat="server" CssClass="btn disabled btn-success btn-lg" OnClick="btnGuardar_Click" Text="Guardar"></asp:Button>--%>
+                    <div class="modal-footer">
+                        <button id="btnCancelar" class="btn btn-lg" data-dismiss="modal">Cancelar</button>
+                        <button id="btnGuardar" class="btn btn-success btn-lg">Guardar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -200,120 +238,138 @@
 
 
 
-    <%--<div class="container-fluid">
-            <div class="jumbotron" style="margin-top: 5%;">
-                <div class="page-header">
-                    <h1>Administración de playas</h1>
-                </div>
-                <div class="form-horizontal" role="form">
-                    <div class="form-group" id="busquedaPlayas">
-                        <div class="col-md-4">
-                            <asp:TextBox ID="txtBuscar" CssClass="form-control input-lg autosuggest" runat="server"
-                                ClientIDMode="Static" placeholder="Ciudad" autofocus></asp:TextBox>
-                        </div>
-                        <div class="col-md-4">
-                            <asp:TextBox ID="txtFiltroNombre" CssClass="form-control input-lg" runat="server" placeholder="Nombre de playa">
-                            </asp:TextBox>
-                        </div>
-                        <div class="col-md-4">
-                            <asp:LinkButton runat="server" CssClass="btn-primary btn btn-lg" ID="btnBuscar" Text="Buscar" OnClick="btnBuscar_Click"></asp:LinkButton>
-                            <asp:LinkButton runat="server" CssClass="btn-success btn btn-lg" ID="btnNuevo" Text="Nueva" OnClick="btnNuevo_Click" OnClientClick="abrirModalPlaya()"></asp:LinkButton>
-                        </div>
-                    </div>
-                </div>
+    <div class="container-fluid">
+        <div class="jumbotron" style="margin-top: 5%;">
+            <div class="page-header">
+                <h1>Administración de playas</h1>
             </div>
 
-
-            <!-- Resultados de búsqueda -->
-
-
-            <asp:HiddenField ID="hfFilasGrilla" runat="server" />
-            <div id="pnlResultados" runat="server" class="container-fluid" visible="false">
-
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        Resultados <span style="background-color: white; color: black;" class="badge" id="cantidadPlayas"></span>
-                    </div>
-
-                    <div class=" panel-body">
-                        <div id="resultadosBusqueda">
-                            <asp:GridView ID="gvResultados" runat="server" DataKeyNames="Id" CssClass="table table-hover table-responsive"
-                                AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron Playas para los filtros utilizados"
-                                OnRowCommand="gvResultados_RowCommand" OnRowDataBound="gvResultados_RowDataBound">
-                                <Columns>
-                                    <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                                    <asp:BoundField DataField="TipoPlayaStr" HeaderText="Tipo" />
-                                    <asp:BoundField DataField="Calle" HeaderText="Calle" />
-                                    <asp:BoundField DataField="Numero" HeaderText="Numero" />
-                                    <asp:BoundField DataField="Ciudad" HeaderText="Ciudad" />
-                                    <asp:BoundField DataField="Provincia" HeaderText="Provincia" />
-                                    <asp:BoundField DataField="Extras" HeaderText="Vehiculos" />
-
-                                    <asp:ButtonField CommandName="Ver" ButtonType="Link" HeaderText="Ver"
-                                        Text="<i aria-hidden='true' class='glyphicon glyphicon-search'></i>" ControlStyle-CssClass="btn btn-default"></asp:ButtonField>
-                                    <asp:ButtonField CommandName="Editar" ButtonType="Link" HeaderText="Editar"
-                                        Text="<i aria-hidden='true' class='glyphicon glyphicon-pencil'></i>" ControlStyle-CssClass="btn btn-default"></asp:ButtonField>
-                                    <asp:ButtonField CommandName="Eliminar" ButtonType="Link" HeaderText="Eliminar"
-                                        Text="<i aria-hidden='true' class='glyphicon glyphicon-trash'></i>" ControlStyle-CssClass="btn btn-default"></asp:ButtonField>
-
-                                </Columns>
-                            </asp:GridView>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-lg-2 col-md-2 col-sm-2">
+                <button class="btn-success btn btn-lg glyphicon glyphicon-plus" id="btnNuevaPlaya" type="button"> Nueva Playa</button>
             </div>
-        </div>--%>
+        </div>
+    </div>
+
+
+    
 </asp:Content>
 
 <asp:Content runat="server" ID="Script" ContentPlaceHolderID="ScriptContent">
-
+    <%--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>--%>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false"></script>
+    <script src="js/autocompleteCiudades.js"></script>
+    <script src="bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="bootstrapformhelpers/js/bootstrap-formhelpers.js"></script>
+    <script src="js/GoogleMapsAdministracionPlaya.js"></script>
     <script type="text/javascript">
+
         //pasar a un archivo aparte "administracionPlayas.js"
-        //var precios = hfPrecios convertir a objeto {id,nombre}
+
+        //playa que se esta viendo o editando. Formato JSON
         var playaCargada;
 
-        var tbServiciosHead = function () {
-            var $tr = $('<tr> </tr>');
+        var playa = {
+            iniciar: function () {
+                servicios.iniciar();
+                direcciones.iniciar();
+            },
+            guardar: function () {
+                var id;
+                var nombre = $('[id*=txtNombre]').val();
+                var mail = $('[id*=txtMail]').val();
+                var telefono = $('[id*=txtTelefono]').val();
+                var tipoPlayaId = $('[id*=ddlTipoPlaya]').find(':selected').val();
+                var horarioTemp = new horario(0, $('[id*=txtDesde]').val(), $('[id*=txtHasta]').val(), $('[id*=ddlDias]').find(':selected').val());
+                var direccionesTemp = direcciones.lista();
+                var serviciosTemp = servicios.lista();
 
-            $.each(precios, function (i, precio) {
-                $tr.append('<th idPrecio="' + precio.id + '"> $ x ' + precio.nombre + '</th>');
-            });
+                playaTemp = new playaDeEstacionamiento(id, nombre, mail, telefono, tipoPlayaId, horarioTemp, direccionesTemp, serviciosTemp)
 
-            return $tr; //funciona OK!
-        };
-
-        var servicios = {
-            agregar: function (servicio) {
-                //agregar a la tabla el servicio (JSON)
-                var table = $('[id*=tbServicios]');
-                var $tr = $('<tr> </tr>');
-
-                $tr.append('<td tipoVehiculoId=' + '"' + servicio.tipoVehiculoId + '"' + '> </td>');
-                $tr.append('<td>' + servicio.capacidad + ' </td>');
-                $.each(precios, function (i, precio) {
-                    var precioId = $tr.find('th[idPrecio]').eq(i).attr('idPrecio');
-                    var precioEncontrado = false;
-                    $.each(servicio.Precios, function () {
-                        if (id == precioId) {
-                            $tr.append('<td idPrecio= ' + '"' + precioId + '"' + '> ' + monto + '</td>');
-                            precioEncontrado = true;
-                            return false;
+                $.ajax({
+                    type: "POST",
+                    url: "AdministracionPlayas.aspx/GuardarPlaya",
+                    data: "{'playaJSON': '" + JSON.stringify(playaTemp) + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var resultado = response.d;
+                        if (resultado == "true") {;
+                            alert("la playa se registro con exito.")
                         }
-                    });
-                    if (!precioEncontrado) {
-                        $tr.append('<td idPrecio= ' + '"' + precioId + '"' + '> - </td>');
+                        else {
+                            alert("Ocurrio un error");
+                        }
+                    },
+                    error: function (result) {
+                        alert('ERROR ' + result.status + ' ' + result.statusText, 'Error');
                     }
                 });
 
-                table.append($tr);
+            }
+        };
+
+        var servicios = {
+            cantidad: 0,
+            tiempos: $.parseJSON($('[id*=hfTiempos]').val()),
+
+            agregar: function (servicio) {
+                var $tableBody = $('[id*=tbServiciosBody]');
+                var $tr = $('<tr idServicio="' + servicio.Id + '"> </tr>');
+
+                $tr.append('<td tipoVehiculoId=' + '"' + servicio.TipoVehiculoId + '"' + '>' + $('[id*=ddlTipoVehiculo]').find('[value=' + servicio.TipoVehiculoId + ']').text(), +' </td>');
+                $tr.append('<td> <a id="txtEditableCapacidad" data-type="text" data-title="Ingrese capacidad" data-value="' + servicio.Capacidad + '" ></a> </td>');
+                $.each(this.tiempos, function (i, tiempo) {
+                    var tiempoId = tiempo.Id//$tr.find('th[idTiempo]').eq(i).attr('idTiempo');
+                    var precioEncontrado = false;
+                    //$.each(servicio.Precios, function (j, precioServicio) {
+                    //    if (servicio.id == precioServicio.servicioId && tiempoId == precioServicio.tiempoId) {
+                    //        $tr.append('<td> ' + '<a href="#" id="editable-' + servicio.id + '-' + tiempoId + '" data-type="text" data-pk="' + precioServicio.id + '"data-value="' + precioServicio.monto + '" data-url="" data-title="Ingrese el precio"></a>' + '</td>');
+                    //        precioEncontrado = true;
+                    //        return false;
+                    //    }
+                    //});
+                    if (!precioEncontrado) {
+                        $tr.append('<td> <a id="txtEditablePrecio" data-type="text" data-emptytext="Ingrese Precio" data-title="Ingrese precio" data-pk="' + tiempoId + '"</a> </td>');
+                    }
+                });
+                $tr.append('<td>X</td>'); //poner imagen de eliminar!
+                $tableBody.append($tr);
+                this.cantidad++;
+                this.OcultarTipoVehiculoEnCombo(servicio.TipoVehiculoId);
+                $('[id*=txtCapacidad]').val('');
+                $('[id*=ddlTipoVehiculo] [value=0]').prop("selected", true);
+
+                $('[id*=Editable]').editable({ mode: 'inline' })
+            },
+            Eliminar: function (servicioId) {
+                var $tr = $('[id*=tbServicios][idServicio=' + servicioId + ']');
+                var idTipoVehiculo = $tr.find('[tipoVehiculoId]').attr('tipoVehiculoId');
+                this.MostrarTipoVehiculoEnCombo(idTipoVehiculo);
+                $tr.remove();
+                this.cantidad--;
+            },
+            MostrarTipoVehiculoEnCombo: function (id) {
+                $('[id*=ddlTipoVehiculo] [value=' + id + ']').toggle();
+            },
+            OcultarTipoVehiculoEnCombo: function (id) {
+                $('[id*=ddlTipoVehiculo] [value=' + id + ']').toggle();
             },
             iniciar: function () {
                 //llenar la tabla con el head de hfPrecios y los servicios en el hfServicios
                 var me = this;
                 var $table = $('[id*=tbServicios]');
                 var $tableHead = $('[id*=tbServiciosHead]');
+                var $tr = $('<tr> </tr>');
 
-                $tableHead.append(tbServiciosHead);
+                $tr.append('<th>Tipo de Vehiculo</th>');
+                $tr.append('<th>Capacidad</th>');
+
+                $.each(this.tiempos, function (i, tiempo) {
+                    $tr.append('<th idTiempo="' + tiempo.Id + '"> $ x ' + tiempo.Nombre + '</th>');
+                });
+
+
+                $tableHead.append($tr);
 
                 if (playaCargada !== undefined) {
                     //se esta editando una playa, cargar los servicios en la tabla
@@ -321,15 +377,164 @@
                         me.agregar(this);
                     });
                 }
+
+                $('[id*=txtCapacidad]').val('');
+                $('[id*=ddlTipoVehiculo] [value=0]').prop("selected", true);
             },
-            grabar: function () {
-                //pasar la lista al hfServicios 
-            },
-            lista: ""//lista de servicios en la tabla JSON
+            lista: function () {
+                //JSON de lista de servicios en la tabla
+                var servicios = new Array();
+                var $filas = $('#tbServicios>tBody>tr');
+                $.each($filas, function (i, fila) {
+                    var id = $(fila).attr('idServicio'),
+                        playaId,
+                        tipoVehiculoId = $(fila).find('[TipoVehiculoId]').first().attr('TipoVehiculoId'),
+                        capacidadTemp = new capacidad(id, $(fila).find('[id*=txtEditableCapacidad]').text()),
+                        precios = new Array(),
+                        $celdasPrecio = $(fila).find('a[id*=txtEditablePrecio]');
+
+                    $.each($celdasPrecio, function (j, celda) {
+                        var monto = celda.innerHTML;
+                        if (monto !== "Ingrese Precio") {
+                            var precioTemp = new precio(id, $(celda).attr('data-pk'), monto);
+                            precios.push(precioTemp);
+                        }
+                    });
+                    var servicioTemp = new servicio(id, playaId, tipoVehiculoId, capacidadTemp, precios);
+
+                    servicios.push(servicioTemp);
+                });
+                return servicios;
+            }
         };
-        direcciones: {
+
+        var direcciones = {
             //parecido a servicios
+            iniciar: function () {
+                GoogleMaps.initialize();
+            },
+            agregar: function (direccion) {
+                var $tableBody = $('[id*=tbDireccionesBody]');
+                var $tr = $('<tr idDireccion="' + direccion.Id + '"> </tr>');
+
+                $tr.append('<td>' + direccion.Calle + ' </td>');
+                $tr.append('<td>' + direccion.Numero + ' </td>');
+                $tr.append('<td>' + direccion.Ciudad + ' </td>');
+                $tr.append('<td style="display:none;">' + direccion.Latitud + ' </td>');
+                $tr.append('<td style="display:none;">' + direccion.Longitud + ' </td>');
+
+                $tr.append('<td><a id="btnEditar" class="glyphicon glyphicon-edit"></a>   <a id="btnQuitar" class="glyphicon glyphicon-remove"></a></td>');
+
+                $tableBody.append($tr);
+                $('[id*=txtBuscar]').prop('disabled', true)
+            },
+            eliminar: function (id) {
+
+            },
+            lista: function () {
+                //JSON de lista de direcciones en la tabla
+                var direcciones = new Array();
+                var $filas = $('#tbDirecciones>tBody>tr');
+                $.each($filas, function (i, fila) {
+                    var id = $(fila).attr('idDireccion');
+                    var playaId;
+                    var calle = $(fila).find('td').eq(0).text();
+                    var numero = $(fila).find('td').eq(1).text();
+                    var ciudad = $(fila).find('td').eq(2).text();
+                    var latitud = $(fila).find('td').eq(3).text();
+                    var longitud = $(fila).find('td').eq(4).text();
+
+                    var direccionTemp = new direccion(id, calle, numero, ciudad, latitud, longitud);
+
+                    direcciones.push(direccionTemp);
+                });
+                return direcciones;
+            }
         };
+
+
+        function capacidad(id, cantidad) {
+            this.ServicioId = id;
+            this.Cantidad = cantidad;
+        }
+        function precio(id, idTiempo, precio) {
+            this.ServicioId = id;
+            this.TiempoId = idTiempo;
+            this.Monto = precio;
+        }
+
+        function horario(id, horaDesde, horaHasta, diaAtencionId) {
+            this.PlayaDeEstacionamientoId = id;
+            this.HoraDesde = horaDesde;
+            this.HoraHasta = horaHasta;
+            this.DiaAtencionId = diaAtencionId;
+        };
+
+        function servicio(id, playaId, tipoVehiculoId, capacidad, precios) {
+            this.Id = id;
+            this.PlayaDeEstacionamientoId = playaId;
+            this.TipoVehiculoId = tipoVehiculoId;
+            this.Capacidad = capacidad;
+            this.Precios = precios;
+        };
+
+        function playaDeEstacionamiento(id, nombre, mail, telefono, tipoPlayaId, horario, direcciones, servicios) {
+            this.Id = id;
+            this.Nombre = nombre;
+            this.Mail = mail;
+            this.Telefono = telefono;
+            this.TipoPlayaId = tipoPlayaId;
+            this.Horario = horario;
+            this.Direcciones = direcciones;
+            this.Servicios = servicios;
+        };
+        function direccion(id, calle, numero, ciudad, latitud, longitud) {
+            this.Id = id;
+            this.Calle = calle;
+            this.Numero = numero;
+            this.Ciudad = ciudad;
+            this.Latitud = latitud;
+            this.Longitud = longitud;
+        };
+
+        $(document).ready(new function () {
+
+            $('[id*=btnAgregarServicio]').on("click", function () {
+
+                var servicioNuevo = new servicio(0, 0, $('[id*=ddlTipoVehiculo]').val(), $('[id*=txtCapacidad]').val(), {});
+
+                servicios.agregar(servicioNuevo);
+            });
+            $('[id*=btnAgregarDireccion]').on("click", function () {
+                var calle = $('[id*=txtCalle]').first().val();
+                var numero = $('[id*=txtNumero]').first().val();
+                var ciudad = $('[id*=txtBuscar]').first().val();
+                var latitud = $('[id*=latitud]').first().val();
+                var longitud = $('[id*=longitud]').first().val();
+                var direccionNueva = new direccion(0, calle, numero, ciudad, latitud, longitud);
+
+                direcciones.agregar(direccionNueva);
+            });
+
+            $('[id*=btnGuardar]').on("click", function () {
+                playa.guardar();
+            });
+
+            $('[id*=btnNuevaPlaya]').on("click", function () {
+                $('#modificarPlaya').modal({
+                    backdrop: false,
+                    keyboard: false,
+                    show: true
+                });
+            });
+
+            $('#tabDireccion').on("click", function () {
+                setTimeout(function () { GoogleMaps.resize(); }, 200);
+            });
+
+            playa.iniciar();
+
+        });
 
     </script>
 </asp:Content>

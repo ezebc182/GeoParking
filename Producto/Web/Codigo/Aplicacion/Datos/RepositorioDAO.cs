@@ -64,7 +64,7 @@ namespace Datos
     public class RepositorioTiempo : Repositorio<Tiempo>, IRepositorioTiempo { }
     public class RepositorioUsuario : Repositorio<Usuario>, IRepositorioUsuario { }
 
-    public class RepositorioEvento : Repositorio<Evento>, IRepositorioEventos { }    
+    public class RepositorioEvento : Repositorio<Evento>, IRepositorioEventos { }
     public class RepositorioDisponibilidadPlayas : Repositorio<DisponibilidadPlayas>, IRepositorioDisponibilidadPlayas
     {
         public List<DisponibilidadPlayas> GetDisponibilidadDePlayasPorTipoVehiculo(string idPlayas, int tipoVehiculo)
@@ -339,7 +339,9 @@ namespace Datos
                         .OwnedCollection(p => p.Servicios, with => with
                         .OwnedCollection(s => s.Precios, con => con
                             .AssociatedEntity(p => p.Servicio))
-                        .AssociatedEntity(s => s.PlayaDeEstacionamiento))
+                            .AssociatedEntity(s => s.PlayaDeEstacionamiento)
+                            .OwnedEntity(s=>s.Capacidad))
+                        .OwnedEntity(p=>p.Horario)
                         );
                     return contexto.SaveChanges();
                 }

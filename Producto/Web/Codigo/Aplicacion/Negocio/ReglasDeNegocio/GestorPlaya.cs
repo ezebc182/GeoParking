@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Entidades;
 using ReglasDeNegocio.Util;
 using Datos;
+using Newtonsoft.Json;
 
 namespace ReglasDeNegocio
 {
@@ -343,6 +344,32 @@ namespace ReglasDeNegocio
         public IList<TipoPlaya> BuscarTipoPlayas()
         {
             return tipoPlayaDao.FindAll();
+        }
+
+        public IList<Tiempo> BuscarTiemposDeAtencion()
+        {
+            return tiempoDao.FindAll();
+        }
+
+        public string BuscarTiemposDeAtencionJSON()
+        {
+            return JsonConvert.SerializeObject(BuscarTiemposDeAtencion());
+        }
+        /// <summary>
+        /// Busca todos los tipos de vehiculos
+        /// </summary>
+        /// <returns></returns>
+        public IList<TipoVehiculo> BuscarTipoVehiculos()
+        {
+            return tipoVehiculoDao.FindAll();
+        }
+        /// <summary>
+        /// busca todos los dias de atencion
+        /// </summary>
+        /// <returns></returns>
+        public IList<DiaAtencion> BuscarDiasDeAtencion()
+        {
+            return diaAtencionDao.FindAll();
         }
         /// <summary>
         /// Busca las direcciones de una playa

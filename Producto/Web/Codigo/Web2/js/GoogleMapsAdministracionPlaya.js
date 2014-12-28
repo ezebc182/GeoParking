@@ -3,6 +3,7 @@ var map;
 var markers = [];
 var geocoder;
 
+
 GoogleMaps.initialize = function () {
     deleteMarkers();
     geocoder = new google.maps.Geocoder();
@@ -29,32 +30,35 @@ GoogleMaps.initialize = function () {
         addMarker(event.latLng);
         $('[id *= latitud]').first().val(event.latLng.lat().toString());
         $('[id *= longitud]').first().val(event.latLng.lng().toString());
-    });    
+    });
 
     // Adds a marker at the center of the map.
     addMarker(haightAshbury);
 }
 
+GoogleMaps.resize = function () {
+    google.maps.event.trigger(map, 'resize');
+}
 
 //Agregar el marcador en la posicion establecida
 function addMarker(location) {
-
+    
     map.setOptions({
         center: location,
     });
 
     var marker = new google.maps.Marker({
         position: location,
-        draggable:true,
+        draggable: true,
         map: map,
         icon: './img/marcadorParking2.png'
-        
+
     });
 
     //evento al soltar le marcador para que tome la nueva posicion
     google.maps.event.addListener(marker, 'dragend', function () {
         $('[id *= latitud]').first().val(marker.getPosition().lat());
-        $('[id *= longitud]').first().val(marker.getPosition().lng());        
+        $('[id *= longitud]').first().val(marker.getPosition().lng());
     });
 
     markers.push(marker);
@@ -87,7 +91,7 @@ function codeAddress() {
     deleteMarkers();
     var calle = $('[id*=txtCalle]').first().val();
     var numero = $('[id*=txtNumero]').first().val();
-    var ciudad = $("[id*=txtCiudad]").first().val();
+    var ciudad = $("[id*=txtBuscar]").first().val();
     var address = (calle === "" ? "" : calle + " " + numero + ", ") + (ciudad !== "" ? ciudad + ", " : ciudad) + ", Argentina";
 
     geocoder.geocode({ 'address': address }, function (results, status) {
@@ -110,7 +114,7 @@ function codeAddress() {
 
             markers.push(marker);
         } else {
-            address = ciudad + ", " + provincia + ", Argentina";
+            address = ciudad + ", Argentina";
             geocoder.geocode({ 'address': address }, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     map.setCenter(results[0].geometry.location);
@@ -123,7 +127,7 @@ function codeAddress() {
                     $('[id *= longitud]').first().val(results[0].geometry.location.lng().toString());
 
                     //evento al soltar le marcador para que tome la nueva posicion
-                    google.maps.event.addListener(marker, 'dragend', function () {                        
+                    google.maps.event.addListener(marker, 'dragend', function () {
                         $('[id *= latitud]').first().val(marker.getPosition().lat());
                         $('[id *= longitud]').first().val(marker.getPosition().lng());
                     });

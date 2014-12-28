@@ -9,7 +9,8 @@ using System.IO;
 namespace Entidades
 {
     public class PlayaDeEstacionamiento : EntidadBase
-    {
+    {       
+
         //Nombre
         public string Nombre { get; set; }
         //Mail
@@ -62,6 +63,17 @@ namespace Entidades
 
         #endregion
 
+
+        /// <summary>
+        /// Convierte a un objeto "PlayaDeEstacionamiento" el JSON pasado como parametro
+        /// </summary>
+        /// <param name="playaJSON"></param>
+        /// <returns>PlayaDeEstacionamiento</returns>
+        public PlayaDeEstacionamiento ToObjectRepresentation(string playaJSON)
+        {
+            return JsonConvert.DeserializeObject<PlayaDeEstacionamiento>(playaJSON);
+        }
+        
         /// <summary>
         /// retorna el objeto en formato JSON
         /// </summary>
