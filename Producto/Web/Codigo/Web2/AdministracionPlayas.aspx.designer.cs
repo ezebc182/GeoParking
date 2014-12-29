@@ -13,6 +13,15 @@ namespace Web2 {
     public partial class AdministracionPlayas {
         
         /// <summary>
+        /// Control msjeConfirmacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::SIRAD.Web2.Mensajes.Confirmacion msjeConfirmacion;
+        
+        /// <summary>
         /// Control hfIdPlaya.
         /// </summary>
         /// <remarks>
@@ -29,15 +38,6 @@ namespace Web2 {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTabs;
-        
-        /// <summary>
-        /// Control txtNombre.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNombre;
         
         /// <summary>
         /// Control ddlTipoPlaya.
@@ -92,5 +92,14 @@ namespace Web2 {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlTipoVehiculo;
+        
+        /// <summary>
+        /// Control txtBuscarCiudades.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtBuscarCiudades;
     }
 }
