@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using System.IO;
+
 namespace Entidades
 {
     public class Direccion : EntidadBase
@@ -18,6 +19,7 @@ namespace Entidades
         public string Ciudad { get; set; }
         //Playa
         public int? PlayaDeEstacionamientoId { get; set; }
+        [JsonIgnore]
         public virtual PlayaDeEstacionamiento PlayaDeEstacionamiento { get; set; }
 
         //Coordenadas Geograficas

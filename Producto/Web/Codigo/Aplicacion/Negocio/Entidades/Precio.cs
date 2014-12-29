@@ -13,6 +13,7 @@ namespace Entidades
     {
         //referencia a servicio
         public int ServicioId { get; set; }
+        [JsonIgnore]
         public virtual Servicio Servicio { get; set; }
 
         //referecia a un tiempo

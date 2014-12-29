@@ -1,10 +1,58 @@
 ﻿var playaCargada;
 
-var playa = {
+var playas = {
     iniciar: function () {
         this.limpiar();
         servicios.iniciar();
         direcciones.iniciar();
+    },
+    buscar: function (ciudad) {
+        var me = this;
+        me.vaciarTabla();
+        $.ajax({
+            type: "POST",
+            url: "AdministracionPlayas.aspx/BuscarPlayas",
+            data: "{'ciudad': '" + ciudad + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                var resultado = $.parseJSON(response.d);
+                $.each(resultado, function (i, playa) {
+                    me.agregar(playa);
+                });
+                $('[id*=pnlResultados]').show();
+                $('[id*=tbPlayas]').first().DataTable({
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/Spanish.json'
+                    }
+                });
+            },
+            error: function (result) {
+                var errores = result.responseText.substr('0', result.responseText.indexOf('{'));
+                $('#lblMensajeError').html(errores);
+                $('#lblMensajeError').parent().removeClass('hidden');
+            }
+        });
+    },
+    vaciarTabla: function () {
+        var $trs = $('[id*=tbPlayasBody] tr');
+
+        $.each($trs, function (i, item) { item.remove(); });
+    },
+    agregar: function (playa) {
+        var me = this;
+        var $tableBody = $('[id*=tbPlayasBody]');
+        var $tr = $('<tr idPlaya="' + playa.Id + '"> </tr>');
+
+        $tr.append('<td>' + playa.Nombre + ' </td>');
+        $tr.append('<td tipoPlayaId="'+playa.TipoPlayaId+'">' + playa.TipoPlayaStr + ' </td>');
+        $tr.append('<td>' + playa.Calle + ' </td>');
+        $tr.append('<td>' + playa.Numero + ' </td>');
+        $tr.append('<td>' + playa.Ciudad + ' </td>');
+        $tr.append('<td>' + playa.Extras + ' </td>');
+
+        $tr.append('<td> <a id="btnVerPlaya" class="glyphicon glyphicon-search"></a>  <a id="btnEditarPlaya" class="glyphicon glyphicon-edit"></a>  <a id="btnEliminarPlaya" class="glyphicon glyphicon-remove"></a></td>');
+        $tableBody.append($tr);
     },
     limpiar: function () {
         $('[id*=txtNombre]').val("");

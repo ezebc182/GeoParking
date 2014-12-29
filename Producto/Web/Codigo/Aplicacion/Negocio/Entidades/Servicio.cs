@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace Entidades
 {
@@ -13,6 +14,7 @@ namespace Entidades
         public int TipoVehiculoId { get; set; }
         //Playa
         public int? PlayaDeEstacionamientoId { get; set; }
+        [JsonIgnore]
         public virtual PlayaDeEstacionamiento PlayaDeEstacionamiento { get; set; }
 
         [NotMapped]

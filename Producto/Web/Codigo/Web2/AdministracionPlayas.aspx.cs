@@ -29,6 +29,13 @@ namespace Web2
         }
 
         [WebMethod]
+        public static string BuscarPlayas(string ciudad)
+        {
+            var playas = gestor.BuscarPlayasPorCiudadJSON(ciudad);
+            return playas;
+        }
+
+        [WebMethod]
         public static string GuardarPlaya(string playaJSON)
         {
             var playa = new PlayaDeEstacionamiento().ToObjectRepresentation(playaJSON);

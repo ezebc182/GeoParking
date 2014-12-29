@@ -7,11 +7,11 @@
     <link href="bootstrapformhelpers/css/bootstrap-formhelpers.min.css" rel="stylesheet" />
     <link href="js/GoogleMapsAdministracionPlaya.js" rel="stylesheet" />
 
-<style>
-    .pac-container {
-        z-index:1040;
-    }
-</style>
+    <style>
+        .pac-container {
+            z-index: 1040;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
 
@@ -257,58 +257,55 @@
     <div class="container-fluid">
         <div class="jumbotron" style="margin-top: 5%;">
             <div class="page-header">
-                <h1>Administración de playas</h1>
+                <h2>Administración de playas</h2>
             </div>
 
             <div class="form-group" id="busquedaPlayas">
-                <div class="col-md-4">
-                    <input id="txtBuscarCiudades" class="form-control input-lg autocompleteCiudad" runat="server"
-                        placeholder="Ciudad" autofocus />
-                </div>
-                <div class="col-md-4">
-                    <input id="txtFiltroNombre" class="form-control input-lg" placeholder="Nombre de playa" />
-                </div>
-                <div class="col-md-4">
-                    <button class="btn-primary btn btn-lg glyphicon glyphicon-search" id="btnBuscar" type="button"></button>
-                    <button class="btn-success btn btn-lg glyphicon glyphicon-plus" id="btnNuevaPlaya" type="button"></button>
-                </div>
-            </div>
+                <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-lg-6 col-md-6 col-sm-6" >
 
-        </div>
-    </div>
+                    <div class="input-group">
+                        <input id="txtBuscarCiudades" class="form-control input-lg autocompleteCiudad" runat="server"
+                            placeholder="Ciudad" autofocus />
 
-                    <div id="pnlResultados" class="container-fluid" style="display:none;">
-
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                Resultados <span style="background-color: white; color: black;" class="badge" id="cantidadPlayas"></span>
-                            </div>
-
-                            <div class=" panel-body">
-                                <div id="resultadosBusqueda">
-                                    <table id="tbPlayas" class="table table-hover table-responsive">
-                                        <thead>
-                                            <tr>
-                                                <th>Nombre</th>
-                                                <th>Tipo</th>
-                                                <th>Calle</th>
-                                                <th>Número</th>
-                                                <th>Ciudad</th>
-                                                <th>Vehiculos</th>
-                                                <th>Opciones(ver editar eliminar)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tbPlayasBody">
-
-                                        </tbody>
-
-                                    </table>
-
-                                </div>
-                            </div>
+                        <div class="input-group-btn">
+                            <button class="btn-primary btn btn-lg glyphicon glyphicon-search" id="btnBuscarPlayas" type="button"></button>
+                            <button class="btn-success btn btn-lg glyphicon glyphicon-plus" id="btnNuevaPlaya" type="button"></button>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
 
+        <div id="pnlResultados" class="container-fluid" style="display: none;">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Resultados <span style="background-color: white; color: black;" class="badge" id="cantidadPlayas"></span>
+                </div>
+
+                <div class=" panel-body">
+                    <div id="resultadosBusqueda">
+                        <table id="tbPlayas" class="table table-hover table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Tipo</th>
+                                    <th>Calle</th>
+                                    <th>Número</th>
+                                    <th>Ciudad</th>
+                                    <th>Vehiculos</th>
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbPlayasBody">
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
 </asp:Content>
 
 <asp:Content runat="server" ID="Script" ContentPlaceHolderID="ScriptContent">
@@ -318,13 +315,20 @@
     <script src="js/autocompleteCiudades.js"></script>
     <script src="bootstrap3-editable/js/bootstrap-editable.min.js"></script>
     <script src="bootstrapformhelpers/js/bootstrap-formhelpers.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
     <script src="js/GoogleMapsAdministracionPlaya.js"></script>
     <script src="js/administracionPlayas.js"></script>
     <script src="js/entidades.js"></script>
     <script type="text/javascript">
 
-        
+
         $(document).ready(new function () {
+
+            $('[id*=btnBuscarPlayas]').on("click", function () {
+                var ciudad = $('[id*=txtBuscarCiudades]').val();
+                // var nombre = $('[id*=txtFiltroNombre]').val();
+                playas.buscar(ciudad);
+            });
 
             $('[id*=btnAgregarServicio]').on("click", function () {
 
@@ -344,11 +348,11 @@
             });
 
             $('[id*=btnGuardar]').on("click", function () {
-                playa.guardar();
+                playas.guardar();
             });
 
             $('[id*=btnNuevaPlaya]').on("click", function () {
-                playa.iniciar();
+                playas.iniciar();
                 $('#modificarPlaya').modal({
                     backdrop: false,
                     keyboard: false,

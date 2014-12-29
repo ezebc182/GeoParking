@@ -319,11 +319,12 @@ namespace ReglasDeNegocio
             var lista = playaDao.FindWhere(m => m.Direcciones.Any(d => d.Ciudad.Equals(ciudad, StringComparison.OrdinalIgnoreCase))
                 && m.Nombre.ToUpper().Contains(nombre.ToUpper()) && !m.FechaBaja.HasValue);
 
-            //foreach (var playa in lista)
-            //{
-            //    CargarPlaya(playa);
-            //}
             return lista;
+        }
+
+        public string BuscarPlayasPorCiudadJSON(string ciudad)
+        {
+            return JsonConvert.SerializeObject(BuscarPlayasPorCiudad(ciudad));
         }
         /// <summary>
         /// Carga las direcciones, precios, horarios y servicios de una playa.
@@ -432,10 +433,9 @@ namespace ReglasDeNegocio
         /// <returns>lista de playas de esa ciudad</returns>
         public IList<PlayaDeEstacionamiento> BuscarPlayasPorCiudad(string ciudad)
         {
-            //aca va un findwehere
-
+            
             var lista = playaDao.FindWhere(p => p.Direcciones.Any(d => d.Ciudad.Equals(ciudad, StringComparison.OrdinalIgnoreCase)) && !p.FechaBaja.HasValue);
-
+           
             return lista;
         }
 

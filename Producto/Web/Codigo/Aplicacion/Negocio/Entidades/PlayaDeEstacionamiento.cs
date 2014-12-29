@@ -59,6 +59,8 @@ namespace Entidades
         public string Calle { get { return Direcciones.Count > 0 ? Direcciones[0].Calle : ""; } }
         [NotMapped]
         public int Numero { get { return Direcciones.Count > 0 ? Direcciones[0].Numero : 0; } }
+        [NotMapped]
+        public string Ciudad { get { return Direcciones.Count > 0 ? Direcciones[0].Ciudad : ""; } }
 
 
         #endregion
