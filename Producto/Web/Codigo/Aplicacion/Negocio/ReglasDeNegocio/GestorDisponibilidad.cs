@@ -47,7 +47,7 @@ namespace ReglasDeNegocio
             //ahora actualizamos la disponibilidad
             //1° recuperamos el resgistro de la BD a actualizar
             DisponibilidadPlayas registroDisponibilidad = new DisponibilidadPlayas();
-            registroDisponibilidad = disponibilidadPlayas.FindWhere(d => d.PlayaDeEstacionamientoId == playa && d.TipoVehiculoId == tipoVehiculo).First();
+            registroDisponibilidad = disponibilidadPlayas.FindWhere(d => d.Servicio.PlayaDeEstacionamientoId == playa && d.Servicio.TipoVehiculoId == tipoVehiculo).First();
             //2° verificamos el evento
             if(evento==1) //ingreso
             {
@@ -91,7 +91,7 @@ namespace ReglasDeNegocio
             //ahora actualizamos la disponibilidad
             //1° recuperamos el resgistro de la BD a actualizar
             DisponibilidadPlayas registroDisponibilidad = new DisponibilidadPlayas();
-            registroDisponibilidad = disponibilidadPlayas.FindWhere(d => d.PlayaDeEstacionamientoId == playa && d.TipoVehiculoId == tipoVehiculo).First();
+            registroDisponibilidad = disponibilidadPlayas.FindWhere(d => d.Servicio.PlayaDeEstacionamientoId == playa && d.Servicio.TipoVehiculoId == tipoVehiculo).First();
             
             registroDisponibilidad.Disponibilidad = disponibilidad;
             
@@ -120,7 +120,7 @@ namespace ReglasDeNegocio
         /// <returns></returns>
         public int GetDisponibilidadPlayaPorTipoVehiculo(int playa, int tipoVehiculo)
         {
-            return disponibilidadPlayas.FindWhere(d => d.PlayaDeEstacionamientoId == playa && d.TipoVehiculoId == tipoVehiculo).First().Disponibilidad; 
+            return disponibilidadPlayas.FindWhere(d => d.Servicio.PlayaDeEstacionamientoId == playa && d.Servicio.TipoVehiculoId == tipoVehiculo).First().Disponibilidad; 
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace ReglasDeNegocio
             foreach (var item in playas)
             {
                 DisponibilidadPlayas registroDisponibilidad = new DisponibilidadPlayas();
-                registroDisponibilidad = disponibilidadPlayas.FindWhere(d => d.PlayaDeEstacionamientoId == item && d.TipoVehiculoId == tipoVehiculo).First();
+                registroDisponibilidad = disponibilidadPlayas.FindWhere(d => d.Servicio.PlayaDeEstacionamientoId == item && d.Servicio.TipoVehiculoId == tipoVehiculo).First();
                 disponibilidades.Add(registroDisponibilidad);
             }
 

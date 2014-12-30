@@ -333,12 +333,13 @@ namespace Datos
                 var entry = contexto.Entry(t);
                 if (entry.State == System.Data.Entity.EntityState.Detached)
                 {
-                    t = contexto.UpdateGraph(t, map => map
+                         contexto.UpdateGraph(t, map => map
                         .OwnedCollection(p => p.Direcciones, with => with
                             .AssociatedEntity(d => d.PlayaDeEstacionamiento))
                         .OwnedCollection(p => p.Servicios, with => with
                         .OwnedCollection(s => s.Precios, con => con
                             .AssociatedEntity(p => p.Servicio))
+                        .OwnedEntity(s => s.DisponibilidadPlayas )
                             .AssociatedEntity(s => s.PlayaDeEstacionamiento)
                             .OwnedEntity(s=>s.Capacidad))
                         .OwnedEntity(p=>p.Horario)

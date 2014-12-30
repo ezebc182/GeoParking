@@ -9,7 +9,7 @@ using RefactorThis.GraphDiff;
 
 namespace Datos
 {
-    public class ContextoBD: DbContext
+    public class ContextoBD : DbContext
     {
         //instancia del singleton        
         private ContextoBD instancia = null;
@@ -29,11 +29,12 @@ namespace Datos
         /// <summary>
         /// Crea el contexto con la BD, con el name "BD_Geoparking" en el webConfig 
         /// </summary>
-        public ContextoBD() : base("BD_Geoparking") 
+        public ContextoBD()
+            : base("BD_Geoparking")
         {
             Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
-            
+
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -41,7 +42,7 @@ namespace Datos
             modelBuilder.Entity<PlayaDeEstacionamiento>()
             .HasOptional(p => p.Horario)
             .WithRequired(h => h.PlayaDeEstacionamiento);
-            
+
             modelBuilder.Entity<Horario>()
                 .HasKey(h => h.PlayaDeEstacionamientoId)
                 .Ignore(h => h.Id);
@@ -54,15 +55,23 @@ namespace Datos
                 .HasKey(c => c.ServicioId)
                 .Ignore(c => c.Id);
 
+            modelBuilder.Entity<Servicio>()
+            .HasOptional(s => s.DisponibilidadPlayas)
+            .WithRequired(p => p.Servicio);
+
+            modelBuilder.Entity<DisponibilidadPlayas>()
+                .HasKey(c => c.ServicioId)
+                .Ignore(c => c.Id);
+
             base.OnModelCreating(modelBuilder);
-            
+
         }
 
         /// <summary>
         /// Conexto(DataSet) para cada objeto en la BD
         /// </summary>
         public DbSet<PlayaDeEstacionamiento> playas { get; set; }
-        public DbSet<TipoPlaya> tiposPlayas{ get; set; }
+        public DbSet<TipoPlaya> tiposPlayas { get; set; }
         public DbSet<Servicio> servicios { get; set; }
         public DbSet<TipoVehiculo> tiposVehiculos { get; set; }
         public DbSet<Usuario> usuarios { get; set; }
@@ -72,6 +81,6 @@ namespace Datos
         public DbSet<EstadisticaConsultas> estadisticasConsultas { get; set; }
         public DbSet<Evento> eventos { get; set; }
         public DbSet<DisponibilidadPlayas> disponibilidadPlayas { get; set; }
-        public DbSet<HistorialDisponibilidadPlayas> historialDisponibilidadPlayas { get; set; }    
+        public DbSet<HistorialDisponibilidadPlayas> historialDisponibilidadPlayas { get; set; }
     }
 }

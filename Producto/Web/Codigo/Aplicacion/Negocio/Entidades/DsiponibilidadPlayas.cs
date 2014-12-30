@@ -9,12 +9,12 @@ namespace Entidades
 {
     public class DisponibilidadPlayas : EntidadBase
     {
-        public int PlayaDeEstacionamientoId { get; set; }
-        public int TipoVehiculoId { get; set; }
         public int Disponibilidad { get; set; }
 
-        //public virtual PlayaDeEstacionamiento PlayaDeEstacioamiento { get; set; }
-        //public virtual TipoVehiculo TipoVehiculo { get; set; }
+        //Servicio
+        public int? ServicioId { get; set; }
+        [JsonIgnore]
+        public virtual Servicio Servicio { get; set; }
 
         public string ToJSONRepresentation()
         {

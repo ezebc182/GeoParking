@@ -80,21 +80,28 @@ namespace ReglasDeNegocio
             {
                 try
                 {
+
+                    foreach (var item in playa.Servicios)
+                    {
+                        item.DisponibilidadPlayas = new DisponibilidadPlayas();
+                        item.DisponibilidadPlayas.Disponibilidad = item.Capacidad.Cantidad;
+                    }
+                    
                     playaDao.Create(playa);
 
                     //creo las entradas para manejar las disponibilidades de lugares
                     //de la playas de estacionamiento por cada uno de los tipos de vehiculos
-                    disponibilidadesDao = new RepositorioDisponibilidadPlayas();
-                    foreach (var item in playa.Servicios)
-                    {
-                        DisponibilidadPlayas disponibilidad = new DisponibilidadPlayas();
-                        disponibilidad.PlayaDeEstacionamientoId = playa.Id;
-                        disponibilidad.TipoVehiculoId = item.TipoVehiculoId;
-                        disponibilidad.Disponibilidad = item.Capacidad.Cantidad;
+                    //disponibilidadesDao = new RepositorioDisponibilidadPlayas();
+                    //foreach (var item in playa.Servicios)
+                    //{
+                    //    DisponibilidadPlayas disponibilidad = new DisponibilidadPlayas();
+                    //    disponibilidad.PlayaDeEstacionamientoId = playa.Id;
+                    //    disponibilidad.TipoVehiculoId = item.TipoVehiculoId;
+                    //    disponibilidad.Disponibilidad = item.Capacidad.Cantidad;
 
-                        //creo el registro para el manejo de disponibilidades
-                        disponibilidadesDao.Create(disponibilidad);
-                    }
+                    //    //creo el registro para el manejo de disponibilidades
+                    //    disponibilidadesDao.Create(disponibilidad);
+                    //}
                 }
                 catch (DataBaseException e)
                 {

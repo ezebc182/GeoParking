@@ -16,6 +16,10 @@ namespace Entidades
         public int? PlayaDeEstacionamientoId { get; set; }
         [JsonIgnore]
         public virtual PlayaDeEstacionamiento PlayaDeEstacionamiento { get; set; }
+        
+        //Disponibilidad Playa
+        public int? DisponibilidadPlayasId { get; set; }
+        public virtual DisponibilidadPlayas DisponibilidadPlayas { get; set; }
 
         [NotMapped]
         private TipoVehiculo tipoVehiculo;
