@@ -1,9 +1,9 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterUsuario.Master.cs" CodeFile="MasterUsuario.Master.cs" Inherits="Web2.MasterUsuario" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterUsuario.master.cs" Inherits="Web2.MasterUsuario" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 
@@ -71,12 +71,12 @@
                                 <li>
                                     <a href="#"><i class="fa fa-fw fa-user"></i>Modificar Perfil</a>
                                 </li>
-                                <li>
+                                <%--<li>
                                     <a href="#"><i class="fa fa-fw fa-envelope"></i>Inbox</a>
                                 </li>
                                 <li>
                                     <a href="#"><i class="fa fa-fw fa-gear"></i>Settings</a>
-                                </li>
+                                </li>--%>
                                 <li class="divider"></li>
                                 <li>
                                     <a href="#"><i class="fa fa-fw fa-power-off"></i>Cerrar Sesión</a>
@@ -129,7 +129,7 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
 
                                         <asp:Button ID="btnIniciarSesion" Text="Iniciar Sesion" UseSubmitBehavior="true" TabIndex="3" CssClass="btn btn-primary btn-block btn-sm"
-                                            runat="server" />
+                                            runat="server" OnClick="btnIniciarSesion_Click" />
 
                                     </div>
                                 </div>
@@ -292,15 +292,19 @@
                 </div>
             </div>
 
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            <asp:ContentPlaceHolder ID="Main" runat="server">
             </asp:ContentPlaceHolder>
 
             <!-- start: JavaScript-->
+
 
             <!-- Bootstrap Core JavaScript -->
             <script src="js/bootstrap.min.js"></script>
 
             <!-- end: JavaScript-->
+<%-- Content para poner el codigo js desde las paginas e importar los scripts --%>
+            <asp:ContentPlaceHolder ID="ScriptContent" runat="server">
+            </asp:ContentPlaceHolder>
 
 
         </div>
@@ -373,3 +377,4 @@
 
     });
 </script>
+

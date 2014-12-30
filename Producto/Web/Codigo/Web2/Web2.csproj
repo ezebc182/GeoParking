@@ -158,6 +158,7 @@
     <Content Include="font-awesome-4.1.0\css\font-awesome.min.css" />
     <Content Include="font-awesome-4.1.0\fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="DatosPersonales.aspx" />
     <Content Include="img\index\arrow-2.png" />
     <Content Include="img\index\arrow1.png" />
     <Content Include="img\index\brand-logo1.png" />
@@ -257,12 +258,22 @@
     <Compile Include="BusquedaPlaya.aspx.designer.cs">
       <DependentUpon>BusquedaPlaya.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DatosPersonales.aspx.cs">
+      <DependentUpon>DatosPersonales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DatosPersonales.aspx.designer.cs">
+      <DependentUpon>DatosPersonales.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="MasterAdmin.Master.cs">
       <DependentUpon>MasterAdmin.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterAdmin.Master.designer.cs">
+      <DependentUpon>MasterAdmin.Master</DependentUpon>
     </Compile>
     <Compile Include="MasterUsuario.Master.cs">
       <DependentUpon>MasterUsuario.Master</DependentUpon>
@@ -279,6 +290,8 @@
     <Compile Include="Mensajes\Info.ascx.cs">
       <DependentUpon>Info.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    <Compile Include="MasterUsuario.Master.designer.cs">
+      <DependentUpon>MasterUsuario.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Index.aspx.cs">
@@ -309,8 +322,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MasterAdmin.Master" />
-    <Content Include="MasterUsuario.Master" />
     <Content Include="Bootstrap\css\bootstrap-theme.css.map" />
     <Content Include="Bootstrap\css\bootstrap.css.map" />
     <Content Include="Bootstrap\fonts\glyphicons-halflings-regular.eot" />
@@ -349,6 +360,8 @@
     <Content Include="font-awesome-4.1.0\scss\_spinning.scss" />
     <Content Include="font-awesome-4.1.0\scss\_stacked.scss" />
     <Content Include="font-awesome-4.1.0\scss\_variables.scss" />
+    <Content Include="MasterAdmin.Master" />
+    <Content Include="MasterUsuario.Master" />
     <None Include="Properties\PublishProfiles\GeoparkingWeb2.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

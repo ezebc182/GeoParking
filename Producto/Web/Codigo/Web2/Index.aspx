@@ -18,7 +18,7 @@
     <link href="css/index.css" rel="stylesheet" />
 
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
 
     <div class="intro">
         <div class="intro-body">
