@@ -2,9 +2,11 @@
 
 var playas = {
     iniciar: function () {
-        this.limpiar();
-        servicios.iniciar();
-        direcciones.iniciar();
+        $('#modificarPlaya').modal({
+            backdrop: false,
+            keyboard: false,
+            show: true
+        });
     },
     buscar: function (ciudad) {
         var me = this;
@@ -45,7 +47,7 @@ var playas = {
         var $tr = $('<tr idPlaya="' + playa.Id + '"> </tr>');
 
         $tr.append('<td>' + playa.Nombre + ' </td>');
-        $tr.append('<td tipoPlayaId="'+playa.TipoPlayaId+'">' + playa.TipoPlayaStr + ' </td>');
+        $tr.append('<td tipoPlayaId="' + playa.TipoPlayaId + '">' + playa.TipoPlayaStr + ' </td>');
         $tr.append('<td>' + playa.Calle + ' </td>');
         $tr.append('<td>' + playa.Numero + ' </td>');
         $tr.append('<td>' + playa.Ciudad + ' </td>');
@@ -53,6 +55,18 @@ var playas = {
 
         $tr.append('<td> <a id="btnVerPlaya" class="glyphicon glyphicon-search"></a>  <a id="btnEditarPlaya" class="glyphicon glyphicon-edit"></a>  <a id="btnEliminarPlaya" class="glyphicon glyphicon-remove"></a></td>');
         $tableBody.append($tr);
+
+        $('[id*=btnVerPlaya]').click(function () {
+            me.ver(playa);
+        });
+
+        $('[id*=btnEditarPlaya]').click(function () {
+            me.editar(playa);
+        });
+
+        $('[id*=btnEliminarPlaya]').click(function () {
+            me.eliminar(playa);
+        });
     },
     limpiar: function () {
         $('[id*=txtNombre]').val("");
@@ -68,6 +82,62 @@ var playas = {
         $('#lblMensajeError').parent().addClass('hidden');
         $('#lblMensajeExito').text("");
         $('#lblMensajeExito').parent().addClass('hidden');
+
+        $('[id*=tabDatosGrales]').tab('show');
+    },
+    cargar: function (playa) {
+        $('[id*=txtNombre]').val(playa.Nombre);
+        $('[id*=txtMail]').val(playa.Mail);
+        $('[id*=txtTelefono]').val(playa.Telefono);
+        $('[id*=ddlTipoPlaya] [value="' + playa.TipoPlayaId + '"]').prop("selected", true);
+        $('[id*=txtDesde]').val(playa.Horario.HoraDesde);
+        $('[id*=txtHasta]').val(playa.Horario.HoraHasta);
+        $('[id*=ddlDias] [value="' + playa.Horario.DiaAtencionId + '"]').prop("selected", true);
+        servicios.cargar(playa.Servicios);
+        direcciones.cargar(playa.Direcciones);
+    },
+    registrar: function () {
+        this.limpiar();
+        $('[id*=txtNombre]').prop("disabled", false);
+        $('[id*=txtMail]').prop("disabled", false);
+        $('[id*=txtTelefono]').prop("disabled", false);
+        $('[id*=ddlTipoPlaya]').prop("disabled", false);
+        $('[id*=txtDesde]').prop("disabled", false);
+        $('[id*=txtHasta]').prop("disabled", false);
+        $('[id*=ddlDias]').prop("disabled", false);
+        direcciones.registrar();
+        servicios.registrar();
+        this.iniciar();
+    },
+    ver: function (playa) {
+        this.limpiar();
+        this.cargar(playa);
+
+        $('[id*=txtNombre]').prop("disabled", true);
+        $('[id*=txtMail]').prop("disabled", true);
+        $('[id*=txtTelefono]').prop("disabled", true);
+        $('[id*=ddlTipoPlaya]').prop("disabled", true);
+        $('[id*=txtDesde]').prop("disabled", true);
+        $('[id*=txtHasta]').prop("disabled", true);
+        $('[id*=ddlDias]').prop("disabled", true);
+        servicios.ver();
+        direcciones.ver();
+        this.iniciar();
+    },
+    editar: function (playa) {
+        this.limpiar();
+        this.cargar(playa);
+
+        $('[id*=txtNombre]').prop("disabled", false);
+        $('[id*=txtMail]').prop("disabled", false);
+        $('[id*=txtTelefono]').prop("disabled", false);
+        $('[id*=ddlTipoPlaya]').prop("disabled", false);
+        $('[id*=txtDesde]').prop("disabled", false);
+        $('[id*=txtHasta]').prop("disabled", false);
+        $('[id*=ddlDias]').prop("disabled", false);
+        direcciones.editar();
+        servicios.editar();
+        this.iniciar();
     },
     guardar: function () {
         var id;
@@ -115,20 +185,26 @@ var servicios = {
         var $tr = $('<tr idServicio="' + servicio.Id + '"> </tr>');
 
         $tr.append('<td tipoVehiculoId=' + '"' + servicio.TipoVehiculoId + '"' + '>' + $('[id*=ddlTipoVehiculo]').find('[value=' + servicio.TipoVehiculoId + ']').text(), +' </td>');
-        $tr.append('<td> <a id="txtEditableCapacidad" data-type="text" data-title="Ingrese capacidad" data-value="' + servicio.Capacidad + '" ></a> </td>');
+        $tr.append('<td> <a id="txtEditableCapacidad" data-type="text" data-title="Ingrese capacidad" data-value="' + servicio.Capacidad.Cantidad + '" ></a> </td>');
+
+        var cantidadPreciosEncontrados = 0;
         $.each(this.tiempos, function (i, tiempo) {
-            var tiempoId = tiempo.Id//$tr.find('th[idTiempo]').eq(i).attr('idTiempo');
+            var tiempoId = $('th[idTiempo]').eq(i).attr('idTiempo');
             var precioEncontrado = false;
-            //$.each(servicio.Precios, function (j, precioServicio) {
-            //    if (servicio.id == precioServicio.servicioId && tiempoId == precioServicio.tiempoId) {
-            //        $tr.append('<td> ' + '<a href="#" id="editable-' + servicio.id + '-' + tiempoId + '" data-type="text" data-pk="' + precioServicio.id + '"data-value="' + precioServicio.monto + '" data-url="" data-title="Ingrese el precio"></a>' + '</td>');
-            //        precioEncontrado = true;
-            //        return false;
-            //    }
-            //});
+            if (cantidadPreciosEncontrados < servicio.Precios.length) {
+                $.each(servicio.Precios, function (j, precioServicio) {
+                    if (servicio.Id == precioServicio.ServicioId && tiempoId == precioServicio.TiempoId) {
+                        $tr.append('<td> ' + '<a href="#" id="txtEditablePrecio" servicioId="' + servicio.Id + '" tiempoId="' + tiempoId + '" precioId="' + precioServicio.Id + '" data-type="text" data-pk="" data-value="' + precioServicio.Monto + '" data-url="" data-title="Ingrese el precio"></a>' + '</td>');
+                        precioEncontrado = true;
+                        cantidadPreciosEncontrados++;
+                        return false;
+                    }
+                });
+            }
             if (!precioEncontrado) {
                 $tr.append('<td> <a id="txtEditablePrecio" data-type="text" data-emptytext="Ingrese Precio" data-title="Ingrese precio" data-pk="' + tiempoId + '"</a> </td>');
             }
+
         });
         $tr.append('<td> <a id="btnQuitarServicio" class="glyphicon glyphicon-remove"></a></td>');
         $tableBody.append($tr);
@@ -160,7 +236,7 @@ var servicios = {
         var $tableHeadTrs = $('[id*=tbServiciosHead] tr');
         $tableHeadTrs.remove();
     },
-    iniciar: function () {
+    iniciar: function (servicios) {
         //llenar la tabla con el head de hfPrecios y los servicios en el hfServicios
         var me = this;
         var $table = $('[id*=tbServicios]');
@@ -177,15 +253,38 @@ var servicios = {
 
         $tableHead.append($tr);
 
-        if (playaCargada !== undefined) {
+        if (servicios !== undefined) {
             //se esta editando una playa, cargar los servicios en la tabla
-            $.each(playaCargada.Servicios, function () {
+            $.each(servicios, function () {
                 me.agregar(this);
             });
         }
 
         $('[id*=txtCapacidad]').val('');
         $('[id*=ddlTipoVehiculo] [value=0]').prop("selected", true);
+    },
+    cargar: function (servicios) {
+        this.iniciar(servicios);
+    },
+    registrar: function () {
+        $('[id*=Editable]').editable({
+            mode: 'inline',
+            disabled: 'false'
+        });
+
+    },
+    ver: function () {
+        $('[id*=Editable]').editable({
+            mode: 'inline',
+            disabled: 'true'
+        });
+
+    },
+    editar: function () {
+        $('[id*=Editable]').editable({
+            mode: 'inline',
+            disabled: 'false'
+        });
     },
     lista: function () {
         //JSON de lista de servicios en la tabla
@@ -216,8 +315,15 @@ var servicios = {
 
 var direcciones = {
     //parecido a servicios
-    iniciar: function () {
+    iniciar: function (direcciones) {
         GoogleMaps.initialize();
+
+        var me = this;
+        if (direcciones !== undefined) {
+            $.each(direcciones, function (i, direccion) {
+                me.agregar(direccion);
+            });
+        }
     },
     limpiar: function () {
         var me = this;
@@ -229,6 +335,21 @@ var direcciones = {
         $.each($('#tbDirecciones>tBody>tr'), function (i, direccion) {
             me.eliminar(direccion);
         });
+    },
+    registrar: function () {
+        $('[id*=divCargarNuevaDireccion]').show();
+        $('[id*=tbDirecciones] td [id*=btn]').show();
+    },
+    ver: function () {
+        $('[id*=divCargarNuevaDireccion]').hide();
+        $('[id*=tbDirecciones] td [id*=btn]').hide();
+    },
+    editar: function () {
+        $('[id*=divCargarNuevaDireccion]').show();
+        $('[id*=tbDirecciones] td [id*=btn]').show();
+    },
+    cargar: function (direcciones) {
+        this.iniciar(direcciones);
     },
     agregar: function (direccion) {
         var me = this;
@@ -245,12 +366,13 @@ var direcciones = {
 
         $tableBody.append($tr);
         $('[id*=txtBuscarCiudades]').prop('disabled', true);
+        $('[id*=txtBuscarCiudades]').val(direccion.Ciudad);
 
         $('[id*=btnQuitarDireccion]').click(function () {
             me.eliminar($tr);
         });
         $('[id*=btnEditarDireccion]').click(function () {
-            me.editar($tr, direccion);
+            me.editarDireccion($tr, direccion);
         });
         $('[id*=txtCalle]').val("");
         $('[id*=txtNumero]').val("");
@@ -264,7 +386,7 @@ var direcciones = {
         $('[id*=latitud]').first().val(direccion.Latitud);
         $('[id*=longitud]').first().val(direccion.Longitud);
     },
-    editar: function ($tr, direccion) {
+    editarDireccion: function ($tr, direccion) {
         var me = this;
         me.cargarCampos(direccion);
         var cantidad = $('[id*=tbDireccionesBody] tr').length;

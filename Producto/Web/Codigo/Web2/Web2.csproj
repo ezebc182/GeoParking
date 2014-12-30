@@ -127,13 +127,13 @@
   <ItemGroup>
     <Content Include="Admin.aspx" />
     <Content Include="AdministracionPlayas.aspx" />
-    <Content Include="bootstrapformhelpers\css\bootstrap-formhelpers.css" />
-    <Content Include="bootstrapformhelpers\css\bootstrap-formhelpers.min.css" />
-    <Content Include="bootstrapformhelpers\img\bootstrap-formhelpers-countries.flags-LICENSE.txt" />
-    <Content Include="bootstrapformhelpers\img\bootstrap-formhelpers-countries.flags.png" />
-    <Content Include="bootstrapformhelpers\img\bootstrap-formhelpers-currencies.flags.png" />
-    <Content Include="bootstrapformhelpers\img\bootstrap-formhelpers-googlefonts.png" />
-    <Content Include="bootstrapformhelpers\js\bootstrap-formhelpers.js" />
+    <Content Include="js\bootstrapformhelpers\css\bootstrap-formhelpers.css" />
+    <Content Include="js\bootstrapformhelpers\css\bootstrap-formhelpers.min.css" />
+    <Content Include="js\bootstrapformhelpers\img\bootstrap-formhelpers-countries.flags-LICENSE.txt" />
+    <Content Include="js\bootstrapformhelpers\img\bootstrap-formhelpers-countries.flags.png" />
+    <Content Include="js\bootstrapformhelpers\img\bootstrap-formhelpers-currencies.flags.png" />
+    <Content Include="js\bootstrapformhelpers\img\bootstrap-formhelpers-googlefonts.png" />
+    <Content Include="js\bootstrapformhelpers\js\bootstrap-formhelpers.js" />
     <Content Include="Bootstrap\css\bootstrap-theme.css" />
     <Content Include="Bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="Bootstrap\css\bootstrap.css" />
@@ -154,6 +154,20 @@
     <Content Include="css\index\style.css" />
     <Content Include="css\plugins\morris.css" />
     <Content Include="css\sb-admin.css" />
+    <Content Include="js\DataTables-1.10.4\css\jquery.dataTables.min.css" />
+    <Content Include="js\DataTables-1.10.4\images\back_disabled.png" />
+    <Content Include="js\DataTables-1.10.4\images\back_enabled.png" />
+    <Content Include="js\DataTables-1.10.4\images\back_enabled_hover.png" />
+    <Content Include="js\DataTables-1.10.4\images\favicon.ico" />
+    <Content Include="js\DataTables-1.10.4\images\forward_disabled.png" />
+    <Content Include="js\DataTables-1.10.4\images\forward_enabled.png" />
+    <Content Include="js\DataTables-1.10.4\images\forward_enabled_hover.png" />
+    <Content Include="js\DataTables-1.10.4\images\sort_asc.png" />
+    <Content Include="js\DataTables-1.10.4\images\sort_asc_disabled.png" />
+    <Content Include="js\DataTables-1.10.4\images\sort_both.png" />
+    <Content Include="js\DataTables-1.10.4\images\sort_desc.png" />
+    <Content Include="js\DataTables-1.10.4\images\sort_desc_disabled.png" />
+    <Content Include="js\DataTables-1.10.4\js\jquery.dataTables.min.js" />
     <Content Include="font-awesome-4.1.0\css\font-awesome.css" />
     <Content Include="font-awesome-4.1.0\css\font-awesome.min.css" />
     <Content Include="font-awesome-4.1.0\fonts\fontawesome-webfont.svg" />
@@ -198,11 +212,11 @@
     <Content Include="js\autocompleteCiudades.js" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
-    <Content Include="bootstrap3-editable\css\bootstrap-editable.css" />
-    <Content Include="bootstrap3-editable\img\clear.png" />
-    <Content Include="bootstrap3-editable\img\loading.gif" />
-    <Content Include="bootstrap3-editable\js\bootstrap-editable.js" />
-    <Content Include="bootstrap3-editable\js\bootstrap-editable.min.js" />
+    <Content Include="js\bootstrap3-editable\css\bootstrap-editable.css" />
+    <Content Include="js\bootstrap3-editable\img\clear.png" />
+    <Content Include="js\bootstrap3-editable\img\loading.gif" />
+    <Content Include="js\bootstrap3-editable\js\bootstrap-editable.js" />
+    <Content Include="js\bootstrap3-editable\js\bootstrap-editable.min.js" />
     <Content Include="js\bootstrapValidator.min.js" />
     <Content Include="js\controllerBusquedaPlayaAngular.js" />
     <Content Include="js\entidades.js" />
@@ -362,6 +376,7 @@
     <Content Include="font-awesome-4.1.0\scss\_variables.scss" />
     <Content Include="MasterAdmin.Master" />
     <Content Include="MasterUsuario.Master" />
+    <Content Include="js\DataTables-1.10.4\images\Sorting icons.psd" />
     <None Include="Properties\PublishProfiles\GeoparkingWeb2.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

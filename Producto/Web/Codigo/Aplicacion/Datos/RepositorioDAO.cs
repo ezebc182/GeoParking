@@ -79,6 +79,8 @@ namespace Datos
                     .ToList();
                 return result;
             }
+
+
         }
     }
     public class RepositorioHistorialDisponibilidadPlayas : Repositorio<HistorialDisponibilidadPlayas>, IRepositorioHistorialDisponibilidadPlayas { }
@@ -97,6 +99,16 @@ namespace Datos
                     .ToList();
                 return result;
             }
+
+            
+        }
+        public override IList<Direccion> FindWhere(Func<Direccion, bool> predicate)
+        {
+            var lista = DbSet
+                .Include("Servicio")
+                .Where(predicate);
+
+            return lista.ToList();
         }
     }
     /// <summary>

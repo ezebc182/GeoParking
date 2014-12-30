@@ -13,11 +13,13 @@ namespace ReglasDeNegocio
     {
         IRepositorioDisponibilidadPlayas disponibilidadPlayas;
         IRepositorioHistorialDisponibilidadPlayas historialDisponibilidadPlayas;
+        IRepositorioServicio servicioDAO;
 
         public GestorDisponibilidad()
         {
             disponibilidadPlayas = new RepositorioDisponibilidadPlayas();
             historialDisponibilidadPlayas = new RepositorioHistorialDisponibilidadPlayas();
+            servicioDAO = new RepositorioServicio();
         }
 
         /// <summary>
@@ -49,31 +51,31 @@ namespace ReglasDeNegocio
             DisponibilidadPlayas registroDisponibilidad = new DisponibilidadPlayas();
             registroDisponibilidad = disponibilidadPlayas.FindWhere(d => d.Servicio.PlayaDeEstacionamientoId == playa && d.Servicio.TipoVehiculoId == tipoVehiculo).First();
             //2° verificamos el evento
-            if(evento==1) //ingreso
+            if (evento == 1) //ingreso
             {
-                registroDisponibilidad.Disponibilidad=registroDisponibilidad.Disponibilidad-1;
+                registroDisponibilidad.Disponibilidad = registroDisponibilidad.Disponibilidad - 1;
             }
             else //egreso
             {
-                registroDisponibilidad.Disponibilidad=registroDisponibilidad.Disponibilidad+1;
+                registroDisponibilidad.Disponibilidad = registroDisponibilidad.Disponibilidad + 1;
             }
 
-            try 
-	        {	        
-		         //3° actualizamos el registro
+            try
+            {
+                //3° actualizamos el registro
                 disponibilidadPlayas.Update(registroDisponibilidad);
-	        }
-	        catch (Exception)
-	        {
-		        resultado.AgregarMensaje("Se ha producido un error de base de datos.");		       
-	        } 
-	
+            }
+            catch (Exception)
+            {
+                resultado.AgregarMensaje("Se ha producido un error de base de datos.");
+            }
+
             return resultado;
 
         }
 
 
-        public Resultado ActualizarDisponibilidadGeneralPlaya(int playa, int tipoVehiculo,int disponibilidad, int evento, DateTime fechaHora, int dia)
+        public Resultado ActualizarDisponibilidadGeneralPlaya(int playa, int tipoVehiculo, int disponibilidad, int evento, DateTime fechaHora, int dia)
         {
             Resultado resultado = new Resultado();
 
@@ -92,9 +94,9 @@ namespace ReglasDeNegocio
             //1° recuperamos el resgistro de la BD a actualizar
             DisponibilidadPlayas registroDisponibilidad = new DisponibilidadPlayas();
             registroDisponibilidad = disponibilidadPlayas.FindWhere(d => d.Servicio.PlayaDeEstacionamientoId == playa && d.Servicio.TipoVehiculoId == tipoVehiculo).First();
-            
+
             registroDisponibilidad.Disponibilidad = disponibilidad;
-            
+
             try
             {
                 //3° actualizamos el registro
@@ -120,7 +122,29 @@ namespace ReglasDeNegocio
         /// <returns></returns>
         public int GetDisponibilidadPlayaPorTipoVehiculo(int playa, int tipoVehiculo)
         {
-            return disponibilidadPlayas.FindWhere(d => d.Servicio.PlayaDeEstacionamientoId == playa && d.Servicio.TipoVehiculoId == tipoVehiculo).First().Disponibilidad; 
+            var servicio = GetServicioPorPlayaYTipoVehiculo(playa, tipoVehiculo);
+            return disponibilidadPlayas.FindWhere(d => d.ServicioId == servicio.Id).First().Disponibilidad;
+        }
+        /// <summary>
+        /// retorna el servicio asociado a la playa y tipovehiculo pasados por parametro
+        /// </summary>
+        /// <param name="playa"></param>
+        /// <param name="tipoVehiculo"></param>
+        /// <returns></returns>
+        public Servicio GetServicioPorPlayaYTipoVehiculo(int playa, int tipoVehiculo)
+        {
+            return servicioDAO.FindWhere(s => s.PlayaDeEstacionamientoId == playa && s.TipoVehiculoId == tipoVehiculo).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// retorna los servicios asociados a las playas y tipovehiculo pasados por parametro
+        /// </summary>
+        /// <param name="playa"></param>
+        /// <param name="tipoVehiculo"></param>
+        /// <returns></returns>
+        public IList<Servicio> GetServiciosPorPlayasYTipoVehiculo(int[] playas, int tipoVehiculo)
+        {
+            return servicioDAO.FindWhere(s => playas.Any(x => x == s.PlayaDeEstacionamientoId) && s.TipoVehiculoId == tipoVehiculo).ToList();
         }
 
         /// <summary>
@@ -135,15 +159,19 @@ namespace ReglasDeNegocio
             List<DisponibilidadPlayas> disponibilidades = new List<DisponibilidadPlayas>();
 
             //recupero las disponibilidades de cada playa
-            foreach (var item in playas)
-            {
-                DisponibilidadPlayas registroDisponibilidad = new DisponibilidadPlayas();
-                registroDisponibilidad = disponibilidadPlayas.FindWhere(d => d.Servicio.PlayaDeEstacionamientoId == item && d.Servicio.TipoVehiculoId == tipoVehiculo).First();
-                disponibilidades.Add(registroDisponibilidad);
-            }
+            //foreach (var item in playas)
+            //{
 
+            //    var servicio = GetServicioPorPlayaYTipoVehiculo(item, tipoVehiculo);
+            //    DisponibilidadPlayas registroDisponibilidad = new DisponibilidadPlayas();
+            //    registroDisponibilidad = disponibilidadPlayas.FindWhere(d => d.Servicio.Id == servicio.Id).First();
+            //    disponibilidades.Add(registroDisponibilidad);
+            //}
+
+            var servicios = GetServiciosPorPlayasYTipoVehiculo(playas, tipoVehiculo);
+            var lista = disponibilidadPlayas.FindWhere(d => servicios.Select(s => s.Id).Where(x => x == d.ServicioId).Count() > 0).ToList();
             //retorno una lista de disponibilidades oredenadas de mayor a menor
-            return OrdenarPorDisponibilidad(disponibilidades);
+            return OrdenarPorDisponibilidad(lista);
         }
         public List<DisponibilidadPlayas> GetDisponibilidadDePlayasPorTipoVehiculo(string idPlayas, int tipoVehiculo)
         {
@@ -155,7 +183,7 @@ namespace ReglasDeNegocio
         /// </summary>
         /// <param name="disponibilidades">listas de disponibilidades de playas</param>
         /// <returns></returns>
-        public List<DisponibilidadPlayas> OrdenarPorDisponibilidad( List<DisponibilidadPlayas> disponibilidades)
+        public List<DisponibilidadPlayas> OrdenarPorDisponibilidad(List<DisponibilidadPlayas> disponibilidades)
         {
             List<DisponibilidadPlayas> lista = disponibilidades;
             DisponibilidadPlayas t;
@@ -176,8 +204,8 @@ namespace ReglasDeNegocio
             lista.Reverse();
 
             return lista;
-            
+
         }
-        
+
     }
 }

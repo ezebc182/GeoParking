@@ -3,8 +3,8 @@
 <%@ Register Src="~/Mensajes/Confirmacion.ascx" TagName="confirmacion" TagPrefix="msjes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
-    <link href="bootstrapformhelpers/css/bootstrap-formhelpers.min.css" rel="stylesheet" />
+    <link href="js/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
+    <link href="js/bootstrapformhelpers/css/bootstrap-formhelpers.min.css" rel="stylesheet" />
     <link href="js/GoogleMapsAdministracionPlaya.js" rel="stylesheet" />
 
     <style>
@@ -16,9 +16,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
 
     <msjes:confirmacion runat="server" ID="msjeConfirmacion"></msjes:confirmacion>
-
-    <%-- Id playa en edicion o viendo --%>
-    <asp:HiddenField runat="server" ID="hfIdPlaya" />
 
     <%-- Modal Playa --%>
 
@@ -138,7 +135,7 @@
                                                         <div class="input-group">
                                                             <input class="form-control bfh-number" id="txtCapacidad" />
                                                             <div class="input-group-btn">
-                                                                <button id="btnAgregarServicio" type="button" class="btn btn-success">Agregar</button>
+                                                                <button id="btnAgregarServicio" type="button" class="btn btn-success" disabled>Agregar</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -168,59 +165,61 @@
                             <div class="tab-pane fade" id="direccion">
 
                                 <h4>Direcciones</h4>
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-4 pull-left">
-                                        <div class="form-group ">
-                                            <label for="txtBuscarCiudades" class="control-label ">Ciudad:</label>
-                                            <input id="txtBuscarCiudades" type="text" class="form-control autocompleteCiudad" />
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-8 col-md-8 col-sm-8">
-                                        <div class="col-lg-5 col-md-5 col-sm-5">
+                                <div id="divCargarNuevaDireccion">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 pull-left">
                                             <div class="form-group ">
-                                                <label for="txtCalle" class="control-label">Calle:</label>
-                                                <input id="txtCalle" class="form-control" type="text" />
+                                                <label for="txtBuscarCiudades" class="control-label ">Ciudad:</label>
+                                                <input id="txtBuscarCiudades" type="text" class="form-control autocompleteCiudad" />
                                             </div>
                                         </div>
 
-                                        <div class="col-lg-6 col-md-6 col-sm-6 ">
-                                            <div class="form-group ">
-                                                <label for="txtNumero" class="control-label">Número:</label>
-                                                <div class="controls">
-                                                    <div class="input-group">
-                                                        <input class="form-control" type="number" id="txtNumero" />
+                                        <div class="col-lg-8 col-md-8 col-sm-8">
+                                            <div class="col-lg-5 col-md-5 col-sm-5">
+                                                <div class="form-group ">
+                                                    <label for="txtCalle" class="control-label">Calle:</label>
+                                                    <input id="txtCalle" class="form-control" type="text" />
+                                                </div>
+                                            </div>
 
-                                                        <div class="input-group-btn">
-                                                            <button id="btnBuscarEnMapa" type="button" class="glyphicon glyphicon-map-marker btn btn-warning"
-                                                                onclick="codeAddress()">
-                                                            </button>
-                                                            <button id="btnAgregarDireccion" type="button"
-                                                                class="glyphicon glyphicon-plus btn btn-success">
-                                                            </button>
-                                                            <button id="btnAceptarEdicionDireccion" type="button"
-                                                                class="glyphicon glyphicon-ok btn btn-success" style="visibility: hidden;">
-                                                            </button>
-                                                            <button id="btnCancelarEdicionDireccion" type="button"
-                                                                class="glyphicon glyphicon-remove btn btn-danger" style="display: none;">
-                                                            </button>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 ">
+                                                <div class="form-group ">
+                                                    <label for="txtNumero" class="control-label">Número:</label>
+                                                    <div class="controls">
+                                                        <div class="input-group">
+                                                            <input class="form-control" type="number" id="txtNumero" />
+
+                                                            <div class="input-group-btn">
+                                                                <button id="btnBuscarEnMapa" type="button" class="glyphicon glyphicon-map-marker btn btn-warning"
+                                                                    onclick="codeAddress()">
+                                                                </button>
+                                                                <button id="btnAgregarDireccion" type="button"
+                                                                    class="glyphicon glyphicon-plus btn btn-success">
+                                                                </button>
+                                                                <button id="btnAceptarEdicionDireccion" type="button"
+                                                                    class="glyphicon glyphicon-ok btn btn-success" style="visibility: hidden;">
+                                                                </button>
+                                                                <button id="btnCancelarEdicionDireccion" type="button"
+                                                                    class="glyphicon glyphicon-remove btn btn-danger" style="display: none;">
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
 
                                     </div>
+                                    <div id="divMapa">
+                                        <input id="latitud" type="hidden" />
+                                        <input id="longitud" type="hidden" />
+                                        <div class="form-group">
+                                            <div id="pnlMapa">
+                                                <div id="map-canvas" style="height: 300px"></div>
+                                            </div>
 
-                                </div>
-                                <div id="divMapa">
-                                    <input id="latitud" type="hidden" />
-                                    <input id="longitud" type="hidden" />
-                                    <div class="form-group">
-                                        <div id="pnlMapa">
-                                            <div id="map-canvas" style="height: 300px"></div>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div>
@@ -261,10 +260,10 @@
             </div>
 
             <div class="form-group" id="busquedaPlayas">
-                <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-lg-6 col-md-6 col-sm-6" >
+                <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-lg-6 col-md-6 col-sm-6">
 
                     <div class="input-group">
-                        <input id="txtBuscarCiudad" class="form-control input-lg autocompleteCiudad" runat="server"
+                        <input id="txtBuscarCiudadPlayas" class="form-control input-lg autocompleteCiudad" runat="server"
                             placeholder="Ciudad" autofocus />
 
                         <div class="input-group-btn">
@@ -278,33 +277,23 @@
 
         <div id="pnlResultados" class="container-fluid" style="display: none;">
 
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    Resultados <span style="background-color: white; color: black;" class="badge" id="cantidadPlayas"></span>
-                </div>
+            <table id="tbPlayas" class="table table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Calle</th>
+                        <th>Número</th>
+                        <th>Ciudad</th>
+                        <th>Vehiculos</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tbPlayasBody">
+                </tbody>
 
-                <div class=" panel-body">
-                    <div id="resultadosBusqueda">
-                        <table id="tbPlayas" class="table table-hover table-responsive">
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Tipo</th>
-                                    <th>Calle</th>
-                                    <th>Número</th>
-                                    <th>Ciudad</th>
-                                    <th>Vehiculos</th>
-                                    <th>Opciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbPlayasBody">
-                            </tbody>
+            </table>
 
-                        </table>
-
-                    </div>
-                </div>
-            </div>
         </div>
 </asp:Content>
 
@@ -313,9 +302,9 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false"></script>
     <script src="js/bootstrapValidator.min.js"></script>
     <script src="js/autocompleteCiudades.js"></script>
-    <script src="bootstrap3-editable/js/bootstrap-editable.min.js"></script>
-    <script src="bootstrapformhelpers/js/bootstrap-formhelpers.js"></script>
-    <script src="js/jquery.dataTables.min.js"></script>
+    <script src="js/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="js/bootstrapformhelpers/js/bootstrap-formhelpers.js"></script>
+    <script src="js/DataTables-1.10.4/js/jquery.dataTables.min.js"></script>
     <script src="js/GoogleMapsAdministracionPlaya.js"></script>
     <script src="js/administracionPlayas.js"></script>
     <script src="js/entidades.js"></script>
@@ -325,14 +314,15 @@
         $(document).ready(new function () {
 
             $('[id*=btnBuscarPlayas]').on("click", function () {
-                var ciudad = $('[id*=txtBuscarCiudades]').val();
+                var ciudad = $('[id*=txtBuscarCiudadPlayas]').val();
                 // var nombre = $('[id*=txtFiltroNombre]').val();
                 playas.buscar(ciudad);
             });
 
             $('[id*=btnAgregarServicio]').on("click", function () {
 
-                var servicioNuevo = new servicio(0, 0, $('[id*=ddlTipoVehiculo]').val(), $('[id*=txtCapacidad]').val(), {});
+                var capacidad = new capacidad(0, $('[id*=txtCapacidad]').val());
+                var servicioNuevo = new servicio(0, 0, $('[id*=ddlTipoVehiculo]').val(), capacidad, {});
 
                 servicios.agregar(servicioNuevo);
             });
@@ -352,12 +342,7 @@
             });
 
             $('[id*=btnNuevaPlaya]').on("click", function () {
-                playas.iniciar();
-                $('#modificarPlaya').modal({
-                    backdrop: false,
-                    keyboard: false,
-                    show: true
-                });
+                playas.registrar();
             });
 
             $('#tabDireccion').on("click", function () {
