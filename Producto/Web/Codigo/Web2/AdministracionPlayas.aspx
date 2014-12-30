@@ -138,7 +138,7 @@
                                                         <div class="input-group">
                                                             <input class="form-control bfh-number" id="txtCapacidad" />
                                                             <div class="input-group-btn">
-                                                                <button id="btnAgregarServicio" type="button" class="btn btn-success disabled">Agregar</button>
+                                                                <button id="btnAgregarServicio" type="button" class="btn btn-success">Agregar</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -171,8 +171,8 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-4 pull-left">
                                         <div class="form-group ">
-                                            <label for="txtBuscar" class="control-label ">Ciudad:</label>
-                                            <input id="txtBuscar" type="text" class="form-control autocompleteCiudad" />
+                                            <label for="txtBuscarCiudades" class="control-label ">Ciudad:</label>
+                                            <input id="txtBuscarCiudades" type="text" class="form-control autocompleteCiudad" />
                                         </div>
                                     </div>
 
@@ -264,7 +264,7 @@
                 <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-lg-6 col-md-6 col-sm-6" >
 
                     <div class="input-group">
-                        <input id="txtBuscarCiudades" class="form-control input-lg autocompleteCiudad" runat="server"
+                        <input id="txtBuscarCiudad" class="form-control input-lg autocompleteCiudad" runat="server"
                             placeholder="Ciudad" autofocus />
 
                         <div class="input-group-btn">

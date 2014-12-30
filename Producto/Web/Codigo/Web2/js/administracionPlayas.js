@@ -221,8 +221,8 @@ var direcciones = {
     },
     limpiar: function () {
         var me = this;
-        $('[id*=txtBuscar]').val("");
-        $('[id*=txtBuscar]').prop('disabled', false);
+        $('[id*=txtBuscarCiudades]').val("");
+        $('[id*=txtBuscarCiudades]').prop('disabled', false);
         $('[id*=txtCalle]').val("");
         $('[id*=txtNumero]').val("");
 
@@ -244,7 +244,7 @@ var direcciones = {
         $tr.append('<td><a id="btnEditarDireccion" class="glyphicon glyphicon-edit"></a>   <a id="btnQuitarDireccion" class="glyphicon glyphicon-remove"></a></td>');
 
         $tableBody.append($tr);
-        $('[id*=txtBuscar]').prop('disabled', true);
+        $('[id*=txtBuscarCiudades]').prop('disabled', true);
 
         $('[id*=btnQuitarDireccion]').click(function () {
             me.eliminar($tr);
@@ -257,10 +257,10 @@ var direcciones = {
 
     },
     cargarCampos: function (direccion) {
-        $('[id*=txtBuscar]').val(direccion.Ciudad);
+        $('[id*=txtBuscarCiudades]').val(direccion.Ciudad);
         $('[id*=txtCalle]').first().val(direccion.Calle);
         $('[id*=txtNumero]').first().val(direccion.Numero);
-        $('[id*=txtBuscar]').first().val(direccion.Ciudad);
+        $('[id*=txtBuscarCiudades]').first().val(direccion.Ciudad);
         $('[id*=latitud]').first().val(direccion.Latitud);
         $('[id*=longitud]').first().val(direccion.Longitud);
     },
@@ -270,8 +270,8 @@ var direcciones = {
         var cantidad = $('[id*=tbDireccionesBody] tr').length;
 
         if (cantidad == 1) {
-            $('[id*=txtBuscar]').prop('disabled', false);
-            $('[id*=txtBuscar]').focus();
+            $('[id*=txtBuscarCiudades]').prop('disabled', false);
+            $('[id*=txtBuscarCiudades]').focus();
         }
         else {
             $('[id*=txtCalle]').focus();
@@ -292,8 +292,8 @@ var direcciones = {
         $tr.remove();
         var cantidad = $('[id*=tbDireccionesBody] tr').length;
         if (cantidad == 0) {
-            $('[id*=txtBuscar]').val("");
-            $('[id*=txtBuscar]').prop('disabled', false);
+            $('[id*=txtBuscarCiudades]').val("");
+            $('[id*=txtBuscarCiudades]').prop('disabled', false);
         }
     },
     lista: function () {
