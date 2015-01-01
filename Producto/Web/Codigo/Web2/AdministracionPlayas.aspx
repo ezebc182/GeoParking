@@ -6,7 +6,7 @@
     <link href="js/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
     <link href="js/bootstrapformhelpers/css/bootstrap-formhelpers.min.css" rel="stylesheet" />
     <link href="js/GoogleMapsAdministracionPlaya.js" rel="stylesheet" />
-
+    <link href="js/DataTables-1.10.4/css/jquery.dataTables.min.css" rel="stylesheet" />
     <style>
         .pac-container {
             z-index: 1040;
@@ -24,7 +24,7 @@
             <div class=" modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h1 id="Titulo" class="modal-title">Registrar/Modificar playa</h1>
+                    <h1 class="modal-title" style="text-align:center;">Registrar/Modificar playa</h1>
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-danger hidden" id="divAlertError">
@@ -117,25 +117,27 @@
                                     </div>
 
                                     <%-- Servicios --%>
-                                    <asp:HiddenField ID="hfTiempos" runat="server" />
-                                    <h4>Servicios</h4>
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-6 pull-left">
+                                    <div id="divAgregarServicio">
+                                        <asp:HiddenField ID="hfTiempos" runat="server" />
+                                        <h4>Servicios</h4>
+                                        <div class="row">
                                             <div class="col-lg-6 col-md-6 col-sm-6 pull-left">
-                                                <div class="form-group ">
-                                                    <label for="ddlTipoVehiculo" class="control-label">Tipo Vehiculo:</label>
-                                                    <asp:DropDownList runat="server" ID="ddlTipoVehiculo" CssClass="form-control" />
+                                                <div class="col-lg-6 col-md-6 col-sm-6 pull-left">
+                                                    <div class="form-group ">
+                                                        <label for="ddlTipoVehiculo" class="control-label">Tipo Vehiculo:</label>
+                                                        <asp:DropDownList runat="server" ID="ddlTipoVehiculo" CssClass="form-control" />
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-lg-6 col-md-6 col-sm-6 ">
-                                                <div class="form-group ">
-                                                    <label for="txtCapacidad" class="control-label">Capacidad:</label>
-                                                    <div class="controls">
-                                                        <div class="input-group">
-                                                            <input class="form-control bfh-number" id="txtCapacidad" />
-                                                            <div class="input-group-btn">
-                                                                <button id="btnAgregarServicio" type="button" class="btn btn-success" disabled>Agregar</button>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 ">
+                                                    <div class="form-group ">
+                                                        <label for="txtCapacidad" class="control-label">Capacidad:</label>
+                                                        <div class="controls">
+                                                            <div class="input-group">
+                                                                <input class="form-control bfh-number" id="txtCapacidad" />
+                                                                <div class="input-group-btn">
+                                                                    <button id="btnAgregarServicio" type="button" class="btn btn-success" disabled>Agregar</button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -243,8 +245,9 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button id="btnCancelar" type="button" class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                        <button id="btnGuardar" type="button" class="btn btn-success btn-lg">Guardar</button>
+                        <button id="btnCancelarPlaya" type="button" class="btn btn-lg" data-dismiss="modal">Cancelar</button>
+                        <button id="btnCerrarPlaya" type="button" class="btn btn-lg" data-dismiss="modal">Cerrar</button>
+                        <button id="btnGuardarPlaya" type="button" class="btn btn-success btn-lg">Guardar</button>
                     </div>
                 </div>
             </div>
@@ -256,7 +259,7 @@
     <div class="container-fluid">
         <div class="jumbotron" style="margin-top: 5%;">
             <div class="page-header">
-                <h2>Administración de playas</h2>
+                <h2 style="text-align:center;">Administración de playas</h2>
             </div>
 
             <div class="form-group" id="busquedaPlayas">
@@ -264,7 +267,7 @@
 
                     <div class="input-group">
                         <input id="txtBuscarCiudadPlayas" class="form-control input-lg autocompleteCiudad" runat="server"
-                            placeholder="Ciudad" autofocus />
+                            placeholder="Ingrese la ciudad"/>
 
                         <div class="input-group-btn">
                             <button class="btn-primary btn btn-lg glyphicon glyphicon-search" id="btnBuscarPlayas" type="button"></button>
@@ -312,6 +315,12 @@
 
 
         $(document).ready(new function () {
+            $('[id*=txtBuscarCiudadPlayas]').focus();
+
+            $('[id*=txtBuscarCiudadPlayas]').keypress(function (e) {
+                if (e.keyCode == 13)
+                    $('[id*=btnBuscarPlayas]').click();
+            });
 
             $('[id*=btnBuscarPlayas]').on("click", function () {
                 var ciudad = $('[id*=txtBuscarCiudadPlayas]').val();
@@ -319,45 +328,9 @@
                 playas.buscar(ciudad);
             });
 
-            $('[id*=btnAgregarServicio]').on("click", function () {
-
-                var capacidad = new capacidad(0, $('[id*=txtCapacidad]').val());
-                var servicioNuevo = new servicio(0, 0, $('[id*=ddlTipoVehiculo]').val(), capacidad, {});
-
-                servicios.agregar(servicioNuevo);
-            });
-            $('[id*=btnAgregarDireccion]').on("click", function () {
-                var calle = $('[id*=txtCalle]').first().val();
-                var numero = $('[id*=txtNumero]').first().val();
-                var ciudad = $('[id*=txtBuscar]').first().val();
-                var latitud = $('[id*=latitud]').first().val();
-                var longitud = $('[id*=longitud]').first().val();
-                var direccionNueva = new direccion(0, calle, numero, ciudad, latitud, longitud);
-
-                direcciones.agregar(direccionNueva);
-            });
-
-            $('[id*=btnGuardar]').on("click", function () {
-                playas.guardar();
-            });
-
             $('[id*=btnNuevaPlaya]').on("click", function () {
                 playas.registrar();
             });
-
-            $('#tabDireccion').on("click", function () {
-                direcciones.iniciar();
-                setTimeout(function () { GoogleMaps.resize(); }, 200);
-            });
-
-            $('[id*=ddlTipoVehiculo]').on("change", function (e) {
-                var valor = $('[id*=ddlTipoVehiculo]').find(':selected').val();
-                if (valor > 0) {
-                    $('[id*=btnAgregarServicio]').prop("disabled", false);
-                }
-                else $('[id*=btnAgregarServicio]').prop("disabled", true);
-            });
-
         });
 
     </script>

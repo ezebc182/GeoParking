@@ -1,7 +1,19 @@
 ﻿var playaCargada;
 
 var playas = {
+    habilitarEdicion: true,
     iniciar: function () {
+        var me = this;
+        $('#tabDireccion').on("click", function () {
+            direcciones.iniciar();
+            setTimeout(function () { GoogleMaps.resize(); }, 200);
+        });
+
+        $('[id*=btnGuardar]').on("click", function () {
+            me.guardar();
+        });
+
+        servicios.iniciar();
         $('#modificarPlaya').modal({
             backdrop: false,
             keyboard: false,
@@ -65,7 +77,7 @@ var playas = {
         });
 
         $('[id*=btnEliminarPlaya]').click(function () {
-            me.eliminar(playa);
+            Alerta_openModalConfirmacion("¿Esta seguro que desea eliminar la playa "+ playa.Nombre + "?", "Eliminar Playa", me.eliminar(playa));
         });
     },
     limpiar: function () {
@@ -98,43 +110,72 @@ var playas = {
     },
     registrar: function () {
         this.limpiar();
+        this.habilitarEdicion = true;
+        $('[id*=modificarPlaya] .modal-title').text('Registrar Playa');
         $('[id*=txtNombre]').prop("disabled", false);
         $('[id*=txtMail]').prop("disabled", false);
         $('[id*=txtTelefono]').prop("disabled", false);
         $('[id*=ddlTipoPlaya]').prop("disabled", false);
-        $('[id*=txtDesde]').prop("disabled", false);
-        $('[id*=txtHasta]').prop("disabled", false);
+        $('[id*=txtDesde] input').prop("disabled", false);
+        $('[id*=txtHasta] input').prop("disabled", false);
+        $('[id*=txtDesde] input').prop("readonly", true);
+        $('[id*=txtHasta] input').prop("readonly", true);
+        $('[id*=txtDesde] .bfh-timepicker-popover').removeClass('hidden');
+        $('[id*=txtHasta] .bfh-timepicker-popover').removeClass('hidden');
         $('[id*=ddlDias]').prop("disabled", false);
+        $('[id*=btnCerrarPlaya]').hide();
+        $('[id*=btnCancelarPlaya]').show();
+        $('[id*=btnGuardarPlaya]').show();
+
         direcciones.registrar();
         servicios.registrar();
         this.iniciar();
     },
     ver: function (playa) {
         this.limpiar();
+        this.habilitarEdicion = false;
         this.cargar(playa);
+        $('[id*=modificarPlaya] .modal-title').text('Ver Playa');
 
         $('[id*=txtNombre]').prop("disabled", true);
         $('[id*=txtMail]').prop("disabled", true);
         $('[id*=txtTelefono]').prop("disabled", true);
         $('[id*=ddlTipoPlaya]').prop("disabled", true);
-        $('[id*=txtDesde]').prop("disabled", true);
-        $('[id*=txtHasta]').prop("disabled", true);
+        $('[id*=txtDesde] input').prop("disabled", true);
+        $('[id*=txtHasta] input').prop("disabled", true);
+        $('[id*=txtDesde] input').prop("readonly", false);
+        $('[id*=txtHasta] input').prop("readonly", false);
+        $('[id*=txtDesde] .bfh-timepicker-popover').addClass('hidden');
+        $('[id*=txtHasta] .bfh-timepicker-popover').addClass('hidden');
         $('[id*=ddlDias]').prop("disabled", true);
+        $('[id*=btnCerrarPlaya]').show();
+        $('[id*=btnCancelarPlaya]').hide();
+        $('[id*=btnGuardarPlaya]').hide();
+
         servicios.ver();
         direcciones.ver();
         this.iniciar();
     },
     editar: function (playa) {
         this.limpiar();
+        this.habilitarEdicion = true;
         this.cargar(playa);
-
+        $('[id*=modificarPlaya] .modal-title').text('Editar Playa');
         $('[id*=txtNombre]').prop("disabled", false);
         $('[id*=txtMail]').prop("disabled", false);
         $('[id*=txtTelefono]').prop("disabled", false);
         $('[id*=ddlTipoPlaya]').prop("disabled", false);
-        $('[id*=txtDesde]').prop("disabled", false);
-        $('[id*=txtHasta]').prop("disabled", false);
+        $('[id*=txtDesde] .input-group input').prop("disabled", false);
+        $('[id*=txtHasta] .input-group input').prop("disabled", false);
+        $('[id*=txtDesde] input-group input').prop("readonly", true);
+        $('[id*=txtHasta] input-group input').prop("readonly", true);
+        $('[id*=txtDesde] .bfh-timepicker-popover').removeClass('hidden');
+        $('[id*=txtHasta] .bfh-timepicker-popover').removeClass('hidden');
         $('[id*=ddlDias]').prop("disabled", false);
+        $('[id*=btnCerrarPlaya]').hide();
+        $('[id*=btnCancelarPlaya]').show();
+        $('[id*=btnGuardarPlaya]').show();
+
         direcciones.editar();
         servicios.editar();
         this.iniciar();
@@ -169,6 +210,26 @@ var playas = {
                 var errores = result.responseText.substr('0', result.responseText.indexOf('{'));
                 $('#lblMensajeError').html(errores);
                 $('#lblMensajeError').parent().removeClass('hidden');
+            }
+        });
+
+    },
+    eliminar: function (playa) {
+        $.ajax({
+            type: "POST",
+            url: "AdministracionPlayas.aspx/EliminarPlaya",
+            data: "{'id': '" + playa.Id + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                var resultado = response.d;
+                if (resultado == "true") {
+                    Alerta_openModalInfo("La playa se ha eliminado con exito!", "Playa Eliminada");
+                }
+            },
+            error: function (result) {
+                var errores = result.responseText.substr('0', result.responseText.indexOf('{'));
+                Alerta_openModalInfo("errores", "Eliminar Playa");
             }
         });
 
@@ -213,7 +274,13 @@ var servicios = {
         $('[id*=txtCapacidad]').val('');
         $('[id*=ddlTipoVehiculo] [value=0]').prop("selected", true);
 
-        $('[id*=Editable]').editable({ mode: 'inline' });
+        if (playas.habilitarEdicion) {
+            $('[id*=Editable]').editable({
+                mode: 'inline',
+                disabled: false
+            });
+        }
+
         $('[id*=btnQuitarServicio]').click(function () { me.eliminar(servicio); });
     },
     eliminar: function (servicio) {
@@ -250,40 +317,61 @@ var servicios = {
             $tr.append('<th idTiempo="' + tiempo.Id + '"> $ x ' + tiempo.Nombre + '</th>');
         });
 
-
         $tableHead.append($tr);
 
+        $('[id*=txtCapacidad]').val('');
+        $('[id*=ddlTipoVehiculo] [value=0]').prop("selected", true);
+
+        //eventos
+        $('[id*=btnAgregarServicio]').on("click", function () {
+
+            var capacidadNueva = new capacidad(0, $('[id*=txtCapacidad]').val());
+            var servicioNuevo = new servicio(0, 0, $('[id*=ddlTipoVehiculo]').val(), capacidadNueva, {});
+
+            servicios.agregar(servicioNuevo);
+        });
+        $('[id*=ddlTipoVehiculo]').on("change", function (e) {
+            var valor = $('[id*=ddlTipoVehiculo]').find(':selected').val();
+            if (valor > 0) {
+                $('[id*=btnAgregarServicio]').prop("disabled", false);
+            }
+            else $('[id*=btnAgregarServicio]').prop("disabled", true);
+        });
+
+    },
+    cargar: function (servicios) {
+        me = this;
         if (servicios !== undefined) {
             //se esta editando una playa, cargar los servicios en la tabla
             $.each(servicios, function () {
                 me.agregar(this);
             });
         }
-
-        $('[id*=txtCapacidad]').val('');
-        $('[id*=ddlTipoVehiculo] [value=0]').prop("selected", true);
-    },
-    cargar: function (servicios) {
-        this.iniciar(servicios);
     },
     registrar: function () {
+        $('[id*=divAgregarServicio]').show();
+        $('[id*=btnQuitarServicio]').show()
         $('[id*=Editable]').editable({
             mode: 'inline',
-            disabled: 'false'
+            disabled: false
         });
 
     },
     ver: function () {
+        $('[id*=divAgregarServicio]').hide();
+        $('[id*=btnQuitarServicio]').hide()
         $('[id*=Editable]').editable({
             mode: 'inline',
-            disabled: 'true'
+            disabled: true
         });
 
     },
     editar: function () {
+        $('[id*=divAgregarServicio]').show();
+        $('[id*=btnQuitarServicio]').show()
         $('[id*=Editable]').editable({
             mode: 'inline',
-            disabled: 'false'
+            disabled: false
         });
     },
     lista: function () {
@@ -316,14 +404,21 @@ var servicios = {
 var direcciones = {
     //parecido a servicios
     iniciar: function (direcciones) {
+        var me = this;
+
         GoogleMaps.initialize();
 
-        var me = this;
-        if (direcciones !== undefined) {
-            $.each(direcciones, function (i, direccion) {
-                me.agregar(direccion);
-            });
-        }
+        $('[id*=btnAgregarDireccion]').on("click", function () {
+            var calle = $('[id*=txtCalle]').first().val();
+            var numero = $('[id*=txtNumero]').first().val();
+            var ciudad = $('[id*=txtBuscar]').first().val();
+            var latitud = $('[id*=latitud]').first().val();
+            var longitud = $('[id*=longitud]').first().val();
+            var direccionNueva = new direccion(0, calle, numero, ciudad, latitud, longitud);
+
+            me.agregar(direccionNueva);
+        });
+
     },
     limpiar: function () {
         var me = this;
@@ -349,7 +444,12 @@ var direcciones = {
         $('[id*=tbDirecciones] td [id*=btn]').show();
     },
     cargar: function (direcciones) {
-        this.iniciar(direcciones);
+        me = this;
+        if (direcciones !== undefined) {
+            $.each(direcciones, function (i, direccion) {
+                me.agregar(direccion);
+            });
+        }
     },
     agregar: function (direccion) {
         var me = this;

@@ -29,6 +29,24 @@ namespace Web2
         }
 
         [WebMethod]
+        public static string EliminarPlaya(int id)
+        {
+            var resultado = gestor.EliminarPlaya(id);
+
+            if (resultado.Ok)
+            {
+                return "true";
+            }
+            HttpResponse Response = HttpContext.Current.Response;
+
+            Response.Clear();
+            Response.StatusCode = 500;
+            Response.Write(resultado.MensajesString());
+
+            return "false";
+        }
+
+        [WebMethod]
         public static string BuscarPlayas(string ciudad)
         {
             var playas = gestor.BuscarPlayasPorCiudadJSON(ciudad);
