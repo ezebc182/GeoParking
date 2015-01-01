@@ -19,7 +19,7 @@
     <script src="js/controllerBusquedaPlayaAngular.js"></script>        
        
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
     <div id="contenidoBusquedaPlaya" ng-app="myApp" ng-controller="MyCtrl">        
         <div class="formulario" data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
             data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">

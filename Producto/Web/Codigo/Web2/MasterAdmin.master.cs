@@ -27,6 +27,10 @@ namespace Web2
                 {
                     lblLogin.Text = SessionUsuario.NombreUsuario;
                     rolId = SessionUsuario.RolId;
+                    if (rolId == 3)
+                    {
+                        li_Administracion.Visible = true;
+                    }
                     li_Ingresar.Visible = false;
                     li_Login.Visible = true;
                 }
@@ -56,14 +60,17 @@ namespace Web2
 
         protected void btnCerrarSesion_Click(object sender, EventArgs e)
         {
-            SessionUsuario = null;
             rolId = 0;
-            Session.Abandon();
+            //Session.Abandon();
+            if (Request.Cookies["SessionUsuario"] != null)
+            {
+                Response.Cookies["SessionUsuario"].Expires = DateTime.Now.AddDays(-1);
+            }
 
             string[] segmentosURL = HttpContext.Current.Request.Url.Segments;
             string pagina = segmentosURL[segmentosURL.Length - 1];
 
-            if (pagina == "Playa.aspx" || pagina == "AdministracionUsuarios.aspx" || pagina == "Estadisticas.aspx")
+            if (pagina == "AdministracionPlayas.aspx" || pagina == "AdministracionUsuarios.aspx" || pagina == "Estadisticas.aspx")
             {
                 Response.Redirect("Index.aspx");
             }
@@ -114,6 +121,7 @@ namespace Web2
                 if (Request.Cookies["SessionUsuario"] != null)
                 {
                     Usuario sesion = new Usuario();
+                    sesion.RolId = Int32.Parse(Request.Cookies["SessionUsuario"]["Rol"]);
                     sesion.NombreUsuario = Request.Cookies["SessionUsuario"]["NombreUsuario"];
                     sesion.Contraseña = Request.Cookies["SessionUsuario"]["Contraseña"];
                     return sesion;

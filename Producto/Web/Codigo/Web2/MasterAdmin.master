@@ -64,7 +64,7 @@
                                 <asp:Label ID="lblLogin" runat="server"></asp:Label></strong> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="#"><i class="fa fa-fw fa-user"></i>Modificar Perfil</a>
+                                    <a href="#"><i class="fa fa-fw fa-gear"></i>Modificar Datos</a>
                                 </li>
 <%--                                <li>
                                     <a href="#"><i class="fa fa-fw fa-envelope"></i>Inbox</a>
@@ -74,7 +74,7 @@
                                 </li>--%>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="#"><i class="fa fa-fw fa-power-off"></i>Cerrar Sesión</a>
+                                    <a href="# " runat="server" onserverclick="btnCerrarSesion_Click"><i class="fa fa-fw fa-power-off"></i>Cerrar Sesión</a>
                                 </li>
                             </ul>
                         </li>
@@ -322,14 +322,6 @@
                         <asp:ContentPlaceHolder ID="Main" runat="server">
                         </asp:ContentPlaceHolder>
 
-                    </div>
-                    <!-- /.container-fluid -->
-
-                </div>
-                <!-- /#page-wrapper -->
-
-            </div>
-
 
 
             <!-- start: JavaScript-->
@@ -344,7 +336,75 @@
             <%-- Content para poner el codigo js desde las paginas e importar los scripts --%>
             <asp:ContentPlaceHolder ID="ScriptContent" runat="server">
             </asp:ContentPlaceHolder>
+                        </div>
+                <!-- /#page-wrapper -->
         </div>
     </form>
 </body>
 </html>
+<script type="text/javascript">
+    var checker = document.getElementById('chAceptar');
+    var sendbtn = document.getElementById('btnRegistrar');
+    // when unchecked or checked, run the function
+    checker.onchange = function () {
+        if (this.checked) {
+            sendbtn.disabled = false;
+        } else {
+            sendbtn.disabled = true;
+        }
+
+    }
+
+    $(document).ready(function () {
+        $(".formulario").bootstrapValidator();
+    });
+
+    var pageMgr = Sys.WebForms.PageRequestManager.getInstance();
+    pageMgr.add_endRequest(function (e) {
+        $('#txtContraseñaLogin').val($('#pass').val());
+        $('#txtUsuarioLogin').on('input', function () {
+            $("#divUsuarioLogin").attr("class", "form-group");
+            $("#iconUsuarioLogin").attr("style", "display:none");
+            $("#lblUsuarioLogin").attr("style", "display:none");
+            $("#divContraseñaLogin").attr("class", "form-group");
+            $("#iconContraseñaLogin").attr("style", "display:none");
+            $("#lblContraseñaLogin").attr("style", "display:none");
+        });
+        $('#txtContraseñaLogin').on('input', function () {
+            $("#divContraseñaLogin").attr("class", "form-group");
+            $("#iconContraseñaLogin").attr("style", "display:none");
+            $("#lblContraseñaLogin").attr("style", "display:none");
+        });
+        var checker = document.getElementById('chAceptar');
+        var sendbtn = document.getElementById('btnRegistrar');
+        // when unchecked or checked, run the function
+        checker.onchange = function () {
+            if (this.checked) {
+                sendbtn.disabled = false;
+            } else {
+                sendbtn.disabled = true;
+            }
+
+        }
+        $(".formulario").bootstrapValidator();
+        if ($("#hfregistro").val() == "true") {
+            $('#registrar').modal('hide');
+        }
+    });
+
+    $('#login').on('shown.bs.modal', function () {
+        $("#txtUsuarioLogin").focus();
+    });
+
+    $('#login').on('hidden.bs.modal', function () {
+        $(".formulario").bootstrapValidator('resetForm', true);
+        $("#divUsuarioLogin").attr("class", "form-group");
+        $("#iconUsuarioLogin").attr("style", "display:none");
+        $("#lblUsuarioLogin").attr("style", "display:none");
+        $("#divContraseñaLogin").attr("class", "form-group");
+        $("#iconContraseñaLogin").attr("style", "display:none");
+        $("#lblContraseñaLogin").attr("style", "display:none");
+        $(".cleanLogin").val("");
+
+    });
+</script>

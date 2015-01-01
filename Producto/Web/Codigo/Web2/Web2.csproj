@@ -209,6 +209,7 @@
     <Content Include="img\index\top-slider-pagenate.png" />
     <Content Include="img\marcadorParking2.png" />
     <Content Include="js\administracionPlayas.js" />
+    <Content Include="js\administracionUsuarios.js" />
     <Content Include="js\autocompleteCiudades.js" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
@@ -304,6 +305,7 @@
     <Compile Include="Mensajes\Info.ascx.cs">
       <DependentUpon>Info.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="MasterUsuario.Master.designer.cs">
       <DependentUpon>MasterUsuario.Master</DependentUpon>
     </Compile>

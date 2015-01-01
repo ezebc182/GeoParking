@@ -62,14 +62,14 @@
                         <li><a href="../index.aspx#gallery">Galeria</a></li>
                         <li><a href="../index.aspx#about">Equipo</a></li>
                         <li><a href="../index.aspx#contact">Contacto</a></li>
-                        <li id="li_Administracion" runat="server" visible="false"><a href="#">Administracion</a></li>
+                        <li id="li_Administracion" runat="server" visible="false"><a href="../AdministracionPlayas.aspx">Administracion</a></li>
                         <li id="li_Ingresar" runat="server"><a data-toggle="modal" href="#login">Ingresar</a></li>
                         <li id="li_Login" runat="server" class="dropdown" visible="false">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <strong>
                                         <asp:Label ID="lblLogin" runat="server"></asp:Label></strong> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="#"><i class="fa fa-fw fa-user"></i>Modificar Perfil</a>
+                                    <a href="../DatosPersonales.aspx"><i class="fa fa-fw fa-gear"></i>Modificar Datos</a>
                                 </li>
                                 <%--<li>
                                     <a href="#"><i class="fa fa-fw fa-envelope"></i>Inbox</a>
@@ -79,7 +79,7 @@
                                 </li>--%>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="#"><i class="fa fa-fw fa-power-off"></i>Cerrar Sesión</a>
+                                    <a id="A1" href="# " runat="server" onserverclick="btnCerrarSesion_Click"><i class="fa fa-fw fa-power-off"></i>Cerrar Sesión</a>
                                 </li>
                             </ul>
                         </li>
