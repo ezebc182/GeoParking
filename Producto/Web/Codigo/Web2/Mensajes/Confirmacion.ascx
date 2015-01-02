@@ -5,10 +5,10 @@
         <div class="modal-content">
             <div class="modal-header  alert alert-warning">
                 <a class="close" data-dismiss="MensajeModalConfirmacion">×</a>
-                <p id="lblTitulo"></p>
+                <p id="lblTituloConfirmacion"></p>
             </div>
             <div class="modal-body">
-                <p id="lblMensajeModal"></p>
+                <p id="lblMensajeModalConfirmacion"></p>
             </div>
             <div class="modal-footer">
                 <button type="button" id="btnConfirmacionModalSi" class="btn btn-info" >Si</button>
@@ -25,11 +25,15 @@
         $('#MensajeModalConfirmacion').modal('show');
     }
     
-    function Alerta_openModalConfirmacion(mensaje, titulo, funcionSi) {
+    function Alerta_openModalConfirmacion(mensajeConfirmacion, tituloConfirmacion, funcionSi) {
         $('#MensajeModalConfirmacion').modal('show');
-        $('[id*=lblTitulo]').html(titulo);
-        $('[id*=lblMensajeModal]').html(mensaje);
-        $('[id*=btnConfirmacionModalSi]').on("click", function () { funcionSi(); Alerta_cerrarModalConfirmacion() });
+        $('[id*=lblTituloConfirmacion]').html(tituloConfirmacion);
+        $('[id*=lblMensajeModalConfirmacion]').html(mensajeConfirmacion);
+        $('[id*=btnConfirmacionModalSi]').on("click", function ()
+        {
+            Alerta_cerrarModalConfirmacion();
+            funcionSi();
+        });
         $('[id*=btnConfirmacionModalNo]').on("click", Alerta_cerrarModalConfirmacion);
     }
 

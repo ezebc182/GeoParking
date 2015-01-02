@@ -67,7 +67,7 @@ namespace Web2
             HttpResponse Response = HttpContext.Current.Response;
 
             Response.Clear();
-            Response.StatusCode = 500;
+            Response.StatusCode = 200;
             Response.Write(resultado.MensajesString());
 
             return "false";

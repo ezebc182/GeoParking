@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Info.ascx.cs" Inherits="SIRAD.Web2.Mensajes.InfoAlert" %>
 
 
-<div class="alert alert-info" runat="server" id="Alert">
+<div class="alert alert-info" id="AlertaInfo" style="display: none;">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <span runat="server" id="lblMensaje"></span>
 </div>
@@ -30,11 +30,25 @@
 
     }
 
-    function Alerta_openModalInfo(mensaje, titulo) {
-        $('#msjInfo_lblMensajeModal').text(mensaje);
-        $('#msjInfo_lblTitulo').text(titulo);
+    function Alerta_openModalInfo(mensajeInfo, tituloInfo, mostrarAlertaInfo) {
+        $('#msjeInfo_lblMensaje').text(mensajeInfo);
+        $('#msjeInfo_lblMensajeModal').text(mensajeInfo);
+        $('#msjeInfo_lblTitulo').text(tituloInfo);
         $('#MensajeModalInfo').modal('show');
 
+        if (mostrarAlertaInfo) {
+            $('[id*=AlertaInfo]').show();
+        }
+    }
 
+    function Alerta_cerrarModalInfo() {
+        $('#msjeInfo_lblMensaje').text("");
+        $('#msjeInfo_lblMensajeModal').text("");
+        $('#msjeInfo_lblTitulo').text("");
+        $('#MensajeModalInfo').modal('hide');
+
+        if (mostrarAlerta) {
+            $('[id*=AlertaInfo]').hide();
+        }
     }
 </script>

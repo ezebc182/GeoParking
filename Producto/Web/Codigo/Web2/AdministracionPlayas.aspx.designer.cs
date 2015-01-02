@@ -13,15 +13,6 @@ namespace Web2 {
     public partial class AdministracionPlayas {
         
         /// <summary>
-        /// Control msjeConfirmacion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::SIRAD.Web2.Mensajes.Confirmacion msjeConfirmacion;
-        
-        /// <summary>
         /// Control divTabs.
         /// </summary>
         /// <remarks>

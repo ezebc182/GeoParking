@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Error.ascx.cs" Inherits="SIRAD.Web2.Mensajes.ErrorAlert" %>
 
-<div class="alert alert-danger" runat="server" id="Alert">
+<div class="alert alert-danger " id="AlertaError" style="display:none;">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <span runat="server" id="lblMensaje"></span>
 </div>
@@ -28,9 +28,22 @@
     function Alerta_openModalError() {
         $('#MensajeModalError').modal('show');
     }
-    function Alerta_openModalError(mensaje, titulo) {
-        $('#msjError_lblMensajeModal').text(mensaje);
-        $('#msjError_lblTitulo').text(titulo);
+    function Alerta_openModalError(mensaje, titulo, mostrarAlerta) {
+        $('#msjeError_lblMensajeModal').text(mensaje);
+        $('#msjeError_lblTitulo').text(titulo);
         $('#MensajeModalError').modal('show');
+
+        if (mostrarAlerta) {
+            $('[id*=AlertaError]').show();
+        }
+    }
+    function Alerta_cerrarModalError() {
+        $('#msjeError_lblMensajeModal').text("");
+        $('#msjeError_lblTitulo').text("");
+        $('#MensajeModalError').modal('hide');
+
+        if (mostrarAlerta) {
+            $('[id*=AlertaError]').hide();
+        }
     }
 </script>

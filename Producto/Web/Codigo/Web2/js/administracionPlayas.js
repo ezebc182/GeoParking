@@ -77,7 +77,10 @@ var playas = {
         });
 
         $('[id*=btnEliminarPlaya]').click(function () {
-            Alerta_openModalConfirmacion("¿Esta seguro que desea eliminar la playa "+ playa.Nombre + "?", "Eliminar Playa", me.eliminar(playa));
+            var mensaje = "¿Esta seguro que desea eliminar la playa " + playa.Nombre + "?";
+            var titulo = "Eliminar Playa";
+            var funcionSi = function () { me.eliminar(playa) };
+            Alerta_openModalConfirmacion(mensaje, titulo, funcionSi);
         });
     },
     limpiar: function () {
@@ -157,9 +160,10 @@ var playas = {
         this.iniciar();
     },
     editar: function (playa) {
-        this.limpiar();
-        this.habilitarEdicion = true;
-        this.cargar(playa);
+        var me = this;
+        me.limpiar();
+        me.habilitarEdicion = true;
+        me.cargar(playa);
         $('[id*=modificarPlaya] .modal-title').text('Editar Playa');
         $('[id*=txtNombre]').prop("disabled", false);
         $('[id*=txtMail]').prop("disabled", false);
@@ -178,11 +182,12 @@ var playas = {
 
         direcciones.editar();
         servicios.editar();
-        this.iniciar();
+        me.iniciar();
     },
     guardar: function () {
+        var me = this;
         var id;
-        var nombre = $('[id*=txtNombre]').val();
+        var nombre = $('#modificarPlaya [id*=txtNombre]').val();
         var mail = $('[id*=txtMail]').val();
         var telefono = $('[id*=txtTelefono]').val();
         var tipoPlayaId = $('[id*=ddlTipoPlaya]').find(':selected').val();
@@ -201,20 +206,22 @@ var playas = {
             success: function (response) {
                 var resultado = response.d;
                 if (resultado == "true") {
-                    $('#lblMensajeError').parent().addClass('hidden');
+                    $('#modificarPlaya #lblMensajeError').parent().addClass('hidden');
                     $('#modificarPlaya').modal('hide');
-                    Alerta_openModalInfo("La playa se registro con exito!", "Playa Registrada");
+                    Alerta_openModalInfo("La playa " + playaTemp.Nombre + " se registro con exito!", "Playa Registrada");
+                    me.actualizar();
                 }
             },
             error: function (result) {
                 var errores = result.responseText.substr('0', result.responseText.indexOf('{'));
-                $('#lblMensajeError').html(errores);
-                $('#lblMensajeError').parent().removeClass('hidden');
+                $('#modificarPlaya #lblMensajeError').html(errores);
+                $('#modificarPlaya #lblMensajeError').parent().removeClass('hidden');
             }
         });
 
     },
     eliminar: function (playa) {
+        var me = this;
         $.ajax({
             type: "POST",
             url: "AdministracionPlayas.aspx/EliminarPlaya",
@@ -224,15 +231,24 @@ var playas = {
             success: function (response) {
                 var resultado = response.d;
                 if (resultado == "true") {
-                    Alerta_openModalInfo("La playa se ha eliminado con exito!", "Playa Eliminada");
+                    var mensaje = "La playa " + playa.Nombre + " se ha eliminado con exito!";
+                    var titulo = "Playa Eliminada";
+                    Alerta_openModalInfo(mensaje, titulo, true);
+                    me.actualizar();
                 }
             },
             error: function (result) {
-                var errores = result.responseText.substr('0', result.responseText.indexOf('{'));
-                Alerta_openModalInfo("errores", "Eliminar Playa");
+                var mensaje = result.responseText.substr('0', result.responseText.indexOf('{'));
+                var titulo = "Eliminar Playa";
+                Alerta_openModalError(mensaje, titulo, true);
             }
         });
 
+    },
+    actualizar: function(){
+        if ($('[id*=pnlResu]').css('display') != "none") {
+            $('[id*=btnBuscarPlayas]').click();
+        }
     }
 };
 
@@ -328,7 +344,7 @@ var servicios = {
             var capacidadNueva = new capacidad(0, $('[id*=txtCapacidad]').val());
             var servicioNuevo = new servicio(0, 0, $('[id*=ddlTipoVehiculo]').val(), capacidadNueva, {});
 
-            servicios.agregar(servicioNuevo);
+            me.agregar(servicioNuevo);
         });
         $('[id*=ddlTipoVehiculo]').on("change", function (e) {
             var valor = $('[id*=ddlTipoVehiculo]').find(':selected').val();

@@ -1,7 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterAdmin.master" AutoEventWireup="true" CodeBehind="AdministracionPlayas.aspx.cs" Inherits="Web2.AdministracionPlayas" %>
 
-<%@ Register Src="~/Mensajes/Confirmacion.ascx" TagName="confirmacion" TagPrefix="msjes" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="js/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
     <link href="js/bootstrapformhelpers/css/bootstrap-formhelpers.min.css" rel="stylesheet" />
@@ -15,8 +13,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
 
-    <msjes:confirmacion runat="server" ID="msjeConfirmacion"></msjes:confirmacion>
-
+    
     <%-- Modal Playa --%>
 
     <div class="modal fade" id="modificarPlaya">
