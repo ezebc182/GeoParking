@@ -22,7 +22,7 @@ $.widget( "geoparking.listadoPlayasWidget", {
 	*/
     _init: function() {
         var widget = this;
-		if($("#acordion").length === 0){
+		if($("#listadoPlayasId").length === 0){
 			widget._crearListado();
 		}
 		else{
@@ -56,7 +56,8 @@ $.widget( "geoparking.listadoPlayasWidget", {
 			$("#pnlMapa").hide();
 			$("#panelListado").append(ul);
 			$("#listadoPlayasId").attr("data-role","listview");
-			$("#listadoPlayasId").attr("data-insert","false");
+			$("#listadoPlayasId").attr("data-inset","false");
+            $("#listadoPlayasId").attr("data-icon","false");
 			$("#listadoPlayasId").attr("data-divider-them","b");
         }
 	},
@@ -67,6 +68,7 @@ $.widget( "geoparking.listadoPlayasWidget", {
 	_cargarListado : function(){
 		var widget = this;
 		var listado = document.createElement("ul");	
+        listado.className = "ui-listview";
         widget._filtrarUnaPlayaPorUbicacion();
 		widget._obtenerDisponibilidadParaPlayas();
         widget._obtenerPrecioPlayasSeleccionadas();
@@ -81,10 +83,19 @@ $.widget( "geoparking.listadoPlayasWidget", {
         var widget = this;
 		
 		var itemListado= document.createElement("li");
+        itemListado.className = "ui-li-has-thumb";
+        
+        
+        
 		var itemA = document.createElement("a");
+        itemA.className = "ui-btn";
 		itemA.onclick= widget._crearEventoClickAPlaya(playa);
-		
-        var header = document.createElement("h3");
+        
+        var imagen = document.createElement("img");
+        imagen.src = "./img/Disponibilidades/"+playa.Disponibilidad+".png";
+        //imagen.src = "./img/Disponibilidades/0.png";
+        
+        var header = document.createElement("h2");
         header.innerHTML = widget._crearHeaderParaPlaya(playa);
 		
 		var parrafoDireccion = document.createElement("p");
@@ -101,6 +112,7 @@ $.widget( "geoparking.listadoPlayasWidget", {
 		
 		//Todos los append
 		parrafoDistancia.appendChild(strongDistnacia);
+        itemA.appendChild(imagen);
 		itemA.appendChild(header);
 		itemA.appendChild(parrafoDireccion);
 		itemA.appendChild(parrafoDistancia);
@@ -110,7 +122,7 @@ $.widget( "geoparking.listadoPlayasWidget", {
 	_crearHeaderParaPlaya : function(playa){
 		var header = "";
 		//header += playa.Nombre;
-        header += "Nombre de la playa"; //me estaria faltando pedir el nombre de la playa, ya veo en que llamada lo agrego.
+        header += "Parking Verde"; //me estaria faltando pedir el nombre de la playa, ya veo en que llamada lo agrego.
         header += " - $";
         header += playa.Precios[0].Monto;
 		return header;
@@ -197,7 +209,7 @@ $.widget( "geoparking.listadoPlayasWidget", {
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                
+                alert("No se pudo obtner las disponibilidades");
             }
         });
 	},

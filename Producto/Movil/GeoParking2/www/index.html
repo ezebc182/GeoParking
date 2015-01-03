@@ -111,6 +111,13 @@
             $(document).ready(function () {
 
                 initialize();
+                config = {
+                    "tipoVehiculo": 1,
+                    "radio": 1000,
+                    "gps": true
+                }
+
+                localStorage.setItem("Configuraciones", JSON.stringify(config));
             });
 
             function verListado() {
