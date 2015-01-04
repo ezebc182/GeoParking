@@ -24,7 +24,8 @@ namespace Datos
     public interface IRepositorioPermiso : IRepositorio<Permiso> { }
     public interface IRepositorioEstadisticaConsultas : IRepositorio<EstadisticaConsultas> { }
     public interface IRepositorioEventos : IRepositorio<Evento> { }
-    public interface IRepositorioDisponibilidadPlayas : IRepositorio<DisponibilidadPlayas> { List<DisponibilidadPlayas> GetDisponibilidadDePlayasPorTipoVehiculo(string idPlayas, int tipoVehiculo);}
+    public interface IRepositorioDisponibilidadPlayas : IRepositorio<DisponibilidadPlayas> { List<ConsultaDisponibilidad> GetDisponibilidadDePlayasPorTipoVehiculo(string idPlayas, int tipoVehiculo);
+    }
 
     public interface IRepositorioHistorialDisponibilidadPlayas : IRepositorio<HistorialDisponibilidadPlayas> { }
 
@@ -67,7 +68,7 @@ namespace Datos
     public class RepositorioEvento : Repositorio<Evento>, IRepositorioEventos { }
     public class RepositorioDisponibilidadPlayas : Repositorio<DisponibilidadPlayas>, IRepositorioDisponibilidadPlayas
     {
-        public List<DisponibilidadPlayas> GetDisponibilidadDePlayasPorTipoVehiculo(string idPlayas, int tipoVehiculo)
+        public List<ConsultaDisponibilidad> GetDisponibilidadDePlayasPorTipoVehiculo(string idPlayas, int tipoVehiculo)
         {
             using (var context = new ContextoBD())
             {
@@ -75,12 +76,10 @@ namespace Datos
                 var tipoVehiculoParameter = new SqlParameter("@TipoVehiculoId", tipoVehiculo);
 
                 var result = context.Database
-                    .SqlQuery<DisponibilidadPlayas>("spObtenerDisponibilidadPlayasPorTipoVehiculo @ListaIds , @TipoVehiculoId", idsPlayasParameter, tipoVehiculoParameter)
+                    .SqlQuery<ConsultaDisponibilidad>("spObtenerDisponibilidadPlayasPorTipoVehiculo @ListaIds , @TipoVehiculoId", idsPlayasParameter, tipoVehiculoParameter)
                     .ToList();
                 return result;
             }
-
-
         }
     }
     public class RepositorioHistorialDisponibilidadPlayas : Repositorio<HistorialDisponibilidadPlayas>, IRepositorioHistorialDisponibilidadPlayas { }

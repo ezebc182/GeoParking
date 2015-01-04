@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Capacidad.cs" />
+    <Compile Include="ConsultaDisponibilidad.cs" />
     <Compile Include="DsiponibilidadPlayas.cs" />
     <Compile Include="EstadisticaPorTipoPlayaDto.cs" />
     <Compile Include="EstadisticaPorTipoVehiculoDto.cs" />
