@@ -90,7 +90,12 @@ $.widget( "geoparking.listadoPlayasWidget", {
 		itemA.onclick= widget._crearEventoClickAPlaya(playa);
         
         var imagen = document.createElement("img");
-        imagen.src = "./img/Disponibilidades/"+playa.Disponibilidad+".png";
+        if(playa.Disponibilidad <= 30){
+            imagen.src = "./img/Disponibilidades/"+playa.Disponibilidad+".png";
+        }
+        else{
+            imagen.src = "./img/Disponibilidades/masDe30.png";
+        }
         
         var header = document.createElement("h2");
         header.innerHTML = widget._crearHeaderParaPlaya(playa);
@@ -151,7 +156,7 @@ $.widget( "geoparking.listadoPlayasWidget", {
         var lat2 = parseFloat(posicionActual.k);
         var lon2 = parseFloat(posicionActual.D);
         var distancia = distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) * 1000;
-        distancia = distancia.toFixed(2);
+        distancia = distancia.toFixed(1);
         return distancia;
 	},
 	/**
@@ -224,6 +229,9 @@ $.widget( "geoparking.listadoPlayasWidget", {
 	_ordenarPlayasPorDisponiblidad : function(){
 		var widget = this;
 		var funcionDeOrden = function(a, b){
+            if( (parseInt(b.Disponibilidad) - parseInt(a.Disponibilidad)) === 0){
+                return  widget._calcularDistanciaPlaya(b) - widget._calcularDistanciaPlaya(a);
+            }
 			return (parseInt(b.Disponibilidad) - parseInt(a.Disponibilidad));
 		};
 		widget.options.listadoPlayas = widget.options.listadoPlayas.sort(funcionDeOrden);
