@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>nativeDroid - Theme for jQuery Mobile</title>
+    <title>GeoParking</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <!-- FontAwesome - http://fortawesome.github.io/Font-Awesome/ -->
@@ -35,7 +35,7 @@
         <div data-role="panel" data-display="push" id="mypanel" data-theme="b">
             <h4>Menú GeoParking</h4>
             <ul data-role="listview">
-                <li data-icon='false'><a href="preferences.html"><i class='lIcon fa fa-cog'></i>Configuraciones</a>
+                <li onClick="abrirPanelConfiguraciones()" data-icon='false'><a ><i class='lIcon fa fa-cog'></i>Configuraciones</a>
                 </li>
                 <li data-icon='false'><a href="contacto.html"><i class='lIcon fa fa-user'></i>Contacto</a>
                 </li>
@@ -56,6 +56,7 @@
             <div id="pnlMapa" class="fullscreen">
                 <div id="map-canvas" class="fullscreen"></div>
             </div>
+			<div id="panelConfiguraciones"></div>
 
             <div class="hidden" id="panel_ruta"></div>
         </div>
@@ -99,6 +100,7 @@
         <script src="./js/Propios/obtenerPlayas.js"></script>
         <script src="./js/Propios/latinise.js"></script>
         <script src="./js/Propios/listadoDePlayasWidget.js"></script>
+        <script src="js/Propios/preferencesWidget.js"></script>
         <script src="./js/Propios/Utils.js"></script>
 
 
@@ -121,11 +123,15 @@
             });
 
             function verListado() {
+                cargandoConMensaje("Cargando Listado");
                 $("#panelListado").listadoPlayasWidget({
                     listadoPlayas: playas
                 });
-
             }
+            function abrirPanelConfiguraciones(){
+                $("#panelConfiguraciones").preferenciasWidget();
+            }
+            
         </script>
 </body>
 

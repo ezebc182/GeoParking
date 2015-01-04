@@ -22,12 +22,14 @@ $.widget( "geoparking.listadoPlayasWidget", {
 	*/
     _init: function() {
         var widget = this;
+        //widget._empezarLoading();
 		if($("#listadoPlayasId").length === 0){
 			widget._crearListado();
 		}
 		else{
 			widget.destroy();
 		}
+        quitarCargando();
     },
 	/**
 	* El metodo destroy tiene la responsabilidad de elimnar todos 
@@ -303,10 +305,11 @@ $.widget( "geoparking.listadoPlayasWidget", {
                     eval('(' + data + ')') :
                     data;
                 widget._agregarPreciosAPlayas(precios);
+                //widget._terminarLoading();
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                
+                //widget._terminarLoading();
             }
         });
 	},
@@ -338,5 +341,11 @@ $.widget( "geoparking.listadoPlayasWidget", {
 	obtenerPlayaElegida : function() {
 		var widget = this;
 		return widget.options.playaElegida;
-	}
+	},
+    _empezarLoading : function(){
+       cargandoConMensaje("Cargando Listado");
+    },
+    _terminarLoading : function(){
+        quitarCargando();
+    }
 });

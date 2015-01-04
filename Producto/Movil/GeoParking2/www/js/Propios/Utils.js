@@ -82,3 +82,18 @@ function leerPropiedadRadio(){
     }
     return 500;
 }
+function cargandoConMensaje(mensaje){
+    $.mobile.loading( 'show',{
+            text: mensaje,
+            textVisible: true,
+            theme: 'a'
+        });
+}
+function cargandoSinMensaje(){
+    $.mobile.loading( 'show',{
+            theme: 'a'
+        });
+}
+function quitarCargando(){
+    $.mobile.loading( 'hide');
+}
