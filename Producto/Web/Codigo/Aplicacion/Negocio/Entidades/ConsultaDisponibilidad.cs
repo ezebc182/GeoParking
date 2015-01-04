@@ -13,6 +13,7 @@ namespace Entidades
         public int PlayaId { get; set; }
         public int TipoVehiculoId { get; set; }
         public int Disponibilidad { get; set; }
+        public string NombrePlaya { get; set; }
 
         public string toJSONRepresentation()
         {
@@ -28,6 +29,8 @@ namespace Entidades
             jw.WriteValue(this.TipoVehiculoId);
             jw.WritePropertyName("Disponibilidad");
             jw.WriteValue(this.Disponibilidad);
+            jw.WritePropertyName("Nombre");
+            jw.WriteValue(this.NombrePlaya);
 
             jw.WriteEndObject();
 

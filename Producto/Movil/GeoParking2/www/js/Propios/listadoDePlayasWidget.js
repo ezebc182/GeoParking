@@ -98,13 +98,13 @@ $.widget( "geoparking.listadoPlayasWidget", {
         }
         
         var header = document.createElement("h2");
-        header.innerHTML = widget._crearHeaderParaPlaya(playa);
+        header.innerHTML = playa.Nombre;
 		
 		var parrafoDireccion = document.createElement("p");
 		parrafoDireccion.innerHTML=widget._crearDescripcionParaPlaya(playa);
 		
-		var parrafoDistancia = document.createElement("p");
-		parrafoDistancia.className="ui-li-aside";
+		var parrafoPrecioa = document.createElement("p");
+		parrafoPrecioa.className="ui-li-aside";
 		var strongPrecio = document.createElement("strong");
         var precio = playa.Precios[0].Tiempo;
         precio += ": $";
@@ -112,11 +112,11 @@ $.widget( "geoparking.listadoPlayasWidget", {
 		strongPrecio.innerHTML=precio;
 		
 		//Todos los append
-		parrafoDistancia.appendChild(strongPrecio);
+		parrafoPrecioa.appendChild(strongPrecio);
         itemA.appendChild(imagen);
 		itemA.appendChild(header);
 		itemA.appendChild(parrafoDireccion);
-		itemA.appendChild(parrafoDistancia);
+		itemA.appendChild(parrafoPrecioa);
 		itemListado.appendChild(itemA);
 		listado.appendChild(itemListado);
 	},
@@ -131,12 +131,6 @@ $.widget( "geoparking.listadoPlayasWidget", {
         return description;
         
     },
-	_crearHeaderParaPlaya : function(playa){
-		var header = "";
-		//header += playa.Nombre;
-        header += "Parking Verde"; //me estaria faltando pedir el nombre de la playa, ya veo en que llamada lo agrego.
-		return header;
-	},
 	_crearEventoClickAPlaya : function (playa){
 		var widget = this;
 		var posicionPlayaGoogle = new google.maps.LatLng(playa.Latitud, playa.Longitud);
@@ -215,7 +209,7 @@ $.widget( "geoparking.listadoPlayasWidget", {
                     eval('(' + data + ')') :
                     data;
                 widget.options.disponibilidadPlayas = disponibilidades;
-                widget._agregarDisponibilidadAListadoPlayas();
+                widget._agregarDisponibilidadYNombreAListadoPlayas();
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -239,11 +233,22 @@ $.widget( "geoparking.listadoPlayasWidget", {
     /**
     * 
     */
-    _agregarDisponibilidadAListadoPlayas : function(){
+    _agregarDisponibilidadYNombreAListadoPlayas : function(){
         var widget = this;
         for(var i = 0; i < widget.options.listadoPlayas.length; i++){
-            widget.options.listadoPlayas[i]['Disponibilidad'] = widget._obtenerDisponibilidadDePlayaPorId(widget.options.listadoPlayas[i].Id);
+            var idPlaya = widget.options.listadoPlayas[i].Id;
+            widget.options.listadoPlayas[i]['Disponibilidad'] = widget._obtenerDisponibilidadDePlayaPorId(idPlaya);
+            widget.options.listadoPlayas[i]['Nombre'] = widget._obtenerNombreDePlayaPorId(idPlaya);
 		}
+    },
+    _obtenerNombreDePlayaPorId : function(idPlaya) {
+        var widget = this;
+        for(var i = 0; i < widget.options.disponibilidadPlayas.length; i++){
+            if(widget.options.disponibilidadPlayas[i].PlayaId === idPlaya){
+                return widget.options.disponibilidadPlayas[i].NombrePlaya;
+            }
+        }
+        return "Sin Nombre";
     },
     /**
     * 
