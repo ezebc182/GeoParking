@@ -74,6 +74,14 @@ function leerPropiedadTipoVehiculo(){
     }
     return "0";
 }
+function leerPropiedadGPS(){
+    var configuraciones = localStorage.getItem("Configuraciones");
+    if(configuraciones !== null){
+        configuraciones = jQuery.parseJSON(configuraciones);
+        return configuraciones.gps;
+    }
+    return false;
+}
 function leerPropiedadRadio(){
     var configuraciones = localStorage.getItem("Configuraciones");
     if(configuraciones !== null){

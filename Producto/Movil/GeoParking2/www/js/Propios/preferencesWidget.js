@@ -8,6 +8,10 @@ $.widget( "geoparking.preferenciasWidget", {
 	_create : function(){
 		var widget = this;
 	},
+    /**
+    * Verifica si ya existe o el panel de configuraciones y lo crea o elimina 
+    * segun corresponda, se ejecuta cada vez que se hace la llamadad $("algun selector").preferenciasWidget();
+    */
 	_init : function(){
 		var widget = this;
 		if(widget.options.contenedor.children().length === 0){
@@ -21,78 +25,63 @@ $.widget( "geoparking.preferenciasWidget", {
             $("#pnlMapa").show();
 		}
 	},
+    /**
+    * Crea la estructura inicial de la pantalla de configuraciones
+    */
 	_crearHTMLInicial : function () {
 		var widget = this;
-		/*var container = document.createElement("div");
-        container.className="ui-content";
-        container.role="main";
-        container.setAttribute("data-role","content");
-        
-        var form = document.createElement("form");
-       
-        var listado = document.createElement("ul");
-        listado.className="ui-listview ui-listview-inset ui-corner-all ui-shadow";
-        listado.setAttribute("data-role","listview");
-        listado.setAttribute("data-inset","true");
-        
-        //Combo Tipo vehiculo
-        var liTipoVehiculo = document.createElement("li");
-        liTipoVehiculo.className = "ui-field-contain ui-li-static ui-body-inherit";
-        liTipoVehiculo.setAttribute("data-role","fieldcontain");
-        
-        var labelTipoVehiculo = document.createElement("label");
-        labelTipoVehiculo.className="select";
-        labelTipoVehiculo.setAttribute("for","select-choice-1b");
-        labelTipoVehiculo.innerHTML="Tipo de Vehiculo";
-        
-        var divTipovehiculo = document.createElement("div");
-        divTipovehiculo.className="ui-select";
-        
-        var comboTipoVehiculo = document.createElement("select");
-        comboTipoVehiculo.setAttribute("name","select-choice-1");
-        comboTipoVehiculo.id = "tipoVehiculoSelect";
-        comboTipoVehiculo.setAttribute("data-native-menu","true");
-        
-        var opcionSelecione = document.createElement("option");
-        opcionSelecione.value=0;
-        opcionSelecione.innerHTML="Seleccione";
-        
-        comboTipoVehiculo.appendChild(opcionSelecione);
-        divTipovehiculo.appendChild(comboTipoVehiculo);
-        liTipoVehiculo.appendChild(labelTipoVehiculo);
-        liTipoVehiculo.appendChild(divTipovehiculo);
-        listado.appendChild(liTipoVehiculo);
-        
-        //Slide radio distancia
-        var liRadio = document.createElement("li");
-        liRadio.className = "ui-field-contain ui-li-static ui-body-inherit";
-        liRadio.setAttribute("data-role","fieldcontain");
-        
-        var labelRadio = document.createElement("label");
-        labelRadio.className="select";
-        labelRadio.setAttribute("for","slider2b");
-        labelRadio.id=id="slider2b-label";*/
-        
-        widget.options.contenedor.append('<div data-role="content" class="ui-content" role="main"><form><ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" id="listadoConfiguraciones" ><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="select-choice-1b" class="select">Select</label><div class="ui-select"><select name="select-choice-1" id="tipoVehiculoSelect" data-native-menu="true"><option value="0">Seleccione</option></select></div></div></li><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="slider2b" id="slider2b-label">Radio:</label><input type="number" data-type="range" name="slider2" id="slider2b" value="100" min="100" max="1000" data-highlight="true" class="ui-shadow-inset ui-body-inherit ui-corner-all ui-slider-input"></li><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="checkbox-based-flipswitch">GPS:</label><input type="checkbox" id="checkbox-based-flipswitch" data-role="flipswitch"></li><li class="ui-li-static ui-body-inherit ui-last-child"><button type="submit" data-inline="true" class=" ui-btn ui-btn-inline ui-shadow ui-corner-all"><i class="lIcon fa fa-check"></i>Guardar</button><button type="reset" data-inline="true" class=" ui-btn ui-btn-inline ui-shadow ui-corner-all"><i class="lIcon fa fa-times"></i>Cancelar</button></li></ul></form></div>');
+        widget.options.contenedor.append('<div data-role="content" class="ui-content" role="main"><form><ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" id="listadoConfiguraciones" ><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="select-choice-1b" class="select">Select</label><div class="ui-select"><select name="select-choice-1" id="tipoVehiculoSelect" data-native-menu="true"><option value="0">Seleccione</option></select></div></div></li><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="slider2b" id="slider2b-label">Radio:</label><input type="number" data-type="range" name="slider2" id="slider2b" value="100" min="100" max="1000" data-highlight="true" class="ui-shadow-inset ui-body-inherit ui-corner-all ui-slider-input"></li><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="checkbox-based-flipswitch">GPS:</label><input type="checkbox" id="checkbox-based-flipswitch" data-role="flipswitch"></li><li class="ui-li-static ui-body-inherit ui-last-child"><button type="submit" data-inline="true" class=" ui-btn ui-btn-inline ui-shadow ui-corner-all" id="btnGuardarConfig"><i class="lIcon fa fa-check"></i>Guardar</button><button type="reset" data-inline="true" class=" ui-btn ui-btn-inline ui-shadow ui-corner-all"><i class="lIcon fa fa-times"></i>Cancelar</button></li></ul></form></div>');
+        widget._incializarWindgetDeControles();
+	},
+    /**
+    * incializa los winget de los controles y los reubica dentro del listado de controles
+    */
+    _incializarWindgetDeControles : function(){
         $('select').selectmenu();
         $(" input[type=number]").slider();
         $(" input[type=checkbox]").flipswitch();
         $("#listadoConfiguraciones").append($(" input[type=number]").parent().parent());
         $("#listadoConfiguraciones").append($(" label[for=checkbox-based-flipswitch]").parent());
         $("#listadoConfiguraciones").append($(" button[type=submit]").parent());
-        //$(" button[type=submit]").parent()
-        //$(" label[for=flip2b]").parent()
-        //$(" input[type=number]").parent().parent();
-	},
+        $("#btnGuardarConfig").click(function(){
+            $("#panelConfiguraciones").preferenciasWidget("guardarValoresSeleccionados");
+        });
+    },
+    /**
+    * Toma los valores del local storage y setea los valores de los controles
+    */
 	_cargarValoresAlmacenados : function () {
 		var widget = this;
 		widget.options.radio = leerPropiedadRadio();
 		widget.options.tipoVehiculoId = leerPropiedadTipoVehiculo();
+        widget.options.gpsOnOff = leerPropiedadGPS();
 		$('#tipoVehiculoSelect').val(widget.options.tipoVehiculoId);
-		
+        $("#tipoVehiculoSelect-button > span").html($('select option:selected').html());
+        $(" input[type=number]").val(widget.options.radio);
+        var porcentajeBarra = (widget.options.radio / 900) * 100;
+        $($(" input[type=number]").parent().children()[1]).children()[0].style.width = porcentajeBarra +"%";
+        $($(" input[type=number]").parent().children()[1]).children()[1].style.left = porcentajeBarra +"%";
+        $($($(" input[type=number]").parent().children()[1]).children()[1]).attr("aria-valuetext",widget.options.radio);
+        $($($(" input[type=number]").parent().children()[1]).children()[1]).attr("aria-valuenow",widget.options.radio);
+        $($($(" input[type=number]").parent().children()[1]).children()[1]).attr("title",widget.options.radio);
+        if(!($(" input[type=checkbox]").parent().hasClass("ui-flipswitch-active")) && widget.options.gpsOnOff){
+            $(" input[type=checkbox]").parent().addClass("ui-flipswitch-active");
+        }
+        else if($(" input[type=checkbox]").parent().hasClass("ui-flipswitch-active") && !widget.options.gpsOnOff){
+            $(" input[type=checkbox]").parent().removeClass("ui-flipswitch-active");
+        }
 	},
-	_guardarValoresSeleccionados : function () {
-		var widget = this;
+	guardarValoresSeleccionados : function () {
+        var widget = this;
+        widget.options.tipoVehiculoId = $('select option:selected').val()
+        widget.options.radio = $(" input[type=number]").val();
+        widget.options.gpsOnOff = $(" input[type=checkbox]").parent().hasClass("ui-flipswitch-active");
+        var configuraciones = {
+            tipoVehiculo : widget.options.tipoVehiculoId,
+            radio : widget.options.radio,
+            gps : widget.options.gpsOnOff
+        };
+        localStorage.setItem("Configuraciones", JSON.stringify(configuraciones));
 	},
 	_obtenerTiposVehiculosDeServidor : function (){
 		var uri = obtenerURLServer() + "api/playas/GetTiposVehiculo";
