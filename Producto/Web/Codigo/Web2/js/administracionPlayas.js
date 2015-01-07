@@ -13,6 +13,24 @@ var playas = {
             me.guardar();
         });
 
+        $('.checkbox :checkbox').on("change", function () {
+            var checked = $('.checkbox :checkbox:checked').length > 0;
+            $('[id*=txtDesde] input').prop("disabled", checked);
+            $('[id*=txtHasta] input').prop("disabled", checked);
+            $('[id*=txtDesde] input').prop("readonly", !checked);
+            $('[id*=txtHasta] input').prop("readonly", !checked);
+            $('[id*=txtDesde] input').prop("readonly", false);
+            $('[id*=txtHasta] input').prop("readonly", false);
+            if (checked) {
+                $('[id*=txtDesde] .bfh-timepicker-popover').addClass('hidden');
+                $('[id*=txtHasta] .bfh-timepicker-popover').addClass('hidden');
+            }
+            else {
+                $('[id*=txtDesde] .bfh-timepicker-popover').removeClass('hidden');
+                $('[id*=txtHasta] .bfh-timepicker-popover').removeClass('hidden');
+            }
+        });
+
         servicios.iniciar();
         $('#modificarPlaya').modal({
             backdrop: false,
@@ -119,12 +137,13 @@ var playas = {
         $('[id*=txtMail]').prop("disabled", false);
         $('[id*=txtTelefono]').prop("disabled", false);
         $('[id*=ddlTipoPlaya]').prop("disabled", false);
-        $('[id*=txtDesde] input').prop("disabled", false);
-        $('[id*=txtHasta] input').prop("disabled", false);
-        $('[id*=txtDesde] input').prop("readonly", true);
-        $('[id*=txtHasta] input').prop("readonly", true);
-        $('[id*=txtDesde] .bfh-timepicker-popover').removeClass('hidden');
-        $('[id*=txtHasta] .bfh-timepicker-popover').removeClass('hidden');
+        $('.checkbox').show();
+        $('[id*=txtDesde] input').prop("disabled", true);
+        $('[id*=txtHasta] input').prop("disabled", true);
+        $('[id*=txtDesde] input').prop("readonly", false);
+        $('[id*=txtHasta] input').prop("readonly", false);
+        $('[id*=txtDesde] .bfh-timepicker-popover').addClass('hidden');
+        $('[id*=txtHasta] .bfh-timepicker-popover').addClass('hidden');
         $('[id*=ddlDias]').prop("disabled", false);
         $('[id*=btnCerrarPlaya]').hide();
         $('[id*=btnCancelarPlaya]').show();
@@ -144,6 +163,7 @@ var playas = {
         $('[id*=txtMail]').prop("disabled", true);
         $('[id*=txtTelefono]').prop("disabled", true);
         $('[id*=ddlTipoPlaya]').prop("disabled", true);
+        $('.checkbox').hide();
         $('[id*=txtDesde] input').prop("disabled", true);
         $('[id*=txtHasta] input').prop("disabled", true);
         $('[id*=txtDesde] input').prop("readonly", false);
@@ -169,12 +189,13 @@ var playas = {
         $('[id*=txtMail]').prop("disabled", false);
         $('[id*=txtTelefono]').prop("disabled", false);
         $('[id*=ddlTipoPlaya]').prop("disabled", false);
-        $('[id*=txtDesde] .input-group input').prop("disabled", false);
-        $('[id*=txtHasta] .input-group input').prop("disabled", false);
-        $('[id*=txtDesde] input-group input').prop("readonly", true);
-        $('[id*=txtHasta] input-group input').prop("readonly", true);
-        $('[id*=txtDesde] .bfh-timepicker-popover').removeClass('hidden');
-        $('[id*=txtHasta] .bfh-timepicker-popover').removeClass('hidden');
+        $('.checkbox').show();
+        $('[id*=txtDesde] .input-group input').prop("disabled", true);
+        $('[id*=txtHasta] .input-group input').prop("disabled", true);
+        $('[id*=txtDesde] input-group input').prop("readonly", false);
+        $('[id*=txtHasta] input-group input').prop("readonly", false);
+        $('[id*=txtDesde] .bfh-timepicker-popover').addClass('hidden');
+        $('[id*=txtHasta] .bfh-timepicker-popover').addClass('hidden');
         $('[id*=ddlDias]').prop("disabled", false);
         $('[id*=btnCerrarPlaya]').hide();
         $('[id*=btnCancelarPlaya]').show();
@@ -245,7 +266,7 @@ var playas = {
         });
 
     },
-    actualizar: function(){
+    actualizar: function () {
         if ($('[id*=pnlResu]').css('display') != "none") {
             $('[id*=btnBuscarPlayas]').click();
         }
@@ -289,6 +310,7 @@ var servicios = {
         this.OcultarTipoVehiculoEnCombo(servicio.TipoVehiculoId);
         $('[id*=txtCapacidad]').val('');
         $('[id*=ddlTipoVehiculo] [value=0]').prop("selected", true);
+        this.verificarCombo();
 
         if (playas.habilitarEdicion) {
             $('[id*=Editable]').editable({
@@ -347,13 +369,16 @@ var servicios = {
             me.agregar(servicioNuevo);
         });
         $('[id*=ddlTipoVehiculo]').on("change", function (e) {
-            var valor = $('[id*=ddlTipoVehiculo]').find(':selected').val();
-            if (valor > 0) {
-                $('[id*=btnAgregarServicio]').prop("disabled", false);
-            }
-            else $('[id*=btnAgregarServicio]').prop("disabled", true);
+            me.verificarCombo();
         });
 
+    },
+    verificarCombo: function () {
+        var valor = $('[id*=ddlTipoVehiculo]').find(':selected').val();
+        if (valor > 0) {
+            $('[id*=btnAgregarServicio]').prop("disabled", false);
+        }
+        else $('[id*=btnAgregarServicio]').prop("disabled", true);
     },
     cargar: function (servicios) {
         me = this;

@@ -13,7 +13,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
 
-    
+
     <%-- Modal Playa --%>
 
     <div class="modal fade" id="modificarPlaya">
@@ -21,7 +21,7 @@
             <div class=" modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h1 class="modal-title" style="text-align:center;">Registrar/Modificar playa</h1>
+                    <h1 class="modal-title" style="text-align: center;">Registrar/Modificar playa</h1>
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-danger hidden" id="divAlertError">
@@ -98,16 +98,27 @@
                                                     <asp:DropDownList runat="server" ID="ddlDias" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="Seleccione el dia" />
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4 col-md-4 col-sm-4">
-                                                <div class="form-group ">
-                                                    <label for="bfhDesde" class="control-label">Desde:</label>
-                                                    <div id="txtDesde" class="bfh-timepicker" data-time="08:00" style="background-color: white;"></div>
+
+                                            <div class="col-lg-8 col-md-8 col-sm-8">
+                                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                                    <div class="form-group ">
+                                                        <label for="bfhDesde" class="control-label">Desde:</label>
+                                                        <div id="txtDesde" class="bfh-timepicker" data-time="00:00" style="background-color: white;"></div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-4 col-sm-4 pull-right">
-                                                <div class="form-group ">
-                                                    <label for="txtHasta" class="control-label">Hasta:</label>
-                                                    <div id="txtHasta" class="bfh-timepicker" data-time="22:00" style="background-color: white;"></div>
+                                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                                    <div class="form-group ">
+                                                        <label for="txtHasta" class="control-label">Hasta:</label>
+                                                        <div id="txtHasta" class="bfh-timepicker" data-time="23:59" style="background-color: white;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                                    <div class="form-group">
+                                                        <label for="chk24Horas" class="control-label"></label>
+                                                        <div class="checkbox" id="chk24Horas" class="form-control">
+                                                            <label ><input type="checkbox"  value="" checked /><b>24 Horas</b></label>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -256,7 +267,7 @@
     <div class="container-fluid">
         <div class="jumbotron" style="margin-top: 5%;">
             <div class="page-header">
-                <h2 style="text-align:center;">Administración de playas</h2>
+                <h2 style="text-align: center;">Administración de playas</h2>
             </div>
 
             <div class="form-group" id="busquedaPlayas">
@@ -264,7 +275,7 @@
 
                     <div class="input-group">
                         <input id="txtBuscarCiudadPlayas" class="form-control input-lg autocompleteCiudad" runat="server"
-                            placeholder="Ingrese la ciudad"/>
+                            placeholder="Ingrese la ciudad" />
 
                         <div class="input-group-btn">
                             <button class="btn-primary btn btn-lg glyphicon glyphicon-search" id="btnBuscarPlayas" type="button"></button>
