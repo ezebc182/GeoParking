@@ -8,6 +8,7 @@ using Entidades;
 using System.Text;
 using ReglasDeNegocio;
 using Web2.Util;
+using System.Data.Entity.Spatial;
 
 namespace Web2.Controles
 {
@@ -72,8 +73,7 @@ namespace Web2.Controles
                 direccion.Calle = row.Cells[0].Text;
                 direccion.Numero = int.Parse(row.Cells[1].Text);
                 //direccion.CiudadId = int.Parse(gvDomicilios.DataKeys[row.RowIndex].Values[1].ToString());
-                direccion.Latitud = row.Cells[5].Text;
-                direccion.Longitud = row.Cells[6].Text;
+                direccion.Posicion = DbGeography.FromText(string.Format("POINT({0} {1})", row.Cells[6].Text, row.Cells[5].Text));
                 //direccion.Ciudad = gestor.BuscarCiudadPorId(direccion.CiudadId);
                // direccion.Departamento = gestor.BuscarDepartamentoPorCiudadId(direccion.CiudadId);
                 //direccion.Provincia = gestor.BuscarProvinciaPorDepartamentoId(direccion.Departamento.Id);
@@ -137,8 +137,7 @@ namespace Web2.Controles
             direccion.Numero = Numero.Value;
             //direccion.Departamento = gestor.BuscarDepartamentoPorCiudadId(direccion.CiudadId);
             //direccion.Provincia = gestor.BuscarProvinciaPorDepartamentoId(direccion.Departamento.Id);
-            direccion.Latitud = Latitud;
-            direccion.Longitud = Longitud;
+            direccion.Posicion = DbGeography.FromText(string.Format("POINT({0} {1})", Longitud, Latitud));
             return direccion;
         }
         /// <summary>

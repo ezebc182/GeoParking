@@ -8,7 +8,7 @@ namespace Entidades
 {
     public class Evento : EntidadBase
     {
-        public string Normbre { get; set; }
+        public string Nombre { get; set; }
         public string Descripcion { get; set; }
     }
 }

@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.IO;
+
 namespace Entidades
 {
     public class PlayaDeEstacionamiento : EntidadBase
@@ -73,6 +75,8 @@ namespace Entidades
         /// <returns>PlayaDeEstacionamiento</returns>
         public PlayaDeEstacionamiento ToObjectRepresentation(string playaJSON)
         {
+            JsonReader jr = new JsonTextReader(new StringReader(playaJSON));
+            
             return JsonConvert.DeserializeObject<PlayaDeEstacionamiento>(playaJSON);
         }
         
@@ -193,6 +197,7 @@ namespace Entidades
             return sb.ToString();
         }
     }
+    
 }
 
 

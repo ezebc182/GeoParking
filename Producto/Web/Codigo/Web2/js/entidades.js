@@ -33,11 +33,14 @@ function playaDeEstacionamiento(id, nombre, mail, telefono, tipoPlayaId, horario
     this.Direcciones = direcciones;
     this.Servicios = servicios;
 };
-function direccion(id, calle, numero, ciudad, latitud, longitud) {
+function posicion(longitud, latitud) {
+    this.Longitude = longitud;
+    this.Latitude = latitud;
+}
+function direccion(id, calle, numero, ciudad, posicion) {
     this.Id = id;
     this.Calle = calle;
     this.Numero = numero;
     this.Ciudad = ciudad;
-    this.Latitud = latitud;
-    this.Longitud = longitud;
+    this.Posicion = posicion;
 };

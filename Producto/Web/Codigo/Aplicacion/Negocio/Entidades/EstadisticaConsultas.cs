@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Data.Entity.Spatial;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entidades
 {
@@ -14,8 +16,20 @@ namespace Entidades
         public int IdPlaya { get; set; }
         public int IdTipoPlaya { get; set; }
         public int IdTipoVehiculo { get; set; }
-        public string Latitud { get; set; }
-        public string Longitud { get; set; }
+        public DbGeography Posicion { get; set; }
+
+        [NotMapped]
+        public string Latitud
+        {
+            get { return Posicion.Latitude.HasValue ? Posicion.Latitude.Value.ToString() : ""; }
+        
+        }
+        [NotMapped]
+        public string Longitud
+        {
+            get { return Posicion.Longitude.HasValue ? Posicion.Longitude.Value.ToString() : ""; }
+        }
+
 
         public string ToJSONRepresentation()
         {

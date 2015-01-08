@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Datos;
 using Entidades;
+using System.Data.Entity.Spatial;
 
 namespace ReglasDeNegocio
 {
@@ -28,8 +29,7 @@ namespace ReglasDeNegocio
             
             consulta.IdPlaya = idPlaya;
             consulta.IdTipoPlaya = (int)playa.TipoPlayaId;
-            consulta.Latitud = latitud;
-            consulta.Longitud = longitud;
+            consulta.Posicion = DbGeography.FromText(string.Format("POINT({0} {1})", longitud, latitud));
 
             estadisticaConsultasDao.Create(consulta);
         }

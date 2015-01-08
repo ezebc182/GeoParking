@@ -24,6 +24,8 @@ var playas = {
             if (checked) {
                 $('[id*=txtDesde] .bfh-timepicker-popover').addClass('hidden');
                 $('[id*=txtHasta] .bfh-timepicker-popover').addClass('hidden');
+                $('#txtDesde>div>input').val("00:00");
+                $('#txtHasta>div>input').val("23:59");
             }
             else {
                 $('[id*=txtDesde] .bfh-timepicker-popover').removeClass('hidden');
@@ -106,8 +108,9 @@ var playas = {
         $('[id*=txtMail]').val("");
         $('[id*=txtTelefono]').val("");
         $('[id*=ddlTipoPlaya] [value=0]').prop("selected", true);
-        $('[id*=txtDesde]').val("08:00");
-        $('[id*=txtHasta]').val("22:00");
+        $('.checkbox :checkbox').prop("checked", true);
+        $('[id*=txtDesde]').val("00:00");
+        $('[id*=txtHasta]').val("23:59");
         $('[id*=ddlDias] [value=0]').prop("selected", true);
         servicios.limpiar();
         direcciones.limpiar();
@@ -453,9 +456,10 @@ var direcciones = {
             var calle = $('[id*=txtCalle]').first().val();
             var numero = $('[id*=txtNumero]').first().val();
             var ciudad = $('[id*=txtBuscar]').first().val();
-            var latitud = $('[id*=latitud]').first().val();
-            var longitud = $('[id*=longitud]').first().val();
-            var direccionNueva = new direccion(0, calle, numero, ciudad, latitud, longitud);
+            var latitude = $('[id*=latitud]').first().val();
+            var longitude = $('[id*=longitud]').first().val();
+            var posicionNueva = new posicion(longitude, latitude);
+            var direccionNueva = new direccion(0, calle, numero, ciudad, posicionNueva);
 
             me.agregar(direccionNueva);
         });
@@ -500,8 +504,8 @@ var direcciones = {
         $tr.append('<td>' + direccion.Calle + ' </td>');
         $tr.append('<td>' + direccion.Numero + ' </td>');
         $tr.append('<td>' + direccion.Ciudad + ' </td>');
-        $tr.append('<td style="display:none;">' + direccion.Latitud + ' </td>');
-        $tr.append('<td style="display:none;">' + direccion.Longitud + ' </td>');
+        $tr.append('<td style="display:none;">' + direccion.Posicion.Latitude + ' </td>');
+        $tr.append('<td style="display:none;">' + direccion.Posicion.Longitude + ' </td>');
 
         $tr.append('<td><a id="btnEditarDireccion" class="glyphicon glyphicon-edit"></a>   <a id="btnQuitarDireccion" class="glyphicon glyphicon-remove"></a></td>');
 
@@ -524,8 +528,8 @@ var direcciones = {
         $('[id*=txtCalle]').first().val(direccion.Calle);
         $('[id*=txtNumero]').first().val(direccion.Numero);
         $('[id*=txtBuscarCiudades]').first().val(direccion.Ciudad);
-        $('[id*=latitud]').first().val(direccion.Latitud);
-        $('[id*=longitud]').first().val(direccion.Longitud);
+        $('[id*=latitud]').first().val(direccion.Posicion.Latitude);
+        $('[id*=longitud]').first().val(direccion.Posicion.Longitude);
     },
     editarDireccion: function ($tr, direccion) {
         var me = this;
@@ -569,10 +573,11 @@ var direcciones = {
             var calle = $(fila).find('td').eq(0).text();
             var numero = $(fila).find('td').eq(1).text();
             var ciudad = $(fila).find('td').eq(2).text();
-            var latitud = $(fila).find('td').eq(3).text();
-            var longitud = $(fila).find('td').eq(4).text();
+            var latitude = $(fila).find('td').eq(3).text();
+            var longitude = $(fila).find('td').eq(4).text();
 
-            var direccionTemp = new direccion(id, calle, numero, ciudad, latitud, longitud);
+            var posicionTemp = new posicion(longitude, latitude);
+            var direccionTemp = new direccion(id, calle, numero, ciudad, posicionTemp);
 
             direcciones.push(direccionTemp);
         });
