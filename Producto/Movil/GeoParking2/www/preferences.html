@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GeoParking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <!-- FontAwesome - http://fortawesome.github.io/Font-Awesome/ -->
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+
+    <!-- jQueryMobileCSS - original without styling -->
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+
+    <!-- nativeDroid core CSS -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
+
+    <!-- nativeDroid: Light/Dark -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.dark.css" id='jQMnDTheme' />
+
+    <!-- nativeDroid: Color Schemes -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.blue.css" id='jQMnDColor' />
+    <link href="css/index.css" rel="stylesheet" />
+    <!-- jQuery / jQueryMobile Scripts -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<script src="js/nativedroid.script.js"></script>
+
+    <!-- VARIABLES GLOBALES -->
+    <script>
+        var config;
+        var cantClickCheck = 0;
+    </script>
+</head>
+
+<body>
+
+    <script src="./js/Propios/preferences.js"></script>
+    <!-- BODY -->
+		<div data-role="content" class="ui-content" role="main">
+			<form>
+				<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+					<li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit">
+						<label for="select-choice-1b" class="select">Select</label>
+						<div class="ui-select">
+							<select name="select-choice-1" id="tipoVehiculoSelect" data-native-menu="true">
+								<option value="0">Seleccione</option>
+						</select></div></div>
+					</li>
+					<li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit">
+						<label for="slider2b" id="slider2b-label">Radio:</label>
+						<div class="ui-slider">
+							<input type="number" data-type="range" name="slider2" id="slider2b" value="100" min="100" max="1000" data-highlight="true" class="ui-shadow-inset ui-body-inherit ui-corner-all ui-slider-input">
+							<div role="application" class="ui-slider-track ui-shadow-inset ui-bar-inherit ui-corner-all">
+								<div class="ui-slider-bg ui-btn-active" style="width: 0%;"></div>
+								<a href="#" class="ui-slider-handle ui-btn ui-shadow" role="slider" aria-valuemin="100" aria-valuemax="1000" aria-valuenow="100" aria-valuetext="100" title="0" aria-labelledby="slider2b-label" style="left: 0%;"></a>
+							</div>
+						</div>
+					</li>
+					<li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit">
+						<label for="flip2b">Habilitar GPS:</label>
+						<div class="ui-flipswitch ui-shadow-inset ui-bar-inherit ui-corner-all"><a href="#" class="ui-flipswitch-on ui-btn ui-shadow ui-btn-inherit">On</a><span class="ui-flipswitch-off">Off</span><select name="flip2" id="flip2b" data-role="flipswitch" class="ui-flipswitch-input" tabindex="-1">
+							<option value="off">Off</option>
+							<option value="on">On</option>
+						</select></div>
+					</li>
+					
+					<li class="ui-li-static ui-body-inherit ui-last-child">
+							<button type="submit" data-inline="true" class=" ui-btn ui-btn-inline ui-shadow ui-corner-all">
+								<i class="lIcon fa fa-check"></i>
+								Guardar
+							</button>
+							<button type="reset" data-inline="true" class=" ui-btn ui-btn-inline ui-shadow ui-corner-all">
+								<i class="lIcon fa fa-times"></i>
+								Cancelar
+							</button>
+                    </li>
+				</ul>
+			</form>
+		</div>
+    <!-- Scripts -->
+    <script src="xhr.js"></script>
+    <script src='intelxdk.js'></script>
+    <script src="cordova.js"></script>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/jquery-ui.js"></script>
+    <script src="./js/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./js/Propios/guardarDatos.js"></script>
+    <script src="./js/bootstrap-dialog.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            cargarTiposDeVehiculo();
+            setearValoresDeConfiguraciones();
+            mostrarMetros($('#radio').val());
+        });
+    </script>
+    <!-- web service -->
+
+    <script>
+    </script>
+</body>
+<script>
+</script>
+
+</html>
+
+widget.options.contenedor.append('<div data-role="content" class="ui-content" role="main"><form><ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow"><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="select-choice-1b" class="select">Select</label><div class="ui-select"><select name="select-choice-1" id="tipoVehiculoSelect" data-native-menu="true"><option value="0">Seleccione</option></select></div></div></li><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="slider2b" id="slider2b-label">Radio:</label><div class="ui-slider"><input type="number" data-type="range" name="slider2" id="slider2b" value="100" min="100" max="1000" data-highlight="true" class="ui-shadow-inset ui-body-inherit ui-corner-all ui-slider-input"><div role="application" class="ui-slider-track ui-shadow-inset ui-bar-inherit ui-corner-all"><div class="ui-slider-bg ui-btn-active" style="width: 0%;"></div><a href="#" class="ui-slider-handle ui-btn ui-shadow" role="slider" aria-valuemin="100" aria-valuemax="1000" aria-valuenow="100" aria-valuetext="100" title="0" aria-labelledby="slider2b-label" style="left: 0%;"></a></div></div></li><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="flip2b">Habilitar GPS:</label><div class="ui-flipswitch ui-shadow-inset ui-bar-inherit ui-corner-all"><a href="#" class="ui-flipswitch-on ui-btn ui-shadow ui-btn-inherit">On</a><span class="ui-flipswitch-off">Off</span><select name="flip2" id="flip2b" data-role="flipswitch" class="ui-flipswitch-input" tabindex="-1"><option value="off">Off</option><option value="on">On</option></select></div></li><li class="ui-li-static ui-body-inherit ui-last-child"><button type="submit" data-inline="true" class=" ui-btn ui-btn-inline ui-shadow ui-corner-all"><i class="lIcon fa fa-check"></i>Guardar</button><button type="reset" data-inline="true" class=" ui-btn ui-btn-inline ui-shadow ui-corner-all"><i class="lIcon fa fa-times"></i>Cancelar</button></li></ul></form></div>');

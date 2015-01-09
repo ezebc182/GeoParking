@@ -105,3 +105,8 @@ function cargandoSinMensaje(){
 function quitarCargando(){
     $.mobile.loading( 'hide');
 }
+$.fn.isBound = function(type) {
+    var data = jQuery._data(this[0], 'events')[type];
+
+    return ! (data === undefined || data.length === 0);
+};

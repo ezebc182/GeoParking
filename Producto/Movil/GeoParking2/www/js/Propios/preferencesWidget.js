@@ -19,18 +19,24 @@ $.widget( "geoparking.preferenciasWidget", {
 			widget._crearHTMLInicial();
 			widget._agregarTiposDeVehiculos();
 			widget._cargarValoresAlmacenados();
+            $("a[href=#mypanel]").click();
 		}
 		else{
-			widget.options.contenedor.empty();
-            $("#pnlMapa").show();
+			widget.destroy();
 		}
 	},
+    destroy : function(){
+        widget.options.contenedor.empty();
+        $("#pnlMapa").show();
+        //window.location.replace("index.html");
+        $.Widget.prototype.destroy.call(this);
+    },
     /**
     * Crea la estructura inicial de la pantalla de configuraciones
     */
 	_crearHTMLInicial : function () {
 		var widget = this;
-        widget.options.contenedor.append('<div data-role="content" class="ui-content" role="main"><form><ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" id="listadoConfiguraciones" ><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="select-choice-1b" class="select">Select</label><div class="ui-select"><select name="select-choice-1" id="tipoVehiculoSelect" data-native-menu="true"><option value="0">Seleccione</option></select></div></div></li><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="slider2b" id="slider2b-label">Radio:</label><input type="number" data-type="range" name="slider2" id="slider2b" value="100" min="100" max="1000" data-highlight="true" class="ui-shadow-inset ui-body-inherit ui-corner-all ui-slider-input"></li><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="checkbox-based-flipswitch">GPS:</label><input type="checkbox" id="checkbox-based-flipswitch" data-role="flipswitch"></li><li class="ui-li-static ui-body-inherit ui-last-child"><button type="submit" data-inline="true" class=" ui-btn ui-btn-inline ui-shadow ui-corner-all" id="btnGuardarConfig"><i class="lIcon fa fa-check"></i>Guardar</button><button type="reset" data-inline="true" class=" ui-btn ui-btn-inline ui-shadow ui-corner-all"><i class="lIcon fa fa-times"></i>Cancelar</button></li></ul></form></div>');
+        widget.options.contenedor.append('<div data-role="content" class="ui-content" role="main"><form data-ajax="false"><ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" id="listadoConfiguraciones" ><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="select-choice-1b" class="select">Select</label><div class="ui-select"><select name="select-choice-1" id="tipoVehiculoSelect" data-native-menu="true"><option value="0">Seleccione</option></select></div></div></li><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="slider2b" id="slider2b-label">Radio:</label><input type="number" data-type="range" name="slider2" id="slider2b" value="100" min="100" max="1000" data-highlight="true" class="ui-shadow-inset ui-body-inherit ui-corner-all ui-slider-input"></li><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="checkbox-based-flipswitch">GPS:</label><input type="checkbox" id="checkbox-based-flipswitch" data-role="flipswitch"></li><li class="ui-li-static ui-body-inherit ui-last-child"><div class="ui-btn ui-input-btn ui-corner-all ui-shadow">Guardar<input id="btnGuardarConfig" type="submit" value="Guardar"></div><div class="ui-btn ui-input-btn ui-corner-all ui-shadow">Cancelar<input id="btnCancelarConfig" type="submit" value="Cancelar"></div></li></ul></form></div>');
         widget._incializarWindgetDeControles();
 	},
     /**
@@ -40,12 +46,18 @@ $.widget( "geoparking.preferenciasWidget", {
         $('select').selectmenu();
         $(" input[type=number]").slider();
         $(" input[type=checkbox]").flipswitch();
+        
+        $("#btnGuardarConfig").parent().click(function(){
+            $("#panelConfiguraciones").preferenciasWidget("guardarValoresSeleccionados");
+        });
+        $("#btnCancelarConfig").parent().click(function(){
+            $("#panelConfiguraciones").preferenciasWidget("destroy");
+        });
+        
         $("#listadoConfiguraciones").append($(" input[type=number]").parent().parent());
         $("#listadoConfiguraciones").append($(" label[for=checkbox-based-flipswitch]").parent());
         $("#listadoConfiguraciones").append($(" button[type=submit]").parent());
-        $("#btnGuardarConfig").click(function(){
-            $("#panelConfiguraciones").preferenciasWidget("guardarValoresSeleccionados");
-        });
+        $("#listadoConfiguraciones").append($("#btnGuardarConfig").parent().parent());
     },
     /**
     * Toma los valores del local storage y setea los valores de los controles
@@ -58,7 +70,7 @@ $.widget( "geoparking.preferenciasWidget", {
 		$('#tipoVehiculoSelect').val(widget.options.tipoVehiculoId);
         $("#tipoVehiculoSelect-button > span").html($('select option:selected').html());
         $(" input[type=number]").val(widget.options.radio);
-        var porcentajeBarra = (widget.options.radio / 900) * 100;
+        var porcentajeBarra = ((widget.options.radio - 100) / 900) * 100;
         $($(" input[type=number]").parent().children()[1]).children()[0].style.width = porcentajeBarra +"%";
         $($(" input[type=number]").parent().children()[1]).children()[1].style.left = porcentajeBarra +"%";
         $($($(" input[type=number]").parent().children()[1]).children()[1]).attr("aria-valuetext",widget.options.radio);
@@ -82,6 +94,12 @@ $.widget( "geoparking.preferenciasWidget", {
             gps : widget.options.gpsOnOff
         };
         localStorage.setItem("Configuraciones", JSON.stringify(configuraciones));
+        
+        widget.destroy();
+        
+        
+        //location.reload();
+        //$.mobile.loading( "hide" );
 	},
 	_obtenerTiposVehiculosDeServidor : function (){
 		var uri = obtenerURLServer() + "api/playas/GetTiposVehiculo";

@@ -270,10 +270,15 @@ function obtenerCiudadDeResultadoGoogle(results){
         var tipos = resultado.types;
         for(var j = 0;j< tipos.length; j++){
             if(tipos[j] === "route"){
-                return resultado.formatted_address.split(",")[1].trim();
+                var direccion = resultado.formatted_address;
+                return  direccion.substring((direccion.indexOf(",") + 2), direccion.length);
+                //return resultado.formatted_address.split(",")[1].trim();
             }
             else if(tipos[j] === "locality"){
-                return resultado.formatted_address.split(",")[0];
+                var direccion = resultado.formatted_address;
+                //return resultado.formatted_address;
+                return  direccion.substring((direccion.indexOf(",") + 2), direccion.length);
+                //return resultado.formatted_address.split(",")[0];
             }
         }
     }
