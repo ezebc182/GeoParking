@@ -24,17 +24,22 @@ namespace Datos
     public interface IRepositorioPermiso : IRepositorio<Permiso> { }
     public interface IRepositorioEstadisticaConsultas : IRepositorio<EstadisticaConsultas> { }
     public interface IRepositorioEventos : IRepositorio<Evento> { }
-    public interface IRepositorioDisponibilidadPlayas : IRepositorio<DisponibilidadPlayas> { List<ConsultaDisponibilidad> GetDisponibilidadDePlayasPorTipoVehiculo(string idPlayas, int tipoVehiculo);
-    }
-
+    public interface IRepositorioDisponibilidadPlayas : IRepositorio<DisponibilidadPlayas> { List<ConsultaDisponibilidad> GetDisponibilidadDePlayasPorTipoVehiculo(string idPlayas, int tipoVehiculo);}
+    public interface IRepositorioZonas : IRepositorio<Zona> { }
     public interface IRepositorioHistorialDisponibilidadPlayas : IRepositorio<HistorialDisponibilidadPlayas> { }
 
     //Clases DAO para cada entidad que heredan de la clase Repositorio
     public class RepositorioTipoDePlaya : Repositorio<TipoPlaya>, IRepositorioTipoDePlaya { }
     public class RepositorioTipoVehiculo : Repositorio<TipoVehiculo>, IRepositorioTipoVehiculo { }
     public class RepositorioServicio : Repositorio<Servicio>, IRepositorioServicio { }
-
+    public class RepositorioZona : Repositorio<Zona>, IRepositorioZonas { }
     public class RepositorioHorario : Repositorio<Horario>, IRepositorioHorario { }
+    public class RepositorioDiaAtencion : Repositorio<DiaAtencion>, IRepositorioDiaAtencion { }
+    public class RepositorioTiempo : Repositorio<Tiempo>, IRepositorioTiempo { }
+    public class RepositorioUsuario : Repositorio<Usuario>, IRepositorioUsuario { }
+    public class RepositorioHistorialDisponibilidadPlayas : Repositorio<HistorialDisponibilidadPlayas>, IRepositorioHistorialDisponibilidadPlayas { }
+    public class RepositorioEvento : Repositorio<Evento>, IRepositorioEventos { }
+
     public class RepositorioPrecio : Repositorio<Precio>, IRepositorioPrecio
     {
         public override IList<Precio> FindWhere(Func<Precio, bool> predicate)
@@ -61,11 +66,7 @@ namespace Datos
             }
         }
     }
-    public class RepositorioDiaAtencion : Repositorio<DiaAtencion>, IRepositorioDiaAtencion { }
-    public class RepositorioTiempo : Repositorio<Tiempo>, IRepositorioTiempo { }
-    public class RepositorioUsuario : Repositorio<Usuario>, IRepositorioUsuario { }
 
-    public class RepositorioEvento : Repositorio<Evento>, IRepositorioEventos { }
     public class RepositorioDisponibilidadPlayas : Repositorio<DisponibilidadPlayas>, IRepositorioDisponibilidadPlayas
     {
         public List<ConsultaDisponibilidad> GetDisponibilidadDePlayasPorTipoVehiculo(string idPlayas, int tipoVehiculo)
@@ -82,8 +83,7 @@ namespace Datos
             }
         }
     }
-    public class RepositorioHistorialDisponibilidadPlayas : Repositorio<HistorialDisponibilidadPlayas>, IRepositorioHistorialDisponibilidadPlayas { }
-
+    
     public class RepositorioDireccion : Repositorio<Direccion>, IRepositorioDireccion
     {
         public IList<Direccion> GetDireccionesDePlayasPorCiudadYTipoVehiculo(string ciudad, int tipoVehiculoId)
@@ -228,8 +228,6 @@ namespace Datos
             return GetConsultasByCiudad(idCiudad, null, null);
         }
     }
-
-
 
     /// <summary>
     /// Repositorio DAO de administracion de roles y permisos
