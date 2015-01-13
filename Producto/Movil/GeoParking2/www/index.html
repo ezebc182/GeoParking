@@ -37,7 +37,7 @@
             <ul data-role="listview">
                 <li onClick="abrirPanelConfiguraciones()" data-icon='false'><a ><i class='lIcon fa fa-cog'></i>Configuraciones</a>
                 </li>
-                <li data-icon='false'><a href="contacto.html"><i class='lIcon fa fa-user'></i>Contacto</a>
+                <li onClick="abrirPanelContacto()" data-icon='false'><a href="contacto.html"><i class='lIcon fa fa-user'></i>Contacto</a>
                 </li>
             </ul>
         </div>
@@ -57,6 +57,7 @@
                 <div id="map-canvas" class="fullscreen"></div>
             </div>
 			<div id="panelConfiguraciones"></div>
+            <div id="panelContacto"></div>
 
             <div class="hidden" id="panel_ruta"></div>
         </div>
@@ -101,6 +102,7 @@
         <script src="./js/Propios/latinise.js"></script>
         <script src="./js/Propios/listadoDePlayasWidget.js"></script>
         <script src="js/Propios/preferencesWidget.js"></script>
+        <script src="js/Propios/contactoWidget.js"></script>
         <script src="./js/Propios/Utils.js"></script>
 
 
@@ -122,6 +124,9 @@
             }
             function abrirPanelConfiguraciones(){
                 $("#panelConfiguraciones").preferenciasWidget();
+            }
+            function abrirPanelContacto(){
+                $("#panelContacto").contactoWidget();
             }
             
         </script>
