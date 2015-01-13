@@ -527,9 +527,11 @@ app.controller('MyCtrl', function ($scope, $http) {
                 contenido += "<div><h6>PRECIOS<h6></div>";
                 contenido += "<table class='table table-responsive'>";
                 var precios = eval(playas[i].Precios);
-                for (var m = 0; m < precios.length; m++) {
-                    //contenido += "<div>" + precios[m].TipoVehiculo + " - " + precios[m].Dia + " - " + precios[m].Tiempo + " $" + precios[m].Monto + "</div>";
-                    contenido += "<tr><td>" + precios[m].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
+                if (precios != null) {
+                    for (var m = 0; m < precios.length; m++) {
+                        //contenido += "<div>" + precios[m].TipoVehiculo + " - " + precios[m].Dia + " - " + precios[m].Tiempo + " $" + precios[m].Monto + "</div>";
+                        contenido += "<tr><td>" + precios[m].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
+                    }
                 }
                 contenido += "</table>"
                 
@@ -540,7 +542,7 @@ app.controller('MyCtrl', function ($scope, $http) {
 
                 //creamos el marcador                      
                 var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(playas[i].Latitud, playas[i].Longitud),
+                    position: new google.maps.LatLng(playas[i].Latitud.replace(",", "."), playas[i].Longitud.replace(",", ".")),
                     map: $scope.map,
                     icon: './img/marcadorParking2.png'
                 });
@@ -596,8 +598,10 @@ app.controller('MyCtrl', function ($scope, $http) {
 
                 var Precios = "";
                 var precios = eval(playas[i].Precios);
-                for (var m = 0; m < precios.length; m++) {
-                    Precios += precios[m].TipoVehiculo + " - " + precios[m].Tiempo + ": $" + precios[m].Monto + "\n";
+                if (precios != null) {
+                    for (var m = 0; m < precios.length; m++) {
+                        Precios += precios[m].TipoVehiculo + " - " + precios[m].Tiempo + ": $" + precios[m].Monto + "\n";
+                    }
                 }
 
                 var latitud = playas[i].Latitud;
