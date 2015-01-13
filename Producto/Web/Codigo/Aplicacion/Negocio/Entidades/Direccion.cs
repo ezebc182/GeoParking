@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Data.Entity.Spatial;
+using Entidades.util;
 
 namespace Entidades
 {
@@ -63,29 +64,5 @@ namespace Entidades
             return sb.ToString();
         }
     }
-    public class DbGeographyConverter : JsonConverter
-    {
-        public override bool CanConvert(Type objectType)
-        {
-            return objectType.IsAssignableFrom(typeof(string));
-        }
-
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            JObject location = JObject.Load(reader);
-            JToken tokenLongitud = location["Longitude"];
-            JToken tokenLatitud = location["Latitude"];
-            string longitud = tokenLongitud.ToString();
-            string latitud = tokenLatitud.ToString();
-
-            System.Data.Entity.Spatial.DbGeography converted = System.Data.Entity.Spatial.DbGeography.FromText(string.Format("POINT({0} {1})",longitud,latitud));
-            return converted;
-        }
-
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            // Base serialization is fine
-            serializer.Serialize(writer, value);
-        }
-    }
+    
 }
