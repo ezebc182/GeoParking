@@ -34,9 +34,21 @@ function playaDeEstacionamiento(id, nombre, mail, telefono, tipoPlayaId, horario
     this.Servicios = servicios;
 };
 function posicion(longitud, latitud) {
-    this.Longitude = longitud;
-    this.Latitude = latitud;
-}
+    this.Geography = {
+        CoordinateSystemId: 4326,
+        WellKnownText: "POINT (" + longitud + " " + latitud + ")"
+    };
+};
+function zona(nombre, usuarioId, wkt) {
+    this.Nombre = nombre,
+    this.UsuarioId = usuarioId,
+    this.Poligono = {
+        Geography: {
+            CoordinateSystemId: 4326,
+            WellKnownText: wkt
+        }
+    };
+};
 function direccion(id, calle, numero, ciudad, posicion) {
     this.Id = id;
     this.Calle = calle;

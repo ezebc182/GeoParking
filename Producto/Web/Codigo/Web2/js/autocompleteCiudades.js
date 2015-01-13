@@ -1,6 +1,6 @@
 ﻿function initialize() {
     var inputs = ($('.autocompleteCiudad'));
-
+    //para lugares de interes robarle a miautobus.com controles/geosearcher.js metodo getplaces
     var options = {
         types: ['(cities)'],
         componentRestrictions: { country: 'ar' }

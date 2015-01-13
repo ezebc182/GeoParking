@@ -82,5 +82,6 @@ namespace Datos
         public DbSet<Evento> eventos { get; set; }
         public DbSet<DisponibilidadPlayas> disponibilidadPlayas { get; set; }
         public DbSet<HistorialDisponibilidadPlayas> historialDisponibilidadPlayas { get; set; }
+        public DbSet<Zona> zonas { get; set; }
     }
 }
