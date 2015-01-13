@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Entidades;
 using RefactorThis.GraphDiff;
 using System.Data.SqlClient;
+using System.Data.Entity.Spatial;
 
 namespace Datos
 {
@@ -14,7 +15,9 @@ namespace Datos
     public interface IRepositorioTipoDePlaya : IRepositorio<TipoPlaya> { }
     public interface IRepositorioTipoVehiculo : IRepositorio<TipoVehiculo> { }
     public interface IRepositorioServicio : IRepositorio<Servicio> { }
-    public interface IRepositorioDireccion : IRepositorio<Direccion> { IList<Direccion> GetDireccionesDePlayasPorCiudadYTipoVehiculo(string ciudad, int tipoVehiculoId);}
+    public interface IRepositorioDireccion : IRepositorio<Direccion> { IList<Direccion> GetDireccionesDePlayasPorCiudadYTipoVehiculo(string ciudad, int tipoVehiculoId);
+    IList<Direccion> GetDireccionesPorDistanciaYTipoVehiculo(string latitud, string longitud, int tipoVehiculoId);
+    }
     public interface IRepositorioHorario : IRepositorio<Horario> { }
     public interface IRepositorioPrecio : IRepositorio<Precio> { IList<Precio> GetPreciosDePlayasPorTipoVehiculoEIdPlayas(string idsPlayas, int tipoVehiculo);}
     public interface IRepositorioDiaAtencion : IRepositorio<DiaAtencion> { }
@@ -98,8 +101,22 @@ namespace Datos
                     .ToList();
                 return result;
             }
+        }
+        public IList<Direccion> GetDireccionesPorDistanciaYTipoVehiculo(string latitud, string longitud, int tipoVehiculo)
+        {
+            //string punto = String.Format("POINT({0} {1})", latitud, longitud);
+            //DbGeography posicion = DbGeography.PointFromText(punto,4326);
 
-            
+            using (var context = new ContextoBD())
+            {
+                var latitudParameter = new SqlParameter("@latitud", float.Parse(latitud));
+                var longitudParameter = new SqlParameter("@longitud", float.Parse(longitud));
+                var tipoVehiculoParameter = new SqlParameter("@TipoVehiculoId", tipoVehiculo);
+                var result = context.Database
+                    .SqlQuery<Direccion>("spObtenerUbicacionPorUbicacion @latitud, @longitud , @TipoVehiculoId", latitudParameter, longitudParameter, tipoVehiculoParameter)
+                    .ToList();
+                return result;
+            }
         }
         public override IList<Direccion> FindWhere(Func<Direccion, bool> predicate)
         {

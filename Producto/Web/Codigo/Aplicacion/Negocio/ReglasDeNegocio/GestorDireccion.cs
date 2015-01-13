@@ -156,5 +156,9 @@ namespace ReglasDeNegocio
         {
             return direccionDao.GetDireccionesDePlayasPorCiudadYTipoVehiculo(ciudad, tipoVehiculoId);
         }
+        public IList<Direccion> GetDireccionesDePlayasPorDistanciaYTipoVehiculo(string latitud, string longitud, int tipoVehiculoId)
+        {
+            return direccionDao.GetDireccionesPorDistanciaYTipoVehiculo(latitud, longitud, tipoVehiculoId);
+        }
     }
 }
