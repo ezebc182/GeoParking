@@ -43,15 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RepositorioDireccionFalso.cs" />
-    <Compile Include="RepositorioPrecioFalso.cs" />
-    <Compile Include="RepositorioServicioFalso.cs" />
-    <Compile Include="RepositorioHorarioFalso.cs" />
-    <Compile Include="RepositorioTipoVehiculoFalso.cs" />
-    <Compile Include="RepositorioDiaAtencionFalso.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepositorioPlayasFalso.cs" />
-    <Compile Include="RepositorioTipoPlayasFalso.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Aplicacion\Datos\Datos.csproj">
