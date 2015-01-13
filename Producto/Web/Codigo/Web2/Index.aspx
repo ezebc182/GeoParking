@@ -27,7 +27,7 @@
                     <h1 class="brand-heading" style="text-shadow: 4px 4px 13px rgb(30, 28, 28);"><span style="color: red;">Geo</span>Parking</h1>
                     <p style="text-shadow: 4px 4px 13px rgba(30, 28, 28 ,1);" class="intro-text">Estacioná de manera fácil, rápida y efectiva.</p>
                     <div class="input-group col-lg-4 col-lg-offset-4">
-                        <asp:TextBox ID="txtBuscar" CssClass="form-control input-lg autosuggest" runat="server"
+                        <asp:TextBox ID="txtBuscar" CssClass="form-control input-lg autocompleteCiudad" runat="server"
                             ClientIDMode="Static" placeholder="Ingresá tu ciudad" ></asp:TextBox>
                         <div class="input-group-btn">
                             <asp:Button ID="btnBuscar" CssClass="btn-primary btn btn-lg" runat="server" Text="Buscar"
