@@ -339,6 +339,8 @@
                 <script src="js/jquery-1.11.1.min.js"></script>
                 <!-- Bootstrap Core JavaScript -->
                 <script src="js/bootstrap.min.js"></script>
+                <!-- Bootstrap Validator -->
+                <script src="js/bootstrapValidator.min.js"></script>
                 <!-- end: JavaScript-->
 
                 <%-- Content para poner el codigo js desde las paginas e importar los scripts --%>
