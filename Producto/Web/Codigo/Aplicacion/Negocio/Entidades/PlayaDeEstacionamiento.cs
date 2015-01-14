@@ -187,6 +187,8 @@ namespace Entidades
             jw.WriteStartObject();
             jw.WritePropertyName("Dia");
             jw.WriteValue(this.Horario.DiaAtencionStr);
+            jw.WritePropertyName("IdDia");
+            jw.WriteValue(this.Horario.DiaAtencionId);
             jw.WritePropertyName("HoraDesde");
             jw.WriteValue(this.Horario.HoraDesde);
             jw.WritePropertyName("HoraHasta");

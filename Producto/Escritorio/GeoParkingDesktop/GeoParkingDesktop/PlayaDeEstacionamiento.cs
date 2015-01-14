@@ -14,7 +14,7 @@ namespace GeoParkingDesktop
         public int tipoPlaya { get; set; }
         public int dias { get; set; }
         public string horaDesde { get; set; }
-        public string horaHata { get; set; }
+        public string horaHasta { get; set; }
         public List<VehiculoEstacionado> vehiculos { get; set; }
         public List<Precio> precios { get; set; }
         public List<Disponibilidades> disponibilidades { get; set; }

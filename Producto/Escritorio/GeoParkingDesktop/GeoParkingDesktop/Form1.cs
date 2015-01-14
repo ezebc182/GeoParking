@@ -80,9 +80,13 @@ namespace GeoParkingDesktop
                 playa.nombre = (string)objetoPlaya["Nombre"];
                 playa.email = (string)objetoPlaya["Mail"];
                 playa.tipoPlaya = int.Parse(objetoPlaya["IdTipoPlaya"].ToString());
-                playa.dias = 3;//falta cambiar las calases
-                playa.horaDesde = "00:00";
-                playa.horaHata = "24:00";
+
+                //horario
+                var horario = objetoPlaya["Horario"];
+                playa.horaDesde = (string)horario["HoraDesde"];
+                playa.horaHasta = (string)horario["HoraHasta"]; 
+                playa.dias = int.Parse(horario["IdDia"].ToString()); //falta cambiar las calases
+                
 
                 progressBar1.PerformStep();
 
@@ -191,7 +195,7 @@ namespace GeoParkingDesktop
             cmbTipoPlaya.SelectedIndex = playa.tipoPlaya -1;
             cmbDiasHorario.SelectedIndex = playa.dias - 1;
             txtHoraDesde.Text = playa.horaDesde;
-            txtHoraHasta.Text = playa.horaHata;
+            txtHoraHasta.Text = playa.horaHasta;
 
             cargarDisponibilidades();//carga las disponibilidades
 
@@ -723,7 +727,7 @@ namespace GeoParkingDesktop
 
             cmbDiasHorario.Enabled = true;
             txtHoraDesde.Enabled = true;
-            txtHoraHasta.Enabled = false;
+            txtHoraHasta.Enabled = true;
 
             if (chekAuto.Checked == true)
             {
@@ -869,6 +873,12 @@ namespace GeoParkingDesktop
                 actualizarTipoPLaya(cmbTipoPlaya.SelectedIndex + 1);
             }
 
+            //actualizacion de horario
+            if (playa.dias != cmbDiasHorario.SelectedIndex + 1 || playa.horaDesde != txtHoraDesde.Text || playa.horaHasta != txtHoraHasta.Text)
+            {
+                actualizarHorarioPlaya(cmbDiasHorario.SelectedIndex + 1, txtHoraDesde.Text, txtHoraHasta.Text);
+            }
+
             inhabilitarFormularioAdminsitracion();
             btnCancelarCambios.Enabled = false;
             btnGuardarCambios.Enabled = false;
@@ -915,6 +925,50 @@ namespace GeoParkingDesktop
             {
                 MessageBox.Show("Error al actualizar disponibilidad en API");                
             } 
+        }
+
+        public void actualizarHorarioPlaya(int diaAtencion, string horaDesde, string horaHasta)
+        {
+            playa.dias = diaAtencion;
+            playa.horaDesde = horaDesde;
+            playa.horaHasta = horaHasta;
+
+            string sURL;
+            sURL = "http://localhost:21305/api/Playas/GetActualizarHorarioPlaya?idPlaya=" + playa.id + "&idDiaAtencion=" + diaAtencion + "&horaDesde=" + horaDesde + "&horaHasta=" + horaHasta;
+
+            try
+            {
+                WebRequest wrGETURL;
+                progressBar1.PerformStep();
+                wrGETURL = WebRequest.Create(sURL);
+
+                //WebProxy myProxy = new WebProxy("myproxy", 80);
+                //myProxy.BypassProxyOnLocal = true;
+
+                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
+
+                Stream objStream;
+                objStream = wrGETURL.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                string sLine = objReader.ReadLine();
+
+
+                if (sLine == "\"True\"")
+                {
+                    MessageBox.Show("Horario actualizado");
+                }
+                else
+                {
+                    MessageBox.Show("no se pudo realizar la actualizacion del Horario");
+                }
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al actualizar disponibilidad en API");
+            }
         }
 
         public void actualizarTipoPLaya(int tipoPlaya)
