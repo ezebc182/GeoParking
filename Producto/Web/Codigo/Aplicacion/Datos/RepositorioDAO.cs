@@ -313,11 +313,13 @@ namespace Datos
                 .Include("Servicios.TipoVehiculo")
                 .Include("Servicios.Capacidad")
                 .Include("TipoPlaya")
+                .Include("DisponibilidadPlayas")
                 .Where(predicate);
 
             return lista.ToList();
         }
 
+        
         public override PlayaDeEstacionamiento Create(PlayaDeEstacionamiento entity)
         {
             Update(entity);
