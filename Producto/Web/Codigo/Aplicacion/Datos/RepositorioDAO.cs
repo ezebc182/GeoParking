@@ -339,7 +339,7 @@ namespace Datos
                 .Include("Servicios.TipoVehiculo")
                 .Include("Servicios.Capacidad")
                 .Include("TipoPlaya")
-                .Include("DisponibilidadPlayas")
+                .Include("Servicios.DisponibilidadPlayas")
                 .Where(predicate);
 
             return lista.ToList();
