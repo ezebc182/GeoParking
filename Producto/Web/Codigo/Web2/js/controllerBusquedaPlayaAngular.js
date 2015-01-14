@@ -1,15 +1,16 @@
-﻿//aplicacion angular con modulo de ng-grid
+﻿
+//aplicacion angular con modulo de ng-grid
 var app = angular.module('myApp', []);
 
 //controlador de la aplicacion (busqueda playa)
-app.controller('MyCtrl', function ($scope, $http) {
+app.controller('MyCtrl', function ($scope, $http) {   
 
     $scope.map;//mapa
     $scope.markers = [];//marcadores   
     $scope.circulos = [];//circulos    
     $scope.marcadorCirculo = [];//marcadores de circulos    
     var contenido = "";//contenido infowindow de marcador   
-    var infowindow = new google.maps.InfoWindow({ content: '' });//infowindow vacio
+    var infowindow = new google.maps.InfoWindow({ content: '' , maxWidth: 600  });//infowindow vacio
     var playas = [];//playas que recupera de la BD
     var mostrarBusquedaAvanzada = false;
     $scope.playasGrilla = [];//playas de la grilla de la ciudad buscada       
@@ -111,9 +112,11 @@ app.controller('MyCtrl', function ($scope, $http) {
         contenido += "<div><h6>PRECIOS<h6></div>";
         contenido += "<table class='table table-responsive'>";
         var precios = eval(playa.Precios);
-        for (var m = 0; m < precios.length; m++) {
-            //contenido += "<div>" + precios[m].TipoVehiculo + " - " + precios[m].Dia + " - " + precios[m].Tiempo + " $" + precios[m].Monto + "</div>";
-            contenido += "<tr><td>" + precios[m].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
+        if (precios != null) {
+            for (var m = 0; m < precios.length; m++) {
+                //contenido += "<div>" + precios[m].TipoVehiculo + " - " + precios[m].Dia + " - " + precios[m].Tiempo + " $" + precios[m].Monto + "</div>";
+                contenido += "<tr><td>" + precios[m].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
+            }
         }
         contenido += "</table>"
 
@@ -126,7 +129,7 @@ app.controller('MyCtrl', function ($scope, $http) {
             '' + contenido + ''
         );
 
-        infoWindow.setPosition(new google.maps.LatLng(playa.Latitud, playa.Longitud));
+        infoWindow.setPosition(new google.maps.LatLng(playa.Latitud.replace(",", "."), playa.Longitud.replace(",", ".")));
         infoWindow.open($scope.map);
     }
 
@@ -143,10 +146,11 @@ app.controller('MyCtrl', function ($scope, $http) {
         if (mostrarBusquedaAvanzada == true) {
             $scope.ajustarMapa();
         }
+
         $scope.listar();//$scope.mostrarGrilla = false;//oculto la grilla        
         $scope.map.setZoom(20);//zoom mapa      
         $scope.crearInfoWindows(playa);//crea el info para esa playa y lo muestra
-        $scope.map.setCenter(new google.maps.LatLng(playa.Latitud, playa.Longitud));//centro el mapa en la playa              
+        $scope.map.setCenter(new google.maps.LatLng(playa.Latitud.replace(",", "."), playa.Longitud.replace(",", ".")));//centro el mapa en la playa              
     }
 
     /*AGRANDA EL MAPA PARA MOSTRARLO COMPLETO (CUANDO NO ESTA LA BUQUEDA AVANZADA)*/
@@ -464,7 +468,7 @@ app.controller('MyCtrl', function ($scope, $http) {
             //analizo la cada una y armo el contenio del marcador
             for (var i = 0; i < playas.length; i++) {
 
-                contenido = "";
+                contenido = "<div id=info>";
 
                 contenido += "<div class='tabbable' id='tabs-23'>" +
                                 "<ul class='nav nav-tabs'>" +
@@ -540,6 +544,8 @@ app.controller('MyCtrl', function ($scope, $http) {
                 
                 contenido += "</div></div>";
 
+                contenido += "</div>";
+
                 //creamos el marcador                      
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(playas[i].Latitud.replace(",", "."), playas[i].Longitud.replace(",", ".")),
@@ -547,6 +553,7 @@ app.controller('MyCtrl', function ($scope, $http) {
                     icon: './img/marcadorParking2.png'
                 });
 
+                
                 //seteamos al contenido
                 (function (marker, contenido) {
                     google.maps.event.addListener(marker, 'click', function () {
