@@ -85,6 +85,15 @@ namespace Datos
                 return result;
             }
         }
+
+        public override IList<DisponibilidadPlayas> FindWhere(Func<DisponibilidadPlayas, bool> predicate)
+        {
+            var lista = DbSet
+                .Include("Servicio")
+                .Where(predicate);
+
+            return lista.ToList();
+        }
     }
     
     public class RepositorioDireccion : Repositorio<Direccion>, IRepositorioDireccion
@@ -335,6 +344,7 @@ namespace Datos
             return lista.ToList();
         }
 
+       
         public override PlayaDeEstacionamiento Create(PlayaDeEstacionamiento entity)
         {
             Update(entity);
