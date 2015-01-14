@@ -112,6 +112,23 @@ namespace WebServiceGeo.Controllers
             json += "]";
             return json;
         }
+        public string GetUbicacionesPlayasPorDistancia([FromUri] string latitud, [FromUri] string longitud, [FromUri] string tipoVehiculoId)
+        {
+            string json = "[";
+            int tipoVehiculo = Int32.Parse(tipoVehiculoId);
+            IList<Direccion> direcciones = new List<Direccion>();
+            direcciones = (IList<Direccion>)gestorDirecciones.GetDireccionesDePlayasPorDistanciaYTipoVehiculo(latitud, longitud, tipoVehiculo);
+            foreach (var p in direcciones)
+            {
+                json += p.GetUbicacionesToJSONRepresentation() + ",";
+            }
+            if (direcciones.Count > 0)
+            {
+                json = json.Substring(0, json.Length - 1);
+            }
+            json += "]";
+            return json;
+        }
         /**
          * Obtiene los precios de las playas selecionadas para el tipo de vehiculo seleccionado
          * ej. api/Playas/GetPreciosPlayas?tipoVehiculoId=1&idPlayas=1,2,3,5

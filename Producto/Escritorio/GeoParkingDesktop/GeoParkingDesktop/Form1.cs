@@ -175,7 +175,7 @@ namespace GeoParkingDesktop
             }
             catch (Exception)
             {
-                MessageBox.Show("Error al actualizar disponibilidad en API");
+                MessageBox.Show("Error al recuperar disponibilidad en API");
                 return 0;
             }
         }               
@@ -857,13 +857,101 @@ namespace GeoParkingDesktop
         /// <param name="e"></param>
         private void btnGuardarCambios_Click(object sender, EventArgs e)
         {
-            //validar datos
+            //actualizacion de nombre y email de playa
+            if (playa.nombre != txtNombrePlaya.Text || playa.email != txtEmailPlaya.Text)
+            {
+                actualizarNombreEmailPLaya(txtNombrePlaya.Text, txtEmailPlaya.Text);
+            }
 
-            //actualizar configuracion
+            //actualizacion de tipo playa
+            if (playa.tipoPlaya != cmbTipoPlaya.SelectedIndex+1)
+            {
+                actualizarTipoPLaya(cmbTipoPlaya.SelectedIndex + 1);
+            }
 
             inhabilitarFormularioAdminsitracion();
             btnCancelarCambios.Enabled = false;
             btnGuardarCambios.Enabled = false;
+        }
+
+        public void actualizarNombreEmailPLaya(string nombrePlaya, string emaiPlaya)
+        {
+            string sURL;
+            sURL = "http://localhost:21305/api/Playas/GetActualizarNombreEmailPlaya?idPlaya=" + playa.id + "&nombrePlaya=" + nombrePlaya + "&emailPlaya=" + emaiPlaya;
+
+            try
+            {
+                WebRequest wrGETURL;
+                progressBar1.PerformStep();
+                wrGETURL = WebRequest.Create(sURL);
+
+                //WebProxy myProxy = new WebProxy("myproxy", 80);
+                //myProxy.BypassProxyOnLocal = true;
+
+                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
+
+                Stream objStream;
+                objStream = wrGETURL.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                string sLine = objReader.ReadLine();
+
+
+                if (sLine == "\"True\"")
+                {
+                    MessageBox.Show("Nombre y email actualizados");                    
+                }
+                else
+                {
+                    MessageBox.Show("no se pudo realizar la actualizacion de nombre y email");                    
+                }
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al actualizar disponibilidad en API");                
+            } 
+        }
+
+        public void actualizarTipoPLaya(int tipoPlaya)
+        {
+            string sURL;
+            sURL = "http://localhost:21305/api/Playas/GetActualizarTipoPlaya?idPlaya=" + playa.id + "&idTipoPlaya=" + tipoPlaya;
+
+            try
+            {
+                WebRequest wrGETURL;
+                progressBar1.PerformStep();
+                wrGETURL = WebRequest.Create(sURL);
+
+                //WebProxy myProxy = new WebProxy("myproxy", 80);
+                //myProxy.BypassProxyOnLocal = true;
+
+                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
+
+                Stream objStream;
+                objStream = wrGETURL.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                string sLine = objReader.ReadLine();
+
+
+                if (sLine == "\"True\"")
+                {
+                    MessageBox.Show("Tipo Playa actualizado");
+                }
+                else
+                {
+                    MessageBox.Show("no se pudo realizar la actualizacion de tipo playa");
+                }
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al actualizar disponibilidad en API");
+            }
         }
 
         /// <summary>

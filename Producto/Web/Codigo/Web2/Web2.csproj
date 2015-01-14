@@ -270,7 +270,9 @@
     <Content Include="Mensajes\Confirmacion.ascx" />
     <Content Include="Mensajes\Error.ascx" />
     <Content Include="Mensajes\Info.ascx" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="Web.config" />

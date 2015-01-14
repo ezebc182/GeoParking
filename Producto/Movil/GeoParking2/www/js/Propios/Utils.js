@@ -63,8 +63,8 @@ function toRad(value){
 }
 
 function obtenerURLServer(){
-	//return 'http://ifrigerio-001-site1.smarterasp.net/';
-	return 'http://localhost:21305/';
+	return 'http://ifrigerio-001-site1.smarterasp.net/';
+	//return 'http://localhost:21305/';
 }
 function leerPropiedadTipoVehiculo(){
     var configuraciones = localStorage.getItem("Configuraciones");
