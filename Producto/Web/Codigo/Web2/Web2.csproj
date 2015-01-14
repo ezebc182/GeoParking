@@ -147,6 +147,7 @@
     </Content>
     <Content Include="Admin.aspx" />
     <Content Include="AdministracionPlayas.aspx" />
+    <Content Include="AdministracionUsuarios.aspx" />
     <Content Include="js\bootstrapformhelpers\css\bootstrap-formhelpers.css" />
     <Content Include="js\bootstrapformhelpers\css\bootstrap-formhelpers.min.css" />
     <Content Include="js\bootstrapformhelpers\img\bootstrap-formhelpers-countries.flags-LICENSE.txt" />
@@ -306,6 +307,13 @@
     <Compile Include="DatosPersonales.aspx.designer.cs">
       <DependentUpon>DatosPersonales.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdministracionUsuarios.aspx.cs">
+      <DependentUpon>AdministracionUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdministracionUsuarios.aspx.designer.cs">
+      <DependentUpon>AdministracionUsuarios.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -343,6 +351,7 @@
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SiteMaster.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Util\Enumeraciones.cs" />
     <Compile Include="Util\FormHelper.cs" />

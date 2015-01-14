@@ -132,6 +132,7 @@ namespace Web2
                     sesion.RolId = Int32.Parse(Request.Cookies["SessionUsuario"]["Rol"]);
                     sesion.NombreUsuario = Request.Cookies["SessionUsuario"]["NombreUsuario"];
                     sesion.Contraseña = Request.Cookies["SessionUsuario"]["Contraseña"];
+                    sesion.Id = Int32.Parse(Request.Cookies["SessionUsuario"]["IdUsuario"]);
                     return sesion;
                 }
                 else
