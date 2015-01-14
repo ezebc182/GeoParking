@@ -35,6 +35,8 @@
             this.paneles = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btnDisponibilidadesCancelar = new System.Windows.Forms.Button();
+            this.btnDisponibilidades = new System.Windows.Forms.Button();
             this.txtDispBici = new System.Windows.Forms.TextBox();
             this.txtDispUti = new System.Windows.Forms.TextBox();
             this.txtDispMoto = new System.Windows.Forms.TextBox();
@@ -131,8 +133,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblConectar = new System.Windows.Forms.Label();
-            this.btnDisponibilidades = new System.Windows.Forms.Button();
-            this.btnDisponibilidadesCancelar = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.paneles.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -166,15 +166,16 @@
             // coonectarToolStripMenuItem
             // 
             this.coonectarToolStripMenuItem.Name = "coonectarToolStripMenuItem";
-            this.coonectarToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.coonectarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.coonectarToolStripMenuItem.Text = "Conectar";
             this.coonectarToolStripMenuItem.Click += new System.EventHandler(this.coonectarToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.salirToolStripMenuItem.Text = "Salir";
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
             // paneles
             // 
@@ -224,6 +225,29 @@
             this.groupBox6.TabIndex = 11;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Lugares Disponibles";
+            // 
+            // btnDisponibilidadesCancelar
+            // 
+            this.btnDisponibilidadesCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDisponibilidadesCancelar.Location = new System.Drawing.Point(344, 114);
+            this.btnDisponibilidadesCancelar.Name = "btnDisponibilidadesCancelar";
+            this.btnDisponibilidadesCancelar.Size = new System.Drawing.Size(123, 26);
+            this.btnDisponibilidadesCancelar.TabIndex = 9;
+            this.btnDisponibilidadesCancelar.Text = "CANCELAR";
+            this.btnDisponibilidadesCancelar.UseVisualStyleBackColor = true;
+            this.btnDisponibilidadesCancelar.Visible = false;
+            this.btnDisponibilidadesCancelar.Click += new System.EventHandler(this.btnDisponibilidadesCancelar_Click);
+            // 
+            // btnDisponibilidades
+            // 
+            this.btnDisponibilidades.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDisponibilidades.Location = new System.Drawing.Point(188, 114);
+            this.btnDisponibilidades.Name = "btnDisponibilidades";
+            this.btnDisponibilidades.Size = new System.Drawing.Size(150, 26);
+            this.btnDisponibilidades.TabIndex = 8;
+            this.btnDisponibilidades.Text = "EDITAR";
+            this.btnDisponibilidades.UseVisualStyleBackColor = true;
+            this.btnDisponibilidades.Click += new System.EventHandler(this.button1_Click);
             // 
             // txtDispBici
             // 
@@ -1270,29 +1294,6 @@
             this.lblConectar.TabIndex = 3;
             this.lblConectar.Text = "CONECTANDO";
             this.lblConectar.Visible = false;
-            // 
-            // btnDisponibilidades
-            // 
-            this.btnDisponibilidades.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDisponibilidades.Location = new System.Drawing.Point(188, 114);
-            this.btnDisponibilidades.Name = "btnDisponibilidades";
-            this.btnDisponibilidades.Size = new System.Drawing.Size(150, 26);
-            this.btnDisponibilidades.TabIndex = 8;
-            this.btnDisponibilidades.Text = "EDITAR";
-            this.btnDisponibilidades.UseVisualStyleBackColor = true;
-            this.btnDisponibilidades.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // btnDisponibilidadesCancelar
-            // 
-            this.btnDisponibilidadesCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDisponibilidadesCancelar.Location = new System.Drawing.Point(344, 114);
-            this.btnDisponibilidadesCancelar.Name = "btnDisponibilidadesCancelar";
-            this.btnDisponibilidadesCancelar.Size = new System.Drawing.Size(123, 26);
-            this.btnDisponibilidadesCancelar.TabIndex = 9;
-            this.btnDisponibilidadesCancelar.Text = "CANCELAR";
-            this.btnDisponibilidadesCancelar.UseVisualStyleBackColor = true;
-            this.btnDisponibilidadesCancelar.Visible = false;
-            this.btnDisponibilidadesCancelar.Click += new System.EventHandler(this.btnDisponibilidadesCancelar_Click);
             // 
             // Form1
             // 

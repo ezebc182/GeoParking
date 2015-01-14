@@ -876,6 +876,9 @@ namespace GeoParkingDesktop
 
         public void actualizarNombreEmailPLaya(string nombrePlaya, string emaiPlaya)
         {
+            playa.nombre = nombrePlaya;
+            playa.email = emaiPlaya;
+
             string sURL;
             sURL = "http://localhost:21305/api/Playas/GetActualizarNombreEmailPlaya?idPlaya=" + playa.id + "&nombrePlaya=" + nombrePlaya + "&emailPlaya=" + emaiPlaya;
 
@@ -916,6 +919,8 @@ namespace GeoParkingDesktop
 
         public void actualizarTipoPLaya(int tipoPlaya)
         {
+            playa.tipoPlaya = tipoPlaya;
+
             string sURL;
             sURL = "http://localhost:21305/api/Playas/GetActualizarTipoPlaya?idPlaya=" + playa.id + "&idTipoPlaya=" + tipoPlaya;
 
@@ -1309,6 +1314,11 @@ namespace GeoParkingDesktop
             cargarDisponibilidades();           
 
             MessageBox.Show("Edicion cancelada");
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
         }
                
     }
