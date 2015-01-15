@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterAdmin.Master.cs" Inherits="Web2.MasterAdmin" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterAdmin.Master.cs" Inherits="Web2.MasterAdmin" %>
 
 <%@ Register Src="~/Mensajes/Confirmacion.ascx" TagName="confirmacion" TagPrefix="msjes" %>
 <%@ Register Src="~/Mensajes/Info.ascx" TagName="info" TagPrefix="msjes" %>

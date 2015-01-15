@@ -15,11 +15,11 @@ namespace Web2
     {
         GestorRol gestorRol = new GestorRol();
         GestorUsuario gestorUsuario;
-        //public MasterAdmin master;
+        public MasterAdmin master;
         protected void Page_Load(object sender, EventArgs e)
         {
             gestorUsuario = new GestorUsuario();
-            //master = (MasterAdmin)Master;
+            master = (MasterAdmin) Master;
 
             if (!Page.IsPostBack)
             {
@@ -96,6 +96,7 @@ namespace Web2
         }
         private void cargarComboUsuario()
         {
+            var ge = gestorUsuario.BuscarUsuarios();
             FormHelper.CargarCombo(ddlUsuario, gestorUsuario.BuscarUsuarios(), "NombreUsuario", "Id", "Seleccione");
         }
         private void cargarComboRolUsuario()
