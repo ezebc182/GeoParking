@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterAdmin.Master.cs" Inherits="Web2.MasterAdmin" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterAdmin.Master.cs" Inherits="Web2.MasterAdmin" %>
 
 <%@ Register Src="~/Mensajes/Confirmacion.ascx" TagName="confirmacion" TagPrefix="msjes" %>
 <%@ Register Src="~/Mensajes/Info.ascx" TagName="info" TagPrefix="msjes" %>
@@ -86,37 +86,25 @@
                     <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
                     <div class="collapse navbar-collapse navbar-ex1-collapse">
                         <ul class="nav navbar-nav side-nav">
-                            <li class="active">
-                                <a href="index.html"><i class="fa fa-fw fa-dashboard"></i>Dashboard</a>
+                            <li>
+                                <a href="AdministracionPlayas.aspx"><i class="fa fa-fw fa-map-marker"></i> Administración de Playas</a>
                             </li>
                             <li>
-                                <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i>Charts</a>
-                            </li>
-                            <li>
-                                <a href="tables.html"><i class="fa fa-fw fa-table"></i>Tables</a>
-                            </li>
-                            <li>
-                                <a href="forms.html"><i class="fa fa-fw fa-edit"></i>Forms</a>
-                            </li>
-                            <li>
-                                <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i>Bootstrap Elements</a>
-                            </li>
-                            <li>
-                                <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i>Bootstrap Grid</a>
-                            </li>
-                            <li>
-                                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i>Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
+                                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-users"></i> Gestión de Usuarios <i class="fa fa-fw fa-caret-down"></i></a>
                                 <ul id="demo" class="collapse">
                                     <li>
-                                        <a href="#">Dropdown Item</a>
+                                        <a href="AdministracionUsuarios.aspx?accion=NuevoRol">Crear Rol</a>
                                     </li>
                                     <li>
-                                        <a href="#">Dropdown Item</a>
+                                        <a href="AdministracionUsuarios.aspx?accion=AsignarPermiso">Asignar Permisos a Rol</a>
+                                    </li>
+                                    <li>
+                                        <a href="AdministracionUsuarios.aspx?accion=AsignarRol">Asignar Rol a Usuario</a>
                                     </li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="blank-page.html"><i class="fa fa-fw fa-file"></i>Blank Page</a>
+                                <a href="#"><i class="fa fa-fw fa-bar-chart-o"></i> Estadísticas</a>
                             </li>
                         </ul>
                     </div>

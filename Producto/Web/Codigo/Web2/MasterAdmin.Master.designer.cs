@@ -256,6 +256,33 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.HiddenField hfregistro;
         
         /// <summary>
+        /// Control msjeConfirmacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::SIRAD.Web2.Mensajes.Confirmacion msjeConfirmacion;
+        
+        /// <summary>
+        /// Control msjeInfo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::SIRAD.Web2.Mensajes.InfoAlert msjeInfo;
+        
+        /// <summary>
+        /// Control msjeError.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::SIRAD.Web2.Mensajes.ErrorAlert msjeError;
+        
+        /// <summary>
         /// Control Main.
         /// </summary>
         /// <remarks>
