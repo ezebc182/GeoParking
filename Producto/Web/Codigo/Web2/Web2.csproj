@@ -421,6 +421,7 @@
     <Content Include="font-awesome-4.1.0\scss\_variables.scss" />
     <Content Include="MasterAdmin.Master" />
     <Content Include="js\DataTables-1.10.4\images\Sorting icons.psd" />
+    <None Include="Properties\PublishProfiles\GeoparkingWeb.pubxml" />
     <None Include="Properties\PublishProfiles\GeoparkingWeb2.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

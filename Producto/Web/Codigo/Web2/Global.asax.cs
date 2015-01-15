@@ -13,7 +13,7 @@ namespace Web2
     {
         void Application_Start(object sender, EventArgs e)
         {
-            SqlServerTypes.Utilities.LoadNativeAssemblies(Server.MapPath("~/bin"));
+            //SqlServerTypes.Utilities.LoadNativeAssemblies(Server.MapPath("~/bin"));
         }
 
         void Application_End(object sender, EventArgs e)
