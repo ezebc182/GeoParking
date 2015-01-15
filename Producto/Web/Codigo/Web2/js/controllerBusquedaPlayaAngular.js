@@ -58,7 +58,7 @@ app.controller('MyCtrl', function ($scope, $http) {
                             "<a href='#panel-1' data-toggle='tab'>Datos Generales</a>" +
                           "</li>" +
                           "<li>" +
-                            "<a href='#panel-2' data-toggle='tab'>Horarios</a>" +
+                            "<a href='#panel-2' data-toggle='tab'>Servicios</a>" +
                           "</li>" +                           
                         "</ul>" +
                         "<div class='tab-content'>";
@@ -111,18 +111,17 @@ app.controller('MyCtrl', function ($scope, $http) {
         //agregamos los precios
         contenido += "<div><h6>PRECIOS<h6></div>";
         contenido += "<table class='table table-responsive'>";
-        var precios = eval(playa.Precios);
-        if (precios != null) {
-            for (var m = 0; m < precios.length; m++) {
-                //contenido += "<div>" + precios[m].TipoVehiculo + " - " + precios[m].Dia + " - " + precios[m].Tiempo + " $" + precios[m].Monto + "</div>";
-                contenido += "<tr><td>" + precios[m].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
+
+        for (var l = 0; l < servicios.length; l++) {
+            var precios = eval(servicios[l].Precios);
+            if (precios != null) {
+                for (var m = 0; m < precios.length; m++) {                    
+                    contenido += "<tr><td>" + servicios[l].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
+                }
             }
-        }
+        }       
         contenido += "</table>"
-
-
-        contenido += "</p></div>";        
-
+        contenido += "</p></div>";
         contenido += "</div></div>";
 
         infoWindow.setContent(
@@ -141,7 +140,6 @@ app.controller('MyCtrl', function ($scope, $http) {
                 var playa = playas[i];
             }
         }
-
 
         if (mostrarBusquedaAvanzada == true) {
             $scope.ajustarMapa();
@@ -530,11 +528,13 @@ app.controller('MyCtrl', function ($scope, $http) {
                 //agregamos los precios
                 contenido += "<div><h6>PRECIOS<h6></div>";
                 contenido += "<table class='table table-responsive'>";
-                var precios = eval(playas[i].Precios);
-                if (precios != null) {
-                    for (var m = 0; m < precios.length; m++) {
-                        //contenido += "<div>" + precios[m].TipoVehiculo + " - " + precios[m].Dia + " - " + precios[m].Tiempo + " $" + precios[m].Monto + "</div>";
-                        contenido += "<tr><td>" + precios[m].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
+
+                for (var l = 0; l < servicios.length; l++) {
+                    var precios = eval(servicios[l].Precios);
+                    if (precios != null) {
+                        for (var m = 0; m < precios.length; m++) {
+                            contenido += "<tr><td>" + servicios[l].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
+                        }
                     }
                 }
                 contenido += "</table>"
@@ -604,25 +604,23 @@ app.controller('MyCtrl', function ($scope, $http) {
                 //}
 
                 var Precios = "";
-                var precios = eval(playas[i].Precios);
-                if (precios != null) {
-                    for (var m = 0; m < precios.length; m++) {
-                        Precios += precios[m].TipoVehiculo + " - " + precios[m].Tiempo + ": $" + precios[m].Monto + "\n";
+
+                for (var l = 0; l < servicios.length; l++) {
+                    var precios = eval(servicios[l].Precios);
+                    if (precios != null) {
+                        for (var m = 0; m < precios.length; m++) {
+                            Precios += servicios[l].TipoVehiculo + " - " + precios[m].Tiempo + ": $" + precios[m].Monto + "\n";
+                        }
                     }
                 }
-
+              
                 var latitud = playas[i].Latitud;
                 var longitud = playas[i].Longitud;
 
                 $scope.playasGrilla.push({ Id: Id, Nombre: Nombre, TipoPlaya: TipoPlaya, Direccion: Direccion, Vehiculos: Vehiculos, Precios: Precios, Latitud: latitud, Longitud: longitud });
-
-
-            }
-
-            
-        }
-
-        
+                
+            }            
+        }               
     }
 
     /*FILTRO LAS PLAYAS*/
