@@ -469,9 +469,7 @@ namespace GeoParkingDesktop
                 string sLine = objReader.ReadLine();
                 
 
-                if (sLine == "\"True\"")
-                    MessageBox.Show("Actualizacion Existosa");
-                else
+                if (sLine != "\"True\"")              
                     MessageBox.Show("no se pudo realizar la actualizacion");
             }
             catch (Exception)
@@ -714,6 +712,10 @@ namespace GeoParkingDesktop
             habilitarFormularioAdministracion();
             btnCancelarCambios.Enabled = true;
             btnGuardarCambios.Enabled = true;
+            chekAuto.Enabled = true;
+            chekUti.Enabled = true;
+            chekMoto.Enabled = true;
+            chekBici.Enabled = true;
         }
 
         /// <summary>
@@ -783,28 +785,28 @@ namespace GeoParkingDesktop
             txtHoraDesde.Enabled = false;
             txtHoraHasta.Enabled = false;
 
-            chekAuto.Enabled = false;
+            //chekAuto.Enabled = false;
             txt1hAuto.Enabled = false;
             txt12hAuto.Enabled = false;
             txt6hAuto.Enabled = false;
             txt24hAuto.Enabled = false;
             txtAbonoAuto.Enabled = false;
 
-            chekMoto.Enabled = false;
+            //chekMoto.Enabled = false;
             txt1hMoto.Enabled = false;
             txt12hMoto.Enabled = false;
             txt6hMoto.Enabled = false;
             txt24hMoto.Enabled = false;
             txtAbonoMoto.Enabled = false;
 
-            chekUti.Enabled = false;
+            //chekUti.Enabled = false;
             txt1hUti.Enabled = false;
             txt12hUti.Enabled = false;
             txt6hUti.Enabled = false;
             txt24hUti.Enabled = false;
             txtAbonoUti.Enabled = false;
 
-            chekBici.Enabled = false;
+            //chekBici.Enabled = false;
             txt1hBici.Enabled = false;
             txt12hBici.Enabled = false;
             txt6hBici.Enabled = false;
@@ -879,9 +881,16 @@ namespace GeoParkingDesktop
                 actualizarHorarioPlaya(cmbDiasHorario.SelectedIndex + 1, txtHoraDesde.Text, txtHoraHasta.Text);
             }
 
+            //actualizacion de servicios y precios
+            actualizarServiciosPrecios();
+
             inhabilitarFormularioAdminsitracion();
             btnCancelarCambios.Enabled = false;
             btnGuardarCambios.Enabled = false;
+            chekAuto.Enabled = false;
+            chekUti.Enabled = false;
+            chekMoto.Enabled = false;
+            chekBici.Enabled = false;
         }
 
         public void actualizarNombreEmailPLaya(string nombrePlaya, string emaiPlaya)
@@ -1010,6 +1019,572 @@ namespace GeoParkingDesktop
             catch (Exception)
             {
                 MessageBox.Show("Error al actualizar disponibilidad en API");
+            }
+        }
+
+        public void actualizarServiciosPrecios()
+        {
+            if (chekAuto.Checked == true)
+            {
+                if (verificarExistenciaDeServicio(1))
+                {
+                    //si existe verifico el cambio de precios
+                    actualizarPrecios(1);
+                }
+                else
+                {
+                    //sino existe lock registramos AllowDrop servicio yield los precios
+                    registracionDeServicio(1, txt1hAuto.Text, txt6hAuto.Text, txt12hAuto.Text, txt24hAuto.Text, txtAbonoAuto.Text);
+
+                }
+            }
+            else
+            {
+                if (verificarExistenciaDeServicio(1))
+                {
+                    cancelacionDeServicio(1);
+                }
+            }
+
+            if (chekUti.Checked == true)
+            {
+                if (verificarExistenciaDeServicio(2))
+                {
+                    //si existe verifico el cambio de precios
+                    actualizarPrecios(2);
+                }
+                else
+                {
+                    //sino existe lock registramos AllowDrop servicio yield los precios
+                    registracionDeServicio(2, txt1hUti.Text, txt6hUti.Text, txt12hUti.Text, txt24hUti.Text, txtAbonoUti.Text);
+
+                }
+            }
+            else
+            {
+                if (verificarExistenciaDeServicio(2))
+                {
+                    cancelacionDeServicio(2);
+                }
+            }
+
+            if (chekMoto.Checked == true)
+            {
+                if (verificarExistenciaDeServicio(3))
+                {
+                    //si existe verifico el cambio de precios
+                    actualizarPrecios(3);
+                }
+                else
+                {
+                    //sino existe lock registramos AllowDrop servicio yield los precios
+                    registracionDeServicio(3, txt1hMoto.Text, txt6hMoto.Text, txt12hMoto.Text, txt24hMoto.Text, txtAbonoMoto.Text);
+
+                }
+            }
+            else
+            {
+                if (verificarExistenciaDeServicio(3))
+                {
+                    cancelacionDeServicio(3);
+                }
+            }
+
+            if (chekBici.Checked == true)
+            {
+                if (verificarExistenciaDeServicio(4))
+                {
+                    //si existe verifico el cambio de precios
+                    actualizarPrecios(4);
+                }
+                else
+                {
+                    //sino existe lock registramos AllowDrop servicio yield los precios
+                    registracionDeServicio(4, txt1hBici.Text, txt6hBici.Text, txt12hBici.Text, txt24hBici.Text, txtAbonoBici.Text);
+
+                }
+            }
+            else
+            {
+                if (verificarExistenciaDeServicio(4))
+                {
+                    cancelacionDeServicio(4);
+                }
+            }
+            
+
+        }
+
+        public void registracionDeServicio(int idTipoVehiculo, string x1, string x6, string x12, string x24, string abono)
+        {
+            string sURL;
+            sURL = "http://localhost:21305/api/Servicios/GetRegistrarServicio?idPlaya=" + playa.id + "&idTipoVehiculo=" + idTipoVehiculo + "&capacidad=0" + "&x1=" + Double.Parse(x1) + "&x6=" + Double.Parse(x6) + "&x12=" + Double.Parse(x12) + "&x24=" + Double.Parse(x24) + "&abono=" + Double.Parse(abono);
+
+            try
+            {
+                WebRequest wrGETURL;
+                progressBar1.PerformStep();
+                wrGETURL = WebRequest.Create(sURL);
+
+                //WebProxy myProxy = new WebProxy("myproxy", 80);
+                //myProxy.BypassProxyOnLocal = true;
+
+                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
+
+                Stream objStream;
+                objStream = wrGETURL.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                string sLine = objReader.ReadLine();
+
+
+                if (sLine == "\"True\"")
+                {
+                    MessageBox.Show("Servicio Registrado");
+
+                }
+                else
+                {
+                    MessageBox.Show("no se pudo realizar la registracion del servicio");
+
+                }
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al registrar un servicio en API");
+            }
+        }
+        public void cancelacionDeServicio(int idTipoVehiculo)
+        {
+            string sURL;
+            sURL = "http://localhost:21305/api/Servicios/GetCancelarServicio?idPlaya=" + playa.id + "&idTipoVehiculo=" + idTipoVehiculo;
+            
+            try
+            {
+                WebRequest wrGETURL;
+                progressBar1.PerformStep();
+                wrGETURL = WebRequest.Create(sURL);
+
+                //WebProxy myProxy = new WebProxy("myproxy", 80);
+                //myProxy.BypassProxyOnLocal = true;
+
+                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
+
+                Stream objStream;
+                objStream = wrGETURL.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                string sLine = objReader.ReadLine();
+
+
+                if (sLine == "\"True\"")
+                {
+                    MessageBox.Show("Cancelacion de servicio correcta");
+
+                }
+                else
+                {
+                    MessageBox.Show("no se pudo realizar la cancelacion del servicio");
+
+                }
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al cancelar servicio en API");
+            }
+        }
+
+        public bool verificarExistenciaDeServicio(int idTipoVehiculo)
+        {
+            foreach (var item in playa.disponibilidades)
+	        {
+		        if(item.tipoVehiculo==idTipoVehiculo)
+                    return true;
+	        }
+            
+            return false;
+        }
+
+        public void actualizarPrecios(int idTipoVehiculo)
+        {
+
+            verificarModificacionPrecio(idTipoVehiculo);            
+        }
+
+        public void verificarModificacionPrecio(int idTipoVehiculo)
+        {
+            switch (idTipoVehiculo)
+            {
+                case 1: verificarModificacionPrecioAuto(); break;
+                case 2: verificarModificacionPrecioUtilitario(); break;
+                case 3: verificarModificacionPrecioMoto(); break;
+                case 4: verificarModificacionPrecioBicicleta(); break;
+                default: return;
+                
+            }
+           
+        }
+
+        public void verificarModificacionPrecioAuto()
+        {
+           double precio = 0;
+
+           if (txt1hAuto.Text != buscarPrecio(1,1).ToString())
+           {        
+               if(txt1hAuto.Text!="")
+                   precio=Double.Parse(txt1hAuto.Text);
+
+               if (buscarPrecio(1, 1) != 0)
+                   actualizarPrecio(1, precio, 1);
+               else
+                   registrarPrecio(1, precio, 1);
+           }
+
+           if (txt6hAuto.Text != buscarPrecio(1, 2).ToString())
+           {
+               precio = 0;
+
+               if (txt6hAuto.Text != "")
+                   precio = Double.Parse(txt6hAuto.Text);
+
+               if (buscarPrecio(1, 2)!=0)
+                   actualizarPrecio(1, precio, 2);
+               else
+                   registrarPrecio(1, precio, 2);
+           }
+
+           if (txt12hAuto.Text != buscarPrecio(1, 3).ToString())
+           {
+               precio = 0;
+
+               if (txt12hAuto.Text != "")
+                   precio = Double.Parse(txt12hAuto.Text);
+
+               if (buscarPrecio(1, 3) != 0)
+                   actualizarPrecio(1, precio, 3);
+               else
+                   registrarPrecio(1, precio, 3);
+           }
+
+           if (txt24hAuto.Text != buscarPrecio(1, 4).ToString())
+           {
+               precio = 0;
+
+               if (txt24hAuto.Text != "")
+                   precio = Double.Parse(txt24hAuto.Text);
+
+               if (buscarPrecio(1, 4) != 0)
+                   actualizarPrecio(1, precio, 4);
+               else
+                   registrarPrecio(1, precio, 4);
+           }
+
+           if (txtAbonoAuto.Text != buscarPrecio(1, 5).ToString())
+           {
+               precio = 0;
+
+               if (txtAbonoAuto.Text != "")
+                   precio = Double.Parse(txtAbonoAuto.Text);
+
+               if (buscarPrecio(1, 5) != 0)
+                   actualizarPrecio(1, precio, 5);
+               else
+                   registrarPrecio(1, precio, 5);
+           }
+                
+
+        }
+        public void verificarModificacionPrecioUtilitario()
+        {
+            double precio = 0;
+
+            string a = txt1hUti.Text;
+            string b = buscarPrecio(2,1).ToString();
+
+            if (txt1hUti.Text != buscarPrecio(2, 1).ToString())
+            {
+                if (txt1hUti.Text != "")
+                    precio = Double.Parse(txt1hUti.Text);
+
+                if (buscarPrecio(2, 1) != 0)
+                    actualizarPrecio(2, precio, 1);
+                else
+                    registrarPrecio(2, precio, 1);
+            }
+
+            if (txt6hUti.Text != buscarPrecio(2, 2).ToString())
+            {
+                precio = 0;
+
+                if (txt6hUti.Text != "")
+                    precio = Double.Parse(txt6hUti.Text);
+
+                if (buscarPrecio(2, 2) != 0)
+                    actualizarPrecio(2, precio, 2);
+                else
+                    registrarPrecio(2, precio, 2);
+            }
+
+            if (txt12hUti.Text != buscarPrecio(2, 3).ToString())
+            {
+                precio = 0;
+
+                if (txt12hUti.Text != "")
+                    precio = Double.Parse(txt12hUti.Text);
+
+                if (buscarPrecio(2, 3) != 0)
+                    actualizarPrecio(2, precio, 3);
+                else
+                    registrarPrecio(2, precio, 3);
+            }
+
+            if (txt24hUti.Text != buscarPrecio(2, 4).ToString())
+            {
+                precio = 0;
+
+                if (txt24hUti.Text != "")
+                    precio = Double.Parse(txt24hUti.Text);
+
+                if (buscarPrecio(2, 4) != 0)
+                    actualizarPrecio(2, precio, 4);
+                else
+                    registrarPrecio(2, precio, 4);
+            }
+
+            if (txtAbonoUti.Text != buscarPrecio(2, 5).ToString())
+            {
+                precio = 0;
+
+                if (txtAbonoUti.Text != "")
+                    precio = Double.Parse(txtAbonoUti.Text);
+
+                if (buscarPrecio(2, 5) != 0)
+                    actualizarPrecio(2, precio, 5);
+                else
+                    registrarPrecio(2, precio, 5);
+            }
+
+
+        }
+        public void verificarModificacionPrecioMoto()
+        {
+            double precio = 0;
+
+            if (txt1hMoto.Text != buscarPrecio(3, 1).ToString())
+            {
+                if (txt1hMoto.Text != "")
+                    precio = Double.Parse(txt1hMoto.Text);
+
+                if (buscarPrecio(3, 1) != 0)
+                    actualizarPrecio(3, precio, 1);
+                else
+                    registrarPrecio(3, precio, 1);
+            }
+
+            if (txt6hMoto.Text != buscarPrecio(3, 2).ToString())
+            {
+                precio = 0;
+
+                if (txt6hMoto.Text != "")
+                    precio = Double.Parse(txt6hMoto.Text);
+
+                if (buscarPrecio(3, 2) != 0)
+                    actualizarPrecio(3, precio, 2);
+                else
+                    registrarPrecio(3, precio, 2);
+            }
+
+            if (txt12hMoto.Text != buscarPrecio(3, 3).ToString())
+            {
+                precio = 0;
+
+                if (txt12hMoto.Text != "")
+                    precio = Double.Parse(txt12hMoto.Text);
+
+                if (buscarPrecio(3, 3) != 0)
+                    actualizarPrecio(3, precio, 3);
+                else
+                    registrarPrecio(3, precio, 3);
+            }
+
+            if (txt24hMoto.Text != buscarPrecio(3, 4).ToString())
+            {
+                precio = 0;
+
+                if (txt24hMoto.Text != "")
+                    precio = Double.Parse(txt24hMoto.Text);
+
+                if (buscarPrecio(3, 4) != 0)
+                    actualizarPrecio(3, precio, 4);
+                else
+                    registrarPrecio(3, precio, 4);
+            }
+
+            if (txtAbonoMoto.Text != buscarPrecio(3, 5).ToString())
+            {
+                precio = 0;
+
+                if (txtAbonoMoto.Text != "")
+                    precio = Double.Parse(txtAbonoMoto.Text);
+
+                if (buscarPrecio(3, 5) != 0)
+                    actualizarPrecio(3, precio, 5);
+                else
+                    registrarPrecio(3, precio, 5);
+            }
+
+        }
+        public void verificarModificacionPrecioBicicleta()
+        {
+            double precio = 0;
+
+            if (txt1hBici.Text != buscarPrecio(4, 1).ToString())
+            {
+                if (txt1hBici.Text != "")
+                    precio = Double.Parse(txt1hBici.Text);
+
+                if (buscarPrecio(4, 1) != 0)
+                    actualizarPrecio(4, precio, 1);
+                else
+                    registrarPrecio(4, precio, 1);
+            }
+
+            if (txt6hBici.Text != buscarPrecio(4, 2).ToString())
+            {
+                precio = 0;
+
+                if (txt6hBici.Text != "")
+                    precio = Double.Parse(txt6hBici.Text);
+
+                if (buscarPrecio(4, 2) != 0)
+                    actualizarPrecio(4, precio, 2);
+                else
+                    registrarPrecio(4, precio, 2);
+            }
+
+            if (txt12hBici.Text != buscarPrecio(4, 3).ToString())
+            {
+                precio = 0;
+
+                if (txt12hBici.Text != "")
+                    precio = Double.Parse(txt12hBici.Text);
+
+                if (buscarPrecio(4, 3) != 0)
+                    actualizarPrecio(4, precio, 3);
+                else
+                    registrarPrecio(4, precio, 3);
+            }
+
+            if (txt24hBici.Text != buscarPrecio(4, 4).ToString())
+            {
+                precio = 0;
+
+                if (txt24hBici.Text != "")
+                    precio = Double.Parse(txt24hBici.Text);
+
+                if (buscarPrecio(4, 4) != 0)
+                    actualizarPrecio(4, precio, 4);
+                else
+                    registrarPrecio(4, precio, 4);
+            }
+
+            if (txtAbonoBici.Text != buscarPrecio(4, 5).ToString())
+            {
+                precio = 0;
+
+                if (txtAbonoBici.Text != "")
+                    precio = Double.Parse(txtAbonoBici.Text);
+
+                if (buscarPrecio(4, 5) != 0)
+                    actualizarPrecio(4, precio, 5);
+                else
+                    registrarPrecio(4, precio, 5);
+            }
+
+        }        
+
+        public double buscarPrecio(int idTipoVechiculo, int idTiempo)
+        {
+            foreach (var item in playa.precios)
+            {
+                if (item.tiempo == idTiempo && item.tipoVehiculo == idTipoVechiculo)
+                    return item.precio;
+            }
+
+            return 0;
+        }        
+
+        public void actualizarPrecio(int idTipoVehiculo, double precio, int idTiempo)
+        {            
+
+            string sURL;
+            sURL = "http://localhost:21305/api/precios/GetActualizarPrecio?idPlaya=" + playa.id + "&idTiempo=" + idTiempo + "&idTipoVehiculo=" + idTipoVehiculo + "&precio=" + precio;
+
+            try
+            {
+                WebRequest wrGETURL;
+                progressBar1.PerformStep();
+                wrGETURL = WebRequest.Create(sURL);
+
+                //WebProxy myProxy = new WebProxy("myproxy", 80);
+                //myProxy.BypassProxyOnLocal = true;
+
+                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
+
+                Stream objStream;
+                objStream = wrGETURL.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                string sLine = objReader.ReadLine();
+
+
+                if (sLine != "\"True\"")
+                    MessageBox.Show("no se pudo realizar la actualizacion del precio");            
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al actualizar precio en API");                
+            }
+        }
+
+        public void registrarPrecio(int idTipoVehiculo, double precio, int idTiempo)
+        {
+
+            string sURL;
+            sURL = "http://localhost:21305/api/precios/GetRegistrarPrecio?idPlaya=" + playa.id + "&idTiempo=" + idTiempo + "&idTipoVehiculo=" + idTipoVehiculo + "&precio=" + precio;
+
+            try
+            {
+                WebRequest wrGETURL;
+                progressBar1.PerformStep();
+                wrGETURL = WebRequest.Create(sURL);
+
+                //WebProxy myProxy = new WebProxy("myproxy", 80);
+                //myProxy.BypassProxyOnLocal = true;
+
+                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
+
+                Stream objStream;
+                objStream = wrGETURL.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                string sLine = objReader.ReadLine();
+
+
+                if (sLine == "\"True\"")
+                    MessageBox.Show("no se pudo realizar la registracion del precio");               
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al actualizar precio en API");
             }
         }
 
