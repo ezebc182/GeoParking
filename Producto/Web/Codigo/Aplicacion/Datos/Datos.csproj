@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContextoBD.cs" />
+    <Compile Include="RepositorioZona.cs" />
     <Compile Include="RepositorioRol.cs" />
     <Compile Include="RepositorioPermiso.cs" />
     <Compile Include="RepositorioPlayaDeEstacionamiento.cs" />

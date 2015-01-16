@@ -35,12 +35,14 @@ namespace Datos
     public class RepositorioTipoDePlaya : Repositorio<TipoPlaya>, IRepositorioTipoDePlaya { }
     public class RepositorioTipoVehiculo : Repositorio<TipoVehiculo>, IRepositorioTipoVehiculo { }
     public class RepositorioServicio : Repositorio<Servicio>, IRepositorioServicio { }
-    public class RepositorioZona : Repositorio<Zona>, IRepositorioZonas { }
     public class RepositorioHorario : Repositorio<Horario>, IRepositorioHorario { }
     public class RepositorioDiaAtencion : Repositorio<DiaAtencion>, IRepositorioDiaAtencion { }
     public class RepositorioTiempo : Repositorio<Tiempo>, IRepositorioTiempo { }
     public class RepositorioUsuario : Repositorio<Usuario>, IRepositorioUsuario { }
     public class RepositorioHistorialDisponibilidadPlayas : Repositorio<HistorialDisponibilidadPlayas>, IRepositorioHistorialDisponibilidadPlayas { }
     public class RepositorioEvento : Repositorio<Evento>, IRepositorioEventos { }
+    
+    
+    
 }
 

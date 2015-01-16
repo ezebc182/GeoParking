@@ -126,7 +126,10 @@ namespace Datos
             {
                 var currentEntity = FindById(t.Id);
                 var entry = contexto.Entry(currentEntity);
-
+                if (entry.State == EntityState.Detached)
+                {
+                    DbSet.Attach(t);
+                }
                 entry.CurrentValues.SetValues(t);
                 try
                 {
