@@ -236,7 +236,7 @@
                               <th>Tipo Playa</th>
                               <th>Direccion</th>
                               <th>Tipo de Vehiculos</th>
-                              <th>Precios</th>
+                              <th>Precios x hora</th>
                               <th></th>  
                             </tr>            
                           </thead>                 

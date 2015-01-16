@@ -615,8 +615,9 @@ app.controller('MyCtrl', function ($scope, $http) {
                     var precios = eval(servicios[l].Precios);
                     if (precios != null) {
                         for (var m = 0; m < precios.length; m++) {
-                            if (precios[m].Monto > 0)
-                                Precios += servicios[l].TipoVehiculo + " - " + precios[m].Tiempo + ": $" + precios[m].Monto + "\n";
+                            if (precios[m].Monto > 0 && precios[m].Tiempo=="Hora")
+                                //Precios += servicios[l].TipoVehiculo + " - " + precios[m].Tiempo + ": $" + precios[m].Monto + "\n";
+                                Precios += " " + servicios[l].TipoVehiculo + ": $" + precios[m].Monto + "\n";
                         }
                     }
                 }
