@@ -8,6 +8,7 @@ var map;
 var zonaNueva;
 var nombre;
 var zonas = new Array();
+var accion; //creando, editando
 
 function clearSelection() {
     if (selectedShape) {
@@ -136,7 +137,7 @@ function ocultarZonas() {
 function toGMPolygon(wkt) {
     var coordenadas = new Array();
     var coords = wkt.substr(10, wkt.indexOf('))') - 10);
-    var coordsArray = coords.replace(/,/g, '').split(' ');
+    var coordsArray = coords.trim().replace(/,/g, ' ').split(/ +/g);
     for (var j = 0; j < coordsArray.length; j++) {
         coordenadas.push(new google.maps.LatLng(coordsArray[j + 1], coordsArray[j]));
         j++;
@@ -148,6 +149,7 @@ function toGMPolygon(wkt) {
         fillColor: '#1E90FF',
         fillOpacity: 0.45
     });
+    poly.wkt = wkt;
     google.maps.event.addListener(poly, 'click', function (event) {
         setSelection(poly);
     });
@@ -178,36 +180,36 @@ function nuevaZona() {
     });
 
     google.maps.event.addListener(drawingManager, 'overlaycomplete', function (e) {
-        if ($('#btnGuardarZona').is(':visible')) { e.overlay.setMap(null); }
-        else {
-            if (e.type != google.maps.drawing.OverlayType.MARKER) {
-                // Switch back to non-drawing mode after drawing a shape.
-                drawingManager.setDrawingMode(null);
 
-                // Add an event listener that selects the newly-drawn shape when the user
-                // mouses down on it.
-                var poly = e.overlay;
-                poly.type = e.type;
-                poly.Id = 0;
-                poly.Nombre = $('#txtNombreZona').val();
-                zonaNueva = poly;
-                google.maps.event.addListener(poly, 'click', function () {
-                    setSelection(poly);
-                });
-                selectedShape = poly;
+        if (e.type != google.maps.drawing.OverlayType.MARKER) {
+            // Switch back to non-drawing mode after drawing a shape.
+            drawingManager.setDrawingMode(null);
 
-                //Borrar los controles para que no se pueda dibujar otra zona!!
-                drawingManager.setOptions({
-                    drawingControl: false
-                });
+            // Add an event listener that selects the newly-drawn shape when the user
+            // mouses down on it.
+            var poly = e.overlay;
+            poly.type = e.type;
+            poly.Id = 0;
+            poly.Nombre = $('#txtNombreZona').val();
+            poly.wkt = toWKT(poly);
+            zonaNueva = poly;
+            google.maps.event.addListener(poly, 'click', function () {
+                setSelection(poly);
+            });
+            selectedShape = poly;
 
-            }
+            //Borrar los controles para que no se pueda dibujar otra zona!!
+            drawingManager.setOptions({
+                drawingControl: false
+            });
+
+
         }
     });
 
-    // Clear the current selection when the drawing mode is changed, or when the
-    // map is clicked.
-    google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
+    //// Clear the current selection when the drawing mode is changed, or when the
+    //// map is clicked.
+    //google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
     google.maps.event.addListener(map, 'click', clearSelection);
 
     buildColorPalette();
@@ -215,7 +217,7 @@ function nuevaZona() {
 };
 function guardarZona() {
     nombre = $('#txtNombreZona').val();
-    datos = new zona(selectedShape.Id, nombre, toWKT(selectedShape));
+    datos = new zona(selectedShape.Id, nombre, selectedShape.wkt);
 
     $.ajax({
         type: "POST",
@@ -242,7 +244,7 @@ function guardarZona() {
     });
 };
 
-function eliminarZona(){
+function eliminarZona() {
     $.ajax({
         type: "POST",
         url: "Zonas.aspx/EliminarZona",
@@ -269,6 +271,7 @@ function eliminarZona(){
 
 
 function configurarNuevaZona() {
+    accion = "creando";
     $('#btnEditarZona').hide();
     $('#btnNuevaZona').hide();
     $('#btnGuardarZona').show();
@@ -281,6 +284,7 @@ function configurarNuevaZona() {
 }
 
 function configurarEditarZona() {
+    accion = "editando";
     $('#btnEditarZona').hide();
     $('#btnNuevaZona').hide();
     $('#btnGuardarZona').show();
@@ -288,6 +292,11 @@ function configurarEditarZona() {
     $('#btnCancelar').show();
     $('#txtNombreZona').prop('disabled', false);
 
+    var zonaTemp = toGMPolygon(selectedShape.wkt);
+    zonaTemp.Nombre = selectedShape.Nombre;
+    zonaTemp.Id = selectedShape.Id;
+    selectedShape = zonaTemp;    
+    mostrarZona(selectedShape);
     ocultarZonas();
     mostrarZona(selectedShape);
     setSelectedShapeEditable(true);
@@ -316,16 +325,15 @@ function configurarCancelarZona() {
     if (drawingManager) {
         drawingManager.setDrawingMode(null);
     }
-    if ($('#btnGuardarZona').is(':visible')) {
-        deleteSelectedShape(); //borro del mapa la zona que se estaba creando
-    }
+        deleteSelectedShape(); //borro del mapa la zona que se estaba creando o editando
+    
     $('#btnEditarZona').hide();
     $('#btnNuevaZona').show();
     $('#btnGuardarZona').hide();
     $('#btnEliminarZona').hide();
     $('#btnCancelar').hide();
     $('#txtNombreZona').prop('disabled', true);
-    
+
     clearSelection();
     ocultarZonas();
     mostrarZonas();
@@ -378,9 +386,8 @@ function toWKT(poly) {
         // Google's approach assumes the closing point is the same as the opening
         // point for any given ring, so we have to refer back to the initial point
         // and append it to the end of our polygon wkt, properly closing it.
-        //
         // Also close the ring grouping and anticipate another ring (trailing comma)
-        wkt += path.getAt(0).lng().toString() + " " + path.getAt(0).lat().toString() + "),";
+            wkt += path.getAt(0).lng().toString() + " " + path.getAt(0).lat().toString() + "),";
     }
 
     // resolve the last trailing "," and close the Polygon

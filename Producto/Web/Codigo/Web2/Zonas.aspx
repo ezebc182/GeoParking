@@ -19,7 +19,7 @@
             <label for="txtNombreZona" class="control-label">Nombre:</label>
             <div class="controls">
                 <div class="input-group">
-                    <input class="form-control" id="txtNombreZona" data-bv-notempty="true" data-bv-notempty-message="El nombre es requerido." />
+                    <input class="form-control" id="txtNombreZona" data-bv-notempty="true" data-bv-notempty-message="El nombre es requerido." disabled />
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-success" id="btnEditarZona" style="display:none;">Editar Zona</button>
     <button type="button" class="btn btn-success" id="btnNuevaZona">Nueva Zona</button>

@@ -39,6 +39,7 @@ function posicion(longitud, latitud) {
         WellKnownText: "POINT (" + longitud + " " + latitud + ")"
     };
 };
+
 function zona(id, nombre, wkt) {
     this.Id = id,
     this.Nombre = nombre,
@@ -50,10 +51,12 @@ function zona(id, nombre, wkt) {
         }
     };
 };
-function direccion(id, calle, numero, ciudad, posicion) {
+function direccion(id, calle, numero, ciudad, latitud, longitud) {
     this.Id = id;
     this.Calle = calle;
     this.Numero = numero;
     this.Ciudad = ciudad;
-    this.Posicion = posicion;
+    this.Posicion = new posicion(longitud, latitud);
+    this.Latitud = latitud;
+    this.Longitud = longitud;
 };
