@@ -115,8 +115,9 @@ app.controller('MyCtrl', function ($scope, $http) {
         for (var l = 0; l < servicios.length; l++) {
             var precios = eval(servicios[l].Precios);
             if (precios != null) {
-                for (var m = 0; m < precios.length; m++) {                    
-                    contenido += "<tr><td>" + servicios[l].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
+                for (var m = 0; m < precios.length; m++) {
+                    if (precios[m].Monto > 0)
+                        contenido += "<tr><td>" + servicios[l].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
                 }
             }
         }       
@@ -533,7 +534,8 @@ app.controller('MyCtrl', function ($scope, $http) {
                     var precios = eval(servicios[l].Precios);
                     if (precios != null) {
                         for (var m = 0; m < precios.length; m++) {
-                            contenido += "<tr><td>" + servicios[l].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
+                            if(precios[m].Monto>0)
+                                contenido += "<tr><td>" + servicios[l].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
                         }
                     }
                 }
@@ -609,7 +611,8 @@ app.controller('MyCtrl', function ($scope, $http) {
                     var precios = eval(servicios[l].Precios);
                     if (precios != null) {
                         for (var m = 0; m < precios.length; m++) {
-                            Precios += servicios[l].TipoVehiculo + " - " + precios[m].Tiempo + ": $" + precios[m].Monto + "\n";
+                            if (precios[m].Monto > 0)
+                                Precios += servicios[l].TipoVehiculo + " - " + precios[m].Tiempo + ": $" + precios[m].Monto + "\n";
                         }
                     }
                 }
