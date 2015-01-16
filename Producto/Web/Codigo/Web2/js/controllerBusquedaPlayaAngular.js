@@ -313,6 +313,8 @@ app.controller('MyCtrl', function ($scope, $http) {
             map: $scope.map
         });
 
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+
         //seteamos al contenido
         (function (marker, contenido) {
             google.maps.event.addListener(marker, 'mouseover', function () {
@@ -361,6 +363,8 @@ app.controller('MyCtrl', function ($scope, $http) {
                     position: results[0].geometry.location,
                     map: $scope.map
                 });
+
+                marker.setAnimation(google.maps.Animation.BOUNCE);
 
                 //seteamos al contenido
                 (function (marker, contenido) {

@@ -45,17 +45,12 @@ namespace Web2
 
             if (txtBuscar.Text != "")
             {
+                
+                //string[] direccionCiudad =txtBuscar.Text.Split(',');
+                //string ciudad = direccionCiudad[0];
+
                 //Objeto session con la ciudad
-                string[] direccionCiudad =txtBuscar.Text.Split(',');
-
-                string ciudad = direccionCiudad[0];
-
-                //string textoNormalizado = ciudad.Normalize(NormalizationForm.FormD);
-                //Regex reg = new Regex("[^a-zA-Z0-9 ]");
-                //string ciudadSinAcentos = reg.Replace(textoNormalizado, "");
-                //Session["ciudad"] = ciudadSinAcentos;
-
-                Session["ciudad"] = ciudad;
+                Session["ciudad"] = txtBuscar.Text;
 
                 //redirijo a la pagina que mostrara los resultados
                 Response.Redirect("BusquedaPlaya.aspx");
