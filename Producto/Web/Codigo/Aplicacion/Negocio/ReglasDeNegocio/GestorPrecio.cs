@@ -137,5 +137,30 @@ namespace ReglasDeNegocio
             }
             return precios;
         }
+
+        public Resultado RegistrarPrecioPlaya(int idPlaya, int idTiempo, int idTipoVehiculo, double precio)
+        {
+            Resultado resultado = new Resultado();
+
+            try
+            {
+                Servicio servicioParaPrecio = servicioDao.FindWhere(s => s.PlayaDeEstacionamientoId == idPlaya && s.TipoVehiculoId == idTipoVehiculo).First();
+
+                Precio precioNuevo = new Precio();
+                precioNuevo.TiempoId = idTiempo;
+                precioNuevo.Monto = Decimal.Parse(precio.ToString());
+
+                servicioParaPrecio.Precios.Add(precioNuevo);
+
+                servicioDao.Update(servicioParaPrecio);                
+
+            }
+            catch (Exception e)
+            {
+                resultado.AgregarMensaje("Se ha producido un error de base de datos.");
+            }
+
+            return resultado;
+        }
     }
 }

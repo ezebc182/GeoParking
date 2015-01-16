@@ -34,6 +34,11 @@ namespace WebServiceGeo.Controllers
             return gestor.ActualizarPrecioPlaya(idPlaya, idTiempo, idTipoVehiculo, precio).Ok.ToString();
         }
 
+        public string GetRegistrarPrecio([FromUri]int idPlaya, [FromUri]int idTiempo, [FromUri]int idTipoVehiculo, [FromUri] double precio)
+        {
+            return gestor.RegistrarPrecioPlaya(idPlaya, idTiempo, idTipoVehiculo, precio).Ok.ToString();
+        }
+
         // GET api/precios/5
         public string Get(int id)
         {
