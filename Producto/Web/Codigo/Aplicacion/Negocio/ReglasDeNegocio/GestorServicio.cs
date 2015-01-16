@@ -13,11 +13,13 @@ namespace ReglasDeNegocio
     {
         IRepositorioTipoVehiculo tipoVehiculoDao;
         IRepositorioServicio servicioDao;
+        IRepositorioPlayaDeEstacionamiento playaDao;
 
         public GestorServicio()
         {
             tipoVehiculoDao = new RepositorioTipoVehiculo();
             servicioDao = new RepositorioServicio();
+            playaDao = new RepositorioPlayaDeEstacionamiento();
         }
 
         public GestorServicio(IRepositorioTipoVehiculo tipoVehiculoDao,
@@ -68,10 +70,12 @@ namespace ReglasDeNegocio
             try
             {
                 Servicio servicioRecuperado = servicioDao.FindWhere(s => s.PlayaDeEstacionamientoId == idPlaya && s.TipoVehiculoId == idTipoVechiculo).First();
-
                 servicioRecuperado.FechaBaja = DateTime.Now;
 
-                servicioDao.Update(servicioRecuperado);
+                PlayaDeEstacionamiento playa = playaDao.FindWhere(p => p.Id==idPlaya).First();
+                playa.Servicios.Remove(servicioRecuperado);               
+
+                playaDao.Update(playa);
             }
             catch (Exception)
             {
@@ -101,7 +105,6 @@ namespace ReglasDeNegocio
             {
 
                 Servicio servicio = new Servicio();
-                servicio.PlayaDeEstacionamientoId = idPlaya;
                 servicio.TipoVehiculoId = idTipoVechiculo;
                 
                 //capacidad
@@ -110,7 +113,7 @@ namespace ReglasDeNegocio
                 servicio.Capacidad = cap;
 
                 //precios
-                List<Precio> precios = new List<Precio>();
+                List<Precio> precios = new List<Precio>();                
 
                 //por hora
                 if (x1 != 0)
@@ -162,8 +165,20 @@ namespace ReglasDeNegocio
                     precios.Add(p5);
                 }
 
-                //creacion del servicio
-                servicioDao.Create(servicio);
+                servicio.Precios = precios;
+                
+                servicio.DisponibilidadPlayas = new DisponibilidadPlayas();
+                servicio.DisponibilidadPlayas.Disponibilidad = servicio.Capacidad.Cantidad;
+
+                //buscamos la playa a la que agregamos el servicio
+                PlayaDeEstacionamiento playa = playaDao.FindById(idPlaya);
+
+                //agregamos el servicio
+                playa.Servicios.Add(servicio);
+                               
+                //actualizamos la playa
+                playaDao.Update(playa);
+                
             }
             catch (Exception)
             {

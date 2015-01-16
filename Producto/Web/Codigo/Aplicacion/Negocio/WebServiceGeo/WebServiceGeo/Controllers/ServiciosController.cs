@@ -24,9 +24,9 @@ namespace WebServiceGeo.Controllers
         /// <param name="idPlaya">id de la playa</param>
         /// <param name="idTipoVechiculo">id del tipo de vehiculo</param>
         /// <returns>'True' si la operacion se realizo correctamente</returns>
-        public string GetCancelarServicio([FromUri]int idPlaya, [FromUri]int idTipoVechiculo)
+        public string GetCancelarServicio([FromUri]int idPlaya, [FromUri]int idTipoVehiculo)
         {
-            return gestor.CancelarServicioPlaya(idPlaya, idTipoVechiculo).Ok.ToString();
+            return gestor.CancelarServicioPlaya(idPlaya, idTipoVehiculo).Ok.ToString();
         }
 
         /// <summary>
@@ -41,9 +41,9 @@ namespace WebServiceGeo.Controllers
         /// <param name="x24">precio por 24 horas</param>
         /// <param name="abono">precio por mes</param>
         /// <returns></returns>
-        public string GetRegistrarServicio([FromUri]int idPlaya, [FromUri]int idTipoVechiculo, [FromUri]int capacidad, [FromUri]double x1, [FromUri]double x6, [FromUri]double x12, [FromUri]double x24, [FromUri]double abono)
+        public string GetRegistrarServicio([FromUri]int idPlaya, [FromUri]int idTipoVehiculo, [FromUri]int capacidad, [FromUri]double x1, [FromUri]double x6, [FromUri]double x12, [FromUri]double x24, [FromUri]double abono)
         {
-            return gestor.RegistrarServicioPlaya( idPlaya,  idTipoVechiculo,  capacidad,  x1, x6, x12, x24, abono).Ok.ToString();
+            return gestor.RegistrarServicioPlaya( idPlaya,  idTipoVehiculo,  capacidad,  x1, x6, x12, x24, abono).Ok.ToString();
         }
 
         /// <summary>
