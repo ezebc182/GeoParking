@@ -17,7 +17,7 @@ namespace Entidades
         public DbGeography Poligono { get; set; }
 
         //usuario
-        public int UsuarioId { get; set; }
+        public int? UsuarioId { get; set; }
         [JsonIgnore]
         public virtual Usuario Usuario{ get; set; }
 

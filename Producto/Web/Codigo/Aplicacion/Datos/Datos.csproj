@@ -50,6 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContextoBD.cs" />
+    <Compile Include="RepositorioZona.cs" />
+    <Compile Include="RepositorioRol.cs" />
+    <Compile Include="RepositorioPermiso.cs" />
+    <Compile Include="RepositorioPlayaDeEstacionamiento.cs" />
+    <Compile Include="RepositorioEstadisticaConsultas.cs" />
+    <Compile Include="RepositorioDireccion.cs" />
+    <Compile Include="RepositorioDisponibilidadPlayas.cs" />
     <Compile Include="IRepositorio.cs" />
     <Compile Include="Migrations\201406120233006_InitialCreate.cs" />
     <Compile Include="Migrations\201406120233006_InitialCreate.Designer.cs">
@@ -60,6 +67,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositorioDAO.cs" />
     <Compile Include="Repositorio.cs" />
+    <Compile Include="RepositorioPrecio.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

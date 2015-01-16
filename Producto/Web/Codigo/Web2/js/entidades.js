@@ -39,9 +39,10 @@ function posicion(longitud, latitud) {
         WellKnownText: "POINT (" + longitud + " " + latitud + ")"
     };
 };
-function zona(nombre, usuarioId, wkt) {
+function zona(id, nombre, wkt) {
+    this.Id = id,
     this.Nombre = nombre,
-    this.UsuarioId = usuarioId,
+    this.UsuarioId = 0,
     this.Poligono = {
         Geography: {
             CoordinateSystemId: 4326,

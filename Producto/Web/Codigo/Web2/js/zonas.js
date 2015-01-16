@@ -4,21 +4,37 @@ var selectedShape;
 var colors = ['#1E90FF', '#FF1493', '#32CD32', '#FF8C00', '#4B0082'];
 var selectedColor;
 var colorButtons = {};
+var map;
 var zonaNueva;
 var nombre;
+var zonas = new Array();
 
 function clearSelection() {
     if (selectedShape) {
+        $('#txtNombreZona').val("");
+        $('#txtNombreZona').prop('disabled', true);
         selectedShape.setEditable(false);
         selectedShape = null;
+
+        configurarCancelarZona();
     }
 }
 
 function setSelection(shape) {
-    clearSelection();
-    selectedShape = shape;
-    shape.setEditable(true);
-    selectColor(shape.get('fillColor') || shape.get('strokeColor'));
+    if (selectedShape != shape) {
+        clearSelection();
+        selectedShape = shape;
+        shape.setEditable(false);
+        //selectColor(shape.get('fillColor') || shape.get('strokeColor'));
+
+        configurarSeleccionarZona();
+    }
+}
+
+function setSelectedShapeEditable(editable) {
+    if (selectedShape) {
+        selectedShape.setEditable(editable);
+    }
 }
 
 function deleteSelectedShape() {
@@ -36,7 +52,7 @@ function selectColor(color) {
 
     // Retrieves the current options from the drawing manager and replaces the
     // stroke or fill color as appropriate.
-    
+
     var polygonOptions = drawingManager.get('polygonOptions');
     polygonOptions.fillColor = color;
     drawingManager.set('polygonOptions', polygonOptions);
@@ -56,7 +72,7 @@ function makeColorButton(color) {
     var button = document.createElement('span');
     button.className = 'color-button';
     button.style.backgroundColor = color;
-    google.maps.event.addDomListener(button, 'click', function() {
+    google.maps.event.addDomListener(button, 'click', function () {
         selectColor(color);
         setSelectedShapeColor(color);
     });
@@ -76,14 +92,71 @@ function buildColorPalette() {
 }
 
 function initialize() {
-    var map = new google.maps.Map(document.getElementById('map-canvas'), {
+    map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 12,
         center: new google.maps.LatLng(-31.416756, -64.183501),
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         disableDefaultUI: true,
         zoomControl: true
     });
+    cargarZonas($.parseJSON($('[id*=hdZonas]').val()));
+}
 
+google.maps.event.addDomListener(window, 'load', initialize);
+
+function cargarZonas(zonasJSON) {
+    zonas = new Array();
+    $.each(zonasJSON, function (i, zona) {
+        var wkt = zona.Poligono.Geography.WellKnownText;
+        var poly = toGMPolygon(wkt);
+        poly.Id = zona.Id;
+        poly.Nombre = zona.Nombre;
+        zonas.push(poly);
+    });
+    mostrarZonas();
+    selectedShape = null;
+
+};
+
+function mostrarZona(shape) {
+    shape.setMap(map);
+}
+
+function mostrarZonas() {
+    $.each(zonas, function (i, zona) {
+        zona.setMap(map);
+    });
+}
+
+function ocultarZonas() {
+    $.each(zonas, function (i, zona) {
+        zona.setMap(null);
+    });
+}
+function toGMPolygon(wkt) {
+    var coordenadas = new Array();
+    var coords = wkt.substr(10, wkt.indexOf('))') - 10);
+    var coordsArray = coords.replace(/,/g, '').split(' ');
+    for (var j = 0; j < coordsArray.length; j++) {
+        coordenadas.push(new google.maps.LatLng(coordsArray[j + 1], coordsArray[j]));
+        j++;
+    }
+
+    var poly = new google.maps.Polygon({
+        paths: coordenadas,
+        strokeWeight: 0,
+        fillColor: '#1E90FF',
+        fillOpacity: 0.45
+    });
+    google.maps.event.addListener(poly, 'click', function (event) {
+        setSelection(poly);
+    });
+    return poly;
+};
+
+function nuevaZona() {
+    clearSelection();
+    ocultarZonas();
     var polyOptions = {
         strokeWeight: 0,
         fillOpacity: 0.45,
@@ -104,26 +177,31 @@ function initialize() {
         map: map
     });
 
-    google.maps.event.addListener(drawingManager, 'overlaycomplete', function(e) {
-        if (e.type != google.maps.drawing.OverlayType.MARKER) {
-            // Switch back to non-drawing mode after drawing a shape.
-            drawingManager.setDrawingMode(null);
+    google.maps.event.addListener(drawingManager, 'overlaycomplete', function (e) {
+        if ($('#btnGuardarZona').is(':visible')) { e.overlay.setMap(null); }
+        else {
+            if (e.type != google.maps.drawing.OverlayType.MARKER) {
+                // Switch back to non-drawing mode after drawing a shape.
+                drawingManager.setDrawingMode(null);
 
-            // Add an event listener that selects the newly-drawn shape when the user
-            // mouses down on it.
-            var poly = e.overlay;
-            poly.type = e.type;
-            zonaNueva = poly
-            google.maps.event.addListener(poly, 'click', function () {
-                setSelection(poly);
-            });
-            setSelection(poly);
+                // Add an event listener that selects the newly-drawn shape when the user
+                // mouses down on it.
+                var poly = e.overlay;
+                poly.type = e.type;
+                poly.Id = 0;
+                poly.Nombre = $('#txtNombreZona').val();
+                zonaNueva = poly;
+                google.maps.event.addListener(poly, 'click', function () {
+                    setSelection(poly);
+                });
+                selectedShape = poly;
 
-            //Borrar los controles para que no se pueda dibujar otra zona!!
-            drawingManager.setOptions({
-                drawingControl: false
-            });
+                //Borrar los controles para que no se pueda dibujar otra zona!!
+                drawingManager.setOptions({
+                    drawingControl: false
+                });
 
+            }
         }
     });
 
@@ -133,53 +211,170 @@ function initialize() {
     google.maps.event.addListener(map, 'click', clearSelection);
 
     buildColorPalette();
-}
-google.maps.event.addDomListener(window, 'load', initialize);
 
+};
 function guardarZona() {
-    if ($('#txtNombreZona').val() != "") {
-        nombre = $('#txtNombreZona').val();
+    nombre = $('#txtNombreZona').val();
+    datos = new zona(selectedShape.Id, nombre, toWKT(selectedShape));
 
-        datos = new zona(nombre, "1009", toWKT(zonaNueva));
-
-        $.ajax({
-            type: "POST",
-            url: "Zonas.aspx/GuardarZona",
-            data: "{'zonaJSON': '" + JSON.stringify(datos) + "'}",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                var resultado = response.d;
-                if (resultado == "true") {
-                    Alerta_openModalInfo("La zona " + datos.Nombre + " se registro con exito!", "Zona Registrada");
-                }
-            },
-            error: function (result) {
-                var errores = result.responseText.substr('0', result.responseText.indexOf('{'));
-                Alerta_openModalError(errores, "Error en el registro de zonas", true);
+    $.ajax({
+        type: "POST",
+        url: "Zonas.aspx/GuardarZona",
+        data: "{'zonaJSON': '" + JSON.stringify(datos) + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            var resultado = response.d;
+            if (resultado == "true") {
+                zonas.push(selectedShape);
+                setSelectedShapeEditable(false);
+                ocultarZonas();
+                Alerta_openModalInfo("La zona " + datos.Nombre + " se registro con exito!", "Zona Registrada");
+                recargarZonas();
+                $('#txtNombreZona').val('');
+                configurarGuardarZona();
             }
-        });
-    }
+        },
+        error: function (result) {
+            var errores = result.responseText.substr('0', result.responseText.indexOf('{'));
+            Alerta_openModalError(errores, "Error en el registro de zonas", true);
+        }
+    });
 };
 
-function toWKT(poly)
-{
+function eliminarZona(){
+    $.ajax({
+        type: "POST",
+        url: "Zonas.aspx/EliminarZona",
+        data: "{'zonaId': '" + selectedShape.Id + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "text",
+        success: function (response) {
+            var resultado = $.parseJSON(response).d;
+            if (resultado == "true") {
+                ocultarZonas();
+                Alerta_openModalInfo("La zona se elimino con exito!", "Zona Eliminada");
+                recargarZonas();
+                $('#txtNombreZona').val('');
+                configurarEliminarZona();
+            }
+        },
+        error: function (result) {
+            var errores = result.responseText.substr('0', result.responseText.indexOf('{'));
+            Alerta_openModalError(errores, "Error en el registro de zonas", true);
+        }
+    });
+};
+
+
+
+function configurarNuevaZona() {
+    $('#btnEditarZona').hide();
+    $('#btnNuevaZona').hide();
+    $('#btnGuardarZona').show();
+    $('#btnCancelar').show();
+    $('#txtNombreZona').prop('disabled', false);
+
+    clearSelection();
+    ocultarZonas();
+
+}
+
+function configurarEditarZona() {
+    $('#btnEditarZona').hide();
+    $('#btnNuevaZona').hide();
+    $('#btnGuardarZona').show();
+    $('#btnEliminarZona').hide();
+    $('#btnCancelar').show();
+    $('#txtNombreZona').prop('disabled', false);
+
+    ocultarZonas();
+    mostrarZona(selectedShape);
+    setSelectedShapeEditable(true);
+
+}
+
+function configurarGuardarZona() {
+    $('#btnEditarZona').hide();
+    $('#btnNuevaZona').show();
+    $('#btnGuardarZona').hide();
+    $('#btnEliminarZona').hide();
+    $('#btnCancelar').hide();
+    $('#txtNombreZona').prop('disabled', true);
+}
+
+function configurarEliminarZona() {
+    $('#btnEditarZona').hide();
+    $('#btnNuevaZona').show();
+    $('#btnGuardarZona').hide();
+    $('#btnEliminarZona').hide();
+    $('#btnCancelar').hide();
+    $('#txtNombreZona').prop('disabled', true);
+}
+
+function configurarCancelarZona() {
+    if (drawingManager) {
+        drawingManager.setDrawingMode(null);
+    }
+    if ($('#btnGuardarZona').is(':visible')) {
+        deleteSelectedShape(); //borro del mapa la zona que se estaba creando
+    }
+    $('#btnEditarZona').hide();
+    $('#btnNuevaZona').show();
+    $('#btnGuardarZona').hide();
+    $('#btnEliminarZona').hide();
+    $('#btnCancelar').hide();
+    $('#txtNombreZona').prop('disabled', true);
+    
+    clearSelection();
+    ocultarZonas();
+    mostrarZonas();
+}
+
+function configurarSeleccionarZona() {
+    $('#btnEditarZona').show();
+    $('#btnNuevaZona').show();
+    $('#btnGuardarZona').hide();
+    $('#btnEliminarZona').show();
+    $('#btnCancelar').hide();
+    $('#txtNombreZona').prop('disabled', true);
+
+    $('#txtNombreZona').val(selectedShape.Nombre);
+}
+
+function recargarZonas() {
+    $.ajax({
+        type: "POST",
+        url: "Zonas.aspx/RecargarZonas",
+        contentType: "application/json; charset=utf-8",
+        success: function (response) {
+            var resultado = response.d;
+            $('[id*=hdZonas]').val(resultado);
+            cargarZonas($.parseJSON($('[id*=hdZonas]').val()));
+        },
+        error: function (result) {
+            var errores = result.responseText.substr('0', result.responseText.indexOf('{'));
+            Alerta_openModalError(errores, "Error recuperando las zonas", true);
+        }
+    });
+
+}
+
+function toWKT(poly) {
     // Start the Polygon Well Known Text (WKT) expression
     var wkt = "POLYGON(";
 
     var paths = poly.getPaths();
-    for(var i=0; i<paths.getLength(); i++)
-    {
+    for (var i = 0; i < paths.getLength() ; i++) {
         var path = paths.getAt(i);
-  
+
         // Open a ring grouping in the Polygon Well Known Text
         wkt += "(";
-        for(var j=0; j<path.getLength(); j++)
-        {
+        for (var j = 0; j < path.getLength() ; j++) {
             // add each vertice and anticipate another vertice (trailing comma)
-            wkt += path.getAt(j).lng().toString() +" "+ path.getAt(j).lat().toString() +",";
+            wkt += path.getAt(j).lng().toString() + " " + path.getAt(j).lat().toString() + ",";
         }
-  
+
         // Google's approach assumes the closing point is the same as the opening
         // point for any given ring, so we have to refer back to the initial point
         // and append it to the end of our polygon wkt, properly closing it.
@@ -187,9 +382,9 @@ function toWKT(poly)
         // Also close the ring grouping and anticipate another ring (trailing comma)
         wkt += path.getAt(0).lng().toString() + " " + path.getAt(0).lat().toString() + "),";
     }
- 
+
     // resolve the last trailing "," and close the Polygon
     wkt = wkt.substring(0, wkt.length - 1) + ")";
- 
+
     return wkt;
 }

@@ -35,12 +35,17 @@ namespace Datos
     public class RepositorioTipoDePlaya : Repositorio<TipoPlaya>, IRepositorioTipoDePlaya { }
     public class RepositorioTipoVehiculo : Repositorio<TipoVehiculo>, IRepositorioTipoVehiculo { }   
     public class RepositorioZona : Repositorio<Zona>, IRepositorioZonas { }
+
+    public class RepositorioTipoVehiculo : Repositorio<TipoVehiculo>, IRepositorioTipoVehiculo { }
+    //public class RepositorioServicio : Repositorio<Servicio>, IRepositorioServicio { }
+
     public class RepositorioHorario : Repositorio<Horario>, IRepositorioHorario { }
     public class RepositorioDiaAtencion : Repositorio<DiaAtencion>, IRepositorioDiaAtencion { }
     public class RepositorioTiempo : Repositorio<Tiempo>, IRepositorioTiempo { }
     public class RepositorioUsuario : Repositorio<Usuario>, IRepositorioUsuario { }
     public class RepositorioHistorialDisponibilidadPlayas : Repositorio<HistorialDisponibilidadPlayas>, IRepositorioHistorialDisponibilidadPlayas { }
     public class RepositorioEvento : Repositorio<Evento>, IRepositorioEventos { }
+
 
     public class RepositorioServicio : Repositorio<Servicio>, IRepositorioServicio 
     {
@@ -57,33 +62,33 @@ namespace Datos
             return lista.ToList();
         }
 
-        public override int Update(Servicio t)
-        {
-            using (contexto = new ContextoBD())
-            {
-                var entry = contexto.Entry(t);
-                if (entry.State == System.Data.Entity.EntityState.Detached)
-                {
-                    contexto.UpdateGraph(t, map => map
-                   .OwnedCollection(p => p.Direcciones, with => with
-                       .AssociatedEntity(d => d.PlayaDeEstacionamiento))
-                   .OwnedCollection(p => p.Servicios, with => with
-                   .OwnedCollection(s => s.Precios, con => con
-                       .AssociatedEntity(p => p.Servicio))
-                   .OwnedEntity(s => s.DisponibilidadPlayas)
-                       .AssociatedEntity(s => s.PlayaDeEstacionamiento)
-                       .OwnedEntity(s => s.Capacidad))
-                   .OwnedEntity(p => p.Horario)
-                   );
-                    return contexto.SaveChanges();
-                }
+        //public override int Update(Servicio t)
+        //{
+        //    using (contexto = new ContextoBD())
+        //    {
+        //        var entry = contexto.Entry(t);
+        //        if (entry.State == System.Data.Entity.EntityState.Detached)
+        //        {
+        //            contexto.UpdateGraph(t, map => map
+        //           .OwnedCollection(p => p.Direcciones, with => with
+        //               .AssociatedEntity(d => d.PlayaDeEstacionamiento))
+        //           .OwnedCollection(p => p.Servicios, with => with
+        //           .OwnedCollection(s => s.Precios, con => con
+        //               .AssociatedEntity(p => p.Servicio))
+        //           .OwnedEntity(s => s.DisponibilidadPlayas)
+        //               .AssociatedEntity(s => s.PlayaDeEstacionamiento)
+        //               .OwnedEntity(s => s.Capacidad))
+        //           .OwnedEntity(p => p.Horario)
+        //           );
+        //            return contexto.SaveChanges();
+        //        }
 
-                else
-                {
-                    return base.Update(t);
-                }
-            }
-        }
+        //        else
+        //        {
+        //            return base.Update(t);
+        //        }
+        //    }
+        //}
 
 
     }
@@ -440,5 +445,10 @@ namespace Datos
 
 
     }
+=======
+    
+    
+    
+>>>>>>> e1fbc5d4e56c438ea4f7f75e1321c975f760a5bd
 }
 

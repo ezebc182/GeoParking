@@ -2,7 +2,7 @@
 
 <div class="alert alert-danger " id="AlertaError" style="display:none;">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <span runat="server" id="lblMensaje"></span>
+    <span runat="server" id="lblMensajeAlert"></span>
 </div>
 <div class="modal fade" id="MensajeModalError">
     <div class="modal-dialog">
@@ -34,6 +34,7 @@
         $('#MensajeModalError').modal('show');
 
         if (mostrarAlerta) {
+            $('[id*=lblMensajeAlert]').text(mensaje);
             $('[id*=AlertaError]').show();
         }
     }
