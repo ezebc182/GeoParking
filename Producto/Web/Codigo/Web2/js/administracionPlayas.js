@@ -4,42 +4,46 @@ var playas = {
     habilitarEdicion: true,
     iniciar: function () {
         var me = this;
-        $('#tabDireccion').on("click", function () {
-            direcciones.iniciar();
-            setTimeout(function () { GoogleMaps.resize(); }, 200);
-        });
+        if (!me.iniciado) {
 
-        $('[id*=btnGuardar]').on("click", function () {
-            me.guardar();
-        });
+            $('#tabDireccion').on("click", function () {
+                direcciones.iniciar();
+                setTimeout(function () { GoogleMaps.resize(); }, 200);
+            });
+            $('[id*=btnGuardar]').on("click", function () {
+                me.guardar();
+            });
 
-        $('.checkbox :checkbox').on("change", function () {
-            var checked = $('.checkbox :checkbox:checked').length > 0;
-            $('[id*=txtDesde] input').prop("disabled", checked);
-            $('[id*=txtHasta] input').prop("disabled", checked);
-            $('[id*=txtDesde] input').prop("readonly", !checked);
-            $('[id*=txtHasta] input').prop("readonly", !checked);
-            $('[id*=txtDesde] input').prop("readonly", false);
-            $('[id*=txtHasta] input').prop("readonly", false);
-            if (checked) {
-                $('[id*=txtDesde] .bfh-timepicker-popover').addClass('hidden');
-                $('[id*=txtHasta] .bfh-timepicker-popover').addClass('hidden');
-                $('#txtDesde>div>input').val("00:00");
-                $('#txtHasta>div>input').val("23:59");
-            }
-            else {
-                $('[id*=txtDesde] .bfh-timepicker-popover').removeClass('hidden');
-                $('[id*=txtHasta] .bfh-timepicker-popover').removeClass('hidden');
-            }
-        });
+            $('.checkbox :checkbox').on("change", function () {
+                var checked = $('.checkbox :checkbox:checked').length > 0;
+                $('[id*=txtDesde] input').prop("disabled", checked);
+                $('[id*=txtHasta] input').prop("disabled", checked);
+                $('[id*=txtDesde] input').prop("readonly", !checked);
+                $('[id*=txtHasta] input').prop("readonly", !checked);
+                $('[id*=txtDesde] input').prop("readonly", false);
+                $('[id*=txtHasta] input').prop("readonly", false);
+                if (checked) {
+                    $('[id*=txtDesde] .bfh-timepicker-popover').addClass('hidden');
+                    $('[id*=txtHasta] .bfh-timepicker-popover').addClass('hidden');
+                    $('#txtDesde>div>input').val("00:00");
+                    $('#txtHasta>div>input').val("23:59");
+                }
+                else {
+                    $('[id*=txtDesde] .bfh-timepicker-popover').removeClass('hidden');
+                    $('[id*=txtHasta] .bfh-timepicker-popover').removeClass('hidden');
+                }
 
-        servicios.iniciar();
+            });
+
+            servicios.iniciar();
+        }
         $('#modificarPlaya').modal({
             backdrop: false,
             keyboard: false,
             show: true
         });
     },
+    iniciado: false,
     buscar: function (ciudad) {
         var me = this;
         me.vaciarTabla();
@@ -88,15 +92,15 @@ var playas = {
         $tr.append('<td> <a id="btnVerPlaya" class="glyphicon glyphicon-search"></a>  <a id="btnEditarPlaya" class="glyphicon glyphicon-edit"></a>  <a id="btnEliminarPlaya" class="glyphicon glyphicon-remove"></a></td>');
         $tableBody.append($tr);
 
-        $('[id*=btnVerPlaya]').click(function () {
+        $('[id*=btnVerPlaya]').off('click').on('click',function () {
             me.ver(playa);
         });
 
-        $('[id*=btnEditarPlaya]').click(function () {
+        $('[id*=btnEditarPlaya]').off('click').on('click',function () {
             me.editar(playa);
         });
 
-        $('[id*=btnEliminarPlaya]').click(function () {
+        $('[id*=btnEliminarPlaya]').off('click').on('click',function () {
             var mensaje = "¿Esta seguro que desea eliminar la playa " + playa.Nombre + "?";
             var titulo = "Eliminar Playa";
             var funcionSi = function () { me.eliminar(playa) };
@@ -278,6 +282,7 @@ var playas = {
 
 var servicios = {
     cantidad: 0,
+    iniciado: false,
     tiempos: $.parseJSON($('[id*=hfTiempos]').val()),
 
     agregar: function (servicio) {
@@ -322,7 +327,7 @@ var servicios = {
             });
         }
 
-        $('[id*=btnQuitarServicio]').click(function () { me.eliminar(servicio); });
+        $('[id*=btnQuitarServicio]').off('click').on('click',function () { me.eliminar(servicio); });
     },
     eliminar: function (servicio) {
         var $tr = $('[id*=tbServicios] [tipoVehiculoId=' + servicio.TipoVehiculoId + ']').parents('tr').first();
@@ -458,8 +463,8 @@ var direcciones = {
             var ciudad = $('[id*=txtBuscar]').first().val();
             var latitude = $('[id*=latitud]').first().val();
             var longitude = $('[id*=longitud]').first().val();
-            var posicionNueva = new posicion(longitude, latitude);
-            var direccionNueva = new direccion(0, calle, numero, ciudad, posicionNueva);
+
+            var direccionNueva = new direccion(0, calle, numero, ciudad, latitude, longitude);
 
             me.agregar(direccionNueva);
         });
@@ -504,8 +509,8 @@ var direcciones = {
         $tr.append('<td>' + direccion.Calle + ' </td>');
         $tr.append('<td>' + direccion.Numero + ' </td>');
         $tr.append('<td>' + direccion.Ciudad + ' </td>');
-        $tr.append('<td style="display:none;">' + direccion.Posicion.Latitude + ' </td>');
-        $tr.append('<td style="display:none;">' + direccion.Posicion.Longitude + ' </td>');
+        $tr.append('<td style="display:none;">' + direccion.Latitud + ' </td>');
+        $tr.append('<td style="display:none;">' + direccion.Longitud + ' </td>');
 
         $tr.append('<td><a id="btnEditarDireccion" class="glyphicon glyphicon-edit"></a>   <a id="btnQuitarDireccion" class="glyphicon glyphicon-remove"></a></td>');
 
@@ -513,10 +518,10 @@ var direcciones = {
         $('[id*=txtBuscarCiudades]').prop('disabled', true);
         $('[id*=txtBuscarCiudades]').val(direccion.Ciudad);
 
-        $('[id*=btnQuitarDireccion]').click(function () {
+        $('[id*=btnQuitarDireccion]').off('click').on('click',function () {
             me.eliminar($tr);
         });
-        $('[id*=btnEditarDireccion]').click(function () {
+        $('[id*=btnEditarDireccion]').off('click').on('click',function () {
             me.editarDireccion($tr, direccion);
         });
         $('[id*=txtCalle]').val("");
@@ -528,8 +533,8 @@ var direcciones = {
         $('[id*=txtCalle]').first().val(direccion.Calle);
         $('[id*=txtNumero]').first().val(direccion.Numero);
         $('[id*=txtBuscarCiudades]').first().val(direccion.Ciudad);
-        $('[id*=latitud]').first().val(direccion.Posicion.Latitude);
-        $('[id*=longitud]').first().val(direccion.Posicion.Longitude);
+        $('[id*=latitud]').first().val(direccion.Latitud);
+        $('[id*=longitud]').first().val(direccion.Longitud);
     },
     editarDireccion: function ($tr, direccion) {
         var me = this;
@@ -547,14 +552,17 @@ var direcciones = {
         $('[id*=btnAgregarDireccion]').hide();
         $('[id*=btnAceptarEdicionDireccion]').css("visibility", "visible");
         $('[id*=btnCancelarEdicionDireccion]').show();
-        $('[id*=btnAceptarEdicionDireccion]').click(function () {
-            $tr.remove();
-            $('[id*=btnAgregarDireccion]').click();
-            $('[id*=btnAgregarDireccion]').show();
-            $('[id*=btnAceptarEdicionDireccion]').css("visibility", "hidden");
-            $('[id*=btnCancelarEdicionDireccion]').hide();
-        });
+        if (!me.eventosEdicionCargados) {
+            $('[id*=btnAceptarEdicionDireccion]').off('click').on('click',function () {
+                $tr.remove();
+                $('[id*=btnAgregarDireccion]').click();
+                $('[id*=btnAgregarDireccion]').show();
+                $('[id*=btnAceptarEdicionDireccion]').css("visibility", "hidden");
+                $('[id*=btnCancelarEdicionDireccion]').hide();
+            });
+        }
     },
+    eventosEdicionCargados: false,
     eliminar: function ($tr) {
         $tr.remove();
         var cantidad = $('[id*=tbDireccionesBody] tr').length;
@@ -576,8 +584,7 @@ var direcciones = {
             var latitude = $(fila).find('td').eq(3).text();
             var longitude = $(fila).find('td').eq(4).text();
 
-            var posicionTemp = new posicion(longitude, latitude);
-            var direccionTemp = new direccion(id, calle, numero, ciudad, posicionTemp);
+            var direccionTemp = new direccion(id, calle, numero, ciudad, latitude, longitude);
 
             direcciones.push(direccionTemp);
         });
