@@ -105,6 +105,62 @@ function cargandoSinMensaje(){
 function quitarCargando(){
     $.mobile.loading( 'hide');
 }
+function leerNumeroMovil(){
+    var telephoneNumber = cordova.require("cordova/plugin/telephonenumber");
+    telephoneNumber.get(function(result) {
+            return result;
+        }, function() {
+            return "error";
+        });
+}
+function validarNumberoTelefono(inputtxt)
+{
+    var phoneo = /^\d{10}$/;
+    if(inputtxt.value.match(phoneo)){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+function validarEmail(inputtxt){
+    var email = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(inputtxt.value.match(email)){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+function abrirPopup(mensaje){
+    var widget = this;
+        var divPopup = document.createElement("div");
+        divPopup.id = "mensajePopup";
+        $(divPopup).attr("data-role","popup");
+        $(divPopup).attr("data-theme","e");
+        var popupMensaje = document.createElement("p");
+        popupMensaje.innerHTML = mensaje;
+        divPopup.appendChild(popupMensaje);
+        $("#panelListado").parent().prepend(divPopup);
+        
+        $("#mensajePopup").popup();
+        $("#mensajePopup").popup( "open" );
+        setTimeout(function(){
+            $("#mensajePopup").popup( "close" );
+        },3000);
+}
+function abrirDialogoConDosBotones(funcionOk, mensaje, encabezado){
+    $("#panelListado").parent().prepend('<div data-role="popup" id="popupDialog" data-theme="b"><div data-role="header" data-theme="b"><h1>' + encabezado + '</h1></div><div data-role="content" data-theme="b"><p>' + mensaje + '</p><div class="showastabs center nobg"><a id="botonOkDialogo" href="#" data-rel="back" data-icon="ok" data-iconpos="left" data-role="button" data-inline="true">Aceptar</a><a id="botonCancelDialogo" href="#" data-rel="back" data-icon="delete" data-iconpos="left" data-role="button" data-inline="true">Cancelar</a></div></div></div>');
+    document.getElementById("botonOkDialogo").onclick = funcionOk;
+    var funcionCancel = function(){
+        cerrarDialogoConDosBotones();
+    }
+    document.getElementById("botonCancelDialogo").onclick = funcionCancel;
+    $("#popupDialog").dialog();    
+}
+function cerrarDialogoConDosBotones(){
+    $("#popupDialog").remove();
+}
 $.fn.isBound = function(type) {
     var data = jQuery._data(this[0], 'events')[type];
 

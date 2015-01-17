@@ -5,8 +5,15 @@ var regresoAVehiculo = false;
 
 
 function guardarUbicacion() {
+    var confirmarGuardado = function(){
+        obtenerPosicionActual();
+        ubicacionAuto = posicionActual;
+        localStorage.setItem("UbicacionVehiculo", JSON.stringify(ubicacionAuto));
+        cerrarDialogoConDosBotones();
+    };
+    abrirDialogoConDosBotones(confirmarGuardado, "¿Desea guardar la posición de su vehículo?", "Recordar posición vehículo");
 
-    BootstrapDialog.show({
+    /*BootstrapDialog.show({
 
         title: "Recordar posición vehículo",
         message: "¿Desea guardar la posición de su vehículo?",
@@ -40,7 +47,7 @@ function guardarUbicacion() {
                 ventanaRecordar.close();
             }
             }]
-    });
+    });*/
 
 
 

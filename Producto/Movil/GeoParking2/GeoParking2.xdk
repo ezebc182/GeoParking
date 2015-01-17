@@ -8,7 +8,7 @@
       "src": "blankproject",
       "sourceDirectory": "www",
       "projectGuid": "54561fb7-caf3-4c1c-aec6-0024658761b1",
-      "lastModifiedDate": 1415107718234,
+      "lastModifiedDate": 1421188298284,
       "creationDate": 1415068775913
     },
     "sourceDirectory": "www",
@@ -73,12 +73,24 @@
         "selectedState": "Included",
         "data": {},
         "paramvals": {}
+      },
+      {
+        "id": "com.simonmacdonald.telephonenumber",
+        "version": "",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "custom": "true",
+        "name": "TelephoneNumber",
+        "origin": "https://github.com/macdonst/TelephoneNumberPlugin",
+        "originType": "repo"
       }
     ],
     "serviceMethods": [],
     "buildConfigurations": {
       "Android": {
         "platform_": "android",
+        "runtime_": "Cordova 3.x",
         "name_": "Android",
         "preferences_": {},
         "isActive_": true,
@@ -88,15 +100,15 @@
         "icons_": [],
         "splashes_": [],
         "iosProvs_": [],
-        "addlPermissions_": "",
+        "addlPermissions_": "android.permission.READ_PHONE_STATE",
         "excludedLibraries_": "",
         "cordovaCLIVersion_": "3.3",
         "crosswalkVersion_": "stable",
-        "appVersion_": "1.0.0",
-        "runtime_": "Cordova 3.x"
+        "appVersion_": "1.0.0"
       },
       "Android-Crosswalk": {
         "platform_": "android",
+        "runtime_": "Crosswalk with Cordova 3.x",
         "name_": "Android-Crosswalk",
         "preferences_": {},
         "isActive_": true,
@@ -110,11 +122,11 @@
         "excludedLibraries_": "",
         "cordovaCLIVersion_": "3.3",
         "crosswalkVersion_": "stable",
-        "appVersion_": "1.0.0",
-        "runtime_": "Crosswalk with Cordova 3.x"
+        "appVersion_": "1.0.0"
       },
       "iOS": {
         "platform_": "ios",
+        "runtime_": "Cordova 3.x",
         "name_": "iOS",
         "preferences_": {},
         "isActive_": true,
@@ -128,11 +140,11 @@
         "excludedLibraries_": "",
         "cordovaCLIVersion_": "3.3",
         "crosswalkVersion_": "stable",
-        "appVersion_": "1.0.0",
-        "runtime_": "Cordova 3.x"
+        "appVersion_": "1.0.0"
       },
       "Windows8": {
         "platform_": "windows8",
+        "runtime_": "Cordova 3.x",
         "name_": "Windows8",
         "preferences_": {},
         "isActive_": true,
@@ -146,11 +158,11 @@
         "excludedLibraries_": "",
         "cordovaCLIVersion_": "3.3",
         "crosswalkVersion_": "stable",
-        "appVersion_": "1.0.0.0",
-        "runtime_": "Cordova 3.x"
+        "appVersion_": "1.0.0.0"
       },
       "WindowsPhone8": {
         "platform_": "wp8",
+        "runtime_": "Cordova 3.x",
         "name_": "WindowsPhone8",
         "preferences_": {},
         "isActive_": true,
@@ -164,9 +176,11 @@
         "excludedLibraries_": "",
         "cordovaCLIVersion_": "3.3",
         "crosswalkVersion_": "stable",
-        "appVersion_": "1.0.0.0",
-        "runtime_": "Cordova 3.x"
+        "appVersion_": "1.0.0.0"
       }
-    }
+    },
+    "gameAssetDirectory": "asset",
+    "gameMetadata": {},
+    "projectTags": []
   }
 }

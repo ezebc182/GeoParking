@@ -9,6 +9,7 @@ $.widget( "geoparking.contactoWidget", {
 	},
 	_create : function(){
 		var widget = this;
+        $("#panelConfiguraciones").preferenciasWidget("destroy");
 	},
     /**
     * Verifica si ya existe o el panel de contactos y lo crea o elimina 
@@ -23,6 +24,7 @@ $.widget( "geoparking.contactoWidget", {
 		}
 		else{
 			widget.destroy();
+            $("a[href=#mypanel]").click();
 		}
 	},
     /**
@@ -43,28 +45,57 @@ $.widget( "geoparking.contactoWidget", {
         $("#btnEnviarContacto").click(function(){
 			$("#panelContacto").contactoWidget("tomarDatosFormulario");
 		});
-        /*$("#btnCancelarContacto").click(function(){
-			$("#panelContacto").contactoWidget("destroy");
-		});*/
         var loaderOff = function(){
             $.mobile.loading( "hide" );
-        }
+        };
         setTimeout(loaderOff,300);
 	},
     /**
     * Toma los datos del formulario para enviarlos por mail
+    * verificando que los mismos sean correctos
     */
 	tomarDatosFormulario : function(){
 		var widget = this;
-		var datos = {
-			Nombre : $("#nombre").val(),
-			Apellido : $("#apellido").val(),
-			Telefono : $("#telefono").val(),
-			Email : $("#inputEmail").val(),
-			Mensaje : $("#mensaje").val()
-		};
-		widget._enviarFormulario(datos);
+        if(widget._validarValoresDeControles()){
+            var datos = {
+                Nombre : $("#nombre").val(),
+                Apellido : $("#apellido").val(),
+                Telefono : $("#telefono").val(),
+                Email : $("#inputEmail").val(),
+                Mensaje : $("#mensaje").val()
+            };
+            widget._enviarFormulario(datos);
+        }
 	},
+    /**
+    * Se valida que se hayan ingresado todos los campos
+    * y se muestra el mensaje correspondiente si no 
+    * se hizo de la manera correcta
+    */
+    _validarValoresDeControles : function(){
+        var widget = this;
+        if($("#nombre").val() === ""){
+            widget._abrirPopup("Debe ingresar un nombre");
+        }
+        else if($("#apellido").val() === ""){
+            widget._abrirPopup("Debe ingresar un apellido");
+        }
+        else if(!validarNumberoTelefono($("#telefono")[0])){
+            widget._abrirPopup("Debe ingresar un numero de telefono correcto");
+            return false;
+        }
+        else if(!validarEmail($("#inputEmail")[0])){
+            widget._abrirPopup("Debe ingresar un email correcto");
+            return false; 
+        }
+        else if($("#mensaje").val() === ""){
+            widget._abrirPopup("El mensaje debe tener contenido");
+            return false; 
+        }
+        else {
+            return true;
+        }
+    },
     /**
     * Envia los datos recibidos por mail (a traves del servidor)
     */
@@ -82,5 +113,23 @@ $.widget( "geoparking.contactoWidget", {
                 widget.destroy();
 			},
 		});
-	}
+	},
+    _abrirPopup : function(mensaje){
+        abrirPopup(mensaje)
+        /*var widget = this;
+        var divPopup = document.createElement("div");
+        divPopup.id = "mensajePopup";
+        $(divPopup).attr("data-role","popup");
+        $(divPopup).attr("data-theme","e");
+        var popupMensaje = document.createElement("p");
+        popupMensaje.innerHTML = mensaje;
+        divPopup.appendChild(popupMensaje);
+        widget.options.contenedor.prepend(divPopup);
+        
+        $("#mensajePopup").popup();
+        $("#mensajePopup").popup( "open" );
+        setTimeout(function(){
+            $("#mensajePopup").popup( "close" );
+        },3000);*/
+    },
 });

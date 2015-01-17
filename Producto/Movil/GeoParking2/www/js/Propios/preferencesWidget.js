@@ -7,6 +7,7 @@ $.widget( "geoparking.preferenciasWidget", {
 	},
 	_create : function(){
 		var widget = this;
+        $("#panelContacto").contactoWidget("destroy");
 	},
     /**
     * Verifica si ya existe o el panel de configuraciones y lo crea o elimina 
