@@ -48,22 +48,26 @@ namespace ReglasDeNegocio
 
             //ahora actualizamos la disponibilidad
             //1° recuperamos el resgistro de la BD a actualizar
-            DisponibilidadPlayas registroDisponibilidad = new DisponibilidadPlayas();
-            registroDisponibilidad = disponibilidadPlayas.FindWhere(d => d.Servicio.PlayaDeEstacionamientoId == playa && d.Servicio.TipoVehiculoId == tipoVehiculo).First();
+            //DisponibilidadPlayas registroDisponibilidad = new DisponibilidadPlayas();
+            //registroDisponibilidad = disponibilidadPlayas.FindWhere(d => d.Servicio.PlayaDeEstacionamientoId == playa && d.Servicio.TipoVehiculoId == tipoVehiculo).First();
+
+            Servicio servicio = servicioDAO.FindWhere(s => s.PlayaDeEstacionamientoId == playa && s.TipoVehiculoId == tipoVehiculo).First();
+
             //2° verificamos el evento
             if (evento == 1) //ingreso
             {
-                registroDisponibilidad.Disponibilidad = registroDisponibilidad.Disponibilidad - 1;
+                servicio.DisponibilidadPlayas.Disponibilidad = servicio.DisponibilidadPlayas.Disponibilidad - 1;
             }
             else //egreso
             {
-                registroDisponibilidad.Disponibilidad = registroDisponibilidad.Disponibilidad + 1;
+                servicio.DisponibilidadPlayas.Disponibilidad = servicio.DisponibilidadPlayas.Disponibilidad + 1;
             }
 
             try
             {
                 //3° actualizamos el registro
-                disponibilidadPlayas.Update(registroDisponibilidad);
+                //servicioDao.Update(registroDisponibilidad);
+                servicioDAO.Update(servicio);
             }
             catch (Exception)
             {
