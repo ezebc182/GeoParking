@@ -21,59 +21,42 @@ namespace GeoParkingDesktop
         public Form1()
         {            
              InitializeComponent();
+
+             //configuracion de progres bar
+             progressBar1.Visible = true;
+             lblConectar.Visible = false;
+             progressBar1.Minimum = 1;             
+             progressBar1.Maximum = 10;
+             progressBar1.Value = 1;
+             progressBar1.Step = 1;
         }
 
         /// <summary>
         /// configura el sistema de acuerdo a una playa de estacionamiento que se 
         /// busca por su ID
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">identificador de la playa</param>
         public void configurarSistema(int id)
         {
-            //configuracion de progres bar
-            progressBar1.Visible = true;
             lblConectar.Visible = true;
-            // Set Minimum to 1 to represent the first file being copied.
-            progressBar1.Minimum = 1;
-            // Set Maximum to the total number of files to copy.
-            progressBar1.Maximum = 10;
-            // Set the initial value of the ProgressBar.
-            progressBar1.Value = 1;
-            // Set the Step property to a value of 1 to represent each file being copied.
-            progressBar1.Step = 1;
-            progressBar1.PerformStep();
-            progressBar1.PerformStep();
+
+            progressBar1.PerformStep();//bar
+            progressBar1.PerformStep();//bar
+
             
-            //consulta a la API para recuperar los datos de la Playa de Estacionamiento
             string sURL;
-            sURL = "http://localhost:21305/api/Playas/Get/" + id;           
+            sURL = "http://localhost:21305/api/Playas/Get/" + id;
+
+            //strinfg con los datos de la playa
+            string JsonPlaya = consultaApi(sURL);                  
 
             try
             {
-                WebRequest wrGETURL;
-                progressBar1.PerformStep();
-                wrGETURL = WebRequest.Create(sURL);
-                progressBar1.PerformStep();
-
-                //WebProxy myProxy = new WebProxy("myproxy", 80);
-                //myProxy.BypassProxyOnLocal = true;
-
-                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
-
-                Stream objStream;
-                objStream = wrGETURL.GetResponse().GetResponseStream();
-                progressBar1.PerformStep();
-
-                StreamReader objReader = new StreamReader(objStream);
-                progressBar1.PerformStep();
-
-                string sLine = objReader.ReadLine();
-                progressBar1.PerformStep();
-
                 //obtengo el objeto playa
-                var deserializado = Newtonsoft.Json.JsonConvert.DeserializeObject(sLine).ToString();
+                var deserializado = Newtonsoft.Json.JsonConvert.DeserializeObject(JsonPlaya).ToString();
                 var objetoPlaya = Newtonsoft.Json.Linq.JObject.Parse(deserializado);
-                progressBar1.PerformStep();
+
+                progressBar1.PerformStep();//bar
 
                 //cargos datos generales
                 playa.id = (int)objetoPlaya["Id"];
@@ -85,10 +68,9 @@ namespace GeoParkingDesktop
                 var horario = objetoPlaya["Horario"];
                 playa.horaDesde = (string)horario["HoraDesde"];
                 playa.horaHasta = (string)horario["HoraHasta"]; 
-                playa.dias = int.Parse(horario["IdDia"].ToString()); //falta cambiar las calases
-                
+                playa.dias = int.Parse(horario["IdDia"].ToString()); //falta cambiar las calases                
 
-                progressBar1.PerformStep();
+                progressBar1.PerformStep();//bar
 
                 //cargos los servicios
                 var servicios = objetoPlaya["Servicios"];
@@ -114,20 +96,22 @@ namespace GeoParkingDesktop
                         precio.precio = double.Parse(item2["Monto"].ToString());
                         playa.precios.Add(precio);
                     }
-                    progressBar1.PerformStep();
+
+                    progressBar1.PerformStep();//bar
 
                 }
 
-                progressBar1.PerformStep();
-              
+                progressBar1.PerformStep();//bar              
 
                 //muestro los datos de la playa
                 cargarDatosPlaya();
-                progressBar1.PerformStep();
+
+                progressBar1.PerformStep();//bar
 
                 //mustro las disponibilidades
                 cargarDisponibilidades();
-                progressBar1.PerformStep();
+
+                progressBar1.PerformStep();//bar
 
                 MessageBox.Show("Sistema configurado correctamente");
                 
@@ -146,10 +130,42 @@ namespace GeoParkingDesktop
         }
 
         /// <summary>
+        /// Realiza la consulta a la API GeoParking
+        /// </summary>
+        /// <param name="idPlaya">url de la peticion</param>
+        /// <returns>el resultado de la peticion</returns>
+        public string consultaApi(string url)
+        {
+            try
+            {
+                WebRequest wrGETURL;
+                progressBar1.PerformStep();
+                wrGETURL = WebRequest.Create(url);
+                progressBar1.PerformStep();                
+
+                Stream objStream;
+                objStream = wrGETURL.GetResponse().GetResponseStream();
+                progressBar1.PerformStep();
+
+                StreamReader objReader = new StreamReader(objStream);
+                progressBar1.PerformStep();
+
+                string sLine = objReader.ReadLine();
+                progressBar1.PerformStep();
+                return sLine;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al consultar api playa");
+                return "error";
+            }
+        }
+
+        /// <summary>
         /// recupera la disponibilidad de un tipo de vehiculo de una playa
         /// </summary>
-        /// <param name="idPlaya"></param>
-        /// <param name="idTipoVehiculo"></param>
+        /// <param name="idPlaya">identifaicador de la playa</param>
+        /// <param name="idTipoVehiculo">identificador del tipo de vehicull</param>
         /// <returns></returns>
         private int recuperarDisponibilidad(int idPlaya, int idTipoVehiculo)
         {
@@ -158,24 +174,7 @@ namespace GeoParkingDesktop
 
             try
             {
-                WebRequest wrGETURL;
-                progressBar1.PerformStep();
-                wrGETURL = WebRequest.Create(sURL);
-
-                //WebProxy myProxy = new WebProxy("myproxy", 80);
-                //myProxy.BypassProxyOnLocal = true;
-
-                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
-
-                Stream objStream;
-                objStream = wrGETURL.GetResponse().GetResponseStream();
-
-                StreamReader objReader = new StreamReader(objStream);
-
-                int sLine = int.Parse(objReader.ReadLine());
-
-
-                return sLine;
+                return int.Parse(consultaApi(sURL));
             }
             catch (Exception)
             {
@@ -452,22 +451,7 @@ namespace GeoParkingDesktop
 
             try
             {
-                WebRequest wrGETURL;
-                progressBar1.PerformStep();
-                wrGETURL = WebRequest.Create(sURL);
-
-                //WebProxy myProxy = new WebProxy("myproxy", 80);
-                //myProxy.BypassProxyOnLocal = true;
-
-                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
-
-                Stream objStream;
-                objStream = wrGETURL.GetResponse().GetResponseStream();
-
-                StreamReader objReader = new StreamReader(objStream);
-
-                string sLine = objReader.ReadLine();
-                
+                string sLine = consultaApi(sURL);                
 
                 if (sLine != "\"True\"")              
                     MessageBox.Show("no se pudo realizar la actualizacion");
@@ -891,8 +875,15 @@ namespace GeoParkingDesktop
             chekUti.Enabled = false;
             chekMoto.Enabled = false;
             chekBici.Enabled = false;
+
+            MessageBox.Show("Actualizacion del sistema completada");
         }
 
+        /// <summary>
+        /// Actualiza el nombre y el email de la playa
+        /// </summary>
+        /// <param name="nombrePlaya">nuevo nombre</param>
+        /// <param name="emaiPlaya">nuevo email</param>
         public void actualizarNombreEmailPLaya(string nombrePlaya, string emaiPlaya)
         {
             playa.nombre = nombrePlaya;
@@ -903,22 +894,7 @@ namespace GeoParkingDesktop
 
             try
             {
-                WebRequest wrGETURL;
-                progressBar1.PerformStep();
-                wrGETURL = WebRequest.Create(sURL);
-
-                //WebProxy myProxy = new WebProxy("myproxy", 80);
-                //myProxy.BypassProxyOnLocal = true;
-
-                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
-
-                Stream objStream;
-                objStream = wrGETURL.GetResponse().GetResponseStream();
-
-                StreamReader objReader = new StreamReader(objStream);
-
-                string sLine = objReader.ReadLine();
-
+                string sLine = consultaApi(sURL);
 
                 if (sLine == "\"True\"")
                 {
@@ -936,6 +912,12 @@ namespace GeoParkingDesktop
             } 
         }
 
+        /// <summary>
+        /// Actualiza el horario de la playa
+        /// </summary>
+        /// <param name="diaAtencion">nuevo dia</param>
+        /// <param name="horaDesde">nueva hora desde</param>
+        /// <param name="horaHasta">nueva hora hasta</param>
         public void actualizarHorarioPlaya(int diaAtencion, string horaDesde, string horaHasta)
         {
             playa.dias = diaAtencion;
@@ -947,22 +929,7 @@ namespace GeoParkingDesktop
 
             try
             {
-                WebRequest wrGETURL;
-                progressBar1.PerformStep();
-                wrGETURL = WebRequest.Create(sURL);
-
-                //WebProxy myProxy = new WebProxy("myproxy", 80);
-                //myProxy.BypassProxyOnLocal = true;
-
-                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
-
-                Stream objStream;
-                objStream = wrGETURL.GetResponse().GetResponseStream();
-
-                StreamReader objReader = new StreamReader(objStream);
-
-                string sLine = objReader.ReadLine();
-
+                string sLine = consultaApi(sURL);
 
                 if (sLine == "\"True\"")
                 {
@@ -980,6 +947,10 @@ namespace GeoParkingDesktop
             }
         }
 
+        /// <summary>
+        /// Actualiza el tipo de la playa
+        /// </summary>
+        /// <param name="tipoPlaya"></param>
         public void actualizarTipoPLaya(int tipoPlaya)
         {
             playa.tipoPlaya = tipoPlaya;
@@ -989,22 +960,7 @@ namespace GeoParkingDesktop
 
             try
             {
-                WebRequest wrGETURL;
-                progressBar1.PerformStep();
-                wrGETURL = WebRequest.Create(sURL);
-
-                //WebProxy myProxy = new WebProxy("myproxy", 80);
-                //myProxy.BypassProxyOnLocal = true;
-
-                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
-
-                Stream objStream;
-                objStream = wrGETURL.GetResponse().GetResponseStream();
-
-                StreamReader objReader = new StreamReader(objStream);
-
-                string sLine = objReader.ReadLine();
-
+                string sLine = consultaApi(sURL);
 
                 if (sLine == "\"True\"")
                 {
@@ -1022,6 +978,9 @@ namespace GeoParkingDesktop
             }
         }
 
+        /// <summary>
+        /// Actualza los precios de los servicios
+        /// </summary>
         public void actualizarServiciosPrecios()
         {
             if (chekAuto.Checked == true)
@@ -1115,6 +1074,15 @@ namespace GeoParkingDesktop
 
         }
 
+        /// <summary>
+        /// REgistra un nuevo servicio con todos sus percios
+        /// </summary>
+        /// <param name="idTipoVehiculo">id del tipo vehiculo del servicio</param>
+        /// <param name="x1">precio por hora</param>
+        /// <param name="x6">por 6 hs</param>
+        /// <param name="x12">por 12 hs</param>
+        /// <param name="x24">por 24 hs</param>
+        /// <param name="abono">abono mensual</param>
         public void registracionDeServicio(int idTipoVehiculo, string x1, string x6, string x12, string x24, string abono)
         {
             string sURL;
@@ -1122,40 +1090,27 @@ namespace GeoParkingDesktop
 
             try
             {
-                WebRequest wrGETURL;
-                progressBar1.PerformStep();
-                wrGETURL = WebRequest.Create(sURL);
-
-                //WebProxy myProxy = new WebProxy("myproxy", 80);
-                //myProxy.BypassProxyOnLocal = true;
-
-                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
-
-                Stream objStream;
-                objStream = wrGETURL.GetResponse().GetResponseStream();
-
-                StreamReader objReader = new StreamReader(objStream);
-
-                string sLine = objReader.ReadLine();
-
+                string sLine = consultaApi(sURL);
 
                 if (sLine == "\"True\"")
                 {
                     MessageBox.Show("Servicio Registrado");
-
                 }
                 else
                 {
                     MessageBox.Show("no se pudo realizar la registracion del servicio");
-
                 }
-
             }
             catch (Exception)
             {
                 MessageBox.Show("Error al registrar un servicio en API");
             }
         }
+
+        /// <summary>
+        /// Cancela un servicio
+        /// </summary>
+        /// <param name="idTipoVehiculo">identificador del tipo de vehiculo del servicio</param>
         public void cancelacionDeServicio(int idTipoVehiculo)
         {
             string sURL;
@@ -1163,34 +1118,16 @@ namespace GeoParkingDesktop
             
             try
             {
-                WebRequest wrGETURL;
-                progressBar1.PerformStep();
-                wrGETURL = WebRequest.Create(sURL);
-
-                //WebProxy myProxy = new WebProxy("myproxy", 80);
-                //myProxy.BypassProxyOnLocal = true;
-
-                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
-
-                Stream objStream;
-                objStream = wrGETURL.GetResponse().GetResponseStream();
-
-                StreamReader objReader = new StreamReader(objStream);
-
-                string sLine = objReader.ReadLine();
-
+                string sLine = consultaApi(sURL); 
 
                 if (sLine == "\"True\"")
                 {
                     MessageBox.Show("Cancelacion de servicio correcta");
-
                 }
                 else
                 {
                     MessageBox.Show("no se pudo realizar la cancelacion del servicio");
-
                 }
-
             }
             catch (Exception)
             {
@@ -1198,6 +1135,11 @@ namespace GeoParkingDesktop
             }
         }
 
+        /// <summary>
+        /// Verifica que exista el sevicio para ese tipo de vehiculo en la playa
+        /// </summary>
+        /// <param name="idTipoVehiculo">identificador del tipo de vehiculo</param>
+        /// <returns></returns>
         public bool verificarExistenciaDeServicio(int idTipoVehiculo)
         {
             foreach (var item in playa.disponibilidades)
@@ -1209,12 +1151,19 @@ namespace GeoParkingDesktop
             return false;
         }
 
+        /// <summary>
+        /// Actualizacion de precios
+        /// </summary>
+        /// <param name="idTipoVehiculo"></param>
         public void actualizarPrecios(int idTipoVehiculo)
         {
-
             verificarModificacionPrecio(idTipoVehiculo);            
         }
 
+        /// <summary>
+        /// Verifica la modificacion de precios para un tipo de vehiculo
+        /// </summary>
+        /// <param name="idTipoVehiculo"></param>
         public void verificarModificacionPrecio(int idTipoVehiculo)
         {
             switch (idTipoVehiculo)
@@ -1507,6 +1456,12 @@ namespace GeoParkingDesktop
 
         }        
 
+        /// <summary>
+        /// Busca el precio para un tiempo de un tipo de vehiculo
+        /// </summary>
+        /// <param name="idTipoVechiculo"></param>
+        /// <param name="idTiempo"></param>
+        /// <returns></returns>
         public double buscarPrecio(int idTipoVechiculo, int idTiempo)
         {
             foreach (var item in playa.precios)
@@ -1518,6 +1473,12 @@ namespace GeoParkingDesktop
             return 0;
         }        
 
+        /// <summary>
+        /// Actualiza un precio
+        /// </summary>
+        /// <param name="idTipoVehiculo">identificador del tipo de vehiculo</param>
+        /// <param name="precio">precio</param>
+        /// <param name="idTiempo">identificador de tiempo</param>
         public void actualizarPrecio(int idTipoVehiculo, double precio, int idTiempo)
         {            
 
@@ -1526,22 +1487,7 @@ namespace GeoParkingDesktop
 
             try
             {
-                WebRequest wrGETURL;
-                progressBar1.PerformStep();
-                wrGETURL = WebRequest.Create(sURL);
-
-                //WebProxy myProxy = new WebProxy("myproxy", 80);
-                //myProxy.BypassProxyOnLocal = true;
-
-                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
-
-                Stream objStream;
-                objStream = wrGETURL.GetResponse().GetResponseStream();
-
-                StreamReader objReader = new StreamReader(objStream);
-
-                string sLine = objReader.ReadLine();
-
+               string sLine = consultaApi(sURL);
 
                 if (sLine != "\"True\"")
                     MessageBox.Show("no se pudo realizar la actualizacion del precio");            
@@ -1553,6 +1499,12 @@ namespace GeoParkingDesktop
             }
         }
 
+        /// <summary>
+        /// Registra un nuevo precio
+        /// </summary>
+        /// <param name="idTipoVehiculo">identificador del vehiculo</param>
+        /// <param name="precio">precio</param>
+        /// <param name="idTiempo">identificador de tiempo</param>
         public void registrarPrecio(int idTipoVehiculo, double precio, int idTiempo)
         {
 
@@ -1561,26 +1513,10 @@ namespace GeoParkingDesktop
 
             try
             {
-                WebRequest wrGETURL;
-                progressBar1.PerformStep();
-                wrGETURL = WebRequest.Create(sURL);
+                string sLine = consultaApi(sURL);
 
-                //WebProxy myProxy = new WebProxy("myproxy", 80);
-                //myProxy.BypassProxyOnLocal = true;
-
-                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
-
-                Stream objStream;
-                objStream = wrGETURL.GetResponse().GetResponseStream();
-
-                StreamReader objReader = new StreamReader(objStream);
-
-                string sLine = objReader.ReadLine();
-
-
-                if (sLine == "\"True\"")
-                    MessageBox.Show("no se pudo realizar la registracion del precio");               
-
+                if (sLine != "\"True\"")
+                    MessageBox.Show("no se pudo realizar la registracion del precio");   
             }
             catch (Exception)
             {
@@ -1788,11 +1724,11 @@ namespace GeoParkingDesktop
         /// <summary>
         /// actualizacion de disponibilidad general, separado de los ingreso y egreso de vehiculos
         /// </summary>
-        /// <param name="idPlaya"></param>
-        /// <param name="idTipoVehiculo"></param>
-        /// <param name="disponibilidad"></param>
-        /// <param name="evento"></param>
-        /// <param name="fecha"></param>
+        /// <param name="idPlaya">identificador de la playa</param>
+        /// <param name="idTipoVehiculo">identificador del tipo de vehiculo</param>
+        /// <param name="disponibilidad">disponibilidad</param>
+        /// <param name="evento">evento</param>
+        /// <param name="fecha">fecha</param>
         public bool actualizarDisponibilidadGeneral(int idPlaya, int idTipoVehiculo, int disponibilidad, int evento, DateTime fecha)
         {
             string sURL;
@@ -1800,22 +1736,7 @@ namespace GeoParkingDesktop
 
             try
             {
-                WebRequest wrGETURL;
-                progressBar1.PerformStep();
-                wrGETURL = WebRequest.Create(sURL);
-
-                //WebProxy myProxy = new WebProxy("myproxy", 80);
-                //myProxy.BypassProxyOnLocal = true;
-
-                //wrGETURL.Proxy = WebProxy.GetDefaultProxy();
-
-                Stream objStream;
-                objStream = wrGETURL.GetResponse().GetResponseStream();
-
-                StreamReader objReader = new StreamReader(objStream);
-
-                string sLine = objReader.ReadLine();
-
+                string sLine = consultaApi(sURL);
 
                 if (sLine == "\"True\""){
                     MessageBox.Show("Actualizacion Existosa");
@@ -1825,7 +1746,6 @@ namespace GeoParkingDesktop
                     MessageBox.Show("no se pudo realizar la actualizacion");
                     return false;
                 }
-
             }
             catch (Exception)
             {
@@ -1945,6 +1865,11 @@ namespace GeoParkingDesktop
             MessageBox.Show("Edicion cancelada");
         }
 
+        /// <summary>
+        /// sale del sistema
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Dispose();
