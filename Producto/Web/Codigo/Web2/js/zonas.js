@@ -100,6 +100,7 @@ function initialize() {
         disableDefaultUI: true,
         zoomControl: true
     });
+    google.maps.event.addListener(map, 'click', clearSelection);
     cargarZonas($.parseJSON($('[id*=hdZonas]').val()));
 }
 
@@ -207,17 +208,13 @@ function nuevaZona() {
         }
     });
 
-    //// Clear the current selection when the drawing mode is changed, or when the
-    //// map is clicked.
-    //google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
-    google.maps.event.addListener(map, 'click', clearSelection);
 
     buildColorPalette();
 
 };
 function guardarZona() {
     nombre = $('#txtNombreZona').val();
-    datos = new zona(selectedShape.Id, nombre, selectedShape.wkt);
+    datos = new zona(selectedShape.Id, nombre, toWKT(selectedShape));
 
     $.ajax({
         type: "POST",
@@ -295,12 +292,11 @@ function configurarEditarZona() {
     var zonaTemp = toGMPolygon(selectedShape.wkt);
     zonaTemp.Nombre = selectedShape.Nombre;
     zonaTemp.Id = selectedShape.Id;
-    selectedShape = zonaTemp;    
+    selectedShape = zonaTemp;
     mostrarZona(selectedShape);
     ocultarZonas();
     mostrarZona(selectedShape);
     setSelectedShapeEditable(true);
-
 }
 
 function configurarGuardarZona() {
