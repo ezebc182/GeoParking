@@ -67,6 +67,7 @@ namespace Datos
                     contexto.UpdateGraph(t, map => map
                      .OwnedCollection(s => s.Precios, with => with
                          .AssociatedEntity(d => d.Servicio))
+                         .OwnedEntity(s => s.DisponibilidadPlayas)
                     );
                     return contexto.SaveChanges();
                 }
