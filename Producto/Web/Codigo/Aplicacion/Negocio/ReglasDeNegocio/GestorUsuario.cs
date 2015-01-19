@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Entidades;
 using ReglasDeNegocio.Util;
 using Datos;
+using Newtonsoft.Json;
 
 namespace ReglasDeNegocio
 {
@@ -121,6 +122,12 @@ namespace ReglasDeNegocio
             usuario.Rol = rolDao.FindById(usuario.RolId);
             return usuario;
         }
+
+        public string GetDatosUsuarioJSON(int id)
+        {
+            return JsonConvert.SerializeObject(usuarioDao.FindWhere(u => u.Id == id ));
+        }
+
         public Rol BuscarRolPorUsuarioId(int id)
         {
             return rolDao.FindById(id);

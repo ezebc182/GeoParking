@@ -62,13 +62,13 @@
                         <li><a href="../index.aspx#about">EQUIPO</a></li>
                         <li><a href="../index.aspx#contact">CONTACTO</a></li>
                         <li id="li_Administracion" runat="server" visible="false"><a href="#">ADMINISTRACION</a></li>
-                        <li id="li_Ingresar" runat="server"><a data-toggle="modal" href="#login">INGRESAR</a></li>
+                        <li id="li_Ingresar" runat="server"><a data-toggle="modal" href="#login"><i class="fa fa-fw fa-sign-in"></i> INGRESAR</a></li>
                         <li id="li_Login" runat="server" class="dropdown" visible="false">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><strong>
                                 <asp:Label ID="lblLogin" runat="server"></asp:Label></strong> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="#"><i class="fa fa-fw fa-gear"></i>Modificar Datos</a>
+                                    <a href="/DatosPersonales.aspx"><i class="fa fa-fw fa-gear"></i>Modificar Datos</a>
                                 </li>
                                 <%--                                <li>
                                     <a href="#"><i class="fa fa-fw fa-envelope"></i>Inbox</a>
@@ -78,7 +78,7 @@
                                 </li>--%>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="# " runat="server" onserverclick="btnCerrarSesion_Click"><i class="fa fa-fw fa-power-off"></i>Cerrar Sesión</a>
+                                    <a href="# " runat="server" onserverclick="btnCerrarSesion_Click"><i class="fa fa-fw fa-sign-out"></i>Cerrar Sesión</a>
                                 </li>
                             </ul>
                         </li>
@@ -93,15 +93,18 @@
                                 <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-users"></i> Gestión de Usuarios <i class="fa fa-fw fa-caret-down"></i></a>
                                 <ul id="demo" class="collapse">
                                     <li>
-                                        <a href="AdministracionUsuarios.aspx?accion=NuevoRol">Crear Rol</a>
+                                        <a href="AdministracionUsuarios.aspx?accion=NuevoRol"><i class="fa fa-fw fa-plus-square"></i> Crear Rol</a>
                                     </li>
                                     <li>
-                                        <a href="AdministracionUsuarios.aspx?accion=AsignarPermiso">Asignar Permisos a Rol</a>
+                                        <a href="AdministracionUsuarios.aspx?accion=AsignarPermiso"><i class="fa fa-fw fa-check-square"></i> Asignar Permisos a Rol</a>
                                     </li>
                                     <li>
-                                        <a href="AdministracionUsuarios.aspx?accion=AsignarRol">Asignar Rol a Usuario</a>
+                                        <a href="AdministracionUsuarios.aspx?accion=AsignarRol"><i class="fa fa-fw fa-exchange"></i> Asignar Rol a Usuario</a>
                                     </li>
                                 </ul>
+                            </li>
+                            <li>
+                                <a href="/Zonas.aspx"><i class="fa fa-fw fa-pencil-square-o"></i> Administración de Zonas</a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-fw fa-bar-chart-o"></i> Estadísticas</a>
@@ -355,39 +358,6 @@
 
     $(document).ready(function () {
         $(".formulario").bootstrapValidator();
-    });
-
-    var pageMgr = Sys.WebForms.PageRequestManager.getInstance();
-    pageMgr.add_endRequest(function (e) {
-        $('#txtContraseñaLogin').val($('#pass').val());
-        $('#txtUsuarioLogin').on('input', function () {
-            $("#divUsuarioLogin").attr("class", "form-group");
-            $("#iconUsuarioLogin").attr("style", "display:none");
-            $("#lblUsuarioLogin").attr("style", "display:none");
-            $("#divContraseñaLogin").attr("class", "form-group");
-            $("#iconContraseñaLogin").attr("style", "display:none");
-            $("#lblContraseñaLogin").attr("style", "display:none");
-        });
-        $('#txtContraseñaLogin').on('input', function () {
-            $("#divContraseñaLogin").attr("class", "form-group");
-            $("#iconContraseñaLogin").attr("style", "display:none");
-            $("#lblContraseñaLogin").attr("style", "display:none");
-        });
-        var checker = document.getElementById('chAceptar');
-        var sendbtn = document.getElementById('btnRegistrar');
-        // when unchecked or checked, run the function
-        checker.onchange = function () {
-            if (this.checked) {
-                sendbtn.disabled = false;
-            } else {
-                sendbtn.disabled = true;
-            }
-
-        }
-        $(".formulario").bootstrapValidator();
-        if ($("#hfregistro").val() == "true") {
-            $('#registrar').modal('hide');
-        }
     });
 
     $('#login').on('shown.bs.modal', function () {

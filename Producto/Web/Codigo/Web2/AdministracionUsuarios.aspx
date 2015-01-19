@@ -35,8 +35,7 @@
                     </div>
                     <div class="form-group">
                         <label for="ddlRol" class="col-sm-2 col-md-2 col-lg-2 control-label">Rol</label>
-                        <asp:DropDownList ID="ddlRolPermisos" runat="server" CssClass="form-control required"
-                            AutoPostBack="True" >
+                        <asp:DropDownList ID="ddlRolPermisos" runat="server" CssClass="form-control required" >
                         </asp:DropDownList>
 
                     </div>
@@ -87,11 +86,6 @@
 
         $(document).ready(function () {
             $('.formulario').bootstrapValidator();
-        });
-
-        pageManager = Sys.WebForms.PageRequestManager.getInstance();
-        pageManager.add_endRequest(function () {
-            $(".formulario").bootstrapValidator();
         });
 
     </script>

@@ -23,6 +23,16 @@ function servicio(id, playaId, tipoVehiculoId, capacidad, precios) {
     this.Precios = precios;
 };
 
+function usuario(id, nombreUsuario, contraseña, apellido, mail, nombre, rolId) {
+    this.Id = id;
+    this.NombreUsuario = nombreUsuario;
+    this.Contraseña = contraseña;
+    this.Apellido = apellido;
+    this.Mail = mail;
+    this.Nombre = nombre;
+    this.RolId = rolId;
+};
+
 function playaDeEstacionamiento(id, nombre, mail, telefono, tipoPlayaId, horario, direcciones, servicios) {
     this.Id = id;
     this.Nombre = nombre;

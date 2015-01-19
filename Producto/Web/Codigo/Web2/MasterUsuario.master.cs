@@ -133,6 +133,9 @@ namespace Web2
                     sesion.NombreUsuario = Request.Cookies["SessionUsuario"]["NombreUsuario"];
                     sesion.Contraseña = Request.Cookies["SessionUsuario"]["Contraseña"];
                     sesion.Id = Int32.Parse(Request.Cookies["SessionUsuario"]["IdUsuario"]);
+                    sesion.Nombre = Request.Cookies["SessionUsuario"]["Nombre"];
+                    sesion.Apellido = Request.Cookies["SessionUsuario"]["Apellido"];
+                    sesion.Mail = Request.Cookies["SessionUsuario"]["Mail"];
                     return sesion;
                 }
                 else
@@ -148,6 +151,9 @@ namespace Web2
 
                 myCookie.Values.Add("IdUsuario", value.Id.ToString());
                 myCookie.Values.Add("NombreUsuario", value.NombreUsuario.ToString());
+                myCookie.Values.Add("Nombre", value.Nombre.ToString());
+                myCookie.Values.Add("Apellido", value.Apellido.ToString());
+                myCookie.Values.Add("Mail", value.Mail.ToString());
                 myCookie.Values.Add("Contraseña", value.Contraseña.ToString());
                 myCookie.Values.Add("Rol", value.RolId.ToString());
 

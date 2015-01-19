@@ -5,17 +5,30 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ReglasDeNegocio;
 
 namespace Web2
 {
-    public partial class Formulario_web1 : System.Web.UI.Page
+    public partial class DatosPersonales : System.Web.UI.Page
     {
+        private static GestorUsuario gestor;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            gestor = new GestorUsuario();
             if (SessionUsuario != null)
             {
-
+                CargarDatosUsuario();
             }
+        }
+
+        public void CargarDatosUsuario()
+        {
+            var usuario = SessionUsuario;
+            txtNombre.Text = usuario.Nombre;
+            txtApellido.Text = usuario.Apellido;
+            txtEmailRegistro.Text = usuario.Mail;
+            lblUsuario.Text = usuario.NombreUsuario;
         }
 
         public Usuario SessionUsuario
@@ -25,32 +38,19 @@ namespace Web2
                 if (Request.Cookies["SessionUsuario"] != null)
                 {
                     Usuario sesion = new Usuario();
+                    sesion.RolId = Int32.Parse(Request.Cookies["SessionUsuario"]["Rol"]);
                     sesion.NombreUsuario = Request.Cookies["SessionUsuario"]["NombreUsuario"];
                     sesion.Contraseña = Request.Cookies["SessionUsuario"]["Contraseña"];
+                    sesion.Id = Int32.Parse(Request.Cookies["SessionUsuario"]["IdUsuario"]);
+                    sesion.Nombre = Request.Cookies["SessionUsuario"]["Nombre"];
+                    sesion.Apellido = Request.Cookies["SessionUsuario"]["Apellido"];
+                    sesion.Mail = Request.Cookies["SessionUsuario"]["Mail"];
                     return sesion;
                 }
                 else
                 {
                     return null;
                 }
-            }
-            set
-            {
-
-                HttpCookie myCookie = new HttpCookie("SessionUsuario"); //new cookie object
-                Response.Cookies.Add(myCookie); //This will create new cookie
-
-                myCookie.Values.Add("IdUsuario", value.Id.ToString());
-                myCookie.Values.Add("NombreUsuario", value.NombreUsuario.ToString());
-                myCookie.Values.Add("Contraseña", value.Contraseña.ToString());
-                myCookie.Values.Add("Rol", value.RolId.ToString());
-
-                // You can add multiple values
-
-                DateTime CookieExpir = DateTime.Now.AddDays(1); //Cookie life
-
-                Response.Cookies["SessionUsuario"].Expires = CookieExpir; //Maximum day of cookie's life       
-
             }
         }
     }

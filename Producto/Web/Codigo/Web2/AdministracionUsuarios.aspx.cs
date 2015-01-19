@@ -142,6 +142,7 @@ namespace Web2
         }
         private void CargarComboRolPermisos()
         {
+            var nada = gestorUsuario.BuscarRoles();
             FormHelper.CargarCombo(ddlRolPermisos, gestorUsuario.BuscarRoles(), "Nombre", "Id", "Seleccione");
         }
         private void cargarListadoCheckBoxPermisos()
