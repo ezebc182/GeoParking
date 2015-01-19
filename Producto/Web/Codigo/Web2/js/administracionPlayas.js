@@ -4,17 +4,16 @@ var playas = {
     habilitarEdicion: true,
     iniciar: function () {
         var me = this;
-        if (!me.iniciado) {
 
-            $('#tabDireccion').on("click", function () {
+            $('#tabDireccion').off('click').on('click', function () {
                 direcciones.iniciar();
                 setTimeout(function () { GoogleMaps.resize(); }, 200);
             });
-            $('[id*=btnGuardar]').on("click", function () {
+            $('[id*=btnGuardar]').off('click').on('click', function () {
                 me.guardar();
             });
 
-            $('.checkbox :checkbox').on("change", function () {
+            $('.checkbox :checkbox').off('change').on('change', function () {
                 var checked = $('.checkbox :checkbox:checked').length > 0;
                 $('[id*=txtDesde] input').prop("disabled", checked);
                 $('[id*=txtHasta] input').prop("disabled", checked);
@@ -36,14 +35,13 @@ var playas = {
             });
 
             servicios.iniciar();
-        }
+        
         $('#modificarPlaya').modal({
             backdrop: false,
             keyboard: false,
             show: true
         });
     },
-    iniciado: false,
     buscar: function (ciudad) {
         var me = this;
         me.vaciarTabla();
@@ -92,15 +90,15 @@ var playas = {
         $tr.append('<td> <a id="btnVerPlaya" class="glyphicon glyphicon-search"></a>  <a id="btnEditarPlaya" class="glyphicon glyphicon-edit"></a>  <a id="btnEliminarPlaya" class="glyphicon glyphicon-remove"></a></td>');
         $tableBody.append($tr);
 
-        $('[id*=btnVerPlaya]').off('click').on('click',function () {
+        $($tr).find('#btnVerPlaya').off('click').on('click',function () {
             me.ver(playa);
         });
 
-        $('[id*=btnEditarPlaya]').off('click').on('click',function () {
+        $($tr).find('#btnEditarPlaya').off('click').on('click',function () {
             me.editar(playa);
         });
 
-        $('[id*=btnEliminarPlaya]').off('click').on('click',function () {
+        $($tr).find('#btnEliminarPlaya').off('click').on('click', function () {
             var mensaje = "¿Esta seguro que desea eliminar la playa " + playa.Nombre + "?";
             var titulo = "Eliminar Playa";
             var funcionSi = function () { me.eliminar(playa) };
@@ -139,6 +137,8 @@ var playas = {
     registrar: function () {
         this.limpiar();
         this.habilitarEdicion = true;
+        this.iniciar();
+
         $('[id*=modificarPlaya] .modal-title').text('Registrar Playa');
         $('[id*=txtNombre]').prop("disabled", false);
         $('[id*=txtMail]').prop("disabled", false);
@@ -158,11 +158,12 @@ var playas = {
 
         direcciones.registrar();
         servicios.registrar();
-        this.iniciar();
+        
     },
     ver: function (playa) {
         this.limpiar();
         this.habilitarEdicion = false;
+        this.iniciar();
         this.cargar(playa);
         $('[id*=modificarPlaya] .modal-title').text('Ver Playa');
 
@@ -184,12 +185,13 @@ var playas = {
 
         servicios.ver();
         direcciones.ver();
-        this.iniciar();
+        
     },
     editar: function (playa) {
         var me = this;
         me.limpiar();
         me.habilitarEdicion = true;
+        me.iniciar();
         me.cargar(playa);
         $('[id*=modificarPlaya] .modal-title').text('Editar Playa');
         $('[id*=txtNombre]').prop("disabled", false);
@@ -210,7 +212,7 @@ var playas = {
 
         direcciones.editar();
         servicios.editar();
-        me.iniciar();
+        
     },
     guardar: function () {
         var me = this;
@@ -369,14 +371,14 @@ var servicios = {
         $('[id*=ddlTipoVehiculo] [value=0]').prop("selected", true);
 
         //eventos
-        $('[id*=btnAgregarServicio]').on("click", function () {
+        $('[id*=btnAgregarServicio]').off('click').on('click', function () {
 
             var capacidadNueva = new capacidad(0, $('[id*=txtCapacidad]').val());
             var servicioNuevo = new servicio(0, 0, $('[id*=ddlTipoVehiculo]').val(), capacidadNueva, {});
 
             me.agregar(servicioNuevo);
         });
-        $('[id*=ddlTipoVehiculo]').on("change", function (e) {
+        $('[id*=ddlTipoVehiculo]').off('change').on('change', function (e) {
             me.verificarCombo();
         });
 
@@ -457,7 +459,7 @@ var direcciones = {
 
         GoogleMaps.initialize();
 
-        $('[id*=btnAgregarDireccion]').on("click", function () {
+        $('[id*=btnAgregarDireccion]').off('click').on('click', function () {
             var calle = $('[id*=txtCalle]').first().val();
             var numero = $('[id*=txtNumero]').first().val();
             var ciudad = $('[id*=txtBuscar]').first().val();
