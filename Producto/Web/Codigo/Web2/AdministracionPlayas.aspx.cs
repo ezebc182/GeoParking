@@ -8,6 +8,7 @@ using ReglasDeNegocio;
 using Web2.Util;
 using Entidades;
 using System.Web.Services;
+using ReglasDeNegocio.Util;
 
 namespace Web2
 {
@@ -56,9 +57,13 @@ namespace Web2
         [WebMethod]
         public static string GuardarPlaya(string playaJSON)
         {
+            Resultado resultado = new Resultado();
             var playa = new PlayaDeEstacionamiento().ToObjectRepresentation(playaJSON);
-            var resultado = gestor.RegistrarPlaya(playa);
-
+            if (playa.Id == 0)
+            {
+                resultado = gestor.RegistrarPlaya(playa);
+            }
+            else resultado = gestor.ActualizarPlaya(playa); 
 
             if (resultado.Ok)
             {

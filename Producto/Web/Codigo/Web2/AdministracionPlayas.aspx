@@ -15,7 +15,7 @@
 
 
     <%-- Modal Playa --%>
-
+    <input type="hidden" id="hdIdPlaya" />
     <div class="modal fade" id="modificarPlaya">
         <div class="modal-dialog  modal-lg ">
             <div class=" modal-content">
@@ -52,8 +52,8 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 pull-left">
                                             <div class="col-lg-8 col-md-8 col-sm-8">
                                                 <div class="form-group">
-                                                    <label for="txtNombre" class="control-label">Nombre:</label>
-                                                    <input class="form-control" id="txtNombre" data-bv-notempty="true" data-bv-notempty-message="El nombre es requerido." />
+                                                    <label for="txtNombrePlaya" class="control-label">Nombre:</label>
+                                                    <input class="form-control" id="txtNombrePlaya" data-bv-notempty="true" data-bv-notempty-message="El nombre es requerido." />
                                                 </div>
                                             </div>
                                         </div>
@@ -73,8 +73,8 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 pull-left">
                                             <div class="col-lg-8 col-md-8 col-sm-8">
                                                 <div class="form-group">
-                                                    <label for="txtTelefono" class="control-label">Telefono:</label>
-                                                    <asp:TextBox runat="server" CssClass="form-control" type="tel" ID="txtTelefono" data-bv-notempty="true" data-bv-notempty-message="El teléfono es requerido" data-bv-regexp="true" data-bv-regexp-regexp="\b\d{3,5}[-.]?\d{3}[-.]?\d*\b" data-bv-regexp-message="Ingrese un número telefónico correcto." />
+                                                    <label for="txtTelefonoPlaya" class="control-label">Telefono:</label>
+                                                    <asp:TextBox runat="server" CssClass="form-control" type="tel" ID="txtTelefonoPlaya" data-bv-notempty="true" data-bv-notempty-message="El teléfono es requerido" data-bv-regexp="true" data-bv-regexp-regexp="\b\d{3,5}[-.]?\d{3}[-.]?\d*\b" data-bv-regexp-message="Ingrese un número telefónico correcto." />
                                                 </div>
                                             </div>
                                         </div>
@@ -82,8 +82,8 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 pull-right">
                                             <div class="col-lg-8 col-md-8 col-sm-8 ">
                                                 <div class="form-group">
-                                                    <label for="txtMail" class="control-label">Email:</label>
-                                                    <asp:TextBox runat="server" type="email" CssClass="form-control" ID="txtMail" data-bv-notempty="true" data-bv-notempty-message="El email es requerido" data-bv-emailaddress-message="Ingrese un formato de email correcto." />
+                                                    <label for="txtMailPlaya" class="control-label">Email:</label>
+                                                    <asp:TextBox runat="server" type="email" CssClass="form-control" ID="txtMailPlaya" data-bv-notempty="true" data-bv-notempty-message="El email es requerido" data-bv-emailaddress-message="Ingrese un formato de email correcto." />
                                                 </div>
                                             </div>
                                         </div>

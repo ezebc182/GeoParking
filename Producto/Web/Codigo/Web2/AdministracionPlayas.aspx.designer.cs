@@ -31,22 +31,22 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.DropDownList ddlTipoPlaya;
         
         /// <summary>
-        /// Control txtTelefono.
+        /// Control txtTelefonoPlaya.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTelefono;
+        protected global::System.Web.UI.WebControls.TextBox txtTelefonoPlaya;
         
         /// <summary>
-        /// Control txtMail.
+        /// Control txtMailPlaya.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMail;
+        protected global::System.Web.UI.WebControls.TextBox txtMailPlaya;
         
         /// <summary>
         /// Control ddlDias.

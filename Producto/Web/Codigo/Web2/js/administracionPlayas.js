@@ -1,4 +1,5 @@
 ﻿var playaCargada;
+var tablaPlayas = null;
 
 var playas = {
     habilitarEdicion: true,
@@ -57,7 +58,7 @@ var playas = {
                     me.agregar(playa);
                 });
                 $('[id*=pnlResultados]').show();
-                $('[id*=tbPlayas]').first().DataTable({
+                tablaPlayas = $('#tbPlayas').DataTable({
                     language: {
                         url: '//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/Spanish.json'
                     }
@@ -71,9 +72,15 @@ var playas = {
         });
     },
     vaciarTabla: function () {
+        var me = this;
+        $('[id*=pnlResultados]').hide();
+        if (tablaPlayas != null) {
+            tablaPlayas.destroy();
+        }
         var $trs = $('[id*=tbPlayasBody] tr');
-
         $.each($trs, function (i, item) { item.remove(); });
+        
+
     },
     agregar: function (playa) {
         var me = this;
@@ -106,9 +113,10 @@ var playas = {
         });
     },
     limpiar: function () {
-        $('[id*=txtNombre]').val("");
-        $('[id*=txtMail]').val("");
-        $('[id*=txtTelefono]').val("");
+        $('#hdIdPlaya').val("0");
+        $('#txtNombrePlaya').val("");
+        $('[id*=txtMailPlaya]').val("");
+        $('[id*=txtTelefonoPlaya]').val("");
         $('[id*=ddlTipoPlaya] [value=0]').prop("selected", true);
         $('.checkbox :checkbox').prop("checked", true);
         $('[id*=txtDesde]').val("00:00");
@@ -124,9 +132,10 @@ var playas = {
         $('[id*=tabDatosGrales]').tab('show');
     },
     cargar: function (playa) {
-        $('[id*=txtNombre]').val(playa.Nombre);
-        $('[id*=txtMail]').val(playa.Mail);
-        $('[id*=txtTelefono]').val(playa.Telefono);
+        $('#hdIdPlaya').val(playa.Id);
+        $('#txtNombrePlaya').val(playa.Nombre);
+        $('[id*=txtMailPlaya]').val(playa.Mail);
+        $('[id*=txtTelefonoPlaya]').val(playa.Telefono);
         $('[id*=ddlTipoPlaya] [value="' + playa.TipoPlayaId + '"]').prop("selected", true);
         $('[id*=txtDesde]').val(playa.Horario.HoraDesde);
         $('[id*=txtHasta]').val(playa.Horario.HoraHasta);
@@ -140,9 +149,9 @@ var playas = {
         this.iniciar();
 
         $('[id*=modificarPlaya] .modal-title').text('Registrar Playa');
-        $('[id*=txtNombre]').prop("disabled", false);
-        $('[id*=txtMail]').prop("disabled", false);
-        $('[id*=txtTelefono]').prop("disabled", false);
+        $('#txtNombrePlaya').prop("disabled", false);
+        $('[id*=txtMailPlaya]').prop("disabled", false);
+        $('[id*=txtTelefonoPlaya]').prop("disabled", false);
         $('[id*=ddlTipoPlaya]').prop("disabled", false);
         $('.checkbox').show();
         $('[id*=txtDesde] input').prop("disabled", true);
@@ -167,9 +176,9 @@ var playas = {
         this.cargar(playa);
         $('[id*=modificarPlaya] .modal-title').text('Ver Playa');
 
-        $('[id*=txtNombre]').prop("disabled", true);
-        $('[id*=txtMail]').prop("disabled", true);
-        $('[id*=txtTelefono]').prop("disabled", true);
+        $('[id*=txtNombrePlaya]').prop("disabled", true);
+        $('[id*=txtMailPlaya]').prop("disabled", true);
+        $('[id*=txtTelefonoPlaya]').prop("disabled", true);
         $('[id*=ddlTipoPlaya]').prop("disabled", true);
         $('.checkbox').hide();
         $('[id*=txtDesde] input').prop("disabled", true);
@@ -194,9 +203,9 @@ var playas = {
         me.iniciar();
         me.cargar(playa);
         $('[id*=modificarPlaya] .modal-title').text('Editar Playa');
-        $('[id*=txtNombre]').prop("disabled", false);
-        $('[id*=txtMail]').prop("disabled", false);
-        $('[id*=txtTelefono]').prop("disabled", false);
+        $('[id*=txtNombrePlaya]').prop("disabled", false);
+        $('[id*=txtMailPlaya]').prop("disabled", false);
+        $('[id*=txtTelefonoPlaya]').prop("disabled", false);
         $('[id*=ddlTipoPlaya]').prop("disabled", false);
         $('.checkbox').show();
         $('[id*=txtDesde] .input-group input').prop("disabled", true);
@@ -216,10 +225,10 @@ var playas = {
     },
     guardar: function () {
         var me = this;
-        var id;
-        var nombre = $('#modificarPlaya [id*=txtNombre]').val();
-        var mail = $('[id*=txtMail]').val();
-        var telefono = $('[id*=txtTelefono]').val();
+        var id = $('#hdIdPlaya').val();
+        var nombre = $('#modificarPlaya [id*=txtNombrePlaya]').val();
+        var mail = $('[id*=txtMailPlaya]').val();
+        var telefono = $('[id*=txtTelefonoPlaya]').val();
         var tipoPlayaId = $('[id*=ddlTipoPlaya]').find(':selected').val();
         var horarioTemp = new horario(0, $('[id*=txtDesde]').val(), $('[id*=txtHasta]').val(), $('[id*=ddlDias]').find(':selected').val());
         var direccionesTemp = direcciones.lista();
@@ -296,13 +305,13 @@ var servicios = {
         $tr.append('<td> <a id="txtEditableCapacidad" data-type="text" data-title="Ingrese capacidad" data-value="' + servicio.Capacidad.Cantidad + '" ></a> </td>');
 
         var cantidadPreciosEncontrados = 0;
-        $.each(this.tiempos, function (i, tiempo) {
-            var tiempoId = $('th[idTiempo]').eq(i).attr('idTiempo');
+        $.each(me.tiempos, function (i, tiempo) {
+            var tiempoId = $('th[idTiempo]').eq(i).attr('idtiempo');
             var precioEncontrado = false;
             if (cantidadPreciosEncontrados < servicio.Precios.length) {
                 $.each(servicio.Precios, function (j, precioServicio) {
                     if (servicio.Id == precioServicio.ServicioId && tiempoId == precioServicio.TiempoId) {
-                        $tr.append('<td> ' + '<a href="#" id="txtEditablePrecio" servicioId="' + servicio.Id + '" tiempoId="' + tiempoId + '" precioId="' + precioServicio.Id + '" data-type="text" data-pk="" data-value="' + precioServicio.Monto + '" data-url="" data-title="Ingrese el precio"></a>' + '</td>');
+                        $tr.append('<td> ' + '<a href="#" id="txtEditablePrecio" servicioId="' + servicio.Id + '" tiempoId="' + tiempoId + '" precioId="' + precioServicio.Id + '" data-type="text" data-pk="'+ tiempoId +'" data-value="' + precioServicio.Monto + '" data-url="" data-title="Ingrese el precio"></a>' + '</td>');
                         precioEncontrado = true;
                         cantidadPreciosEncontrados++;
                         return false;
