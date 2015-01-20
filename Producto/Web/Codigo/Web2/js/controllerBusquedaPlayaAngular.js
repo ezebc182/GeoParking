@@ -32,18 +32,7 @@ app.controller('MyCtrl', function ($scope, $http) {
 
     $scope.numberOfPages = function () {
         return Math.ceil($scope.resultado.length / $scope.pageSize);
-    }
-
-    /*OMITE LOS ACENTOS DE UNA CADENA, PARA QUE EL NOMBRE DE LA CIUDAD
-    SEA COMPATIBLE CON LA BD*/
-    $scope.omitirAcentos = function(text) {
-        var acentos = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç";
-        var original = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc";
-        for (var i = 0; i < acentos.length; i++) {
-            text = text.replace(acentos.charAt(i), original.charAt(i));
-        }
-        return text;
-    }
+    }    
 
     /*CREA EL INFOWINDOWS PARA UNA PLAYA*/
     $scope.crearInfoWindows = function (playa) {
@@ -284,48 +273,7 @@ app.controller('MyCtrl', function ($scope, $http) {
         }).error(function (data, status, headers, config) {
             alert(status);
         });
-    }
-
-    /*COLOCA UN MARCADOR+CIRCULO=(PUNTODE INTERES) EN EL LUGAR DEL CLICK*/
-    $scope.dibujarPunto = function (event) {
-        $scope.deleteCirculos();//borrar circulos
-
-        //opciones del circulo
-        var populationOptions = {
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.9,
-            strokeWeight: 2,
-            fillColor: '#FF0000',
-            fillOpacity: 0.1,
-            map: $scope.map,
-            center: event.latLng,
-            editable: false,
-            radius: 500
-        };
-
-        $scope.map.setCenter(event.latLng);//centro el mapa
-        puntoInteres = new google.maps.Circle(populationOptions);//creo punto de interes(circulo)        
-        $scope.circulos.push(puntoInteres);//agrego punto de interes "circulos"
-
-        //creamos el marcador                      
-        var marker = new google.maps.Marker({
-            position: event.latLng,
-            map: $scope.map
-        });
-
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-
-        //seteamos al contenido
-        (function (marker, contenido) {
-            google.maps.event.addListener(marker, 'mouseover', function () {
-                infowindow.setContent("Usted esta aquí");
-                infowindow.open($scope.map, marker);
-            });
-        })(marker, contenido);
-
-        $scope.marcadorCirculo.push(marker);//agregamos el marcador
-        $scope.map.setZoom(15);//zoom mapa
-    }
+    }    
 
     /*COLOCA UN MARCADOR+CIRCULO=(PUNTODE INTERES) A PARTIR DE UNA DIRECCION (calle y numero + la ciudad)*/
     $scope.marcarPunto = function () {
@@ -601,13 +549,7 @@ app.controller('MyCtrl', function ($scope, $http) {
                 var servicios = eval(playas[i].Servicios);
                 for (var K = 0; K < servicios.length; K++) {
                     Vehiculos += servicios[K].TipoVehiculo + ",";
-                }
-
-                //var Horarios=""               
-                //var horarios = eval(playas[i].Horarios);
-                //for (var l = 0; l < horarios.length; l++) {
-                //    contenido += "<tr><td>" + horarios[l].Dia + "</td> <td> - <strong>Desde:</strong></td> <td> " + horarios[l].HoraDesde + "</td> <td> - <strong>Hasta:</strong> </td> <td>" + horarios[l].HoraHasta + "</td> </tr>";
-                //}
+                }              
 
                 var Precios = "";
 
