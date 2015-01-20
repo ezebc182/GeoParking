@@ -41,11 +41,11 @@
                         data-target="#busquedaAvanzada"  ng-click="ajustarMapa()" title="Busqueda Avanzada">
                         <span class="glyphicon glyphicon-cog"></span>&nbsp;Búsqueda
                         avanzada</button>
-                    <button type="button" class="btn-warning btn btn-md" id="btnListado" ng-click="listar();" title="Busqueda Avanzada"><span class='glyphicon glyphicon-list-alt'></span>&nbsp;Ver Listado</button>
+                    <button type="button" class="btn-warning btn btn-md" id="btnListado" ng-click="listar();" title="Ver listado/mapa"><span class='glyphicon glyphicon-list-alt'></span>&nbsp;Ver Listado</button>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn-default btn btn-md" id="limpiarBusqueda" ng-click="limpiarMapa();" title="Limpiar Mapa">
-                        <span class="glyphicon glyphicon-trash"></span>
+                    <button type="button" class="btn-default btn btn-md" id="limpiarBusqueda" ng-click="buscarPlayasCiudad();" title="Restaurar Mapa"><!--limpiarMapa()-->
+                        <span class="glyphicon glyphicon-repeat"></span>&nbsp;Restaurar Mapa
                     </button>
                 </div>            
             </div>        
