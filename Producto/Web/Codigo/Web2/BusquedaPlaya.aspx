@@ -17,6 +17,9 @@
 
     <%--js angular de la aplicacion--%>
     <script src="js/controllerBusquedaPlayaAngular.js"></script>        
+
+    <link href="js/bootstrapformhelpers/css/bootstrap-formhelpers.min.css" rel="stylesheet" />
+    <script src="js/bootstrapformhelpers/js/bootstrap-formhelpers.js"></script>
        
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
@@ -58,6 +61,9 @@
                         <!-- Form Name -->
                         <legend>Búsqueda avanzada</legend>
                         <!-- Text input-->
+                        <div id="tags" class="col-md-12 col-sm-12 col-lg-12"></div>
+                        <br />
+                        <br />
                         <div class="form-group">
                             <div class="col-md-12 col-sm-12 col-lg-12">
                                 <div class="input-group">
@@ -82,7 +88,7 @@
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-star"></span>
                                     </span>
                                     <asp:DropDownList ID="ddlTipoPlaya" CssClass="form-control"
-                                        runat="server" ClientIDMode="Static">
+                                        runat="server" ClientIDMode="Static" onChange="agregarTags(1)">
                                     </asp:DropDownList>
 
                                 </div>
@@ -97,7 +103,7 @@
                                     </span>
 
                                     <asp:DropDownList ID="ddlTipoVehiculo" CssClass="form-control"
-                                        runat="server" ClientIDMode="Static">
+                                        runat="server" ClientIDMode="Static" onChange="agregarTags(2)">
                                     </asp:DropDownList>
                                 </div>
                             </div>
@@ -112,91 +118,52 @@
 
 
                                     <asp:DropDownList ID="ddlDiasAtencion" CssClass="form-control"
-                                        runat="server" ClientIDMode="Static">
+                                        runat="server" ClientIDMode="Static" onChange="agregarTags(3)">
                                     </asp:DropDownList>
                                 </div>
                             </div>
                         </div>
                         <!-- Prepended text-->
                         <div class="form-group">
-                            <div class="col-md-6 col-sm-6 col-lg-6"">   
+                            <div class="col-md-6 col-sm-6 col-lg-6"">                                  
                                 <div class="input-group">
                                     <span class="input-group-addon"><span class="glyphicon
         glyphicon-usd"></span></span>
 
-                                    <input id="txtMinPrecio" name="txtMinPrecio" maxlength="3" class="form-control" placeholder="0"
-                                        data-bv-regexp-message="Ingrese un valor válido" pattern="[+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*)(?:[eE][+-]?\d+)?"
-                                        data-bv-lessthan-inclusive="true" data-bv-lessthan-message="Precio desde debe ser menor que precio hasta"
-                                        data-bv-lessthan-value="txtMaxPrecio" title="Precio Minimo">
+                                    <input type="number" id="txtMinPrecio" maxlength="3" class="form-control" placeholder="min" title="Precio Minimo">
                                 </div>
                             </div>
                         
                             <!-- Prepended text-->
-                            <div class="col-md-6 col-sm-6 col-lg-6"">
-                            
+                            <div class="col-md-6 col-sm-6 col-lg-6"">                                
                                 <div class="input-group">
                                      <span class="input-group-addon"><span class="glyphicon
         glyphicon-usd"></span></span>
 
-                                    <input id="txtMaxPrecio" name="txtMaxPrecio" maxlength="3" class="form-control" placeholder="10"
-                                        data-bv-regexp-message="Ingrese un valor válido" pattern="[+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*)(?:[eE][+-]?\d+)?"
-                                        data-bv-greaterthan-inclusive="true" data-bv-greaterthan-message="Precio hasta debe ser mayor que precio desde"
-                                        data-bv-greaterthan-value="txtMinPrecio" title="Precio Maximo">
+                                    <input type="number" id="txtMaxPrecio" maxlength="3" class="form-control" placeholder="max" title="Precio Maximo">
                                 </div>
                             </div>
                         </div>
                         <!-- Select Basic -->
                         <div class="form-group">
-                            <div class="col-md-6 col-sm-6 col-lg-6">
-                                <div class="input-group">
-                                    <span class=" input-group-addon"><span class="glyphicon
-            glyphicon-time"></span></span>
+                            
+                            <div class="col-lg-1 col-md-1 col-sm-1"></div>
 
-                                    <asp:DropDownList ID="ddlHoraDesde" CssClass="form-control"
-                                        runat="server" ClientIDMode="Static">
-                                        <asp:ListItem Value="0">00</asp:ListItem>
-                                        <asp:ListItem Value="2">02</asp:ListItem>
-                                        <asp:ListItem Value="4">04</asp:ListItem>
-                                        <asp:ListItem Value="6">06</asp:ListItem>
-                                        <asp:ListItem Value="8">08</asp:ListItem>
-                                        <asp:ListItem Value="10">10</asp:ListItem>
-                                        <asp:ListItem Value="12">12</asp:ListItem>
-                                        <asp:ListItem Value="14">14</asp:ListItem>
-                                        <asp:ListItem Value="16">16</asp:ListItem>
-                                        <asp:ListItem Value="18">18</asp:ListItem>
-                                        <asp:ListItem Value="20">20</asp:ListItem>
-                                        <asp:ListItem Value="22">22</asp:ListItem>
-                                        <asp:ListItem Value="23">24</asp:ListItem>
-                                    </asp:DropDownList>
+                            <div class="col-lg-4 col-md-4 col-sm-4">
+                                                    <div class="form-group ">                                                        
+                                                        <div id="horaDesde"  class="bfh-timepicker" data-time="Desde 00:00" style="background-color: white;"></div>
+                                                    </div>
+                                                </div>
 
-                                </div>
-                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1"></div>                            
 
-                            <!-- Select Basic -->
-
-                            <div class="col-md-6 col-sm-6 col-lg-6">
-                                <div class="input-group">
-                                    <span class=" input-group-addon"><span class="glyphicon
-        glyphicon-time"></span></span>
-
-                                    <asp:DropDownList ID="ddlHoraHasta" CssClass="form-control" runat="server" ClientIDMode="Static">
-                                        <asp:ListItem Value="0" Selected="True">00</asp:ListItem>
-                                        <asp:ListItem Value="2">02</asp:ListItem>
-                                        <asp:ListItem Value="4">04</asp:ListItem>
-                                        <asp:ListItem Value="6">06</asp:ListItem>
-                                        <asp:ListItem Value="8">08</asp:ListItem>
-                                        <asp:ListItem Value="10">10</asp:ListItem>
-                                        <asp:ListItem Value="12">12</asp:ListItem>
-                                        <asp:ListItem Value="14">14</asp:ListItem>
-                                        <asp:ListItem Value="16">16</asp:ListItem>
-                                        <asp:ListItem Value="18">18</asp:ListItem>
-                                        <asp:ListItem Value="20">20</asp:ListItem>
-                                        <asp:ListItem Value="22">22</asp:ListItem>
-                                        <asp:ListItem Value="24">24</asp:ListItem>
-
-                                    </asp:DropDownList>
-                                </div>
-                            </div>
+                             <div class="col-lg-4 col-md-4 col-sm-4">
+                                                    <div class="form-group ">                                                        
+                                                        <div id="horaHasta" class="bfh-timepicker" data-time="Hasta 00:00" style="background-color: white;"></div>
+                                                    </div>
+                                                </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                                                        
                         </div>
                     </fieldset>
                 </div>
@@ -260,4 +227,55 @@
             </div>
         </div>
     </div>     
+
+    <script>
+        
+       function quitar(id) {
+           boton = document.getElementById(id.attributes[2].value);
+            if (!boton) {
+                alert("El elemento selecionado no existe");
+            } else {
+                padre = boton.parentNode;
+                padre.removeChild(boton);
+            }
+        }
+
+       function agregarTagsTipoPlaya(){
+            filtros = document.getElementById("tags").innerHTML;
+            var s = document.getElementById("ddlTipoPlaya");
+            var id = s.options[s.selectedIndex].value;
+            var nuevoFiltro = s.options[s.selectedIndex].text;
+            document.getElementById("tags").innerHTML = filtros + "<span class='btn btn-default btn-xs btn-info' type='button' id='tipoPlaya" + id + "' onClick='quitar(tipoPlaya" + id + ")' >" + nuevoFiltro + " x</span> ";
+       }
+
+       function agregarTagsDiasAtencion() {
+           filtros = document.getElementById("tags").innerHTML;
+           var s = document.getElementById("ddlDiasAtencion");
+           var id = s.options[s.selectedIndex].value;
+           var nuevoFiltro = s.options[s.selectedIndex].text;
+           document.getElementById("tags").innerHTML = filtros + "<button class='btn btn-default btn-xs btn-info' type='button' id='dia" + id + "' onClick='quitar(dia" + id + ")'>" + nuevoFiltro + " x</button> ";
+       }
+
+       function agregarTagsTipoVehiculo() {
+           filtros = document.getElementById("tags").innerHTML;
+           var s = document.getElementById("ddlTipoVehiculo");
+           var id = s.options[s.selectedIndex].value;
+           var nuevoFiltro = s.options[s.selectedIndex].text;
+           document.getElementById("tags").innerHTML = filtros + "<button class='btn btn-default btn-xs btn-info' type='button' id='vehiculo" + id + "' onClick='quitar(vehiculo" + id + ")' >" + nuevoFiltro + " x</button> ";
+       }
+
+       function agregarTags(tipoTags) {
+           switch (tipoTags) {
+               case 1: agregarTagsTipoPlaya();
+                   break;
+               case 2: agregarTagsTipoVehiculo();
+                   break;
+               case 3: agregarTagsDiasAtencion();
+                   break;
+               default:
+
+           }
+       }
+
+    </script>
 </asp:Content>

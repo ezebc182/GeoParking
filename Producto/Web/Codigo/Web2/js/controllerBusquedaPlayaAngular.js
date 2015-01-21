@@ -603,8 +603,10 @@ app.controller('MyCtrl', function ($scope, $http) {
             var preciohasta = "0";
         }
 
-        var horadesde = document.getElementById('ddlHoraDesde').value;
-        var horahasta = document.getElementById('ddlHoraHasta').value;
+        //var horadesde = document.getElementById('horaDesde').text;
+        //var horahasta = document.getElementById('horaHasta').value;
+        var horadesde = $('[id*=horaDesde]').val();
+        var horahasta = $('[id*=horaHasta]').val()
 
         $http({
             url: "BusquedaPlaya.aspx/ObtenerPlayasDeCiudadPorFiltro",//mi pagina de begin
@@ -693,6 +695,12 @@ app.controller('MyCtrl', function ($scope, $http) {
 
     /*SETEA COMO METODO DE INICIO AL CARGAR LA PAGINA*/
     google.maps.event.addDomListener(window, 'load', $scope.inicializarMapa);
+
+    
+
+    
+
+    
 
 });
 
