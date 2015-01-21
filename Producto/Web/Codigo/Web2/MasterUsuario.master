@@ -52,40 +52,41 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="index.aspx">
-                            <span style="color: red; font-family: Impact; font-size: 20px; text-shadow: 1px 1px 1px grey;">GEO</span><span style="color: white; font-size: 20px; font-family: Impact; text-shadow: 1px 1px 1px grey;">PARKING</span>
+                        <a class="navbar-brand" href="index.aspx" style="text-align:center; width:225px">
+                            <span style="color: red; font-family: Impact; font-size: 30px; text-shadow: 1px 1px 1px grey;">GEO</span><span style="color: white; font-size: 30px; font-family: Impact; text-shadow: 1px 1px 1px grey;">PARKING</span>
                         </a>
                     </div>
                     <!-- Top Menu Items -->
-                    <ul class="nav navbar-right top-nav">
-                        <li><a href="../index.aspx#fea">CARACTERISTICAS</a></li>
-                        <li><a href="../index.aspx#gallery">GALERIA</a></li>
-                        <li><a href="../index.aspx#about">EQUIPO</a></li>
-                        <li><a href="../index.aspx#contact">CONTACTO</a></li>
-                        <li id="li_Administracion" runat="server" visible="false"><a href="../AdministracionPlayas.aspx">ADMINISTRACION</a></li>
-                        <li id="li_Ingresar" runat="server"><a data-toggle="modal" href="#login"><i class="fa fa-fw fa-sign-in"></i> INGRESAR</a></li>
-                        <li id="li_Login" runat="server" class="dropdown" visible="false">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <strong>
-                                        <asp:Label ID="lblLogin" runat="server"></asp:Label></strong> <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="/DatosPersonales.aspx"><i class="fa fa-fw fa-gear"></i>Modificar Datos</a>
-                                </li>
-                                <%--<li>
-                                    <a href="#"><i class="fa fa-fw fa-envelope"></i>Inbox</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-fw fa-gear"></i>Settings</a>
-                                </li>--%>
-                                <li class="divider"></li>
-                                <li>
-                                    <a id="A1" href="# " runat="server" onserverclick="btnCerrarSesion_Click"><i class="fa fa-fw fa-power-off"></i>Cerrar Sesión</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
                     <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-right top-nav">
+                            <li><a href="../index.aspx#fea">CARACTERISTICAS</a></li>
+                            <li><a href="../index.aspx#gallery">GALERIA</a></li>
+                            <li><a href="../index.aspx#about">EQUIPO</a></li>
+                            <li><a href="../index.aspx#contact">CONTACTO</a></li>
+                            <li id="li_Administracion" runat="server" visible="false"><a href="../AdministracionPlayas.aspx">ADMINISTRACION</a></li>
+                            <li id="li_Ingresar" runat="server"><a data-toggle="modal" href="#login"><i class="fa fa-fw fa-sign-in"></i> INGRESAR</a></li>
+                            <li id="li_Login" runat="server" class="dropdown" visible="false">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <strong>
+                                            <asp:Label ID="lblLogin" runat="server"></asp:Label></strong> <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="/DatosPersonales.aspx"><i class="fa fa-fw fa-gear"></i>Modificar Datos</a>
+                                    </li>
+                                    <%--<li>
+                                        <a href="#"><i class="fa fa-fw fa-envelope"></i>Inbox</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-fw fa-gear"></i>Settings</a>
+                                    </li>--%>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a id="A1" href="# " runat="server" onserverclick="btnCerrarSesion_Click"><i class="fa fa-fw fa-sign-out"></i>Cerrar Sesión</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+                    
                     </div>
                     <!-- /.navbar-collapse -->
                 </nav>
