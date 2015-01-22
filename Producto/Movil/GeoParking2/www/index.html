@@ -49,15 +49,38 @@
             <h1>GeoParking</h1>
         </div>
 
-
+        
 
         <div class="mapa">
+            
+            <a id="linkAbrePopupBasico" href="#popupBasic" data-rel="popup" style="display: none;"></a>
+
+            <div data-role="popup" id="popupBasic">
+              <p id="parrafoPopupSimple"></p>
+            </div>
+            
+            <div data-position="fixed" data-role='popup' id='popupDialog' data-theme='b' style="height : 100%;">
+                <div data-role='header' data-theme='b'>
+                    <h1 id="dialogoDosBotonesHeader" ></h1>
+                </div>
+                <div data-role='content' data-theme='b'>
+                    <p id="dialogoDosBotonesDescripcion" ></p>
+                    <div class='showastabs center nobg'>
+                        <a id="dialogoDosBotonesAcpetar" href='#' data-rel='back' data-icon='ok' data-iconpos='left' data-role='button' data-inline='true'>Aceptar</a>
+                        <a id="dialogoConDosBotonesCancelar" href='#' data-rel='back'  data-iconpos='left' data-role='button' data-inline='true'>Cancelar</a>
+                    </div>
+                </div>
+            </div>
+            <a id="linkAbreDialogoDosBotones" href='#popupDialog' data-rel='popup' data-position-to='window' data-role='button' data-icon='external-link' data-transition='pop' data-inline='true' style="display: none;"></a>
+            
+            
             <div id="panelListado"></div>
             <div id="pnlMapa" class="fullscreen">
                 <div id="map-canvas" class="fullscreen"></div>
             </div>
 			<div id="panelConfiguraciones"></div>
             <div id="panelContacto"></div>
+            <div data-role="popup" id="popupDialog" data-theme="b"><div data-role="header" data-theme="b"><h1>Delete from library?</h1></div><div data-role="content" data-theme="b"><p>This is a popup description...</p><div class="showastabs center nobg"><a href="#" data-rel="back" data-icon="ok" data-iconpos="left" data-role="button" data-inline="true">Okay</a><a href="#" data-rel="back" data-icon="delete" data-iconpos="left" data-role="button" data-inline="true">Cancel</a></div></div></div>
 
             <div class="hidden" id="panel_ruta"></div>
         </div>
@@ -93,7 +116,6 @@
 
         <script src="./js/Propios/guardarDatos.js"></script>
         <script src="./js/Propios/funcionesDistancia.js"></script>
-        <script src="./js/Propios/listadoDePlayas.js"></script>
         <script src="./js/Propios/obtenerRutaDeRegreso.js"></script>
 
         <script src="./js/bootstrap-dialog.min.js"></script>

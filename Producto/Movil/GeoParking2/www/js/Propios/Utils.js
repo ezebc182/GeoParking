@@ -21,12 +21,12 @@ function ClearAll() {
 	getlocal();           
 }
 function getlocal() {
-	var i=0;
-	for (i=0; i<=db.length-1; i++) {
-		key = db.key(i);             
-		alert(db.getItem(key));
-	  }
-   }        
+    var i=0;
+    for (i=0; i<=db.length-1; i++) {
+        key = db.key(i);             
+        alert(db.getItem(key));
+    }
+}
   
  function getopenDb() { 
 	try {
@@ -133,30 +133,23 @@ function validarEmail(inputtxt){
     }
 }
 function abrirPopup(mensaje){
-    var widget = this;
-        var divPopup = document.createElement("div");
-        divPopup.id = "mensajePopup";
-        $(divPopup).attr("data-role","popup");
-        $(divPopup).attr("data-theme","e");
-        var popupMensaje = document.createElement("p");
-        popupMensaje.innerHTML = mensaje;
-        divPopup.appendChild(popupMensaje);
-        $("#panelListado").parent().prepend(divPopup);
-        
-        $("#mensajePopup").popup();
-        $("#mensajePopup").popup( "open" );
-        setTimeout(function(){
-            $("#mensajePopup").popup( "close" );
-        },3000);
+    $("#parrafoPopupSimple").html(mensaje);
+    $("#linkAbrePopupBasico").click();
+    var cerrarPopup = function(){
+        $("#popupBasic").popup( "close" );
+    }
+    setTimeout(cerrarPopup,1500);
+    
 }
 function abrirDialogoConDosBotones(funcionOk, mensaje, encabezado){
-    $("#panelListado").parent().prepend('<div data-role="popup" id="popupDialog" data-theme="b"><div data-role="header" data-theme="b"><h1>' + encabezado + '</h1></div><div data-role="content" data-theme="b"><p>' + mensaje + '</p><div class="showastabs center nobg"><a id="botonOkDialogo" href="#" data-rel="back" data-icon="ok" data-iconpos="left" data-role="button" data-inline="true">Aceptar</a><a id="botonCancelDialogo" href="#" data-rel="back" data-icon="delete" data-iconpos="left" data-role="button" data-inline="true">Cancelar</a></div></div></div>');
-    document.getElementById("botonOkDialogo").onclick = funcionOk;
-    var funcionCancel = function(){
-        cerrarDialogoConDosBotones();
-    }
-    document.getElementById("botonCancelDialogo").onclick = funcionCancel;
-    $("#popupDialog").dialog();    
+    $("#dialogoDosBotonesHeader").html(encabezado);
+    $("#dialogoDosBotonesDescripcion").html(mensaje);
+    document.getElementById("dialogoDosBotonesAcpetar").onclick=funcionOk;
+    var funcionCancelar = function() {
+        $("#popupDialog").dialog('close');
+    };
+    document.getElementById("dialogoConDosBotonesCancelar").onclick=funcionCancelar;
+    $("#linkAbreDialogoDosBotones").click();
 }
 function cerrarDialogoConDosBotones(){
     $("#popupDialog").remove();
