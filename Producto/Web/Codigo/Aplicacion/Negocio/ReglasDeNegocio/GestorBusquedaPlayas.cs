@@ -58,12 +58,12 @@ namespace ReglasDeNegocio
         /// </summary>
         /// <param name="ciudad">ciudad donde se ubican las playas</param>
         /// <returns>listado de playas ubicadas en esa ciudad</returns>
-        public IList<PlayaDeEstacionamiento> buscarPlayasPorFiltro(string ciudad, int tipoPlaya, int tipoVehiculo, int diasAtencion, decimal precioDesde, decimal precioHasta,
+        public IList<PlayaDeEstacionamiento> buscarPlayasPorFiltro(string ciudad, int[] tipoPlaya, int[] tipoVehiculo, int[] diasAtencion,decimal precioHasta,
              int horaDesde, int horaHasta)
         {
             IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
 
-            playas = gestorPlaya.BuscarPlayasPorFiltro(ciudad, tipoPlaya, tipoVehiculo, diasAtencion, precioDesde, precioHasta, horaDesde, horaHasta);
+            playas = gestorPlaya.BuscarPlayasPorFiltro(ciudad, tipoPlaya, tipoVehiculo, diasAtencion, precioHasta, horaDesde, horaHasta);
 
             return playas;
         }

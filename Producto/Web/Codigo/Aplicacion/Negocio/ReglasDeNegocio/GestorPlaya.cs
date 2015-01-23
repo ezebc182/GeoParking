@@ -446,7 +446,7 @@ namespace ReglasDeNegocio
             return lista;
         }
 
-        public IList<PlayaDeEstacionamiento> BuscarPlayasPorFiltro(string ciudad, int tipoPlaya, int tipoVehiculo, int diasAtencion, decimal precioDesde, decimal precioHasta,
+        public IList<PlayaDeEstacionamiento> BuscarPlayasPorFiltro(string ciudad, int[] tipoPlaya, int[] tipoVehiculo, int[] diasAtencion, decimal precioHasta,
              int horaDesde, int horaHasta)
         {
 
@@ -457,53 +457,41 @@ namespace ReglasDeNegocio
                 consulta.And(p => p.Direcciones.Any(d => d.Ciudad.Equals(ciudad, StringComparison.OrdinalIgnoreCase)));
             }
 
-            if (tipoPlaya != 0)
+            if (tipoPlaya.Length != 0)
             {
                 if (consulta != null)
                 {
-                    consulta = consulta.And(p => p.TipoPlayaId == tipoPlaya);
+                    consulta = consulta.And(p => tipoPlaya.Contains(p.TipoPlayaId));
                 }
-                else consulta = p => p.TipoPlayaId == tipoPlaya;
+                else consulta = p => tipoPlaya.Contains(p.TipoPlayaId);
             }
 
-            if (tipoVehiculo != 0)
+            if (tipoVehiculo.Length != 0)
             {
                 if (consulta != null)
                 {
-                    consulta = consulta.And(p => p.Servicios.Any(s => s.TipoVehiculoId == tipoVehiculo));
+                    consulta = consulta.And(p => p.Servicios.Any(s => tipoVehiculo.Contains(s.TipoVehiculoId)));
                 }
-                else consulta = p => p.Servicios.Any(s => s.TipoVehiculoId == tipoVehiculo);
+                else consulta = p => p.Servicios.Any(s => tipoVehiculo.Contains(s.TipoVehiculoId));
             }
 
-            if (diasAtencion != 0)
+            if (diasAtencion.Length != 0)
             {
                 if (consulta != null)
                 {
-                    consulta = consulta.And(p => p.Horario.DiaAtencionId == diasAtencion);
+                    consulta = consulta.And(p => diasAtencion.Contains(p.Horario.DiaAtencionId));
                 }
-                else consulta = p => p.Horario.DiaAtencionId == diasAtencion;
+                else consulta = p => diasAtencion.Contains(p.Horario.DiaAtencionId);
+            }            
+
+            if (precioHasta != 0)
+            {
+                if (consulta != null)
+                {
+                    consulta = consulta.And(p => p.Servicios.Any(s => s.Precios.Any(prec => prec.Monto <= precioHasta)));
+                }
+                else consulta = p => p.Servicios.Any(s => s.Precios.Any(prec => prec.Monto <= precioHasta));
             }
-
-            //if (precioDesde != 0)
-            //{
-            //    if (consulta != null)
-            //    {
-            //        consulta = consulta.And(p => p.Precios.Any(prec => prec.Monto >= precioDesde));
-            //    }
-            //    else consulta = p => p.Precios.Any(prec => prec.Monto >= precioDesde);
-            //}
-
-            //if (precioHasta != 0)
-            //{
-            //    if (consulta != null)
-            //    {
-            //        consulta = consulta.And(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
-            //    }
-            //    else consulta = p => p.Precios.Any(prec => prec.Monto <= precioHasta);
-
-            //    //lista = (IList<PlayaDeEstacionamiento>)lista.Where(p => p.Precios.Any(prec => prec.Monto <= precioHasta));
-
-            //}
 
             if (horaDesde != 0)
             {

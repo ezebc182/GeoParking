@@ -574,8 +574,7 @@ app.controller('MyCtrl', function ($scope, $http) {
     }
 
     /*FILTRO LAS PLAYAS*/
-    $scope.filtrar = function () {
-        alert("aca realizo el filtrado de las playas")
+    $scope.filtrar = function () {        
 
         $scope.playasGrilla = [];//vacio las playas a mostrar en la grila
 
@@ -583,9 +582,9 @@ app.controller('MyCtrl', function ($scope, $http) {
         $scope.deleteMarkers();
 
         //tomo los valores de los filtros
-        var tipoplaya = document.getElementById('ddlTipoPlaya').value;
-        var tipovehiculo = document.getElementById('ddlTipoVehiculo').value;
-        var diaatencion = document.getElementById('ddlDiasAtencion').value;
+        var tipoplaya = (document.getElementById("tiposPlaya").innerHTML).split(',');
+        var tipovehiculo = (document.getElementById("tiposVehiculo").innerHTML).split(',');
+        var diaatencion = (document.getElementById("diasAtencion").innerHTML).split(',');
 
         var minPrecio = document.getElementById('txtMinPrecio').value;
         if (Number.isInteger(parseInt(minPrecio))) {
@@ -605,8 +604,10 @@ app.controller('MyCtrl', function ($scope, $http) {
 
         //var horadesde = document.getElementById('horaDesde').text;
         //var horahasta = document.getElementById('horaHasta').value;
-        var horadesde = $('[id*=horaDesde]').val();
-        var horahasta = $('[id*=horaHasta]').val()
+        //var horadesde = $('[id*=horaDesde]').val();
+        //var horahasta = $('[id*=horaHasta]').val()
+        var horadesde = 0;
+        var horahasta = 0;
 
         $http({
             url: "BusquedaPlaya.aspx/ObtenerPlayasDeCiudadPorFiltro",//mi pagina de begin

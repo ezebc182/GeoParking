@@ -125,51 +125,40 @@
                         </div>
                         <!-- Prepended text-->
                         <div class="form-group">
-                            <div class="col-md-6 col-sm-6 col-lg-6"">                                  
-                                <div class="input-group">
-                                    <span class="input-group-addon"><span class="glyphicon
-        glyphicon-usd"></span></span>
-
-                                    <input type="number" id="txtMinPrecio" maxlength="3" class="form-control" placeholder="min" title="Precio Minimo">
-                                </div>
-                            </div>
-                        
+                                                   
                             <!-- Prepended text-->
-                            <div class="col-md-6 col-sm-6 col-lg-6"">                                
+                            <div class="col-md-12 col-sm-12 col-lg-12">                                
                                 <div class="input-group">
                                      <span class="input-group-addon"><span class="glyphicon
         glyphicon-usd"></span></span>
 
-                                    <input type="number" id="txtMaxPrecio" maxlength="3" class="form-control" placeholder="max" title="Precio Maximo">
+                                    <input type="number" id="txtMaxPrecio" maxlength="3" class="form-control" placeholder="Precio Maximo" title="Precio Maximo">
                                 </div>
                             </div>
                         </div>
                         <!-- Select Basic -->
                         <div class="form-group">
-                            
-                            <div class="col-lg-1 col-md-1 col-sm-1"></div>
-
-                            <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="col-md-12 col-sm-12 col-lg-12">
+                           
+                            <div class="col-lg-6 col-md-6 col-sm-6">
                                                     <div class="form-group ">                                                        
                                                         <div id="horaDesde"  class="bfh-timepicker" data-time="Desde 00:00" style="background-color: white;"></div>
                                                     </div>
-                                                </div>
+                                                </div>                                           
 
-                            <div class="col-lg-1 col-md-1 col-sm-1"></div>                            
-
-                             <div class="col-lg-4 col-md-4 col-sm-4">
+                             <div class="col-lg-6 col-md-6 col-sm-6">
                                                     <div class="form-group ">                                                        
                                                         <div id="horaHasta" class="bfh-timepicker" data-time="Hasta 00:00" style="background-color: white;"></div>
                                                     </div>
                                                 </div>
-                            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                            </div>
                                                         
                         </div>
                     </fieldset>
                 </div>
                 <!--Buscar-->
                 <input type="button" class="btn-primary btn btn-block" value="Filtrar"
-                    id="btnBuscar" ng-click="filtrar()"/>
+                    id="btnBuscar" ng-click="filtrar(tiposPlaya,tiposVechiulo,diasAtencion)"/>
             </div>
 
             <div class="col-sm-9 col-md-9 col-lg-9">
@@ -228,8 +217,16 @@
         </div>
     </div>     
 
+    <div id="tiposPlaya" hidden="hidden"></div>
+    <div id="tiposVehiculo" hidden="hidden"></div>
+    <div id="diasAtencion" hidden="hidden"></div>
+
     <script>
         
+        var tiposPlaya = new Array();
+        var tiposVehiculo = new Array();
+        var diasAtencion = new Array();
+
        function quitar(id) {
            boton = document.getElementById(id.attributes[2].value);
             if (!boton) {
@@ -237,31 +234,100 @@
             } else {
                 padre = boton.parentNode;
                 padre.removeChild(boton);
+                mostrarElementosEnCombo(id.attributes[2].value);
             }
+       }
+
+       function mostrarElementosEnCombo(id) {
+           if (id.indexOf("vehiculo") > -1) {
+               MostrarTipoVehiculoEnCombo(id.substring(8, 9));
+           }
+           if (id.indexOf("tipoPlaya") > -1) {
+               MostrarTipoPlayaEnCombo(id.substring(9, 10));
+           }
+           if (id.indexOf("dia") > -1) {
+               MostrarDiaEnCombo(id.substring(3, 4));
+           }           
+       }
+
+        function MostrarTipoVehiculoEnCombo(id) {
+            $('[id*=ddlTipoVehiculo] [value=' + id + ']').toggle();
+            for (var i = 0; i < tiposVehiculo.length; i++) {
+                if (tiposVehiculo[i] == id)
+                    tiposVehiculo.splice(i, 1);
+            }
+            alert(tiposVehiculo);
+        }
+        function MostrarTipoPlayaEnCombo(id) {
+            $('[id*=ddlTipoPlaya] [value=' + id + ']').toggle();
+            for (var i = 0; i < tiposPlaya.length; i++) {
+                if (tiposPlaya[i] == id)
+                    tiposPlaya.splice(i, 1);
+            }
+            alert(tiposPlaya);
+        }
+        function MostrarDiaEnCombo(id) {
+            $('[id*=ddlDiasAtencion] [value=' + id + ']').toggle();
+            for (var i = 0; i < diasAtencion.length; i++) {
+                if (diasAtencion[i] == id)
+                    diasAtencion.splice(i, 1);
+            }         
+            alert(diasAtencion);
+        }
+
+        function OcultarTipoVehiculoEnCombo(id) {
+            $('[id*=ddlTipoVehiculo] [value=' + id + ']').toggle();
+           
+        }
+        function OcultarTipoPlayaEnCombo(id) {
+            $('[id*=ddlTipoPlaya] [value=' + id + ']').toggle();            
+        }
+        function OcultarDiaEnCombo(id) {
+            $('[id*=ddlDiasAtencion] [value=' + id + ']').toggle();
+           
         }
 
        function agregarTagsTipoPlaya(){
             filtros = document.getElementById("tags").innerHTML;
             var s = document.getElementById("ddlTipoPlaya");
             var id = s.options[s.selectedIndex].value;
-            var nuevoFiltro = s.options[s.selectedIndex].text;
-            document.getElementById("tags").innerHTML = filtros + "<span class='btn btn-default btn-xs btn-info' type='button' id='tipoPlaya" + id + "' onClick='quitar(tipoPlaya" + id + ")' >" + nuevoFiltro + " x</span> ";
+            if (id != 0) {
+                OcultarTipoPlayaEnCombo(id);
+                var nuevoFiltro = s.options[s.selectedIndex].text;
+                document.getElementById("tags").innerHTML = filtros + "<span class='btn btn-default btn-xs btn-info' type='button' id='tipoPlaya" + id + "' onClick='quitar(tipoPlaya" + id + ")' >" + nuevoFiltro + " x</span> ";
+                s.selectedIndex = 0;
+                tiposPlaya.push(id);//agrego a la lista
+                document.getElementById("tiposPlaya").innerHTML = tiposPlaya;
+
+            }
        }
 
        function agregarTagsDiasAtencion() {
            filtros = document.getElementById("tags").innerHTML;
            var s = document.getElementById("ddlDiasAtencion");
            var id = s.options[s.selectedIndex].value;
-           var nuevoFiltro = s.options[s.selectedIndex].text;
-           document.getElementById("tags").innerHTML = filtros + "<button class='btn btn-default btn-xs btn-info' type='button' id='dia" + id + "' onClick='quitar(dia" + id + ")'>" + nuevoFiltro + " x</button> ";
+           if (id != 0) {
+               OcultarDiaEnCombo(id)
+               var nuevoFiltro = s.options[s.selectedIndex].text;
+               document.getElementById("tags").innerHTML = filtros + "<button class='btn btn-default btn-xs btn-info' type='button' id='dia" + id + "' onClick='quitar(dia" + id + ")'>" + nuevoFiltro + " x</button> ";
+               s.selectedIndex = 0;
+               diasAtencion.push(id);
+               document.getElementById("diasAtencion").innerHTML = diasAtencion;
+           }
        }
 
        function agregarTagsTipoVehiculo() {
            filtros = document.getElementById("tags").innerHTML;
            var s = document.getElementById("ddlTipoVehiculo");
            var id = s.options[s.selectedIndex].value;
-           var nuevoFiltro = s.options[s.selectedIndex].text;
-           document.getElementById("tags").innerHTML = filtros + "<button class='btn btn-default btn-xs btn-info' type='button' id='vehiculo" + id + "' onClick='quitar(vehiculo" + id + ")' >" + nuevoFiltro + " x</button> ";
+           if (id != 0) {
+               OcultarTipoVehiculoEnCombo(id)               
+               var nuevoFiltro = s.options[s.selectedIndex].text;
+               document.getElementById("tags").innerHTML = filtros + "<button class='btn btn-default btn-xs btn-info' type='button' id='vehiculo" + id + "' onClick='quitar(vehiculo" + id + ")' >" + nuevoFiltro + " x</button> ";
+               s.selectedIndex = 0;
+               tiposVehiculo.push(id);
+               document.getElementById("tiposVehiculo").innerHTML = tiposVehiculo;
+           }
        }
 
        function agregarTags(tipoTags) {
@@ -276,6 +342,8 @@
 
            }
        }
+
+
 
     </script>
 </asp:Content>

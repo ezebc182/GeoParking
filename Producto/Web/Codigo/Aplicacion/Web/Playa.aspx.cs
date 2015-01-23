@@ -110,7 +110,7 @@ namespace Web2
             Nombre = playaEditar.Nombre;
             Telefono = playaEditar.Telefono;
             Mail = playaEditar.Mail;
-            TipoPlayaSeleccionada = playaEditar.TipoPlayaId.Value;
+            //TipoPlayaSeleccionada = playaEditar.TipoPlayaId.Value;
             Servicios = playaEditar.Servicios;
             //Horarios = playaEditar.Horario;
             //Precios = playaEditar.Precios;

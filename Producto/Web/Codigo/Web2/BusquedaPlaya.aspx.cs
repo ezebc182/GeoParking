@@ -143,11 +143,11 @@ namespace Web2
         /// <param name="horaHasta">hora de cierre</param>
         /// <returns>Lista de playas que cumplan con los criterios especificados</returns>
         [WebMethod]
-        public static string ObtenerPlayasDeCiudadPorFiltro(int tipoPlaya, int tipoVehiculo, int diaAtencion, string precioDesde, string precioHasta, int horaDesde, int horaHasta)
+        public static string ObtenerPlayasDeCiudadPorFiltro(int[] tipoPlaya, int[] tipoVehiculo, int[] diaAtencion, string precioHasta, int horaDesde, int horaHasta)
         {
             IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
 
-            playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorFiltro(ciudadBuscada, tipoPlaya, tipoVehiculo, diaAtencion, Decimal.Parse(precioDesde), Decimal.Parse(precioHasta), horaDesde, horaHasta);
+            playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorFiltro(ciudadBuscada, tipoPlaya, tipoVehiculo, diaAtencion, Decimal.Parse(precioHasta), horaDesde, horaHasta);
 
             string json = "[";
 

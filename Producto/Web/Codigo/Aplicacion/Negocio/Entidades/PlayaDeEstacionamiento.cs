@@ -21,7 +21,7 @@ namespace Entidades
         public string Telefono { get; set; }
 
         //Referencia a Tipo de Playa
-        public int? TipoPlayaId { get; set; }
+        public int TipoPlayaId { get; set; }
         public virtual TipoPlaya TipoPlaya { get; set; }
 
         //Direcciones (calle, numero,ciudad y coordenadas)
