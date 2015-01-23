@@ -1,9 +1,10 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="es">
 
 <head>
     <title>GeoParking</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8">
 
     <!-- FontAwesome - http://fortawesome.github.io/Font-Awesome/ -->
     <link rel="stylesheet" href="css/font-awesome.min.css" />
@@ -23,7 +24,7 @@
     <!-- jQuery / jQueryMobile Scripts -->
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/jquery.mobile-1.4.5.min.js"></script>
-	<script src="js/nativedroid.script.js"></script>
+    <script src="js/nativedroid.script.js"></script>
 
 
 </head>
@@ -32,61 +33,125 @@
 
     <div data-role="page" data-theme='b'>
 
-        <div data-role="panel" data-display="push" id="mypanel" data-theme="b">
-            <h4>Menú GeoParking</h4>
+        <div data-role="panel" data-display="push" id="pnlPrincipal" data-theme="b">
             <ul data-role="listview">
-                <li onClick="abrirPanelConfiguraciones()" data-icon='false'><a ><i class='lIcon fa fa-cog'></i>Configuraciones</a>
+                <li data-icon="false" data-theme="b">
+                    <h1>GeoParking <small>Menú principal</small></h1>
+
                 </li>
-                <li onClick="abrirPanelContacto()" data-icon='false'><a><i class='lIcon fa fa-user'></i>Contacto</a>
+
+                <li data-theme='b' data-role="list-divider"><i class="fa fa-clock-o"></i><strong>Últimas playas consultadas</strong>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="http://placehold.it/150x150">
+                        <h2>Playa 1</h2>
+                        <p>Dirección 1</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="http://placehold.it/150x150">
+                        <h2>Playa 2</h2>
+                        <p>Dirección 2</p>
+                    </a>
+                </li>
+
+                <li data-theme='b' data-role="list-divider"><i class="fa fa-info"></i><strong>Información</strong>
+                </li>
+                <li data-icon="false">
+                    <a href="" id="btnAbrirAyuda">
+                        <i class="fa fa-compass"></i>
+                        ¿Perdido? Ver tutorial
+                    </a>
+                </li>
+                <li data-icon="false" data-theme="b" data-role="list-divider"><i class="fa fa-envelope-o"></i><strong>Contacto</strong>
+                </li>
+                <li data-icon="false" onClick="abrirPanelContacto()"><a><i class='fa fa-comments'></i>Escribinos</a>
+                </li>
+                <li data-icon="false">
+                    <a href="http://ifrigerio-001-site3.smarterasp.net">
+                        <i class="fa fa-globe"></i>
+                        Sitio oficial
+                    </a>
+                </li>
+                <li data-icon="false">
+                    <a href="https://facebook.com/geoparking">
+                        <i class="fa fa-facebook"></i>
+                        Hazte fan
+
+                    </a>
+                </li>
+                <li data-icon="false">
+                    <a href="https://twitter.com/geoparking">
+                        <i class="fa fa-twitter"></i>
+                        Seguinos
+
+                    </a>
+                    <br>
+                    <br>
+                    <br>
+                </li>
+
+            </ul>
+        </div>
+        <div data-role="panel" id="pnlTrazadoRuta" data-display="push" data-position="right" data-theme="b">
+            <div class="hidden" data-theme="b" data-inset="true" id="panel_ruta"></div>
+        </div>
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+
+            <a href="#pnlPrincipal" data-role='button' data-inline='true'><i class='lIcon fa fa-bars'></i></a>
+
+            <h1>GeoParking</h1> 
+
+            <a href="#popupOpciones" data-rel="popup" data-role="button" data-inline="true" data-transition="fade"><i class=" fa fa-ellipsis-v"></i></a> 
+            </a>
+
+
+        </div>
+        <div id="popupOpciones" data-role="popup" data-theme="a" class="ui-content">
+            <ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="b">
+                <li onClick="abrirPanelConfiguraciones()">
+                    <a><i class='lIcon fa fa-cogs'></i>Opciones</a>
+                </li>
+                <li><a><i class='lIcon fa fa-cog'></i>Acerca de</a>
                 </li>
             </ul>
         </div>
 
-        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
 
-            <a href="#mypanel" data-role='button' data-inline='true'><i class='lIcon fa fa-bars'></i></a>
-
-            <h1>GeoParking</h1>
-        </div>
-
-        
-
-        <div class="mapa">
-            
+        <div class="mapa" role="main" class="ui-content">
             <a id="linkAbrePopupBasico" href="#popupBasic" data-rel="popup" style="display: none;"></a>
 
             <div data-role="popup" id="popupBasic">
-              <p id="parrafoPopupSimple"></p>
+                <p id="parrafoPopupSimple"></p>
             </div>
-            
+
             <div data-position="fixed" data-role='popup' id='popupDialog' data-theme='b' style="height : 100%;">
                 <div data-role='header' data-theme='b'>
-                    <h1 id="dialogoDosBotonesHeader" ></h1>
+                    <h1 id="dialogoDosBotonesHeader"></h1>
                 </div>
                 <div data-role='content' data-theme='b'>
-                    <p id="dialogoDosBotonesDescripcion" ></p>
+                    <p id="dialogoDosBotonesDescripcion"></p>
                     <div class='showastabs center nobg'>
                         <a id="dialogoDosBotonesAcpetar" href='#' data-rel='back' data-icon='ok' data-iconpos='left' data-role='button' data-inline='true'>Aceptar</a>
-                        <a id="dialogoConDosBotonesCancelar" href='#' data-rel='back'  data-iconpos='left' data-role='button' data-inline='true'>Cancelar</a>
+                        <a id="dialogoConDosBotonesCancelar" href='#' data-rel='back' data-iconpos='left' data-role='button' data-inline='true'>Cancelar</a>
                     </div>
                 </div>
             </div>
             <a id="linkAbreDialogoDosBotones" href='#popupDialog' data-rel='popup' data-position-to='window' data-role='button' data-icon='external-link' data-transition='pop' data-inline='true' style="display: none;"></a>
-            
-            
             <div id="panelListado"></div>
             <div id="pnlMapa" class="fullscreen">
                 <div id="map-canvas" class="fullscreen"></div>
             </div>
-			<div id="panelConfiguraciones"></div>
+            <div id="panelConfiguraciones"></div>
             <div id="panelContacto"></div>
-            <div data-role="popup" id="popupDialog" data-theme="b"><div data-role="header" data-theme="b"><h1>Delete from library?</h1></div><div data-role="content" data-theme="b"><p>This is a popup description...</p><div class="showastabs center nobg"><a href="#" data-rel="back" data-icon="ok" data-iconpos="left" data-role="button" data-inline="true">Okay</a><a href="#" data-rel="back" data-icon="delete" data-iconpos="left" data-role="button" data-inline="true">Cancel</a></div></div></div>
 
-            <div class="hidden" id="panel_ruta"></div>
+
         </div>
 
 
-        <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+        <div id="pnlBotones" data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
 
             <!--BOTONES FOOTER -->
             <div data-role="navbar">
@@ -99,60 +164,64 @@
                     </li>
                     <li><a id="btnTrazarRegreso" onclick="trazarRegreso()"><i class='blIcon fa fa-car'></i></a>
                     </li>
-                    <li><a id="mostrarIndicaciones" onclick="mostrarIndicaciones()"><i class='blIcon fa fa-road'></i></a>
+                    <li><a id="mostrarIndicaciones" href="#pnlTrazadoRuta" onclick="mostrarIndicaciones()"><i class='blIcon fa fa-road'></i></a>
                     </li>
                 </ul>
             </div>
         </div>
+    </div>
+    <!-- /page -->
+
+    <!-- Scripts -->
+    <script src="xhr.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script src='intelxdk.js'></script>
+    <script src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/telephonenumber.js"></script>
+    <script src="./js/index.js"></script>
+
+    <script src="./js/Propios/guardarDatos.js"></script>
+    <script src="./js/Propios/funcionesDistancia.js"></script>
+    <script src="./js/Propios/listadoDePlayas.js"></script>
+    <script src="./js/Propios/obtenerRutaDeRegreso.js"></script>
+
+    <script src="./js/bootstrap-dialog.min.js"></script>
+    <script src="./js/Propios/cargarMapa.js"></script>
+    <!-- trabaja con el mapa cuando se inicializa -->
+    <script src="./js/Propios/obtenerPlayas.js"></script>
+    <script src="./js/Propios/latinise.js"></script>
+    <script src="./js/Propios/listadoDePlayasWidget.js"></script>
+    <script src="js/Propios/preferencesWidget.js"></script>
+    <script src="js/Propios/contactoWidget.js"></script>
+    <script src="./js/Propios/Utils.js"></script>
 
 
-        <!-- Scripts -->
-        <script src="xhr.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-        <script src='intelxdk.js'></script>
-        <script src="cordova.js"></script>
-        <script type="text/javascript" charset="utf-8" src="js/telephonenumber.js"></script>
-        <script src="./js/index.js"></script>
 
-        <script src="./js/Propios/guardarDatos.js"></script>
-        <script src="./js/Propios/funcionesDistancia.js"></script>
-        <script src="./js/Propios/obtenerRutaDeRegreso.js"></script>
+    <!-- web service -->
 
-        <script src="./js/bootstrap-dialog.min.js"></script>
-        <script src="./js/Propios/cargarMapa.js"></script>
-        <!-- trabaja con el mapa cuando se inicializa -->
-        <script src="./js/Propios/obtenerPlayas.js"></script>
-        <script src="./js/Propios/latinise.js"></script>
-        <script src="./js/Propios/listadoDePlayasWidget.js"></script>
-        <script src="js/Propios/preferencesWidget.js"></script>
-        <script src="js/Propios/contactoWidget.js"></script>
-        <script src="./js/Propios/Utils.js"></script>
+    <script>
+        /* Intel native bridge is available */
+        var playas = [];
+        $(document).ready(function () {
+            initialize();
 
+        });
 
-
-        <!-- web service -->
-
-        <script>
-            /* Intel native bridge is available */
-            var playas = [];
-            $(document).ready(function () {
-                initialize();
+        function verListado() {
+            cargandoConMensaje("Cargando Listado");
+            $("#panelListado").listadoPlayasWidget({
+                listadoPlayas: playas
             });
+        }
 
-            function verListado() {
-                cargandoConMensaje("Cargando Listado");
-                $("#panelListado").listadoPlayasWidget({
-                    listadoPlayas: playas
-                });
-            }
-            function abrirPanelConfiguraciones(){
-                $("#panelConfiguraciones").preferenciasWidget();
-            }
-            function abrirPanelContacto(){
-                $("#panelContacto").contactoWidget();
-            }
-            
-        </script>
+        function abrirPanelConfiguraciones() {
+            $("#panelConfiguraciones").preferenciasWidget();
+        }
+
+        function abrirPanelContacto() {
+            $("#panelContacto").contactoWidget();
+        }
+    </script>
 </body>
 
 </html>
