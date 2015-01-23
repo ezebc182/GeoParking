@@ -48,13 +48,15 @@ $.widget( "geoparking.listadoPlayasWidget", {
 	*/
 	_crearListado : function(){
 		var widget = this;
-        //widget._filtrarPlayasPorDistancia();
+        widget._filtrarPlayasPorDistancia();
         if( widget.options.listadoPlayas.length === 0){
             mensajeErrorConexion("No se encontraron playas cercanas");
         }
         else{
             var ul = widget._cargarListado();
 			ul.id = "listadoPlayasId";
+            $(ul).prepend('<li data-role="list-divider" role="heading" class="ui-li-divider ui-bar-b ui-li-has-count">Playas ordenadas por disponibildad<span id="spanCatidadPlayas" class="ui-li-count ui-body-inherit"></span></li>');
+            $("#spanCatidadPlayas").html(widget.options.listadoPlayas.length);
 			$("#pnlMapa").hide();
 			$("#panelListado").append(ul);
 			$("#listadoPlayasId").attr("data-role","listview");

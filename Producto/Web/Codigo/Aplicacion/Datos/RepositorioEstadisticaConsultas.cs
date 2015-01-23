@@ -18,7 +18,7 @@ namespace Datos
         public IList<EstadisticaPorTipoPlayaDto> GetConsultasTipoPlayaByCiudad(int idCiudad, DateTime? desde, DateTime? hasta)
         {
             IList<EstadisticaPorTipoPlayaDto> lista = new List<EstadisticaPorTipoPlayaDto>();
-            SqlConnection sqlConnection1 = new SqlConnection("Data Source=SQL5004.Smarterasp.net;Initial Catalog=DB_9B3453_Geoparking;User Id=DB_9B3453_Geoparking_admin;Password=geoparking");
+            SqlConnection sqlConnection1 = new SqlConnection("Data Source=SQL5004.Smarterasp.net;Initial Catalog=DB_9B3453_geoparkingtest;User Id=DB_9B3453_geoparkingtest_admin;Password=geoparking");
             SqlCommand cmd = new SqlCommand();
             SqlDataReader reader;
 
@@ -63,7 +63,7 @@ namespace Datos
         {
 
             IList<EstadisticaPorTipoVehiculoDto> lista = new List<EstadisticaPorTipoVehiculoDto>();
-            SqlConnection sqlConnection1 = new SqlConnection("Data Source=SQL5004.Smarterasp.net;Initial Catalog=DB_9B3453_Geoparking;User Id=DB_9B3453_Geoparking_admin;Password=geoparking");
+            SqlConnection sqlConnection1 = new SqlConnection("Data Source=SQL5004.Smarterasp.net;Initial Catalog=DB_9B3453_geoparkingtest;User Id=DB_9B3453_geoparkingtest_admin;Password=geoparking");
             SqlCommand cmd = new SqlCommand();
             SqlDataReader reader;
 

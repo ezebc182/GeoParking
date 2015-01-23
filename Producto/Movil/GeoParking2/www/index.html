@@ -174,26 +174,24 @@
 
     <!-- Scripts -->
     <script src="xhr.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-    <script src='intelxdk.js'></script>
-    <script src="cordova.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/telephonenumber.js"></script>
-    <script src="./js/index.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+        <script src='intelxdk.js'></script>
+        <script src="cordova.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/telephonenumber.js"></script>
+        <script src="./js/index.js"></script>
 
-    <script src="./js/Propios/guardarDatos.js"></script>
-    <script src="./js/Propios/funcionesDistancia.js"></script>
-    <script src="./js/Propios/listadoDePlayas.js"></script>
-    <script src="./js/Propios/obtenerRutaDeRegreso.js"></script>
+        <script src="./js/Propios/guardarDatos.js"></script>
+        <script src="./js/Propios/funcionesDistancia.js"></script>
+        <script src="./js/Propios/obtenerRutaDeRegreso.js"></script>
 
-    <script src="./js/bootstrap-dialog.min.js"></script>
-    <script src="./js/Propios/cargarMapa.js"></script>
-    <!-- trabaja con el mapa cuando se inicializa -->
-    <script src="./js/Propios/obtenerPlayas.js"></script>
-    <script src="./js/Propios/latinise.js"></script>
-    <script src="./js/Propios/listadoDePlayasWidget.js"></script>
-    <script src="js/Propios/preferencesWidget.js"></script>
-    <script src="js/Propios/contactoWidget.js"></script>
-    <script src="./js/Propios/Utils.js"></script>
+        <script src="./js/Propios/cargarMapa.js"></script>
+        <!-- trabaja con el mapa cuando se inicializa -->
+        <script src="./js/Propios/obtenerPlayas.js"></script>
+        <script src="./js/Propios/latinise.js"></script>
+        <script src="./js/Propios/listadoDePlayasWidget.js"></script>
+        <script src="js/Propios/preferencesWidget.js"></script>
+        <script src="js/Propios/contactoWidget.js"></script>
+        <script src="./js/Propios/Utils.js"></script>
 
 
 
@@ -216,6 +214,7 @@
 
         function abrirPanelConfiguraciones() {
             $("#panelConfiguraciones").preferenciasWidget();
+            $("#popupOpciones").click();
         }
 
         function abrirPanelContacto() {
