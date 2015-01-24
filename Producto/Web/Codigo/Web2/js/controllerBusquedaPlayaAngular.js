@@ -581,9 +581,26 @@ app.controller('MyCtrl', function ($scope, $http) {
         $scope.deleteMarkers();
 
         //tomo los valores de los filtros
-        var tipoplaya = (document.getElementById("tiposPlaya").innerHTML).split(',');
-        var tipovehiculo = (document.getElementById("tiposVehiculo").innerHTML).split(',');
-        var diaatencion = (document.getElementById("diasAtencion").innerHTML).split(',');        
+        if (document.getElementById("tiposPlaya").innerHTML == "") {
+            var tipoPlaya = [1,2,3];
+        }
+        else {
+            var tipoplaya = (document.getElementById("tiposPlaya").innerHTML).split(',');
+        }
+        
+        if (document.getElementById("tiposVehiculo").innerHTML == "") {
+            var tipovehiculo = [1,2,3,4];
+        }
+        else {
+            var tipovehiculo = (document.getElementById("tiposVehiculo").innerHTML).split(',');
+        }
+
+        if (document.getElementById("diasAtencion").innerHTML == "") {
+            var diaatencion = [1,2,3];
+        }
+        else {
+            var diaatencion = (document.getElementById("diasAtencion").innerHTML).split(',');
+        }
 
         var maxPrecio = document.getElementById('txtMaxPrecio').value;
         if (Number.isInteger(parseInt(maxPrecio))) {

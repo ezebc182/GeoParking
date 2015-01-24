@@ -411,10 +411,11 @@ namespace ReglasDeNegocio
         /// <returns>lista de playas de esa ciudad</returns>
         public IList<PlayaDeEstacionamiento> BuscarPlayasPorCiudad(string ciudad)
         {
-            
-            //var lista = playaDao.FindWhere(p => p.Direcciones.Any(d => d.Ciudad.Equals(ciudad, StringComparison.OrdinalIgnoreCase)) && !p.FechaBaja.HasValue);
-            var lista = playaDao.FindAll();
-            return lista;
+
+            Func<PlayaDeEstacionamiento, bool> consulta = p => !p.FechaBaja.HasValue;
+            consulta.And(p => p.Direcciones.Any(d => d.Ciudad.Equals(ciudad, StringComparison.OrdinalIgnoreCase)));
+            var listaPlayas = playaDao.FindWhere(consulta);
+            return listaPlayas;
         }
 
         public IList<PlayaDeEstacionamiento> BuscarPlayasPorFiltro(string ciudad, int[] tipoPlaya, int[] tipoVehiculo, int[] diasAtencion, decimal precioHasta,
