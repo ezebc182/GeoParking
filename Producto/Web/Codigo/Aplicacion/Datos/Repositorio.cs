@@ -16,18 +16,7 @@ namespace Datos
         /// <summary>
         /// Constructor
         /// </summary>  
-        public Repositorio()
-        {
-            ////Contexto especifico del contexto
-            //try
-            //{
-            //    contexto = new ContextoBD();
-            //}
-            //catch (Exception e)
-            //{
-            //    throw new DataBaseException(e.Message, e);
-            //}
-        }
+        public Repositorio() {}
 
         /// <summary>
         /// DbSet de la entidad
@@ -37,9 +26,7 @@ namespace Datos
             get
             {
                 contexto = new ContextoBD();
-
                 return contexto.Set<TEntity>();
-
             }
         }
 
