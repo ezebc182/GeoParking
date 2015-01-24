@@ -207,10 +207,10 @@ app.controller('MyCtrl', function ($scope, $http) {
         $scope.ciudad = document.getElementById('txtBuscar').value;        
 
         //tomo el valor de la nueva ciudad
-        var direccionCiudad = $scope.ciudad.split(',');
-        var ciudad = direccionCiudad[0];
+        //var direccionCiudad = $scope.ciudad.split(',');
+        //var ciudad = direccionCiudad[0];
 
-        var ciudadNueva = ciudad;
+        var ciudadNueva = $scope.ciudad;
         //var ciudadNueva = $scope.omitirAcentos(ciudad);
 
         $http({
@@ -235,8 +235,7 @@ app.controller('MyCtrl', function ($scope, $http) {
                     //reseteo filtros
                     document.getElementById('ddlTipoPlaya').value = 0;
                     document.getElementById('ddlTipoVehiculo').value = 0;
-                    document.getElementById('ddlDiasAtencion').value = 0;
-                    document.getElementById('txtMinPrecio').value = 0;
+                    document.getElementById('ddlDiasAtencion').value = 0;                    
                     document.getElementById('txtMaxPrecio').value = 0;
                     document.getElementById('ddlHoraDesde').value = 0;
                     document.getElementById('ddlHoraHasta').value = 0;
@@ -584,15 +583,7 @@ app.controller('MyCtrl', function ($scope, $http) {
         //tomo los valores de los filtros
         var tipoplaya = (document.getElementById("tiposPlaya").innerHTML).split(',');
         var tipovehiculo = (document.getElementById("tiposVehiculo").innerHTML).split(',');
-        var diaatencion = (document.getElementById("diasAtencion").innerHTML).split(',');
-
-        var minPrecio = document.getElementById('txtMinPrecio').value;
-        if (Number.isInteger(parseInt(minPrecio))) {
-            var preciodesde = minPrecio;
-        }
-        else {
-            var preciodesde = "0";
-        }
+        var diaatencion = (document.getElementById("diasAtencion").innerHTML).split(',');        
 
         var maxPrecio = document.getElementById('txtMaxPrecio').value;
         if (Number.isInteger(parseInt(maxPrecio))) {
@@ -616,8 +607,7 @@ app.controller('MyCtrl', function ($scope, $http) {
             data: {
                 tipoPlaya: tipoplaya,
                 tipoVehiculo: tipovehiculo,
-                diaAtencion: diaatencion,
-                precioDesde: preciodesde,
+                diaAtencion: diaatencion,                
                 precioHasta: preciohasta,
                 horaDesde: horadesde,
                 horaHasta: horahasta

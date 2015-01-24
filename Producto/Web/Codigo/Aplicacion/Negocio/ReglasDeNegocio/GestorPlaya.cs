@@ -441,8 +441,8 @@ namespace ReglasDeNegocio
         public IList<PlayaDeEstacionamiento> BuscarPlayasPorCiudad(string ciudad)
         {
             
-            var lista = playaDao.FindWhere(p => p.Direcciones.Any(d => d.Ciudad.Trim().ToUpperInvariant().Contains(ciudad.Trim().ToUpperInvariant())) && !p.FechaBaja.HasValue);
-           
+            //var lista = playaDao.FindWhere(p => p.Direcciones.Any(d => d.Ciudad.Equals(ciudad, StringComparison.OrdinalIgnoreCase)) && !p.FechaBaja.HasValue);
+            var lista = playaDao.FindAll();
             return lista;
         }
 
