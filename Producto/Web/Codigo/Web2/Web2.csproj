@@ -276,7 +276,9 @@
     </Content>
     <Content Include="Global.asax" />
     <Content Include="SqlServerTypes\readme.htm" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Index.aspx" />
     <Content Include="WebForm1.aspx" />
     <Content Include="Zonas.aspx" />
@@ -423,7 +425,9 @@
     <Content Include="js\DataTables-1.10.4\images\Sorting icons.psd" />
     <None Include="Properties\PublishProfiles\Geoparking.pubxml" />
     <None Include="Properties\PublishProfiles\GeoparkingWeb.pubxml" />
-    <None Include="Properties\PublishProfiles\GeoparkingWeb2.pubxml" />
+    <None Include="Properties\PublishProfiles\GeoparkingWeb2.pubxml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
