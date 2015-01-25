@@ -256,7 +256,7 @@
                 if (tiposVehiculo[i] == id)
                     tiposVehiculo.splice(i, 1);
             }
-            alert(tiposVehiculo);
+            document.getElementById("tiposVehiculo").innerHTML = tiposVehiculo;
         }
         function MostrarTipoPlayaEnCombo(id) {
             $('[id*=ddlTipoPlaya] [value=' + id + ']').toggle();
@@ -264,7 +264,7 @@
                 if (tiposPlaya[i] == id)
                     tiposPlaya.splice(i, 1);
             }
-            alert(tiposPlaya);
+            document.getElementById("tiposPlaya").innerHTML = tiposPlaya;
         }
         function MostrarDiaEnCombo(id) {
             $('[id*=ddlDiasAtencion] [value=' + id + ']').toggle();
@@ -272,7 +272,7 @@
                 if (diasAtencion[i] == id)
                     diasAtencion.splice(i, 1);
             }         
-            alert(diasAtencion);
+            document.getElementById("diasAtencion").innerHTML = diasAtencion;
         }
 
         function OcultarTipoVehiculoEnCombo(id) {

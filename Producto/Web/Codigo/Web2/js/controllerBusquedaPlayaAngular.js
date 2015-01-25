@@ -156,6 +156,8 @@ app.controller('MyCtrl', function ($scope, $http) {
         if ($scope.mostrarGrilla == false) {
             if (mostrarBusquedaAvanzada == false) {
                 $("#contenedorGrilla").removeClass("table-responsive");
+                $("#myTable").removeClass("table-responsive");
+                $("#myTable").addClass("gridStyle");
             }
             $scope.mostrarGrilla = true;
             $("#btnListado").html("<span class='glyphicon glyphicon-globe'></span>&nbsp;Ver Mapa");
@@ -178,6 +180,8 @@ app.controller('MyCtrl', function ($scope, $http) {
                 $("#map-canvas").css("margin-left", "-10px");
             });
             $("#contenedorGrilla").addClass("table-responsive");
+            $("#myTable").addClass("table-responsive");
+            $("#myTable").removeClass("gridStyle");
             $(".gridStyle").css("margin-left","0px");
             $("#busquedaAvanzada").show();
             mostrarBusquedaAvanzada = true;
@@ -186,6 +190,8 @@ app.controller('MyCtrl', function ($scope, $http) {
             $scope.agrandarMapa();
             $(".gridStyle").css("margin-left", "-15px");
             $("#contenedorGrilla").removeClass("table-responsive");
+            $("#myTable").removeClass("table-responsive");
+            $("#myTable").addClass("gridStyle");
             mostrarBusquedaAvanzada = false;
         }
 
@@ -276,11 +282,8 @@ app.controller('MyCtrl', function ($scope, $http) {
 
     /*COLOCA UN MARCADOR+CIRCULO=(PUNTODE INTERES) A PARTIR DE UNA DIRECCION (calle y numero + la ciudad)*/
     $scope.marcarPunto = function () {
-
-        alert("borro los circulos")
-        $scope.deleteCirculos();//borra circulos
-
-        alert("direccion: " + $scope.direccion);
+                
+        $scope.deleteCirculos();//borra circulos        
 
         //toma la direccion, la completa y la busca en el mapa
         var address = $scope.direccion + "," + $scope.ciudad + ", Argentina";
@@ -573,7 +576,9 @@ app.controller('MyCtrl', function ($scope, $http) {
     }
 
     /*FILTRO LAS PLAYAS*/
-    $scope.filtrar = function () {        
+    $scope.filtrar = function () {
+
+       
 
         $scope.playasGrilla = [];//vacio las playas a mostrar en la grila
 
@@ -582,7 +587,7 @@ app.controller('MyCtrl', function ($scope, $http) {
 
         //tomo los valores de los filtros
         if (document.getElementById("tiposPlaya").innerHTML == "") {
-            var tipoPlaya = [1,2,3];
+            var tipoplaya = [1,2,3];
         }
         else {
             var tipoplaya = (document.getElementById("tiposPlaya").innerHTML).split(',');
@@ -609,12 +614,12 @@ app.controller('MyCtrl', function ($scope, $http) {
         else {
             var preciohasta = "0";
         }
-
-        //var horadesde = document.getElementById('horaDesde').text;
-        //var horahasta = document.getElementById('horaHasta').value;
-        //var horadesde = $('[id*=horaDesde]').val();
+        
+        var horadesde = $('[id*=horaDesde]').val();        
         //var horahasta = $('[id*=horaHasta]').val()
-        var horadesde = 0;
+        alert("aca deberia imprimir la hora desde: " + horadesde)
+
+        horadesde = 0;
         var horahasta = 0;
 
         $http({
