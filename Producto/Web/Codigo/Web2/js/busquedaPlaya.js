@@ -76,7 +76,6 @@ function agregarTagsTipoPlaya(){
 
     }
 }
-
 function agregarTagsDiasAtencion() {
     filtros = document.getElementById("tags").innerHTML;
     var s = document.getElementById("ddlDiasAtencion");
@@ -90,7 +89,6 @@ function agregarTagsDiasAtencion() {
         document.getElementById("diasAtencion").innerHTML = diasAtencion;
     }
 }
-
 function agregarTagsTipoVehiculo() {
     filtros = document.getElementById("tags").innerHTML;
     var s = document.getElementById("ddlTipoVehiculo");

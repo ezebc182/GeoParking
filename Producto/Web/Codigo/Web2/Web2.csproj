@@ -244,7 +244,6 @@
     <Content Include="js\controllerBusquedaPlayaAngular.js" />
     <Content Include="js\entidades.js" />
     <Content Include="js\GoogleMapsAdministracionPlaya.js" />
-    <Content Include="js\GoogleMapsBusquedaPlaya.js" />
     <Content Include="js\index\easing.js" />
     <Content Include="js\index\jquery.magnific-popup.js" />
     <Content Include="js\index\jquery.min.js" />
@@ -281,7 +280,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Index.aspx" />
-    <Content Include="WebForm1.aspx" />
     <Content Include="Zonas.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -358,13 +356,6 @@
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Util\Enumeraciones.cs" />
     <Compile Include="Util\FormHelper.cs" />
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Zonas.aspx.cs">
       <DependentUpon>Zonas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
