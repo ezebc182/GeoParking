@@ -551,7 +551,8 @@ app.controller('MyCtrl', function ($scope, $http) {
                 var servicios = eval(playas[i].Servicios);
                 for (var K = 0; K < servicios.length; K++) {
                     Vehiculos += servicios[K].TipoVehiculo + ",";
-                }              
+                }
+                Vehiculos = Vehiculos.substr(0, Vehiculos.length-1);
 
                 var Precios = "";
 
@@ -576,9 +577,7 @@ app.controller('MyCtrl', function ($scope, $http) {
     }
 
     /*FILTRO LAS PLAYAS*/
-    $scope.filtrar = function () {
-
-       
+    $scope.filtrar = function () {       
 
         $scope.playasGrilla = [];//vacio las playas a mostrar en la grila
 
