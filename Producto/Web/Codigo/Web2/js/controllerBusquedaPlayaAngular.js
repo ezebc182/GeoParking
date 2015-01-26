@@ -617,7 +617,7 @@ app.controller('MyCtrl', function ($scope, $http) {
         
         var horadesde = $('[id*=horaDesde]').val();        
         //var horahasta = $('[id*=horaHasta]').val()
-        alert("aca deberia imprimir la hora desde: " + horadesde)
+        //alert("aca deberia imprimir la hora desde: " + horadesde)
 
         horadesde = 0;
         var horahasta = 0;
