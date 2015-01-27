@@ -79,14 +79,14 @@ app.controller('MyCtrl', function ($scope, $http) {
         contenido += "<table class='table table-responsive'>";
         var direcciones = eval(playa.Direcciones);
         for (var j = 0; j < direcciones.length; j++) {
-            contenido += "<tr><td>" + direcciones[j].Calle + "  </td><td style='text-aline:left'> " + direcciones[j].Numero + " </td> </tr>";
+            contenido += "<tr><td>" + direcciones[j].Calle + " " + direcciones[j].Numero + "</td></tr>";
         }
         contenido += "</table>";
 
         //agregamos los horarios
         contenido += "<div><h6>HORARIO<h6></div>";
-        contenido += "<table>";
-        contenido += "<tr><td>" + playa.Horario.Dia + "</td> <td> <strong>Desde:</strong></td> <td> " + playa.Horario.HoraDesde + "</td> <td> - <strong>Hasta:</strong> </td> <td>" + playa.Horario.HoraHasta + "</td> </tr>";
+        contenido += "<table class='table table-responsive'>";
+        contenido += "<tr><td>" + playa.Horario.Dia + "   </td><td><strong>Desde: </strong>" + playa.Horario.HoraDesde + "</td><td> - <strong>Hasta: </strong>" + playa.Horario.HoraHasta + "</td> </tr>";
         contenido += "</table>";
 
         contenido += "</td>";
@@ -520,7 +520,7 @@ app.controller('MyCtrl', function ($scope, $http) {
                 contenido += "<table class='table table-responsive'>";
                 var direcciones = eval(playas[i].Direcciones);
                 for (var j = 0; j < direcciones.length; j++) {
-                    contenido += "<tr><td>" + direcciones[j].Calle + "  </td><td style='text-aline:left'> " + direcciones[j].Numero + " </td> </tr>";
+                    contenido += "<tr><td>" + direcciones[j].Calle + " " + direcciones[j].Numero + "</td></tr>";
                 }
                 contenido += "</table>";
 
@@ -716,13 +716,9 @@ app.controller('MyCtrl', function ($scope, $http) {
             var preciohasta = "0";
         }
         
-        var horadesde = $('[id*=horaDesde]').val();        
-        //var horahasta = $('[id*=horaHasta]').val()
-        //alert("aca deberia imprimir la hora desde: " + horadesde)
-
-        horadesde = 0;
-        var horahasta = 0;
-
+        var horadesde = $('#horaDesde > div > input').val().substr(0,2);
+        var horahasta = $('#horaHasta > div > input').val().substr(0, 2);
+       
         $http({
             url: "BusquedaPlaya.aspx/ObtenerPlayasDeCiudadPorFiltro",//mi pagina de begin
             method: "POST",

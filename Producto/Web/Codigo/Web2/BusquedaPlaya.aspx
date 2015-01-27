@@ -134,7 +134,7 @@
                                      <span class="input-group-addon"><span class="glyphicon
         glyphicon-usd"></span></span>
 
-                                    <input type="number" id="txtMaxPrecio" maxlength="3" class="form-control" placeholder="Precio Maximo" title="Precio Maximo">
+                                    <input type="number" id="txtMaxPrecio"  maxlength="3" class="form-control" placeholder="Precio Maximo" title="Precio Maximo">
                                 </div>
                             </div>
                         </div>
@@ -144,13 +144,13 @@
                            
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                                     <div class="form-group ">                                                        
-                                                        <div id="horaDesde"  class="bfh-timepicker" data-time="Desde 00:00" style="background-color: white;"></div>
+                                                        <div id="horaDesde"  class="bfh-timepicker"  data-time="00:00" style="background-color: white;"></div>
                                                     </div>
                                                 </div>                                           
 
                              <div class="col-lg-6 col-md-6 col-sm-6">
                                                     <div class="form-group ">                                                        
-                                                        <div id="horaHasta" class="bfh-timepicker" data-time="Hasta 00:00" style="background-color: white;"></div>
+                                                        <div id="horaHasta" class="bfh-timepicker"  data-time="00:00" style="background-color: white;"></div>
                                                     </div>
                                                 </div>
                             </div>
@@ -160,7 +160,7 @@
                 </div>
                 <!--Buscar-->
                 <input type="button" class="btn-primary btn btn-block" value="Filtrar"
-                    id="btnBuscar" ng-click="filtrar(tiposPlaya,tiposVechiulo,diasAtencion)"/>
+                    id="btnBuscar" ng-click="filtrar()"/>
             </div>
 
             <div class="col-sm-9 col-md-9 col-lg-9">

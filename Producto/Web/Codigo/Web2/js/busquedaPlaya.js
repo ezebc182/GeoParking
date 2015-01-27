@@ -114,6 +114,8 @@ function agregarTags(tipoTags) {
         default:
 
     }
+    //$("#btnBuscar").click();
 }
+
 
 
