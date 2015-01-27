@@ -149,6 +149,9 @@ function abrirPopup(mensaje) {
     setTimeout(cerrarPopup, 1500);
 
 }
+function mensajeErrorConexion(mensaje){
+    abrirPopup(mensaje);
+}
 
 function abrirDialogoConDosBotones(funcionOk, mensaje, encabezado) {
     $("#dialogoDosBotonesHeader").html(encabezado);

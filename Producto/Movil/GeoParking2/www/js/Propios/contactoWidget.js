@@ -103,9 +103,11 @@ $.widget("geoparking.contactoWidget", {
             dataType: "json",
             content: "application/json; charset=utf-8",
             success: function () {
-                alert("se envio la consulta");
                 widget.destroy();
             },
+            error: function (jqXHR, textStatus, errorThrown) {
+                mensajeErrorConexion("Error de conexion");
+            }
         });
     },
     _abrirPopup: function (mensaje) {

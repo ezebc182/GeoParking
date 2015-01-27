@@ -72,7 +72,7 @@ $.widget("geoparking.preferenciasWidget", {
         $('#tipoVehiculoSelect').val(widget.options.tipoVehiculoId);
         $("#tipoVehiculoSelect-button > span").html($('select option:selected').html());
         $(" input[type=number]").val(widget.options.radio);
-        var porcentajeBarra = ((widget.options.radio - 100) / 900) * 100;
+        var porcentajeBarra = ((widget.options.radio - 100) / 1900) * 100;
 $($(" input[type=number]").parent().children()[1]).children()[0].style.width = porcentajeBarra + "%";
 $($(" input[type=number]").parent().children()[1]).children()[1].style.left = porcentajeBarra + "%";
         $($($(" input[type=number]").parent().children()[1]).children()[1]).attr("aria-valuetext", widget.options.radio);
@@ -107,6 +107,9 @@ $($(" input[type=number]").parent().children()[1]).children()[1].style.left = po
             url: uri,
             success: function (response) {
                 tiposVehiculos = jQuery.parseJSON(response);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                mensajeErrorConexion("Error de Conexion");
             }
         });
         return tiposVehiculos;

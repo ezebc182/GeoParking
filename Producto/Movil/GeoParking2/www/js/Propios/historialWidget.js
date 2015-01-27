@@ -5,7 +5,7 @@ $.widget("geoparking.historialWidget", {
      */
     options: {
         contenedor: $("#listadoHistorial"),
-        cantidadHistorial: null,
+        cantidadHistorial: 5,
         playaElegida: null,
     },
     /**
@@ -117,7 +117,7 @@ $.widget("geoparking.historialWidget", {
             itemA.appendChild(parrafoPrecioa);
             itemListado.appendChild(itemA);
             listado.appendChild(itemListado);
-        })
+        });
         $("#listadoHistorial").append(listado);
     },
     retornarCantidadPlayasAGuardar: function () {

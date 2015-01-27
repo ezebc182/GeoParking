@@ -191,12 +191,13 @@ function addMarker(location, playa) {
         google.maps.event.addListener(marker, 'click', function () {
             destino = marker.getPosition();
             tipoDestino = "playa";
-            var uri = "http://ifrigerio-001-site1.smarterasp.net/api/Estadisticas/GetGuardarConsulta?idPlaya=" + playa.Id + "&idTipoVehiculo=" + leerPropiedadTipoVehiculo() + "&latitud=" + posicionActual.k + "&longitud=" + posicionActual.B;
+            var uri = obtenerURLServer() + "api/Estadisticas/GetGuardarConsulta?idPlaya=" + playa.Id + "&idTipoVehiculo=" + leerPropiedadTipoVehiculo() + "&latitud=" + posicionActual.k + "&longitud=" + posicionActual.B;
             $.getJSON(uri);
             regresoAVehiculo = false;
             ir(posicionActual, destino, "DRIVING", "METRIC");
 
             /*ACA TIENE QUE IR EL GUARDAR HISTORIAL*/
+            guardarPlayaConsultada(playa);
         });
         enRecorrido = true;
         regresoAVehiculo = false;
@@ -226,6 +227,7 @@ function obtenerPosicionActual() {
         if (p.coords.latitude !== undefined && p.coords.longitude !== undefined) {
             var posicionGoogle = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
             posicionActual = posicionGoogle;
+            mostrarHistorialPlayas();
             map.setCenter(posicionGoogle);
             /* Pregunto sobre el modo si es consultar playa o consultar vehiculo */
             if (modo === '2') {

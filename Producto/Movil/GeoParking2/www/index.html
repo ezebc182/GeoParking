@@ -178,6 +178,7 @@
     <script src="js/Propios/preferencesWidget.js"></script>
     <script src="js/Propios/contactoWidget.js"></script>
     <script src="./js/Propios/Utils.js"></script>
+    <script src="./js/Propios/historialWidget.js"></script>
 
 
 
@@ -188,7 +189,8 @@
         var playas = [];
         $(document).ready(function () {
             initialize();
-            mostrarHistorialPlayas();
+            //setTimeout(function(){mostrarHistorialPlayas();},1000);
+            
 
         });
 
@@ -219,9 +221,7 @@
         }
 
         function mostrarHistorialPlayas() {
-            $("#listadoHistorial").historialWidget({
-                cantidadHistorial: 5
-            });
+            $("#listadoHistorial").historialWidget();
 
         }
     </script>
