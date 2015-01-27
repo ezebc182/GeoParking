@@ -2,6 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
     <div class="formulario" data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
         data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
@@ -35,7 +36,7 @@
                     </div>
                     <div class="form-group">
                         <label for="ddlRol" class="col-sm-2 col-md-2 col-lg-2 control-label">Rol</label>
-                        <asp:DropDownList ID="ddlRolPermisos" runat="server" CssClass="form-control required" >
+                        <asp:DropDownList ID="ddlRolPermisos" runat="server" CssClass="form-control required">
                         </asp:DropDownList>
 
                     </div>
@@ -58,12 +59,11 @@
 
                         <label for="ddlUsuario" class="col-sm-2 col-md-2 col-lg-2 control-label">Usuario</label>
                         <asp:DropDownList ID="ddlUsuario" CssClass="form-control required" runat="server"
-                            AutoPostBack="True"  />
+                            AutoPostBack="True" />
                     </div>
                     <div class="form-group">
                         <label for="ddlRol" class="col-sm-2 col-md-2 col-lg-2 control-label">Rol</label>
-                        <asp:DropDownList ID="ddlRol" CssClass="form-control required" runat="server" AutoPostBack="True"
-                             />
+                        <asp:DropDownList ID="ddlRol" CssClass="form-control required" runat="server" AutoPostBack="True" />
                     </div>
                     <%--FIN Asignar Rol a Usuario--%>
                 </div>

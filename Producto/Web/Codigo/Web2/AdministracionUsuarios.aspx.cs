@@ -3,8 +3,10 @@ using ReglasDeNegocio;
 using ReglasDeNegocio.Util;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Web2.Util;
@@ -66,8 +68,8 @@ namespace Web2
         private void CargarPanelAsignarRol()
         {
             divCrearRol.Visible = false;
-            divAsignarPermiso.Visible = true;
-            divAsignarRol.Visible = false;
+            divAsignarPermiso.Visible = false;
+            divAsignarRol.Visible = true;
             cargarComboUsuario();
         }
         protected void ddlUsuario_SelectedIndexChanged(object sender, EventArgs e)
@@ -96,8 +98,10 @@ namespace Web2
         }
         private void cargarComboUsuario()
         {
-            var ge = gestorUsuario.BuscarUsuarios();
-            FormHelper.CargarCombo(ddlUsuario, gestorUsuario.BuscarUsuarios(), "NombreUsuario", "Id", "Seleccione");
+            ddlUsuario.DataSource = GetUsuarios();
+            ddlUsuario.DataTextField = "NombreUsuario";
+            ddlUsuario.DataValueField = "Id";
+            ddlUsuario.DataBind();
         }
         private void cargarComboRolUsuario()
         {
@@ -134,16 +138,19 @@ namespace Web2
         private void CargarPanelAsignarPermiso()
         {
             divCrearRol.Visible = false;
-            divAsignarPermiso.Visible = false;
-            divAsignarRol.Visible = true;
+            divAsignarPermiso.Visible = true;
+            divAsignarRol.Visible = false;
             CargarComboRolPermisos();
             cargarListadoCheckBoxPermisos();
             cblPermiso.Enabled = false;
         }
         private void CargarComboRolPermisos()
         {
-            var nada = gestorUsuario.BuscarRoles();
-            FormHelper.CargarCombo(ddlRolPermisos, gestorUsuario.BuscarRoles(), "Nombre", "Id", "Seleccione");
+            ddlRolPermisos.DataSource = GetRoles();
+            ddlRolPermisos.DataTextField = "Rol";
+            ddlRolPermisos.DataValueField = "Id";
+            ddlRolPermisos.DataBind();
+            //FormHelper.CargarCombo(ddlRolPermisos, gestorUsuario.BuscarRoles(), "Nombre", "Id", "Seleccione");
         }
         private void cargarListadoCheckBoxPermisos()
         {
@@ -339,6 +346,54 @@ namespace Web2
                 ddlRolPermisos.SelectedIndex = -1;
                 cblPermiso.Enabled = false;
             }
+        }
+
+        [WebMethod]
+        public static List<Permiso> GetPermisos(int rol)
+        {
+            var query = from item in GetRoles().AsEnumerable()
+                        where Convert.ToInt32(item["CodPais"]) == rol
+                        select new Permiso
+                        {
+                            Id = Convert.ToInt32(item["Id"]),
+                            Nombre = Convert.ToString(item["Nombre"])
+                        };
+
+            return query.ToList<Permiso>();
+        }
+
+        private static DataTable GetRoles()
+        {
+            GestorUsuario gestorUsuario = new GestorUsuario();
+            DataTable dt = new DataTable();
+            var resultado = gestorUsuario.BuscarRoles();
+            dt.Columns.Add("Id");
+            dt.Columns.Add("Rol");
+            foreach (var item in resultado)
+            {
+                DataRow row = dt.NewRow();
+                row["Id"] = item.Id;
+                row["Rol"] = item.Nombre;
+                dt.Rows.Add(row);
+            }
+            return dt;
+        }
+
+        private static DataTable GetUsuarios()
+        {
+            GestorUsuario gestorUsuario = new GestorUsuario();
+            DataTable dt = new DataTable();
+            var resultado = gestorUsuario.BuscarUsuarios();
+            dt.Columns.Add("Id");
+            dt.Columns.Add("NombreUsuario");
+            foreach (var item in resultado)
+            {
+                DataRow row = dt.NewRow();
+                row["Id"] = item.Id;
+                row["NombreUsuario"] = item.NombreUsuario;
+                dt.Rows.Add(row);
+            }
+            return dt;
         }
     }
 }
