@@ -164,6 +164,78 @@ function abrirDialogoConDosBotones(funcionOk, mensaje, encabezado) {
 function cerrarDialogoConDosBotones() {
     $("#popupDialog").remove();
 }
+
+
+
+
+
+
+/* Guarda un historial de las últimas playas consultadas actualizando en el panel principal el listado en forma última consultada primera en la pila, descartando repetidos */
+function verificarQueExistePlayaEnArray(playa, array) {
+    for (var j = 0; j < array.length; j++) {
+        if (playa.Id === array[j].Id) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function guardarPlayaConsultada(playa) {
+
+    var cantidad = $("#listadoHistorial").historialWidget('retornarCantidadPlayasAGuardar');
+    var widget = this;
+    arrayActual = JSON.parse(db.getItem("playas"));
+    if (db.getItem("playas") !== null) {
+        cantidadAlmacenadas = JSON.parse(db.getItem("playas")).length;
+    } else {
+        cantidadAlmacenadas = 0;
+    }
+
+    if (arrayActual === null) {
+        var arrayActual = new Array();
+        arrayActual.push(playa);
+        db.setItem("playas", JSON.stringify(arrayActual));
+        arrayActual = JSON.parse(db.getItem("playas"));
+
+
+    } else {
+        if (cantidadAlmacenadas < cantidad) {
+            var estaRepetido = verificarQueExistePlayaEnArray(playa, arrayActual);
+            if (estaRepetido === false) {
+                arrayActual.push(playa);
+                db.setItem("playas", JSON.stringify(arrayActual));
+                /*Inicializar el widget*/
+
+            } else {
+                var posRepetido;
+                for (var i = 0; i < arrayActual.length; i++) {
+
+                    if (arrayActual[i].Id === playa.Id) {
+
+                        posRepetido = i;
+                    }
+
+                }
+                arrayActual.splice(posRepetido, 1);
+                arrayActual.push(playa);
+                db.setItem("playas", JSON.stringify(arrayActual));
+
+            }
+
+        } else {
+            arrayActual.splice(0, 1);
+            arrayActual.push(playa);
+            db.setItem("playas", JSON.stringify(arrayActual));
+
+
+        }
+
+    }
+    $("#listadoHistorial").historialWidget("crearEstructuraHistorial");
+
+
+
+}
 $.fn.isBound = function (type) {
     var data = jQuery._data(this[0], 'events')[type];
 

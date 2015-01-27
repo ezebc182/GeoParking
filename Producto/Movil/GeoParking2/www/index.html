@@ -188,11 +188,8 @@
         var playas = [];
         $(document).ready(function () {
             initialize();
+            mostrarHistorialPlayas();
 
-            /*$("#listadoHistorail").listadoPlayasWidget({ historial: 'hola' }); $("#listadoHistorial").listadoPlayasWidget('cargarListadoHistorial'); });
-
-
-*/
         });
 
         function comprobarConexion() {
@@ -219,6 +216,13 @@
 
         function abrirPanelContacto() {
             $("#panelContacto").contactoWidget();
+        }
+
+        function mostrarHistorialPlayas() {
+            $("#listadoHistorial").historialWidget({
+                cantidadHistorial: 5
+            });
+
         }
     </script>
 </body>
