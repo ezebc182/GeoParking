@@ -460,9 +460,9 @@ namespace ReglasDeNegocio
             {
                 if (consulta != null)
                 {
-                    consulta = consulta.And(p => p.Servicios.Any(s => s.Precios.Any(prec=> prec.TiempoId==1 && prec.Monto <= precioHasta)));
+                    consulta = consulta.And(p => p.Servicios.Any(s => tipoVehiculo.Contains(s.TipoVehiculoId) && s.Precios.Any(prec=> prec.TiempoId==1 && prec.Monto <= precioHasta && prec.Monto>0)));
                 }
-                else consulta = p => p.Servicios.Any(s => s.Precios.Any(prec => prec.TiempoId == 1 && prec.Monto <= precioHasta));
+                else consulta = p => p.Servicios.Any(s => tipoVehiculo.Contains(s.TipoVehiculoId) && s.Precios.Any(prec=> prec.TiempoId==1 && prec.Monto <= precioHasta && prec.Monto>0));
             }
 
             if (horaDesde != 0)
