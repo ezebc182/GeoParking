@@ -44,12 +44,7 @@ namespace ReglasDeNegocio
             registroHistorial.Dia = dia;
 
             //lo insertamos en la BD
-            historialDisponibilidadPlayas.Create(registroHistorial);
-
-            //ahora actualizamos la disponibilidad
-            //1° recuperamos el resgistro de la BD a actualizar
-            //DisponibilidadPlayas registroDisponibilidad = new DisponibilidadPlayas();
-            //registroDisponibilidad = disponibilidadPlayas.FindWhere(d => d.Servicio.PlayaDeEstacionamientoId == playa && d.Servicio.TipoVehiculoId == tipoVehiculo).First();
+            historialDisponibilidadPlayas.Create(registroHistorial);           
 
             Servicio servicio = servicioDAO.FindWhere(s => s.PlayaDeEstacionamientoId == playa && s.TipoVehiculoId == tipoVehiculo).First();
 
@@ -65,8 +60,6 @@ namespace ReglasDeNegocio
 
             try
             {
-                //3° actualizamos el registro
-                //servicioDao.Update(registroDisponibilidad);
                 servicioDAO.Update(servicio);
             }
             catch (Exception)
@@ -75,7 +68,6 @@ namespace ReglasDeNegocio
             }
 
             return resultado;
-
         }
 
 
@@ -94,11 +86,6 @@ namespace ReglasDeNegocio
             //lo insertamos en la BD
             historialDisponibilidadPlayas.Create(registroHistorial);
 
-            //ahora actualizamos la disponibilidad
-            //1° recuperamos el resgistro de la BD a actualizar
-            //DisponibilidadPlayas registroDisponibilidad = new DisponibilidadPlayas();
-            //registroDisponibilidad = disponibilidadPlayas.FindWhere(d => d.Servicio.PlayaDeEstacionamientoId == playa && d.Servicio.TipoVehiculoId == tipoVehiculo).First();
-
             Servicio servicio = servicioDAO.FindWhere(s => s.PlayaDeEstacionamientoId == playa && s.TipoVehiculoId == tipoVehiculo).First();
 
             servicio.DisponibilidadPlayas.Disponibilidad = disponibilidad;
@@ -107,8 +94,6 @@ namespace ReglasDeNegocio
 
             try
             {
-                //3° actualizamos el registro
-                //disponibilidadPlayas.Update(registroDisponibilidad);
                 servicioDAO.Update(servicio);
             }
             catch (Exception)
@@ -117,7 +102,6 @@ namespace ReglasDeNegocio
             }
 
             return resultado;
-
         }
 
 
@@ -134,6 +118,7 @@ namespace ReglasDeNegocio
             var servicio = GetServicioPorPlayaYTipoVehiculo(playa, tipoVehiculo);
             return disponibilidadPlayas.FindWhere(d => d.ServicioId == servicio.Id).First().Disponibilidad;
         }
+
         /// <summary>
         /// retorna el servicio asociado a la playa y tipovehiculo pasados por parametro
         /// </summary>
@@ -166,22 +151,13 @@ namespace ReglasDeNegocio
         public List<DisponibilidadPlayas> GetDisponibilidadPlayasPorTipoVehiculo(int[] playas, int tipoVehiculo)
         {
             List<DisponibilidadPlayas> disponibilidades = new List<DisponibilidadPlayas>();
-
-            //recupero las disponibilidades de cada playa
-            //foreach (var item in playas)
-            //{
-
-            //    var servicio = GetServicioPorPlayaYTipoVehiculo(item, tipoVehiculo);
-            //    DisponibilidadPlayas registroDisponibilidad = new DisponibilidadPlayas();
-            //    registroDisponibilidad = disponibilidadPlayas.FindWhere(d => d.Servicio.Id == servicio.Id).First();
-            //    disponibilidades.Add(registroDisponibilidad);
-            //}
-
             var servicios = GetServiciosPorPlayasYTipoVehiculo(playas, tipoVehiculo);
             var lista = disponibilidadPlayas.FindWhere(d => servicios.Select(s => s.Id).Where(x => x == d.ServicioId).Count() > 0).ToList();
+            
             //retorno una lista de disponibilidades oredenadas de mayor a menor
             return OrdenarPorDisponibilidad(lista);
         }
+        
         public List<ConsultaDisponibilidad> GetDisponibilidadDePlayasPorTipoVehiculo(string idPlayas, int tipoVehiculo)
         {
             return disponibilidadPlayas.GetDisponibilidadDePlayasPorTipoVehiculo(idPlayas, tipoVehiculo);

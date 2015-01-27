@@ -13,8 +13,7 @@ namespace ReglasDeNegocio
         GestorDireccion gestorDireccion;
         GestorPlaya gestorPlaya;
         GestorServicio gestorServicio;
-        GestorHorario gestorHorario;
-       
+        GestorHorario gestorHorario;       
 
         /// <summary>
         /// Constructor 
@@ -25,9 +24,7 @@ namespace ReglasDeNegocio
             gestorPlaya = new GestorPlaya();
             gestorServicio = new GestorServicio();
             gestorHorario = new GestorHorario();            
-        }
-
-        
+        }        
 
         /// <summary>
         /// buscas las playas de determinada ciudad
@@ -37,9 +34,7 @@ namespace ReglasDeNegocio
         public IList<PlayaDeEstacionamiento> buscarPlayasPorCiudad(string ciudad)
         {
             IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
-
             playas = gestorPlaya.BuscarPlayasPorCiudad(ciudad);
-
             return playas;
         }
 
@@ -62,9 +57,7 @@ namespace ReglasDeNegocio
              int horaDesde, int horaHasta)
         {
             IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
-
             playas = gestorPlaya.BuscarPlayasPorFiltro(ciudad, tipoPlaya, tipoVehiculo, diasAtencion, precioHasta, horaDesde, horaHasta);
-
             return playas;
         }
 

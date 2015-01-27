@@ -23,6 +23,7 @@ namespace ReglasDeNegocio
         IRepositorioPrecio precioDao;
         IRepositorioDireccion direccionDao;
         IRepositorioDisponibilidadPlayas disponibilidadesDao;
+        
         /// <summary>
         /// Constructor 
         /// </summary>
@@ -38,6 +39,7 @@ namespace ReglasDeNegocio
             precioDao = new RepositorioPrecio();
             tiempoDao = new RepositorioTiempo();
         }
+        
         /// <summary>
         /// Constructor utilizado en unit test
         /// </summary>
@@ -87,30 +89,16 @@ namespace ReglasDeNegocio
                         item.DisponibilidadPlayas.Disponibilidad = item.Capacidad.Cantidad;
                     }
                     
-                    playaDao.Create(playa);
-
-                    //creo las entradas para manejar las disponibilidades de lugares
-                    //de la playas de estacionamiento por cada uno de los tipos de vehiculos
-                    //disponibilidadesDao = new RepositorioDisponibilidadPlayas();
-                    //foreach (var item in playa.Servicios)
-                    //{
-                    //    DisponibilidadPlayas disponibilidad = new DisponibilidadPlayas();
-                    //    disponibilidad.PlayaDeEstacionamientoId = playa.Id;
-                    //    disponibilidad.TipoVehiculoId = item.TipoVehiculoId;
-                    //    disponibilidad.Disponibilidad = item.Capacidad.Cantidad;
-
-                    //    //creo el registro para el manejo de disponibilidades
-                    //    disponibilidadesDao.Create(disponibilidad);
-                    //}
+                    playaDao.Create(playa);                    
                 }
                 catch (DataBaseException e)
                 {
                     resultado.AgregarMensaje("Se ha producido un error de base de datos");
                 }
             }
-
             return resultado;
         }
+
         /// <summary>
         /// Valida los datos de la playa para registrarla
         /// </summary>
@@ -141,6 +129,7 @@ namespace ReglasDeNegocio
             }
 
         }
+
         /// <summary>
         /// Valida que se hayan ingresado los precios para los dias de atencion y viceversa
         /// </summary>
@@ -151,34 +140,8 @@ namespace ReglasDeNegocio
 
             //IMPORTANTE: todo esto cambia por que no hay dias atencion por precio y hay un solo horario, reveer
 
-            //var precios = playa.Precios.Select(p => p.DiaAtencionId).Distinct();
-            //var horarios = playa.Horario.Select(h => h.DiaAtencionId).Distinct();
-            //var contador = 0;
-            //if (precios.Count() != horarios.Count())
-            //{
-            //    if (precios.Count() > horarios.Count()) { resultado.AgregarMensaje("No puede cargar precios para dias en los que no se atiende al publico."); }
-            //    else if (precios.Count() < horarios.Count()) { resultado.AgregarMensaje("Debe cargar precios para todos los dias de atencion."); }
-            //}
-            //else
-            //{
-            //    foreach (var precio in precios)
-            //    {
-            //        foreach (var horario in horarios)
-            //        {
-            //            if (precio == horario)
-            //            {
-            //                contador++;
-            //                break;
-            //            }
-            //        }
-            //    }
-            //    if (contador != precios.Count())
-            //    {
-            //        resultado.AgregarMensaje("No puede cargar precios para dias en los que no se atiende al publico.");
-            //        resultado.AgregarMensaje("Debe cargar precios para todos los dias de atencion.");
-            //    }
-            //}
         }
+
         /// <summary>
         /// Valida que se hayan ingresado los precios para todos los tipos de vehiculos aceptados y viceversa
         /// </summary>
@@ -215,6 +178,7 @@ namespace ReglasDeNegocio
         //        }
         //    }
         //}
+        
         /// <summary>
         /// Valida que se haya ingresado al menos una direccion con sus respectivo punto en el mapa
         /// </summary>
@@ -231,6 +195,7 @@ namespace ReglasDeNegocio
             }
             resultado.AgregarMensaje("Debe indicar al menos una direccion en el mapa.");
         }
+       
         /// <summary>
         /// Actualiza los datos de una playa
         /// </summary>
@@ -253,6 +218,7 @@ namespace ReglasDeNegocio
             }
             return resultado;
         }
+        
         /// <summary>
         /// Valida los datos de la playa que se esta actualizando
         /// </summary>
@@ -269,6 +235,7 @@ namespace ReglasDeNegocio
 
             return resultado;
         }
+        
         /// <summary>
         /// Elimina una playa
         /// </summary>
@@ -292,6 +259,7 @@ namespace ReglasDeNegocio
 
             return resultado;
         }
+        
         /// <summary>
         /// Validaciones necesarias para eliminar una playa
         /// </summary>
@@ -316,6 +284,7 @@ namespace ReglasDeNegocio
 
             return playa;
         }
+        
         /// <summary>
         /// Busca playas que coincidan con el nombre pasado por parametro
         /// </summary>
@@ -333,6 +302,7 @@ namespace ReglasDeNegocio
         {
             return JsonConvert.SerializeObject(BuscarPlayasPorCiudad(ciudad));
         }
+        
         /// <summary>
         /// Carga las direcciones, precios, horarios y servicios de una playa.
         /// </summary>
@@ -345,6 +315,7 @@ namespace ReglasDeNegocio
             //playa.Servicios = BuscarServiciosPorPlaya(playa.Id);
             //playa.TipoPlaya = BuscarTipoPlayas().Where(t => t.Id == playa.TipoPlayaId).First();
         }
+
         /// <summary>
         /// Busca todos los tipos de playas
         /// </summary>
@@ -440,10 +411,11 @@ namespace ReglasDeNegocio
         /// <returns>lista de playas de esa ciudad</returns>
         public IList<PlayaDeEstacionamiento> BuscarPlayasPorCiudad(string ciudad)
         {
-            
-            var lista = playaDao.FindWhere(p => p.Direcciones.Any(d => d.Ciudad.Trim().ToUpperInvariant().Contains(ciudad.Trim().ToUpperInvariant())) && !p.FechaBaja.HasValue);
-           
-            return lista;
+
+            Func<PlayaDeEstacionamiento, bool> consulta = p => !p.FechaBaja.HasValue;
+            consulta.And(p => p.Direcciones.Any(d => d.Ciudad.Equals(ciudad, StringComparison.OrdinalIgnoreCase)));
+            var listaPlayas = playaDao.FindWhere(consulta);
+            return listaPlayas;
         }
 
         public IList<PlayaDeEstacionamiento> BuscarPlayasPorFiltro(string ciudad, int[] tipoPlaya, int[] tipoVehiculo, int[] diasAtencion, decimal precioHasta,
@@ -488,9 +460,9 @@ namespace ReglasDeNegocio
             {
                 if (consulta != null)
                 {
-                    consulta = consulta.And(p => p.Servicios.Any(s => s.Precios.Any(prec => prec.Monto <= precioHasta)));
+                    consulta = consulta.And(p => p.Servicios.Any(s => tipoVehiculo.Contains(s.TipoVehiculoId) && s.Precios.Any(prec=> prec.TiempoId==1 && prec.Monto <= precioHasta && prec.Monto>0)));
                 }
-                else consulta = p => p.Servicios.Any(s => s.Precios.Any(prec => prec.Monto <= precioHasta));
+                else consulta = p => p.Servicios.Any(s => tipoVehiculo.Contains(s.TipoVehiculoId) && s.Precios.Any(prec=> prec.TiempoId==1 && prec.Monto <= precioHasta && prec.Monto>0));
             }
 
             if (horaDesde != 0)

@@ -195,6 +195,8 @@ function addMarker(location, playa) {
             $.getJSON(uri);
             regresoAVehiculo = false;
             ir(posicionActual, destino, "DRIVING", "METRIC");
+
+            /*ACA TIENE QUE IR EL GUARDAR HISTORIAL*/
         });
         enRecorrido = true;
         regresoAVehiculo = false;
@@ -218,6 +220,7 @@ function clearMarkers() {
 function showMarkers() {
     setAllMap(map);
 }
+
 function obtenerPosicionActual() {
     var successFunction = function (p) {
         if (p.coords.latitude !== undefined && p.coords.longitude !== undefined) {
@@ -245,6 +248,7 @@ function obtenerPosicionActual() {
     };
     navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
 }
+
 function agregarPlayasAMapa(playas) {
     for (var i = 0; i < playas.length; i++) {
         agregarPlayaAMapa(playas[i]);

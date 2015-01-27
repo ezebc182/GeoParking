@@ -175,6 +175,7 @@
     <Content Include="css\index\style.css" />
     <Content Include="css\plugins\morris.css" />
     <Content Include="css\sb-admin.css" />
+    <Content Include="js\busquedaPlaya.js" />
     <Content Include="js\DataTables-1.10.4\css\jquery.dataTables.min.css" />
     <Content Include="js\DataTables-1.10.4\images\back_disabled.png" />
     <Content Include="js\DataTables-1.10.4\images\back_enabled.png" />
@@ -243,7 +244,6 @@
     <Content Include="js\controllerBusquedaPlayaAngular.js" />
     <Content Include="js\entidades.js" />
     <Content Include="js\GoogleMapsAdministracionPlaya.js" />
-    <Content Include="js\GoogleMapsBusquedaPlaya.js" />
     <Content Include="js\index\easing.js" />
     <Content Include="js\index\jquery.magnific-popup.js" />
     <Content Include="js\index\jquery.min.js" />
@@ -276,9 +276,10 @@
     </Content>
     <Content Include="Global.asax" />
     <Content Include="SqlServerTypes\readme.htm" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Index.aspx" />
-    <Content Include="WebForm1.aspx" />
     <Content Include="Zonas.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -355,13 +356,6 @@
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Util\Enumeraciones.cs" />
     <Compile Include="Util\FormHelper.cs" />
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Zonas.aspx.cs">
       <DependentUpon>Zonas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -423,7 +417,9 @@
     <Content Include="js\DataTables-1.10.4\images\Sorting icons.psd" />
     <None Include="Properties\PublishProfiles\Geoparking.pubxml" />
     <None Include="Properties\PublishProfiles\GeoparkingWeb.pubxml" />
-    <None Include="Properties\PublishProfiles\GeoparkingWeb2.pubxml" />
+    <None Include="Properties\PublishProfiles\GeoparkingWeb2.pubxml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

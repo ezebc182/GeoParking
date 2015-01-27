@@ -10,7 +10,6 @@ namespace Datos.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "Datos.ContextoBD";
         }
 
         protected override void Seed(Datos.ContextoBD context)
