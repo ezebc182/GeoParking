@@ -1,5 +1,9 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterUsuario.master.cs" Inherits="Web2.MasterUsuario" %>
 
+<%@ Register Src="~/Mensajes/Confirmacion.ascx" TagName="confirmacion" TagPrefix="msjes" %>
+<%@ Register Src="~/Mensajes/Info.ascx" TagName="info" TagPrefix="msjes" %>
+<%@ Register Src="~/Mensajes/Error.ascx" TagName="error" TagPrefix="msjes" %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
