@@ -189,7 +189,6 @@
                      <table id="myTable" class="table table-striped gridStyle" >                   
                           <thead>
                             <tr>
-                              <th>Id</th>
                               <th>Nombre</th>
                               <th>Tipo Playa</th>
                               <th>Direccion</th>
@@ -200,7 +199,6 @@
                           </thead>                 
                           <tbody>
                             <tr ng-repeat="p in resultado  =(playasGrilla| filter  : a) | startFrom:currentPage*pageSize | limitTo:pageSize ">
-                              <th>{{p.Id }}</th>
                               <th>{{p.Nombre}}</th>
                               <th>{{p.TipoPlaya}}</th>
                               <th>{{p.Direccion}}</th>
