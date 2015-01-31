@@ -114,7 +114,16 @@ function agregarTags(tipoTags) {
         default:
 
     }
-    //$("#btnBuscar").click();
+   
+}
+
+//ejecuta el alert info
+function mostrarMensaje() {
+    var mensaje = document.getElementById("resultados").value;
+    var partes = mensaje.split(",");
+    var mensaje = partes[0];
+    var titulo = partes[1];
+    Alerta_openModalInfo(mensaje, titulo, true);
 }
 
 

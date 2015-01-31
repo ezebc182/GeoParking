@@ -222,5 +222,8 @@
     <div id="tiposPlaya" hidden="hidden"></div>
     <div id="tiposVehiculo" hidden="hidden"></div>
     <div id="diasAtencion" hidden="hidden"></div>
+    <div id="resultados" hidden="hidden" onclick="mostrarMensaje()"></div>
+
+    
    
 </asp:Content>

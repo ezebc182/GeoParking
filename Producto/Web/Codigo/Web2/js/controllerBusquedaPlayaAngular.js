@@ -3,8 +3,8 @@
 var app = angular.module('myApp', []);
 
 //controlador de la aplicacion (busqueda playa)
-app.controller('MyCtrl', function ($scope, $http) {   
-
+app.controller('MyCtrl', function ($scope, $http) {
+    
     $scope.map;//mapa
     $scope.markers = [];//marcadores   
     $scope.circulos = [];//circulos    
@@ -303,10 +303,15 @@ app.controller('MyCtrl', function ($scope, $http) {
                     //reseteo filtros
                     document.getElementById('ddlTipoPlaya').value = 0;
                     document.getElementById('ddlTipoVehiculo').value = 0;
-                    document.getElementById('ddlDiasAtencion').value = 0;                    
+                    document.getElementById('ddlDiasAtencion').value = 0;
                     document.getElementById('txtMaxPrecio').value = 0;
                     document.getElementById('ddlHoraDesde').value = 0;
                     document.getElementById('ddlHoraHasta').value = 0;
+                }
+                else {
+                    var mensaje = 'La direccion establecida no ha podido encontrarse';
+                    var titulo = 'Resultado de la Busqueda';
+                    $scope.Alerta_openModalInfo(mensaje, titulo, true);
                 }
             });
 
@@ -333,7 +338,10 @@ app.controller('MyCtrl', function ($scope, $http) {
                     $scope.map.setCenter(results[0].geometry.location);
                     $scope.map.setZoom(12);
                 } else {
-                    alert("La ciudad no ha podido encontrarse")
+                    var mensaje = 'La ciudad no ha podido encontrarse';
+                    var titulo = 'Resultado de la Busqueda';
+                    document.getElementById("resultados").value = mensaje + "," + titulo;
+                    document.getElementById("resultados").click();
                 }
             });
 
@@ -392,7 +400,10 @@ app.controller('MyCtrl', function ($scope, $http) {
                 $scope.map.setZoom(15);
 
             } else {
-                alert('La direccion establecida no ha podido encontrarse', 'Resultado de la Busqueda');
+                var mensaje = 'La direccion establecida no ha podido encontrarse';
+                var titulo = 'Resultado de la Busqueda';
+                $scope.Alerta_openModalInfo(mensaje, titulo, true);
+                
             }
         });
 
@@ -492,7 +503,7 @@ app.controller('MyCtrl', function ($scope, $http) {
                                   "</li>" +
                                   "<li>" +
                                     "<a href='#panel-2' data-toggle='tab'>Servicios</a>" +
-                                  "</li>" +                                  
+                                  "</li>" +
                                 "</ul>" +
                                 "<div class='tab-content'>";
 
@@ -528,14 +539,14 @@ app.controller('MyCtrl', function ($scope, $http) {
                 contenido += "<div><h6>HORARIO<h6></div>";
                 contenido += "<table>";
                 contenido += "<tr><td>" + playas[i].Horario.Dia + "</td> <td> <strong>Desde:</strong></td> <td> " + playas[i].Horario.HoraDesde + "</td> <td> - <strong>Hasta:</strong> </td> <td>" + playas[i].Horario.HoraHasta + "</td> </tr>";
-                contenido += "</table>";               
+                contenido += "</table>";
 
                 contenido += "</td>";
                 contenido += "</tr>";
                 contenido += "</table>";
 
                 contenido += "</p></div>";
-                               
+
 
                 //SEGUNDO TAB
                 contenido += "<div class='tab-pane' id='panel-2'>" +
@@ -544,7 +555,7 @@ app.controller('MyCtrl', function ($scope, $http) {
                 //agregamos los servicios
                 contenido += "<div><h6>SERVICIOS<h6></div>";
                 contenido += "<table class='table'>";
-                
+
                 //cabecera
                 cabecera = "<tr><td></td><td><strong>Automovil</strong></td><td><strong>Utilitario</strong></td><td><strong>Motocicleta</strong></td><td><strong>Bicicleta</strong></td>";
                 //cuerpo
@@ -562,7 +573,7 @@ app.controller('MyCtrl', function ($scope, $http) {
                 contenido += cabecera + cuerpo;
 
                 contenido += "</table>";
-               
+
 
                 //agregamos los precios
                 contenido += "<div><h6>PRECIOS<h6></div>";
@@ -575,7 +586,7 @@ app.controller('MyCtrl', function ($scope, $http) {
 
                 for (var l = 0; l < servicios.length; l++) {
 
-                    cuerpo += "<tr><td>"+servicios[l].TipoVehiculo+"</td>";
+                    cuerpo += "<tr><td>" + servicios[l].TipoVehiculo + "</td>";
 
                     var precios = eval(servicios[l].Precios);
                     if (precios != null) {
@@ -585,21 +596,21 @@ app.controller('MyCtrl', function ($scope, $http) {
                             }
                             else {
                                 cuerpo += "<td></td>";
-                            }                                
+                            }
                         }
                     }
 
                     cuerpo += "</tr>"
                 }
 
-                cabecera += "</tr>";                
+                cabecera += "</tr>";
                 contenido += cabecera + cuerpo;
 
                 contenido += "</table>"
-                
+
                 contenido += "</p></div>";
 
-                
+
                 contenido += "</div></div>";
 
                 contenido += "</div>";
@@ -611,7 +622,7 @@ app.controller('MyCtrl', function ($scope, $http) {
                     icon: './img/marcadorParking2.png'
                 });
 
-                
+
                 //seteamos al contenido
                 (function (marker, contenido) {
                     google.maps.event.addListener(marker, 'click', function () {
@@ -625,7 +636,12 @@ app.controller('MyCtrl', function ($scope, $http) {
 
             }
         }
-        else alert('No se han encontrado playas con los filtros seleccionados')
+        else {
+            var mensaje = 'No se han encontrado playas con los filtros seleccionados';
+            var titulo = 'Resultado de la Busqueda';           
+            document.getElementById("resultados").value = mensaje + "," + titulo;
+            document.getElementById("resultados").click();            
+        }
     }
 
     /*CARGA LAS PLAYAS EN LA GRILLA*/
@@ -773,7 +789,10 @@ app.controller('MyCtrl', function ($scope, $http) {
                 $scope.map.setCenter(results[0].geometry.location);
                 $scope.map.setZoom(12);
             } else {
-                alert("La ciudad no ha podido encontrarse")
+                var mensaje = 'La ciudad no ha podido encontrarse';
+                var titulo = 'Resultado de la Busqueda';
+                document.getElementById("resultados").value = mensaje + "," + titulo;
+                document.getElementById("resultados").click();
             }
         });
     }
