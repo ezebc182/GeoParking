@@ -24,6 +24,10 @@ namespace Datos
 
         }
 
+        /// <summary>
+        /// Utilizacion de fluent api para configuracines del contexto
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PlayaDeEstacionamiento>()
@@ -55,7 +59,7 @@ namespace Datos
         }
 
         /// <summary>
-        /// Conexto(DataSet) para cada objeto en la BD
+        /// 
         /// </summary>
         public DbSet<PlayaDeEstacionamiento> playas { get; set; }
         public DbSet<TipoPlaya> tiposPlayas { get; set; }

@@ -3,8 +3,8 @@
 var app = angular.module('myApp', []);
 
 //controlador de la aplicacion (busqueda playa)
-app.controller('MyCtrl', function ($scope, $http) {   
-
+app.controller('MyCtrl', function ($scope, $http) {
+    
     $scope.map;//mapa
     $scope.markers = [];//marcadores   
     $scope.circulos = [];//circulos    
@@ -41,6 +41,8 @@ app.controller('MyCtrl', function ($scope, $http) {
 
         contenido = "";
 
+        contenido = "<div id=info>";
+
         contenido += "<div class='tabbable' id='tabs-23'>" +
                         "<ul class='nav nav-tabs'>" +
                           "<li class='active'>" +
@@ -57,31 +59,41 @@ app.controller('MyCtrl', function ($scope, $http) {
         contenido += "<div class='tab-pane active' id='panel-1'>" +
         "<p>";
 
-        contenido += "<table class='table table-responsive'>";
 
-        contenido += "<tr><td> <strong>Nombre:</strong> </td> <td>" + playa.Nombre + " </td> </tr>" +
+        contenido += "<table class='table'>";
+        contenido += "<tr>";
+        contenido += "<td>";
+
+        contenido += "<table class='table table-responsive'>";
+        contenido += "<tr><td> <strong>Nombre:</strong> </td> <td>" + playas.Nombre + " </td> </tr>" +
        "<tr><td> <strong>Mail:</strong> </td> <td>" + playa.Mail + " </td> </tr>" +
        "<tr><td> <strong>Telefono:</strong> </td> <td>" + playa.Telefono + " </td> </tr>" +
        "<tr><td> <strong>Tipo Playa:</strong> </td> <td>" + playa.TipoPlaya + " </td> </tr>";
-
         contenido += "</table>";
+
+        contenido += "</td>";
+        contenido += "<td>";
 
         //agregamos las direcciones
         contenido += "<div><h6>DIRECCION<h6></div>";
-        contenido += "<table>";
+        contenido += "<table class='table table-responsive'>";
         var direcciones = eval(playa.Direcciones);
         for (var j = 0; j < direcciones.length; j++) {
-            contenido += "<tr><td>" + direcciones[j].Calle + ":  </td> <td>" + direcciones[j].Numero + " </td> </tr>";
+            contenido += "<tr><td>" + direcciones[j].Calle + " " + direcciones[j].Numero + "</td></tr>";
         }
         contenido += "</table>";
 
         //agregamos los horarios
         contenido += "<div><h6>HORARIO<h6></div>";
-        contenido += "<table>";
-        contenido += "<tr><td>" + playa.Horario.Dia + "</td> <td> <strong>Desde:</strong></td> <td> " + playa.Horario.HoraDesde + "</td> <td> - <strong>Hasta:</strong> </td> <td>" + playa.Horario.HoraHasta + "</td> </tr>";
-        contenido += "</table>";             
+        contenido += "<table class='table table-responsive'>";
+        contenido += "<tr><td>" + playa.Horario.Dia + "   </td><td><strong>Desde: </strong>" + playa.Horario.HoraDesde + "</td><td> - <strong>Hasta: </strong>" + playa.Horario.HoraHasta + "</td> </tr>";
+        contenido += "</table>";
 
-        
+        contenido += "</td>";
+        contenido += "</tr>";
+        contenido += "</table>";
+
+
         contenido += "</p></div>";
 
         //SEGUNDO TAB
@@ -91,28 +103,78 @@ app.controller('MyCtrl', function ($scope, $http) {
         //agregamos los servicios
         contenido += "<div><h6>SERVICIOS<h6></div>";
         contenido += "<table class='table table-responsive'>";
+
+        //cabecera
+        cabecera = "<tr><td></td><td><strong>Automovil</strong></td><td><strong>Utilitario</strong></td><td><strong>Motocicleta</strong></td><td><strong>Bicicleta</strong></td>";
+        //cuerpo
+        cuerpo = "<tr><td><strong>Capacidad</strong></td>";
+
         var servicios = eval(playa.Servicios);
         for (var K = 0; K < servicios.length; K++) {
-            contenido += "<tr><td>" + servicios[K].TipoVehiculo + ":  </td> <td> <strong> Capacidad: </strong>" + servicios[K].Capacidad + " </td> </tr>";
+            //cabecera += "<td><strong>" + servicios[K].TipoVehiculo + "</strong></td>";
+            cuerpo += "<td>" + servicios[K].Capacidad + "</td>";
+            //contenido += "<tr><td>" + servicios[K].TipoVehiculo + ":  </td> <td> <strong> Capacidad: </strong>" + servicios[K].Capacidad + " </td> </tr>";
         }
+
+        cabecera += "</tr>";
+        cuerpo += "</tr>";
+        contenido += cabecera + cuerpo;
+
+
+        //var servicios = eval(playa.Servicios);
+        //for (var K = 0; K < servicios.length; K++) {
+        //    contenido += "<tr><td>" + servicios[K].TipoVehiculo + ":  </td> <td> <strong> Capacidad: </strong>" + servicios[K].Capacidad + " </td> </tr>";
+        //}
+
+
         contenido += "</table>";
 
         //agregamos los precios
         contenido += "<div><h6>PRECIOS<h6></div>";
         contenido += "<table class='table table-responsive'>";
 
+
+        //cabecera
+        cabecera = "<tr><td><strong>Vehiculo</strong></td><td><strong>X hora</strong></td><td><strong>6 hs</strong></td><td><strong>12 hs</strong></td><td><strong>24 hs</strong></td><td><strong>Mensual</strong></td>";
+        //cuerpo
+        cuerpo = "";
+
         for (var l = 0; l < servicios.length; l++) {
+
+            cuerpo += "<tr><td>" + servicios[l].TipoVehiculo + "</td>";
+
             var precios = eval(servicios[l].Precios);
             if (precios != null) {
                 for (var m = 0; m < precios.length; m++) {
-                    if (precios[m].Monto > 0)
-                        contenido += "<tr><td>" + servicios[l].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
+                    if (precios[m].Monto > 0) {
+                        cuerpo += "<td>$" + precios[m].Monto + "</td>";
+                    }
+                    else {
+                        cuerpo += "<td></td>";
+                    }
                 }
             }
-        }       
+
+            cuerpo += "</tr>"
+        }
+
+        cabecera += "</tr>";
+        contenido += cabecera + cuerpo;
+
+
+        //for (var l = 0; l < servicios.length; l++) {
+        //    var precios = eval(servicios[l].Precios);
+        //    if (precios != null) {
+        //        for (var m = 0; m < precios.length; m++) {
+        //            if (precios[m].Monto > 0)
+        //                contenido += "<tr><td>" + servicios[l].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
+        //        }
+        //    }
+        //}       
         contenido += "</table>"
         contenido += "</p></div>";
         contenido += "</div></div>";
+        contenido += "</div>"
 
         infoWindow.setContent(
             '' + contenido + ''
@@ -241,10 +303,15 @@ app.controller('MyCtrl', function ($scope, $http) {
                     //reseteo filtros
                     document.getElementById('ddlTipoPlaya').value = 0;
                     document.getElementById('ddlTipoVehiculo').value = 0;
-                    document.getElementById('ddlDiasAtencion').value = 0;                    
+                    document.getElementById('ddlDiasAtencion').value = 0;
                     document.getElementById('txtMaxPrecio').value = 0;
                     document.getElementById('ddlHoraDesde').value = 0;
                     document.getElementById('ddlHoraHasta').value = 0;
+                }
+                else {
+                    var mensaje = 'La direccion establecida no ha podido encontrarse';
+                    var titulo = 'Resultado de la Busqueda';
+                    $scope.Alerta_openModalInfo(mensaje, titulo, true);
                 }
             });
 
@@ -271,7 +338,10 @@ app.controller('MyCtrl', function ($scope, $http) {
                     $scope.map.setCenter(results[0].geometry.location);
                     $scope.map.setZoom(12);
                 } else {
-                    alert("La ciudad no ha podido encontrarse")
+                    var mensaje = 'La ciudad no ha podido encontrarse';
+                    var titulo = 'Resultado de la Busqueda';
+                    document.getElementById("resultados").value = mensaje + "," + titulo;
+                    document.getElementById("resultados").click();
                 }
             });
 
@@ -330,7 +400,10 @@ app.controller('MyCtrl', function ($scope, $http) {
                 $scope.map.setZoom(15);
 
             } else {
-                alert('La direccion establecida no ha podido encontrarse', 'Resultado de la Busqueda');
+                var mensaje = 'La direccion establecida no ha podido encontrarse';
+                var titulo = 'Resultado de la Busqueda';
+                $scope.Alerta_openModalInfo(mensaje, titulo, true);
+                
             }
         });
 
@@ -430,7 +503,7 @@ app.controller('MyCtrl', function ($scope, $http) {
                                   "</li>" +
                                   "<li>" +
                                     "<a href='#panel-2' data-toggle='tab'>Servicios</a>" +
-                                  "</li>" +                                  
+                                  "</li>" +
                                 "</ul>" +
                                 "<div class='tab-content'>";
 
@@ -439,21 +512,26 @@ app.controller('MyCtrl', function ($scope, $http) {
                 contenido += "<div class='tab-pane active' id='panel-1'>" +
                 "<p>";
 
-                contenido += "<table class='table table-responsive'>";
+                contenido += "<table class='table'>";
+                contenido += "<tr>";
+                contenido += "<td>";
 
+                contenido += "<table class='table table-responsive'>";
                 contenido += "<tr><td> <strong>Nombre:</strong> </td> <td>" + playas[i].Nombre + " </td> </tr>" +
                "<tr><td> <strong>Mail:</strong> </td> <td>" + playas[i].Mail + " </td> </tr>" +
                "<tr><td> <strong>Telefono:</strong> </td> <td>" + playas[i].Telefono + " </td> </tr>" +
                "<tr><td> <strong>Tipo Playa:</strong> </td> <td>" + playas[i].TipoPlaya + " </td> </tr>";
-
                 contenido += "</table>";
+
+                contenido += "</td>";
+                contenido += "<td>";
 
                 //agregamos las direcciones
                 contenido += "<div><h6>DIRECCION<h6></div>";
                 contenido += "<table class='table table-responsive'>";
                 var direcciones = eval(playas[i].Direcciones);
                 for (var j = 0; j < direcciones.length; j++) {
-                    contenido += "<tr><td>" + direcciones[j].Calle + "  </td><td style='text-aline:left'> " + direcciones[j].Numero + " </td> </tr>";
+                    contenido += "<tr><td>" + direcciones[j].Calle + " " + direcciones[j].Numero + "</td></tr>";
                 }
                 contenido += "</table>";
 
@@ -462,9 +540,13 @@ app.controller('MyCtrl', function ($scope, $http) {
                 contenido += "<table>";
                 contenido += "<tr><td>" + playas[i].Horario.Dia + "</td> <td> <strong>Desde:</strong></td> <td> " + playas[i].Horario.HoraDesde + "</td> <td> - <strong>Hasta:</strong> </td> <td>" + playas[i].Horario.HoraHasta + "</td> </tr>";
                 contenido += "</table>";
+
+                contenido += "</td>";
+                contenido += "</tr>";
+                contenido += "</table>";
+
                 contenido += "</p></div>";
 
-                
 
                 //SEGUNDO TAB
                 contenido += "<div class='tab-pane' id='panel-2'>" +
@@ -472,32 +554,63 @@ app.controller('MyCtrl', function ($scope, $http) {
 
                 //agregamos los servicios
                 contenido += "<div><h6>SERVICIOS<h6></div>";
-                contenido += "<table class='table table-responsive'>";
+                contenido += "<table class='table'>";
+
+                //cabecera
+                cabecera = "<tr><td></td><td><strong>Automovil</strong></td><td><strong>Utilitario</strong></td><td><strong>Motocicleta</strong></td><td><strong>Bicicleta</strong></td>";
+                //cuerpo
+                cuerpo = "<tr><td><strong>Capacidad</strong></td>";
+
                 var servicios = eval(playas[i].Servicios);
                 for (var K = 0; K < servicios.length; K++) {
-                    contenido += "<tr><td>" + servicios[K].TipoVehiculo + ":  </td> <td> <strong> Capacidad: </strong>" + servicios[K].Capacidad + " </td> </tr>";
+                    //cabecera += "<td><strong>" + servicios[K].TipoVehiculo + "</strong></td>";
+                    cuerpo += "<td>" + servicios[K].Capacidad + "</td>";
+                    //contenido += "<tr><td>" + servicios[K].TipoVehiculo + ":  </td> <td> <strong> Capacidad: </strong>" + servicios[K].Capacidad + " </td> </tr>";
                 }
+
+                cabecera += "</tr>";
+                cuerpo += "</tr>";
+                contenido += cabecera + cuerpo;
+
                 contenido += "</table>";
-               
+
 
                 //agregamos los precios
                 contenido += "<div><h6>PRECIOS<h6></div>";
                 contenido += "<table class='table table-responsive'>";
 
+                //cabecera
+                cabecera = "<tr><td><strong>Vehiculo</strong></td><td><strong>X hora</strong></td><td><strong>6 hs</strong></td><td><strong>12 hs</strong></td><td><strong>24 hs</strong></td><td><strong>Mensual</strong></td>";
+                //cuerpo
+                cuerpo = "";
+
                 for (var l = 0; l < servicios.length; l++) {
+
+                    cuerpo += "<tr><td>" + servicios[l].TipoVehiculo + "</td>";
+
                     var precios = eval(servicios[l].Precios);
                     if (precios != null) {
                         for (var m = 0; m < precios.length; m++) {
-                            if(precios[m].Monto>0)
-                                contenido += "<tr><td>" + servicios[l].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
+                            if (precios[m].Monto > 0) {
+                                cuerpo += "<td>$" + precios[m].Monto + "</td>";
+                            }
+                            else {
+                                cuerpo += "<td></td>";
+                            }
                         }
                     }
+
+                    cuerpo += "</tr>"
                 }
+
+                cabecera += "</tr>";
+                contenido += cabecera + cuerpo;
+
                 contenido += "</table>"
-                
+
                 contenido += "</p></div>";
 
-                
+
                 contenido += "</div></div>";
 
                 contenido += "</div>";
@@ -509,7 +622,7 @@ app.controller('MyCtrl', function ($scope, $http) {
                     icon: './img/marcadorParking2.png'
                 });
 
-                
+
                 //seteamos al contenido
                 (function (marker, contenido) {
                     google.maps.event.addListener(marker, 'click', function () {
@@ -523,7 +636,12 @@ app.controller('MyCtrl', function ($scope, $http) {
 
             }
         }
-        else alert('No se han encontrado playas con los filtros seleccionados')
+        else {
+            var mensaje = 'No se han encontrado playas con los filtros seleccionados';
+            var titulo = 'Resultado de la Busqueda';           
+            document.getElementById("resultados").value = mensaje + "," + titulo;
+            document.getElementById("resultados").click();            
+        }
     }
 
     /*CARGA LAS PLAYAS EN LA GRILLA*/
@@ -551,7 +669,8 @@ app.controller('MyCtrl', function ($scope, $http) {
                 var servicios = eval(playas[i].Servicios);
                 for (var K = 0; K < servicios.length; K++) {
                     Vehiculos += servicios[K].TipoVehiculo + ",";
-                }              
+                }
+                Vehiculos = Vehiculos.substr(0, Vehiculos.length-1);
 
                 var Precios = "";
 
@@ -576,9 +695,7 @@ app.controller('MyCtrl', function ($scope, $http) {
     }
 
     /*FILTRO LAS PLAYAS*/
-    $scope.filtrar = function () {
-
-       
+    $scope.filtrar = function () {       
 
         $scope.playasGrilla = [];//vacio las playas a mostrar en la grila
 
@@ -615,13 +732,9 @@ app.controller('MyCtrl', function ($scope, $http) {
             var preciohasta = "0";
         }
         
-        var horadesde = $('[id*=horaDesde]').val();        
-        //var horahasta = $('[id*=horaHasta]').val()
-        //alert("aca deberia imprimir la hora desde: " + horadesde)
-
-        horadesde = 0;
-        var horahasta = 0;
-
+        var horadesde = $('#horaDesde > div > input').val().substr(0,2);
+        var horahasta = $('#horaHasta > div > input').val().substr(0, 2);
+       
         $http({
             url: "BusquedaPlaya.aspx/ObtenerPlayasDeCiudadPorFiltro",//mi pagina de begin
             method: "POST",
@@ -676,7 +789,10 @@ app.controller('MyCtrl', function ($scope, $http) {
                 $scope.map.setCenter(results[0].geometry.location);
                 $scope.map.setZoom(12);
             } else {
-                alert("La ciudad no ha podido encontrarse")
+                var mensaje = 'La ciudad no ha podido encontrarse';
+                var titulo = 'Resultado de la Busqueda';
+                document.getElementById("resultados").value = mensaje + "," + titulo;
+                document.getElementById("resultados").click();
             }
         });
     }

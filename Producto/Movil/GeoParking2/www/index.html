@@ -34,7 +34,7 @@
     <div data-role="page" data-theme='b'>
 
         <div data-role="panel" data-display="push" id="pnlPrincipal" data-theme="b">
-            <ul data-role="listview">
+            <ul data-role="listview" style="height:100%;">
                 <li data-icon="false" data-theme="b">
                     <h1>GeoParking <small>Menú principal</small></h1>
 
@@ -42,55 +42,43 @@
 
                 <li data-theme='b' data-role="list-divider"><i class="fa fa-clock-o"></i><strong>Últimas playas consultadas</strong>
                 </li>
-                <li>
-                    <a href="#">
-                        <img src="http://placehold.it/150x150">
-                        <h2>Playa 1</h2>
-                        <p>Dirección 1</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://placehold.it/150x150">
-                        <h2>Playa 2</h2>
-                        <p>Dirección 2</p>
-                    </a>
-                </li>
+                <div id="listadoHistorial">
+
+                </div>
+
 
                 <li data-theme='b' data-role="list-divider"><i class="fa fa-info"></i><strong>Información</strong>
                 </li>
                 <li data-icon="false">
-                    <a href="" id="btnAbrirAyuda">
+                    <a data-rel="close" href="" id="btnAbrirAyuda">
                         <i class="fa fa-compass"></i>
                         ¿Perdido? Ver tutorial
                     </a>
                 </li>
                 <li data-icon="false" data-theme="b" data-role="list-divider"><i class="fa fa-envelope-o"></i><strong>Contacto</strong>
                 </li>
-                <li data-icon="false" onClick="abrirPanelContacto()"><a><i class='fa fa-comments'></i>Escribinos</a>
+                <li data-icon="false"><a onClick="abrirPanelContacto()" data-rel="close"><i class='fa fa-comments'></i>Escribinos</a>
                 </li>
                 <li data-icon="false">
-                    <a href="http://ifrigerio-001-site3.smarterasp.net">
+                    <a data-rel="close" href="http://ifrigerio-001-site3.smarterasp.net">
                         <i class="fa fa-globe"></i>
                         Sitio oficial
                     </a>
                 </li>
                 <li data-icon="false">
-                    <a href="https://facebook.com/geoparking">
+                    <a data-rel="close" href="https://facebook.com/geoparking">
                         <i class="fa fa-facebook"></i>
                         Hazte fan
 
                     </a>
                 </li>
                 <li data-icon="false">
-                    <a href="https://twitter.com/geoparking">
+                    <a data-rel="close" href="https://twitter.com/geoparking">
                         <i class="fa fa-twitter"></i>
                         Seguinos
 
                     </a>
-                    <br>
-                    <br>
-                    <br>
+
                 </li>
 
             </ul>
@@ -113,8 +101,6 @@
             <ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="b">
                 <li onClick="abrirPanelConfiguraciones()">
                     <a><i class='lIcon fa fa-cogs'></i>Opciones</a>
-                </li>
-                <li><a><i class='lIcon fa fa-cog'></i>Acerca de</a>
                 </li>
             </ul>
         </div>
@@ -174,24 +160,25 @@
 
     <!-- Scripts -->
     <script src="xhr.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-        <script src='intelxdk.js'></script>
-        <script src="cordova.js"></script>
-        <script type="text/javascript" charset="utf-8" src="js/telephonenumber.js"></script>
-        <script src="./js/index.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script src='intelxdk.js'></script>
+    <script src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/telephonenumber.js"></script>
+    <script src="./js/index.js"></script>
 
-        <script src="./js/Propios/guardarDatos.js"></script>
-        <script src="./js/Propios/funcionesDistancia.js"></script>
-        <script src="./js/Propios/obtenerRutaDeRegreso.js"></script>
+    <script src="./js/Propios/guardarDatos.js"></script>
+    <script src="./js/Propios/funcionesDistancia.js"></script>
+    <script src="./js/Propios/obtenerRutaDeRegreso.js"></script>
 
-        <script src="./js/Propios/cargarMapa.js"></script>
-        <!-- trabaja con el mapa cuando se inicializa -->
-        <script src="./js/Propios/obtenerPlayas.js"></script>
-        <script src="./js/Propios/latinise.js"></script>
-        <script src="./js/Propios/listadoDePlayasWidget.js"></script>
-        <script src="js/Propios/preferencesWidget.js"></script>
-        <script src="js/Propios/contactoWidget.js"></script>
-        <script src="./js/Propios/Utils.js"></script>
+    <script src="./js/Propios/cargarMapa.js"></script>
+    <!-- trabaja con el mapa cuando se inicializa -->
+    <script src="./js/Propios/obtenerPlayas.js"></script>
+    <script src="./js/Propios/latinise.js"></script>
+    <script src="./js/Propios/listadoDePlayasWidget.js"></script>
+    <script src="js/Propios/preferencesWidget.js"></script>
+    <script src="js/Propios/contactoWidget.js"></script>
+    <script src="./js/Propios/Utils.js"></script>
+    <script src="./js/Propios/historialWidget.js"></script>
 
 
 
@@ -202,8 +189,20 @@
         var playas = [];
         $(document).ready(function () {
             initialize();
+            //setTimeout(function(){mostrarHistorialPlayas();},1000);
+            
 
         });
+
+        function comprobarConexion() {
+
+            if (navigator.onLine) {
+
+            } else {
+                alert("Sin conexión");
+            }
+
+        }
 
         function verListado() {
             cargandoConMensaje("Cargando Listado");
@@ -219,6 +218,11 @@
 
         function abrirPanelContacto() {
             $("#panelContacto").contactoWidget();
+        }
+
+        function mostrarHistorialPlayas() {
+            $("#listadoHistorial").historialWidget();
+
         }
     </script>
 </body>

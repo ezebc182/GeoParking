@@ -45,7 +45,7 @@ namespace GeoParkingDesktop
 
             
             string sURL;
-            sURL = "http://localhost:21305/api/Playas/Get/" + id;
+            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Playas/Get/" + id;
 
             //strinfg con los datos de la playa
             string JsonPlaya = consultaApi(sURL);                  
@@ -170,7 +170,7 @@ namespace GeoParkingDesktop
         private int recuperarDisponibilidad(int idPlaya, int idTipoVehiculo)
         {
             string sURL;
-            sURL = "http://localhost:21305/api/Disponibilidad/GetDisponibilidadPlayaPorTipoVehiculo?idPlaya=" + idPlaya + "&idTipoVehiculo=" + idTipoVehiculo;
+            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Disponibilidad/GetDisponibilidadPlayaPorTipoVehiculo?idPlaya=" + idPlaya + "&idTipoVehiculo=" + idTipoVehiculo;
 
             try
             {
@@ -447,7 +447,7 @@ namespace GeoParkingDesktop
             //aca utilizo el acceso a la appi
             
             string sURL;
-            sURL = "http://localhost:21305/api/Disponibilidad/GetActualizarDisponibilidad?idPlaya="+playa.id+"&idTipoVehiculo="+tipoVehiculo+"&idEvento="+evento+"&fecha="+fechaHora.ToString();
+            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Disponibilidad/SetActualizarDisponibilidad?idPlaya=" + playa.id + "&idTipoVehiculo=" + tipoVehiculo + "&idEvento=" + evento + "&fecha=" + fechaHora.ToString();
 
             try
             {
@@ -890,7 +890,7 @@ namespace GeoParkingDesktop
             playa.email = emaiPlaya;
 
             string sURL;
-            sURL = "http://localhost:21305/api/Playas/GetActualizarNombreEmailPlaya?idPlaya=" + playa.id + "&nombrePlaya=" + nombrePlaya + "&emailPlaya=" + emaiPlaya;
+            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Playas/SetActualizarNombreEmailPlaya?idPlaya=" + playa.id + "&nombrePlaya=" + nombrePlaya + "&emailPlaya=" + emaiPlaya;
 
             try
             {
@@ -925,7 +925,7 @@ namespace GeoParkingDesktop
             playa.horaHasta = horaHasta;
 
             string sURL;
-            sURL = "http://localhost:21305/api/Playas/GetActualizarHorarioPlaya?idPlaya=" + playa.id + "&idDiaAtencion=" + diaAtencion + "&horaDesde=" + horaDesde + "&horaHasta=" + horaHasta;
+            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Playas/SetActualizarHorarioPlaya?idPlaya=" + playa.id + "&idDiaAtencion=" + diaAtencion + "&horaDesde=" + horaDesde + "&horaHasta=" + horaHasta;
 
             try
             {
@@ -956,7 +956,7 @@ namespace GeoParkingDesktop
             playa.tipoPlaya = tipoPlaya;
 
             string sURL;
-            sURL = "http://localhost:21305/api/Playas/GetActualizarTipoPlaya?idPlaya=" + playa.id + "&idTipoPlaya=" + tipoPlaya;
+            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Playas/SetActualizarTipoPlaya?idPlaya=" + playa.id + "&idTipoPlaya=" + tipoPlaya;
 
             try
             {
@@ -1086,7 +1086,7 @@ namespace GeoParkingDesktop
         public void registracionDeServicio(int idTipoVehiculo, string x1, string x6, string x12, string x24, string abono)
         {
             string sURL;
-            sURL = "http://localhost:21305/api/Servicios/GetRegistrarServicio?idPlaya=" + playa.id + "&idTipoVehiculo=" + idTipoVehiculo + "&capacidad=0" + "&x1=" + Double.Parse(x1) + "&x6=" + Double.Parse(x6) + "&x12=" + Double.Parse(x12) + "&x24=" + Double.Parse(x24) + "&abono=" + Double.Parse(abono);
+            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Servicios/SetRegistrarServicio?idPlaya=" + playa.id + "&idTipoVehiculo=" + idTipoVehiculo + "&capacidad=0" + "&x1=" + Double.Parse(x1) + "&x6=" + Double.Parse(x6) + "&x12=" + Double.Parse(x12) + "&x24=" + Double.Parse(x24) + "&abono=" + Double.Parse(abono);
 
             try
             {
@@ -1114,7 +1114,7 @@ namespace GeoParkingDesktop
         public void cancelacionDeServicio(int idTipoVehiculo)
         {
             string sURL;
-            sURL = "http://localhost:21305/api/Servicios/GetCancelarServicio?idPlaya=" + playa.id + "&idTipoVehiculo=" + idTipoVehiculo;
+            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Servicios/SetCancelarServicio?idPlaya=" + playa.id + "&idTipoVehiculo=" + idTipoVehiculo;
             
             try
             {
@@ -1483,7 +1483,7 @@ namespace GeoParkingDesktop
         {            
 
             string sURL;
-            sURL = "http://localhost:21305/api/precios/GetActualizarPrecio?idPlaya=" + playa.id + "&idTiempo=" + idTiempo + "&idTipoVehiculo=" + idTipoVehiculo + "&precio=" + precio;
+            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/precios/SetActualizarPrecio?idPlaya=" + playa.id + "&idTiempo=" + idTiempo + "&idTipoVehiculo=" + idTipoVehiculo + "&precio=" + precio;
 
             try
             {
@@ -1509,7 +1509,7 @@ namespace GeoParkingDesktop
         {
 
             string sURL;
-            sURL = "http://localhost:21305/api/precios/GetRegistrarPrecio?idPlaya=" + playa.id + "&idTiempo=" + idTiempo + "&idTipoVehiculo=" + idTipoVehiculo + "&precio=" + precio;
+            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/precios/SetRegistrarPrecio?idPlaya=" + playa.id + "&idTiempo=" + idTiempo + "&idTipoVehiculo=" + idTipoVehiculo + "&precio=" + precio;
 
             try
             {
@@ -1732,7 +1732,7 @@ namespace GeoParkingDesktop
         public bool actualizarDisponibilidadGeneral(int idPlaya, int idTipoVehiculo, int disponibilidad, int evento, DateTime fecha)
         {
             string sURL;
-            sURL = "http://localhost:21305/api/Disponibilidad/GetActualizarDisponibilidadGeneral?idPlaya=" + playa.id + "&idTipoVehiculo=" + idTipoVehiculo + "&disponibilidad=" + disponibilidad + "&idEvento=" + evento + "&fecha=" + fecha.ToString();
+            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Disponibilidad/SetActualizarDisponibilidadGeneral?idPlaya=" + playa.id + "&idTipoVehiculo=" + idTipoVehiculo + "&disponibilidad=" + disponibilidad + "&idEvento=" + evento + "&fecha=" + fecha.ToString();
 
             try
             {

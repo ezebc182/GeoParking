@@ -428,6 +428,7 @@
     <None Include="Properties\PublishProfiles\GeoparkingWeb2.pubxml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Properties\PublishProfiles\GeoparkinWeb.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

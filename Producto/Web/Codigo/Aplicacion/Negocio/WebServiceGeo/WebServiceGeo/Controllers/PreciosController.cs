@@ -13,13 +13,6 @@ namespace WebServiceGeo.Controllers
 
         private GestorPrecio gestor = new GestorPrecio();
 
-        // GET api/precios
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }       
-        
-       
         /// <summary>
         /// Actualiza el precio para un tiempo de estacionamiento de un tipo
         /// de vehiculo de una playa
@@ -29,35 +22,16 @@ namespace WebServiceGeo.Controllers
         /// <param name="idTipoVehiculo"></param>
         /// <param name="precio"></param>
         /// <returns>'True' si la accion se concreto</returns>
-        public string GetActualizarPrecio([FromUri]int idPlaya, [FromUri]int idTiempo, [FromUri]int idTipoVehiculo, [FromUri] double precio)
+        public string SetActualizarPrecio([FromUri]int idPlaya, [FromUri]int idTiempo, [FromUri]int idTipoVehiculo, [FromUri] double precio)
         {
             return gestor.ActualizarPrecioPlaya(idPlaya, idTiempo, idTipoVehiculo, precio).Ok.ToString();
         }
 
-        public string GetRegistrarPrecio([FromUri]int idPlaya, [FromUri]int idTiempo, [FromUri]int idTipoVehiculo, [FromUri] double precio)
+        public string SetRegistrarPrecio([FromUri]int idPlaya, [FromUri]int idTiempo, [FromUri]int idTipoVehiculo, [FromUri] double precio)
         {
             return gestor.RegistrarPrecioPlaya(idPlaya, idTiempo, idTipoVehiculo, precio).Ok.ToString();
-        }
+        }       
 
-        // GET api/precios/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/precios
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/precios/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/precios/5
-        public void Delete(int id)
-        {
-        }
+       
     }
 }
