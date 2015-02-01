@@ -23,7 +23,7 @@ namespace WebServiceGeo.Controllers
         /// <param name="idTipoVehiculo"></param>
         /// <param name="idEvento"></param>
         /// <param name="dia"></param>
-        public string GetActualizarDisponibilidad([FromUri]int idPlaya, [FromUri]int idTipoVehiculo, [FromUri]int idEvento, [FromUri]string fecha)
+        public string SetActualizarDisponibilidad([FromUri]int idPlaya, [FromUri]int idTipoVehiculo, [FromUri]int idEvento, [FromUri]string fecha)
         {
             return gestor.ActualizarDisponibilidadPlaya(idPlaya, idTipoVehiculo, idEvento, DateTime.Parse(fecha), DateTime.Parse(fecha).Day).Ok.ToString();
         }
@@ -39,7 +39,7 @@ namespace WebServiceGeo.Controllers
         /// <param name="idEvento"></param>
         /// <param name="fecha"></param>
         /// <returns>'True' si fue correcta </returns>
-        public string GetActualizarDisponibilidadGeneral([FromUri]int idPlaya, [FromUri]int idTipoVehiculo, [FromUri]int disponibilidad, [FromUri]int idEvento, [FromUri]string fecha)
+        public string SetActualizarDisponibilidadGeneral([FromUri]int idPlaya, [FromUri]int idTipoVehiculo, [FromUri]int disponibilidad, [FromUri]int idEvento, [FromUri]string fecha)
         {
             return gestor.ActualizarDisponibilidadGeneralPlaya(idPlaya, idTipoVehiculo, disponibilidad, idEvento, DateTime.Parse(fecha), DateTime.Parse(fecha).Day).Ok.ToString();
         }
@@ -71,20 +71,6 @@ namespace WebServiceGeo.Controllers
         {
             return gestor.GetDisponibilidadPlayaPorTipoVehiculo(idPlaya, idTipoVehiculo);
         }
-
-        // POST api/disponibilidad
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/disponibilidad/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/disponibilidad/5
-        public void Delete(int id)
-        {
-        }
+        
     }
 }

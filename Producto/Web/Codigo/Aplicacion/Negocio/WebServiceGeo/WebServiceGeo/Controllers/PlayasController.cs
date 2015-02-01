@@ -76,21 +76,6 @@ namespace WebServiceGeo.Controllers
             
         }
 
-        // POST api/playas
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/playas/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/playas/5
-        public void Delete(int id)
-        {
-        }
-
         /**
          * Obtiene solo las ubicaciones de las playas para cargar los puntos en los mapas
          * ej. api/Playas/GetUbicacionesPlayas?ciudad=cordoba&tipoVehiculoId=1
@@ -157,7 +142,7 @@ namespace WebServiceGeo.Controllers
         /// <param name="idPlaya">id de la playa</param>
         /// <param name="idTipoPlaya">id del nuevo tipo de la playa</param>
         /// <returns>'True' si la operacion se realizo correctamente</returns>
-        public string GetActualizarTipoPlaya([FromUri] int idPlaya,[FromUri] int idTipoPlaya)
+        public string SetActualizarTipoPlaya([FromUri] int idPlaya,[FromUri] int idTipoPlaya)
         {
             return gestorPlaya.ActualizarTipoPlaya(idPlaya, idTipoPlaya).Ok.ToString();
         }
@@ -169,7 +154,7 @@ namespace WebServiceGeo.Controllers
         /// <param name="nombrePlaya">nombre de l aplaya</param>
         /// <param name="emailPlaya">email de la playa</param>
         /// <returns>'True' si la operacion se realizo correctamente</returns>
-        public string GetActualizarNombreEmailPlaya([FromUri] int idPlaya,[FromUri] string nombrePlaya, [FromUri] string emailPlaya)
+        public string SetActualizarNombreEmailPlaya([FromUri] int idPlaya,[FromUri] string nombrePlaya, [FromUri] string emailPlaya)
         {
             return gestorPlaya.ActualizarNombreEmailPlaya(idPlaya,nombrePlaya,emailPlaya).Ok.ToString();
         }
@@ -182,7 +167,7 @@ namespace WebServiceGeo.Controllers
         /// <param name="horaDesde">hora de apertura</param>
         /// <param name="horaHasta">hora de cierre</param>
         /// <returns>'True' si la operacion se realizo correctamente</returns>
-        public string GetActualizarHorarioPlaya([FromUri] int idPlaya, [FromUri] int idDiaAtencion, [FromUri] string horaDesde, [FromUri] string horaHasta)
+        public string SetActualizarHorarioPlaya([FromUri] int idPlaya, [FromUri] int idDiaAtencion, [FromUri] string horaDesde, [FromUri] string horaHasta)
         {
             return gestorPlaya.ActualizarHorarioPlaya(idPlaya, idDiaAtencion, horaDesde, horaHasta).Ok.ToString();
         }

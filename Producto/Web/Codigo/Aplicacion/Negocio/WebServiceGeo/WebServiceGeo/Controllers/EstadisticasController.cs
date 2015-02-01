@@ -18,26 +18,6 @@ namespace WebServiceGeo.Controllers
         {
             gestor.GuardarConsulta(idPlaya, idTipoVehiculo, latitud, longitud);
         }
-
-        // GET api/estadisticas/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/estadisticas
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/estadisticas/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/estadisticas/5
-        public void Delete(int id)
-        {
-        }
+                      
     }
 }
