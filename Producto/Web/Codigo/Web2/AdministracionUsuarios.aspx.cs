@@ -32,12 +32,13 @@ namespace Web2
                     case "NuevoRol":
                         CargarPanelNuevoRol();
                         break;
-                    case "AsignarRol":
-                        CargarPanelAsignarRol();
-                        break;
                     case "AsignarPermiso":
                         CargarPanelAsignarPermiso();
                         break;
+                    case "AsignarRol":
+                        CargarPanelAsignarRol();
+                        break;
+
                     default:
                         Response.Redirect("/Index.aspx");
                         break;
@@ -141,28 +142,26 @@ namespace Web2
             divAsignarPermiso.Visible = true;
             divAsignarRol.Visible = false;
             CargarComboRolPermisos();
-            cargarListadoCheckBoxPermisos();
+            CargarListadoCheckBoxPermisos();
             cblPermiso.Enabled = false;
         }
         private void CargarComboRolPermisos()
         {
             ddlRolPermisos.DataSource = GetRoles();
-            ddlRolPermisos.DataTextField = "Rol";
+            ddlRolPermisos.DataTextField = "Nombre";
             ddlRolPermisos.DataValueField = "Id";
             ddlRolPermisos.DataBind();
             //FormHelper.CargarCombo(ddlRolPermisos, gestorUsuario.BuscarRoles(), "Nombre", "Id", "Seleccione");
         }
-        private void cargarListadoCheckBoxPermisos()
+        private void CargarListadoCheckBoxPermisos()
         {
             IList<Permiso> permisos = gestorRol.BuscarPermisos();
             cblPermiso.DataSource = permisos;
             cblPermiso.DataTextField = "Nombre";
             cblPermiso.DataValueField = "Id";
             cblPermiso.DataBind();
-            if (ddlRolPermisos.SelectedIndex != 0 && ddlRolPermisos.SelectedIndex != -1)
-            {
-                seleccionarPermisosDeRol();
-            }
+
+            //seleccionarPermisosDeRol();
         }
         private void seleccionarPermisosDeRol()
         {
@@ -352,7 +351,7 @@ namespace Web2
         public static List<Permiso> GetPermisos(int rol)
         {
             var query = from item in GetRoles().AsEnumerable()
-                        where Convert.ToInt32(item["CodPais"]) == rol
+                        where Convert.ToInt32(item["Id"]) == rol
                         select new Permiso
                         {
                             Id = Convert.ToInt32(item["Id"]),
@@ -360,23 +359,6 @@ namespace Web2
                         };
 
             return query.ToList<Permiso>();
-        }
-
-        private static DataTable GetRoles()
-        {
-            GestorUsuario gestorUsuario = new GestorUsuario();
-            DataTable dt = new DataTable();
-            var resultado = gestorUsuario.BuscarRoles();
-            dt.Columns.Add("Id");
-            dt.Columns.Add("Rol");
-            foreach (var item in resultado)
-            {
-                DataRow row = dt.NewRow();
-                row["Id"] = item.Id;
-                row["Rol"] = item.Nombre;
-                dt.Rows.Add(row);
-            }
-            return dt;
         }
 
         private static DataTable GetUsuarios()
@@ -391,6 +373,23 @@ namespace Web2
                 DataRow row = dt.NewRow();
                 row["Id"] = item.Id;
                 row["NombreUsuario"] = item.NombreUsuario;
+                dt.Rows.Add(row);
+            }
+            return dt;
+        }
+
+        private static DataTable GetRoles()
+        {
+            GestorRol gestorRol = new GestorRol();
+            DataTable dt = new DataTable();
+            var resultado = gestorRol.BuscarRoles();
+            dt.Columns.Add("Id");
+            dt.Columns.Add("Nombre");
+            foreach (var item in resultado)
+            {
+                DataRow row = dt.NewRow();
+                row["Id"] = item.Id;
+                row["Nombre"] = item.Nombre;
                 dt.Rows.Add(row);
             }
             return dt;
