@@ -148,6 +148,7 @@
     <Content Include="Admin.aspx" />
     <Content Include="AdministracionPlayas.aspx" />
     <Content Include="AdministracionUsuarios.aspx" />
+    <Content Include="Estadisticas.aspx" />
     <Content Include="js\bootstrapformhelpers\css\bootstrap-formhelpers.css" />
     <Content Include="js\bootstrapformhelpers\css\bootstrap-formhelpers.min.css" />
     <Content Include="js\bootstrapformhelpers\img\bootstrap-formhelpers-countries.flags-LICENSE.txt" />
@@ -314,6 +315,13 @@
     </Compile>
     <Compile Include="AdministracionUsuarios.aspx.designer.cs">
       <DependentUpon>AdministracionUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Estadisticas.aspx.cs">
+      <DependentUpon>Estadisticas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Estadisticas.aspx.designer.cs">
+      <DependentUpon>Estadisticas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
