@@ -267,6 +267,7 @@
     <Content Include="js\plugins\morris\morris.min.js" />
     <Content Include="js\plugins\morris\raphael.min.js" />
     <Content Include="js\redireccionador.js" />
+    <Content Include="js\verify.js" />
     <Content Include="js\zonas.js" />
     <Content Include="MasterUsuario.Master" />
     <Content Include="Mensajes\Confirmacion.ascx" />

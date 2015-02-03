@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Entidades;
 using ReglasDeNegocio.Util;
 using Datos;
+using Newtonsoft.Json;
 
 namespace ReglasDeNegocio
 {
@@ -48,6 +49,16 @@ namespace ReglasDeNegocio
             return permisos;
         }
 
+        public IList<Permiso> BuscarPermisosPorRol(int idRol)
+        {
+            IList<Permiso> permisos = permisoDao.FindWhere(p => p.Roles.Any(r => r.Id == idRol));
+            foreach (Permiso permiso in permisos)
+            {
+                permiso.Roles = null;
+            }
+            return permisos;
+        }
+
         public IList<Rol> BuscarRolesPorPermiso(Permiso permiso)
         {
             IList<Rol> roles = rolDao.FindWhere(x => x.Permisos.Any(p => p.Id == permiso.Id));
@@ -66,22 +77,16 @@ namespace ReglasDeNegocio
             return permiso;
         }
 
-        public Resultado GuardarRol(Rol rol)
+        public bool GuardarRol(Rol rol)
         {
             Resultado resultado = new Resultado();
 
             rolDao.Update(rol);
 
-            return resultado;
+            return resultado.Ok;
         }
 
-        public Resultado GuardarPermiso(IList<Permiso> permiso)
-        {
-            Resultado resultado = new Resultado();
-            return resultado;
-        }
-
-        public Resultado CrearRol(Rol rol)
+        public bool CrearRol(Rol rol)
         {
             Resultado resultado = new Resultado();
 
@@ -89,6 +94,27 @@ namespace ReglasDeNegocio
             {
                 rolDao.Create(rol);
             }
+            return resultado.Ok;
+        }
+
+        public string GetPermisosJSON(int id)
+        {
+            return JsonConvert.SerializeObject(BuscarPermisosPorRol(id));
+        }
+
+        public string ResultadoGuardarJSON(Rol rol)
+        {
+            return JsonConvert.SerializeObject(GuardarRol(rol));
+        }
+
+        public string ResultadoCrearRolJSON(Rol rol)
+        {
+            return JsonConvert.SerializeObject(CrearRol(rol));
+        }
+
+        public Resultado GuardarPermiso(IList<Permiso> permiso)
+        {
+            Resultado resultado = new Resultado();
             return resultado;
         }
     }

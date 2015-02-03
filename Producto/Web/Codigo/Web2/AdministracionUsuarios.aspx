@@ -4,6 +4,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
+    <asp:HiddenField ID="hdPermisos" runat="server" />
     <div class="formulario" data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
         data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
         <div class="jumbotron" style="margin-top: 5%;">
@@ -58,21 +59,19 @@
                     <div class="form-group">
 
                         <label for="ddlUsuario" class="col-sm-2 col-md-2 col-lg-2 control-label">Usuario</label>
-                        <asp:DropDownList ID="ddlUsuario" CssClass="form-control required" runat="server"
-                            AutoPostBack="True" />
+                        <asp:DropDownList ID="ddlUsuario" CssClass="form-control required" runat="server" />
                     </div>
                     <div class="form-group">
                         <label for="ddlRol" class="col-sm-2 col-md-2 col-lg-2 control-label">Rol</label>
-                        <asp:DropDownList ID="ddlRol" CssClass="form-control required" runat="server" AutoPostBack="True" />
+                        <asp:DropDownList ID="ddlRol" CssClass="form-control required" runat="server" />
                     </div>
                     <%--FIN Asignar Rol a Usuario--%>
                 </div>
 
                 <asp:Panel ID="panelBotones" class="col-md-12" runat="server">
                     <div id="divBotones" class="form-group col-md-4 col-md-offset-4">
-                        <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success btn-md pull-left" Text="Guardar" />
-                        <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-md pull-right" Text="Cancelar"
-                            AutoPostBack="True" />
+                        <button type="button" class="btn btn-success btn-md pull-left" id="btnGuardar">Guardar</button>
+                        <button type="button" class="btn btn-md pull-right" id="btnCancelar">Cancelar</button>
                     </div>
 
                 </asp:Panel>
@@ -82,10 +81,51 @@
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
+    <script src="js/administracionUsuarios.js" type="text/javascript"></script>
     <script>
 
         $(document).ready(function () {
-            $('.formulario').bootstrapValidator();
+            if ($('#Main_divAsignarPermiso').is(":visible"))
+                {
+                cargarPermisosPorRol($("#Main_hdPermisos").val());
+            }
+            if ($('#Main_divAsignarRol').is(":visible")) {
+                selectIndexchangedRolUsuario($("#Main_ddlUsuario").val());
+            }
+            $('.formulario').bootstrapValidator({
+                button: {
+                    selector: '[type="button"]',
+                }
+
+            });
+        });
+
+        $("#<%=ddlRolPermisos.ClientID%>").change(function () {
+            selectIndexchangedRolPermisos($("#Main_ddlRolPermisos").val());
+        });
+
+        $("#<%=ddlUsuario.ClientID%>").change(function () {
+            selectIndexchangedRolUsuario($("#Main_ddlUsuario").val());
+        });
+
+        $('#btnGuardar').click(function () {
+            
+            if ($('#Main_divCrearRol').is(":visible")) {
+
+                    crearRol(($("#Main_txtNombre").val()), ($("#Main_txtDescripcion").val()));
+            }
+            if ($('#Main_divAsignarPermiso').is(":visible")) {
+                guardarRolPermisos($("#Main_ddlRolPermisos").val());
+            }
+            if ($('#Main_divAsignarRol').is(":visible")) {
+                guardarRolUsuario(($("#Main_ddlUsuario").val()), ($("#Main_ddlRol").val()));
+            }
+
+        });
+
+        $('#btnCancelar').click(function () {
+            if ($('#Main_divAsignarPermiso').is(":visible"))
+                selectIndexchangedRolPermisos($("#Main_ddlRolPermisos").val());
         });
 
     </script>

@@ -84,6 +84,16 @@ namespace ReglasDeNegocio
             return resultado;
         }
 
+        public Usuario BuscarUsuario(int id)
+        {
+            return usuarioDao.FindWhere(x => x.Id == id).FirstOrDefault();
+        }
+
+        public string BuscarUsuarioJSON(int id)
+        {
+            return JsonConvert.SerializeObject(BuscarUsuario(id).RolId);
+        }
+
         public Usuario ValidarUsuarioIngresado(string usuario)
         {
             IList<Usuario> resultado = usuarioDao.FindWhere(x => x.NombreUsuario.Equals(usuario));
@@ -128,15 +138,12 @@ namespace ReglasDeNegocio
             return JsonConvert.SerializeObject(usuarioDao.FindWhere(u => u.Id == id ));
         }
 
-        public Rol BuscarRolPorUsuarioId(int id)
+        public string AsigarRolAUsuarioJSON(int idUsuario, int idRol)
         {
-            return rolDao.FindById(id);
+            return JsonConvert.SerializeObject(AsigarRolAUsuario(idUsuario, idRol));
         }
-        public IList<Rol> BuscarRoles()
-        {
-            return rolDao.FindAll();
-        }
-        public Resultado AsigarRolAUsuario(int idUsuario, int idRol)
+
+        public bool AsigarRolAUsuario(int idUsuario, int idRol)
         {
             Resultado resultado = new Resultado();
 
@@ -146,7 +153,16 @@ namespace ReglasDeNegocio
             usuario.Rol = rol;
             usuarioDao.Update(usuario);
 
-            return resultado;
+            return resultado.Ok;
+        }
+
+        public Rol BuscarRolPorUsuarioId(int id)
+        {
+            return rolDao.FindById(id);
+        }
+        public IList<Rol> BuscarRoles()
+        {
+            return rolDao.FindAll();
         }
     }
 }

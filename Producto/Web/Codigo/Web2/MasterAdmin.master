@@ -356,9 +356,9 @@
 
     }
 
-    $(document).ready(function () {
-        $(".formulario").bootstrapValidator();
-    });
+    //$(document).ready(function () {
+    //    $(".formulario").bootstrapValidator();
+    //});
 
     $('#login').on('shown.bs.modal', function () {
         $("#txtUsuarioLogin").focus();
