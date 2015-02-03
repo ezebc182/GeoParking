@@ -311,7 +311,8 @@ app.controller('MyCtrl', function ($scope, $http) {
                 else {
                     var mensaje = 'La direccion establecida no ha podido encontrarse';
                     var titulo = 'Resultado de la Busqueda';
-                    $scope.Alerta_openModalInfo(mensaje, titulo, true);
+                    document.getElementById("resultados").value = mensaje + "," + titulo;
+                    document.getElementById("resultados").click();
                 }
             });
 
@@ -402,7 +403,8 @@ app.controller('MyCtrl', function ($scope, $http) {
             } else {
                 var mensaje = 'La direccion establecida no ha podido encontrarse';
                 var titulo = 'Resultado de la Busqueda';
-                $scope.Alerta_openModalInfo(mensaje, titulo, true);
+                document.getElementById("resultados").value = mensaje + "," + titulo;
+                document.getElementById("resultados").click();
                 
             }
         });
