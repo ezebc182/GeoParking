@@ -332,7 +332,7 @@ app.controller('MyCtrl', function ($scope, $http) {
             $scope.ciudad = response.d;
 
             //toma la ciudad, arma la direccion (solo argentina) y la busca
-            var address = $scope.ciudad + ", Argentina";
+            var address = $scope.ciudad;
             $scope.geocoder.geocode({ 'address': address }, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     $scope.map.setCenter(results[0].geometry.location);
@@ -356,7 +356,7 @@ app.controller('MyCtrl', function ($scope, $http) {
         $scope.deleteCirculos();//borra circulos        
 
         //toma la direccion, la completa y la busca en el mapa
-        var address = $scope.direccion + "," + $scope.ciudad + ", Argentina";
+        var address = $scope.direccion + "," + $scope.ciudad ;
         $scope.geocoder.geocode({ 'address': address }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 $scope.map.setCenter(results[0].geometry.location);//centro el mapa
@@ -783,7 +783,7 @@ app.controller('MyCtrl', function ($scope, $http) {
         $scope.clearMarcadorCirculo();
 
         //ubica el mapa en la ciudad
-        var address = $scope.ciudad + ", Argentina";
+        var address = $scope.ciudad;
         $scope.geocoder.geocode({ 'address': address }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 $scope.map.setCenter(results[0].geometry.location);
