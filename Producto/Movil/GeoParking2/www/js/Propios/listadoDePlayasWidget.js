@@ -30,9 +30,9 @@ $.widget("geoparking.listadoPlayasWidget", {
             widget.destroy();
         }
         quitarCargando();
-        setTimeout(function(){
-                $("#panelListado").listadoPlayasWidget("actualizarDisponibilidades");
-            },2000);
+        setTimeout(function () {
+            $("#panelListado").listadoPlayasWidget("actualizarDisponibilidades");
+        }, 2000);
     },
     /**
      * El metodo destroy tiene la responsabilidad de elimnar todos
@@ -53,7 +53,7 @@ $.widget("geoparking.listadoPlayasWidget", {
         var widget = this;
         widget._filtrarPlayasPorDistancia();
         if (widget.options.listadoPlayas.length === 0) {
-            mensajeErrorConexion("No se encontraron playas cercanas");
+            abrirDialogoConDosBotones(null, "No se encontraron playas cercanas", "Mensaje");
         } else {
             var ul = widget._cargarListado();
             ul.id = "listadoPlayasId";
@@ -127,20 +127,20 @@ $.widget("geoparking.listadoPlayasWidget", {
         listado.appendChild(itemListado);
     },
     /**
-    * Una vez creado el listado de playas, se mantendra actualizada
-    * la disponibilidad de las mismas
-    */
-    actualizarDisponibilidades : function(){
+     * Una vez creado el listado de playas, se mantendra actualizada
+     * la disponibilidad de las mismas
+     */
+    actualizarDisponibilidades: function () {
         var widget = this;
-        if($("#panelListado").children().length !== 0){
+        if ($("#panelListado").children().length !== 0) {
             widget._obtenerDisponibilidadParaPlayas();
             widget._actualizarImagenesDisponibilidades();
-            setTimeout(function(){
+            setTimeout(function () {
                 $("#panelListado").listadoPlayasWidget("actualizarDisponibilidades");
-            },2000);
+            }, 2000);
         }
     },
-    _actualizarImagenesDisponibilidades : function(){
+    _actualizarImagenesDisponibilidades: function () {
         var widget = this;
         for (var i = 0; i < widget.options.listadoPlayas.length; i++) {
             var playa = widget.options.listadoPlayas[i];
@@ -181,7 +181,7 @@ $.widget("geoparking.listadoPlayasWidget", {
         var lat1 = parseFloat(playa.Latitud);
         var lon1 = parseFloat(playa.Longitud);
         var lat2 = parseFloat(posicionActual.k);
-        var lon2 = parseFloat(posicionActual.D);
+        var lon2 = parseFloat(posicionActual.B);
         var distancia = distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) * 1000;
         distancia = distancia.toFixed(1);
         return distancia;
@@ -246,7 +246,7 @@ $.widget("geoparking.listadoPlayasWidget", {
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                mensajeErrorConexion("No se pudo obtner las disponibilidades");
+                alert("No se pudo obtener las disponibilidades");
             }
         });
     },
@@ -338,7 +338,7 @@ $.widget("geoparking.listadoPlayasWidget", {
                 widget._agregarPreciosAPlayas(precios);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                mensajeErrorConexion("Error de conexion. Intetelo de nuevo mas tarde")
+                abrirDialogoConDosBotones(null, "Error de conexion. Inténtelo de nuevo mas tarde", "Algo sucedió...");
             }
         });
     },

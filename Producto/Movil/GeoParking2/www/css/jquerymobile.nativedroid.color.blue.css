@@ -64,8 +64,6 @@ html head+body .ui-btn.ui-btn-b:active {
 
     /*background-color: #33B5E5;*/
 
-    background-color: gray;
-
 }
 
 .ui-page-theme-b div.ui-input-text.ui-focus:after {
@@ -96,7 +94,7 @@ textarea.ui-page-theme-b.ui-input-text:focus {
 
 .ui-page-theme-b .ui-panel-open {
 
-    background-color: #33B5E5;
+    /*background-color: #33B5E5;*/
 
 }
 
@@ -112,7 +110,7 @@ textarea.ui-page-theme-b.ui-input-text:focus {
 
 .ui-page-theme-b .table-stroke tr:nth-child(even) .ui-link {
 
-    color: #6DCAEC;
+    /*color:#6DCAEC;*/
 
 }
 

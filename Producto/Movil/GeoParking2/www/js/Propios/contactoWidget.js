@@ -106,7 +106,7 @@ $.widget("geoparking.contactoWidget", {
                 widget.destroy();
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                mensajeErrorConexion("Error de conexion");
+                alert("Error de conexion");
             }
         });
     },

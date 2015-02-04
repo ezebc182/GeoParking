@@ -1,6 +1,7 @@
 var db = getLocalStorage() || alert("Local Storage Not supported in this browser");
 /*variable global de historial de playas consultadas*/
-var cantidadAlmacenadas = 0;
+/*
+var cantidadAlmacenadas = 0;*/
 
 function getLocalStorage() {
     try {
@@ -149,9 +150,10 @@ function abrirPopup(mensaje) {
     setTimeout(cerrarPopup, 1500);
 
 }
-function mensajeErrorConexion(mensaje){
+
+/*function mensajeErrorConexion(mensaje) {
     abrirPopup(mensaje);
-}
+}*/
 
 function abrirDialogoConDosBotones(funcionOk, mensaje, encabezado) {
     $("#dialogoDosBotonesHeader").html(encabezado);
@@ -244,3 +246,123 @@ $.fn.isBound = function (type) {
 
     return !(data === undefined || data.length === 0);
 };
+
+
+/*Si está abierto el popupOpciones lo cierra, sino se abre*/
+$('#popupOpciones').popup();
+if ($(".ui-popup-active").length > 0) {
+    $('#popupOpciones').popup('close');
+} else {
+    $('#popupOpciones').popup('open');
+}
+
+function obtenerTiposVehiculosDeServidor() {
+    var uri = obtenerURLServer() + "api/playas/GetTiposVehiculo";
+    var tiposVehiculos = null;
+    $.ajax({
+        type: "GET",
+        async: false,
+        url: uri,
+        success: function (response) {
+            tiposVehiculos = jQuery.parseJSON(response);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("Error de Conexion");
+        }
+    });
+    return tiposVehiculos;
+}
+
+function agregarTiposDeVehiculos() {
+
+    var tiposVehiculos = obtenerTiposVehiculosDeServidor();
+    for (var i = 0; i < tiposVehiculos.length; i++) {
+        var opcion = document.createElement("option");
+        opcion.value = tiposVehiculos[i].Id;
+        opcion.innerHTML = tiposVehiculos[i].Nombre;
+        $('#selectTipoVehiculosWelcome').append(opcion);
+    }
+}
+
+/* Función de la pantalla inicial cuando se utiliza por primera vez la app*/
+
+
+
+function goToStep2() {
+    var select = document.getElementById("selectTipoVehiculosWelcome");
+    var tipoVehiculo = select.options[select.selectedIndex].value;
+    var boton = document.getElementById("btnSiguiente");
+
+    if (tipoVehiculo !== "0") {
+
+        boton.className = "ui-btn";
+
+    } else {
+        boton.className = "ui-btn ui-state-disabled";
+    }
+}
+
+function guardarDatosIniciales() {
+    var select = document.getElementById("selectTipoVehiculosWelcome");
+    var tipoVehiculo = select.options[select.selectedIndex].value;
+    var radioBusqueda = document.getElementById("radioWelcome").value;
+    var opcionGPS = $("#checGPSkWelcome").parent().hasClass("ui-flipswitch-active");
+
+    var configuraciones = {
+        tipoVehiculo: tipoVehiculo,
+        radio: radioBusqueda,
+        gps: opcionGPS
+    };
+    localStorage.setItem("Configuraciones", JSON.stringify(configuraciones));
+}
+
+/*Comprueba si ya están seteados los datos de ajustes, sino muestra la pantalla de bienvenida para que los setee el usuario */
+
+
+function welcome() {
+    if (db.getItem("Configuraciones") == null) {
+        document.location.href = "#welcomePage";
+        agregarTiposDeVehiculos();
+    } else {
+        document.getElementById("welcomePage").setAttribute("hidden", true);
+        document.location.href = "#mainPage";
+    }
+}
+/*
+function cargarAplicacion() {
+        var width = $(".content").width();
+    var height = $(".content").height();
+    $("img").css({
+        "max-width": width,
+        "max-height": height
+    });
+    var progressbar = $("#progressbar"),
+        progressLabel = $(".progress-label");
+
+    progressbar.progressbar({
+        value: false,
+        change: function () {
+             //progressLabel.text(progressbar.progressbar("value") + "%");
+        },
+        complete: function () {
+             //progressLabel.text("100%");
+        }
+    });
+
+    function progress() {
+        var val = progressbar.progressbar("value") || 0;
+
+        progressbar.progressbar("value", val + 2);
+
+        if (val < 99) {
+            setTimeout(progress, 80);
+        }
+    }
+
+    setTimeout(progress, 2000);
+}*/
+
+
+/*function comprobarConexion() { if (navigator.onLine) { abrirPopup("Estás conectado."); } else { abrirPopup("Sin conexión."); } }
+
+*/

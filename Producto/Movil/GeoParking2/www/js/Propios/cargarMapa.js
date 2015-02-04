@@ -31,21 +31,7 @@ var actualizadorDePosicion;
 var tipoDestino = null;
 
 function mensajeErrorConexion(mensaje) {
-    /*PONER ALERT*/
-    //    BootstrapDialog.show({
-    //
-    //        title: "Error",
-    //        message: mensaje,
-    //        type: BootstrapDialog.TYPE_DANGER,
-    //        buttons: [{
-    //            label: 'Cerrar',
-    //            cssClass: 'btn-default',
-    //            action: function (ventanaError) {
-    //                ventanaError.close();
-    //            }
-    //        }]
-    //
-    //    }).open();
+    /*Setearlo con un opendialog*/
 
 }
 
@@ -73,7 +59,7 @@ function ir(origen, destino, modoViaje, sistema) {
             directionsDisplay.setPanel($("#panel_ruta").get(0));
             directionsDisplay.setDirections(response);
         } else {
-            mensajeErrorConexion("Error al Calcular la ruta");
+            alert("Error al Calcular la ruta");
         }
     });
 }
@@ -227,7 +213,7 @@ function obtenerPosicionActual() {
         if (p.coords.latitude !== undefined && p.coords.longitude !== undefined) {
             var posicionGoogle = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
             posicionActual = posicionGoogle;
-            mostrarHistorialPlayas();
+            /*mostrarHistorialPlayas();*/
             map.setCenter(posicionGoogle);
             /* Pregunto sobre el modo si es consultar playa o consultar vehiculo */
             if (modo === '2') {
@@ -246,7 +232,7 @@ function obtenerPosicionActual() {
         mantenerPosicionActualActualizada();
     };
     var errorFunction = function () {
-        mensajeErrorConexion("Error de conexion, Por favor habilite la localizacion para continuar");
+        alert("Error de conexion, Por favor habilite la localizacion para continuar");
     };
     navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
 }
@@ -278,18 +264,25 @@ function mostrarBotones() {
 function initialize() {
     loading($("#map-canvas"), true);
     //variable para la busqueda con una direccion
-    geocoder = new google.maps.Geocoder();
+    /*geocoder = new google.maps.Geocoder();*/
     //opciones basicas del mapa
+
     var mapOptions = {
         zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        zoomControl: true,
+        zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.DEFAULT,
+            position: google.maps.ControlPosition.LEFT_BOTTOM
+        },
 
     };
     //crea el mapa en el div "map-canvas" y le setea las opciones
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
     //centro el mapa en la posicion actual del movil.
     setTimeout(function () {
         obtenerPosicionActual();
         mostrarBotones();
     }, 3000);
+    google.maps.event.addDomListener(window, 'load', initialize);
 }

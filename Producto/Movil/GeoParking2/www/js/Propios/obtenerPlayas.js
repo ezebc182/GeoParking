@@ -16,7 +16,7 @@ function obtenerPlayasPorPosicion(posicion) {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            mensajeErrorConexion("Error de conexión con el servidor. Inténtelo de nuevo más tarde.");
+            alert("Error de conexión con el servidor. Inténtelo de nuevo más tarde.");
 
         }
     });

@@ -33,10 +33,10 @@ $.widget("geoparking.preferenciasWidget", {
         $.Widget.prototype.destroy.call(this);
     },
     /*
-    * Crea la estructura inicial de la pantalla de configuraciones
-    */
-	_crearHTMLInicial : function () {
-		var widget = this;
+     * Crea la estructura inicial de la pantalla de configuraciones
+     */
+    _crearHTMLInicial: function () {
+        var widget = this;
         widget.options.contenedor.append('<div data-role="content" class="ui-content" role="main"><form data-ajax="false"><ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" id="listadoConfiguraciones" ><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="select-choice-1b" class="select">Tipo Veh&iacute;culo: </label><div class="ui-select"><select name="select-choice-1" id="tipoVehiculoSelect" data-native-menu="true"><option value="0">Seleccione</option></select></div></li><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="slider2b" id="slider2b-label">Radio de b&uacute;squeda:</label><input type="number" data-type="range" name="slider2" id="slider2b" value="100" min="100" max="1000" data-highlight="true" class="ui-shadow-inset ui-body-inherit ui-corner-all ui-slider-input"></li><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="checkbox-based-flipswitch">GPS:</label><input type="checkbox" id="checkbox-based-flipswitch" data-role="flipswitch"></li><li class="ui-li-static ui-body-inherit ui-last-child"><div class="ui-btn ui-input-btn ui-corner-all ui-shadow">Guardar<input id="btnGuardarConfig" type="submit" value="Guardar"></div><div class="ui-btn ui-input-btn ui-corner-all ui-shadow">Cancelar<input id="btnCancelarConfig" type="submit" value="Cancelar"></div></li></ul></form></div>');
 
         widget._incializarWindgetDeControles();
@@ -73,8 +73,8 @@ $.widget("geoparking.preferenciasWidget", {
         $("#tipoVehiculoSelect-button > span").html($('select option:selected').html());
         $(" input[type=number]").val(widget.options.radio);
         var porcentajeBarra = ((widget.options.radio - 100) / 1900) * 100;
-$($(" input[type=number]").parent().children()[1]).children()[0].style.width = porcentajeBarra + "%";
-$($(" input[type=number]").parent().children()[1]).children()[1].style.left = porcentajeBarra + "%";
+        $($(" input[type=number]").parent().children()[1]).children()[0].style.width = porcentajeBarra + "%";
+        $($(" input[type=number]").parent().children()[1]).children()[1].style.left = porcentajeBarra + "%";
         $($($(" input[type=number]").parent().children()[1]).children()[1]).attr("aria-valuetext", widget.options.radio);
         $($($(" input[type=number]").parent().children()[1]).children()[1]).attr("aria-valuenow", widget.options.radio);
         $($($(" input[type=number]").parent().children()[1]).children()[1]).attr("title", widget.options.radio);
@@ -109,7 +109,7 @@ $($(" input[type=number]").parent().children()[1]).children()[1].style.left = po
                 tiposVehiculos = jQuery.parseJSON(response);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                mensajeErrorConexion("Error de Conexion");
+                alert("Error de Conexion");
             }
         });
         return tiposVehiculos;
