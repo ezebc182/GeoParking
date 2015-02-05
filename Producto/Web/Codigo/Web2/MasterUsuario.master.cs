@@ -27,7 +27,7 @@ namespace Web2
                 {
                     lblLogin.Text = SessionUsuario.NombreUsuario;
                     rolId = SessionUsuario.RolId;
-                    if (rolId == 3)
+                    if (rolId == 3 || rolId == 2)
                     {
                         li_Administracion.Visible = true;
                     }
@@ -50,6 +50,7 @@ namespace Web2
             {
                 SessionUsuario = resultado;
                 lblLogin.Text = SessionUsuario.NombreUsuario;
+                rolId = SessionUsuario.RolId;
                 if (rolId == 3 || rolId == 2)
                 {
                     li_Administracion.Visible = true;
