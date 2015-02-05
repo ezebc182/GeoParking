@@ -46,10 +46,13 @@ namespace Web2
             {
                 SessionUsuario = resultado;
                 lblLogin.Text = SessionUsuario.NombreUsuario;
-                //Response.Redirect(Request.Url.AbsolutePath);
+                rolId = SessionUsuario.RolId;
+                if (rolId == 3 || rolId == 2)
+                {
+                    li_Administracion.Visible = true;
+                }
                 li_Ingresar.Visible = false;
                 li_Login.Visible = true;
-                li_Administracion.Visible = true;
             }
             else
             {
