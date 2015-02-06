@@ -147,7 +147,8 @@
     </Content>
     <Content Include="Admin.aspx" />
     <Content Include="AdministracionPlayas.aspx" />
-    <Content Include="AdministracionUsuarios.aspx" />
+    <Content Include="AdministracionRolesyPermisos.aspx" />
+    <Content Include="css\bootstrap-fileupload.min.css" />
     <Content Include="Estadisticas.aspx" />
     <Content Include="js\bootstrapformhelpers\css\bootstrap-formhelpers.css" />
     <Content Include="js\bootstrapformhelpers\css\bootstrap-formhelpers.min.css" />
@@ -310,12 +311,12 @@
     <Compile Include="DatosPersonales.aspx.designer.cs">
       <DependentUpon>DatosPersonales.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdministracionUsuarios.aspx.cs">
-      <DependentUpon>AdministracionUsuarios.aspx</DependentUpon>
+    <Compile Include="AdministracionRolesyPermisos.aspx.cs">
+      <DependentUpon>AdministracionRolesyPermisos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdministracionUsuarios.aspx.designer.cs">
-      <DependentUpon>AdministracionUsuarios.aspx</DependentUpon>
+    <Compile Include="AdministracionRolesyPermisos.aspx.designer.cs">
+      <DependentUpon>AdministracionRolesyPermisos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Estadisticas.aspx.cs">
       <DependentUpon>Estadisticas.aspx</DependentUpon>
@@ -437,7 +438,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="img\fotosPerfil\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

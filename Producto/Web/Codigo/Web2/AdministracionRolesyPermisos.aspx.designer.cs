@@ -10,7 +10,7 @@
 namespace Web2 {
     
     
-    public partial class AdministracionUsuarios {
+    public partial class AdministracionRolesyPermisos {
         
         /// <summary>
         /// Control hdPermisos.

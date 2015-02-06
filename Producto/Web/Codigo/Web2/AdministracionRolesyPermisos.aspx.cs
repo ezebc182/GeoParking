@@ -13,7 +13,7 @@ using Web2.Util;
 
 namespace Web2
 {
-    public partial class AdministracionUsuarios : System.Web.UI.Page
+    public partial class AdministracionRolesyPermisos : System.Web.UI.Page
     {
         public static GestorRol gestorRol = new GestorRol();
         public static GestorUsuario gestorUsuario = new GestorUsuario();

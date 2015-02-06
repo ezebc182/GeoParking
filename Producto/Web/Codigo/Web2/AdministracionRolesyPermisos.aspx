@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Geoparking - Administración Usuarios" Language="C#" MasterPageFile="~/MasterAdmin.Master" AutoEventWireup="true" CodeBehind="AdministracionUsuarios.aspx.cs" Inherits="Web2.AdministracionUsuarios" %>
+﻿<%@ Page Title="Geoparking - Administración Usuarios" Language="C#" MasterPageFile="~/MasterAdmin.Master" AutoEventWireup="true" CodeBehind="AdministracionRolesyPermisos.aspx.cs" Inherits="Web2.AdministracionRolesyPermisos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
