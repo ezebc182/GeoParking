@@ -32,7 +32,7 @@ namespace WebServiceGeo.Controllers
             contenidoMensaje += "\nTelefono: " + mensaje.Telefono;
             contenidoMensaje += "\nEmail: " + mensaje.Email;
             contenidoMensaje += "\nCosulta:\n" + mensaje.Mensaje;
-            emails.EnviarEmail(contenidoMensaje).ToString();
+            emails.EnviarEmail(contenidoMensaje, "info.geoparking@gmail.com", "GeoParking - Contacto").ToString();
         }
 
     }
