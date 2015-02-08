@@ -22,7 +22,7 @@ function cargarPermisosPorRol(listaPermisos) {
 function selectIndexchangedRolPermisos(idPermiso) {
     $.ajax({
         type: "POST",
-        url: "AdministracionUsuarios.aspx/Permisos",
+        url: "AdministracionRolesyPermisos.aspx/Permisos",
         data: "{'idPermiso': '" + idPermiso + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -46,7 +46,7 @@ function guardarRolPermisos(idPermiso) {
     });
     $.ajax({
         type: "POST",
-        url: "AdministracionUsuarios.aspx/GuardarPermisos",
+        url: "AdministracionRolesyPermisos.aspx/GuardarPermisos",
         data: "{'idRol': '" + idPermiso + "' , 'listaPermisos': '" + lista + "'}",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
@@ -68,7 +68,7 @@ function guardarRolPermisos(idPermiso) {
 function crearRol(nombre, descripcion) {
     $.ajax({
         type: "POST",
-        url: "AdministracionUsuarios.aspx/CrearRol",
+        url: "AdministracionRolesyPermisos.aspx/CrearRol",
         data: "{'nombre': '" + nombre + "' , 'descripcion': '" + descripcion + "'}",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
@@ -89,7 +89,7 @@ function crearRol(nombre, descripcion) {
 function selectIndexchangedRolUsuario(idUsuario) {
     $.ajax({
         type: "POST",
-        url: "AdministracionUsuarios.aspx/CargarComboRol",
+        url: "AdministracionRolesyPermisos.aspx/CargarComboRol",
         data: "{'idUsuario': '" + idUsuario + "'}",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
@@ -108,7 +108,7 @@ function selectIndexchangedRolUsuario(idUsuario) {
 function guardarRolUsuario(usuario, rol) {
     $.ajax({
         type: "POST",
-        url: "AdministracionUsuarios.aspx/GuardarRolUsuario",
+        url: "AdministracionRolesyPermisos.aspx/GuardarRolUsuario",
         data: "{'usuario': '" + usuario + "' , 'rol': '" + rol + "'}",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
