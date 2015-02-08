@@ -97,12 +97,11 @@ namespace WebServiceGeo.Controllers
             json += "]";
             return json;
         }
-        public string GetUbicacionesPlayasPorDistancia([FromUri] string latitud, [FromUri] string longitud, [FromUri] string tipoVehiculoId)
+        public string PostUbicacionesPlayasPorDistancia([FromBody] BusquedaPorCoordenadas datos)
         {
             string json = "[";
-            int tipoVehiculo = Int32.Parse(tipoVehiculoId);
             IList<Direccion> direcciones = new List<Direccion>();
-            direcciones = (IList<Direccion>)gestorDirecciones.GetDireccionesDePlayasPorDistanciaYTipoVehiculo(latitud, longitud, tipoVehiculo);
+            direcciones = (IList<Direccion>)gestorDirecciones.GetDireccionesDePlayasPorDistanciaYTipoVehiculo(datos.latitud, datos.longitud, datos.tipoVehiculoId);
             foreach (var p in direcciones)
             {
                 json += p.GetUbicacionesToJSONRepresentation() + ",";
@@ -173,5 +172,13 @@ namespace WebServiceGeo.Controllers
         }
 
         
+    }
+
+    public class BusquedaPorCoordenadas
+    {
+        public string latitud { get; set; }
+        public string longitud { get; set; }
+        public int tipoVehiculoId { get; set; }
+
     }
 }

@@ -181,7 +181,7 @@ $.widget("geoparking.listadoPlayasWidget", {
         var lat1 = parseFloat(playa.Latitud);
         var lon1 = parseFloat(playa.Longitud);
         var lat2 = parseFloat(posicionActual.k);
-        var lon2 = parseFloat(posicionActual.B);
+        var lon2 = parseFloat(posicionActual.D);
         var distancia = distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) * 1000;
         distancia = distancia.toFixed(1);
         return distancia;
@@ -231,11 +231,18 @@ $.widget("geoparking.listadoPlayasWidget", {
             idPlayas.push(playa.Id);
         }
         var tipoVehiculo = widget._obtenerTipoVehiculoPredeterminado();
-        var uri = obtenerURLServer() + 'api/disponibilidad/GetDisponibilidadesPlayasPorTipoVehiculo?idPlayas=' + idPlayas.toString() + '&idTipoVehiculo=' + tipoVehiculo;
+        var uri = obtenerURLServer() + 'api/disponibilidad/PostObtenerDisponibilidadesPlayasPorTipoVehiculo';
+        var datos = {
+            idPlayas : idPlayas.toString(),
+            idTipoVehiculo : tipoVehiculo
+        };
         var disponibilidades = widget.options.disponibilidadPlayas;
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: uri,
+            dataType: "json",
+            content: "application/json; charset=utf-8",
+            data : datos,
             async: false,
             success: function (data) {
                 disponibilidades = (typeof data) == 'string' ?
@@ -325,11 +332,18 @@ $.widget("geoparking.listadoPlayasWidget", {
             var playa = widget.options.listadoPlayas[i];
             idPlayas.push(playa.Id);
         }
-        var uri = obtenerURLServer() + 'api/Playas/GetPreciosPlayas?tipoVehiculoId=' + widget._obtenerTipoVehiculoPredeterminado() + '&idPlayas=' + idPlayas.toString();
+        var uri = obtenerURLServer() + 'api/Precios/PostObtenerPreciosPlayas';
+        var datos = {
+            idPlayas : idPlayas.toString(),
+            idTipoVehiculo : parseInt(widget._obtenerTipoVehiculoPredeterminado())
+        };
         var precios;
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: uri,
+            dataType: "json",
+            content: "application/json; charset=utf-8",
+            data : datos,
             async: false,
             success: function (data) {
                 precios = (typeof data) == 'string' ?

@@ -1,4 +1,5 @@
-﻿using ReglasDeNegocio;
+﻿using Entidades;
+using ReglasDeNegocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,8 +31,27 @@ namespace WebServiceGeo.Controllers
         public string SetRegistrarPrecio([FromUri]int idPlaya, [FromUri]int idTiempo, [FromUri]int idTipoVehiculo, [FromUri] double precio)
         {
             return gestor.RegistrarPrecioPlaya(idPlaya, idTiempo, idTipoVehiculo, precio).Ok.ToString();
-        }       
+        }
 
-       
+        /**
+         * Obtiene los precios de las playas selecionadas para el tipo de vehiculo seleccionado
+         * ej. api/Playas/GetPreciosPlayas?tipoVehiculoId=1&idPlayas=1,2,3,5
+         */
+        public string PostObtenerPreciosPlayas([FromBody] ListadoIdPlayas datos)
+        {
+            IList<Precio> precios = new List<Precio>();
+            precios = (List<Precio>)gestor.GetPreciosDePlayasPorTipoVehiculoEIdPlayas(datos.idPlayas, datos.idTipoVehiculo);
+            string json = "[";
+            foreach (var item in precios)
+            {
+                json += item.GetPreciosConIdPlayasComoJSON() + ",";
+            }
+            if (precios.Count > 0)
+            {
+                json = json.Substring(0, json.Length - 1);
+            }
+            json += "]";
+            return json;
+        }
     }
 }
