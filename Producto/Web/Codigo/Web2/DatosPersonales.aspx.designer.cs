@@ -13,13 +13,13 @@ namespace Web2 {
     public partial class DatosPersonales {
         
         /// <summary>
-        /// Control lblUsuario.
+        /// Control lblUsuarioEditar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuario;
+        protected global::System.Web.UI.WebControls.Label lblUsuarioEditar;
         
         /// <summary>
         /// Control divAlertError.
@@ -40,31 +40,31 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.Label lblMensajeError;
         
         /// <summary>
-        /// Control txtEmailRegistro.
+        /// Control txtEmailEditar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmailRegistro;
+        protected global::System.Web.UI.WebControls.TextBox txtEmailEditar;
         
         /// <summary>
-        /// Control txtNombre.
+        /// Control txtNombreEditar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNombre;
+        protected global::System.Web.UI.WebControls.TextBox txtNombreEditar;
         
         /// <summary>
-        /// Control txtApellido.
+        /// Control txtApellidoEditar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtApellido;
+        protected global::System.Web.UI.WebControls.TextBox txtApellidoEditar;
         
         /// <summary>
         /// Control chSexo.
@@ -94,22 +94,31 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.TextBox txtDireccion;
         
         /// <summary>
-        /// Control txtContraseñaDatos.
+        /// Control txtContraseñaVieja.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtContraseñaDatos;
+        protected global::System.Web.UI.WebControls.TextBox txtContraseñaVieja;
         
         /// <summary>
-        /// Control txtContraseñaDatosRepetir.
+        /// Control txtContraseñaNueva.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtContraseñaDatosRepetir;
+        protected global::System.Web.UI.WebControls.TextBox txtContraseñaNueva;
+        
+        /// <summary>
+        /// Control txtRepetirContraseñaNueva.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRepetirContraseñaNueva;
         
         /// <summary>
         /// Control panelBotones.

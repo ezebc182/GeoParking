@@ -25,10 +25,10 @@ namespace Web2
         public void CargarDatosUsuario()
         {
             var usuario = SessionUsuario;
-            txtNombre.Text = usuario.Nombre;
-            txtApellido.Text = usuario.Apellido;
-            txtEmailRegistro.Text = usuario.Mail;
-            lblUsuario.Text = usuario.NombreUsuario;
+            txtNombreEditar.Text = usuario.Nombre;
+            txtApellidoEditar.Text = usuario.Apellido;
+            txtEmailEditar.Text = usuario.Mail;
+            lblUsuarioEditar.Text = usuario.NombreUsuario;
         }
 
         public Usuario SessionUsuario
