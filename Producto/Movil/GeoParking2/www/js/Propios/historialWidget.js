@@ -57,6 +57,7 @@ $.widget("geoparking.historialWidget", {
             widget.destroy();
             ir(posicionActual, posicionPlayaGoogle, "DRIVING", "METRIC");
             widget.options.playaElegida = posicionPlayaGoogle;
+            enviarConsultaAEstadisticas(playa);
         };
         return eventoClick;
     },

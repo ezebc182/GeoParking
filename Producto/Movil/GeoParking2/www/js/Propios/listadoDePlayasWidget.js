@@ -169,6 +169,7 @@ $.widget("geoparking.listadoPlayasWidget", {
         var eventoClick = function () {
             widget.destroy();
             ir(posicionActual, posicionPlayaGoogle, "DRIVING", "METRIC");
+            enviarConsultaAEstadisticas(playa);
             guardarPlayaConsultada(playa);
             widget.options.playaElegida = posicionPlayaGoogle;
         };

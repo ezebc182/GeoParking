@@ -178,8 +178,7 @@ function addMarker(location, playa) {
         google.maps.event.addListener(marker, 'click', function () {
             destino = marker.getPosition();
             tipoDestino = "playa";
-            var uri = obtenerURLServer() + "api/Estadisticas/GetGuardarConsulta?idPlaya=" + playa.Id + "&idTipoVehiculo=" + leerPropiedadTipoVehiculo() + "&latitud=" + posicionActual.k + "&longitud=" + posicionActual.B;
-            $.getJSON(uri);
+            enviarConsultaAEstadisticas(playa);
             regresoAVehiculo = false;
             ir(posicionActual, destino, "DRIVING", "METRIC");
 

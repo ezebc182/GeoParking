@@ -522,3 +522,20 @@ function distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) {
 function toRad(value) {
     return value * Math.PI / 180;
 }
+
+function enviarConsultaAEstadisticas(playa){
+    var uri = obtenerURLServer() + "api/Estadisticas/PostGuardarConsulta";
+    var datos = {
+        idPlaya : playa.Id,
+        idTipoVehiculo : parseInt(leerPropiedadTipoVehiculo()),
+        latitud : posicionActual.k,
+        longitud : posicionActual.B
+    };
+    $.ajax({
+        type: "POST",
+        url: uri,
+        dataType: "json",
+        content: "application/json; charset=utf-8",
+        data : datos
+    });
+}

@@ -14,10 +14,19 @@ namespace WebServiceGeo.Controllers
         private static GestorEstadisticas gestor = new GestorEstadisticas();       
 
         // GET api/estadisticas
-        public void GetGuardarConsulta([FromUri]int idPlaya, [FromUri]int idTipoVehiculo, [FromUri]string latitud, [FromUri]string longitud)
+        public void PostGuardarConsulta([FromBody] PostConsultaEstadistica consulta)
         {
-            gestor.GuardarConsulta(idPlaya, idTipoVehiculo, latitud, longitud);
+            gestor.GuardarConsulta(consulta.idPlaya, consulta.idTipoVehiculo, consulta.latitud, consulta.longitud);
         }
                       
     }
+
+    public class PostConsultaEstadistica
+    {
+        public int idPlaya { get; set; }
+        public int idTipoVehiculo { get; set; }
+        public string latitud { get; set; }
+        public string longitud { get; set; }
+    }
+    
 }
