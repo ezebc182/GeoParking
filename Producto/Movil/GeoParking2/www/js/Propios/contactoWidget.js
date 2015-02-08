@@ -37,7 +37,7 @@ $.widget("geoparking.contactoWidget", {
     },
     /**
      * Crea la estructura inicial del panel de contacto
-     */
+     
     _crearHTMLInicial: function () {
         var widget = this;
         widget.options.contenedor.append('<div data-role="content" class="ui-content" role="main"><form data-ajax="false"><ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" id="listadoConfiguraciones" ><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="nombre">Nombre:</label><div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear"><input type="text" name="nombre" id="nombre" value="" data-clear-btn="true" placeholder="Ingrese su nombre aqui"><a href="#" class="ui-input-clear ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-input-clear-hidden" title="Clear text">Borrar nombre</a></div></li><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="apellido">Apellido:</label><div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear"><input type="text" name="apellido" id="apellido" value="" data-clear-btn="true" placeholder="Ingrese su apellido aqui"><a href="#" class="ui-input-clear ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-input-clear-hidden" title="Clear text">Borrar apellido</a></div></li><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="telefono">Teléfono:</label><div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear"><input type="text" name="telefono" id="telefono" value="" data-clear-btn="true" placeholder="Ingrese su telefono aqui"><a href="#" class="ui-input-clear ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-input-clear-hidden" title="Clear text">Borrar teléfono</a></div></li><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="inputEmail">Ingrese su email:</label><div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear"><input type="email" name="inputEmail" id="inputEmail" value="" data-clear-btn="true" placeholder=""><a href="#" class="ui-input-clear ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-input-clear-hidden" title="Clear text">Borrar email</a></div></li><li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit"><label for="mensaje">Mensaje:</label><textarea cols="40" rows="8" name="mensaje" id="mensaje" placeholder="Mensaje, duda o consulta" class="ui-input-text ui-shadow-inset ui-body-inherit ui-corner-all ui-textinput-autogrow" style="height: 53px;"></textarea></li><li class="ui-li-static ui-body-inherit ui-last-child"><div class="ui-btn ui-input-btn ui-corner-all ui-shadow">Enviar<input id="btnEnviarContacto" type="submit" value="Guardar"></div><div class="ui-btn ui-input-btn ui-corner-all ui-shadow">Cancelar<input id="btnCancelarContacto" type="submit" value="Cancelar"></div></li></ul></form></div>');
@@ -48,7 +48,8 @@ $.widget("geoparking.contactoWidget", {
             $.mobile.loading("hide");
         };
         setTimeout(loaderOff, 300);
-    },
+    },*/
+
     /**
      * Toma los datos del formulario para enviarlos por mail
      * verificando que los mismos sean correctos

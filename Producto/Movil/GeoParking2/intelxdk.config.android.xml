@@ -5,8 +5,14 @@
 <intelxdk:version value="1.0"/>
 <intelxdk:cordova-cli version="3.3"/>
 <name>GeoParking2</name>
+<description>Sistema de soporte de estacionamiento</description>
+<author>GeoParking</author>
 <content src="index.html"/>
 <access origin="*"/>
+<icon platform="android" src="img/iconos/GeoParking_verde 96x96.png" density="xhdpi" width="96" height="96"/>
+<icon platform="android" src="img/iconos/GeoParking_verde 72x72.png" density="hdpi" width="72" height="72"/>
+<icon platform="android" src="img/iconos/GeoParking_verde 48x48.png" density="mdpi" width="48" height="48"/>
+<splash platform="android" src="img/parking.jpg" density="xhdpi" width="720" height="960" orientation="portrait"/>
 <intelxdk:plugin intelxdk:name="Connection" intelxdk:value="org.apache.cordova.network-information" intelxdk:version="0.2.8"/>
 <intelxdk:plugin intelxdk:name="Device" intelxdk:value="org.apache.cordova.device" intelxdk:version="0.2.5"/>
 <intelxdk:plugin intelxdk:name="Events (battery status)" intelxdk:value="org.apache.cordova.battery-status" intelxdk:version="0.2.5"/>
@@ -14,5 +20,7 @@
 <intelxdk:plugin intelxdk:name="Base" intelxdk:value="intel.xdk.base"/>
 <intelxdk:plugin intelxdk:name="Geolocation" intelxdk:value="org.apache.cordova.geolocation" intelxdk:version="0.3.5"/>
 <intelxdk:plugin intelxdk:name="TelephoneNumber" intelxdk:value="https://github.com/macdonst/TelephoneNumberPlugin"/>
+<preference name="Fullscreen" value="true"/>
 <preference name="android-permission" value="android.permission.READ_PHONE_STATE"/>
+<preference name="splashscreen" value="splash"/>
 <!--creationInfo:{"src":"blankproject","projectTypeName":"com.intel.xdk.projecttype.jsapp"}--></widget>

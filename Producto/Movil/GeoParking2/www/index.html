@@ -101,7 +101,7 @@
             </div>
             <div class="ui-field-contain">
                 <a id="btnAtras" data-theme="b" class="ui-btn" href="#paso2" data-transition="slide" data-direction="reverse">Volver</a>
-                <a id="btnEmpezarApp" href="#mainPage" data-transition="fade" data-theme="b" class="ui-btn" onclick="guardarDatosIniciales()">Listo! ir a la aplicación</a>
+                <a id="btnEmpezarApp" href="#mainPage" data-transition="fade" data-theme="b" class="ui-btn" onclick="guardarDatos($('#selectTipoVehiculosWelcome'),$('#radioWelcome'),$('#checGPSkWelcome'))">Listo! ir a la aplicación</a>
             </div>
         </div>
     </div>
@@ -114,11 +114,13 @@
 -------------------- |Página principal | --------------------
 **************************************************************-->
     <div data-role="page" data-theme='b' id="mainPage" class="ui-page">
-        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b' data-inline="true">
             <a href="#pnlPrincipal" data-role='button' data-inline='true'><i class='lIcon fa fa-bars'></i></a>
-            <h1>GeoParking</h1> 
+            <h1>GeoParking</h1>
+            <a class="ui-btn-right" href="#pnlBusqueda" data-inline="true" data-transition="none" id="abrirPanelBusqueda"><i class=" fa fa-search" onclick="limpiarBusqueda()"></i></a> 
+            <a class="ui-btn-right" href="#popupOpciones" data-rel="popup" data-inline="true" data-transition="none"><i class=" fa fa-ellipsis-v"></i></a>
 
-            <a href="#popupOpciones" data-rel="popup" data-role="button" data-inline="true" data-transition="none"><i class=" fa fa-ellipsis-v"></i></a> 
+
         </div>
         <!--*******************************************************
             Panel listado de playas
@@ -131,14 +133,29 @@
             ***************************************************-->
 
         <div id="pnlMapa" class="fullscreen">
-            <div id="map-canvas" role="main" data-role="content" class=" fullscreen ui-content "></div>
+            <div id="map-canvas" role="main" data-role="content" class=" fullscreen ui-content ">
+            </div>
         </div>
 
+        <!--*******************************************************
+            Panel derecho <Búsqueda de direcciones>
+            ***************************************************-->
+        <div data-role="panel" id="pnlBusqueda" data-display="push" data-position="right" data-theme="b" style="height:100%;" class="ui-grid-solo">
 
+
+            <form data-ajax="true">
+
+                <div id="divBusqueda">
+                    <p>Podrá buscar playas cercanas a puntos de interés o direcciones que usted quiera.</p>
+                    <input id="txtBusqueda" placeholder="¿Qué quieres buscar?" data-clear-btn="true">
+                    <a id="btnBuscar" href="#" class="ui-btn">Buscar</a>
+                </div>
+            </form>
+
+        </div>
         <!--*******************************************************
             Panel izquierdo <Listado historial, contacto, etc>
             ***************************************************-->
-
 
         <div data-role="panel" data-display="push" id="pnlPrincipal" data-theme="b">
             <ul data-role="listview" style="height:100%;">
@@ -184,12 +201,11 @@
             </ul>
         </div>
         <!--*******************************************************
-                           Panel derecho <Rutas>
+                           Panel derecho <Trazado de ruta>
             ***************************************************-->
-        <div data-role="panel" id="pnlTrazadoRuta" data-display="push" data-position="right" data-theme="b">
-            <div class="hidden" data-theme="b" data-inset="true" id="panel_ruta"></div>
+        <div data-role="panel" id="pnlTrazadoRuta" data-display="push" data-position="right" data-theme="a">
+            <div class="hidden" data-theme="b" id="panel_ruta"></div>
         </div>
-
 
         <!--*******************************************************
                             Popup / Dialogs
@@ -201,6 +217,7 @@
                 </li>
             </ul>
         </div>
+
         <a id="linkAbrePopupBasico" href="#popupBasic" data-rel="popup" style="display: none;"></a>
 
         <div data-role="popup" id="popupBasic">
@@ -220,6 +237,7 @@
             </div>
         </div>
         <a id="linkAbreDialogoDosBotones" href='#popupDialog' data-rel='popup' data-position-to='window' data-role='button' data-icon='external-link' data-transition='pop' data-inline='true' style="display: none;"></a>
+        <a id="linkAbreDialogoUnBoton" href='#popupDialogUnBoton' data-rel='popup' data-position-to='window' data-role='button' data-icon='external-link' data-transition='pop' data-inline='true' style="display: none;"></a>
 
         <!--*******************************************************
                             Botones footer
@@ -235,9 +253,9 @@
                     </li>
                     <li><a class="ui-btn" id="btnGuardarUbicacion" onclick="guardarUbicacion()"><i class='blIcon fa fa-map-marker'></i></a>
                     </li>
-                    <li><a class="ui-btn" id="btnTrazarRegreso" onclick="trazarRegreso()"><i class='blIcon fa fa-car'></i></a>
+                    <li><a class="ui-btn ui-state-disabled" id="btnTrazarRegreso" onclick="trazarRegreso()"><i class='blIcon fa fa-car'></i></a>
                     </li>
-                    <li><a class="ui-btn ui-state-disabled" id="mostrarIndicaciones" href="#pnlTrazadoRuta" onclick="mostrarIndicaciones()"><i class='blIcon fa fa-road'></i></a>
+                    <li><a class="ui-btn ui-state-disabled" id="mostrarIndicaciones" href="#pnlTrazadoRuta"><i class='blIcon fa fa-road'></i></a>
                     </li>
 
                 </ul>
@@ -279,7 +297,7 @@
                     <input type="checkbox" id="checkbox-based-flipswitch" data-role="flipswitch">
                 </div>
 
-                <a class="ui-btn " href="#" id="btnGuardarConfig">Guardar</a> 
+                <a class="ui-btn " href="#mainPage" data-transition="none" id="btnGuardarConfig" onclick="guardarDatos($('#tipoVehiculoSelect'),$('#slider2b'),$('#checkbox-based-flipswitch'))">Guardar</a> 
 
             </form>
         </div>
@@ -294,30 +312,43 @@
 
     <div data-role="page" id="contactPage" data-theme="b">
         <div data-role="header" data-theme="b">
-            <a data-inline='true' data-transition="slide" href="#mainPage" data-direction="reverse"><i class="fa fa-chevron-left"></i></a>
+            <a id="fromContactoToMain" data-inline='true' data-transition="slide" href="#mainPage" data-direction="reverse"><i class="fa fa-chevron-left"></i></a>
             <h1>Contacto</h1>
         </div>
         <div data-role="content" class="ui-content">
+            <!-- Dialogo con 1 solo boton-->
+            <div data-position="fixed" data-role='popup' id='popupDialogUnBoton' data-theme='b' style="height : 100%;">
+                <div data-role='header' data-theme='b'>
+                    <h1 id="dialogoUnBotonHeader"></h1>
+                </div>
+                <div data-role='content' data-theme='b'>
+                    <p id="dialogoUnBotonDescripcion"></p>
+                    <div class='showastabs center nobg'>
+                        <a id="dialogoUnBotonAceptar" href='#' data-rel='back' data-icon='ok' data-iconpos='left' data-role='button' data-inline='true'>Aceptar</a> 
+                    </div>
+                </div>
+            </div>
+
             <p>Escribinos por consultas o recomendaciones.</p>
             <br>
             <form data-ajax="false">
                 <div class="ui-fieldcontain">
                     <label for="txtNombre">Nombre:</label>
-                    <input data-clear-btn="true" type="text" id="txtNombre" placeholder="Ingrese su nombre">
+                    <input name="Nombre" required="required" data-clear-btn="true" type="text" id="txtNombre" placeholder="Ingrese su nombre" onblur="validarCampo($(this))">
                 </div>
                 <div class="ui-fieldcontain">
                     <label for="txtEmail">Email:</label>
-                    <input data-clear-btn="true" type="email" id="txtEmail" placeholder="Ingrese su email">
+                    <input name="Email" required="required" data-clear-btn="true" type="email" id="txtEmail" placeholder="Ingrese su email" onblur="validarCampo($(this))">
                 </div>
                 <div class="ui-fieldcontain">
                     <label for="txtAsunto">Asunto:</label>
-                    <input data-clear-btn="true" type="text" id="txtAsunto" placeholder="Ingrese el asunto">
+                    <input name="Asunto" required="required" data-clear-btn="true" type="text" id="txtAsunto" placeholder="Ingrese el asunto" onblur="validarCampo($(this))">
                 </div>
                 <div class="ui-fieldcontain">
                     <label for="txtMensaje">Mensaje:</label>
-                    <textarea class="textarea" rows="5" id="txtMensaje" placeholder="Ingrese el mensaje"></textarea>
+                    <textarea name="Mensaje" required="required" class="textarea" rows="5" id="txtMensaje" placeholder="Ingrese el mensaje" onblur="validarCampo($(this))"></textarea>
                 </div>
-                <a class="ui-btn ui-btn-shadow" id="btnEnviarEmail">Enviar</a>
+                <a class="ui-btn ui-btn-shadow" id="btnEnviarEmail" onclick="enviarEmail()">Enviar</a>
 
             </form>
         </div>
@@ -329,7 +360,9 @@
             ***************************************************-->
     <!-- Scripts -->
     <script src="xhr.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=false&libraries=places"></script>-->
     <script src='intelxdk.js'></script>
     <script src="cordova.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/telephonenumber.js"></script>
@@ -349,7 +382,7 @@
     <script src="js/Propios/preferencesWidget.js"></script>
     <script src="js/Propios/contactoWidget.js"></script>
     <script src="./js/Propios/Utils.js"></script>
-
+    <script src="./js/Propios/autocomplete.js"></script>
     <script src="./js/Propios/historialWidget.js"></script>
 
 
@@ -359,6 +392,7 @@
         $(document).ready(function () {
             initialize();
             welcome();
+
 
 
         });
@@ -386,9 +420,13 @@
             $("#listadoHistorial").historialWidget();
 
         }
-        /* No se porque no se ejecuta esto*/
-        $("#contactPage").on("pageShow", function () {
-            $('input[^type="text"]')[0].focus();
+
+        $("#preferencesPage").on("pagebeforeshow", function () {
+            cargarValoresAlmacenadosDeConfiguracion();
+
+        });
+        $("#contactPage").on("pageshow", function () {
+            $("#txtNombre").focus();
         });
     </script>
 </body>

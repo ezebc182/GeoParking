@@ -38,7 +38,7 @@ function mensajeErrorConexion(mensaje) {
 
 
 function ir(origen, destino, modoViaje, sistema) {
-
+    $("#mostrarIndicaciones").removeClass("ui-state-disabled");
     directionsDisplay.setMap(null);
     var request = {
         origin: origen,
@@ -62,6 +62,7 @@ function ir(origen, destino, modoViaje, sistema) {
             alert("Error al Calcular la ruta");
         }
     });
+
 }
 
 function mantenerPosicionActualActualizada() {

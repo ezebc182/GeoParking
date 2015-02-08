@@ -1,4 +1,4 @@
-﻿var db = getLocalStorage() || alert("Local Storage Not supported in this browser");
+var db = getLocalStorage() || alert("Local Storage Not supported in this browser");
 /*variable global de historial de playas consultadas*/
 /*
 var cantidadAlmacenadas = 0;*/
@@ -64,6 +64,11 @@ function toRad(value) {
     return value * Math.PI / 180;
 }
 
+function limpiarBusqueda() {
+    $('#txtBusqueda').val('');
+    $('#txtBusqueda').focus();
+}
+
 function obtenerURLServer() {
     return 'http://ifrigerio-001-site1.smarterasp.net/';
     //return 'http://localhost:21305/';
@@ -93,14 +98,14 @@ function leerPropiedadRadio() {
         configuraciones = jQuery.parseJSON(configuraciones);
         return parseInt(configuraciones.radio);
     }
-    return 500;
+    return 1500;
 }
 
 function cargandoConMensaje(mensaje) {
     $.mobile.loading('show', {
         text: mensaje,
         textVisible: true,
-        theme: 'a'
+        theme: 'b'
     });
 }
 
@@ -132,9 +137,9 @@ function validarNumberoTelefono(inputtxt) {
     }
 }
 
-function validarEmail(inputtxt) {
-    var email = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (inputtxt.value.match(email)) {
+function validarEmail(email) {
+    var patron = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (email.match(patron)) {
         return true;
     } else {
         return false;
@@ -154,6 +159,15 @@ function abrirPopup(mensaje) {
 /*function mensajeErrorConexion(mensaje) {
     abrirPopup(mensaje);
 }*/
+
+function abrirDialogoUnBoton(funcionOk, mensaje, encabezado) {
+    $("#dialogoUnBotonHeader").html(encabezado);
+    $("#dialogoUnBotonDescripcion").html(mensaje);
+    document.getElementById("dialogoUnBotonAceptar").onclick = funcionOk;
+    $("#linkAbreDialogoUnBoton").click();
+
+
+}
 
 function abrirDialogoConDosBotones(funcionOk, mensaje, encabezado) {
     $("#dialogoDosBotonesHeader").html(encabezado);
@@ -273,20 +287,45 @@ function obtenerTiposVehiculosDeServidor() {
     return tiposVehiculos;
 }
 
-function agregarTiposDeVehiculos() {
+function agregarTiposDeVehiculos(select) {
 
     var tiposVehiculos = obtenerTiposVehiculosDeServidor();
     for (var i = 0; i < tiposVehiculos.length; i++) {
         var opcion = document.createElement("option");
+        opcion.name = tiposVehiculos[i].Nombre;
         opcion.value = tiposVehiculos[i].Id;
         opcion.innerHTML = tiposVehiculos[i].Nombre;
-        $('#selectTipoVehiculosWelcome').append(opcion);
+        select.append(opcion);
+
+
     }
 }
 
+
+function cargarValoresAlmacenadosDeConfiguracion() {
+    $("#tipoVehiculoSelect").empty();
+    agregarTiposDeVehiculos($("#tipoVehiculoSelect"));
+
+    //setea el dropdown 
+    var tipoVehiculo = leerPropiedadTipoVehiculo();
+    $("#tipoVehiculoSelect").val(tipoVehiculo);
+    $("#tipoVehiculoSelect").selectmenu("refresh", true);
+
+    //setea el radio y lo dibuja según valor
+    var radio = leerPropiedadRadio();
+    $("#slider2b").val(radio).slider("refresh");
+
+    //setear el GPS
+    var gps = leerPropiedadGPS();
+    if (!($(" input[type=checkbox]").parent().hasClass("ui-flipswitch-active")) && gps) {
+        $(" input[type=checkbox]").parent().addClass("ui-flipswitch-active");
+    } else if ($(" input[type=checkbox]").parent().hasClass("ui-flipswitch-active") && !gps) {
+        $(" input[type=checkbox]").parent().removeClass("ui-flipswitch-active");
+    }
+}
+
+
 /* Función de la pantalla inicial cuando se utiliza por primera vez la app*/
-
-
 
 function goToStep2() {
     var select = document.getElementById("selectTipoVehiculosWelcome");
@@ -302,11 +341,10 @@ function goToStep2() {
     }
 }
 
-function guardarDatosIniciales() {
-    var select = document.getElementById("selectTipoVehiculosWelcome");
-    var tipoVehiculo = select.options[select.selectedIndex].value;
-    var radioBusqueda = document.getElementById("radioWelcome").value;
-    var opcionGPS = $("#checGPSkWelcome").parent().hasClass("ui-flipswitch-active");
+function guardarDatos(select, radio, gps) {
+    var radioBusqueda = radio.val();
+    var tipoVehiculo = select.val();
+    var opcionGPS = gps.parent().hasClass("ui-flipswitch-active");
 
     var configuraciones = {
         tipoVehiculo: tipoVehiculo,
@@ -314,6 +352,13 @@ function guardarDatosIniciales() {
         gps: opcionGPS
     };
     localStorage.setItem("Configuraciones", JSON.stringify(configuraciones));
+    var posicion = {
+        longitud: usuario.getPosition().lng(),
+        latitud: usuario.getPosition().lat()
+    };
+    alert(posicion.latitud + " |||" + posicion.longitud);
+    obtenerPlayasPorPosicion(posicion);
+
 }
 
 /*Comprueba si ya están seteados los datos de ajustes, sino muestra la pantalla de bienvenida para que los setee el usuario */
@@ -322,37 +367,125 @@ function guardarDatosIniciales() {
 function welcome() {
     if (db.getItem("Configuraciones") == null) {
         document.location.href = "#welcomePage";
-        agregarTiposDeVehiculos();
+        agregarTiposDeVehiculos($("#selectTipoVehiculosWelcome"));
     } else {
         document.getElementById("welcomePage").setAttribute("hidden", true);
         document.location.href = "#mainPage";
     }
 }
+
+/*Valida, pero hay que mejorarlo porque es hartante*/
+function validarCampo(campo) {
+
+    var idCampo = $(campo).attr("id");
+
+    if ($(campo).is("textarea")) {
+        if ($(campo).val() === '') {
+            var funcion = function () {
+                $($(campo).attr("id")).focus();
+            }
+            abrirDialogoUnBoton(funcion, "El " + $(campo).attr("name") + " es requerido", "Atención");
+        }
+    } else {
+        switch ($(campo).attr("type")) {
+
+        case 'text':
+
+            if ($(campo).val() === '') {
+                var funcion = function () {
+                    $($(campo).attr("id")).focus();
+                }
+                abrirDialogoUnBoton(funcion, "El " + $(campo).attr("name") + " es requerido", "Atención");
+
+            }
+            break;
+
+        case 'email':
+            if (validarEmail($(campo).val())) {
+                $("#txtAsunto").focus();
+            } else {
+                var funcion = function () {
+                    $($(campo).attr("id")).focus();
+
+                };
+                abrirDialogoUnBoton(funcion, "Ingrese un email válido ", "Atención");
+
+            }
+            break;
+        }
+    }
+
+}
+
+function enviarEmail() {
+
+
+    var uri = obtenerURLServer() + "api/Contacto / PostEnviarEmailDeContacto ";
+    var datos = {
+        Nombre: $("#txtNombre ").val(),
+        Asunto: $("#txtAsunto ").val(),
+        Email: $("#txtEmail ").val(),
+        Mensaje: $("#txtMensaje ").val()
+    };
+    $.ajax({
+        type: "POST ",
+        url: uri,
+        data: datos,
+        dataType: "json ",
+        content: "application / json;charset = utf-8 ",
+        beforeSend: function () {
+            cargandoConMensaje("Enviando mensaje ");
+
+        },
+        success: function () {
+            quitarCargando();
+            var funcionOk = function () {
+                $("#contactPage ").hide();
+                $("#mainPage ").show();
+
+
+            };
+            abrirDialogoUnBoton(funcionOk, "Mensaje enviado con éxito!", "Mensaje ");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("Error de conexion ");
+        }
+    });
+}
+
 /*
 function cargarAplicacion() {
-        var width = $(".content").width();
-    var height = $(".content").height();
-    $("img").css({
-        "max-width": width,
-        "max-height": height
+        var width = $(".content ").width();
+    var height = $(".content ").height();
+    $("
+    img ").css({
+        "
+    max - width ": width,
+        "
+    max - height ": height
     });
-    var progressbar = $("#progressbar"),
-        progressLabel = $(".progress-label");
+    var progressbar = $("#
+    progressbar "),
+        progressLabel = $(".progress - label ");
 
     progressbar.progressbar({
         value: false,
         change: function () {
-             //progressLabel.text(progressbar.progressbar("value") + "%");
+             //progressLabel.text(progressbar.progressbar("
+    value ") + " % ");
         },
         complete: function () {
-             //progressLabel.text("100%");
+             //progressLabel.text("
+    100 % ");
         }
     });
 
     function progress() {
-        var val = progressbar.progressbar("value") || 0;
+        var val = progressbar.progressbar("
+    value ") || 0;
 
-        progressbar.progressbar("value", val + 2);
+        progressbar.progressbar("
+    value ", val + 2);
 
         if (val < 99) {
             setTimeout(progress, 80);
@@ -363,25 +496,29 @@ function cargarAplicacion() {
 }*/
 
 
-/*function comprobarConexion() { if (navigator.onLine) { abrirPopup("Estás conectado."); } else { abrirPopup("Sin conexión."); } }
+/*function comprobarConexion() { if (navigator.onLine) { abrirPopup("
+    Estás conectado.
+    "); } else { abrirPopup("
+    Sin conexión.
+    "); } }
 
 */
 
-function distanciaEntreDosPuntos(lat1, lon1, lat2, lon2){
+function distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) {
     var R = 6371; // km
     var phi1 = toRad(lat1);
     var phi2 = toRad(lat2);
-    var deltaPhi = toRad(lat2-lat1);
-    var deltaLambda = toRad(lon2-lon1);
-    var a = Math.sin(deltaPhi/2) * Math.sin(deltaPhi/2) +
-            Math.cos(phi1) * Math.cos(phi2) *
-            Math.sin(deltaLambda/2) * Math.sin(deltaLambda/2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var deltaPhi = toRad(lat2 - lat1);
+    var deltaLambda = toRad(lon2 - lon1);
+    var a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
+        Math.cos(phi1) * Math.cos(phi2) *
+        Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = R * c;
-    
+
     return d;
 }
 
-function toRad(value){
+function toRad(value) {
     return value * Math.PI / 180;
 }

@@ -5,17 +5,18 @@ var regresoAVehiculo = false;
 
 
 function guardarUbicacion() {
-    var confirmarGuardado = function(){
+    var confirmarGuardado = function () {
         obtenerPosicionActual();
         ubicacionAuto = posicionActual;
         localStorage.setItem("UbicacionVehiculo", JSON.stringify(ubicacionAuto));
+        $("#btnTrazarRegreso").removeClass("ui-state-disabled");
     };
     abrirDialogoConDosBotones(confirmarGuardado, '&iquest;Desea guardar la posici&oacute;n de su veh&iacute;culo?', 'Recordar posici&oacute;n veh&iacute;culo');
 }
 
 
 function trazarRegreso() {
-    var confirmarRutaRegreso = function(){
+    var confirmarRutaRegreso = function () {
         var ubicacionAVolver = localStorage.getItem("UbicacionVehiculo");
         ubicacionAVolver = jQuery.parseJSON(ubicacionAVolver);
         ubicacionAVolver = new google.maps.LatLng(ubicacionAVolver.k, ubicacionAVolver.D);
@@ -23,28 +24,14 @@ function trazarRegreso() {
         agregarMarkadorPosicionAuto(ubicacionAVolver);
         tipoDestino = "ubicacion";
         ir(posicionActual, ubicacionAVolver, "WALKING", "METRIC");
+
     };
     abrirDialogoConDosBotones(confirmarRutaRegreso, '&iquest;Desea visualizar el camino hacia su veh&iacute;culo?', 'Desplazarse hacia veh&iacute;culo');
 }
 
 function mostrarIndicaciones() {
 
-    /*$('#panel_ruta').removeClass('hidden');
 
-
-    BootstrapDialog.show({
-
-        title: "Ruta de navegación",
-        message: $('#panel_ruta'),
-        type: BootstrapDialog.TYPE_INFO,
-        buttons: [{
-            label: 'Cerrar',
-            cssClass: 'btn-default',
-            action: function (ventanaNavegacion) {
-                ventanaNavegacion.close();
-            }
-            }]
-    });*/
 
 }
 

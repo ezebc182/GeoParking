@@ -27,3 +27,48 @@
 .ui-progressbar-value {
     background: #6DCAEC;
 }
+/*Estilos de autocomplete de google maps*/
+
+.pac-container {
+    background-color: #2a2a2a;
+    /*width:300px !important;*/
+    margin-top: 5px !important;
+    font-size: 15px;
+    color: #fff !important;
+    font-family: Roboto !important;
+}
+.pac-item {
+    height: 45px !important;
+    font-family: Roboto !important;
+    background-color: #33B5E5 !important;
+    /*#6DCAEC*/
+    font-weight: bold !important;
+    font-size: 14px !important;
+}
+.pac-item:hover {
+    background-color: #33B5E5 !important;
+}
+.pac-container:after {
+    /*le quita el powered by Google*/
+    background-image: none !important;
+}
+#btnBuscar {
+    background-color: #33B5E5 !important;
+}
+#divBusqueda {
+    width: 90% !important;
+    padding: 1% !important;
+    margin-left: 4% !important;
+}
+#txtBusqueda {
+    font-size: 15px !important;
+}
+#txtBusqueda:focus {
+    /*background-color:#2a2a2a !important;*/
+}
+#abrirPanelBusqueda {
+    margin-right: 10% !important;
+}
+.ui-btn-active {
+    background-color: transparent !important;
+}
