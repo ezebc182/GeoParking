@@ -78,7 +78,7 @@
                                 </li>--%>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="# " runat="server" onserverclick="btnCerrarSesion_Click"><i class="fa fa-fw fa-sign-out"></i>Cerrar Sesión</a>
+                                    <a href="# " runat="server" onserverclick="btnCerrarSesion_Click"><i class="fa fa-fw fa-sign-out"></i> Cerrar Sesión</a>
                                 </li>
                             </ul>
                         </li>
@@ -87,27 +87,27 @@
                     <div class="collapse navbar-collapse navbar-ex1-collapse">
                         <ul class="nav navbar-nav side-nav" style="height: 100%">
                             <li>
-                                <a href="AdministracionPlayas.aspx"><i class="fa fa-fw fa-map-marker"></i>Administración de Playas</a>
+                                <a href="AdministracionPlayas.aspx"><i class="fa fa-fw fa-map-marker"></i> Administración de Playas</a>
                             </li>
                             <li>
-                                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-users"></i>Administracion de Roles y Permisos <i class="fa fa-fw fa-caret-down"></i></a>
+                                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-users"></i> Administracion de Roles y Permisos <i class="fa fa-fw fa-caret-down"></i></a>
                                 <ul id="demo" class="collapse">
                                     <li>
-                                        <a href="AdministracionRolesyPermisos.aspx?accion=NuevoRol"><i class="fa fa-fw fa-plus-square"></i>Crear Rol</a>
+                                        <a href="AdministracionRolesyPermisos.aspx?accion=NuevoRol"><i class="fa fa-fw fa-plus-square"></i> Crear Rol</a>
                                     </li>
                                     <li>
-                                        <a href="AdministracionRolesyPermisos.aspx?accion=AsignarPermiso"><i class="fa fa-fw fa-check-square"></i>Asignar Permisos a Rol</a>
+                                        <a href="AdministracionRolesyPermisos.aspx?accion=AsignarPermiso"><i class="fa fa-fw fa-check-square"></i> Asignar Permisos a Rol</a>
                                     </li>
                                     <li>
-                                        <a href="AdministracionRolesyPermisos.aspx?accion=AsignarRol"><i class="fa fa-fw fa-exchange"></i>Asignar Rol a Usuario</a>
+                                        <a href="AdministracionRolesyPermisos.aspx?accion=AsignarRol"><i class="fa fa-fw fa-exchange"></i> Asignar Rol a Usuario</a>
                                     </li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="/Zonas.aspx"><i class="fa fa-fw fa-pencil-square-o"></i>Administración de Zonas</a>
+                                <a href="/Zonas.aspx"><i class="fa fa-fw fa-pencil-square-o"></i> Administración de Zonas</a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-fw fa-bar-chart-o"></i>Estadísticas</a>
+                                <a href="#"><i class="fa fa-fw fa-bar-chart-o"></i> Estadísticas</a>
                             </li>
                         </ul>
                     </div>

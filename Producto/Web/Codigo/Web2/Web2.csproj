@@ -150,6 +150,7 @@
     <Content Include="AdministracionRolesyPermisos.aspx" />
     <Content Include="css\bootstrap-fileupload.min.css" />
     <Content Include="Estadisticas.aspx" />
+    <Content Include="img\fotosPerfil\demoUpload.jpg" />
     <Content Include="js\bootstrapformhelpers\css\bootstrap-formhelpers.css" />
     <Content Include="js\bootstrapformhelpers\css\bootstrap-formhelpers.min.css" />
     <Content Include="js\bootstrapformhelpers\img\bootstrap-formhelpers-countries.flags-LICENSE.txt" />
@@ -474,9 +475,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="img\fotosPerfil\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -55,7 +55,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Capacidad.cs" />
+    <Compile Include="Conexion.cs" />
     <Compile Include="ConsultaDisponibilidad.cs" />
+    <Compile Include="Estado.cs" />
+    <Compile Include="SolicitudConexion.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="util\DbGeographyHelper.cs" />
     <Compile Include="Zona.cs" />

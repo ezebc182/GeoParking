@@ -85,7 +85,7 @@
                                     </li>--%>
                                     <li class="divider"></li>
                                     <li>
-                                        <a id="A1" href="# " runat="server" onserverclick="btnCerrarSesion_Click"><i class="fa fa-fw fa-sign-out"></i>Cerrar Sesión</a>
+                                        <a id="A1" href="# " runat="server" onserverclick="btnCerrarSesion_Click"><i class="fa fa-fw fa-sign-out"></i> Cerrar Sesión</a>
                                     </li>
                                 </ul>
                             </li>

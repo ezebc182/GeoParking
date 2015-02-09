@@ -133,7 +133,7 @@
                                 <label class="control-label">Foto de Perfil:</label>
                                 <div class="fileupload fileupload-new" data-provides="fileupload">
                                     <div class="fileupload-new thumbnail" style="width: 180px; height: 180px;">
-                                        <img src="./img/fotosPerfil/demoUpload.jpg" alt="">
+                                        <img src="../img/fotosPerfil/demoUpload.jpg" alt="">
                                     </div>
                                     <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 180px; max-height: 180px; line-height: 20px;"></div>
                                     <div>
