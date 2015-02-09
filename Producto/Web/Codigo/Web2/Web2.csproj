@@ -245,6 +245,8 @@
     <Content Include="js\bootstrapValidator.min.js" />
     <Content Include="js\controllerBusquedaPlayaAngular.js" />
     <Content Include="js\entidades.js" />
+    <Content Include="js\EstadisticaHistorica.html" />
+    <Content Include="js\estadisticas.js" />
     <Content Include="js\GoogleMapsAdministracionPlaya.js" />
     <Content Include="js\index\easing.js" />
     <Content Include="js\index\jquery.magnific-popup.js" />
