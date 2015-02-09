@@ -2,8 +2,14 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="js/bootstrapformhelpers/css/bootstrap-formhelpers.min.css" rel="stylesheet" />
+    <link href="js/select2-4.0.0-beta.3/css/select2.min.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
+    <asp:HiddenField ID="hdPlayas" runat="server"/>
+<asp:HiddenField ID="hdTiposVehiculos" runat="server"/>
+<asp:HiddenField ID="hdZonas" runat="server"/>
+    <asp:HiddenField ID="hdTiposPlayas" runat="server"/>
+
     <div class="panel panel-primary">
         <div class="panel-heading">
             <div class="row">
@@ -13,7 +19,7 @@
                 <div class="col-lg-3 pull-right">
                     <div class="dropdown pull-right">
                         <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">
-                            Nueva <span class="gltphicon glyphicon-plus"></span>
+                            <span class="glyphicon glyphicon-plus">Nueva</span>
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                             <li role="presentation"><a id="btnNuevaEstadisticaTiempoReal" role="menuitem" tabindex="-1" href="#">Tiempo Real</a></li>
@@ -24,7 +30,7 @@
             </div>
         </div>
         <div class="panel-body" id="divContenedorEstadisticas">
-           <%-- <div class="panel panel-default">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-lg-1">
@@ -38,7 +44,6 @@
                                 <div class="bfh-selectbox" data-name="ddlBuscarPor">
                                     <div data-value="1">Playa</div>
                                     <div data-value="2">Zona</div>
-                                    <div data-value="3">Ciudad</div>
                                 </div>
                             </div>
                         </div>
@@ -59,40 +64,71 @@
                             </div>
                         </div>
                         <div class="col-lg-2">
-                            <div class="pull-right"><i id="minMax" class="fa fa-minus-square-o fa-lg"></i></div>
+                            <div class="pull-left">
+                                <button class="btn btn-success" type="button"><span class="fa fa-search">Buscar</span></button>
+                            </div>
+                            <div class="pull-right"><i id="minMax" class="fa fa-square-o fa-lg"></i></div>
                         </div>
                     </div>
                 </div>
-                <div class="panel-body">
-                    <div id="divFiltros" class="col-lg-4" style="display: none;">
-                        <div class="bfh-selectbox" data-name="ddlZonas" style="display: none;">
+                <div class="panel-body" style="display: none;">
+                    <div id="divFiltros" class="col-lg-4">
+                        <div class="form-group col-lg-12">
+                            <div class="col-lg-3" style="padding-left: 0px;">
+                                <label class="form-label">Zonas: </label>
+                            </div>
+                            <div class="col-lg-9">
+                                <select id="ddlZonas" data-multiple="true"></select>
+                            </div>
                         </div>
-                        <div class="bfh-selectbox" data-name="ddlPlayas" style="display: none;">
+                        <div class="form-group col-lg-12">
+                            <div class="col-lg-3" style="padding-left: 0px;">
+                                <label class="form-label">Playas: </label>
+                            </div>
+                            <div class="col-lg-9">
+                                <select id="ddlPlayas" data-multiple="true"></select>
+                            </div>
                         </div>
-                        <div class="bfh-selectbox" data-name="ddlTipoPlaya">
+                        <div class="form-group col-lg-12">
+                            <div class="col-lg-3" style="padding-left: 0px;">
+                                <label class="form-label">Tipo de playa:</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <select id="ddlTipoPlaya" data-multiple="true"></select>
+                            </div>
                         </div>
-                        <div class="bfh-selectbox" data-name="ddlTipoVehiculo">
+                        <div class="form-group col-lg-12">
+                            <div class="col-lg-3" style="padding-left: 0px;">
+                                <label class="form-label">Tipo de vehiculo:</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <select id="ddlTipoVehiculo" data-multiple="true"></select>
+                            </div>
                         </div>
                     </div>
-                    <div id="divEstadistica" data-value="">
+                    <div id="divEstadistica" class="col-lg-8" data-value="">
                         <div class="pull-left">
-                            <button class="glyphicon glyphicon-option-vertical" type="button" onclick="$('#divFiltros').toggle(150);"></button>
+                            <button class="glyphicon glyphicon-chevron-left" type="button" onclick="menuFiltros(this)"></button>
+                        </div>
+                        <div>
                         </div>
                     </div>
-                </div>
-            </div>--%>
 
+                </div>
+            </div>
         </div>
     </div>
+
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
     <script src="js/bootstrapformhelpers/js/bootstrap-formhelpers.js"></script>
     <script src="js/estadisticas.js" type="text/javascript"></script>
+    <script src="js/select2-4.0.0-beta.3/js/select2.min.js" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
-            
+
         });
 
-        
+
     </script>
 </asp:Content>
