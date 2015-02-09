@@ -1,16 +1,8 @@
 function obtenerPlayasPorPosicion(posicion) {
-    var uri = obtenerURLServer() + 'api/Playas/PostUbicacionesPlayasPorDistancia';
-    var datos = {
-        latitud : posicion.latitud,
-        longitud : posicion.longitud,
-        tipoVehiculoId : parseInt(leerPropiedadTipoVehiculo())
-    };
+    var uri = obtenerURLServer() + 'api/Playas/GetUbicacionesPlayasPorDistancia?latitud=' + posicion.latitud + '&longitud=' + posicion.longitud + '&tipoVehiculoId=' + leerPropiedadTipoVehiculo();
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: uri,
-        dataType: "json",
-        content: "application/json; charset=utf-8",
-        data : datos,
         success: function (data) {
             playas = (typeof data) == 'string' ?
                 eval('(' + data + ')') :

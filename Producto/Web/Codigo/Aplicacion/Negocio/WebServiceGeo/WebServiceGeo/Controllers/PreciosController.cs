@@ -39,10 +39,10 @@ namespace WebServiceGeo.Controllers
          * Obtiene los precios de las playas selecionadas para el tipo de vehiculo seleccionado
          * ej. api/Playas/GetPreciosPlayas?tipoVehiculoId=1&idPlayas=1,2,3,5
          */
-        public string PostObtenerPreciosPlayas([FromBody] ListadoIdPlayas datos)
+        public string GetObtenerPreciosPlayas([FromUri] string idPlayas,[FromUri] int idTipoVehiculo)
         {
             IList<Precio> precios = new List<Precio>();
-            precios = (List<Precio>)gestor.GetPreciosDePlayasPorTipoVehiculoEIdPlayas(datos.idPlayas, datos.idTipoVehiculo);
+            precios = (List<Precio>)gestor.GetPreciosDePlayasPorTipoVehiculoEIdPlayas(idPlayas, idTipoVehiculo);
             string json = "[";
             foreach (var item in precios)
             {

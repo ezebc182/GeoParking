@@ -98,11 +98,11 @@ namespace WebServiceGeo.Controllers
             return json;
         }
 
-        public string PostUbicacionesPlayasPorDistancia([FromBody] BusquedaPorCoordenadas datos)
+        public string GetUbicacionesPlayasPorDistancia([FromUri] string latitud, [FromUri] string longitud, [FromUri] int tipoVehiculoId)
         {
             string json = "[";
             IList<Direccion> direcciones = new List<Direccion>();
-            direcciones = (IList<Direccion>)gestorDirecciones.GetDireccionesDePlayasPorDistanciaYTipoVehiculo(datos.latitud, datos.longitud, datos.tipoVehiculoId);
+            direcciones = (IList<Direccion>)gestorDirecciones.GetDireccionesDePlayasPorDistanciaYTipoVehiculo(latitud, longitud, tipoVehiculoId);
             foreach (var p in direcciones)
             {
                 json += p.GetUbicacionesToJSONRepresentation() + ",";

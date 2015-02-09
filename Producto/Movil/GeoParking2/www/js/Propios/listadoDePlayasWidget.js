@@ -232,18 +232,11 @@ $.widget("geoparking.listadoPlayasWidget", {
             idPlayas.push(playa.Id);
         }
         var tipoVehiculo = widget._obtenerTipoVehiculoPredeterminado();
-        var uri = obtenerURLServer() + 'api/disponibilidad/PostObtenerDisponibilidadesPlayasPorTipoVehiculo';
-        var datos = {
-            idPlayas : idPlayas.toString(),
-            idTipoVehiculo : tipoVehiculo
-        };
+        var uri = obtenerURLServer() + 'api/disponibilidad/GetObtenerDisponibilidadesPlayasPorTipoVehiculo?idPlayas=' + idPlayas.toString() + '&idTipoVehiculo=' + widget._obtenerTipoVehiculoPredeterminado();
         var disponibilidades = widget.options.disponibilidadPlayas;
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: uri,
-            dataType: "json",
-            content: "application/json; charset=utf-8",
-            data : datos,
             async: false,
             success: function (data) {
                 disponibilidades = (typeof data) == 'string' ?
@@ -333,18 +326,11 @@ $.widget("geoparking.listadoPlayasWidget", {
             var playa = widget.options.listadoPlayas[i];
             idPlayas.push(playa.Id);
         }
-        var uri = obtenerURLServer() + 'api/Precios/PostObtenerPreciosPlayas';
-        var datos = {
-            idPlayas : idPlayas.toString(),
-            idTipoVehiculo : parseInt(widget._obtenerTipoVehiculoPredeterminado())
-        };
+        var uri = obtenerURLServer() + 'api/Precios/GetObtenerPreciosPlayas?idPlayas=' + idPlayas.toString() + '&idTipoVehiculo=' + widget._obtenerTipoVehiculoPredeterminado();
         var precios;
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: uri,
-            dataType: "json",
-            content: "application/json; charset=utf-8",
-            data : datos,
             async: false,
             success: function (data) {
                 precios = (typeof data) == 'string' ?

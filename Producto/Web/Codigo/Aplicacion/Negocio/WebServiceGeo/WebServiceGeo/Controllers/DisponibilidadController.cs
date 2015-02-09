@@ -45,9 +45,9 @@ namespace WebServiceGeo.Controllers
         /// <param name="idPlayas"></param>
         /// <param name="idTipoVehiculo"></param>
         /// <returns></returns>
-        public string PostObtenerDisponibilidadesPlayasPorTipoVehiculo([FromBody] ListadoIdPlayas playas)
+        public string GetObtenerDisponibilidadesPlayasPorTipoVehiculo([FromUri] string idPlayas, [FromUri] int idTipoVehiculo)
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(gestor.GetDisponibilidadDePlayasPorTipoVehiculo(playas.idPlayas, playas.idTipoVehiculo));
+            return Newtonsoft.Json.JsonConvert.SerializeObject(gestor.GetDisponibilidadDePlayasPorTipoVehiculo(idPlayas, idTipoVehiculo));
         }
 
         // GET api/disponibilidad/GetDisponibilidadPlayaPorTipoVehiculo
