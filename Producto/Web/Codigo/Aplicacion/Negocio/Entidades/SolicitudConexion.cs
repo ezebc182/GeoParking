@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace Entidades
 {
-    public class SolicutudConexion : EntidadBase
+    public class SolicitudConexion : EntidadBase
     {
         public int EstadoId { get; set; }
         public virtual Estado Estado { get; set; }

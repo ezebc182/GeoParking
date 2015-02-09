@@ -325,6 +325,11 @@ namespace ReglasDeNegocio
             return tipoPlayaDao.FindAll();
         }
 
+        public string BuscarTipoPlayasJSON()
+        {
+            return JsonConvert.SerializeObject(BuscarTipoPlayas());
+        }
+
         public IList<Tiempo> BuscarTiemposDeAtencion()
         {
             return tiempoDao.FindAll();
@@ -342,6 +347,12 @@ namespace ReglasDeNegocio
         {
             return tipoVehiculoDao.FindAll();
         }
+
+        public string BuscarTipoVehiculosJSON()
+        {
+            return JsonConvert.SerializeObject(BuscarTipoVehiculos());
+        }
+        
         /// <summary>
         /// busca todos los dias de atencion
         /// </summary>

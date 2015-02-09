@@ -30,6 +30,9 @@ namespace Datos
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Conexion>()
+                .HasRequired(c => c.PlayaDeEstacionamiento);
+
             modelBuilder.Entity<PlayaDeEstacionamiento>()
             .HasOptional(p => p.Horario)
             .WithRequired(h => h.PlayaDeEstacionamiento);
@@ -74,5 +77,8 @@ namespace Datos
         public DbSet<DisponibilidadPlayas> disponibilidadPlayas { get; set; }
         public DbSet<HistorialDisponibilidadPlayas> historialDisponibilidadPlayas { get; set; }
         public DbSet<Zona> zonas { get; set; }
+        public DbSet<Estado> estado { get; set; }
+        public DbSet<Conexion> conexion { get; set; }
+        public DbSet<SolicitudConexion> solicitudConexion { get; set; }
     }
 }
