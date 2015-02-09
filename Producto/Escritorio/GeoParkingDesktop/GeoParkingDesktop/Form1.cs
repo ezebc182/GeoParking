@@ -1803,7 +1803,7 @@ namespace GeoParkingDesktop
         public bool actualizarDisponibilidadGeneral(int idPlaya, int idTipoVehiculo, int disponibilidad, int evento, DateTime fecha)
         {
             string sURL, postData;
-            sURL = "http://localhost:21305/api/Disponibilidad/SetActualizarDisponibilidadGeneral";
+            sURL = "http://localhost:21305/api/Disponibilidad/PostActualizarDisponibilidadGeneral";
             postData = "IdPlaya=" + playa.id;
             postData += ("&IdTipoVehiculo=" + idTipoVehiculo);
             postData += ("&Disponibilidad=" + disponibilidad);

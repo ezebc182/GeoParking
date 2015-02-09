@@ -21,7 +21,7 @@ namespace WebServiceGeo.Controllers
         /// </summary>
         /// <param name="disponibilidad">Objeto disponibilidad del controlador</param>
         /// <returns>'True' si la accion se realizo correctamente</returns>
-        public string PosActualizarDisponibilidad([FromBody]DisponibilidadControlador disponibilidad)
+        public string PostActualizarDisponibilidad([FromBody]DisponibilidadControlador disponibilidad)
         {
             return gestor.ActualizarDisponibilidadPlaya(disponibilidad.IdPLaya, disponibilidad.IdTipoVehiculo, disponibilidad.IdEvento, DateTime.Parse(disponibilidad.Fecha), DateTime.Parse(disponibilidad.Fecha).Day).Ok.ToString();
         }
@@ -31,7 +31,7 @@ namespace WebServiceGeo.Controllers
         /// </summary>
         /// <param name="disponibilidad">Objeto disponibilidad del controlador</param>
         /// <returns>'True' si la accion se realizo correctamente</returns>
-        public string PosActualizarDisponibilidadGeneral([FromBody]DisponibilidadControlador disponibilidad)
+        public string PostActualizarDisponibilidadGeneral([FromBody]DisponibilidadControlador disponibilidad)
         {
             return gestor.ActualizarDisponibilidadGeneralPlaya(disponibilidad.IdPLaya, disponibilidad.IdTipoVehiculo, disponibilidad.Disponibilidad, disponibilidad.IdEvento, DateTime.Parse(disponibilidad.Fecha), DateTime.Parse(disponibilidad.Fecha).Day).Ok.ToString();
         }

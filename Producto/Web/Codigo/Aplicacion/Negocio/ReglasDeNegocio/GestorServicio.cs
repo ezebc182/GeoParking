@@ -212,6 +212,8 @@ namespace ReglasDeNegocio
                 //buscamos la playa a la que agregamos el servicio
                 PlayaDeEstacionamiento playa = playaDao.FindById(idPlaya);
 
+                servicio.PlayaDeEstacionamiento = playa;
+
                 if (playa.FechaBaja == null)
                 {
                     //agregamos el servicio
