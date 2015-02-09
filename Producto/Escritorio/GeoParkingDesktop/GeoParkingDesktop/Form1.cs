@@ -45,7 +45,7 @@ namespace GeoParkingDesktop
 
             
             string sURL;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Playas/Get/" + id;
+            sURL = "http://localhost:21305/api/Playas/Get/" + id;
 
             //strinfg con los datos de la playa
             string JsonPlaya = consultaApi(sURL);                  
@@ -162,6 +162,34 @@ namespace GeoParkingDesktop
         }
 
         /// <summary>
+        /// Realiza una inserccion en la API GeoParking
+        /// </summary>
+        /// <param name="url">url de la peticion</param>
+        /// <param name="postData">datos de la peticion</param>
+        /// <returns></returns>
+        public string inserccionApi(string url, string postData)
+        {
+            var request = (HttpWebRequest)WebRequest.Create(url);                       
+
+            var data = Encoding.ASCII.GetBytes(postData);
+
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = data.Length;
+
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            var response = (HttpWebResponse)request.GetResponse();
+
+            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+            return responseString;
+        }
+
+        /// <summary>
         /// recupera la disponibilidad de un tipo de vehiculo de una playa
         /// </summary>
         /// <param name="idPlaya">identifaicador de la playa</param>
@@ -170,7 +198,7 @@ namespace GeoParkingDesktop
         private int recuperarDisponibilidad(int idPlaya, int idTipoVehiculo)
         {
             string sURL;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Disponibilidad/GetDisponibilidadPlayaPorTipoVehiculo?idPlaya=" + idPlaya + "&idTipoVehiculo=" + idTipoVehiculo;
+            sURL = "http://localhost:21305/api/Disponibilidad/GetDisponibilidadPlayaPorTipoVehiculo?idPlaya=" + idPlaya + "&idTipoVehiculo=" + idTipoVehiculo;
 
             try
             {
@@ -446,12 +474,16 @@ namespace GeoParkingDesktop
 
             //aca utilizo el acceso a la appi
             
-            string sURL;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Disponibilidad/SetActualizarDisponibilidad?idPlaya=" + playa.id + "&idTipoVehiculo=" + tipoVehiculo + "&idEvento=" + evento + "&fecha=" + fechaHora.ToString();
+            string sURL,postData;
+            sURL = "http://localhost:21305/api/Disponibilidad/PostActualizarDisponibilidad";
+            postData = "IdPlaya=" + playa.id;
+            postData += ("&IdTipoVehiculo=" + tipoVehiculo);
+            postData += ("&IdEvento=" + evento);
+            postData += ("&Fecha=" + fechaHora.ToString());
 
             try
             {
-                string sLine = consultaApi(sURL);                
+                string sLine = inserccionApi(sURL, postData);               
 
                 if (sLine != "\"True\"")              
                     MessageBox.Show("no se pudo realizar la actualizacion");
@@ -889,12 +921,16 @@ namespace GeoParkingDesktop
             playa.nombre = nombrePlaya;
             playa.email = emaiPlaya;
 
-            string sURL;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Playas/SetActualizarNombreEmailPlaya?idPlaya=" + playa.id + "&nombrePlaya=" + nombrePlaya + "&emailPlaya=" + emaiPlaya;
+            string sURL, postData;
+            sURL = "http://localhost:21305/api/Playas/PostActualizarNombreEmailPlaya";
+            postData = "IdPlaya=" + playa.id;
+            postData += ("&Nombre=" + nombrePlaya);
+            postData += ("&Mail=" + emaiPlaya);
+            
 
             try
             {
-                string sLine = consultaApi(sURL);
+                string sLine = inserccionApi(sURL, postData);
 
                 if (sLine == "\"True\"")
                 {
@@ -922,14 +958,18 @@ namespace GeoParkingDesktop
         {
             playa.dias = diaAtencion;
             playa.horaDesde = horaDesde;
-            playa.horaHasta = horaHasta;
+            playa.horaHasta = horaHasta;            
 
-            string sURL;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Playas/SetActualizarHorarioPlaya?idPlaya=" + playa.id + "&idDiaAtencion=" + diaAtencion + "&horaDesde=" + horaDesde + "&horaHasta=" + horaHasta;
+            string sURL, postData;
+            sURL = "http://localhost:21305/api/Playas/PostActualizarHorarioPlaya";
+            postData = "IdPlaya=" + playa.id;
+            postData += ("&DiaAtencionId=" + diaAtencion);
+            postData += ("&HoraDesde=" + horaDesde);
+            postData += ("&HoraHasta=" + horaHasta);
 
             try
             {
-                string sLine = consultaApi(sURL);
+                string sLine = inserccionApi(sURL,postData);
 
                 if (sLine == "\"True\"")
                 {
@@ -955,12 +995,15 @@ namespace GeoParkingDesktop
         {
             playa.tipoPlaya = tipoPlaya;
 
-            string sURL;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Playas/SetActualizarTipoPlaya?idPlaya=" + playa.id + "&idTipoPlaya=" + tipoPlaya;
+            string sURL, postData;
+            sURL = "http://localhost:21305/api/Playas/PostActualizarTipoPlaya";
+            postData = "IdPlaya=" + playa.id;
+            postData += ("&TipoPlayaId=" + tipoPlaya);
+           
 
             try
             {
-                string sLine = consultaApi(sURL);
+                string sLine = inserccionApi(sURL,postData);
 
                 if (sLine == "\"True\"")
                 {
@@ -1085,12 +1128,32 @@ namespace GeoParkingDesktop
         /// <param name="abono">abono mensual</param>
         public void registracionDeServicio(int idTipoVehiculo, string x1, string x6, string x12, string x24, string abono)
         {
-            string sURL;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Servicios/SetRegistrarServicio?idPlaya=" + playa.id + "&idTipoVehiculo=" + idTipoVehiculo + "&capacidad=0" + "&x1=" + Double.Parse(x1) + "&x6=" + Double.Parse(x6) + "&x12=" + Double.Parse(x12) + "&x24=" + Double.Parse(x24) + "&abono=" + Double.Parse(abono);
+            string sURL, postData;
+            sURL = "http://localhost:21305/api/Servicios/PostRegistrarServicio";
+
+            postData = "IdPlaya=" + playa.id;
+            postData += ("&IdTipoVehiculo=" + idTipoVehiculo);
+            postData += ("&Capacidad=0");
+
+            postData += "&Precios%5B" + 0 + "%5D%5BIdTiempo%5D=1" ;
+            postData += "&Precios%5B" + 0 + "%5D%5BMonto%5D=" + Double.Parse(x1);
+
+            postData += "&Precios%5B" + 1 + "%5D%5BIdTiempo%5D=2";
+            postData += "&Precios%5B" + 1 + "%5D%5BMonto%5D=" + Double.Parse(x1);
+
+            postData += "&Precios%5B" + 2 + "%5D%5BIdTiempo%5D=3";
+            postData += "&Precios%5B" + 2 + "%5D%5BMonto%5D=" + Double.Parse(x1);
+
+            postData += "&Precios%5B" + 3 + "%5D%5BIdTiempo%5D=4";
+            postData += "&Precios%5B" + 3 + "%5D%5BMonto%5D=" + Double.Parse(x1);
+
+            postData += "&Precios%5B" + 4 + "%5D%5BIdTiempo%5D=5";
+            postData += "&Precios%5B" + 5 + "%5D%5BMonto%5D=" + Double.Parse(x1);
+            
 
             try
             {
-                string sLine = consultaApi(sURL);
+                string sLine = inserccionApi(sURL,postData);
 
                 if (sLine == "\"True\"")
                 {
@@ -1113,12 +1176,14 @@ namespace GeoParkingDesktop
         /// <param name="idTipoVehiculo">identificador del tipo de vehiculo del servicio</param>
         public void cancelacionDeServicio(int idTipoVehiculo)
         {
-            string sURL;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Servicios/SetCancelarServicio?idPlaya=" + playa.id + "&idTipoVehiculo=" + idTipoVehiculo;
-            
+            string sURL, postData;
+            sURL = "http://localhost:21305/api/Servicios/PostCancelarServicio";
+            postData = "IdPlaya=" + playa.id;
+            postData += ("&IdTipoVehiculo=" + idTipoVehiculo);
+
             try
             {
-                string sLine = consultaApi(sURL); 
+                string sLine = inserccionApi(sURL,postData); 
 
                 if (sLine == "\"True\"")
                 {
@@ -1481,13 +1546,16 @@ namespace GeoParkingDesktop
         /// <param name="idTiempo">identificador de tiempo</param>
         public void actualizarPrecio(int idTipoVehiculo, double precio, int idTiempo)
         {            
-
-            string sURL;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/precios/SetActualizarPrecio?idPlaya=" + playa.id + "&idTiempo=" + idTiempo + "&idTipoVehiculo=" + idTipoVehiculo + "&precio=" + precio;
+            string sURL, postData;
+            sURL = "http://localhost:21305/api/precios/PostActualizarPrecio";
+            postData = "IdPlaya=" + playa.id;
+            postData += ("&IdTiempo=" + idTiempo);
+            postData += ("&IdTipoVehiculo=" + idTipoVehiculo);
+            postData += ("&Precio=" + precio);
 
             try
             {
-               string sLine = consultaApi(sURL);
+               string sLine = inserccionApi(sURL,postData);
 
                 if (sLine != "\"True\"")
                     MessageBox.Show("no se pudo realizar la actualizacion del precio");            
@@ -1507,13 +1575,16 @@ namespace GeoParkingDesktop
         /// <param name="idTiempo">identificador de tiempo</param>
         public void registrarPrecio(int idTipoVehiculo, double precio, int idTiempo)
         {
-
-            string sURL;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/precios/SetRegistrarPrecio?idPlaya=" + playa.id + "&idTiempo=" + idTiempo + "&idTipoVehiculo=" + idTipoVehiculo + "&precio=" + precio;
+            string sURL, postData;
+            sURL = "http://localhost:21305/api/precios/PostRegistrarPrecio";
+            postData = "IdPlaya=" + playa.id;
+            postData += ("&IdTiempo=" + idTiempo);
+            postData += ("&IdTipoVehiculo=" + idTipoVehiculo);
+            postData += ("&Precio=" + precio);
 
             try
             {
-                string sLine = consultaApi(sURL);
+                string sLine = inserccionApi(sURL,postData);
 
                 if (sLine != "\"True\"")
                     MessageBox.Show("no se pudo realizar la registracion del precio");   
@@ -1731,12 +1802,17 @@ namespace GeoParkingDesktop
         /// <param name="fecha">fecha</param>
         public bool actualizarDisponibilidadGeneral(int idPlaya, int idTipoVehiculo, int disponibilidad, int evento, DateTime fecha)
         {
-            string sURL;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Disponibilidad/SetActualizarDisponibilidadGeneral?idPlaya=" + playa.id + "&idTipoVehiculo=" + idTipoVehiculo + "&disponibilidad=" + disponibilidad + "&idEvento=" + evento + "&fecha=" + fecha.ToString();
+            string sURL, postData;
+            sURL = "http://localhost:21305/api/Disponibilidad/SetActualizarDisponibilidadGeneral";
+            postData = "IdPlaya=" + playa.id;
+            postData += ("&IdTipoVehiculo=" + idTipoVehiculo);
+            postData += ("&Disponibilidad=" + disponibilidad);
+            postData += ("&IdEvento=" + evento);
+            postData += ("&Fecha=" + fecha.ToString());
 
             try
             {
-                string sLine = consultaApi(sURL);
+                string sLine = inserccionApi(sURL,postData);
 
                 if (sLine == "\"True\""){
                     MessageBox.Show("Actualizacion Existosa");
@@ -1873,6 +1949,11 @@ namespace GeoParkingDesktop
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Dispose();
+        }
+
+        private void incioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
                
     }

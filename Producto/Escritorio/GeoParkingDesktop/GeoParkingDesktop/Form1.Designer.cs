@@ -162,18 +162,19 @@
             this.incioToolStripMenuItem.Name = "incioToolStripMenuItem";
             this.incioToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.incioToolStripMenuItem.Text = "Incio";
+            this.incioToolStripMenuItem.Click += new System.EventHandler(this.incioToolStripMenuItem_Click);
             // 
             // coonectarToolStripMenuItem
             // 
             this.coonectarToolStripMenuItem.Name = "coonectarToolStripMenuItem";
-            this.coonectarToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.coonectarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.coonectarToolStripMenuItem.Text = "Conectar";
             this.coonectarToolStripMenuItem.Click += new System.EventHandler(this.coonectarToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
