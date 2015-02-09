@@ -50,15 +50,15 @@ namespace Web2
             panelAsignarPermiso.Visible = false;
 
         }
-        private Resultado crearRol()
-        {
-            Resultado resultado;
-            Rol rolNuevo = new Rol();
-            rolNuevo.Nombre = txtNombre.Text;
-            rolNuevo.Descripcion = txtDescripcion.Text;
-            resultado = gestorRol.CrearRol(rolNuevo);
-            return resultado;
-        }
+        //private Resultado crearRol()
+        //{
+        //    //Resultado resultado;
+        //    //Rol rolNuevo = new Rol();
+        //    //rolNuevo.Nombre = txtNombre.Text;
+        //    //rolNuevo.Descripcion = txtDescripcion.Text;
+        //    ////resultado = gestorRol.CrearRol(rolNuevo);
+        //    //return resultado;
+        //}
 
         #endregion
 
@@ -110,12 +110,12 @@ namespace Web2
                 }
             }
         }
-        private Resultado guardarRolAUsuario()
-        {
-            Resultado resultado;
-            resultado = gestorUsuario.AsigarRolAUsuario(IdUsuarioSeleccionado, IdRolSeleccionado);            
-            return resultado;
-        }
+        //private Resultado guardarRolAUsuario()
+        //{
+        //    //Resultado resultado;
+        //    //resultado = gestorUsuario.AsigarRolAUsuario(IdUsuarioSeleccionado, IdRolSeleccionado);            
+        //    //return resultado;
+        //}
         protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlRol.SelectedIndex != 0 && hayCambiosPorGuardarEnAsignarRol())
@@ -170,15 +170,15 @@ namespace Web2
                 cblPermiso.Items[i].Selected = false;
             }
         }
-        private Resultado AsignarPermisosARol()
-        {
-            Resultado resultado;
+        //private Resultado AsignarPermisosARol()
+        //{
+        //    Resultado resultado;
 
-            Rol rolSeleccionado = RolSeleccionado;
-            rolSeleccionado.Permisos = tomarPermisosSeleccionados();
-            resultado = gestorRol.GuardarRol(rolSeleccionado);
-            return resultado;
-        }
+        //    Rol rolSeleccionado = RolSeleccionado;
+        //    rolSeleccionado.Permisos = tomarPermisosSeleccionados();
+        //    resultado = gestorRol.GuardarRol(rolSeleccionado);
+        //    return resultado;
+        //}
 
 
         private int IdRolSeleccionado
@@ -280,14 +280,14 @@ namespace Web2
 
             if (panelNuevoRol.Visible)
             {
-                resultado = crearRol();
+                //resultado = crearRol();
                 mensaje = "El Rol " + txtNombre.Text +" se creo correctamente.";
                 txtDescripcion.Text = "";
                 txtNombre.Text = "";
             }
             else if (panelAsignarRol.Visible)
             {
-                resultado = guardarRolAUsuario();
+                //resultado = guardarRolAUsuario();
                 mensaje = "El Rol " + RolSeleccionado.Nombre + " se asigno correctamente al usuario " + UsuarioSeleccionado.Nombre + ".";
                 limpiarComponentesAsignarRol();
             }
@@ -297,7 +297,7 @@ namespace Web2
                 {
                     if (hayCambiosPorGuardarAsignarPermiso(RolSeleccionado, tomarPermisosSeleccionados()))
                     {
-                        resultado = AsignarPermisosARol();
+                        //resultado = AsignarPermisosARol();
                         mensaje = "Los permisos han sido guardados para el rol '" + RolSeleccionado.Nombre + "'";
                     }
                     else

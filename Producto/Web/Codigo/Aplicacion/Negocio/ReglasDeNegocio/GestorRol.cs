@@ -80,21 +80,31 @@ namespace ReglasDeNegocio
         public bool GuardarRol(Rol rol)
         {
             Resultado resultado = new Resultado();
-
-            rolDao.Update(rol);
-
+            ValidarDatosGralesRol(rol, resultado);
+            if (resultado.Ok)
+            {
+                rolDao.Update(rol);
+            }
             return resultado.Ok;
         }
 
         public bool CrearRol(Rol rol)
         {
             Resultado resultado = new Resultado();
-
+            ValidarDatosGralesRol(rol, resultado);
             if (resultado.Ok)
             {
                 rolDao.Create(rol);
             }
             return resultado.Ok;
+        }
+
+        private void ValidarDatosGralesRol(Rol rol, Resultado resultado)
+        {
+            if ((string.IsNullOrEmpty(rol.Nombre)) || (string.IsNullOrEmpty(rol.Descripcion)))
+            {
+                resultado.AgregarMensaje("Debe ingresar todos los datos del rol.");
+            }
         }
 
         public string GetPermisosJSON(int id)
