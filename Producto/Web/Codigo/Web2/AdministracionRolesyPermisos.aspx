@@ -18,17 +18,23 @@
                     </div>
                     <div class="form-group" id="valNombreRol">
                         <!--ABM Rol -->
-                        <label id="lbltxtNombreRol" for="txtNombreRol" class="col-sm-2 col-md-2 col-lg-2 control-label">Nombre</label>
-                        <input id="txtNombreRol" tabindex="1" name="txtNombreRol" class="form-control" oninput="javascript: CampoRequeridoNombre();" />
-                        <i id="icontxtNombreRol" style="display: none" class="form-control-feedback" data-bv-icon-for="txtNombreRol"></i>
+                        <label id="lbltxtNombreRol" for="txtNombreRol" class="control-label">Nombre</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-align-justify"></i></span>
+                            <input id="txtNombreRol" tabindex="1" placeholder="Nombre del Rol" name="txtNombreRol" class="form-control input-lg" oninput="javascript: CampoRequeridoNombre();" />
+                            <i id="icontxtNombreRol" style="display: none" class="form-control-feedback" data-bv-icon-for="txtNombreRol"></i>
+                        </div>
                         <small id="smalltxtNombreRol" class="help-block" style="display: none;" data-bv-validator="notEmpty" data-bv-icon-for="txtNombreRol" data-bv-result="INVALID">
                             <label id="errortxtNombreRol"></label>
                         </small>
                     </div>
                     <div class="form-group" id="valDescripcionRol">
-                        <label id="lbltxtDescripcionRol" for="txtDescripcion" class="col-sm-2 col-md-2 col-lg-2 control-label">Descripción</label>
-                        <textarea id="txtDescripcionRol" tabindex="2" name="txtDescripcionRol" class="form-control" oninput="javascript: CampoRequeridoDescripcion();"></textarea>
-                        <i id="icontxtDescripcionRol" style="display: none" class="form-control-feedback" data-bv-icon-for="txtDescripcionRol"></i>
+                        <label id="lbltxtDescripcionRol" for="txtDescripcion" class="control-label">Descripción</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                            <textarea id="txtDescripcionRol" placeholder="Descripcion del Rol" tabindex="2" name="txtDescripcionRol" class="form-control input-lg" oninput="javascript: CampoRequeridoDescripcion();"></textarea>
+                            <i id="icontxtDescripcionRol" style="display: none" class="form-control-feedback" data-bv-icon-for="txtDescripcionRol"></i>
+                        </div>
                         <small id="smalltxtDescripcionRol" class="help-block" style="display: none;" data-bv-validator="notEmpty" data-bv-icon-for="txtDescripcionRol" data-bv-result="INVALID">
                             <label id="errortxtDescripcionRol"></label>
                         </small>
@@ -41,13 +47,15 @@
                         <h3 style="text-align: center;"><span class="glyphicon glyphicon-check"></span> Asignar Permisos a Rol</h3>
                     </div>
                     <div class="form-group">
-                        <label for="ddlRol" class="col-sm-2 col-md-2 col-lg-2 control-label">Rol</label>
-                        <asp:DropDownList ID="ddlRolPermisos" runat="server" CssClass="form-control required">
-                        </asp:DropDownList>
-
+                        <label for="ddlRol" class="control-label">Rol</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-list-ul"></i></span>
+                            <asp:DropDownList ID="ddlRolPermisos" runat="server" CssClass="form-control required">
+                            </asp:DropDownList>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="ddlRol" class="col-sm-2 col-md-2 col-lg-2 control-label">Permisos</label>
+                        <label for="ddlRol" class="control-label">Permisos</label>
                         <br />
                         <div>
                             <asp:CheckBoxList ID="cblPermiso" runat="server">
@@ -62,13 +70,18 @@
                         <h3 style="text-align: center;"><span class="glyphicon glyphicon-transfer"></span> Asignar Rol a Usuario</h3>
                     </div>
                     <div class="form-group">
-
-                        <label for="ddlUsuario" class="col-sm-2 col-md-2 col-lg-2 control-label">Usuario</label>
-                        <asp:DropDownList ID="ddlUsuario" CssClass="form-control required" runat="server" />
+                        <label for="ddlUsuario" class="control-label">Usuario</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-list-ul"></i></span>
+                            <asp:DropDownList ID="ddlUsuario" CssClass="form-control required" runat="server" />
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="ddlRol" class="col-sm-2 col-md-2 col-lg-2 control-label">Rol</label>
-                        <asp:DropDownList ID="ddlRol" CssClass="form-control required" runat="server" />
+                        <label for="ddlRol" class="control-label">Rol</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-list-ul"></i></span>
+                            <asp:DropDownList ID="ddlRol" CssClass="form-control required" runat="server" />
+                        </div>
                     </div>
                     <%--FIN Asignar Rol a Usuario--%>
                 </div>

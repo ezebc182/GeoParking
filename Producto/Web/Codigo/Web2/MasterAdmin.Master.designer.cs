@@ -76,6 +76,15 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.Label lblLogin;
         
         /// <summary>
+        /// Control Main.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder Main;
+        
+        /// <summary>
         /// Control txtUsuarioLogin.
         /// </summary>
         /// <remarks>
@@ -218,15 +227,6 @@ namespace Web2 {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::SIRAD.Web2.Mensajes.ErrorAlert msjeError;
-        
-        /// <summary>
-        /// Control Main.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder Main;
         
         /// <summary>
         /// Control ScriptContent.

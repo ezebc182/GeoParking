@@ -326,7 +326,7 @@
                             };
                             */
 
-                            $().UItoTop({ easingType: 'easeOutQuart' });
+                            //$().UItoTop({ easingType: 'easeOutQuart' });
 
                         });
                     </script>
