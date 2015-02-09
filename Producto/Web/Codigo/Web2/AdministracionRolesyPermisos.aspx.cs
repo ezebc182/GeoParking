@@ -15,9 +15,11 @@ namespace Web2
 {
     public partial class AdministracionRolesyPermisos : System.Web.UI.Page
     {
+
         public static GestorRol gestorRol = new GestorRol();
         public static GestorUsuario gestorUsuario = new GestorUsuario();
         public MasterAdmin master;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             master = (MasterAdmin) Master;
@@ -44,6 +46,7 @@ namespace Web2
                 }
             }
         }
+
         #region PanelNuevoRol
         private void CargarPanelNuevoRol()
         {
@@ -207,5 +210,6 @@ namespace Web2
             }
             return dt;
         }
+
     }
 }

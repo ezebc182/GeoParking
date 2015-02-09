@@ -99,11 +99,11 @@
         });
 
         function CampoRequeridoNombre() {
-            validarCampoVacio($('[id=valNombreRol]').attr("id"), $('[id=txtNombreRol]').attr("name"));
+            validarCampoVacio($('[id=valNombreRol]').attr("id"), $('[id=txtNombreRol]').attr("id"));
         }
 
         function CampoRequeridoDescripcion() {
-            validarCampoVacio($('[id=valDescripcionRol]').attr("id"), $('[id=txtDescripcionRol]').attr("name"));
+            validarCampoVacio($('[id=valDescripcionRol]').attr("id"), $('[id=txtDescripcionRol]').attr("id"));
         }
 
         $("#<%=ddlRolPermisos.ClientID%>").change(function () {
@@ -117,7 +117,9 @@
         $('#btnGuardar').click(function () {
 
             if ($('#Main_divCrearRol').is(":visible")) {
-                if (!(validarCampoVacio($('[id=valDescripcionRol]').attr("id"), $('[id=txtDescripcionRol]').attr("name")) && validarCampoVacio($('[id=valNombreRol]').attr("id"), $('[id=txtNombreRol]').attr("name")))) {
+                var val1 = validarCampoVacio($('[id=valDescripcionRol]').attr("id"), $('[id=txtDescripcionRol]').attr("id"));
+                var val2 = validarCampoVacio($('[id=valNombreRol]').attr("id"), $('[id=txtNombreRol]').attr("id"));
+                if (!validar2Campos(val1, val2)) {
                     crearRol(($('[id=txtNombreRol]').val()), ($('[id=txtDescripcionRol]').val()));
                     limpiarValidaciones();
                 }

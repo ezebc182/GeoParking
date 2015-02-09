@@ -39,8 +39,6 @@ namespace Web2
 
         protected void btnIniciarSesion_Click(object sender, EventArgs e)
         {
-            ValidarCampos(); 
-            var guardarContraseña = txtContraseñaLogin.Text;
             var resultado = gestor.Login(txtUsuarioLogin.Text, txtContraseñaLogin.Text);
             if (resultado != null)
             {
@@ -53,11 +51,6 @@ namespace Web2
                 }
                 li_Ingresar.Visible = false;
                 li_Login.Visible = true;
-            }
-            else
-            {
-                ValidarCampos();
-                pass.Value = txtContraseñaLogin.Text;
             }
         }
 
@@ -78,43 +71,6 @@ namespace Web2
                 Response.Redirect("Index.aspx");
             }
 
-        }
-
-        private void ValidarCampos()
-        {
-            if (string.IsNullOrWhiteSpace(txtContraseñaLogin.Text) && !string.IsNullOrWhiteSpace(txtUsuarioLogin.Text))
-            {
-                divContraseñaLogin.Attributes["class"] = "form-group has-feedback has-error";
-                iconContraseñaLogin.Attributes["style"] = "top: 7px; display: block;";
-                lblContraseñaLogin.Text = "Debe ingresar una contraseña";
-                divUsuarioLogin.Attributes["class"] = "form-group";
-                iconUsuarioLogin.Attributes["style"] = "none";
-                iconUsuarioLogin.Attributes["class"] = "";
-                lblUsuarioLogin.Text = "";
-            }
-            if (string.IsNullOrWhiteSpace(txtUsuarioLogin.Text))
-            {
-                divUsuarioLogin.Attributes["class"] = "form-group has-feedback has-error";
-                iconUsuarioLogin.Attributes["style"] = "top: 7px; display: block;";
-                iconUsuarioLogin.Attributes["class"] = "form-control-feedback glyphicon glyphicon-remove";
-                lblUsuarioLogin.Text = "Debe ingresar un usuario o e-mail";
-                divContraseñaLogin.Attributes["class"] = "form-group";
-                iconContraseñaLogin.Attributes["class"] = "";
-                iconContraseñaLogin.Attributes["style"] = "none";
-                lblContraseñaLogin.Text = "";
-
-            }
-            if (!string.IsNullOrWhiteSpace(txtContraseñaLogin.Text) && !string.IsNullOrWhiteSpace(txtUsuarioLogin.Text))
-            {
-                divUsuarioLogin.Attributes["class"] = "form-group has-feedback has-error";
-                iconUsuarioLogin.Attributes["style"] = "top: 7px; display: block;";
-                iconUsuarioLogin.Attributes["class"] = "form-control-feedback glyphicon glyphicon-remove";
-                lblUsuarioLogin.Text = "";
-                divContraseñaLogin.Attributes["class"] = "form-group has-feedback has-error";
-                iconContraseñaLogin.Attributes["style"] = "top: 7px; display: block;";
-                iconContraseñaLogin.Attributes["class"] = "form-control-feedback glyphicon glyphicon-remove";
-                lblContraseñaLogin.Text = "Usuario y/o contraseña incorrectos";
-            }
         }
 
         public Usuario SessionUsuario

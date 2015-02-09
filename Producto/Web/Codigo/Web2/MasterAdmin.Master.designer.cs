@@ -76,15 +76,6 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.Label lblLogin;
         
         /// <summary>
-        /// Control divUsuarioLogin.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divUsuarioLogin;
-        
-        /// <summary>
         /// Control txtUsuarioLogin.
         /// </summary>
         /// <remarks>
@@ -94,33 +85,6 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.TextBox txtUsuarioLogin;
         
         /// <summary>
-        /// Control iconUsuarioLogin.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl iconUsuarioLogin;
-        
-        /// <summary>
-        /// Control lblUsuarioLogin.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuarioLogin;
-        
-        /// <summary>
-        /// Control divContraseñaLogin.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divContraseñaLogin;
-        
-        /// <summary>
         /// Control txtContraseñaLogin.
         /// </summary>
         /// <remarks>
@@ -128,33 +92,6 @@ namespace Web2 {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtContraseñaLogin;
-        
-        /// <summary>
-        /// Control iconContraseñaLogin.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl iconContraseñaLogin;
-        
-        /// <summary>
-        /// Control lblContraseñaLogin.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContraseñaLogin;
-        
-        /// <summary>
-        /// Control pass.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField pass;
         
         /// <summary>
         /// Control btnIniciarSesion.

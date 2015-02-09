@@ -100,6 +100,7 @@
                 <!-- /#page-wrapper -->
 
             </div>
+
             <div class="modal fade" id="login">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -112,30 +113,36 @@
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6" style="padding-right: 10px; border-right: 1px solid #ccc;">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div runat="server" id="divUsuarioLogin" class="form-group">
-                                            <asp:TextBox ID="txtUsuarioLogin" placeholder="Usuario o E-mail" TabIndex="1" CssClass="form-control input-lg cleanLogin"
-                                                runat="server" Text=""></asp:TextBox>
-                                            <i runat="server" id="iconUsuarioLogin" style="display: none" class="form-control-feedback glyphicon glyphicon-remove" data-bv-icon-for="ctl00$txtUsuarioLogin"></i>
-                                            <small class="help-block" style="display: block;" data-bv-validator="notEmpty" data-bv-for="ctl00$txtUsuarioLogin" data-bv-result="INVALID">
-                                                <asp:Label ID="lblUsuarioLogin" runat="server" />
+                                        <div id="valtxtUsuarioLogin" class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                <asp:TextBox ID="txtUsuarioLogin" placeholder="Usuario o E-mail" TabIndex="1" CssClass="form-control input-lg"
+                                                runat="server" Text="" oninput="javascript: limpiarUsuarioLogin();"></asp:TextBox>
+                                                 <i id="icontxtUsuarioLogin" style="display: none" class="form-control-feedback" data-bv-icon-for="ctl00$txtUsuarioLogin"></i>
+                                            </div>
+                                           
+                                            <small id="smalltxtUsuarioLogin" class="help-block" style="display: none;" data-bv-validator="notEmpty" data-bv-for="ctl00$txtUsuarioLogin" data-bv-result="INVALID">
+                                                <label id="errortxtUsuarioLogin"></label>
                                             </small>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div runat="server" id="divContraseñaLogin" class="form-group">
-                                            <asp:TextBox ID="txtContraseñaLogin" placeholder="Contraseña"
-                                                TabIndex="2" CssClass="form-control input-lg cleanLogin" runat="server" TextMode="Password" Text=""></asp:TextBox>
-                                            <i runat="server" id="iconContraseñaLogin" class="form-control-feedback glyphicon glyphicon-remove" style="display: none;" data-bv-icon-for="ctl00$txtContraseñaLogin"></i>
-                                            <small class="help-block" style="display: block;" data-bv-validator="notEmpty" data-bv-for="ctl00$txtContraseñaLogin" data-bv-result="INVALID">
-                                                <asp:Label ID="lblContraseñaLogin" runat="server" />
+                                        <div id="valtxtContraseñaLogin" class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                                <asp:TextBox ID="txtContraseñaLogin" placeholder="Contraseña"
+                                                TabIndex="2" CssClass="form-control input-lg" runat="server" TextMode="Password" Text="" oninput="javascript: limpiarContraseñaLogin();"></asp:TextBox>
+                                            <i id="icontxtContraseñaLogin" class="form-control-feedback" style="display: none;" data-bv-icon-for="ctl00$txtContraseñaLogin"></i>
+                                            </div>
+                                            <small id="smalltxtContraseñaLogin" class="help-block" style="display: none;" data-bv-validator="notEmpty" data-bv-for="ctl00$txtContraseñaLogin" data-bv-result="INVALID">
+                                                <label id="errortxtContraseñaLogin"></label>
                                             </small>
-                                            <asp:HiddenField ID="pass" runat="server" />
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
 
                                         <asp:Button ID="btnIniciarSesion" Text="Iniciar Sesion" UseSubmitBehavior="true" TabIndex="3" CssClass="btn btn-primary btn-block btn-sm"
-                                            runat="server" OnClick="btnIniciarSesion_Click" />
+                                            runat="server" OnClick="btnIniciarSesion_Click" onclientclick="return ValidarDatos();" />
 
                                     </div>
                                 </div>
@@ -169,6 +176,7 @@
                     <!-- /.modal-dialog -->
                 </div>
             </div>
+
             <div class="modal fade" id="registrar">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -317,6 +325,9 @@
                 <!-- Bootstrap Validator -->
                 <script src="js/bootstrapValidator.min.js"></script>
                 <!-- end: JavaScript-->
+                <!-- Irak Validator -->
+                <script src="js/irakValidator.js" type="text/javascript"></script>
+                <!-- end: JavaScript-->
 
 
             <!-- end: JavaScript-->
@@ -330,6 +341,7 @@
 </body>
 </html>
 <script type="text/javascript">
+
     var checker = document.getElementById('chAceptar');
     var sendbtn = document.getElementById('btnRegistrar');
     // when unchecked or checked, run the function
@@ -339,27 +351,30 @@
         } else {
             sendbtn.disabled = true;
         }
-
     }
 
-    $(document).ready(function () {
-        $(".formulario").bootstrapValidator();
-    });
+    function limpiarUsuarioLogin() {
+        validarUsuarioVacio($('[id=valtxtUsuarioLogin]').attr("id"), $('[id=txtUsuarioLogin]').attr("id"));
+    }
+
+    function limpiarContraseñaLogin() {
+        validarContraseñaVacia($('[id=valtxtContraseñaLogin]').attr("id"), $('[id=txtContraseñaLogin]').attr("id"));
+    }
+
+    function ValidarDatos() {
+        val1 = validarUsuarioVacio($('[id=valtxtUsuarioLogin]').attr("id"), $('[id=txtUsuarioLogin]').attr("id"));
+        val2 = validarContraseñaVacia($('[id=valtxtContraseñaLogin]').attr("id"), $('[id=txtContraseñaLogin]').attr("id"));
+        if (!validar2Campos(val1, val2)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     $('#login').on('shown.bs.modal', function () {
         $("#txtUsuarioLogin").focus();
     });
 
-    $('#login').on('hidden.bs.modal', function () {
-        $(".formulario").bootstrapValidator('resetForm', true);
-        $("#divUsuarioLogin").attr("class", "form-group");
-        $("#iconUsuarioLogin").attr("style", "display:none");
-        $("#lblUsuarioLogin").attr("style", "display:none");
-        $("#divContraseñaLogin").attr("class", "form-group");
-        $("#iconContraseñaLogin").attr("style", "display:none");
-        $("#lblContraseñaLogin").attr("style", "display:none");
-        $(".cleanLogin").val("");
-
-    });
 </script>
 
