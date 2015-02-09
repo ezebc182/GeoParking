@@ -5,52 +5,79 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ReglasDeNegocio;
+using Entidades;
 
 namespace WebServiceGeo.Controllers
 {
     public class ServiciosController : ApiController
     {
-        GestorServicio gestor = new GestorServicio();
+        GestorServicio gestor = new GestorServicio();       
 
         /// <summary>
-        /// cancela o da de baja el servicio
+        /// Registra un nuevo servicio
         /// </summary>
-        /// <param name="idPlaya">id de la playa</param>
-        /// <param name="idTipoVechiculo">id del tipo de vehiculo</param>
+        /// <param name="servicio">Objeto servicio utilizado por el controlador</param>
         /// <returns>'True' si la operacion se realizo correctamente</returns>
-        public string SetCancelarServicio([FromUri]int idPlaya, [FromUri]int idTipoVehiculo)
+        public string PostRegistrarServicio([FromBody] ServicioControlador servicio)
         {
-            return gestor.CancelarServicioPlaya(idPlaya, idTipoVehiculo).Ok.ToString();
+            List<Precio> precios = new List<Precio>();
+
+            foreach (var item in servicio.Precios)
+	        {
+                Precio p = new Precio();
+                p.TiempoId = item.IdTiempo;
+                p.Monto = Decimal.Parse(item.Monto.ToString());
+                precios.Add(p);
+	        }
+            
+            return gestor.RegistrarServicioPlaya(servicio.IdPlaya, servicio.IdTipoVehiculo, servicio.Capacidad, precios).Ok.ToString();
         }
 
         /// <summary>
-        /// registra un nuevo servicio de la playa
+        /// Cancela un servicio
         /// </summary>
-        /// <param name="idPlaya">id de la playa</param>
-        /// <param name="idTipoVechiculo">id del tipo de vehiculo</param>
-        /// <param name="capacidad">capacidad(lugares para el tipo de vehiculo)</param>
-        /// <param name="x1">precio por hora</param>
-        /// <param name="x6">precio por 6 horas</param>
-        /// <param name="x12">precio por 12 horas</param>
-        /// <param name="x24">precio por 24 horas</param>
-        /// <param name="abono">precio por mes</param>
-        /// <returns></returns>
-        public string SetRegistrarServicio([FromUri]int idPlaya, [FromUri]int idTipoVehiculo, [FromUri]int capacidad, [FromUri]double x1, [FromUri]double x6, [FromUri]double x12, [FromUri]double x24, [FromUri]double abono)
+        /// <param name="servicio"Objeto servicio utilizado por el controlador></param>
+        /// <returns>'True' si la operacion se realizo correctamente</returns>
+        public string PostCancelarServicio([FromBody] ServicioControlador servicio)
         {
-            return gestor.RegistrarServicioPlaya( idPlaya,  idTipoVehiculo,  capacidad,  x1, x6, x12, x24, abono).Ok.ToString();
+            return gestor.CancelarServicioPlaya(servicio.IdPlaya, servicio.IdTipoVehiculo).Ok.ToString();
         }
 
         /// <summary>
-        /// actualiza la capacidad de un servicio
+        /// Actualiza la capacidad de un servicio
         /// </summary>
-        /// <param name="idPlaya">id de la playa</param>
-        /// <param name="idTipoVechiculo">id del tipo de vehiculo del servicio</param>
-        /// <param name="capacidad">capacidad</param>
+        /// <param name="servicio">Objeto servicio utilizado por el controlador</param>
         /// <returns>'True' si la operacion se realizo correctamente</returns>
-        public string SetActualizarCapacidadServicio([FromUri]int idPlaya, [FromUri]int idTipoVechiculo, [FromUri]int capacidad)
+        public string PostActualizarCapacidadServicio([FromBody] ServicioControlador servicio)
         {
-            return gestor.ActualizarCapacidadServicio(idPlaya, idTipoVechiculo, capacidad).Ok.ToString();
-        }        
-        
+            return gestor.ActualizarCapacidadServicio(servicio.IdPlaya, servicio.IdTipoVehiculo, servicio.Capacidad).Ok.ToString();
+        }
+       
     }
+
+
+    /// <summary>
+    /// Clase que representa un servicio, y que se forma de recibir los datos
+    /// de una consulta por Post
+    /// </summary>
+    public class ServicioControlador
+    {
+        public int IdPlaya { get; set; }
+        public int IdTipoVehiculo { get; set; }
+        public int Capacidad { get; set; }
+        public TipoPrecio[] Precios { get; set; }
+    }
+
+    public class TipoPrecio
+    {
+        public int IdTiempo { get; set; }
+        public Double Monto { get; set; }
+    }
+
+    
+
+
+
+    
+
 }

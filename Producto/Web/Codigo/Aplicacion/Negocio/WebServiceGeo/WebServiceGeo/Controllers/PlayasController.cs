@@ -97,6 +97,7 @@ namespace WebServiceGeo.Controllers
             json += "]";
             return json;
         }
+
         public string PostUbicacionesPlayasPorDistancia([FromBody] BusquedaPorCoordenadas datos)
         {
             string json = "[";
@@ -113,65 +114,51 @@ namespace WebServiceGeo.Controllers
             json += "]";
             return json;
         }
-        /**
-         * Obtiene los precios de las playas selecionadas para el tipo de vehiculo seleccionado
-         * ej. api/Playas/GetPreciosPlayas?tipoVehiculoId=1&idPlayas=1,2,3,5
-         */
-        public string GetPreciosPlayas([FromUri] string tipoVehiculoId, [FromUri] string idPlayas)
+    
+        /// <summary>
+        /// Actualiza el tipo de la playa
+        /// </summary>
+        /// <param name="playa">Objeto playa del controlador</param>
+        /// <returns>'True' si la operacion se realizo correctamente</returns>
+        public string PostActualizarTipoPlaya([FromBody]PlayaControlador playa)
         {
-            int tipoVehiculo = int.Parse(tipoVehiculoId);
-            IList<Precio> precios = new List<Precio>();
-            precios = (List<Precio>)gestorPrecio.GetPreciosDePlayasPorTipoVehiculoEIdPlayas(idPlayas, tipoVehiculo);
-            string json = "[";
-            foreach (var item in precios)
-            {
-                json += item.GetPreciosConIdPlayasComoJSON() + ",";
-            }
-            if (precios.Count > 0)
-            {
-                json = json.Substring(0, json.Length - 1);
-            }
-            json += "]";
-            return json;
+            return gestorPlaya.ActualizarTipoPlaya(playa.IdPlaya, playa.TipoPlayaId).Ok.ToString();
+        }
+               
+        /// <summary>
+        /// Actuliza nombre y email de la playa
+        /// </summary>
+        /// <param name="playa">Objeto playa del controlador</param>
+        /// <returns>'True' si la operacion se realizo correctamente</returns>
+        public string PostActualizarNombreEmailPlaya([FromBody]PlayaControlador playa)
+        {
+            return gestorPlaya.ActualizarNombreEmailPlaya(playa.IdPlaya, playa.Nombre, playa.Mail).Ok.ToString();
         }
 
         /// <summary>
-        /// pemite actualizar el tipo de la playa
+        /// Actualiza el horario de la playa
         /// </summary>
-        /// <param name="idPlaya">id de la playa</param>
-        /// <param name="idTipoPlaya">id del nuevo tipo de la playa</param>
+        /// <param name="playa">Objeto playa del controlador</param>
         /// <returns>'True' si la operacion se realizo correctamente</returns>
-        public string SetActualizarTipoPlaya([FromUri] int idPlaya,[FromUri] int idTipoPlaya)
+        public string PostActualizarHorarioPlaya([FromBody]PlayaControlador playa)
         {
-            return gestorPlaya.ActualizarTipoPlaya(idPlaya, idTipoPlaya).Ok.ToString();
+            return gestorPlaya.ActualizarHorarioPlaya(playa.IdPlaya, playa.DiaAtencionId, playa.HoraDesde, playa.HoraHasta).Ok.ToString();
         }
-
-        /// <summary>
-        /// permite actualizar el Nombre y el Email de la playa
-        /// </summary>
-        /// <param name="idPlaya">id de la playa</param>
-        /// <param name="nombrePlaya">nombre de l aplaya</param>
-        /// <param name="emailPlaya">email de la playa</param>
-        /// <returns>'True' si la operacion se realizo correctamente</returns>
-        public string SetActualizarNombreEmailPlaya([FromUri] int idPlaya,[FromUri] string nombrePlaya, [FromUri] string emailPlaya)
-        {
-            return gestorPlaya.ActualizarNombreEmailPlaya(idPlaya,nombrePlaya,emailPlaya).Ok.ToString();
-        }
-
-        /// <summary>
-        /// permite actualzar el horario de la playa
-        /// </summary>
-        /// <param name="idPlaya">id de la playa</param>
-        /// <param name="idDiaAtencion">id del dia de atencion</param>
-        /// <param name="horaDesde">hora de apertura</param>
-        /// <param name="horaHasta">hora de cierre</param>
-        /// <returns>'True' si la operacion se realizo correctamente</returns>
-        public string SetActualizarHorarioPlaya([FromUri] int idPlaya, [FromUri] int idDiaAtencion, [FromUri] string horaDesde, [FromUri] string horaHasta)
-        {
-            return gestorPlaya.ActualizarHorarioPlaya(idPlaya, idDiaAtencion, horaDesde, horaHasta).Ok.ToString();
-        }
-
         
+    }
+
+    /// <summary>
+    /// Objeto que se genera a partir de los datos obtenidos por la peticion
+    /// </summary>
+    public class PlayaControlador
+    {
+        public int IdPlaya { get; set; }
+        public string Nombre { get; set; }
+        public string Mail { get; set; }        
+        public int TipoPlayaId { get; set; }
+        public int DiaAtencionId { get; set; }
+        public string HoraDesde { get; set; }
+        public string HoraHasta { get; set; }
     }
 
     public class BusquedaPorCoordenadas

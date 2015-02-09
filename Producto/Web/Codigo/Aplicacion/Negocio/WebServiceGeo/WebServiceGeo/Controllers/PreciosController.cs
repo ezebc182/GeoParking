@@ -13,24 +13,26 @@ namespace WebServiceGeo.Controllers
     {
 
         private GestorPrecio gestor = new GestorPrecio();
+        
+        /// <summary>
+        /// Actualiza el precio de una playa
+        /// </summary>
+        /// <param name="precio">Objeto Precio del controlador</param>
+        /// <returns>'True' si la accion se concreto</returns>
+        public string PostActualizarPrecio([FromBody]PrecioControler precio)
+        {
+            return gestor.ActualizarPrecioPlaya(precio.IdPLaya, precio.IdTiempo, precio.IdTipoVehiculo, precio.Precio).Ok.ToString();
+        }
+       
 
         /// <summary>
-        /// Actualiza el precio para un tiempo de estacionamiento de un tipo
-        /// de vehiculo de una playa
+        /// Registra el precio de una playa
         /// </summary>
-        /// <param name="idPlaya"></param>
-        /// <param name="idTiempo"></param>
-        /// <param name="idTipoVehiculo"></param>
-        /// <param name="precio"></param>
+        /// <param name="precio">Objeto Precio del controlador</param>
         /// <returns>'True' si la accion se concreto</returns>
-        public string SetActualizarPrecio([FromUri]int idPlaya, [FromUri]int idTiempo, [FromUri]int idTipoVehiculo, [FromUri] double precio)
+        public string PostRegistrarPrecio([FromBody]PrecioControler precio)
         {
-            return gestor.ActualizarPrecioPlaya(idPlaya, idTiempo, idTipoVehiculo, precio).Ok.ToString();
-        }
-
-        public string SetRegistrarPrecio([FromUri]int idPlaya, [FromUri]int idTiempo, [FromUri]int idTipoVehiculo, [FromUri] double precio)
-        {
-            return gestor.RegistrarPrecioPlaya(idPlaya, idTiempo, idTipoVehiculo, precio).Ok.ToString();
+            return gestor.RegistrarPrecioPlaya(precio.IdPLaya, precio.IdTiempo, precio.IdTipoVehiculo, precio.Precio).Ok.ToString();
         }
 
         /**
@@ -53,5 +55,16 @@ namespace WebServiceGeo.Controllers
             json += "]";
             return json;
         }
+    }
+
+    /// <summary>
+    /// Objeto que se genera a partir de la informacion de la peticion
+    /// </summary>
+    public class PrecioControler
+    {
+        public int IdPLaya { get; set; }
+        public int IdTiempo { get; set; }
+        public int IdTipoVehiculo { get; set; }
+        public double Precio { get; set; }
     }
 }

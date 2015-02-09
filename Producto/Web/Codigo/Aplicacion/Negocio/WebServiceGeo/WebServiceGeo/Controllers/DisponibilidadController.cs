@@ -15,33 +15,25 @@ namespace WebServiceGeo.Controllers
         private GestorDisponibilidad gestor = new GestorDisponibilidad();
 
         // GET api/disponibilidad
+        
         /// <summary>
-        /// Actualiza la disponibilidad de lugares de una playa de estacionamiento
-        /// para un tipo de vehiculo en particular
+        /// Actualiza la disponibilida de una playa
         /// </summary>
-        /// <param name="idPlaya"></param>
-        /// <param name="idTipoVehiculo"></param>
-        /// <param name="idEvento"></param>
-        /// <param name="dia"></param>
-        public string SetActualizarDisponibilidad([FromUri]int idPlaya, [FromUri]int idTipoVehiculo, [FromUri]int idEvento, [FromUri]string fecha)
+        /// <param name="disponibilidad">Objeto disponibilidad del controlador</param>
+        /// <returns>'True' si la accion se realizo correctamente</returns>
+        public string PosActualizarDisponibilidad([FromBody]DisponibilidadControlador disponibilidad)
         {
-            return gestor.ActualizarDisponibilidadPlaya(idPlaya, idTipoVehiculo, idEvento, DateTime.Parse(fecha), DateTime.Parse(fecha).Day).Ok.ToString();
+            return gestor.ActualizarDisponibilidadPlaya(disponibilidad.IdPLaya, disponibilidad.IdTipoVehiculo, disponibilidad.IdEvento, DateTime.Parse(disponibilidad.Fecha), DateTime.Parse(disponibilidad.Fecha).Day).Ok.ToString();
         }
-
-        // GET api/disponibilidad/GetActualizarDisponibilidadGeneral
+        
         /// <summary>
-        /// actualiza la disponibilidad de un tipo de vehiculo
-        /// ingresando la cantidad exacta de la disponibilidad
+        /// Actualiza la disponibilida general de una playa
         /// </summary>
-        /// <param name="idPlaya"></param>
-        /// <param name="idTipoVehiculo"></param>
-        /// <param name="disponibilidad"></param>
-        /// <param name="idEvento"></param>
-        /// <param name="fecha"></param>
-        /// <returns>'True' si fue correcta </returns>
-        public string SetActualizarDisponibilidadGeneral([FromUri]int idPlaya, [FromUri]int idTipoVehiculo, [FromUri]int disponibilidad, [FromUri]int idEvento, [FromUri]string fecha)
+        /// <param name="disponibilidad">Objeto disponibilidad del controlador</param>
+        /// <returns>'True' si la accion se realizo correctamente</returns>
+        public string PosActualizarDisponibilidadGeneral([FromBody]DisponibilidadControlador disponibilidad)
         {
-            return gestor.ActualizarDisponibilidadGeneralPlaya(idPlaya, idTipoVehiculo, disponibilidad, idEvento, DateTime.Parse(fecha), DateTime.Parse(fecha).Day).Ok.ToString();
+            return gestor.ActualizarDisponibilidadGeneralPlaya(disponibilidad.IdPLaya, disponibilidad.IdTipoVehiculo, disponibilidad.Disponibilidad, disponibilidad.IdEvento, DateTime.Parse(disponibilidad.Fecha), DateTime.Parse(disponibilidad.Fecha).Day).Ok.ToString();
         }
 
         // GET api/disponibilidad/GetDisponibilidadesPlayasPorTipoVehiculo
@@ -72,6 +64,18 @@ namespace WebServiceGeo.Controllers
             return gestor.GetDisponibilidadPlayaPorTipoVehiculo(idPlaya, idTipoVehiculo);
         }
         
+    }
+
+    /// <summary>
+    /// Objeto disponibilidad que se genera por datos recibidos por la peticion
+    /// </summary>
+    public class DisponibilidadControlador
+    {
+        public int IdPLaya { get; set; }
+        public int IdTipoVehiculo { get; set; }
+        public int Disponibilidad { get; set; }
+        public int IdEvento { get; set; }
+        public string Fecha { get; set; }        
     }
 
     public class ListadoIdPlayas

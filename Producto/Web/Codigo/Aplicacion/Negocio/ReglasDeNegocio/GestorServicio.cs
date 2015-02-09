@@ -188,6 +188,54 @@ namespace ReglasDeNegocio
             return resultado;
         }
 
+        public Resultado RegistrarServicioPlaya(int idPlaya, int idTipoVechiculo, int capacidad, List<Precio>precios)
+        {
+            Resultado resultado = new Resultado();
+
+            try
+            {
+                Servicio servicio = new Servicio();
+                servicio.TipoVehiculoId = idTipoVechiculo;
+
+                //capacidad
+                Capacidad cap = new Capacidad();
+                cap.Cantidad = capacidad;
+                servicio.Capacidad = cap;
+
+                //precios
+                List<Precio> listaPrecios = precios;
+                servicio.Precios = listaPrecios;
+
+                servicio.DisponibilidadPlayas = new DisponibilidadPlayas();
+                servicio.DisponibilidadPlayas.Disponibilidad = servicio.Capacidad.Cantidad;
+
+                //buscamos la playa a la que agregamos el servicio
+                PlayaDeEstacionamiento playa = playaDao.FindById(idPlaya);
+
+                if (playa.FechaBaja == null)
+                {
+                    //agregamos el servicio
+                    playa.Servicios.Add(servicio);
+
+                    //actualizamos la playa
+                    playaDao.Update(playa);
+                }
+                else
+                {
+                    resultado.AgregarMensaje("La playa de estacionamiento esta dada de baja.");
+                }
+                
+
+            }
+            catch (Exception)
+            {
+                
+                resultado.AgregarMensaje("Se ha producido un error de base de datos.");
+            }
+
+            return resultado;
+        }
+
         /// <summary>
         /// Actualiza la capacidad de un servicio
         /// </summary>
@@ -214,5 +262,9 @@ namespace ReglasDeNegocio
 
             return resultado;
         }
+
+
     }
+
+    
 }
