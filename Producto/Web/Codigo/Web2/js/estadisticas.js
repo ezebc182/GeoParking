@@ -20,6 +20,7 @@ function estadistica(div, datos, tipoEstadistica) {
     };
     this.div = div;
     this.datos = datos;
+    this.datosFiltrados = null;
     this.me = this;
 };
 

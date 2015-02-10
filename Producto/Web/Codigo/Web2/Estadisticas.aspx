@@ -38,95 +38,83 @@
                     </div>
                 </div>
             </div>
-    </div>
-    <div class="panel-body" id="divContenedorEstadisticas">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-lg-1">
-                        <h3 class="panel-title">Historico</h3>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="col-lg-6">
-                            <label class="control-label pull-right">Buscar Por:</label>
+        </div>
+        <div class="panel-body" id="divContenedorEstadisticas">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-lg-1">
+                            <h3 class="panel-title">Historico</h3>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="bfh-selectbox" data-name="ddlBuscarPor">
-                                <div data-value="1">Playa</div>
-                                <div data-value="2">Zona</div>
+                        <div class="col-lg-3">
+                            <div class="col-lg-6">
+                                <label class="control-label pull-right">Buscar Por:</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="bfh-selectbox" data-name="ddlBuscarPor">
+                                    <div data-value="1">Playa</div>
+                                    <div data-value="2">Zona</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3">
                         <div class="col-lg-3">
-                            <label class="control-label">Desde:</label>
+                            <div class="col-lg-3">
+                                <label class="control-label">Desde:</label>
+                            </div>
+                            <div class="col-lg-9 pul-left">
+                                <div class="bfh-datepicker" data-placeholder="Fecha Desde" data-min="01/15/2013" data-max="today"></div>
+                            </div>
                         </div>
-                        <div class="col-lg-9 pul-left">
-                            <div class="bfh-datepicker" data-placeholder="Fecha Desde" data-min="01/15/2013" data-max="today"></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
                         <div class="col-lg-3">
-                            <label class="control-label">Hasta:</label>
+                            <div class="col-lg-3">
+                                <label class="control-label">Hasta:</label>
+                            </div>
+                            <div class="col-lg-9 pull-left">
+                                <div class="bfh-datepicker" data-placeholder="Fecha Hasta" data-min="01/15/2013" data-max="today"></div>
+                            </div>
                         </div>
-                        <div class="col-lg-9 pull-left">
-                            <div class="bfh-datepicker" data-placeholder="Fecha Hasta" data-min="01/15/2013" data-max="today"></div>
+                        <div class="col-lg-2">
+                            <div class="pull-left">
+                                <button class="btn btn-success" type="button"><span class="fa fa-search">Buscar</span></button>
+                            </div>
+                            <div class="pull-right"><i id="minMax" class="fa fa-square-o fa-lg"></i></div>
                         </div>
                     </div>
-                    <div class="col-lg-2">
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div id="divFiltros" class="col-lg-4">
+                        <div class="form-group col-lg-12">
+                            <input type="checkbox" />
+                            <label class="form-label" for="ddlZonas">Zonas: </label>
+                            <select id="ddlZonas" style="width: 100%;" multiple disabled></select>
+                        </div>
+                        <div class="form-group col-lg-12">
+                            <input type="checkbox" />
+                            <label class="form-label" for="ddlPlayas">Playas: </label>
+                            <select id="ddlPlayas" style="width: 100%;" multiple disabled></select>
+                        </div>
+                        <div class="form-group col-lg-12">
+                            <input type="checkbox" />
+                            <label class="form-label" for="ddlTipoPlaya">Tipo de playa:</label>
+                            <select id="ddlTipoPlaya" style="width: 100%;" multiple disabled></select>
+                        </div>
+                        <div class="form-group col-lg-12">
+                            <input type="checkbox" />
+                            <label class="form-label" for="ddlTipoVehiculo">Tipo de vehiculo:</label>
+                            <select id="ddlTipoVehiculo" class="form-control" style="width: 100%;" multiple disabled></select>
+                        </div>
+                    </div>
+                    <div id="divEstadistica" class="col-lg-8" data-value="">
                         <div class="pull-left">
-                            <button class="btn btn-success" type="button"><span class="fa fa-search">Buscar</span></button>
+                            <button class="glyphicon glyphicon-chevron-left" type="button" onclick="menuFiltros(this)"></button>
                         </div>
-                        <div class="pull-right"><i id="minMax" class="fa fa-square-o fa-lg"></i></div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel-body" style="display: none;">
-                <div id="divFiltros" class="col-lg-4">
-                    <div class="form-group col-lg-12">
-                        <div class="col-lg-3" style="padding-left: 0px;">
-                            <label class="form-label">Zonas: </label>
-                        </div>
-                        <div class="col-lg-9">
-                            <select id="ddlZonas" data-multiple="true"></select>
+                        <div>
                         </div>
                     </div>
-                    <div class="form-group col-lg-12">
-                        <div class="col-lg-3" style="padding-left: 0px;">
-                            <label class="form-label">Playas: </label>
-                        </div>
-                        <div class="col-lg-9">
-                            <select id="ddlPlayas" data-multiple="true"></select>
-                        </div>
-                    </div>
-                    <div class="form-group col-lg-12">
-                        <div class="col-lg-3" style="padding-left: 0px;">
-                            <label class="form-label">Tipo de playa:</label>
-                        </div>
-                        <div class="col-lg-9">
-                            <select id="ddlTipoPlaya" data-multiple="true"></select>
-                        </div>
-                    </div>
-                    <div class="form-group col-lg-12">
-                        <div class="col-lg-3" style="padding-left: 0px;">
-                            <label class="form-label">Tipo de vehiculo:</label>
-                        </div>
-                        <div class="col-lg-9">
-                            <select id="ddlTipoVehiculo" data-multiple="true"></select>
-                        </div>
-                    </div>
-                </div>
-                <div id="divEstadistica" class="col-lg-8" data-value="">
-                    <div class="pull-left">
-                        <button class="glyphicon glyphicon-chevron-left" type="button" onclick="menuFiltros(this)"></button>
-                    </div>
-                    <div>
-                    </div>
-                </div>
 
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
 </asp:Content>
@@ -138,16 +126,62 @@
     <script src="js/select2-4.0.0-beta.3/js/select2.min.js" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
+            minMax();
 
+            var tiposVehiculos = new Array();
+            var tiposPlayas = new Array();
+            var zonas = new Array();
+            $.each(JSON.parse($('[id*=hdTiposVehiculos]').val()), function (i, item) {
+                tiposVehiculos.push({ id: item.Id, text: item.Nombre });
+            })
+            $.each(JSON.parse($('[id*=hdTiposPlayas]').val()), function (i, item) {
+                tiposVehiculos.push({ id: item.Id, text: item.Nombre });
+            })
+            $.each(JSON.parse($('[id*=hdZonas]').val()), function (i, item) {
+                tiposVehiculos.push({ id: item.Id, text: item.Nombre });
+            })
+            $('#ddlTipoVehiculo').select2({
+                data: tiposVehiculos
+            });
+            $('#ddlTipoPlaya').select2({
+                data: tiposPlayas
+            });
+            $('#ddlZonas').select2({
+                data: zonas
+            });
+            $('#ddlPlayas').select2();
+            $('input[type=checkbox]').off('change').on('change', function () {
+                var select = $(this).next().next();
+                if ($(this).is(':checked')) {
+                    select.prop('disabled', !$(this).is(':checked'));
+                    select.off('change').on('change', function () {
+                        //estadisticas[i].filtrar
+                    });
+                }
+            })
         });
         $('[id*=txtBuscarCiudad]').focusout(function () {
             if ($('[id*=txtBuscarCiudad]').val() != "") {
                 $('#btnNueva').removeAttr('disabled');
+                // buscarPlayas();
             }
             else {
                 $('#btnNueva').attr('disabled', true);
             }
         });
 
+        function buscarPlayas() {
+            var ciudad = $('[id*=txtBuscarCiudad]').val();
+            $.ajax({
+                type: "POST",
+                url: "Estadisticas.aspx/BuscarPlayas",
+                data: "{'ciudad': '" + ciudad + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    $('[id*=hdPlayas]').val(response.d);
+                }
+            });
+        };
     </script>
 </asp:Content>

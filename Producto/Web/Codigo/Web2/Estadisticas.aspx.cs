@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ReglasDeNegocio;
+using System.Web.Services;
+
 namespace Web2
 {
     public partial class Estadisticas : System.Web.UI.Page
@@ -23,19 +25,16 @@ namespace Web2
 
             if (!Page.IsPostBack)
             {
-
+                //hdZonas.Value = gestorZonas.GetZonasJSON();
+                //hdTiposPlayas.Value = gestorPlaya.BuscarTipoPlayasJSON();
+                //hdTiposVehiculos.Value = gestorPlaya.BuscarTipoVehiculosJSON();
             }
         }
 
-        public static string CiudadSeleccionada() {
-            return txtBuscarCiudad.Text;
-        }
-
-        public static void CargarValores() {
-            hdPlayas.Value = gestorPlaya.BuscarPlayasPorCiudadJSON(CiudadSeleccionada());
-            hdZonas.Value = gestorZonas.GetZonasJSON();
-            hdTiposPlayas.Value = gestorPlaya.BuscarTipoPlayasJSON();
-            hdTiposVehiculos.Value = gestorPlaya.BuscarTipoVehiculosJSON();
+        [WebMethod]
+        public static string BuscarPlayas(string ciudad)
+        {
+            return gestorPlaya.BuscarPlayasPorCiudadJSON(ciudad);
         }
     }
 }

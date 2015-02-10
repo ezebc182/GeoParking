@@ -19,7 +19,7 @@ namespace Web2 {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected static global::System.Web.UI.WebControls.HiddenField hdPlayas;
+        protected global::System.Web.UI.WebControls.HiddenField hdPlayas;
         
         /// <summary>
         /// Control hdTiposVehiculos.
@@ -28,7 +28,7 @@ namespace Web2 {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected static global::System.Web.UI.WebControls.HiddenField hdTiposVehiculos;
+        protected global::System.Web.UI.WebControls.HiddenField hdTiposVehiculos;
         
         /// <summary>
         /// Control hdZonas.
@@ -37,7 +37,7 @@ namespace Web2 {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected static global::System.Web.UI.WebControls.HiddenField hdZonas;
+        protected global::System.Web.UI.WebControls.HiddenField hdZonas;
         
         /// <summary>
         /// Control hdTiposPlayas.
@@ -46,7 +46,7 @@ namespace Web2 {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected static global::System.Web.UI.WebControls.HiddenField hdTiposPlayas;
+        protected global::System.Web.UI.WebControls.HiddenField hdTiposPlayas;
         
         /// <summary>
         /// Control txtBuscarCiudad.
@@ -55,6 +55,6 @@ namespace Web2 {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected static global::System.Web.UI.WebControls.TextBox txtBuscarCiudad;
+        protected global::System.Web.UI.WebControls.TextBox txtBuscarCiudad;
     }
 }
