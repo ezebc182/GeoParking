@@ -149,7 +149,10 @@
     <Content Include="AdministracionPlayas.aspx" />
     <Content Include="AdministracionRolesyPermisos.aspx" />
     <Content Include="css\bootstrap-fileupload.min.css" />
+    <Content Include="css\style.min.css" />
     <Content Include="Estadisticas.aspx" />
+    <Content Include="DatosUsuario.aspx" />
+    <Content Include="AdministracionSolicitudesYConexiones.aspx" />
     <Content Include="img\fotosPerfil\demoUpload.jpg" />
     <Content Include="js\bootstrapformhelpers\css\bootstrap-formhelpers.css" />
     <Content Include="js\bootstrapformhelpers\css\bootstrap-formhelpers.min.css" />
@@ -361,6 +364,20 @@
     </Compile>
     <Compile Include="Estadisticas.aspx.designer.cs">
       <DependentUpon>Estadisticas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DatosUsuario.aspx.cs">
+      <DependentUpon>DatosUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DatosUsuario.aspx.designer.cs">
+      <DependentUpon>DatosUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdministracionSolicitudesYConexiones.aspx.cs">
+      <DependentUpon>AdministracionSolicitudesYConexiones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdministracionSolicitudesYConexiones.aspx.designer.cs">
+      <DependentUpon>AdministracionSolicitudesYConexiones.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

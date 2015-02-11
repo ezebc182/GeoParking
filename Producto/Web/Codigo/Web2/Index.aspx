@@ -6,7 +6,7 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
     <script src="js/autocompleteCiudades.js"></script>
-    
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/index/jquery.min.js"></script>
 
@@ -28,7 +28,7 @@
                     <p style="text-shadow: 4px 4px 13px rgba(30, 28, 28 ,1);" class="intro-text">Estacioná de manera fácil, rápida y efectiva.</p>
                     <div class="input-group col-lg-4 col-lg-offset-4">
                         <asp:TextBox ID="txtBuscar" CssClass="form-control input-lg autocompleteCiudad" runat="server"
-                            ClientIDMode="Static" placeholder="Ingresá tu ciudad" ></asp:TextBox>
+                            ClientIDMode="Static" placeholder="Ingresá tu ciudad"></asp:TextBox>
                         <div class="input-group-btn">
                             <asp:Button ID="btnBuscar" CssClass="btn-primary btn btn-lg" runat="server" Text="Buscar"
                                 OnClick="btnBuscar_Click" />
@@ -40,7 +40,7 @@
     </div>
 
 
-    <br />    
+    <br />
 
     <!--features-->
     <div id="fea" class="features">
@@ -276,6 +276,26 @@
                 </div>
             </div>
         </div>
+        <div id="conexion" class="getintouch">
+            <div class="container">
+                <div class="section-head text-center">
+                    <h3><span class="frist"></span>Conecta tu Playa<span class="second"> </span></h3>
+                    <p>Chamuyo explicando beneficios y demas</p>
+                </div>
+                <!---->
+                <div style="margin-bottom: 100px;">
+                    <p>Si ya estas registrado</p>
+                    <div class="col-md-2">
+                        <a data-toggle="modal" href="#login" class="btn btn-success btn-block btn-sm" onclick="javascript: conectarPlaya();">Iniciar Sesion</a>
+                    </div>
+                    <p>y luego completa el registro</p>
+                    <p>Si eres un usuario nuevo, simplemente</p>
+                    <div class="col-md-2">
+                        <a href="../DatosUsuario.aspx" class="btn btn-primary btn-block btn-sm">Registrate</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!---//getintouch----->
         <!-----footer-->
         <div class="footer">
@@ -336,8 +356,5 @@
         </div>
         <!---//footer-->
 
-    </div>
-
-    <script src="js/redireccionador.js"></script>
-
+        <script src="js/redireccionador.js"></script>
 </asp:Content>

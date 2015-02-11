@@ -10,7 +10,7 @@
 namespace Web2 {
     
     
-    public partial class DatosPersonales {
+    public partial class DatosUsuario {
         
         /// <summary>
         /// Control lblUsuarioEditar.
@@ -76,6 +76,15 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.TextBox txtDireccion;
         
         /// <summary>
+        /// Control colContraseñaVieja.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl colContraseñaVieja;
+        
+        /// <summary>
         /// Control txtContraseñaVieja.
         /// </summary>
         /// <remarks>
@@ -85,6 +94,15 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.TextBox txtContraseñaVieja;
         
         /// <summary>
+        /// Control lblContraseñaNueva.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblContraseñaNueva;
+        
+        /// <summary>
         /// Control txtContraseñaNueva.
         /// </summary>
         /// <remarks>
@@ -92,6 +110,15 @@ namespace Web2 {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtContraseñaNueva;
+        
+        /// <summary>
+        /// Control lblRepetirContraseña.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblRepetirContraseña;
         
         /// <summary>
         /// Control txtRepetirContraseñaNueva.

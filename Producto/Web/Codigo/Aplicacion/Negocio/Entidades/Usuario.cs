@@ -17,6 +17,9 @@ namespace Entidades
         public String Nombre { get; set; }
         public int RolId { get; set; }
         public virtual Rol Rol { get; set; }
+        public int DNI { get; set; }
+        public DateTime FechaDeNacimiento { get; set; }
+        public String Direccion { get; set; }
 
         /// <summary>
         /// Convierte a un objeto "PlayaDeEstacionamiento" el JSON pasado como parametro

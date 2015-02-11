@@ -94,4 +94,15 @@ function limpiarValidacionesLogin() {
     icon.attr("style", "display:none");
     small.attr("style", "display:none");
     formDiv.attr("class", "form-group");
+    $('[id=hfInicioSession]').val("");
+}
+
+function conectarPlaya() {
+    var formDiv = $('[id*=val]');
+    var icon = $('[id*= icon]');
+    var small = $('[id*= small]');
+    icon.attr("style", "display:none");
+    small.attr("style", "display:none");
+    formDiv.attr("class", "form-group");
+    $('[id=hfInicioSession]').val("true");
 }
