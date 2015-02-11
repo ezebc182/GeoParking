@@ -1,6 +1,9 @@
 var input = (document.getElementById('txtBusqueda'));
 var autocomplete = new google.maps.places.Autocomplete(input);
 var lugarBuscado = null;
+function cerrarPanelBusqueda(){
+    $("#pnlBusqueda").panel('close');
+}
 $("#btnMostrarBusquedaEnMapa").click(function(){
     var markerLugarBuscado = new google.maps.Marker({
         position: lugarBuscado.geometry.location,
@@ -9,15 +12,18 @@ $("#btnMostrarBusquedaEnMapa").click(function(){
     });
     markerLugarBuscado.setMap(map);
     map.setCenter(lugarBuscado.geometry.location);
+    cerrarPanelBusqueda();
 });
 $("#btnVerListadoPuntoBuscado").click(function(){
     verListado()
+    cerrarPanelBusqueda();
 });
 $("#btnBorrarBusqueda").click(function(){
     lugarBuscado = null;
     markerLugarBuscado.setMap(null);
     markerLugarBuscado = null;
     ubicarMiPosicion();
+    cerrarPanelBusqueda();
 });
 
 
