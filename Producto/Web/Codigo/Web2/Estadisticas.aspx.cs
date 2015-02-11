@@ -25,9 +25,9 @@ namespace Web2
 
             if (!Page.IsPostBack)
             {
-                //hdZonas.Value = gestorZonas.GetZonasJSON();
-                //hdTiposPlayas.Value = gestorPlaya.BuscarTipoPlayasJSON();
-                //hdTiposVehiculos.Value = gestorPlaya.BuscarTipoVehiculosJSON();
+                hdZonas.Value = gestorZonas.GetZonasJSON();
+                hdTiposPlayas.Value = gestorPlaya.BuscarTipoPlayasJSON();
+                hdTiposVehiculos.Value = gestorPlaya.BuscarTipoVehiculosJSON();
             }
         }
 
