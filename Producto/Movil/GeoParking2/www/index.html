@@ -148,7 +148,10 @@
                 <div id="divBusqueda">
                     <p>Podrá buscar playas cercanas a puntos de interés o direcciones que usted quiera.</p>
                     <input id="txtBusqueda" placeholder="¿Qué quieres buscar?" data-clear-btn="true">
-                    <a id="btnBuscar" href="#" class="ui-btn">Buscar</a>
+                    <p id="parrafoDireccionBuscada"></p>
+                    <a id="btnMostrarBusquedaEnMapa" href="#" class="ui-btn">Mostrar en Mapa</a>
+                    <a id="btnVerListadoPuntoBuscado" href="#" class="ui-btn">Ver playas cercanas</a>
+                    <a id="btnBorrarBusqueda" href="#" class="ui-btn">Limpiar busqueda</a>
                 </div>
             </form>
 
@@ -402,7 +405,8 @@
         function verListado() {
             cargandoConMensaje("Cargando Listado");
             $("#panelListado").listadoPlayasWidget({
-                listadoPlayas: playas
+                listadoPlayas: playas,
+                puntoDeBusqueda : lugarBuscado.geometry.location
             });
         }
 

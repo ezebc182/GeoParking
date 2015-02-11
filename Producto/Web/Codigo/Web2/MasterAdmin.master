@@ -61,6 +61,7 @@
                         <li><a href="../index.aspx#gallery">GALERIA</a></li>
                         <li><a href="../index.aspx#about">EQUIPO</a></li>
                         <li><a href="../index.aspx#contact">CONTACTO</a></li>
+                        <li><a href="../index.aspx#conexion">CONECTA TU PLAYA</a></li>
                         <li id="li_Administracion" runat="server" visible="false"><a href="#">ADMINISTRACION</a></li>
                         <li id="li_Ingresar" runat="server"><a data-toggle="modal" href="#login"><i class="fa fa-fw fa-sign-in"></i>INGRESAR</a></li>
                         <li id="li_Login" runat="server" class="dropdown" visible="false">

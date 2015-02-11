@@ -8,7 +8,8 @@ $.widget("geoparking.listadoPlayasWidget", {
         listadoPlayas: null,
         playaElegida: null,
         disponibilidadPlayas: null,
-        cantidadHistorial: 5
+        cantidadHistorial: 5,
+        puntoDeBusqueda : null
     },
     /**
      * Metodo de creacion del widget, tiene que existir en todo widget.
@@ -112,9 +113,16 @@ $.widget("geoparking.listadoPlayasWidget", {
         var parrafoPrecios = document.createElement("p");
         parrafoPrecios.className = "ui-li-aside";
         var strongPrecio = document.createElement("strong");
-        var precio = playa.Precios[0].Tiempo;
-        precio += ": $";
-        precio += playa.Precios[0].Monto;
+        var precio;
+        if(playa.Precios && playa.Precios.length > 0){
+            precio = playa.Precios[0].Tiempo;
+            precio += ": $";
+            precio += playa.Precios[0].Monto;
+        }
+       else{
+           precio = "Sin Datos";
+       }
+        
         strongPrecio.innerHTML = precio;
 
         //Todos los append
@@ -179,10 +187,19 @@ $.widget("geoparking.listadoPlayasWidget", {
      * Dada una playa, calcula y retorna la distancia entre dicha playa y la posicion actual del movil.
      */
     _calcularDistanciaPlaya: function (playa) {
+        var widget = this;
         var lat1 = parseFloat(playa.Latitud);
         var lon1 = parseFloat(playa.Longitud);
-        var lat2 = parseFloat(posicionActual.k);
-        var lon2 = parseFloat(posicionActual.D);
+        var lat2;
+        var lon2
+        if(widget.options.puntoDeBusqueda === null){
+            lat2 = parseFloat(posicionActual.k);
+            lon2 = parseFloat(posicionActual.D);
+        }
+        else{
+            lat2 = parseFloat(widget.options.puntoDeBusqueda.k);
+            lon2 = parseFloat(widget.options.puntoDeBusqueda.D);
+        }
         var distancia = distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) * 1000;
         distancia = distancia.toFixed(1);
         return distancia;

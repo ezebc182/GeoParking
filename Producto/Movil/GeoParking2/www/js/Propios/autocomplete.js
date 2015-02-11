@@ -1,8 +1,86 @@
-var inputs = ($('#txtBusqueda'));
+var input = (document.getElementById('txtBusqueda'));
+var autocomplete = new google.maps.places.Autocomplete(input);
+var lugarBuscado = null;
+var markerLugarBuscado;
+var puntoInteres;
+function cerrarPanelBusqueda(){
+    $("#pnlBusqueda").panel('close');
+}
+$("#btnMostrarBusquedaEnMapa").click(function(){
+    if(markerLugarBuscado){
+        markerLugarBuscado.setMap(null);
+    }
+    markerLugarBuscado = new google.maps.Marker({
+        position: lugarBuscado.geometry.location,
+        map: map,
+        icon: lugarBuscado.icon
+    });
+    markerLugarBuscado.setMap(map);
+    map.setCenter(lugarBuscado.geometry.location);
+    var populationOptions = {
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.9,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.1,
+        map: map,
+        center: lugarBuscado.geometry.location,
+        editable: false,
+        radius: leerPropiedadRadio()
+    };
+    if(puntoInteres){
+        puntoInteres.setMap(null);
+    }
+    puntoInteres = new google.maps.Circle(populationOptions);
+    cerrarPanelBusqueda();
+});
+$("#btnVerListadoPuntoBuscado").click(function(){
+    verListado()
+    cerrarPanelBusqueda();
+});
+$("#btnBorrarBusqueda").click(function(){
+    lugarBuscado = null;
+    markerLugarBuscado.setMap(null);
+    markerLugarBuscado = null;
+    ubicarMiPosicion();
+    cerrarPanelBusqueda();
+});
+
+
+
+google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    var place = autocomplete.getPlace();
+    if (!place.geometry) {
+        //hacer algo cuando lo que se encuentra no es un lugar
+        return;
+    }
+    var lat1 = parseFloat(place.geometry.location.k);
+    var lon1 = parseFloat(place.geometry.location.D);
+    var lat2 = parseFloat(posicionActual.k);
+    var lon2 = parseFloat(posicionActual.D);
+    var distancia = distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) * 1000;
+    if(distancia > 15000){
+        //alert("El lugar buscado se encuentra demasiado lejos.");
+        //return;
+    }
+    $("#parrafoDireccionBuscada").html("Encontrado en: " + place.formatted_address);
+    lugarBuscado = place;
+    
+});
+
+
+
+
+
+
+
+
+
+//var inputs = ($('#txtBusqueda'));
 
 //para lugares de interes robarle a miautobus.com controles/geosearcher.js metodo getplaces
 /*var location = usuario.getLocation();*/
-var options = {
+/*var options = {
     types: ['(cities)'],
     componentRestrictions: {
         country: 'ar'
@@ -15,7 +93,7 @@ $.each(inputs, function (i, input) {
     var autocomplete = new google.maps.places.Autocomplete(input,
         options);
     autocompletes.push(autocomplete);
-});
+});*/
 
 /* ESTE ES EL METODO ROBADO DE miautobus.com
 function getPlaces(dire) {

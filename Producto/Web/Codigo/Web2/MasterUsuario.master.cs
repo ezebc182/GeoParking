@@ -51,6 +51,10 @@ namespace Web2
                 }
                 li_Ingresar.Visible = false;
                 li_Login.Visible = true;
+                if (hfInicioSession.Value == "true")
+                {
+                    Response.Redirect("DatosUsuario.aspx");
+                }
             }
             else
             {
@@ -69,7 +73,7 @@ namespace Web2
             string[] segmentosURL = HttpContext.Current.Request.Url.Segments;
             string pagina = segmentosURL[segmentosURL.Length - 1];
 
-            if (pagina == "AdministracionPlayas.aspx" || pagina == "AdministracionUsuarios.aspx" || pagina == "Estadisticas.aspx" || pagina == "Index.aspx" || pagina == "DatosPersonales.aspx")
+            if (pagina == "DatosUsuario.aspx" || pagina == "AdministracionPlayas.aspx" || pagina == "AdministracionUsuarios.aspx" || pagina == "Estadisticas.aspx" || pagina == "Index.aspx" || pagina == "DatosPersonales.aspx")
             {
                 Response.Redirect("Index.aspx");
             }

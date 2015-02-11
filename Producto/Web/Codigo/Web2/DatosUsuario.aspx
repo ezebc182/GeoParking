@@ -1,6 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterUsuario.master" AutoEventWireup="true" CodeBehind="DatosPersonales.aspx.cs" Inherits="Web2.DatosPersonales" %>
-
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterUsuario.Master" AutoEventWireup="true" CodeBehind="DatosUsuario.aspx.cs" Inherits="Web2.DatosUsuario" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="./css/bootstrap-fileupload.min.css" type="text/css" />
 </asp:Content>
@@ -82,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4" id="colContraseñaVieja" runat="server">
                     <div id="valContraseñaVieja" class="form-group">
                         <label for="ctl00$Main$txtContraseñaVieja" class="control-label">Ingrese su antigua Contraseña:</label>
                         <div class="input-group">
@@ -98,7 +96,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div id="valContraseñaNueva" class="form-group">
-                        <label for="ctl00$Main$txtContraseñaNueva" class="control-label">Contraseña:</label>
+                        <label for="ctl00$Main$txtContraseñaNueva" id="lblContraseñaNueva" class="control-label" runat="server">Contraseña:</label>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                             <asp:TextBox ID="txtContraseñaNueva" placeholder="Contraseña" CssClass="form-control input-lg"
@@ -112,7 +110,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div id="valRepetirContraseñaNueva" class="form-group">
-                        <label for="ctl00$Main$txtRepetirContraseñaNueva" class="control-label">Repetir Contraseña</label>
+                        <label for="ctl00$Main$txtRepetirContraseñaNueva" id="lblRepetirContraseña" runat="server" class="control-label">Repetir Contraseña:</label>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                             <asp:TextBox ID="txtRepetirContraseñaNueva" placeholder="Contraseña" CssClass="form-control input-lg"
@@ -151,9 +149,4 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
-    <script type="text/javascript">
-        //$(document).ready(new function () {
-        //});
-
-    </script>
 </asp:Content>
