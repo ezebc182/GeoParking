@@ -310,3 +310,29 @@ ul.banner-social-buttons {
     color:white;
 }
 
+@media screen and (max-width:600px)
+{
+ #txtBuscar
+    {
+        width: 172px !important;
+        left: -50px;
+        
+
+    }
+ /*Es el btnBuscar*/
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group
+{
+ 
+        
+        left:-50px !important;
+        /*content: "&#xf002" !important;*/
+   
+   
+}
+    #Main_btnBuscar
+    {
+        /*content: "&#xf002" !important;*/
+    }
+
+}
+
