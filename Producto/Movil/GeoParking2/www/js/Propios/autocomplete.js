@@ -1,17 +1,37 @@
 var input = (document.getElementById('txtBusqueda'));
 var autocomplete = new google.maps.places.Autocomplete(input);
 var lugarBuscado = null;
+var markerLugarBuscado;
+var puntoInteres;
 function cerrarPanelBusqueda(){
     $("#pnlBusqueda").panel('close');
 }
 $("#btnMostrarBusquedaEnMapa").click(function(){
-    var markerLugarBuscado = new google.maps.Marker({
+    if(markerLugarBuscado){
+        markerLugarBuscado.setMap(null);
+    }
+    markerLugarBuscado = new google.maps.Marker({
         position: lugarBuscado.geometry.location,
         map: map,
         icon: lugarBuscado.icon
     });
     markerLugarBuscado.setMap(map);
     map.setCenter(lugarBuscado.geometry.location);
+    var populationOptions = {
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.9,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.1,
+        map: map,
+        center: lugarBuscado.geometry.location,
+        editable: false,
+        radius: leerPropiedadRadio()
+    };
+    if(puntoInteres){
+        puntoInteres.setMap(null);
+    }
+    puntoInteres = new google.maps.Circle(populationOptions);
     cerrarPanelBusqueda();
 });
 $("#btnVerListadoPuntoBuscado").click(function(){
@@ -25,6 +45,7 @@ $("#btnBorrarBusqueda").click(function(){
     ubicarMiPosicion();
     cerrarPanelBusqueda();
 });
+
 
 
 google.maps.event.addListener(autocomplete, 'place_changed', function() {
