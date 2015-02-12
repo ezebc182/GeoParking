@@ -91,7 +91,7 @@
                                 <a href="AdministracionPlayas.aspx"><i class="fa fa-fw fa-map-marker"></i> Administración de Playas</a>
                             </li>
                             <li>
-                                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-users"></i> Administracion de Roles y Permisos <i class="fa fa-fw fa-caret-down"></i></a>
+                                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-users"></i> Administración de Roles y Permisos <i class="fa fa-fw fa-caret-down"></i></a>
                                 <ul id="demo" class="collapse">
                                     <li>
                                         <a href="AdministracionRolesyPermisos.aspx?accion=NuevoRol"><i class="fa fa-fw fa-plus-square"></i> Crear Rol</a>
@@ -103,6 +103,9 @@
                                         <a href="AdministracionRolesyPermisos.aspx?accion=AsignarRol"><i class="fa fa-fw fa-exchange"></i> Asignar Rol a Usuario</a>
                                     </li>
                                 </ul>
+                            </li>
+                            <li>
+                                <a href="/AdministracionSolicitudesYConexiones.aspx"><i class="fa fa-fw  fa-link"></i> Administración de Solicitudes y Conexiones</a>
                             </li>
                             <li>
                                 <a href="/Zonas.aspx"><i class="fa fa-fw fa-pencil-square-o"></i> Administración de Zonas</a>

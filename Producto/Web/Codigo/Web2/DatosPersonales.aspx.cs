@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ReglasDeNegocio;
+using System.Web.Services;
 
 namespace Web2
 {
@@ -24,11 +25,24 @@ namespace Web2
 
         public void CargarDatosUsuario()
         {
-            var usuario = SessionUsuario;
+            Usuario usuario = gestor.BuscarUsuario(SessionUsuario.Id);
             txtNombreEditar.Text = usuario.Nombre;
             txtApellidoEditar.Text = usuario.Apellido;
             txtEmailEditar.Text = usuario.Mail;
             lblUsuarioEditar.Text = usuario.NombreUsuario;
+            if (usuario.DNI != 0)
+            {
+                txtDni.Text = usuario.DNI.ToString();
+            }
+            if (usuario.Direccion != null)
+            {
+                txtDireccion.Text = usuario.Direccion.ToString();
+            }
+            if (usuario.FechaDeNacimiento.Year != 1900)
+            {
+                txtfechaNacimiento.Text = usuario.FechaDeNacimiento.ToString("yyyy-MM-dd");
+            }
+            hfIdUsuario.Value = usuario.Id.ToString();
         }
 
         public Usuario SessionUsuario
@@ -52,6 +66,19 @@ namespace Web2
                     return null;
                 }
             }
+        }
+
+        [WebMethod]
+        public static string GuardarDatos(string nombre, string apellido, string dni, string fecha, string direccion, string mail)
+        {
+            Usuario usuario = new Usuario();
+            usuario.Nombre = nombre;
+            usuario.Apellido = apellido;
+            usuario.DNI = Int32.Parse(dni);
+            usuario.FechaDeNacimiento = DateTime.Parse(fecha);
+            usuario.Direccion = direccion;
+            usuario.Mail = mail;
+            return gestor.GuardarUsuarioJSON(usuario);
         }
     }
 }

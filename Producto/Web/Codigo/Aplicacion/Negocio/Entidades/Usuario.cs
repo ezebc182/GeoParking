@@ -20,6 +20,7 @@ namespace Entidades
         public int DNI { get; set; }
         public DateTime FechaDeNacimiento { get; set; }
         public String Direccion { get; set; }
+        public bool Estado { get; set; }
 
         /// <summary>
         /// Convierte a un objeto "PlayaDeEstacionamiento" el JSON pasado como parametro

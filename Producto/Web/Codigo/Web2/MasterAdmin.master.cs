@@ -66,7 +66,7 @@ namespace Web2
             string[] segmentosURL = HttpContext.Current.Request.Url.Segments;
             string pagina = segmentosURL[segmentosURL.Length - 1];
 
-            if (pagina == "AdministracionPlayas.aspx" || pagina == "AdministracionUsuarios.aspx" || pagina == "Estadisticas.aspx")
+            if (pagina == "DatosUsuario.aspx" || pagina == "AdministracionPlayas.aspx" || pagina == "AdministracionRolesyPermisos.aspx" || pagina == "Estadisticas.aspx" || pagina == "Index.aspx" || pagina == "DatosPersonales.aspx")
             {
                 Response.Redirect("Index.aspx");
             }

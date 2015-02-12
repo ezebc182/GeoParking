@@ -41,6 +41,15 @@ function validar2Campos(campo1, campo2) {
     }
 }
 
+function validar6Campos(campo1, campo2, campo3, campo4, campo5, campo6) {
+    if (campo1 == false && campo2 == false && campo3 == false && campo4 == false && campo5 == false && campo6 == false) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
 function validarUsuarioVacio(div, id) {
     var formDiv = $('[id=' + div + ']');
     var campo = $('[id=' + id + "]");
@@ -105,4 +114,28 @@ function conectarPlaya() {
     small.attr("style", "display:none");
     formDiv.attr("class", "form-group");
     $('[id=hfInicioSession]').val("true");
+}
+
+function validarCampoVacioYNumero(div, id) {
+    var formDiv = $('[id=' + div + ']');
+    var campo = $('[id=' + id + "]");
+    var icon = $('[id= icon' + id + ']');
+    var small = $('[id= small' + id + ']');
+    var error = $('[id= error' + id + ']');
+    var label = $('[id= lbl' + id + ']');
+    if (campo.val() === '') {
+        formDiv.attr("class", "form-group has-feedback has-error");
+        icon.attr("style", "display:block");
+        icon.attr("class", "form-control-feedback glyphicon glyphicon-remove");
+        small.attr("style", "display:block");
+        error.text("El campo " + label.text() + " es requerido y debe ser numerico")
+        return true;
+    }
+    else {
+        formDiv.attr("class", "form-group has-feedback has-success");
+        icon.attr("style", "display:block");
+        icon.attr("class", "form-control-feedback glyphicon glyphicon-ok");
+        small.attr("style", "display:none");
+        return false;
+    }
 }

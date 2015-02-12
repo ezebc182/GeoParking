@@ -156,6 +156,18 @@ namespace ReglasDeNegocio
             return resultado.Ok;
         }
 
+        public bool UpdateUsuario(Usuario usuario)
+        {
+            Resultado resultado = new Resultado();
+            Usuario usuarioUpdate = usuarioDao.FindById(usuario.Id);
+            return resultado.Ok;
+        }
+
+        public string GuardarUsuarioJSON(Usuario usuario)
+        {
+            return JsonConvert.SerializeObject(UpdateUsuario(usuario));
+        }
+
         public Rol BuscarRolPorUsuarioId(int id)
         {
             return rolDao.FindById(id);
