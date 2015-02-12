@@ -213,7 +213,8 @@ function obtenerPosicionActual() {
         if (p.coords.latitude !== undefined && p.coords.longitude !== undefined) {
             var posicionGoogle = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
             posicionActual = posicionGoogle;
-            /*mostrarHistorialPlayas();*/
+            mostrarHistorialPlayas();
+            
             map.setCenter(posicionGoogle);
             /* Pregunto sobre el modo si es consultar playa o consultar vehiculo */
             if (modo === '2') {
@@ -230,6 +231,7 @@ function obtenerPosicionActual() {
             loading($("#map-canvas"), false);
         }
         mantenerPosicionActualActualizada();
+        
     };
     var errorFunction = function () {
         alert("Error de conexion, Por favor habilite la localizacion para continuar");
@@ -283,6 +285,6 @@ function initialize() {
     setTimeout(function () {
         obtenerPosicionActual();
         mostrarBotones();
-    }, 3000);
+    }, 1000);
     google.maps.event.addDomListener(window, 'load', initialize);
 }

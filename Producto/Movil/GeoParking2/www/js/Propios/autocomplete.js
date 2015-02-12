@@ -1,15 +1,25 @@
-var input = (document.getElementById('txtBusqueda'));
-var autocomplete = new google.maps.places.Autocomplete(input);
+var autocomplete;
+
+function crearAutocomplete(){
+    obtenerLimitesDePais();
+}
+
+function limpiarBusqueda() {
+    var place = autocomplete.getPlace();
+    if (place) {
+        $('#txtBusqueda').val(place.name);
+    }
+    else {
+        $('#txtBusqueda').val('');
+    }
+}
 var lugarBuscado = null;
 var markerLugarBuscado;
 var puntoInteres;
 function cerrarPanelBusqueda(){
     $("#pnlBusqueda").panel('close');
 }
-$("#btnMostrarBusquedaEnMapa").click(function(){
-    if(markerLugarBuscado){
-        markerLugarBuscado.setMap(null);
-    }
+function agregarPuntoInteres(lugarBuscado){
     markerLugarBuscado = new google.maps.Marker({
         position: lugarBuscado.geometry.location,
         map: map,
@@ -17,6 +27,7 @@ $("#btnMostrarBusquedaEnMapa").click(function(){
     });
     markerLugarBuscado.setMap(map);
     map.setCenter(lugarBuscado.geometry.location);
+    //crear ciurculo
     var populationOptions = {
         strokeColor: '#FF0000',
         strokeOpacity: 0.9,
@@ -32,86 +43,117 @@ $("#btnMostrarBusquedaEnMapa").click(function(){
         puntoInteres.setMap(null);
     }
     puntoInteres = new google.maps.Circle(populationOptions);
+}
+$("#btnMostrarBusquedaEnMapa").click(function(){
+    //obtenerLimitesDeCiudad();
+    if(markerLugarBuscado){
+        markerLugarBuscado.setMap(null);
+    }
+    agregarPuntoInteres(lugarBuscado);
     cerrarPanelBusqueda();
 });
 $("#btnVerListadoPuntoBuscado").click(function(){
-    verListado()
+    agregarPuntoInteres(lugarBuscado);
+    verListado();
     cerrarPanelBusqueda();
 });
 $("#btnBorrarBusqueda").click(function(){
     lugarBuscado = null;
     markerLugarBuscado.setMap(null);
     markerLugarBuscado = null;
+    puntoInteres.setMap(null);
+    $("#parrafoDireccionBuscada").html("");
     ubicarMiPosicion();
     cerrarPanelBusqueda();
 });
 
 
 
-google.maps.event.addListener(autocomplete, 'place_changed', function() {
-    var place = autocomplete.getPlace();
-    if (!place.geometry) {
-        //hacer algo cuando lo que se encuentra no es un lugar
-        return;
-    }
-    var lat1 = parseFloat(place.geometry.location.k);
-    var lon1 = parseFloat(place.geometry.location.D);
-    var lat2 = parseFloat(posicionActual.k);
-    var lon2 = parseFloat(posicionActual.D);
-    var distancia = distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) * 1000;
-    if(distancia > 15000){
-        //alert("El lugar buscado se encuentra demasiado lejos.");
-        //return;
-    }
-    $("#parrafoDireccionBuscada").html("Encontrado en: " + place.formatted_address);
-    lugarBuscado = place;
-    
-});
 
 
+function obtenerLimitesDePais() {
+    var successFunction = function(p) {
+        if (p.coords.latitude !== undefined && p.coords.longitude !== undefined){
+            var uri = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + p.coords.latitude + "," + p.coords.longitude + "&sensor=true";
+            var limites;
+            var restriccion;
+            $.ajax({
+                type: "GET",
+                async: false,
+                url: uri,
+                success: function (response) {
+                    if (response.status === "OK" && response.results.length > 0){
+                        limites = response.results[1].geometry.bounds;
+                        restriccion = obtenerRestriccionAaplicar(response.results);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("Error de Conexion");
+                }
+            });
+            var input = (document.getElementById('txtBusqueda'));
+            autocomplete = new google.maps.places.Autocomplete(input, restriccion);
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    //hacer algo cuando lo que se encuentra no es un lugar
+                    return;
+                }
+                var lat1 = parseFloat(place.geometry.location.k);
+                var lon1 = parseFloat(place.geometry.location.D);
+                var lat2 = parseFloat(posicionActual.k);
+                var lon2 = parseFloat(posicionActual.D);
+                var distancia = distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) * 1000;
+                if(distancia > 15000){
+                    //alert("El lugar buscado se encuentra demasiado lejos.");
+                    //return;
+                }
+                $("#parrafoDireccionBuscada").html("Encontrado en: " + place.formatted_address);
+                lugarBuscado = place;
 
-
-
-
-
-
-
-//var inputs = ($('#txtBusqueda'));
-
-//para lugares de interes robarle a miautobus.com controles/geosearcher.js metodo getplaces
-/*var location = usuario.getLocation();*/
-/*var options = {
-    types: ['(cities)'],
-    componentRestrictions: {
-        country: 'ar'
-    }
-
-};
-
-var autocompletes = new Array();
-$.each(inputs, function (i, input) {
-    var autocomplete = new google.maps.places.Autocomplete(input,
-        options);
-    autocompletes.push(autocomplete);
-});*/
-
-/* ESTE ES EL METODO ROBADO DE miautobus.com
-function getPlaces(dire) {
-    var dire = $('#txtBusqueda').val('');
-    var request = {
-        query: dire,
-        bounds: strictBounds,
-        types: ['accounting', 'airport', 'amusement_park', 'aquarium', 'art_gallery', 'atm', 'bakery', 'bank', 'bar', 'beauty_salon', 'bicycle_store', 'book_store', 'bowling_alley', 'bus_station', 'cafe', 'campground', 'car_dealer', 'car_rental', 'car_repair', 'car_wash', 'casino', 'cemetery', 'church', 'city_hall', 'clothing_store', 'convenience_store', 'courthouse', 'dentist', 'department_store', 'doctor', 'electrician', 'electronics_store', 'embassy', 'establishment', 'finance', 'fire_station', 'florist', 'food', 'funeral_home', 'furniture_store', 'gas_station', 'general_contractor', 'grocery_or_supermarket', 'gym', 'hair_care', 'hardware_store', 'health', 'hindu_temple', 'home_goods_store', 'hospital', 'insurance_agency', 'jewelry_store', 'laundry', 'lawyer', 'library', 'liquor_store', 'local_government_office', 'locksmith', 'lodging', 'meal_delivery', 'meal_takeaway', 'mosque', 'movie_rental', 'movie_theater', 'moving_company', 'museum', 'night_club', 'painter', 'park', 'parking', 'pet_store', 'pharmacy', 'physiotherapist', 'place_of_worship,', 'plumber,', 'police,', 'post_office', 'real_estate_agency', 'restaurant', 'roofing_contractor', 'rv_park', 'school', 'shoe_store', 'shopping_mall', 'spa', 'stadium', 'storage', 'store', 'subway_station', 'synagogue', 'taxi_stand', 'train_station', 'travel_agency', 'university', 'veterinary_care', 'zoo']
+            });
+        }
     };
-
-    service = new google.maps.places.PlacesService(map);
-    service.textSearch(request, function (results, status) {
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
-                for (var i = 0; i < results.length; i++) {
-                    var latlng = results[i].geometry.location;
-                    var name = results[i].name;
-
-                });
-            alert("buscado");
-
-        }*/
+    var errorFunction = function(){
+        alert("Error");
+    };
+    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+}
+function obtenerRestriccionAaplicar(results){
+    var options = {};
+    for(var i = 0; i < results.length; i++){
+        var tipos = results[i].types;
+        for(var j = 0; j < tipos.length; j++){
+            if(tipos[j] === "locality"){
+                var limites = results[i].geometry.bounds;
+                var hyderabadBounds = new google.maps.LatLngBounds(
+                    new google.maps.LatLng(limites.northeast.lat, limites.northeast.lng),
+                    new google.maps.LatLng(limites.southwest.lat, limites.southwest.lng)
+                );
+                options['bounds'] = hyderabadBounds;
+                options = ObtenerPuntoMedioYRadio(limites, options)
+            }
+            if(tipos[j] === "country"){
+                var paisShortName = results[i].address_components[0].short_name;
+                var restriccionComponente = {
+                    'country' : paisShortName
+                };
+                options['componentRestrictions'] = { 'country' : paisShortName } ;
+            }
+        }	
+    }
+    return options;
+}
+function ObtenerPuntoMedioYRadio(limites, options){
+    var latitudMedia = ((limites.northeast.lat - limites.southwest.lat) > 0) ? (limites.northeast.lat - limites.southwest.lat)/2 : (limites.southwest.lat - limites.northeast.lat)/2;
+    var longitudMedia = ((limites.northeast.lng - limites.southwest.lng) > 0) ? (limites.northeast.lng - limites.southwest.lng)/2 : (limites.southwest.lng - limites.northeast.lng)/2;
+    var puntoMedio = new google.maps.LatLng (latitudMedia, longitudMedia);
+    options['location'] = puntoMedio;
+    var lat1 = parseFloat(limites.southwest.lat);
+    var lon1 = parseFloat(limites.southwest.lng);
+    var lat2 = parseFloat(limites.northeast.lat);
+    var lon2 = parseFloat(limites.northeast.lng);
+    var distancia = (distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) * 1000)/2;
+    options['radius'] = distancia;
+    return options;
+}

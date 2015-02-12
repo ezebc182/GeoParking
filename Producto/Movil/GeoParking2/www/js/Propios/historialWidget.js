@@ -7,6 +7,7 @@ $.widget("geoparking.historialWidget", {
         contenedor: $("#listadoHistorial"),
         cantidadHistorial: 5,
         playaElegida: null,
+        listadoPlayas : null
     },
     /**
      * Metodo de creacion del widget, tiene que existir en todo widget.
@@ -45,7 +46,7 @@ $.widget("geoparking.historialWidget", {
     _cargarListadoHistorial: function () {
         var widget = this;
         if (db.getItem("playas") === null || JSON.parse(db.getItem("playas").length === 0)) {
-            $("#listadoHistorial").append("<p>El historial está vacío</p>");
+            $("#listadoHistorial").append("<p class='historial' >El historial está vacío</p>");
         } else {
             widget.crearEstructuraHistorial();
         }
@@ -87,11 +88,13 @@ $.widget("geoparking.historialWidget", {
     crearEstructuraHistorial: function () {
         var widget = this;
         var arrayPlayas = JSON.parse(db.getItem("playas"));
+        widget.options.listadoPlayas = arrayPlayas;
+        widget._obtenerPrecioPlayasSeleccionadas();
         var listado = document.createElement("ul");
         listado.className = "ui-listview";
         listado.id = "listado-historial";
         $(".historial").remove();
-        $.each(arrayPlayas.reverse(), function (indX, playa) {
+        $.each(widget.options.listadoPlayas.reverse(), function (indX, playa) {
 
             var itemListado = document.createElement("li");
             itemListado.className = "historial";
@@ -124,6 +127,56 @@ $.widget("geoparking.historialWidget", {
     retornarCantidadPlayasAGuardar: function () {
         var widget = this;
         return widget.options.cantidadHistorial;
+    },
+    /**
+     * Toma el listado de playas seleccionado (deberia ya estar filtrado por distancia)
+     * y pide para esas playas los precios en base al tipo de vehiculo seleccionado
+     */
+    _obtenerPrecioPlayasSeleccionadas: function () {
+        var widget = this;
+        var idPlayas = [];
+        for (var i = 0; i < widget.options.listadoPlayas.length; i++) {
+            var playa = widget.options.listadoPlayas[i];
+            idPlayas.push(playa.Id);
+        }
+        var uri = obtenerURLServer() + 'api/Precios/GetObtenerPreciosPlayas?idPlayas=' + idPlayas.toString() + '&idTipoVehiculo=' + leerPropiedadTipoVehiculo();
+        var precios;
+        $.ajax({
+            type: "GET",
+            url: uri,
+            async: false,
+            success: function (data) {
+                precios = (typeof data) == 'string' ?
+                    eval('(' + data + ')') :
+                    data;
+                widget._agregarPreciosAPlayas(precios);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                abrirDialogoConDosBotones(null, "Error de conexion. Inténtelo de nuevo mas tarde", "Algo sucedió...");
+            }
+        });
+    },
+    /**
+     *
+     */
+    _agregarPreciosAPlayas: function (precios) {
+        var widget = this;
+        for (var i = 0; i < widget.options.listadoPlayas.length; i++) {
+            var playa = widget.options.listadoPlayas[i];
+            playa['Precios'] = widget._obtenerPreciosDePlaya(playa.Id, precios);
+        }
+    },
+    /**
+     *
+     */
+    _obtenerPreciosDePlaya: function (playaId, precios) {
+        var preciosDePlaya = []
+        for (var i = 0; i < precios.length; i++) {
+            if (precios[i].IdPlaya === playaId) {
+                preciosDePlaya.push(precios[i]);
+            }
+        }
+        return preciosDePlaya;
     }
 
 });

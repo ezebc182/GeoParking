@@ -395,6 +395,9 @@
         $(document).ready(function () {
             initialize();
             welcome();
+            setTimeout(function(){ 
+                crearAutocomplete();
+            },1500);
 
 
 
@@ -406,7 +409,7 @@
             cargandoConMensaje("Cargando Listado");
             $("#panelListado").listadoPlayasWidget({
                 listadoPlayas: playas,
-                puntoDeBusqueda : lugarBuscado.geometry.location
+                puntoDeBusqueda : (lugarBuscado === null) ? null : lugarBuscado.geometry.location
             });
         }
 

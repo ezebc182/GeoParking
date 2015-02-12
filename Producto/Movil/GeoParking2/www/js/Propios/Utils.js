@@ -64,11 +64,6 @@ function toRad(value) {
     return value * Math.PI / 180;
 }
 
-function limpiarBusqueda() {
-    $('#txtBusqueda').val('');
-    $('#txtBusqueda').focus();
-}
-
 function obtenerURLServer() {
     return 'http://ifrigerio-001-site1.smarterasp.net/';
     //return 'http://localhost:21305/';
