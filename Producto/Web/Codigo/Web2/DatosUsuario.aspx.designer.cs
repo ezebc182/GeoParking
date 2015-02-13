@@ -22,6 +22,15 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.Label lblUsuarioEditar;
         
         /// <summary>
+        /// Control hfIdUsuario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfIdUsuario;
+        
+        /// <summary>
         /// Control txtEmailEditar.
         /// </summary>
         /// <remarks>
@@ -76,13 +85,13 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.TextBox txtDireccion;
         
         /// <summary>
-        /// Control colContraseñaVieja.
+        /// Control lbltxtContraseñaVieja.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl colContraseñaVieja;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lbltxtContraseñaVieja;
         
         /// <summary>
         /// Control txtContraseñaVieja.
@@ -94,13 +103,13 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.TextBox txtContraseñaVieja;
         
         /// <summary>
-        /// Control lblContraseñaNueva.
+        /// Control lbltxtContraseñaNueva.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblContraseñaNueva;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lbltxtContraseñaNueva;
         
         /// <summary>
         /// Control txtContraseñaNueva.
@@ -112,13 +121,13 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.TextBox txtContraseñaNueva;
         
         /// <summary>
-        /// Control lblRepetirContraseña.
+        /// Control lblRepetirContraseñaNueva.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblRepetirContraseña;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblRepetirContraseñaNueva;
         
         /// <summary>
         /// Control txtRepetirContraseñaNueva.
@@ -137,23 +146,5 @@ namespace Web2 {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel panelBotones;
-        
-        /// <summary>
-        /// Control btnGuardar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuardar;
-        
-        /// <summary>
-        /// Control btnCancelar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancelar;
     }
 }

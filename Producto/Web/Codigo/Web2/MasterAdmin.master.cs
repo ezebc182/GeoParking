@@ -26,13 +26,16 @@ namespace Web2
                 if (SessionUsuario != null)
                 {
                     lblLogin.Text = SessionUsuario.NombreUsuario;
-                    rolId = SessionUsuario.RolId;
-                    if (rolId == 3 || rolId == 2)
-                    {
-                        li_Administracion.Visible = true;
-                    }
                     li_Ingresar.Visible = false;
                     li_Login.Visible = true;
+                    rolId = SessionUsuario.RolId;
+                    if (rolId == 1)
+                    {
+                        li_AdminPlayas.Attributes.Add("style", "display:none");
+                        li_AdminRolyPer.Attributes["style"] = "display:none";
+                        li_Estadisticas.Attributes["style"] = "display:none";
+                        li_Zonas.Attributes["style"] = "display:none";
+                    }
                 }
             }
         }
@@ -43,14 +46,14 @@ namespace Web2
             if (resultado != null)
             {
                 SessionUsuario = resultado;
-                lblLogin.Text = SessionUsuario.NombreUsuario;
+                lblLogin.Text = SessionUsuario.NombreUsuario;               
+                li_Ingresar.Visible = false;
+                li_Login.Visible = true;
                 rolId = SessionUsuario.RolId;
                 if (rolId == 3 || rolId == 2)
                 {
-                    li_Administracion.Visible = true;
+                    Response.Redirect("AdministracionPlayas.aspx");
                 }
-                li_Ingresar.Visible = false;
-                li_Login.Visible = true;
             }
         }
 
@@ -66,7 +69,7 @@ namespace Web2
             string[] segmentosURL = HttpContext.Current.Request.Url.Segments;
             string pagina = segmentosURL[segmentosURL.Length - 1];
 
-            if (pagina == "DatosUsuario.aspx" || pagina == "AdministracionPlayas.aspx" || pagina == "AdministracionRolesyPermisos.aspx" || pagina == "Estadisticas.aspx" || pagina == "Index.aspx" || pagina == "DatosPersonales.aspx")
+            if (!(pagina == "BusquedaPlaya.aspx" || pagina == "Index.apsx"))
             {
                 Response.Redirect("Index.aspx");
             }

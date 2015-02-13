@@ -20,10 +20,6 @@ namespace Web2
             {
                 CargarDatosUsuario();
             }
-            else
-            {
-                colContraseñaVieja.Visible = false;
-            }
         }
 
         public void CargarDatosUsuario()

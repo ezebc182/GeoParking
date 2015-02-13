@@ -26,11 +26,6 @@ namespace Web2
                 if (SessionUsuario != null)
                 {
                     lblLogin.Text = SessionUsuario.NombreUsuario;
-                    rolId = SessionUsuario.RolId;
-                    if (rolId == 3 || rolId == 2)
-                    {
-                        li_Administracion.Visible = true;
-                    }
                     li_Ingresar.Visible = false;
                     li_Login.Visible = true;
                 }
@@ -44,16 +39,12 @@ namespace Web2
             {
                 SessionUsuario = resultado;
                 lblLogin.Text = SessionUsuario.NombreUsuario;
+                li_Ingresar.Visible = false;
+                li_Login.Visible = true;
                 rolId = SessionUsuario.RolId;
                 if (rolId == 3 || rolId == 2)
                 {
-                    li_Administracion.Visible = true;
-                }
-                li_Ingresar.Visible = false;
-                li_Login.Visible = true;
-                if (hfInicioSession.Value == "true")
-                {
-                    Response.Redirect("DatosUsuario.aspx");
+                    Response.Redirect("AdministracionPlayas.aspx");
                 }
             }
             else
@@ -73,7 +64,7 @@ namespace Web2
             string[] segmentosURL = HttpContext.Current.Request.Url.Segments;
             string pagina = segmentosURL[segmentosURL.Length - 1];
 
-            if (pagina == "DatosUsuario.aspx" || pagina == "AdministracionPlayas.aspx" || pagina == "AdministracionRolesyPermisos.aspx" || pagina == "Estadisticas.aspx" || pagina == "Index.aspx" || pagina == "DatosPersonales.aspx")
+            if (!(pagina == "BusquedaPlaya.aspx" || pagina == "Index.apsx"))
             {
                 Response.Redirect("Index.aspx");
             }

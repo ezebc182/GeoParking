@@ -323,6 +323,7 @@
 
 
         $(document).ready(new function () {
+            $('[id=li_AdminPlayas]').attr("class", "active");
             $('[id*=txtBuscarCiudadPlayas]').focus();
 
             $('[id*=txtBuscarCiudadPlayas]').keypress(function (e) {

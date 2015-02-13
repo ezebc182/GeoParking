@@ -103,10 +103,16 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
+            $('[id=demo]').attr("class", "collapse in");
+            if ($('#Main_divCrearRol').is(":visible")) {
+                $('[id=li_CrearRol]').attr("style", "background-color:rgba(255, 0, 0, 0.91) !important");
+            }
             if ($('#Main_divAsignarPermiso').is(":visible")) {
+                $('[id=li_AsignarPermisoRol]').attr("style", "background-color:rgba(255, 0, 0, 0.91) !important");
                 cargarPermisosPorRol($("#Main_hdPermisos").val());
             }
             if ($('#Main_divAsignarRol').is(":visible")) {
+                $('[id=li_AsignarRolUsuario]').attr("style", "background-color:rgba(255, 0, 0, 0.91) !important");
                 selectIndexchangedRolUsuario($("#Main_ddlUsuario").val());
             }
         });
