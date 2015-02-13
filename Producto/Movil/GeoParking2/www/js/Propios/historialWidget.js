@@ -7,7 +7,8 @@ $.widget("geoparking.historialWidget", {
         contenedor: $("#listadoHistorial"),
         cantidadHistorial: 5,
         playaElegida: null,
-        listadoPlayas : null
+        listadoPlayas : null,
+        disponibilidadPlayas : null
     },
     /**
      * Metodo de creacion del widget, tiene que existir en todo widget.
@@ -25,7 +26,6 @@ $.widget("geoparking.historialWidget", {
         if ($("#listado-historial").length === 0) {
             widget._cargarListadoHistorial();
         } else {
-            widget.destroy();
         }
         quitarCargando();
     },
@@ -90,6 +90,7 @@ $.widget("geoparking.historialWidget", {
         var arrayPlayas = JSON.parse(db.getItem("playas"));
         widget.options.listadoPlayas = arrayPlayas;
         widget._obtenerPrecioPlayasSeleccionadas();
+        widget._obtenerDisponibilidadParaPlayas();
         var listado = document.createElement("ul");
         listado.className = "ui-listview";
         listado.id = "listado-historial";
@@ -110,9 +111,15 @@ $.widget("geoparking.historialWidget", {
             var parrafoPrecioa = document.createElement("p");
             parrafoPrecioa.className = "ui-li-aside";
             var strongPrecio = document.createElement("strong");
-            var precio = playa.Precios[0].Tiempo;
-            precio += ": $";
-            precio += playa.Precios[0].Monto;
+            var precio;
+            if(playa.Precios && playa.Precios.length > 0){
+                precio = playa.Precios[0].Tiempo;
+                precio += ": $";
+                precio += playa.Precios[0].Monto;
+            }
+           else{
+               precio = "Sin precio";
+           }
             strongPrecio.innerHTML = precio;
             //Todos los append
             parrafoPrecioa.appendChild(strongPrecio);
@@ -170,13 +177,62 @@ $.widget("geoparking.historialWidget", {
      *
      */
     _obtenerPreciosDePlaya: function (playaId, precios) {
-        var preciosDePlaya = []
+        var preciosDePlaya = [];
         for (var i = 0; i < precios.length; i++) {
             if (precios[i].IdPlaya === playaId) {
                 preciosDePlaya.push(precios[i]);
             }
         }
         return preciosDePlaya;
+    },
+    /**
+     *
+     */
+    _agregarDisponibilidadYNombreAListadoPlayas: function () {
+        var widget = this;
+        for (var i = 0; i < widget.options.listadoPlayas.length; i++) {
+            var idPlaya = widget.options.listadoPlayas[i].Id;
+            widget.options.listadoPlayas[i]['Nombre'] = widget._obtenerNombreDePlayaPorId(idPlaya);
+        }
+    },
+    _obtenerNombreDePlayaPorId: function (idPlaya) {
+        var widget = this;
+        for (var i = 0; i < widget.options.disponibilidadPlayas.length; i++) {
+            if (widget.options.disponibilidadPlayas[i].PlayaId === idPlaya) {
+                return widget.options.disponibilidadPlayas[i].NombrePlaya;
+            }
+        }
+        return "Sin Nombre";
+    },
+    /**
+     * Toma el listado de playas seleccionado (deberia ya estar filtrado por distancia)
+     * y pide para esas playas la disponibilidad en base al tipo de vehiculo seleccionado
+     */
+    _obtenerDisponibilidadParaPlayas: function () {
+        var widget = this;
+        var idPlayas = [];
+        for (var i = 0; i < widget.options.listadoPlayas.length; i++) {
+            var playa = widget.options.listadoPlayas[i];
+            idPlayas.push(playa.Id);
+        }
+        var uri = obtenerURLServer() + 'api/disponibilidad/GetObtenerDisponibilidadesPlayasPorTipoVehiculo?idPlayas=' + idPlayas.toString() + '&idTipoVehiculo=' + leerPropiedadTipoVehiculo();
+        var disponibilidades = widget.options.disponibilidadPlayas;
+        $.ajax({
+            type: "GET",
+            url: uri,
+            async: false,
+            success: function (data) {
+                disponibilidades = (typeof data) == 'string' ?
+                    eval('(' + data + ')') :
+                    data;
+                widget.options.disponibilidadPlayas = disponibilidades;
+                widget._agregarDisponibilidadYNombreAListadoPlayas();
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("No se pudo obtener las disponibilidades");
+            }
+        });
     }
 
 });

@@ -351,7 +351,6 @@ function guardarDatos(select, radio, gps) {
         longitud: usuario.getPosition().lng(),
         latitud: usuario.getPosition().lat()
     };
-    alert(posicion.latitud + " |||" + posicion.longitud);
     obtenerPlayasPorPosicion(posicion);
 
 }
