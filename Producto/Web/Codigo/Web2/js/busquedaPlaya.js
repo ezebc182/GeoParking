@@ -126,5 +126,11 @@ function mostrarMensaje() {
     Alerta_openModalInfo(mensaje, titulo, true);
 }
 
+/*Muestra la ayuda*/
+function abrirAyuda() {
+    $('#myModal').modal('show');
+
+}
+
 
 

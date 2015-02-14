@@ -52,10 +52,11 @@
                         <span class="glyphicon glyphicon-repeat"></span>&nbsp;Restaurar Mapa
                     </button>
                 </div>  
-                <div class="form-group" style=" margin-left: 31%; position: fixed;">
+                <div class="form-group" style=" margin-left: 31%; position: fixed;" onClick="abrirAyuda()">
                     <button type="button" class="btn-default btn btn-md" id="btnAyuda" title="Ayuda" >
-                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="glyphicon glyphicon-question-sign"></span>
                     </button>
+                    
                 </div>          
             </div>        
 
@@ -225,6 +226,121 @@
     <div id="tiposVehiculo" hidden="hidden"></div>
     <div id="diasAtencion" hidden="hidden"></div>
     <div id="resultados" hidden="hidden" onclick="mostrarMensaje()"></div>
+
+    <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" style="z-index:3 !important;"  >
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" id="myModalLabel">
+            <span class="glyphicon glyphicon-bookmark"></span> <strong>AYUDA</strong>
+          </h4>
+        </div>
+        <div class="modal-body">                   
+
+          <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                    <span class="glyphicon glyphicon-home"></span> Buscar en otra Ciudad
+                  </a>
+                </h4>
+              </div>
+              <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p style="text-align:justify;">
+                Para realizar un busqueda en otra ciudad, debe escibir el nombre de la nueva ciudad y presionar BUSCAR. <br /> Automaticamente
+                    el mapa se caragar en la ciudad seleccionada y con las playas pertenecientes a la misma.
+                   <div class="form-group" style="width:40%;">
+                    <div class="input-group" style="width: 150%;">
+                        <input type="text" class="form-control input-md ng-valid ng-dirty" value="" id="Text2" placeholder="Buscar en otra ciudad..." autocomplete="off" >
+                        <div class="input-group-btn">
+                            <button type="button" class="btn-primary btn btn-md" id="Button1" title="Buscar Ciudad">
+                                <span class="glyphicon glyphicon-search"></span>&nbsp;Buscar</button>
+                        </div>
+                    </div>
+                </div>      
+                 </p>                                               
+                </div>
+              </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                      <span class="glyphicon glyphicon-list-alt"></span> Ver listado de Playas
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse ">
+                  <div class="panel-body">
+                   <p style="text-align:justify;">  
+                       Otra manera de visualizar las playas encontradas pertenecientes a la ciudad, es en forma de 
+                       tabla, donde el usuario podra visualizar directamente la informacion de las mismas. Para ello se 
+                       debe presionar el boton VER LISTADO.
+                    </p> 
+                      <button type="button" class="btn-warning btn btn-md" id="Button2" title="Ver listado/mapa">
+                          <span class="glyphicon glyphicon-list-alt"></span>&nbsp;Ver Listado
+
+                      </button>       
+                                                   
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                    <span class="glyphicon glyphicon-chevron-right"></span> Grilla de Playas
+                  </a>
+                </h4>
+              </div>
+              <div id="collapse3" class="panel-collapse collapse ">
+                <div class="panel-body">
+                  <p style="text-align:justify;">  
+                      En la tabla se puede filtrar por el contenido de cualquier columna con solo ingresar el valor a buscar.
+                    </p> 
+                    <img src="img/Busquedas/tablaBusqueda.PNG" class="img-responsive" />
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                    <span class="glyphicon glyphicon-search"></span> Busqueda Avanzada (Filtros)
+                  </a>
+                </h4>
+              </div>
+              <div id="collapse4" class="panel-collapse collapse ">
+                <div class="panel-body">
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <p style="text-align:justify;">  
+                       Esta seccion le permitira al usuario aplicar filtros especificos en su busqueda de playas.<br />
+                      Los friltros posibles a aplicar son por tipo de playa, por tipo de vehículo, precios, horarios, etc.<br />
+                            Tambien le permitira enfocar la busqueda en una direccion particular, donde se resaltaran las playas
+                            cercanas a ese punto.
+                    </p> 
+                    </div>
+                    
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <img src="img/Busquedas/panelAvanzadaPNG.PNG" class="img-responsive" style="height: 300px;"/>
+                    </div>
+
+                  </div>
+                </div>                            
+              </div>
+            </div>
+          </div>               
+        <div class="modal-footer">
+          <strong>GeoParking</strong>     
+        </div>
+      </div>
+    </div>
+    </div>
+ 
 
     
    

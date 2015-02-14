@@ -153,6 +153,8 @@
     <Content Include="Estadisticas.aspx" />
     <Content Include="DatosDeRegistro.aspx" />
     <Content Include="AdministracionSolicitudesYConexiones.aspx" />
+    <Content Include="img\Busquedas\panelAvanzadaPNG.PNG" />
+    <Content Include="img\Busquedas\tablaBusqueda.PNG" />
     <Content Include="img\fotosPerfil\demoUpload.jpg" />
     <Content Include="js\administracionRegistro.js" />
     <Content Include="js\bootstrapformhelpers\css\bootstrap-formhelpers.css" />
