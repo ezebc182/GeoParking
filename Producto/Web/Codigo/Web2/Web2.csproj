@@ -151,7 +151,7 @@
     <Content Include="css\bootstrap-fileupload.min.css" />
     <Content Include="css\style.min.css" />
     <Content Include="Estadisticas.aspx" />
-    <Content Include="DatosUsuario.aspx" />
+    <Content Include="DatosDeRegistro.aspx" />
     <Content Include="AdministracionSolicitudesYConexiones.aspx" />
     <Content Include="img\fotosPerfil\demoUpload.jpg" />
     <Content Include="js\administracionRegistro.js" />
@@ -366,12 +366,12 @@
     <Compile Include="Estadisticas.aspx.designer.cs">
       <DependentUpon>Estadisticas.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DatosUsuario.aspx.cs">
-      <DependentUpon>DatosUsuario.aspx</DependentUpon>
+    <Compile Include="DatosDeRegistro.aspx.cs">
+      <DependentUpon>DatosDeRegistro.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="DatosUsuario.aspx.designer.cs">
-      <DependentUpon>DatosUsuario.aspx</DependentUpon>
+    <Compile Include="DatosDeRegistro.aspx.designer.cs">
+      <DependentUpon>DatosDeRegistro.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdministracionSolicitudesYConexiones.aspx.cs">
       <DependentUpon>AdministracionSolicitudesYConexiones.aspx</DependentUpon>

@@ -1,7 +1,7 @@
 ﻿function validarCampoVacio(div, id)
 {
     var formDiv = $('[id=' + div + ']');
-    var campo = $('[id=' + id + "]");
+    var campo = $('[id=' + id + ']');
     var icon = $('[id= icon' + id + ']');
     var small = $('[id= small' + id + ']');
     var error = $('[id= error' + id + ']');
@@ -41,8 +41,17 @@ function validar2Campos(campo1, campo2) {
     }
 }
 
-function validar6Campos(campo1, campo2, campo3, campo4, campo5, campo6) {
-    if (campo1 == false && campo2 == false && campo3 == false && campo4 == false && campo5 == false && campo6 == false) {
+function validar7Campos(campo1, campo2, campo3, campo4, campo5, campo6, campo7) {
+    if (campo1 == false && campo2 == false && campo3 == false && campo4 == false && campo5 == false && campo6 == false && campo7 == false) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+function validarCamposUsuarioNuevo(campo1, campo2, campo3, campo4, campo5, campo6, campo7, campo8, campo9) {
+    if (campo1 == false && campo2 == false && campo3 == false && campo4 == false && campo5 == false && campo6 == false && campo7 == false && campo8 == false && campo9 == false) {
         return false;
     }
     else {
@@ -136,6 +145,55 @@ function validarCampoVacioYNumero(div, id) {
         icon.attr("style", "display:block");
         icon.attr("class", "form-control-feedback glyphicon glyphicon-ok");
         small.attr("style", "display:none");
+        return false;
+    }
+}
+
+function validarCampoVacioYLongitud(div, id, long) {
+    var formDiv = $('[id=' + div + ']');
+    var campo = $('[id=' + id + "]");
+    var icon = $('[id= icon' + id + ']');
+    var small = $('[id= small' + id + ']');
+    var error = $('[id= error' + id + ']');
+    var label = $('[id= lbl' + id + ']');
+    if (campo.val() === '' || campo.val().length < long) {
+        formDiv.attr("class", "form-group has-feedback has-error");
+        icon.attr("style", "display:block");
+        icon.attr("class", "form-control-feedback glyphicon glyphicon-remove");
+        small.attr("style", "display:block");
+        error.text("El campo " + label.text() + " es requerido y debe tener 6 o mas caracteres")
+        return true;
+    }
+    else {
+        formDiv.attr("class", "form-group has-feedback has-success");
+        icon.attr("style", "display:block");
+        icon.attr("class", "form-control-feedback glyphicon glyphicon-ok");
+        small.attr("style", "display:none");
+        return false;
+    }
+}
+
+function ValidacionDeContraseñas() {
+    var cont1 = $('[id=Main_txtContraseñaNueva]');
+    var cont2 = $('[id=Main_txtRepetirContraseñaNueva]');
+    var formDiv = $('[id=valRepetirContraseñaNueva]');
+    var icon = $('[id= iconMain_txtRepetirContraseñaNueva]');
+    var small = $('[id= smallMain_txtRepetirContraseñaNueva]');
+    var error = $('[id= errorMain_txtRepetirContraseñaNueva]');
+    if (cont1.val() != cont2.val()) {
+        formDiv.attr("class", "form-group has-feedback has-error");
+        icon.attr("style", "display:block");
+        icon.attr("class", "form-control-feedback glyphicon glyphicon-remove");
+        small.attr("style", "display:block");
+        error.text("Las contraseñas ingresadas no coinciden")
+        formDiv.attr("class", "form-group has-feedback has-error");
+        icon.attr("style", "display:block");
+        icon.attr("class", "form-control-feedback glyphicon glyphicon-remove");
+        small.attr("style", "display:block");
+        error.text("Las contraseñas ingresadas no coinciden")
+        return true;
+    }
+    else {
         return false;
     }
 }

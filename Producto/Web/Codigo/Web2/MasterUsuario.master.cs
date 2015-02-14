@@ -46,6 +46,10 @@ namespace Web2
                 {
                     Response.Redirect("AdministracionPlayas.aspx");
                 }
+                else
+                {
+                    Response.Redirect(HttpContext.Current.Request.Url.ToString());
+                }
             }
             else
             {

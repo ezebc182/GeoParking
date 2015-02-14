@@ -10,7 +10,16 @@
 namespace Web2 {
     
     
-    public partial class DatosUsuario {
+    public partial class DatosDeRegistro {
+        
+        /// <summary>
+        /// Control h_Titulo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl h_Titulo;
         
         /// <summary>
         /// Control lblUsuarioEditar.
@@ -22,22 +31,22 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.Label lblUsuarioEditar;
         
         /// <summary>
-        /// Control hfIdUsuario.
+        /// Control hfNuevo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfIdUsuario;
+        protected global::System.Web.UI.WebControls.HiddenField hfNuevo;
         
         /// <summary>
-        /// Control txtEmailEditar.
+        /// Control txtUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmailEditar;
+        protected global::System.Web.UI.WebControls.TextBox txtUsuario;
         
         /// <summary>
         /// Control txtNombreEditar.
@@ -49,15 +58,6 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.TextBox txtNombreEditar;
         
         /// <summary>
-        /// Control txtApellidoEditar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtApellidoEditar;
-        
-        /// <summary>
         /// Control txtDni.
         /// </summary>
         /// <remarks>
@@ -65,6 +65,24 @@ namespace Web2 {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDni;
+        
+        /// <summary>
+        /// Control txtEmailEditar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEmailEditar;
+        
+        /// <summary>
+        /// Control txtApellidoEditar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtApellidoEditar;
         
         /// <summary>
         /// Control txtfechaNacimiento.
@@ -85,6 +103,15 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.TextBox txtDireccion;
         
         /// <summary>
+        /// Control divContraseñaVieja.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divContraseñaVieja;
+        
+        /// <summary>
         /// Control lbltxtContraseñaVieja.
         /// </summary>
         /// <remarks>
@@ -103,6 +130,15 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.TextBox txtContraseñaVieja;
         
         /// <summary>
+        /// Control divContraseñaNueva.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divContraseñaNueva;
+        
+        /// <summary>
         /// Control lbltxtContraseñaNueva.
         /// </summary>
         /// <remarks>
@@ -119,6 +155,15 @@ namespace Web2 {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtContraseñaNueva;
+        
+        /// <summary>
+        /// Control divRepetirContraseñaNueva.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divRepetirContraseñaNueva;
         
         /// <summary>
         /// Control lblRepetirContraseñaNueva.
@@ -146,5 +191,14 @@ namespace Web2 {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel panelBotones;
+        
+        /// <summary>
+        /// Control btnRegistrarse.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRegistrarse;
     }
 }

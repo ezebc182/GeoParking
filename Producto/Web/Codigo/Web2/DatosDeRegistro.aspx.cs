@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace Web2
 {
-    public partial class DatosUsuario : System.Web.UI.Page
+    public partial class DatosDeRegistro : System.Web.UI.Page
     {
         private static GestorUsuario gestor;
 
@@ -19,6 +19,17 @@ namespace Web2
             if (SessionUsuario != null)
             {
                 CargarDatosUsuario();
+                hfNuevo.Value = "false";
+            }
+            else
+            {
+                divContraseñaVieja.Attributes["style"] = "display:none";
+                lbltxtContraseñaNueva.InnerText = "(*) Contraseña:";
+                lblRepetirContraseñaNueva.InnerText = "(*) Repetir Contraseña:";
+                divContraseñaNueva.Attributes["class"] = "col-lg-6";
+                divRepetirContraseñaNueva.Attributes["class"] = "col-lg-6";
+                h_Titulo.InnerText = "Registro de Usuario -  Complete con sus datos";
+                hfNuevo.Value = "true";
             }
         }
 
@@ -29,6 +40,8 @@ namespace Web2
             txtApellidoEditar.Text = usuario.Apellido;
             txtEmailEditar.Text = usuario.Mail;
             lblUsuarioEditar.Text = usuario.NombreUsuario;
+            txtUsuario.Text = usuario.NombreUsuario;
+            txtUsuario.Enabled = false;
             if (usuario.DNI != 0)
             {
                 txtDni.Text = usuario.DNI.ToString();
@@ -41,6 +54,11 @@ namespace Web2
             {
                 txtfechaNacimiento.Text = usuario.FechaDeNacimiento.ToString("yyyy-MM-dd");
             }
+        }
+
+        protected void btnRegistrarse_Click(object sender, EventArgs e)
+        {
+            var nada = "";
         }
 
         public Usuario SessionUsuario
