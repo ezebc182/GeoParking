@@ -12,10 +12,12 @@ app.controller('MyCtrl', function ($scope, $http) {
     var contenido = "";//contenido infowindow de marcador   
     var infowindow = new google.maps.InfoWindow({ content: '' , maxWidth: 600  });//infowindow vacio
     var playas = [];//playas que recupera de la BD
-    var mostrarBusquedaAvanzada = false;
+    var mostrarBusquedaAvanzada = true;
     $scope.playasGrilla = [];//playas de la grilla de la ciudad buscada       
     $scope.mostrarGrilla = false;//true: se muestra grilla , false: se muestra mapa   
     $scope.resultado = [];
+    $("#limpiarBusqueda").prop("disabled", true);
+      
 
     $scope.currentPage = 0;
     $scope.pageSize = 8;
@@ -65,86 +67,48 @@ app.controller('MyCtrl', function ($scope, $http) {
         contenido += "<td>";
 
         contenido += "<table class='table table-responsive'>";
-        contenido += "<tr><td> <strong>Nombre:</strong> </td> <td>" + playas.Nombre + " </td> </tr>" +
-       "<tr><td> <strong>Mail:</strong> </td> <td>" + playa.Mail + " </td> </tr>" +
-       "<tr><td> <strong>Telefono:</strong> </td> <td>" + playa.Telefono + " </td> </tr>" +
-       "<tr><td> <strong>Tipo Playa:</strong> </td> <td>" + playa.TipoPlaya + " </td> </tr>";
-        contenido += "</table>";
+        contenido += "<tr><td> <strong>Nombre:</strong> </td> <td>" + playa.Nombre + " </td> </tr>";
 
-        contenido += "</td>";
-        contenido += "<td>";
-
-        //agregamos las direcciones
-        contenido += "<div><h6>DIRECCION<h6></div>";
-        contenido += "<table class='table table-responsive'>";
         var direcciones = eval(playa.Direcciones);
         for (var j = 0; j < direcciones.length; j++) {
-            contenido += "<tr><td>" + direcciones[j].Calle + " " + direcciones[j].Numero + "</td></tr>";
+            contenido += "<tr><td> <strong>Direccion:</strong> </td><td>" + direcciones[j].Calle + " " + direcciones[j].Numero + "</td></tr>";
         }
-        contenido += "</table>";
 
-        //agregamos los horarios
-        contenido += "<div><h6>HORARIO<h6></div>";
-        contenido += "<table class='table table-responsive'>";
-        contenido += "<tr><td>" + playa.Horario.Dia + "   </td><td><strong>Desde: </strong>" + playa.Horario.HoraDesde + "</td><td> - <strong>Hasta: </strong>" + playa.Horario.HoraHasta + "</td> </tr>";
-        contenido += "</table>";
+       "<tr><td> <strong>Tipo Playa:</strong> </td> <td>" + playa.TipoPlaya + " </td> </tr>";
+       contenido += "</table>";
 
-        contenido += "</td>";
-        contenido += "</tr>";
-        contenido += "</table>";
+       contenido += "<div><h6>HORARIO<h6></div>";
+       contenido += "<table>";
+       contenido += "<tr><td>" + playa.Horario.Dia + "</td> <td> <strong>&nbsp&nbsp;Desde:&nbsp</strong></td> <td> " + playa.Horario.HoraDesde + "</td> <td>&nbsp; - &nbsp;<strong>Hasta:&nbsp</strong> </td> <td>" + playa.Horario.HoraHasta + "</td> </tr>";
+       contenido += "</table>";
 
+       contenido += "</td></tr>";              
+       contenido += "</table>";
 
         contenido += "</p></div>";
 
         //SEGUNDO TAB
-        contenido += "<div class='tab-pane' id='panel-2'>" +
-        "<p>";
+        contenido += "<div class='tab-pane' id='panel-2'>" +  "<p>";             
 
-        //agregamos los servicios
-        contenido += "<div><h6>SERVICIOS<h6></div>";
-        contenido += "<table class='table table-responsive'>";
-
-        //cabecera
-        cabecera = "<tr><td></td><td><strong>Automovil</strong></td><td><strong>Utilitario</strong></td><td><strong>Motocicleta</strong></td><td><strong>Bicicleta</strong></td>";
-        //cuerpo
-        cuerpo = "<tr><td><strong>Capacidad</strong></td>";
-
-        var servicios = eval(playa.Servicios);
-        for (var K = 0; K < servicios.length; K++) {
-            //cabecera += "<td><strong>" + servicios[K].TipoVehiculo + "</strong></td>";
-            cuerpo += "<td>" + servicios[K].Capacidad + "</td>";
-            //contenido += "<tr><td>" + servicios[K].TipoVehiculo + ":  </td> <td> <strong> Capacidad: </strong>" + servicios[K].Capacidad + " </td> </tr>";
-        }
-
-        cabecera += "</tr>";
-        cuerpo += "</tr>";
-        contenido += cabecera + cuerpo;
-
-
-        //var servicios = eval(playa.Servicios);
-        //for (var K = 0; K < servicios.length; K++) {
-        //    contenido += "<tr><td>" + servicios[K].TipoVehiculo + ":  </td> <td> <strong> Capacidad: </strong>" + servicios[K].Capacidad + " </td> </tr>";
-        //}
-
-
-        contenido += "</table>";
+        var servicios = eval(playa.Servicios);       
 
         //agregamos los precios
         contenido += "<div><h6>PRECIOS<h6></div>";
         contenido += "<table class='table table-responsive'>";
-
 
         //cabecera
         cabecera = "<tr><td><strong>Vehiculo</strong></td><td><strong>X hora</strong></td><td><strong>6 hs</strong></td><td><strong>12 hs</strong></td><td><strong>24 hs</strong></td><td><strong>Mensual</strong></td>";
         //cuerpo
         cuerpo = "";
 
-        for (var l = 0; l < servicios.length; l++) {
-
-            cuerpo += "<tr><td>" + servicios[l].TipoVehiculo + "</td>";
+        for (var l = 0; l < servicios.length; l++) {           
 
             var precios = eval(servicios[l].Precios);
+
             if (precios != null) {
+
+                cuerpo += "<tr><td>" + servicios[l].TipoVehiculo + "</td>";
+
                 for (var m = 0; m < precios.length; m++) {
                     if (precios[m].Monto > 0) {
                         cuerpo += "<td>$" + precios[m].Monto + "</td>";
@@ -162,15 +126,7 @@ app.controller('MyCtrl', function ($scope, $http) {
         contenido += cabecera + cuerpo;
 
 
-        //for (var l = 0; l < servicios.length; l++) {
-        //    var precios = eval(servicios[l].Precios);
-        //    if (precios != null) {
-        //        for (var m = 0; m < precios.length; m++) {
-        //            if (precios[m].Monto > 0)
-        //                contenido += "<tr><td>" + servicios[l].TipoVehiculo + "</td> <td>  <strong> " + precios[m].Tiempo + ": </strong>$" + precios[m].Monto + "</td> </tr>";
-        //        }
-        //    }
-        //}       
+        
         contenido += "</table>"
         contenido += "</p></div>";
         contenido += "</div></div>";
@@ -203,61 +159,60 @@ app.controller('MyCtrl', function ($scope, $http) {
         $scope.map.setCenter(new google.maps.LatLng(playa.Latitud.replace(",", "."), playa.Longitud.replace(",", ".")));//centro el mapa en la playa              
     }
 
-    /*AGRANDA EL MAPA PARA MOSTRARLO COMPLETO (CUANDO NO ESTA LA BUQUEDA AVANZADA)*/
-    $scope.agrandarMapa = function () {
-        $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Búsqueda Avanzada");
-        $("#busquedaAvanzada").hide();
-        $("#map-canvas").css("width", "1260px");
-        $("#map-canvas").css("height", "500px");
-        $("#map-canvas").css("border-color", "gray");
-        $("#map-canvas").css("margin-left", "-30px");
-    }
-
     /*MUESTRA LA GRILLA O LA ESCONDE SI ESTA ACTIVA*/
     $scope.listar = function () {
-        if ($scope.mostrarGrilla == false) {
-            if (mostrarBusquedaAvanzada == false) {
-                $("#contenedorGrilla").removeClass("table-responsive");
-                $("#myTable").removeClass("table-responsive");
-                $("#myTable").addClass("gridStyle");
-            }
+        if ($scope.mostrarGrilla == false) {            
             $scope.mostrarGrilla = true;
             $("#btnListado").html("<span class='glyphicon glyphicon-globe'></span>&nbsp;Ver Mapa");
+            $("#map-canvas").css("width", "1260px");
+            $("#map-canvas").css("height", "500px");
+            $("#map-canvas").css("border-color", "gray");
+            $("#map-canvas").css("margin-left", "-30px");
+            $("#busquedaAvanzada").hide();
+            mostrarBusquedaAvanzada = false;
+            //$("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-resize-small'></span>&nbsp;Contraer Mapa")
         }
         else {
+            $("#map-canvas").css("width", "931px");
+            $("#map-canvas").css("height", "500");
+            $("#map-canvas").css("border-color", "gray");
+            $("#map-canvas").css("margin-left", "-10px");
+            $("#busquedaAvanzada").show();
+            mostrarBusquedaAvanzada = true;
             $scope.mostrarGrilla = false;
             $("#btnListado").html("<span class='glyphicon glyphicon-list-alt'></span>&nbsp;Ver Listado")
+            
         }
 
     }
 
     /*AJUSTA EL TAMAÑO DEL MAPA AL ABRIR LA BUSQUEDA AVANZADA*/
     $scope.ajustarMapa = function () {
-        if (mostrarBusquedaAvanzada == false) {
-            $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-cog'></span>&nbsp;Ocultar Avanzada");//            
-            $("#map-canvas").fadeIn(3000, function () {
-                $("#map-canvas").css("width", "931px");
-                $("#map-canvas").css("height", "500");
-                $("#map-canvas").css("border-color", "gray");
-                $("#map-canvas").css("margin-left", "-10px");
-            });
-            $("#contenedorGrilla").addClass("table-responsive");
-            $("#myTable").addClass("table-responsive");
-            $("#myTable").removeClass("gridStyle");
-            $(".gridStyle").css("margin-left","0px");
+
+        if ($scope.mostrarGrilla == true) {
+            $scope.listar();
+        }
+
+        if (mostrarBusquedaAvanzada == true) {
+            $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-resize-small'></span>&nbsp;Contraer Mapa")
+            $("#map-canvas").css("width", "1260px");
+            $("#map-canvas").css("height", "500px");
+            $("#map-canvas").css("border-color", "gray");
+            $("#map-canvas").css("margin-left", "-30px");
+            $("#busquedaAvanzada").hide();
+            mostrarBusquedaAvanzada = false;
+        }
+        else {
+            $("#btnBusquedaAvanzada").html("<span class='glyphicon glyphicon-resize-full'></span>&nbsp;Expandir Mapa")
+            $("#map-canvas").css("width", "931px");
+            $("#map-canvas").css("height", "500");
+            $("#map-canvas").css("border-color", "gray");
+            $("#map-canvas").css("margin-left", "-10px");
             $("#busquedaAvanzada").show();
             mostrarBusquedaAvanzada = true;
         }
-        else {
-            $scope.agrandarMapa();
-            $(".gridStyle").css("margin-left", "-15px");
-            $("#contenedorGrilla").removeClass("table-responsive");
-            $("#myTable").removeClass("table-responsive");
-            $("#myTable").addClass("gridStyle");
-            mostrarBusquedaAvanzada = false;
-        }
 
-    }
+    }   
 
     /*BUSCO LAS PLAYAS DE LA NUEVA CIUDAD*/
     $scope.buscarPlayasCiudad = function () {
@@ -305,8 +260,9 @@ app.controller('MyCtrl', function ($scope, $http) {
                     document.getElementById('ddlTipoVehiculo').value = 0;
                     document.getElementById('ddlDiasAtencion').value = 0;
                     document.getElementById('txtMaxPrecio').value = 0;
-                    document.getElementById('ddlHoraDesde').value = 0;
-                    document.getElementById('ddlHoraHasta').value = 0;
+                    $('#horaDesde > div > input').val("00:00");
+                    $('#horaHasta > div > input').val("00.00");                   
+                    $("#limpiarBusqueda").prop("disabled", true);
                 }
                 else {
                     var mensaje = 'La direccion establecida no ha podido encontrarse';
@@ -317,7 +273,10 @@ app.controller('MyCtrl', function ($scope, $http) {
             });
 
         }).error(function (data, status, headers, config) {
-            alert('ERROR ' + data.status + ' ' + data.statusText, 'Error');
+            var mensaje =  data.status + ' ' + data.statusText;
+            var titulo = 'Error';
+            document.getElementById("resultados").value = mensaje + "," + titulo;
+            document.getElementById("resultados").click();
         });
     }   
 
@@ -347,7 +306,11 @@ app.controller('MyCtrl', function ($scope, $http) {
             });
 
         }).error(function (data, status, headers, config) {
-            alert(status);
+           
+            var mensaje = status;
+            var titulo = 'Error';
+            document.getElementById("resultados").value = mensaje + "," + titulo;
+            document.getElementById("resultados").click();
         });
     }    
 
@@ -399,6 +362,9 @@ app.controller('MyCtrl', function ($scope, $http) {
                 $scope.marcadorCirculo.push(marker);
 
                 $scope.map.setZoom(15);
+
+                
+                $("#limpiarBusqueda").prop("disabled", false);
 
             } else {
                 var mensaje = 'La direccion establecida no ha podido encontrarse';
@@ -513,71 +479,39 @@ app.controller('MyCtrl', function ($scope, $http) {
                 //PRIMER TAB
                 contenido += "<div class='tab-pane active' id='panel-1'>" +
                 "<p>";
-
                 contenido += "<table class='table'>";
-                contenido += "<tr>";
-                contenido += "<td>";
+                contenido += "<tr><td>";               
 
                 contenido += "<table class='table table-responsive'>";
-                contenido += "<tr><td> <strong>Nombre:</strong> </td> <td>" + playas[i].Nombre + " </td> </tr>" +
-               "<tr><td> <strong>Mail:</strong> </td> <td>" + playas[i].Mail + " </td> </tr>" +
-               "<tr><td> <strong>Telefono:</strong> </td> <td>" + playas[i].Telefono + " </td> </tr>" +
-               "<tr><td> <strong>Tipo Playa:</strong> </td> <td>" + playas[i].TipoPlaya + " </td> </tr>";
-                contenido += "</table>";
+                contenido += "<tr><td> <strong>Nombre:</strong> </td> <td>" + playas[i].Nombre + " </td> </tr>";
 
-                contenido += "</td>";
-                contenido += "<td>";
-
-                //agregamos las direcciones
-                contenido += "<div><h6>DIRECCION<h6></div>";
-                contenido += "<table class='table table-responsive'>";
                 var direcciones = eval(playas[i].Direcciones);
                 for (var j = 0; j < direcciones.length; j++) {
-                    contenido += "<tr><td>" + direcciones[j].Calle + " " + direcciones[j].Numero + "</td></tr>";
+                    contenido += "<tr><td> <strong>Direccion:</strong> </td><td>" + direcciones[j].Calle + " " + direcciones[j].Numero + "</td></tr>";
                 }
-                contenido += "</table>";
+               
+               contenido += "<tr><td> <strong>Tipo Playa:</strong> </td> <td>" + playas[i].TipoPlaya + " </td> </tr>";
+               contenido += "</table>";
 
-                //agregamos los horarios
-                contenido += "<div><h6>HORARIO<h6></div>";
-                contenido += "<table>";
-                contenido += "<tr><td>" + playas[i].Horario.Dia + "</td> <td> <strong>Desde:</strong></td> <td> " + playas[i].Horario.HoraDesde + "</td> <td> - <strong>Hasta:</strong> </td> <td>" + playas[i].Horario.HoraHasta + "</td> </tr>";
-                contenido += "</table>";
+               contenido += "<div><h6>HORARIO<h6></div>";
+               contenido += "<table>";
+               if (playas[i].Horario.HoraDesde == "00:00" & playas[i].Horario.HoraHasta == "23:59")
+                   contenido += "<tr><td>" + playas[i].Horario.Dia + "</td> <td> <strong>&nbsp&nbsp;24 hs</strong></td></tr>";
+               else
+                   contenido += "<tr><td>" + playas[i].Horario.Dia + "</td> <td> <strong>&nbsp&nbsp;Desde:&nbsp</strong></td> <td> " + playas[i].Horario.HoraDesde + "</td> <td>&nbsp; - &nbsp;<strong>Hasta:&nbsp</strong> </td> <td>" + playas[i].Horario.HoraHasta + "</td> </tr>";
+               contenido += "</table>";
 
-                contenido += "</td>";
-                contenido += "</tr>";
-                contenido += "</table>";
+               contenido += "</td></tr>";
+               contenido += "</table>";
 
-                contenido += "</p></div>";
+               contenido += "</p></div>";
 
 
                 //SEGUNDO TAB
-                contenido += "<div class='tab-pane' id='panel-2'>" +
-                "<p>";
-
-                //agregamos los servicios
-                contenido += "<div><h6>SERVICIOS<h6></div>";
-                contenido += "<table class='table'>";
-
-                //cabecera
-                cabecera = "<tr><td></td><td><strong>Automovil</strong></td><td><strong>Utilitario</strong></td><td><strong>Motocicleta</strong></td><td><strong>Bicicleta</strong></td>";
-                //cuerpo
-                cuerpo = "<tr><td><strong>Capacidad</strong></td>";
+                contenido += "<div class='tab-pane' id='panel-2'>" + "<p>";
 
                 var servicios = eval(playas[i].Servicios);
-                for (var K = 0; K < servicios.length; K++) {
-                    //cabecera += "<td><strong>" + servicios[K].TipoVehiculo + "</strong></td>";
-                    cuerpo += "<td>" + servicios[K].Capacidad + "</td>";
-                    //contenido += "<tr><td>" + servicios[K].TipoVehiculo + ":  </td> <td> <strong> Capacidad: </strong>" + servicios[K].Capacidad + " </td> </tr>";
-                }
-
-                cabecera += "</tr>";
-                cuerpo += "</tr>";
-                contenido += cabecera + cuerpo;
-
-                contenido += "</table>";
-
-
-                //agregamos los precios
+                
                 contenido += "<div><h6>PRECIOS<h6></div>";
                 contenido += "<table class='table table-responsive'>";
 
@@ -586,12 +520,14 @@ app.controller('MyCtrl', function ($scope, $http) {
                 //cuerpo
                 cuerpo = "";
 
-                for (var l = 0; l < servicios.length; l++) {
-
-                    cuerpo += "<tr><td>" + servicios[l].TipoVehiculo + "</td>";
+                for (var l = 0; l < servicios.length; l++) {                   
 
                     var precios = eval(servicios[l].Precios);
+
                     if (precios != null) {
+
+                        cuerpo += "<tr><td>" + servicios[l].TipoVehiculo + "</td>";
+
                         for (var m = 0; m < precios.length; m++) {
                             if (precios[m].Monto > 0) {
                                 cuerpo += "<td>$" + precios[m].Monto + "</td>";
@@ -752,10 +688,17 @@ app.controller('MyCtrl', function ($scope, $http) {
         }).success(function (response) {
 
             $scope.cargarPlayas(response);//cargar playas resultantes de los filtros en el mapa
-            $scope.cargarPlayasGrilla(response);//cargar playas resultantes en la grilla            
+            $scope.cargarPlayasGrilla(response);//cargar playas resultantes en la grilla      
+
+            
+            $("#limpiarBusqueda").prop("disabled", false);
 
         }).error(function (data, status, headers, config) {
-            alert('ERROR ' + data.status + ' ' + data.statusText, 'Error');
+            
+            var mensaje = result.status + ' ' + result.statusText;
+            var titulo = 'Error';
+            document.getElementById("resultados").value = mensaje + "," + titulo;
+            document.getElementById("resultados").click();
         });
     }
 
@@ -772,10 +715,17 @@ app.controller('MyCtrl', function ($scope, $http) {
 
             $scope.cargarPlayas(response);//carga las playas en el mapa
 
-            $scope.cargarPlayasGrilla(response);//carga las playas en la grilla               
+            $scope.cargarPlayasGrilla(response);//carga las playas en la grilla         
+
+            
+            $("#limpiarBusqueda").prop("disabled", true);
 
         }).error(function (data, status, headers, config) {
-            alert('ERROR ' + result.status + ' ' + result.statusText, 'Error');
+            
+            var mensaje = result.status + ' ' + result.statusText;
+            var titulo = 'Error';
+            document.getElementById("resultados").value = mensaje + "," + titulo;
+            document.getElementById("resultados").click();
         });
     }
 
@@ -820,18 +770,15 @@ app.controller('MyCtrl', function ($scope, $http) {
         };
 
         $scope.map = new google.maps.Map(document.getElementById('map-canvas'), $scope.mapOptions);//instancia el mapa
-        google.maps.event.addListener($scope.map, 'click', function (event) { $scope.dibujarPunto(event); });//evento de dibujar punto (Click)
+        
         $scope.getPlayas();//playas de la ciudad en session
+
+        
+        $("#limpiarBusqueda").prop("disabled", true);
     }
 
     /*SETEA COMO METODO DE INICIO AL CARGAR LA PAGINA*/
-    google.maps.event.addDomListener(window, 'load', $scope.inicializarMapa);
-
-    
-
-    
-
-    
+    google.maps.event.addDomListener(window, 'load', $scope.inicializarMapa);    
 
 });
 

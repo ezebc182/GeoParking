@@ -42,21 +42,25 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn-warning btn btn-md" id="btnBusquedaAvanzada" data-toggle="collapse"
+                    <button type="button" class="btn-warning btn btn-md hidden" id="btnBusquedaAvanzada" data-toggle="collapse"
                         data-target="#busquedaAvanzada"  ng-click="ajustarMapa()" title="Busqueda Avanzada">
-                        <span class="glyphicon glyphicon-cog"></span>&nbsp;Búsqueda
-                        avanzada</button>
+                        <span class="glyphicon glyphicon-resize-full"></span>&nbsp;Expandir Mapa</button>
                     <button type="button" class="btn-warning btn btn-md" id="btnListado" ng-click="listar();" title="Ver listado/mapa"><span class='glyphicon glyphicon-list-alt'></span>&nbsp;Ver Listado</button>
                 </div>
                 <div class="form-group">
                     <button type="button" class="btn-default btn btn-md" id="limpiarBusqueda" ng-click="buscarPlayasCiudad();" title="Restaurar Mapa"><!--limpiarMapa()-->
                         <span class="glyphicon glyphicon-repeat"></span>&nbsp;Restaurar Mapa
                     </button>
-                </div>            
+                </div>  
+                <div class="form-group" style=" margin-left: 31%; position: fixed;">
+                    <button type="button" class="btn-default btn btn-md" id="btnAyuda" title="Ayuda" >
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                    </button>
+                </div>          
             </div>        
 
             <!--Columna con los fitros de la busqueda-->
-            <div class="col-md-3 col-sm-3 col-lg-3 collapse well" id="busquedaAvanzada" >
+            <div class="col-md-3 col-sm-3 col-lg-3" id="busquedaAvanzada" >
                 <div class="formulario form-horizontal" data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
                     data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
                     <fieldset>
@@ -175,7 +179,7 @@
                         ID="txtLongitud" ClientIDMode="Static" />
                 </div>
                 <!--Rectangulo de la Grilla-->                   
-                <div id="contenedorGrilla" class="table-responsive" ng-show="mostrarGrilla">
+                <div id="contenedorGrilla" class="container" ng-show="mostrarGrilla">
                     <br />
                     <div class="col-md-4"></div>
                     <div class="col-md-8" style="text-align: right;">

@@ -17,7 +17,7 @@ body {
 }
 #map-canvas
 {
-    width: 1260px;
+    width: 931px;/*1260px*/
     height: 500px;
     margin-top: 0;
     border-radius: 0px;
@@ -65,7 +65,7 @@ thead {
 }
 
 #info {
-    width:600px;
+    width:340px;
 }
 
 
