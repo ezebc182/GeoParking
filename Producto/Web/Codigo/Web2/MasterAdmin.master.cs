@@ -35,6 +35,7 @@ namespace Web2
                         li_AdminRolyPer.Attributes["style"] = "display:none";
                         li_Estadisticas.Attributes["style"] = "display:none";
                         li_Zonas.Attributes["style"] = "display:none";
+                        hrefAdministracion.Attributes["href"] = "/AdministracionSolicitudesYConexiones.aspx";
                     }
                 }
             }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ReglasDeNegocio.Util
 {
-    class Encriptacion
+    public class Encriptacion
     {
         string llave = "geoparking";
 

@@ -67,6 +67,15 @@ namespace Web2 {
         protected global::System.Web.UI.WebControls.Label lblLogin;
         
         /// <summary>
+        /// Control hrefAdministracion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor hrefAdministracion;
+        
+        /// <summary>
         /// Control A1.
         /// </summary>
         /// <remarks>
@@ -200,6 +209,15 @@ namespace Web2 {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfregistro;
+        
+        /// <summary>
+        /// Control hfNuevoRegistro.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfNuevoRegistro;
         
         /// <summary>
         /// Control msjeConfirmacion.

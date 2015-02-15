@@ -4,18 +4,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ReglasDeNegocio.Util;
 
 namespace Web2
 {
     public partial class DatosDeRegistro : System.Web.UI.Page
     {
         private static GestorUsuario gestor;
+        private static GestorEmails mandarEmail;
+        private static Encriptacion encriptacion;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             gestor = new GestorUsuario();
+            mandarEmail = new GestorEmails();
+            encriptacion = new Encriptacion();
             if (SessionUsuario != null)
             {
                 CargarDatosUsuario();
@@ -56,11 +62,6 @@ namespace Web2
             }
         }
 
-        protected void btnRegistrarse_Click(object sender, EventArgs e)
-        {
-            var nada = "";
-        }
-
         public Usuario SessionUsuario
         {
             get
@@ -82,6 +83,26 @@ namespace Web2
                     return null;
                 }
             }
+        }
+
+        [WebMethod]
+        public static string RegistrarUsuario(string nombre, string apellido, string usuario, string fecha, string direccion, string dni, string email, string contraseña)
+        {
+            Usuario NuevoUsuario = new Usuario();
+            NuevoUsuario.Apellido = apellido;
+            NuevoUsuario.Contraseña = contraseña;
+            NuevoUsuario.Direccion = direccion;
+            NuevoUsuario.DNI = Int32.Parse(dni);
+            NuevoUsuario.Estado = false;
+            NuevoUsuario.FechaDeNacimiento = DateTime.Parse(fecha);
+            NuevoUsuario.Mail = email;
+            NuevoUsuario.Nombre = nombre;
+            NuevoUsuario.NombreUsuario = usuario;
+            NuevoUsuario.RolId = 1;
+            string url = HttpContext.Current.Request.Url.ToString();
+            Uri uri = new Uri(url);
+            mandarEmail.EnviarEmail("Presione el siguiente link para activar la cuenta " + uri.GetLeftPart(UriPartial.Authority) + "/Index.aspx?usuario="+ encriptacion.Encriptar(NuevoUsuario.NombreUsuario), NuevoUsuario.Mail, "Registro de Usuario en Geoparking");
+            return gestor.RegistrarUsuarioJSON(NuevoUsuario);
         }
     }
 }

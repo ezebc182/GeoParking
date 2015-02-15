@@ -70,7 +70,7 @@
                                             <asp:Label ID="lblLogin" runat="server"></asp:Label></strong> <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="/AdministracionSolicitudesYConexiones.aspx" style="padding-left: 10px; padding-right: 10px;"><i class="fa fa-fw fa-gears"></i> Administracion</a>
+                                        <a href="/AdministracionPlayas.aspx" style="padding-left: 10px; padding-right: 10px;"  id="hrefAdministracion" runat="server" ><i class="fa fa-fw fa-gears"></i> Administracion</a>
                                     </li>
                                     <li>
                                         <a href="/DatosPersonales.aspx" style="padding-left: 10px; padding-right: 10px;"><i class="fa fa-fw fa-list-alt"></i> Modificar Datos</a>
@@ -298,6 +298,7 @@
                     </div>
                 </div>
             </div>
+            <asp:HiddenField runat="server" ID="hfNuevoRegistro" />
 
             <!-- Mensajes -->
                 <msjes:confirmacion runat="server" ID="msjeConfirmacion"></msjes:confirmacion>
@@ -345,6 +346,13 @@
             sendbtn.disabled = true;
         }
     }
+
+    $(document).ready(function () {
+        if ($('[id=hfNuevoRegistro]').val() != '' )
+        {
+            Alerta_openModalInfo($('[id=hfNuevoRegistro]').val()+ " tu cuenta se activo correctamente, inicia sesion para acceder al sistema", "Activación de Usuario");
+        }
+    });
 
     function limpiarUsuarioLogin() {
         validarUsuarioVacio($('[id=valtxtUsuarioLogin]').attr("id"), $('[id=txtUsuarioLogin]').attr("id"));

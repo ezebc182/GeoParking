@@ -1,27 +1,28 @@
-﻿function guardarDatosUsuario(usuario) {
+﻿function RegistrarUsuario() {
     $.ajax({
         type: "POST",
-        url: "AdministracionRolesyPermisos.aspx/GuardarDatosUsuario",
-        data: "{'usuario': '" + usuario + "'}",
+        url: "DatosDeRegistro.aspx/RegistrarUsuario",
+        data: "{'email': '" + $('[id=Main_txtEmailEditar]').val() + "' , 'nombre': '" + $('[id=Main_txtNombreEditar]').val() + "', 'apellido': '" + $('[id=Main_txtApellidoEditar]').val() + "', 'fecha': '" + $('[id=Main_txtfechaNacimiento]').val() + "', 'dni': '" + $('[id=Main_txtDni]').val() + "', 'direccion': '" + $('[id=Main_txtDireccion]').val() + "', 'usuario': '" + $('[id=Main_txtUsuario]').val() + "', 'contraseña': '" + $('[id=Main_txtContraseñaNueva]').val() + "'}",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         async: true,
         success: function (response) {
             var resultado = response.d;
             if (resultado == "true") {
-                Alerta_openModalInfo("Se actualizaron los datos correctamente!", "Actualización de Datos");
-                selectIndexchangedRolUsuario($('[id*=Main_ddlUsuario').val());
+                Alerta_openModalInfo("El usuario se registro correctamente! Revise su casilla de e-mail para activar la cuenta", "Registro de Usuario");
+                limpiarValidaciones();
+                limpiarCampos();
             }
         },
         error: function (result) {
             var errores = result.responseText.substr('0', result.responseText.indexOf('{'));
-            Alerta_openModalError(errores, "Error en la actualizacion de Datos de Usuario", true);
+            Alerta_openModalError(errores, "Error en el Registro de Usuario", true);
         }
     });
 };
 
 function limpiarEmailEditar() {
-    validarCampoVacio($('[id=valEmailEditar]').attr("id"), $('[id=Main_txtEmailEditar]').attr("id"));
+    validarCampoVacioYMail($('[id=valEmailEditar]').attr("id"), $('[id=Main_txtEmailEditar]').attr("id"));
 }
 
 function limpiarUsuario() {
@@ -57,7 +58,7 @@ function limpiarRepetirContraseñaNueva() {
 }
 
 function ValidarRegistro() {
-    var val1 = validarCampoVacio($('[id=valEmailEditar]').attr("id"), $('[id=Main_txtEmailEditar]').attr("id"));
+    var val1 = validarCampoVacioYMail($('[id=valEmailEditar]').attr("id"), $('[id=Main_txtEmailEditar]').attr("id"));
     var val2 = validarCampoVacio($('[id=valNombreEditar]').attr("id"), $('[id=Main_txtNombreEditar]').attr("id"));
     var val3 = validarCampoVacio($('[id=valApellidoEditar]').attr("id"), $('[id=Main_txtApellidoEditar]').attr("id"));
     var val4 = validarCampoVacio($('[id=valFechaEditar]').attr("id"), $('[id=Main_txtfechaNacimiento]').attr("id"));
@@ -72,15 +73,20 @@ function ValidarRegistro() {
         var val9 = validarCampoVacioYLongitud($('[id=valRepetirContraseñaNueva]').attr("id"), $('[id=Main_txtRepetirContraseñaNueva]').attr("id"), 6);
         if (!validarCamposUsuarioNuevo(val1, val2, val3, val4, val5, val6, val7, val8, val9)) {
             if (!ValidacionDeContraseñas()) {
-                return true;
-                limpiarValidaciones();
+                RegistrarUsuario();
             }
-            else {
-                return false;
-            }
-        }
-        else {
-            return false;
         }
     }
+}
+
+function limpiarCampos() {
+    $('[id=Main_txtEmailEditar]').val("");
+    $('[id=Main_txtNombreEditar]').val("");
+    $('[id=Main_txtApellidoEditar]').val("");
+    $('[id=Main_txtfechaNacimiento]').val("");
+    $('[id=Main_txtDni]').val("");
+    $('[id=Main_txtDireccion]').val("");
+    $('[id=Main_txtUsuario]').val("");
+    $('[id=Main_txtContraseñaNueva]').val("");
+    $('[id=Main_txtRepetirContraseñaNueva]').val("");
 }

@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using Web2.Util;
 using Entidades;
 using ReglasDeNegocio;
+using ReglasDeNegocio.Util;
 
 namespace Web2
 {
@@ -15,12 +16,24 @@ namespace Web2
     {
         //gestor encargado de todas las funcionalidades del ABM
         private static GestorUsuario gestor;
+        private static Encriptacion encriptacion;
         private int rolId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             gestor = new GestorUsuario();
+            encriptacion = new Encriptacion();
 
+            if (Request.QueryString["usuario"] != null)
+            {
+                hfNuevoRegistro.Value = encriptacion.Desencriptar(Request.QueryString["usuario"].Replace(' ', '+'));
+                Usuario usuario = gestor.BuscarPorNombreDeUsuario(hfNuevoRegistro.Value);
+                usuario.Estado = true;
+                if (usuario != null)
+                {
+                    gestor.UpdateUsuario(usuario);
+                }
+            }
             if (!Page.IsPostBack)
             {
                 if (SessionUsuario != null)
@@ -28,6 +41,11 @@ namespace Web2
                     lblLogin.Text = SessionUsuario.NombreUsuario;
                     li_Ingresar.Visible = false;
                     li_Login.Visible = true;
+                    rolId = SessionUsuario.RolId;
+                    if (rolId == 1)
+                    {
+                        hrefAdministracion.Attributes["href"] = "/AdministracionSolicitudesYConexiones.aspx";
+                    }
                 }
             }
         }
@@ -48,7 +66,7 @@ namespace Web2
                 }
                 else
                 {
-                    Response.Redirect(HttpContext.Current.Request.Url.ToString());
+                    Response.Redirect("AdministracionSolicitudesYConexiones.aspx");
                 }
             }
             else

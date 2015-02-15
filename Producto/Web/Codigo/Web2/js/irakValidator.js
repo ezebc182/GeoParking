@@ -197,3 +197,28 @@ function ValidacionDeContraseñas() {
         return false;
     }
 }
+
+function validarCampoVacioYMail(div, id) {
+    var formDiv = $('[id=' + div + ']');
+    var campo = $('[id=' + id + "]");
+    var icon = $('[id= icon' + id + ']');
+    var small = $('[id= small' + id + ']');
+    var error = $('[id= error' + id + ']');
+    var label = $('[id= lbl' + id + ']');
+    var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+    if (campo.val() === '' || !(regex.test(campo.val().trim()))) {
+        formDiv.attr("class", "form-group has-feedback has-error");
+        icon.attr("style", "display:block");
+        icon.attr("class", "form-control-feedback glyphicon glyphicon-remove");
+        small.attr("style", "display:block");
+        error.text("El campo " + label.text() + " es requerido y debe ser un e-mail válido")
+        return true;
+    }
+    else {
+        formDiv.attr("class", "form-group has-feedback has-success");
+        icon.attr("style", "display:block");
+        icon.attr("class", "form-control-feedback glyphicon glyphicon-ok");
+        small.attr("style", "display:none");
+        return false;
+    }
+}

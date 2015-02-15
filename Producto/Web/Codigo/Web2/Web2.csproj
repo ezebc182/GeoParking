@@ -149,12 +149,9 @@
     <Content Include="AdministracionPlayas.aspx" />
     <Content Include="AdministracionRolesyPermisos.aspx" />
     <Content Include="css\bootstrap-fileupload.min.css" />
-    <Content Include="css\style.min.css" />
     <Content Include="Estadisticas.aspx" />
     <Content Include="DatosDeRegistro.aspx" />
     <Content Include="AdministracionSolicitudesYConexiones.aspx" />
-    <Content Include="img\Busquedas\panelAvanzadaPNG.PNG" />
-    <Content Include="img\Busquedas\tablaBusqueda.PNG" />
     <Content Include="img\fotosPerfil\demoUpload.jpg" />
     <Content Include="js\administracionRegistro.js" />
     <Content Include="js\bootstrapformhelpers\css\bootstrap-formhelpers.css" />
@@ -482,6 +479,7 @@
     <Content Include="font-awesome-4.1.0\scss\_variables.scss" />
     <Content Include="MasterAdmin.Master" />
     <Content Include="js\DataTables-1.10.4\images\Sorting icons.psd" />
+    <Content Include="css\style.min.css" />
     <None Include="Properties\PublishProfiles\Geoparking.pubxml" />
     <None Include="Properties\PublishProfiles\GeoparkingWeb.pubxml" />
     <None Include="Properties\PublishProfiles\GeoparkingWeb2.pubxml">

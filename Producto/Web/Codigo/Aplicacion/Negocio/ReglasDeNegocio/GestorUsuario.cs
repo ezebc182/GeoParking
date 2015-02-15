@@ -72,6 +72,19 @@ namespace ReglasDeNegocio
             return resultado;
         }
 
+        private Resultado ValidarUpdate(Usuario usuario)
+        {
+            var resultado = new Resultado();
+
+            if (usuario.Nombre == "" && usuario.Mail == "" && usuario.NombreUsuario == "" && usuario.Contraseña == ""
+                && usuario.Apellido == "")
+            {
+                resultado.AgregarMensaje("Debe ingresar todos los datos para la registracion.");
+            }
+
+            return resultado;
+        }
+
         public Usuario Login(string usuario,string contraseña)
         {
             string cifrada = Encriptar(contraseña);
@@ -143,6 +156,23 @@ namespace ReglasDeNegocio
             return JsonConvert.SerializeObject(AsigarRolAUsuario(idUsuario, idRol));
         }
 
+        public string RegistrarUsuarioJSON(Usuario usuario)
+        {
+            return JsonConvert.SerializeObject(RegistrarNuevoUsuario(usuario));
+        }
+
+        public bool RegistrarNuevoUsuario(Usuario usuario)
+        {
+            var resultado = ValidarRegistracion(usuario);
+
+            if (resultado.Ok)
+            {
+                usuarioDao.Create(usuario);
+            }
+
+            return resultado.Ok;
+        }
+
         public bool AsigarRolAUsuario(int idUsuario, int idRol)
         {
             Resultado resultado = new Resultado();
@@ -158,9 +188,17 @@ namespace ReglasDeNegocio
 
         public bool UpdateUsuario(Usuario usuario)
         {
-            Resultado resultado = new Resultado();
-            Usuario usuarioUpdate = usuarioDao.FindById(usuario.Id);
+            var resultado = ValidarUpdate(usuario);
+            if (resultado.Ok)
+            {
+                usuarioDao.Update(usuario);
+            }
             return resultado.Ok;
+        }
+
+        public Usuario BuscarPorNombreDeUsuario(string usuario)
+        {
+            return usuarioDao.FindWhere(x=> x.NombreUsuario == usuario).FirstOrDefault();
         }
 
         public string GuardarUsuarioJSON(Usuario usuario)
