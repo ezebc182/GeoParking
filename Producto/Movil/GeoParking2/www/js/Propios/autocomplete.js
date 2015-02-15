@@ -28,8 +28,7 @@ function agregarPuntoInteres(lugarBuscado){
     });
     markerLugarBuscado.setIcon({
       url: lugarBuscado.icon,
-      size: new google.maps.Size(60, 60),
-      scaledSize: new google.maps.Size(35, 35)
+      size: new google.maps.Size(60, 60)
     });
     markerLugarBuscado.setMap(map);
     map.setCenter(lugarBuscado.geometry.location);
@@ -72,11 +71,6 @@ $("#btnBorrarBusqueda").click(function(){
     ubicarMiPosicion();
     cerrarPanelBusqueda();
 });
-
-
-
-
-
 function obtenerLimitesDePais() {
     var successFunction = function(p) {
         if (p.coords.latitude !== undefined && p.coords.longitude !== undefined){

@@ -10,6 +10,7 @@ namespace Entidades
     {
         //1h, 12hs, 24hs, semana, mes
         public string Nombre { get; set; }
+        public string Descripcion { get; set; }
         
     }
 }

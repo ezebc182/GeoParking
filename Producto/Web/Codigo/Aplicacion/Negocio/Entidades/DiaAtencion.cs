@@ -10,5 +10,6 @@ namespace Entidades
     {
         //Lunes-Viernes , Sabado, Domingo, Feriados
         public string Nombre { get; set; }
+        public string Descripcion { get; set; }
     }
 }
