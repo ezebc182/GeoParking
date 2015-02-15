@@ -10,21 +10,23 @@
             </h3>
         </div>
         <div class="panel-body">
-                    <asp:GridView ID="gvSolicitudes" runat="server" CssClass="table table-condensed table-bordered table-striped"
-            AutoGenerateColumns="False" ClientIDMode="Static"
-            EmptyDataText="No hay solicitudes pendientes"
-            DataKeyNames="Id">
-            <Columns>
-                <asp:BoundField DataField="Id" Visible="False" />
-                <asp:BoundField DataField="Asunto" HeaderText="Asunto" />
-                <asp:BoundField DataField="Tema" HeaderText="Tema" />
-                <asp:TemplateField HeaderText="Acciones">
-                    <ItemStyle CssClass="btn-group-table" />
-                    <ItemTemplate>
-                    </ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
-        </asp:GridView>
+            <asp:GridView ID="gvSolicitudes" runat="server" CssClass="table table-condensed table-bordered table-striped"
+                AutoGenerateColumns="False" ClientIDMode="Static"
+                EmptyDataText="No hay solicitudes pendientes"
+                DataKeyNames="Id">
+                <Columns>
+                    <asp:BoundField DataField="Id" HeaderText="Id Solicitud" />
+                    <asp:BoundField DataField="NombrePlaya" HeaderText="Nombre de Playa" />
+                    <asp:BoundField DataField="UsuarioResponsable" HeaderText="Responsable" />
+                    <asp:BoundField DataField="EstadoId" HeaderText="Estado" HeaderStyle-Width="120px"/>
+                    <asp:TemplateField HeaderText="Acciones" HeaderStyle-Width="100px">
+                        <ItemStyle CssClass="btn-group-table"  HorizontalAlign="Center"/>
+                        <ItemTemplate>
+                            <button class="btn btn-danger" id="btnCancelarSolicitud" fila="<%# Container.DataItemIndex %>" index="<%# Eval("Id") %>" > <span class="fa fa-times"></span> Cancelar</button>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
         </div>
     </div>
     <div class="panel panel-primary">
@@ -41,6 +43,14 @@
     <script type="text/javascript">
         $(document).ready(new function () {
             $('[id=li_Solicitudes]').attr("class", "active");
+            $("#gvSolicitudes tr").find('td:eq(3)').each(function () {
+
+                //obtenemos el valor de la celda
+                var valor = $(this).html();
+                if (valor == 2) {
+                    $(this)[0].outerHTML = "<td align='center'><label class='label-table label-warning'>Pendiente</label></td>";
+                }
+            });
         });
     </script>
 </asp:Content>

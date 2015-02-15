@@ -30,6 +30,7 @@ namespace Datos
     public interface IRepositorioDisponibilidadPlayas : IRepositorio<DisponibilidadPlayas> { List<ConsultaDisponibilidad> GetDisponibilidadDePlayasPorTipoVehiculo(string idPlayas, int tipoVehiculo);}
     public interface IRepositorioZonas : IRepositorio<Zona> { }
     public interface IRepositorioHistorialDisponibilidadPlayas : IRepositorio<HistorialDisponibilidadPlayas> { }
+    public interface IRepositorioSolicitudConexion : IRepositorio<SolicitudConexion> { }
 
     //Clases DAO para cada entidad que heredan de la clase Repositorio
     public class RepositorioTipoDePlaya : Repositorio<TipoPlaya>, IRepositorioTipoDePlaya { }

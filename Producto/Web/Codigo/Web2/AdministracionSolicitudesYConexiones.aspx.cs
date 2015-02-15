@@ -1,6 +1,8 @@
 ﻿using Entidades;
+using ReglasDeNegocio;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -23,6 +25,13 @@ namespace Web2
                     {
                         t_solicitudes.InnerText = " Mis Solicitudes";
                         t_conexiones.InnerText = " Mis Conexiones";
+                        gvSolicitudes.DataSource = GetMisSolicitudes(SessionUsuario.NombreUsuario);
+                        gvSolicitudes.DataBind();
+                    }
+                    else
+                    {
+                        gvSolicitudes.DataSource = GetSolicitudes();
+                        gvSolicitudes.DataBind();
                     }
                 }
             }
@@ -48,6 +57,48 @@ namespace Web2
                     return null;
                 }
             }
+        }
+
+        private static DataTable GetSolicitudes()
+        {
+            GestorSolicitud gestorSolicitud = new GestorSolicitud();
+            DataTable dt = new DataTable();
+            var resultado = gestorSolicitud.BuscarSolicitudes();
+            dt.Columns.Add("Id");
+            dt.Columns.Add("NombrePlaya");
+            dt.Columns.Add("UsuarioResponsable");
+            dt.Columns.Add("EstadoId");
+            foreach (var item in resultado)
+            {
+                DataRow row = dt.NewRow();
+                row["Id"] = item.Id;
+                row["NombrePlaya"] = item.NombrePlaya;
+                row["UsuarioResponsable"] = item.UsuarioResponsable;
+                row["EstadoId"] = item.EstadoId;
+                dt.Rows.Add(row);
+            }
+            return dt;
+        }
+
+        private static DataTable GetMisSolicitudes(string usuario)
+        {
+            GestorSolicitud gestorSolicitud = new GestorSolicitud();
+            DataTable dt = new DataTable();
+            var resultado = gestorSolicitud.BuscarMisSolicitudes(usuario);
+            dt.Columns.Add("Id");
+            dt.Columns.Add("NombrePlaya");
+            dt.Columns.Add("UsuarioResponsable");
+            dt.Columns.Add("EstadoId");
+            foreach (var item in resultado)
+            {
+                DataRow row = dt.NewRow();
+                row["Id"] = item.Id;
+                row["NombrePlaya"] = item.NombrePlaya;
+                row["UsuarioResponsable"] = item.UsuarioResponsable;
+                row["EstadoId"] = item.EstadoId;
+                dt.Rows.Add(row);
+            }
+            return dt;
         }
     }
 }

@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GestorSolicitud.cs" />
     <Compile Include="GestorZonas.cs" />
     <Compile Include="GestorBusquedaPlayas.cs" />
     <Compile Include="GestorDisponibilidad.cs" />
