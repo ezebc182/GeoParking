@@ -20,10 +20,16 @@ function cerrarPanelBusqueda(){
     $("#pnlBusqueda").panel('close');
 }
 function agregarPuntoInteres(lugarBuscado){
+    
     markerLugarBuscado = new google.maps.Marker({
         position: lugarBuscado.geometry.location,
         map: map,
         icon: lugarBuscado.icon
+    });
+    markerLugarBuscado.setIcon({
+      url: lugarBuscado.icon,
+      size: new google.maps.Size(60, 60),
+      scaledSize: new google.maps.Size(35, 35)
     });
     markerLugarBuscado.setMap(map);
     map.setCenter(lugarBuscado.geometry.location);

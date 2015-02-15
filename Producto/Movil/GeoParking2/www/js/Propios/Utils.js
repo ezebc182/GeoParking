@@ -523,13 +523,19 @@ function enviarConsultaAEstadisticas(playa){
         idPlaya : playa.Id,
         idTipoVehiculo : parseInt(leerPropiedadTipoVehiculo()),
         latitud : posicionActual.k,
-        longitud : posicionActual.B
+        longitud : posicionActual.D
     };
     $.ajax({
         type: "POST",
         url: uri,
         dataType: "json",
         content: "application/json; charset=utf-8",
-        data : datos
+        data : datos,
+        success : function() {
+            console.log("Se guardo la consulta");
+        },
+        error : function (jqXHR, textStatus, errorThrown) {
+            console.log("No se guardo la consulta");
+        }
     });
 }
