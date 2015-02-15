@@ -13,7 +13,7 @@ namespace Entidades
         public int EstadoId { get; set; }
         public virtual Estado Estado { get; set; }
         public string NombrePlaya { get; set; }
-        public int IdResponsable { get; set; }
+        public string  UsuarioResponsable { get; set; }
         public virtual Usuario Responsable { get; set; }
     }
 }

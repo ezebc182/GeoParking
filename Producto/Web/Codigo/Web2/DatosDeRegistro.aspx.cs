@@ -90,7 +90,7 @@ namespace Web2
         {
             Usuario NuevoUsuario = new Usuario();
             NuevoUsuario.Apellido = apellido;
-            NuevoUsuario.Contraseña = contraseña;
+            NuevoUsuario.Contraseña = encriptacion.Encriptar(contraseña);
             NuevoUsuario.Direccion = direccion;
             NuevoUsuario.DNI = Int32.Parse(dni);
             NuevoUsuario.Estado = false;
