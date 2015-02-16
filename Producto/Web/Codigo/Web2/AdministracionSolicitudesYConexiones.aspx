@@ -10,6 +10,7 @@
             </h3>
         </div>
         <div class="panel-body">
+            <a data-toggle="modal" href="#modalSolicitud" id="btnCrearSolicitud" class="btn btn-success btn-sm" style="margin-bottom: 10px;"> Crear Solicitud</a>
             <asp:GridView ID="gvSolicitudes" runat="server" CssClass="table table-condensed table-bordered table-striped"
                 AutoGenerateColumns="False" ClientIDMode="Static"
                 EmptyDataText="No hay solicitudes pendientes"
@@ -36,8 +37,39 @@
             </h3>
         </div>
         <div class="panel-body">
+            <a data-toggle="modal" href="#" id="btnCrearConexion" class="btn btn-success btn-sm" style="margin-bottom: 10px;"> Crear Conexion</a>
         </div>
     </div>
+
+     <div class="modal fade" id="modalSolicitud">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="width: 500px;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" onclick="">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title text-center"><span class="fa fa-plus-square"></span><strong> Crear Solicitud</strong></h4>
+                        </div>
+                        <div class="modal-body" style="height:130px;">
+                            <div class="form-group" id="valPlaya" style="text-align: -webkit-center;">
+                                <div class="input-group">
+                                    <asp:TextBox ID="txtPlaya" TabIndex="1" style="margin-bottom: 15px;" placeholder="Nombre de la Playa" CssClass="form-control input-lg"
+                                        runat="server"></asp:TextBox>
+                                    <i id="iconMain_txtPlaya" style="display: none" class="form-control-feedback" data-bv-icon-for="ctl00$Main$txtPlaya"></i>
+                                </div>
+                                <small id="smallMain_txtPlaya" class="help-block" style="display: none;" data-bv-validator="notEmpty" data-bv-icon-for="ctl00$Main$txtPlaya" data-bv-result="INVALID">
+                                    <label id="errorMain_txtPlaya"></label>
+                                </small>
+                                <div id="divBotones" class="form-group" style="width: 200px;">
+                                    <button type="button" class="btn btn-primary btn-md pull-left" style="width: 83px;" id="btnRegistrar">Crear</button>
+                                    <button type="button" onclick="" data-dismiss="modal" class="btn btn-md pull-right" id="btnCancelar">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+            </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
     <script type="text/javascript">
@@ -52,5 +84,10 @@
                 }
             });
         });
+
+        $('#modalSolicitud').on('shown.bs.modal', function () {
+            $("#txtNombrePlaya").focus();
+        });
+
     </script>
 </asp:Content>

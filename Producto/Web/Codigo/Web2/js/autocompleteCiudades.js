@@ -6,10 +6,21 @@
         componentRestrictions: { country: 'ar' }
     };
     var autocompletes = new Array();
+
+    var autocomplete;
+
     $.each(inputs, function (i, input) {
-        var autocomplete = new google.maps.places.Autocomplete(input,
+        autocomplete = new google.maps.places.Autocomplete(input,
     options);
         autocompletes.push(autocomplete);
+    });
+
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+        
+        var place = autocomplete.getPlace();
+
+        $('#txtIdPlace').val(place.id);      
+      
     });
        
 }

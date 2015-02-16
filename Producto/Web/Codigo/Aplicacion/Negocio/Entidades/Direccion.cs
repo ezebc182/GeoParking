@@ -20,6 +20,8 @@ namespace Entidades
         public int Numero { get; set; }
         //Ciudad
         public string Ciudad { get; set; }
+        //IdPlaceCiudad
+        public string IdPlaceCiudad { get; set; }
         //Playa
         public int? PlayaDeEstacionamientoId { get; set; }
         [JsonIgnore]

@@ -38,6 +38,14 @@ namespace ReglasDeNegocio
             return playas;
         }
 
+        public IList<PlayaDeEstacionamiento> buscarPlayasPorIdPlaceCiudad(string idPlaceCiudad)
+        {
+            IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
+            playas = gestorPlaya.BuscarPlayasPorIdPlaceCiudad(idPlaceCiudad);
+            return playas;
+        }
+        
+
         /// <summary>
         /// busca playas por id
         /// </summary>

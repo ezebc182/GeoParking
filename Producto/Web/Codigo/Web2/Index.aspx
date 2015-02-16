@@ -37,6 +37,9 @@
                 </div>
             </div>
         </div>
+
+        <%--id del place de la ciudad--%>
+        <asp:TextBox runat="server" ID="txtIdPlace" ClientIDMode="Static" class="hide"/>
     </div>
 
 

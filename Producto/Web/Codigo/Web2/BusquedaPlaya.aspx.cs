@@ -18,6 +18,7 @@ namespace Web2
 
         //Ciudad buscada por el usuario
         public static String ciudadBuscada;
+        public static string idCiudadBuscada;
 
         //gestor de busqueda de playas
         private static GestorBusquedaPlayas gestor;
@@ -34,6 +35,11 @@ namespace Web2
                 if (Session["ciudad"] != null)
                 {
                     ciudadBuscada = Session["ciudad"].ToString();
+                }
+
+                if (Session["idCiudadPlace"] != null)
+                {
+                    ciudadBuscada = Session["idCiudadPlace"].ToString();
                 }
 
                 //cargo los combos de los filtros
@@ -75,8 +81,11 @@ namespace Web2
         [WebMethod]
         public static string ObtenerPlayasDeCiudad()
         {
+            //IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
+            //playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorCiudad(ciudadBuscada);
+
             IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
-            playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorCiudad(ciudadBuscada);
+            playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorIdPlaceCiudad(idCiudadBuscada);
 
             string json = "[";
 
