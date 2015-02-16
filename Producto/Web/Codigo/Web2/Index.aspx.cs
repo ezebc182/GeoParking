@@ -45,11 +45,8 @@ namespace Web2
 
             if (txtBuscar.Text != "")
             {
-                
-                //string[] direccionCiudad =txtBuscar.Text.Split(',');
-                //string ciudad = direccionCiudad[0];
-
                 //Objeto session con la ciudad
+                Session["idCiudadPlace"] = txtIdPlace.Text;
                 Session["ciudad"] = txtBuscar.Text;
 
                 //redirijo a la pagina que mostrara los resultados

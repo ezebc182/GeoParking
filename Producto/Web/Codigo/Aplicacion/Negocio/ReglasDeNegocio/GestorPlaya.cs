@@ -430,6 +430,16 @@ namespace ReglasDeNegocio
             return listaPlayas;
         }
 
+        public IList<PlayaDeEstacionamiento> BuscarPlayasPorIdPlaceCiudad(string idPlaceCiudad)
+        {
+
+            Func<PlayaDeEstacionamiento, bool> consulta;
+            consulta = p => p.IdPlaceCiudad.Trim().Equals(idPlaceCiudad.Trim(), StringComparison.OrdinalIgnoreCase);
+            consulta = consulta.And(p => !p.FechaBaja.HasValue);
+            var listaPlayas = playaDao.FindWhere(consulta);
+            return listaPlayas;
+        }
+
         public IList<PlayaDeEstacionamiento> BuscarPlayasPorFiltro(string ciudad, int[] tipoPlaya, int[] tipoVehiculo, int[] diasAtencion, decimal precioHasta,
              int horaDesde, int horaHasta)
         {
