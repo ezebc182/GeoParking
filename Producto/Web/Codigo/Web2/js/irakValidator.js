@@ -1,5 +1,4 @@
-﻿function validarCampoVacio(div, id)
-{
+﻿function validarCampoVacio(div, id) {
     var formDiv = $('[id=' + div + ']');
     var campo = $('[id=' + id + ']');
     var icon = $('[id= icon' + id + ']');
@@ -22,6 +21,51 @@
         return false;
     }
 }
+
+function ValidarUsuarioYContraseña(nombre, contraseña) {
+    $.ajax({
+        type: "POST",
+        url: "AdministracionRolesyPermisos.aspx/ValidarLogin",
+        data: "{'nombre': '" + nombre + "' , 'contraseña': '" + contraseña + "'}",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        async: true,
+        success: function (response) {
+            var resultado = response.d;
+            if (resultado == false) {
+                var formDiv = $('[id=valtxtUsuarioLogin]');
+                var campo = $('[id=txtUsuarioLogin');
+                var icon = $('[id= icontxtUsuarioLogin]');
+                var small = $('[id= smalltxtUsuarioLogin]');
+                var error = $('[id= errortxtUsuarioLogin]');
+                formDiv.attr("class", "form-group has-feedback has-error");
+                icon.attr("style", "display:block");
+                icon.attr("class", "form-control-feedback glyphicon glyphicon-remove");
+                small.attr("style", "display:block");
+                error.text("Usuario o contraseña invalidos")
+                var formDiv1 = $('[id=valtxtContraseñaLogin]');
+                var campo1 = $('[id=txtContraseñaLogin');
+                var icon1 = $('[id= icontxtContraseñaLogin]');
+                var small1 = $('[id= smalltxtContraseñaLogin]');
+                var error1 = $('[id= errortxtContraseñaLogin]');
+                formDiv1.attr("class", "form-group has-feedback has-error");
+                icon1.attr("style", "display:block");
+                icon1.attr("class", "form-control-feedback glyphicon glyphicon-remove");
+                small1.attr("style", "display:block");
+                error1.text("Usuario o contraseña invalidos");
+                return false
+            }
+            else {
+                return true;
+            }
+        },
+        error: function (result) {
+            var errores = result.responseText.substr('0', result.responseText.indexOf('{'));
+            Alerta_openModalError(errores, "Error en la actualizacion de Roles y Permisos", true);
+        }
+    });
+};
+
 
 function limpiarValidaciones() {
     var formDiv = $('[id*=val]');

@@ -141,24 +141,5 @@ namespace Web2
             }
         }
         
-        [WebMethod]
-        public static string RegistrarUsuario(string usuarioJSON)
-        {
-            var usuario = new Usuario().ToObjectRepresentation(usuarioJSON);
-            var resultado = gestor.RegistrarUsuario(usuario);
-
-
-            if (resultado.Ok)
-            {
-                return "true";
-            }
-            HttpResponse Response = HttpContext.Current.Response;
-
-            Response.Clear();
-            Response.StatusCode = 500;
-            Response.Write(resultado.MensajesString());
-
-            return "false";
-        }
     }
 }

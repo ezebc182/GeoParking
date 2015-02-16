@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -13,23 +14,36 @@ namespace Web2
     public partial class AdministracionSolicitudesYConexiones : System.Web.UI.Page
     {
         private int rolId;
+        private static int idUsuario;
+        private static GestorUsuario gestorUsuario;
+        private static GestorPlaya gestorPlaya;
+        private static GestorSolicitud gestorSolicitud;
+        private static GestorEmails gestorMandarEmail;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
+                gestorSolicitud = new GestorSolicitud();
+                gestorUsuario = new GestorUsuario();
+                gestorMandarEmail = new GestorEmails();
+                gestorPlaya = new GestorPlaya();
+
                 if (SessionUsuario != null)
                 {
+                    idUsuario = SessionUsuario.Id;
                     rolId = SessionUsuario.RolId;
                     if (rolId == 1)
                     {
                         t_solicitudes.InnerText = " Mis Solicitudes";
                         t_conexiones.InnerText = " Mis Conexiones";
+                        btnModalConexion.Attributes["style"] = "display:none";
                         gvSolicitudes.DataSource = GetMisSolicitudes(SessionUsuario.NombreUsuario);
                         gvSolicitudes.DataBind();
                     }
                     else
                     {
+                        btnModalSolicitud.Attributes["style"] = "display:none";
                         gvSolicitudes.DataSource = GetSolicitudes();
                         gvSolicitudes.DataBind();
                     }
@@ -99,6 +113,33 @@ namespace Web2
                 dt.Rows.Add(row);
             }
             return dt;
+        }
+
+        protected void brnCrearSolicitud_Click(object sender, EventArgs e)
+        {
+            SolicitudConexion NuevaSolicitud = new SolicitudConexion();
+            NuevaSolicitud.NombrePlaya = txtPlaya.Text;
+            NuevaSolicitud.UsuarioResponsable = SessionUsuario.NombreUsuario;
+            NuevaSolicitud.EstadoId = 6;
+            var resultado = gestorSolicitud.RegistrarNuevaSolicitud(NuevaSolicitud);
+            if (resultado == true)
+            {
+                //gestorMandarEmail.EnviarEmail("La solicitud se generó correctamente, luego de completar el formulario envie la informacion a geoparking", NuevaSolicitud.Responsable.Mail, "Creacion de Solicitud de Conexion en Geoparking");
+                gvSolicitudes.DataSource = GetMisSolicitudes(SessionUsuario.NombreUsuario);
+                gvSolicitudes.DataBind();
+            }
+        }
+
+        protected void btnSi_Click(object sender, EventArgs e)
+        {
+            SolicitudConexion solicitud = gestorSolicitud.BuscarSolicitud(Int32.Parse(hfSolicitud.Value));
+            solicitud.EstadoId = 8;
+            var resultado = gestorSolicitud.UpdateSolicitud(solicitud);
+            if (resultado == true)
+            {
+                gvSolicitudes.DataSource = GetMisSolicitudes(SessionUsuario.NombreUsuario);
+                gvSolicitudes.DataBind();
+            }
         }
     }
 }
