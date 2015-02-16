@@ -35,6 +35,8 @@
                     <div class="input-group" style="width: 85%;">
                         <input type="text" class="form-control input-md autosuggest" value="" id="txtBuscar" ng-model="ciudad"
                             placeholder="Buscar en otra ciudad..." />
+                        <%--id del place de la ciudad--%>
+                        <asp:TextBox runat="server" ID="txtIdPlace" ClientIDMode="Static" class="hide"/>
                         <div class="input-group-btn">
                             <button type="button" class="btn-primary btn btn-md" id="txtBuscar" title="Buscar Ciudad" ng-click="buscarPlayasCiudad()">
                                 <span class="glyphicon glyphicon-search"></span>&nbsp;Buscar</button>

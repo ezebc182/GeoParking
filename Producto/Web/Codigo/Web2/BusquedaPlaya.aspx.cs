@@ -39,7 +39,7 @@ namespace Web2
 
                 if (Session["idCiudadPlace"] != null)
                 {
-                    ciudadBuscada = Session["idCiudadPlace"].ToString();
+                    idCiudadBuscada = Session["idCiudadPlace"].ToString();
                 }
 
                 //cargo los combos de los filtros
@@ -112,12 +112,16 @@ namespace Web2
         /// </summary>
         /// <returns>Lista de playas de la ciudad</returns>
         [WebMethod]
-        public static string ObtenerPlayasDeCiudadNueva(string ciudad)
+        public static string ObtenerPlayasDeCiudadNueva(string idCiudad, string ciudad)
         {
+            idCiudadBuscada = idCiudad;
             ciudadBuscada = ciudad;
 
+            //IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
+            //playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorCiudad(ciudadBuscada);
+
             IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
-            playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorCiudad(ciudadBuscada);
+            playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorIdPlaceCiudad(idCiudadBuscada);
 
             string json = "[";
 
@@ -156,7 +160,7 @@ namespace Web2
         {
             IList<PlayaDeEstacionamiento> playas = new List<PlayaDeEstacionamiento>();
 
-            playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorFiltro(ciudadBuscada, tipoPlaya, tipoVehiculo, diaAtencion, Decimal.Parse(precioHasta), horaDesde, horaHasta);
+            playas = (List<PlayaDeEstacionamiento>)gestor.buscarPlayasPorFiltro(idCiudadBuscada, tipoPlaya, tipoVehiculo, diaAtencion, Decimal.Parse(precioHasta), horaDesde, horaHasta);
 
             string json = "[";
 

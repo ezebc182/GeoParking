@@ -227,12 +227,14 @@ app.controller('MyCtrl', function ($scope, $http) {
         $scope.deleteMarkers();
         $scope.deleteCirculos();
 
-        $scope.ciudad = document.getElementById('txtBuscar').value;        
+        $scope.ciudad = document.getElementById('txtBuscar').value;
+        $scope.idPlaceCiudad = document.getElementById('txtIdPlace').value;
 
         //tomo el valor de la nueva ciudad
         //var direccionCiudad = $scope.ciudad.split(',');
         //var ciudad = direccionCiudad[0];
 
+        var idPlaceCiudadNueva = $scope.idPlaceCiudad;
         var ciudadNueva = $scope.ciudad;
         //var ciudadNueva = $scope.omitirAcentos(ciudad);
 
@@ -240,7 +242,7 @@ app.controller('MyCtrl', function ($scope, $http) {
             url: "BusquedaPlaya.aspx/ObtenerPlayasDeCiudadNueva",//mi pagina de begin
             method: "POST",
             headers: { 'Content-Type': 'application/json' },  // agregar a para webmethod con parametros
-            data: { ciudad: ciudadNueva }
+            data: { idCiudad: idPlaceCiudadNueva, ciudad: ciudadNueva }
         }).success(function (response) {
 
             //toma la direccion y la busca
@@ -758,7 +760,15 @@ app.controller('MyCtrl', function ($scope, $http) {
             componentRestrictions: { country: 'ar' }
         };
         var autocomplete = new google.maps.places.Autocomplete(input,
-        options);        
+        options);
+
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+
+            var place = autocomplete.getPlace();
+
+            $('#txtIdPlace').val(place.id);
+
+        });
 
         $scope.buscarCiudadSesion();//ciudad en session
         $scope.geocoder = new google.maps.Geocoder();//busqueda de direccion

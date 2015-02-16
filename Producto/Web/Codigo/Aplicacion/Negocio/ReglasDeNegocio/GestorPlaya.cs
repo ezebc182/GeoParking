@@ -440,15 +440,15 @@ namespace ReglasDeNegocio
             return listaPlayas;
         }
 
-        public IList<PlayaDeEstacionamiento> BuscarPlayasPorFiltro(string ciudad, int[] tipoPlaya, int[] tipoVehiculo, int[] diasAtencion, decimal precioHasta,
+        public IList<PlayaDeEstacionamiento> BuscarPlayasPorFiltro(string idCiudad, int[] tipoPlaya, int[] tipoVehiculo, int[] diasAtencion, decimal precioHasta,
              int horaDesde, int horaHasta)
         {
 
             Func<PlayaDeEstacionamiento, bool> consulta = p => !p.FechaBaja.HasValue;
 
-            if (!string.IsNullOrEmpty(ciudad))
+            if (!string.IsNullOrEmpty(idCiudad))
             {
-                consulta = consulta.And(p => p.Ciudad.Trim().Equals(ciudad.Trim(), StringComparison.OrdinalIgnoreCase));
+                consulta = consulta.And(p => p.IdPlaceCiudad.Trim().Equals(idCiudad.Trim(), StringComparison.OrdinalIgnoreCase));
             }
 
             if (tipoPlaya.Length != 0)
