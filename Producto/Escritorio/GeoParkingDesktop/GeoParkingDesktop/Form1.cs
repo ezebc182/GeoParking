@@ -1139,16 +1139,16 @@ namespace GeoParkingDesktop
             postData += "&Precios%5B" + 0 + "%5D%5BMonto%5D=" + Double.Parse(x1);
 
             postData += "&Precios%5B" + 1 + "%5D%5BIdTiempo%5D=2";
-            postData += "&Precios%5B" + 1 + "%5D%5BMonto%5D=" + Double.Parse(x1);
+            postData += "&Precios%5B" + 1 + "%5D%5BMonto%5D=" + Double.Parse(x6);
 
             postData += "&Precios%5B" + 2 + "%5D%5BIdTiempo%5D=3";
-            postData += "&Precios%5B" + 2 + "%5D%5BMonto%5D=" + Double.Parse(x1);
+            postData += "&Precios%5B" + 2 + "%5D%5BMonto%5D=" + Double.Parse(x12);
 
             postData += "&Precios%5B" + 3 + "%5D%5BIdTiempo%5D=4";
-            postData += "&Precios%5B" + 3 + "%5D%5BMonto%5D=" + Double.Parse(x1);
+            postData += "&Precios%5B" + 3 + "%5D%5BMonto%5D=" + Double.Parse(x24);
 
             postData += "&Precios%5B" + 4 + "%5D%5BIdTiempo%5D=5";
-            postData += "&Precios%5B" + 5 + "%5D%5BMonto%5D=" + Double.Parse(x1);
+            postData += "&Precios%5B" + 4 + "%5D%5BMonto%5D=" + Double.Parse(abono);
             
 
             try
