@@ -294,8 +294,7 @@ app.controller('MyCtrl', function ($scope, $http) {
             var ciudad_e_id = response.d;
 
             $scope.ciudad = ciudad_e_id.split("*")[0];
-
-            document.getElementById('txtIdPlace').value = ciudad_e_id.split("*")[1];
+            
             $scope.idPlaceCiudad = ciudad_e_id.split("*")[1];
 
 
