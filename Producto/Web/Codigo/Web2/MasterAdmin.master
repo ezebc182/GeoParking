@@ -163,11 +163,13 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
 
-                                            <button type="button" id="btnRegistrarse" class="btn btn-success btn-block btn-sm"
-                                                onclick="$('#login').modal('hide'); $('#registrar').modal({keyboard: false, show: true, backdrop: 'static'});">
+                                              <button type="button" id="btnRegistrarse" class="btn btn-success btn-block btn-sm"
+                                                onclick="window.location.href='/DatosDeRegistro.aspx'">
                                                 Registrarse</button>
 
-
+                                          <%--  <button type="button" id="btnRegistrarse" class="btn btn-success btn-block btn-sm"
+                                                onclick="$('#login').modal('hide'); $('#registrar').modal({keyboard: false, show: true, backdrop: 'static'});">
+                                                Registrarse</button>--%>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
