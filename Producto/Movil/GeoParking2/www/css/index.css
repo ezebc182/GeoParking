@@ -72,3 +72,6 @@
 .ui-btn-active {
     background-color: transparent !important;
 }
+#pnlPrincipal {
+    background-color: #000;
+}
