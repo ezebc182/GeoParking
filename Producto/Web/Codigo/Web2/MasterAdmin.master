@@ -334,6 +334,9 @@
             <!-- Bootstrap Validator -->
             <script src="js/bootstrapValidator.min.js"></script>
             <!-- end: JavaScript-->
+             <!-- Irak Validator -->
+            <script src="js/irakValidator.js" type="text/javascript"></script>
+            <!-- end: JavaScript-->
 
             <%-- Content para poner el codigo js desde las paginas e importar los scripts --%>
             <asp:ContentPlaceHolder ID="ScriptContent" runat="server">

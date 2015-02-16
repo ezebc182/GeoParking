@@ -156,6 +156,7 @@
     <Content Include="img\Busquedas\tablaBusqueda.PNG" />
     <Content Include="img\fotosPerfil\demoUpload.jpg" />
     <Content Include="js\administracionRegistro.js" />
+    <Content Include="js\administrarSolicitudesyConexiones.js" />
     <Content Include="js\bootstrapformhelpers\css\bootstrap-formhelpers.css" />
     <Content Include="js\bootstrapformhelpers\css\bootstrap-formhelpers.min.css" />
     <Content Include="js\bootstrapformhelpers\img\bootstrap-formhelpers-countries.flags-LICENSE.txt" />

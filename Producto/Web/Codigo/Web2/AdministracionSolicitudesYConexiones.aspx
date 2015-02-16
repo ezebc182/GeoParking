@@ -43,24 +43,24 @@
 
      <div class="modal fade" id="modalSolicitud">
                 <div class="modal-dialog">
-                    <div class="modal-content" style="width: 500px;">
+                    <div class="modal-content" style="width: 500px;margin-right: 0px;margin-left: 50px;text-align: center;left: 0px;border-left-width: 0px;border-right-width: 0px;">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" onclick="">
                                 <span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title text-center"><span class="fa fa-plus-square"></span><strong> Crear Solicitud</strong></h4>
                         </div>
-                        <div class="modal-body" style="height:130px;">
+                        <div class="modal-body" style="height:160px;">
                             <div class="form-group" id="valPlaya" style="text-align: -webkit-center;">
                                 <div class="input-group">
                                     <asp:TextBox ID="txtPlaya" TabIndex="1" style="margin-bottom: 15px;" placeholder="Nombre de la Playa" CssClass="form-control input-lg"
-                                        runat="server"></asp:TextBox>
+                                        runat="server" oninput="javascript: validar();"></asp:TextBox>
                                     <i id="iconMain_txtPlaya" style="display: none" class="form-control-feedback" data-bv-icon-for="ctl00$Main$txtPlaya"></i>
                                 </div>
                                 <small id="smallMain_txtPlaya" class="help-block" style="display: none;" data-bv-validator="notEmpty" data-bv-icon-for="ctl00$Main$txtPlaya" data-bv-result="INVALID">
                                     <label id="errorMain_txtPlaya"></label>
                                 </small>
                                 <div id="divBotones" class="form-group" style="width: 200px;">
-                                    <button type="button" class="btn btn-primary btn-md pull-left" style="width: 83px;" id="btnRegistrar">Crear</button>
+                                    <button type="button" class="btn btn-primary btn-md pull-left" style="width: 83px;" id="btnCrear">Crear</button>
                                     <button type="button" onclick="" data-dismiss="modal" class="btn btn-md pull-right" id="btnCancelar">Cancelar</button>
                                 </div>
                             </div>
@@ -89,5 +89,15 @@
             $("#txtNombrePlaya").focus();
         });
 
+        $('#modalSolicitud').on('hidden.bs.modal', function () {
+            limpiarValidaciones();
+            $("#txtNombrePlaya").val();
+        });
+
+        $('[id=btnCrear]').click(function () {
+            validarSolicitud();
+        });
+
     </script>
+    <script src="js/administrarSolicitudesyConexiones.js" type="text/javascript"></script>
 </asp:Content>
