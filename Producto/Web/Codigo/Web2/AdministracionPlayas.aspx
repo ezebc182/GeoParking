@@ -333,9 +333,8 @@
             });
 
             $('[id*=btnBuscarPlayas]').on("click", function () {
-                var ciudad = $('[id*=txtBuscarCiudadPlayas]').val();
-                // var nombre = $('[id*=txtFiltroNombre]').val();
-                playas.buscar(ciudad);
+                var idPlaveCiudad = $('[id*=txtIdPlace]').val();               
+                playas.buscar(idPlaveCiudad);
             });
 
             $('[id*=btnNuevaPlaya]').on("click", function () {

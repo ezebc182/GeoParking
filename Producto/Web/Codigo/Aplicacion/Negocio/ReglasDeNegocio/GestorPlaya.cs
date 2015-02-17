@@ -305,7 +305,8 @@ namespace ReglasDeNegocio
 
         public string BuscarPlayasPorCiudadJSON(string ciudad)
         {
-            return JsonConvert.SerializeObject(BuscarPlayasPorCiudad(ciudad));
+            //return JsonConvert.SerializeObject(BuscarPlayasPorCiudad(ciudad));
+            return JsonConvert.SerializeObject(BuscarPlayasPorIdPlaceCiudad(ciudad));
         }
         
         /// <summary>
