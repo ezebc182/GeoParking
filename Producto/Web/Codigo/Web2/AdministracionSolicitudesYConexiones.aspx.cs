@@ -225,7 +225,7 @@ namespace Web2
                  gvConexiones.DataBind();
                  string url = HttpContext.Current.Request.Url.ToString();
                  Uri uri = new Uri(url);
-                 gestorMandarEmail.EnviarEmail("Se ha creado la conexion con la playa " + playa.Nombre + " de Direccion: " + playa.Direcciones.FirstOrDefault().Calle + " " + playa.Direcciones.FirstOrDefault().Numero + " " + playa.Direcciones.FirstOrDefault().Ciudad + " , verifique la información cargada y confirme la conexion con su playa. Presione el siguiente link para ingresar y ver sus conexiones " + uri.GetLeftPart(UriPartial.Authority) + "/Index.aspx .\nDatos de Acceso a la API GEOPARKING: \nIdentificador de Playa: "+ playa.Id +" Numero de Acceso: " + NuevaConexion.Token + "", usuario.Mail, "Creacion de Conexion en Geoparking");
+                 gestorMandarEmail.EnviarEmail("Se ha creado la conexion con la playa " + playa.Nombre + " de Direccion: " + playa.Direcciones.FirstOrDefault().Calle + " " + playa.Direcciones.FirstOrDefault().Numero + " " + playa.Direcciones.FirstOrDefault().Ciudad + ". Verifique la información cargada y confirme la conexion con su playa. \n\nPresione el siguiente link para ingresar y ver sus conexiones " + uri.GetLeftPart(UriPartial.Authority) + "/Index.aspx .\n\nDatos de Acceso a la API GEOPARKING: \nIdentificador de Playa: "+ playa.Id +" \nNumero de Acceso: " + NuevaConexion.Token + "", usuario.Mail, "Creacion de Conexion en Geoparking");
              }
         }
     }
