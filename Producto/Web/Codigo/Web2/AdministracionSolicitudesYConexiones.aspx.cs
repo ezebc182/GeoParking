@@ -52,6 +52,7 @@ namespace Web2
                         gvSolicitudes.DataBind();
                         gvConexiones.DataSource = GetConexiones();
                         gvConexiones.DataBind();
+                        hfUsuario.Value = "true";
                     }
                 }
             }
@@ -170,7 +171,7 @@ namespace Web2
             var resultado = gestorSolicitud.RegistrarNuevaSolicitud(NuevaSolicitud);
             if (resultado == true)
             {
-                //gestorMandarEmail.EnviarEmail("La solicitud se generó correctamente, luego de completar el formulario envie la informacion a geoparking", NuevaSolicitud.Responsable.Mail, "Creacion de Solicitud de Conexion en Geoparking");
+                gestorMandarEmail.EnviarEmail("La solicitud se generó correctamente, luego de completar el formulario envie la informacion a geoparking", SessionUsuario.Mail, "Creacion de Solicitud de Conexion en Geoparking");
                 gvSolicitudes.DataSource = GetMisSolicitudes(SessionUsuario.Mail);
                 gvSolicitudes.DataBind();
             }
@@ -185,6 +186,18 @@ namespace Web2
             {
                 gvSolicitudes.DataSource = GetMisSolicitudes(SessionUsuario.Mail);
                 gvSolicitudes.DataBind();
+            }
+        }
+
+        protected void btnSiConexion_Click(object sender, EventArgs e)
+        {
+            Conexion conexion = gestorConexion.BuscarConexion(Int32.Parse(hfConexion.Value));
+            conexion.EstadoConfirmacion = true;
+            var resultado = gestorConexion.UpdateConexion(conexion);
+            if (resultado == true)
+            {
+                gvConexiones.DataSource = GetMisConexiones(SessionUsuario.Mail);
+                gvConexiones.DataBind();
             }
         }
 

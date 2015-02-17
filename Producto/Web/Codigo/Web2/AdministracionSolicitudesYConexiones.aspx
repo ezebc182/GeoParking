@@ -6,7 +6,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">
-                <span class="fa  fa-list"></span><span runat="server" id="t_solicitudes">Solicitudes</span>
+                <span class="fa  fa-list"></span><span runat="server" id="t_solicitudes"> Solicitudes</span>
             </h3>
         </div>
         <div class="panel-body">
@@ -39,12 +39,14 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">
-                <span class="fa  fa-list"></span><span runat="server" id="t_conexiones">Conexiones</span>
+                <span class="fa  fa-list"></span><span runat="server" id="t_conexiones"> Conexiones</span>
             </h3>
         </div>
         <div class="panel-body">
             <asp:UpdatePanel ID="upConexiones" runat="server">
                 <ContentTemplate>
+                    <asp:HiddenField ID="hfConexion" runat="server" />
+                    <asp:HiddenField ID="hfUsuario" runat="server" />
                     <a data-toggle="modal" href="#modalConexion" id="btnModalConexion" class="btn btn-success btn-sm" style="margin-bottom: 10px;" runat="server">Crear Conexion</a>
                     <asp:GridView ID="gvConexiones" runat="server" CssClass="table table-condensed table-bordered table-striped"
                         AutoGenerateColumns="False" ClientIDMode="Static" ShowHeaderWhenEmpty="true"
@@ -55,10 +57,10 @@
                             <asp:BoundField DataField="Playa" HeaderText="Nombre de Playa" />
                             <asp:BoundField DataField="UsuarioResponsable" HeaderText="Responsable" />
                             <asp:BoundField DataField="Estado" HeaderText="Estado" HeaderStyle-Width="150px" />
-                            <asp:TemplateField HeaderText="Acciones" HeaderStyle-Width="100px">
-                                <ItemStyle CssClass="btn-group-table" HorizontalAlign="Center" />
+                            <asp:TemplateField HeaderText="Acciones" HeaderStyle-Width="100px" HeaderStyle-CssClass="acciones" >
+                                <ItemStyle CssClass="btn-group-table acciones" HorizontalAlign="Center" />
                                 <ItemTemplate>
-                                    <a data-toggle="modal" href="#modalCancelar" class="btn btn-danger" id="btnCancelarSolicitud" onclick="idSolicitud(<%# Eval("Id") %>)"><span class="fa fa-times"></span>Cancelar</a>
+                                    <a data-toggle="modal" href="#modalConfirmar" class="btn btn-success" id="btnCancelarSolicitud" onclick="idConexion(<%# Eval("Id") %>)"><span class="fa fa-check"></span>Confirmar</a>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -74,7 +76,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" onclick="">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center"><span class="fa fa-plus-square"></span><strong>Crear Solicitud</strong></h4>
+                    <h4 class="modal-title text-center"><span class="fa fa-plus-square"></span><strong> Crear Solicitud</strong></h4>
                 </div>
                 <div class="modal-body" style="height: 160px;">
                     <div class="form-group" id="valPlaya" style="text-align: -webkit-center;">
@@ -104,7 +106,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" onclick="">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center"><span class="fa fa-plus-square"></span><strong>Crear conexion</strong></h4>
+                    <h4 class="modal-title text-center"><span class="fa fa-plus-square"></span><strong> Crear conexion</strong></h4>
                 </div>
                 <div class="modal-body" style="height: 350px;">
                     <div class="form-group" id="valtxtNombrePlaya" style="margin-bottom: 0px;">
@@ -160,7 +162,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" onclick="">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center"><span class="fa fa-times"></span><strong>Cancelar Solicitud</strong></h4>
+                    <h4 class="modal-title text-center"><span class="fa fa-times"></span><strong> Cancelar Solicitud</strong></h4>
                 </div>
                 <div class="modal-body" style="height: 100px">
                     <div class="form-group" id="Div2" style="text-align: -webkit-center;">
@@ -168,6 +170,29 @@
                         <div id="div3" class="form-group" style="width: 200px; margin-top: 15px;">
                             <asp:Button ID="btnSi" CssClass="btn btn-primary btn-md pull-left" Width="83px" runat="server" Text="Si" OnClick="btnSi_Click" />
                             <button type="button" onclick="" data-dismiss="modal" style="width: 83px" class="btn btn-md pull-right" id="btnNo">No</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalConfirmar">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 500px; margin-right: 0px; margin-left: 50px; text-align: center; left: 0px; border-left-width: 0px; border-right-width: 0px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-center"><span class="fa fa-check"></span><strong> Confirmar Conexión</strong></h4>
+                </div>
+                <div class="modal-body" style="height: 100px">
+                    <div class="form-group" id="Div4" style="text-align: -webkit-center;">
+                        <label>¿Desea confirmar la conexion?</label>
+                        <div id="div6" class="form-group" style="width: 200px; margin-top: 15px;">
+                            <asp:Button ID="btnSiConexion" CssClass="btn btn-primary btn-md pull-left" Width="83px" runat="server" Text="Si" OnClick="btnSiConexion_Click" />
+                            <button type="button" onclick="" data-dismiss="modal" style="width: 83px" class="btn btn-md pull-right" id="Button4">No</button>
                         </div>
                     </div>
                 </div>
@@ -211,10 +236,17 @@
                     $(this)[0].outerHTML = "<td align='center'><label class='label-table label-success'>Confirmada</label></td>";
                 }
             });
+            if ($('[id=Main_hfUsuario]').val() == "true") {
+                $('.acciones').attr("style", "display:none");
+            };
         });
 
         function idSolicitud(id) {
             $('[id=Main_hfSolicitud]').val(id);
+        }
+
+        function idConexion(id) {
+            $('[id=Main_hfConexion]').val(id);
         }
 
         $('#modalSolicitud').on('shown.bs.modal', function () {

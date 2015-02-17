@@ -85,6 +85,24 @@ namespace Web2 {
         protected global::System.Web.UI.UpdatePanel upConexiones;
         
         /// <summary>
+        /// Control hfConexion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfConexion;
+        
+        /// <summary>
+        /// Control hfUsuario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfUsuario;
+        
+        /// <summary>
         /// Control btnModalConexion.
         /// </summary>
         /// <remarks>
@@ -191,5 +209,14 @@ namespace Web2 {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSi;
+        
+        /// <summary>
+        /// Control btnSiConexion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSiConexion;
     }
 }
