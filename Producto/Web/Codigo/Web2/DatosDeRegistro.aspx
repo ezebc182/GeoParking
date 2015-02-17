@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterUsuario.Master" AutoEventWireup="true" CodeBehind="DatosDeRegistro.aspx.cs" Inherits="Web2.DatosDeRegistro" %>
+﻿<%@ Page Title="Registracion de Usuario" Language="C#" MasterPageFile="~/MasterUsuario.Master" AutoEventWireup="true" CodeBehind="DatosDeRegistro.aspx.cs" Inherits="Web2.DatosDeRegistro" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="./css/bootstrap-fileupload.min.css" type="text/css" />

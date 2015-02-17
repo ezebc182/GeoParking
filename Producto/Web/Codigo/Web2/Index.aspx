@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterUsuario.master" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="Web2.Index" %>
+﻿<%@ Page Title="Inicio" Language="C#" MasterPageFile="~/MasterUsuario.master" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="Web2.Index" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 

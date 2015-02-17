@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterUsuario.master" AutoEventWireup="true" CodeBehind="BusquedaPlaya.aspx.cs" Inherits="Web2.BusquedaPlaya" %>
+﻿<%@ Page Title="Busqueda Playas" Language="C#" MasterPageFile="~/MasterUsuario.master" AutoEventWireup="true" CodeBehind="BusquedaPlaya.aspx.cs" Inherits="Web2.BusquedaPlaya" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <!--Estilos del mapa y su panel-->
     <link href="css/BusquedaPlaya.css" rel="stylesheet" />   

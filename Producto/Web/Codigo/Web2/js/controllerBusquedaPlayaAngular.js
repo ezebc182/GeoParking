@@ -253,6 +253,16 @@ app.controller('MyCtrl', function ($scope, $http) {
                     $scope.map.setCenter(results[0].geometry.location);
                     $scope.map.setZoom(12);
 
+                    //leo las playas de estacionamiento
+                    playas = (typeof response.d) == 'string' ? eval('(' + response.d + ')') : response.d;
+
+                    if (!playas.length > 0) {
+                        var mensaje = 'No se han encontrado playas en esta ciudad';
+                        var titulo = 'Resultado de la Busqueda';
+                        document.getElementById("resultados").value = mensaje + "," + titulo;
+                        document.getElementById("resultados").click();
+                    }
+
                     $scope.cargarPlayas(response)//carga las playas en el mapa     
 
                     $scope.cargarPlayasGrilla(response);//carga las playas en la grilla
@@ -582,10 +592,10 @@ app.controller('MyCtrl', function ($scope, $http) {
             }
         }
         else {
-            var mensaje = 'No se han encontrado playas con los filtros seleccionados';
-            var titulo = 'Resultado de la Busqueda';           
-            document.getElementById("resultados").value = mensaje + "," + titulo;
-            document.getElementById("resultados").click();            
+            //var mensaje = 'No se han encontrado playas con los filtros seleccionados';
+            //var titulo = 'Resultado de la Busqueda';           
+            //document.getElementById("resultados").value = mensaje + "," + titulo;
+            //document.getElementById("resultados").click();            
         }
     }
 
@@ -694,6 +704,16 @@ app.controller('MyCtrl', function ($scope, $http) {
             }
         }).success(function (response) {
 
+            //leo las playas de estacionamiento
+            playas = (typeof response.d) == 'string' ? eval('(' + response.d + ')') : response.d;
+
+            if (!playas.length > 0) {
+                var mensaje = 'No se han encontrado playas con los filtros seleccionados';
+                var titulo = 'Resultado de la Busqueda';
+                document.getElementById("resultados").value = mensaje + "," + titulo;
+                document.getElementById("resultados").click();
+            }
+
             $scope.cargarPlayas(response);//cargar playas resultantes de los filtros en el mapa
             $scope.cargarPlayasGrilla(response);//cargar playas resultantes en la grilla      
 
@@ -718,7 +738,17 @@ app.controller('MyCtrl', function ($scope, $http) {
             data: $.param({})
         }).success(function (response) {
 
-            $scope.playasGrilla = [];//vacio las playas a mostrar en la grila            
+            $scope.playasGrilla = [];//vacio las playas a mostrar en la grila    
+
+            //leo las playas de estacionamiento
+            playas = (typeof response.d) == 'string' ? eval('(' + response.d + ')') : response.d;
+
+            if (!playas.length > 0) {
+                var mensaje = 'No se han encontrado playas en esta ciudad';
+                var titulo = 'Resultado de la Busqueda';
+                document.getElementById("resultados").value = mensaje + "," + titulo;
+                document.getElementById("resultados").click();
+            }
 
             $scope.cargarPlayas(response);//carga las playas en el mapa
 
