@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using ReglasDeNegocio;
+using ReglasDeNegocio.Util;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,6 +21,7 @@ namespace Web2
         private static GestorSolicitud gestorSolicitud;
         private static GestorConexion gestorConexion;
         private static GestorEmails gestorMandarEmail;
+        private static Encriptacion encriptacion;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,6 +32,7 @@ namespace Web2
                 gestorUsuario = new GestorUsuario();
                 gestorMandarEmail = new GestorEmails();
                 gestorPlaya = new GestorPlaya();
+                encriptacion = new Encriptacion();
 
                 if (SessionUsuario != null)
                 {
@@ -208,6 +211,7 @@ namespace Web2
             NuevaConexion.EstadoConfirmacion = false;
             NuevaConexion.PlayaDeEstacionamientoId = gestorPlaya.BuscarPlayaPorNombreYDireccion(txtNombrePlaya.Text, txtCiudad.Text, txtDireccion.Text, Int32.Parse(txtNumero.Text));
             NuevaConexion.UsuarioResponsable = usuario.Mail;
+            NuevaConexion.Token = encriptacion.Encriptar(NuevaConexion.Id.ToString()+usuario.Id.ToString()+usuario.Nombre);
              var resultado = gestorConexion.RegistrarNuevaConexion(NuevaConexion);
              if (resultado == true)
              {
@@ -221,7 +225,7 @@ namespace Web2
                  gvConexiones.DataBind();
                  string url = HttpContext.Current.Request.Url.ToString();
                  Uri uri = new Uri(url);
-                 gestorMandarEmail.EnviarEmail("Se ha creado la conexion con la playa " + playa.Nombre + " de Direccion: " + playa.Direcciones.FirstOrDefault().Calle + " " + playa.Direcciones.FirstOrDefault().Numero + " " + playa.Direcciones.FirstOrDefault().Ciudad + " , verifique la información cargada y confirme la conexion con su playa. Presione el siguiente link para ingresar y ver sus conexiones " + uri.GetLeftPart(UriPartial.Authority) + "/Index.aspx", usuario.Mail, "Creacion de Conexion en Geoparking");
+                 gestorMandarEmail.EnviarEmail("Se ha creado la conexion con la playa " + playa.Nombre + " de Direccion: " + playa.Direcciones.FirstOrDefault().Calle + " " + playa.Direcciones.FirstOrDefault().Numero + " " + playa.Direcciones.FirstOrDefault().Ciudad + " , verifique la información cargada y confirme la conexion con su playa. Presione el siguiente link para ingresar y ver sus conexiones " + uri.GetLeftPart(UriPartial.Authority) + "/Index.aspx .\nDatos de Acceso a la API GEOPARKING: \nIdentificador de Playa: "+ playa.Id +" Numero de Acceso: " + NuevaConexion.Token + "", usuario.Mail, "Creacion de Conexion en Geoparking");
              }
         }
     }
