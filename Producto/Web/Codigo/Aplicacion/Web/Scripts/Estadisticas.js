@@ -138,6 +138,7 @@ function cargarGraficoCantidadTipoPlayas(IdMapa) {
         data: cantTipoPlaya[IdMapa][IdLayer[IdMapa]]
     });
 };
+
 function cargarGraficoCantidadTipoVehiculos(IdMapa) {
    bar[IdMapa] = new Morris.Bar({
         element: 'consultasTipoVehiculo-' + IdMapa,

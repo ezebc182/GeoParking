@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Datos;
 using Entidades;
 using System.Data.Entity.Spatial;
+using Newtonsoft.Json;
 
 namespace ReglasDeNegocio
 {
@@ -55,6 +56,62 @@ namespace ReglasDeNegocio
         //    var ciudadId = getCiudad(ciudadNombre).Id;
         //    return estadisticaConsultasDao.GetConsultasTipoPlayaByCiudad(ciudadId, desde, hasta);
         //}
+
+
+        //public IList<EstadisticaDisponibilidadDto> DisponibilidadesUltimoMinutoPorPlayas(string ciudad, Usuario usuario)
+        //{
+
+        //}
+
+        //public IList<EstadisticaDisponibilidadDto> DisponibilidadesPorPlayas(string ciudad, Usuario usuario, DateTime desde, DateTime hasta)
+        //{
+
+        //}
+
+        //public IList<EstadisticaDisponibilidadDto> DisponibilidadesUltimoMinutoPorZonas(string ciudad, Usuario usuario)
+        //{
+
+        //}
+
+        //public IList<EstadisticaDisponibilidadDto> DisponibilidadesPorZonas(string ciudad, Usuario usuario, DateTime desde, DateTime hasta)
+        //{
+
+        //}
+
+        public IList<EstadisticaConsultasDto> ConsultasUltimoMinutoPorPlayas(string ciudad, int usuarioId)
+        {
+            var desde = DateTime.Now.Subtract(new TimeSpan(0, 1, 0));
+            var hasta = DateTime.Now;
+            return estadisticaConsultasDao.GetConsultas(ciudad, usuarioId, 1, desde, hasta);
+        }
+
+        public IList<EstadisticaConsultasDto> ConsultasPorPlayas(string ciudad, int usuarioId, DateTime? desde, DateTime? hasta)
+        {
+            return estadisticaConsultasDao.GetConsultas(ciudad, usuarioId, 1, desde, hasta);
+
+        }
+
+        public string ConsultasPorPlayasJSON(string ciudad, int usuarioId, DateTime? desde, DateTime? hasta)
+        {
+            return JsonConvert.SerializeObject(ConsultasPorPlayas(ciudad, usuarioId, desde, hasta));
+        }
+
+        public IList<EstadisticaConsultasDto> ConsultasUltimoMinutoPorZonas(string ciudad, int usuarioId)
+        {
+            var desde = DateTime.Now.Subtract(new TimeSpan(0, 1, 0));
+            var hasta = DateTime.Now;
+            return estadisticaConsultasDao.GetConsultas(ciudad, usuarioId, 2, desde, hasta);
+        }
+
+        public IList<EstadisticaConsultasDto> ConsultasPorZonas(string ciudad, int usuarioId, DateTime? desde, DateTime? hasta)
+        {
+            return estadisticaConsultasDao.GetConsultas(ciudad, usuarioId, 2, desde, hasta);
+        }
+
+        public string ConsultasPorZonasJSON(string ciudad, int usuarioId, DateTime? desde, DateTime? hasta)
+        {
+            return JsonConvert.SerializeObject(ConsultasPorZonas(ciudad, usuarioId, desde, hasta));
+        }
 
         public IList<EstadisticaConsultas> GetEstadisticasConsultas()
         {

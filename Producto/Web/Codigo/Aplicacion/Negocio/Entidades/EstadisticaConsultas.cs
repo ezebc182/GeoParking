@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Data.Entity.Spatial;
 using System.ComponentModel.DataAnnotations.Schema;
+using Entidades.util;
 
 namespace Entidades
 {
@@ -16,6 +17,7 @@ namespace Entidades
         public int IdPlaya { get; set; }
         public int IdTipoPlaya { get; set; }
         public int IdTipoVehiculo { get; set; }
+        [JsonConverter(typeof(DbGeographyConverter))]
         public DbGeography Posicion { get; set; }
 
         [NotMapped]
