@@ -547,6 +547,7 @@
     <Content Include="geoparking\lib\font-awesome\fonts\fontawesome-webfont.woff" />
     <Content Include="geoparking\lib\font-awesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="geoparking\lib\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="downloads\GP_ManualAppMóvil.pdf" />
     <None Include="Properties\PublishProfiles\Geoparking.pubxml" />
     <None Include="Properties\PublishProfiles\GeoparkingWeb.pubxml" />
     <None Include="Properties\PublishProfiles\GeoparkingWeb2.pubxml">
