@@ -13,7 +13,7 @@ namespace Entidades
         public int TipoVehiculoId { get; set; }
         public int EventoId { get; set; }
         public DateTime FechaHora { get; set; }
-        public int Dia { get; set; }
+        public int Disponibilidad { get; set; }
         
         //public virtual PlayaDeEstacionamiento PlayaDeEstacionamiento { get; set; }
         //public virtual TipoVehiculo TipoVehiculo { get; set; }
