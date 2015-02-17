@@ -13,6 +13,7 @@ namespace WebServiceGeo.Controllers
     {
         
         private GestorDisponibilidad gestor = new GestorDisponibilidad();
+        private GestorAutenticacion gestorAutenticacion = new GestorAutenticacion();
 
         // GET api/disponibilidad
         
@@ -23,7 +24,11 @@ namespace WebServiceGeo.Controllers
         /// <returns>'True' si la accion se realizo correctamente</returns>
         public string PostActualizarDisponibilidad([FromBody]DisponibilidadControlador disponibilidad)
         {
-            return gestor.ActualizarDisponibilidadPlaya(disponibilidad.IdPLaya, disponibilidad.IdTipoVehiculo, disponibilidad.IdEvento, DateTime.Parse(disponibilidad.Fecha), DateTime.Parse(disponibilidad.Fecha).Day).Ok.ToString();
+            if (gestorAutenticacion.verificarAutenticacion(disponibilidad.IdPLaya, disponibilidad.Token).Ok)
+            {
+                return gestor.ActualizarDisponibilidadPlaya(disponibilidad.IdPLaya, disponibilidad.IdTipoVehiculo, disponibilidad.IdEvento, DateTime.Parse(disponibilidad.Fecha), DateTime.Parse(disponibilidad.Fecha).Day).Ok.ToString();
+            }
+            return "False";
         }
         
         /// <summary>
@@ -33,7 +38,12 @@ namespace WebServiceGeo.Controllers
         /// <returns>'True' si la accion se realizo correctamente</returns>
         public string PostActualizarDisponibilidadGeneral([FromBody]DisponibilidadControlador disponibilidad)
         {
-            return gestor.ActualizarDisponibilidadGeneralPlaya(disponibilidad.IdPLaya, disponibilidad.IdTipoVehiculo, disponibilidad.Disponibilidad, disponibilidad.IdEvento, DateTime.Parse(disponibilidad.Fecha), DateTime.Parse(disponibilidad.Fecha).Day).Ok.ToString();
+            if (gestorAutenticacion.verificarAutenticacion(disponibilidad.IdPLaya, disponibilidad.Token).Ok)
+            {
+                return gestor.ActualizarDisponibilidadGeneralPlaya(disponibilidad.IdPLaya, disponibilidad.IdTipoVehiculo, disponibilidad.Disponibilidad, disponibilidad.IdEvento, DateTime.Parse(disponibilidad.Fecha), DateTime.Parse(disponibilidad.Fecha).Day).Ok.ToString();
+            }
+
+            return "False";
         }
 
         // GET api/disponibilidad/GetDisponibilidadesPlayasPorTipoVehiculo
@@ -75,7 +85,8 @@ namespace WebServiceGeo.Controllers
         public int IdTipoVehiculo { get; set; }
         public int Disponibilidad { get; set; }
         public int IdEvento { get; set; }
-        public string Fecha { get; set; }        
+        public string Fecha { get; set; }
+        public string Token { get; set; }
     }
 
     public class ListadoIdPlayas

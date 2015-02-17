@@ -18,6 +18,8 @@ namespace GeoParkingDesktop
 
         int tipoVehiculo;//tipo de vehiculo a actualizar la disponibilidad         
 
+        string token = "Ap55nX2iSXnQAh35Kofj6w==";
+
         public Form1()
         {            
              InitializeComponent();
@@ -480,6 +482,7 @@ namespace GeoParkingDesktop
             postData += ("&IdTipoVehiculo=" + tipoVehiculo);
             postData += ("&IdEvento=" + evento);
             postData += ("&Fecha=" + fechaHora.ToString());
+            postData += ("&Token=" + token);
 
             try
             {
@@ -926,6 +929,7 @@ namespace GeoParkingDesktop
             postData = "IdPlaya=" + playa.id;
             postData += ("&Nombre=" + nombrePlaya);
             postData += ("&Mail=" + emaiPlaya);
+            postData += ("&Token=" + token);
             
 
             try
@@ -966,6 +970,7 @@ namespace GeoParkingDesktop
             postData += ("&DiaAtencionId=" + diaAtencion);
             postData += ("&HoraDesde=" + horaDesde);
             postData += ("&HoraHasta=" + horaHasta);
+            postData += ("&Token=" + token);
 
             try
             {
@@ -999,6 +1004,7 @@ namespace GeoParkingDesktop
             sURL = "http://localhost:21305/api/Playas/PostActualizarTipoPlaya";
             postData = "IdPlaya=" + playa.id;
             postData += ("&TipoPlayaId=" + tipoPlaya);
+            postData += ("&Token=" + token);
            
 
             try
@@ -1552,6 +1558,7 @@ namespace GeoParkingDesktop
             postData += ("&IdTiempo=" + idTiempo);
             postData += ("&IdTipoVehiculo=" + idTipoVehiculo);
             postData += ("&Precio=" + precio);
+            postData += ("&Token=" + token);
 
             try
             {
@@ -1809,6 +1816,7 @@ namespace GeoParkingDesktop
             postData += ("&Disponibilidad=" + disponibilidad);
             postData += ("&IdEvento=" + evento);
             postData += ("&Fecha=" + fecha.ToString());
+            postData += ("&Token=" + token);
 
             try
             {
