@@ -57,7 +57,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="index.aspx" style="text-align:center; width:225px">
+                        <a class="navbar-brand" href="web.aspx" style="text-align:center; width:225px">
                             <span style="color: red; font-family: Impact; font-size: 30px; text-shadow: 1px 1px 1px grey;">GEO</span><span style="color: white; font-size: 30px; font-family: Impact; text-shadow: 1px 1px 1px grey;">PARKING</span>
                         </a>
                     </div>

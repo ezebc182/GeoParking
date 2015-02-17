@@ -59,12 +59,12 @@ $(document).ready(function(){
 /* Smartphone slideshow */
 $(function(){
     $('.slideshow img:gt(0)').hide();
-    setInterval(function(){$('.slideshow > :first-child').fadeOut().next('img').fadeIn().end().appendTo('.slideshow');}, 4000);
+    setInterval(function () { $('.slideshow > :first-child').fadeOut().next('img').fadeIn().end().appendTo('.slideshow'); }, 6000);
 });
 /*Principales características */
 $(function(){
     $('.slideMobile img:gt(0)').hide();
-    setInterval(function(){$('.slideMobile > :first-child').fadeOut().next('img').fadeIn().end().appendTo('.slideMobile');}, 4000);
+    setInterval(function(){$('.slideMobile > :first-child').fadeOut().next('img').fadeIn().end().appendTo('.slideMobile');}, 6000);
 });
 /* Footer visible on click */
 $('.dwn').click(function(){

@@ -46,8 +46,8 @@
                             <span class="icon-bar"></span>
                         </button>
 
-                        <%--<a class="navbar-brand" href="./Index.aspx"><span style="color: red; font-size: 35px;">GEO</span><span style="color: white; font-size: 35px;">PARKING</span></a>--%>
-                        <a class="navbar-brand" href="./Index.aspx"><span style="color: red; font-family: Impact; font-size: 20px; text-shadow: 1px 1px 1px grey;">GEO</span><span style="color: white; font-size: 20px; font-family: Impact; text-shadow: 1px 1px 1px grey;">PARKING</span></a>
+                        <%--<a class="navbar-brand" href="./web.aspx"><span style="color: red; font-size: 35px;">GEO</span><span style="color: white; font-size: 35px;">PARKING</span></a>--%>
+                        <a class="navbar-brand" href="./web.aspx"><span style="color: red; font-family: Impact; font-size: 20px; text-shadow: 1px 1px 1px grey;">GEO</span><span style="color: white; font-size: 20px; font-family: Impact; text-shadow: 1px 1px 1px grey;">PARKING</span></a>
 
                     </div>
 

@@ -214,6 +214,7 @@
     <Content Include="img\Busquedas\panelAvanzadaPNG.PNG" />
     <Content Include="img\Busquedas\tablaBusqueda.PNG" />
     <Content Include="img\fotosPerfil\demoUpload.jpg" />
+    <Content Include="Index.aspx" />
     <Content Include="js\administracionRegistro.js" />
     <Content Include="js\administrarSolicitudesyConexiones.js" />
     <Content Include="js\bootstrapformhelpers\css\bootstrap-formhelpers.css" />
@@ -384,7 +385,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Index.aspx" />
+    <Content Include="web.aspx" />
     <Content Include="Zonas.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -444,6 +445,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MasterAdmin.Master.cs">
       <DependentUpon>MasterAdmin.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -471,12 +479,12 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Index.aspx.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="web.aspx.cs">
+      <DependentUpon>web.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Index.aspx.designer.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="web.aspx.designer.cs">
+      <DependentUpon>web.aspx</DependentUpon>
     </Compile>
     <Compile Include="SiteMaster.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />

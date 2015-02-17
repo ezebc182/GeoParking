@@ -892,3 +892,58 @@ border-top: solid 2px #000;
 .page-header{
   margin-top: 7% !important;
 }
+/*#linkSesion
+{
+    float:right;
+    margin-top:50px;
+    color:#fff;
+    font-weight:bold;
+    background: rgba(18, 50, 65, 0.75);
+    text-align: center;
+    padding: 20px;
+}
+#linkSesion:hover
+{    
+    color:#2361a1;
+}
+#iconoUsuario
+{
+    font-size: 1.4em;
+}*/
+
+#linkBuscarPlaya, #linkRegistrarPlaya
+{
+    margin-top:0;
+    width:200px;
+    padding:2%;
+    font-size: 1.2em;
+}
+#linkBuscarPlaya
+{
+margin-left:2%;
+}
+#iconoRegistrar, #iconoBuscar
+{
+    /*font-size: 1.5em;*/
+}
+#btn-down:hover
+{
+    color:#eee;
+}
+#btn-down
+{    
+ position: relative;
+left: 46% !important;
+color: #fff;
+bottom:0px;
+
+z-index: 9;
+
+}
+#flecha-abajo
+{
+ margin-top: 545px;
+font-size: 8.4em;
+color:red;
+ box-shadow: 10px 10px 5px #888888;
+}

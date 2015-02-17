@@ -41,7 +41,7 @@ namespace Web2
                         break;
 
                     default:
-                        Response.Redirect("/Index.aspx");
+                        Response.Redirect("/web.aspx");
                         break;
                 }
             }

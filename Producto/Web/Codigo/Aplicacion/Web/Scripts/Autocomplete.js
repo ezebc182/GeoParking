@@ -5,7 +5,7 @@ function SearchText() {
             $.ajax({
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
-                url: "Index.aspx/GetNombreCiudades",
+                url: "web.aspx/GetNombreCiudades",
                 data: "{'pre':'" + document.getElementById('txtBuscar').value + "'}",
                 dataType: "json",
                 success: function (data) {

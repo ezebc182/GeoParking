@@ -101,7 +101,7 @@ namespace Web2
             NuevoUsuario.RolId = 1;
             string url = HttpContext.Current.Request.Url.ToString();
             Uri uri = new Uri(url);
-            mandarEmail.EnviarEmail("Presione el siguiente link para activar la cuenta " + uri.GetLeftPart(UriPartial.Authority) + "/Index.aspx?usuario="+ encriptacion.Encriptar(NuevoUsuario.NombreUsuario), NuevoUsuario.Mail, "Registro de Usuario en Geoparking");
+            mandarEmail.EnviarEmail("Presione el siguiente link para activar la cuenta " + uri.GetLeftPart(UriPartial.Authority) + "/web.aspx?usuario="+ encriptacion.Encriptar(NuevoUsuario.NombreUsuario), NuevoUsuario.Mail, "Registro de Usuario en Geoparking");
             return gestor.RegistrarUsuarioJSON(NuevoUsuario);
         }
     }

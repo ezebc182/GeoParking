@@ -165,7 +165,7 @@
             <asp:Panel ID="panelBotones" class="col-md-12" runat="server" Style="margin-top: 20px;">
                 <div id="divBotones" class="form-group col-md-4 col-md-offset-4">
                     <button type="button" class="btn btn-primary btn-md pull-left" id="btnRegistrar">Registrarse</button>
-                    <button type="button" onclick="javascript:window.location.href='/Index.aspx'" class="btn btn-md pull-right" id="btnCancelar">Cancelar</button>
+                    <button type="button" onclick="javascript:window.location.href='/web.aspx'" class="btn btn-md pull-right" id="btnCancelar">Cancelar</button>
                 </div>
             </asp:Panel>
         </div>

@@ -37,7 +37,7 @@ namespace Web2
                         CargarPanelAsignarPermiso();
                         break;
                     default:
-                        Response.Redirect("/Index.aspx");
+                        Response.Redirect("/web.aspx");
                         break;
                 }
             }

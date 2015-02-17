@@ -88,7 +88,7 @@ namespace Web2
 
             if (!(pagina == "BusquedaPlaya.aspx" || pagina == "Index.apsx"))
             {
-                Response.Redirect("Index.aspx");
+                Response.Redirect("web.aspx");
             }
             else
             {

@@ -25,11 +25,11 @@ namespace Web2
             {
                 if (SessionUsuario != null)
                 {
-                    if (!Request.Url.AbsolutePath.Equals("/Index.aspx", StringComparison.OrdinalIgnoreCase))
+                    if (!Request.Url.AbsolutePath.Equals("/web.aspx", StringComparison.OrdinalIgnoreCase))
                         if (!Request.Url.AbsolutePath.Equals("/BusquedaPlaya.aspx", StringComparison.OrdinalIgnoreCase))                           
                                 if (!SessionUsuario.Rol.Permisos.Any(x => Request.Url.Segments[1].Equals(x.Url, StringComparison.OrdinalIgnoreCase)))
                                 {
-                                    Response.Redirect("/Index.aspx?r=" + Request.Url.AbsolutePath);
+                                    Response.Redirect("/web.aspx?r=" + Request.Url.AbsolutePath);
                                 }
                     
                     lblLogin.Text = SessionUsuario.NombreUsuario;
@@ -37,9 +37,9 @@ namespace Web2
                 }
                 else
                 {
-                    if (!Request.Url.AbsolutePath.Equals("/Index.aspx", StringComparison.OrdinalIgnoreCase))
+                    if (!Request.Url.AbsolutePath.Equals("/web.aspx", StringComparison.OrdinalIgnoreCase))
                         if (!Request.Url.AbsolutePath.Equals("/BusquedaPlaya.aspx", StringComparison.OrdinalIgnoreCase))                            
-                            Response.Redirect("/Index.aspx?r=" + Request.Url.AbsolutePath);
+                            Response.Redirect("/web.aspx?r=" + Request.Url.AbsolutePath);
                     
                 }
             }
@@ -342,7 +342,7 @@ namespace Web2
 
             if (pagina == "Playa.aspx" || pagina == "AdministracionUsuarios.aspx" || pagina == "Estadisticas.aspx")
             {
-                Response.Redirect("Index.aspx");
+                Response.Redirect("web.aspx");
             }
 
         }
