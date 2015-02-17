@@ -189,7 +189,7 @@ namespace Web2
         [WebMethod]
         public static string ObtenerCiudadSession()
         {
-            return ciudadBuscada;
+            return ciudadBuscada+"*"+idCiudadBuscada;
         }
     }
 }

@@ -298,6 +298,11 @@ namespace ReglasDeNegocio
             return lista;
         }
 
+        public IList<PlayaDeEstacionamiento> BuscarPlayas()
+        {
+            return playaDao.FindAll();
+        }
+
         public string BuscarPlayasPorCiudadJSON(string ciudad)
         {
             return JsonConvert.SerializeObject(BuscarPlayasPorCiudad(ciudad));

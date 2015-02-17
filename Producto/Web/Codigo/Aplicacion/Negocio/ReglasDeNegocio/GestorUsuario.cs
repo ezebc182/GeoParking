@@ -135,6 +135,22 @@ namespace ReglasDeNegocio
             return cifrar.Desencriptar(contraseña);
         }
 
+        public string ValidacionLogin(string usuario, string contraseña)
+        {
+            string cifrada = Encriptar(contraseña);
+            Usuario resultado = usuarioDao.FindWhere(x => (x.Mail.Equals(usuario) || x.NombreUsuario.Equals(usuario)) && x.Contraseña.Equals(cifrada)).FirstOrDefault();
+            if (resultado != null)
+            {
+                resultado.Rol = rolDao.FindWhere(x => x.Id == resultado.RolId).First();
+                resultado.Rol.Permisos = permisoDao.FindWhere(x => x.Roles.Any(p => p.Id == resultado.RolId));
+                return "true";
+            }
+            else
+            {
+                return "false";
+            }
+        }
+
         public IList<Usuario> BuscarUsuarios()
         {
             return usuarioDao.FindAll();

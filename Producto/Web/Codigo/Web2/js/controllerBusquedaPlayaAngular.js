@@ -291,7 +291,12 @@ app.controller('MyCtrl', function ($scope, $http) {
         }).success(function (response) {
 
             //$scope.ciudad = $scope.omitirAcentos(response.d);//ciudad en la session
-            $scope.ciudad = response.d;
+            var ciudad_e_id = response.d;
+
+            $scope.ciudad = ciudad_e_id.split("*")[0];
+            
+            $scope.idPlaceCiudad = ciudad_e_id.split("*")[1];
+
 
             //toma la ciudad, arma la direccion (solo argentina) y la busca
             var address = $scope.ciudad;
