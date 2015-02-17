@@ -59,7 +59,7 @@ function ir(origen, destino, modoViaje, sistema) {
             directionsDisplay.setPanel($("#panel_ruta").get(0));
             directionsDisplay.setDirections(response);
         } else {
-            alert("Error al Calcular la ruta");
+            abrirPopup("Error al Calcular la ruta");
         }
     });
 
@@ -234,7 +234,7 @@ function obtenerPosicionActual() {
         
     };
     var errorFunction = function () {
-        alert("Error de conexion, Por favor habilite la localizacion para continuar");
+        abrirPopup("Error de conexion, Por favor habilite la localizacion para continuar");
     };
     navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
 }

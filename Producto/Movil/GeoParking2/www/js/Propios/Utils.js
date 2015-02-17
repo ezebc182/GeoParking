@@ -1,7 +1,4 @@
-var db = getLocalStorage() || alert("Local Storage Not supported in this browser");
-/*variable global de historial de playas consultadas*/
-/*
-var cantidadAlmacenadas = 0;*/
+var db = getLocalStorage() || abrirPopup("Local Storage Not supported in this browser");
 
 function getLocalStorage() {
     try {
@@ -10,41 +7,6 @@ function getLocalStorage() {
         return undefined;
     }
 }
-
-function setlocal() {
-
-    db.setItem("mi_posicion", posicionActual);
-    getlocal();
-}
-
-function ClearAll() {
-
-    db.clear();
-    getlocal();
-}
-
-function getlocal() {
-    var i = 0;
-    for (i = 0; i <= db.length - 1; i++) {
-        key = db.key(i);
-        alert(db.getItem(key));
-    }
-}
-
-function getopenDb() {
-    try {
-        if (window.openDatabase) {
-            return window.openDatabase;
-        } else {
-            alert('No HTML5 support');
-            return undefined;
-        }
-    } catch (e) {
-        alert(e);
-        return undefined;
-    }
-}
-
 function distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) {
     var R = 6371; // km
     var phi1 = toRad(lat1);
@@ -114,24 +76,6 @@ function quitarCargando() {
     $.mobile.loading('hide');
 }
 
-function leerNumeroMovil() {
-    var telephoneNumber = cordova.require("cordova/plugin/telephonenumber");
-    telephoneNumber.get(function (result) {
-        return result;
-    }, function () {
-        return "error";
-    });
-}
-
-function validarNumberoTelefono(inputtxt) {
-    var phoneo = /^\d{10}$/;
-    if (inputtxt.value.match(phoneo)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 function validarEmail(email) {
     var patron = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (email.match(patron)) {
@@ -147,21 +91,15 @@ function abrirPopup(mensaje) {
     var cerrarPopup = function () {
         $("#popupBasic").popup("close");
     }
-    setTimeout(cerrarPopup, 1500);
+    setTimeout(cerrarPopup, 2500);
 
 }
-
-/*function mensajeErrorConexion(mensaje) {
-    abrirPopup(mensaje);
-}*/
 
 function abrirDialogoUnBoton(funcionOk, mensaje, encabezado) {
     $("#dialogoUnBotonHeader").html(encabezado);
     $("#dialogoUnBotonDescripcion").html(mensaje);
     document.getElementById("dialogoUnBotonAceptar").onclick = funcionOk;
     $("#linkAbreDialogoUnBoton").click();
-
-
 }
 
 function abrirDialogoConDosBotones(funcionOk, mensaje, encabezado) {
@@ -174,15 +112,6 @@ function abrirDialogoConDosBotones(funcionOk, mensaje, encabezado) {
     document.getElementById("dialogoConDosBotonesCancelar").onclick = funcionCancelar;
     $("#linkAbreDialogoDosBotones").click();
 }
-
-function cerrarDialogoConDosBotones() {
-    $("#popupDialog").remove();
-}
-
-
-
-
-
 
 /* Guarda un historial de las últimas playas consultadas actualizando en el panel principal el listado en forma última consultada primera en la pila, descartando repetidos */
 function verificarQueExistePlayaEnArray(playa, array) {
@@ -250,13 +179,6 @@ function guardarPlayaConsultada(playa) {
 
 
 }
-$.fn.isBound = function (type) {
-    var data = jQuery._data(this[0], 'events')[type];
-
-    return !(data === undefined || data.length === 0);
-};
-
-
 /*Si está abierto el popupOpciones lo cierra, sino se abre*/
 $('#popupOpciones').popup();
 if ($(".ui-popup-active").length > 0) {
@@ -276,14 +198,13 @@ function obtenerTiposVehiculosDeServidor() {
             tiposVehiculos = jQuery.parseJSON(response);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert("Error de Conexion");
+            abrirPopup("Error de Conexion");
         }
     });
     return tiposVehiculos;
 }
 
 function agregarTiposDeVehiculos(select) {
-
     var tiposVehiculos = obtenerTiposVehiculosDeServidor();
     for (var i = 0; i < tiposVehiculos.length; i++) {
         var opcion = document.createElement("option");
@@ -291,11 +212,8 @@ function agregarTiposDeVehiculos(select) {
         opcion.value = tiposVehiculos[i].Id;
         opcion.innerHTML = tiposVehiculos[i].Nombre;
         select.append(opcion);
-
-
     }
 }
-
 
 function cargarValoresAlmacenadosDeConfiguracion() {
     $("#tipoVehiculoSelect").empty();
@@ -318,10 +236,7 @@ function cargarValoresAlmacenadosDeConfiguracion() {
         $(" input[type=checkbox]").parent().removeClass("ui-flipswitch-active");
     }
 }
-
-
 /* Función de la pantalla inicial cuando se utiliza por primera vez la app*/
-
 function goToStep2() {
     var select = document.getElementById("selectTipoVehiculosWelcome");
     var tipoVehiculo = select.options[select.selectedIndex].value;
@@ -356,8 +271,6 @@ function guardarDatos(select, radio, gps) {
 }
 
 /*Comprueba si ya están seteados los datos de ajustes, sino muestra la pantalla de bienvenida para que los setee el usuario */
-
-
 function welcome() {
     if (db.getItem("Configuraciones") == null) {
         document.location.href = "#welcomePage";
@@ -412,8 +325,6 @@ function validarCampo(campo) {
 }
 
 function enviarEmail() {
-
-
     var uri = obtenerURLServer() + "api/Contacto / PostEnviarEmailDeContacto ";
     var datos = {
         Nombre: $("#txtNombre ").val(),
@@ -436,85 +347,13 @@ function enviarEmail() {
             var funcionOk = function () {
                 $("#contactPage ").hide();
                 $("#mainPage ").show();
-
-
             };
             abrirDialogoUnBoton(funcionOk, "Mensaje enviado con éxito!", "Mensaje ");
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert("Error de conexion ");
+            abrirPopup("Error de conexion ");
         }
     });
-}
-
-/*
-function cargarAplicacion() {
-        var width = $(".content ").width();
-    var height = $(".content ").height();
-    $("
-    img ").css({
-        "
-    max - width ": width,
-        "
-    max - height ": height
-    });
-    var progressbar = $("#
-    progressbar "),
-        progressLabel = $(".progress - label ");
-
-    progressbar.progressbar({
-        value: false,
-        change: function () {
-             //progressLabel.text(progressbar.progressbar("
-    value ") + " % ");
-        },
-        complete: function () {
-             //progressLabel.text("
-    100 % ");
-        }
-    });
-
-    function progress() {
-        var val = progressbar.progressbar("
-    value ") || 0;
-
-        progressbar.progressbar("
-    value ", val + 2);
-
-        if (val < 99) {
-            setTimeout(progress, 80);
-        }
-    }
-
-    setTimeout(progress, 2000);
-}*/
-
-
-/*function comprobarConexion() { if (navigator.onLine) { abrirPopup("
-    Estás conectado.
-    "); } else { abrirPopup("
-    Sin conexión.
-    "); } }
-
-*/
-
-function distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) {
-    var R = 6371; // km
-    var phi1 = toRad(lat1);
-    var phi2 = toRad(lat2);
-    var deltaPhi = toRad(lat2 - lat1);
-    var deltaLambda = toRad(lon2 - lon1);
-    var a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
-        Math.cos(phi1) * Math.cos(phi2) *
-        Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c;
-
-    return d;
-}
-
-function toRad(value) {
-    return value * Math.PI / 180;
 }
 
 function enviarConsultaAEstadisticas(playa){

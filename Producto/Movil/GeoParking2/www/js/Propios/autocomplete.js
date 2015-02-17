@@ -88,7 +88,7 @@ function obtenerLimitesDePais() {
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    alert("Error de Conexion");
+                    abrirPopup("Error de Conexion");
                 }
             });
             var input = (document.getElementById('txtBusqueda'));
@@ -115,7 +115,7 @@ function obtenerLimitesDePais() {
         }
     };
     var errorFunction = function(){
-        alert("Error");
+        abrirPopup("Error");
     };
     navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
 }
