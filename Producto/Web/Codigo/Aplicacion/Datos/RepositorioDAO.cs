@@ -31,6 +31,7 @@ namespace Datos
     public interface IRepositorioZonas : IRepositorio<Zona> { }
     public interface IRepositorioHistorialDisponibilidadPlayas : IRepositorio<HistorialDisponibilidadPlayas> { }
     public interface IRepositorioSolicitudConexion : IRepositorio<SolicitudConexion> { }
+    public interface IRepositorioConexion : IRepositorio<Conexion> { }
 
     //Clases DAO para cada entidad que heredan de la clase Repositorio
     public class RepositorioTipoDePlaya : Repositorio<TipoPlaya>, IRepositorioTipoDePlaya { }

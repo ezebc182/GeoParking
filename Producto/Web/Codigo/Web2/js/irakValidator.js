@@ -85,6 +85,15 @@ function validar2Campos(campo1, campo2) {
     }
 }
 
+function validar3Campos(campo1, campo2, campo3) {
+    if (campo1 == false && campo2 == false && campo3 == false) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
 function validar7Campos(campo1, campo2, campo3, campo4, campo5, campo6, campo7) {
     if (campo1 == false && campo2 == false && campo3 == false && campo4 == false && campo5 == false && campo6 == false && campo7 == false) {
         return false;

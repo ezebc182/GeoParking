@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContextoBD.cs" />
+    <Compile Include="RepositorioConexion.cs" />
     <Compile Include="RepositorioSolicitud.cs" />
     <Compile Include="RepositorioZona.cs" />
     <Compile Include="RepositorioRol.cs" />

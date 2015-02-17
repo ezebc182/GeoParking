@@ -13,6 +13,18 @@ function validarSolicitud() {
     }
 }
 
+function validarConexion() {
+    var val = validarCampoVacio($('[id=valtxtNombrePlaya]').attr("id"), $('[id=Main_NombrePlaya]').attr("id"));
+    var val = validarCampoVacio($('[id=valPlaya]').attr("id"), $('[id=Main_txtPlaya]').attr("id"));
+    var val = validarCampoVacio($('[id=valPlaya]').attr("id"), $('[id=Main_txtPlaya]').attr("id"));
+    if (!val) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 function RegistrarSolicitud() {
     $.ajax({
         type: "POST",
