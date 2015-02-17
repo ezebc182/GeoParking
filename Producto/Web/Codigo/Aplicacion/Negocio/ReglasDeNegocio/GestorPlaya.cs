@@ -335,6 +335,11 @@ namespace ReglasDeNegocio
             return JsonConvert.SerializeObject(BuscarTipoPlayas());
         }
 
+        public int BuscarPlayaPorNombreYDireccion(string nombre, string ciudad, string calle, int numero)
+        {
+            return playaDao.FindWhere(x => x.Nombre.Contains(nombre) && x.Ciudad.Contains(ciudad) && x.Calle.Contains(calle) && x.Numero == numero).FirstOrDefault().Id;
+        }
+
         public IList<Tiempo> BuscarTiemposDeAtencion()
         {
             return tiempoDao.FindAll();

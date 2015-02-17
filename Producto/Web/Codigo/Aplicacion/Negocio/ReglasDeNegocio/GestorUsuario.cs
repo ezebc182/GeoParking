@@ -85,6 +85,11 @@ namespace ReglasDeNegocio
             return resultado;
         }
 
+        public Usuario BuscarUsuarioByNombreOEmail(string usuario)
+        {
+            return usuarioDao.FindWhere(x => (x.Mail.Equals(usuario) || x.NombreUsuario.Equals(usuario))).FirstOrDefault();
+        }
+
         public Usuario Login(string usuario,string contraseña)
         {
             string cifrada = Encriptar(contraseña);

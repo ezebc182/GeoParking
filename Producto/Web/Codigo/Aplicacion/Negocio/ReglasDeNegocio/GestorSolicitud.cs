@@ -51,6 +51,11 @@ namespace ReglasDeNegocio
             return daoSolicitud.FindWhere(x => x.FechaBaja == null && x.Id == id).FirstOrDefault();
         }
 
+        public SolicitudConexion BuscarSolicitudByUsuario(string usuario)
+        {
+            return daoSolicitud.FindWhere(x => x.FechaBaja == null && x.UsuarioResponsable == usuario && x.EstadoId == 6).FirstOrDefault();
+        }
+
         public bool UpdateSolicitud(SolicitudConexion solicitud)
         {
             var resultado = new Resultado();
