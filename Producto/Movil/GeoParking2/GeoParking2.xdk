@@ -8,7 +8,7 @@
       "src": "blankproject",
       "sourceDirectory": "www",
       "projectGuid": "54561fb7-caf3-4c1c-aec6-0024658761b1",
-      "lastModifiedDate": 1422806295479,
+      "lastModifiedDate": 1424206907620,
       "creationDate": 1415068775913
     },
     "sourceDirectory": "www",
@@ -73,17 +73,6 @@
         "selectedState": "Included",
         "data": {},
         "paramvals": {}
-      },
-      {
-        "id": "com.simonmacdonald.telephonenumber",
-        "version": "",
-        "selectedState": "Included",
-        "data": {},
-        "paramvals": {},
-        "custom": "true",
-        "name": "TelephoneNumber",
-        "origin": "https://github.com/macdonst/TelephoneNumberPlugin",
-        "originType": "repo"
       }
     ],
     "serviceMethods": [],

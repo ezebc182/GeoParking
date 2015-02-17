@@ -67,7 +67,7 @@
     /*background-color:#2a2a2a !important;*/
 }
 #abrirPanelBusqueda {
-    margin-right: 10% !important;
+    right : 15%;
 }
 .ui-btn-active {
     background-color: transparent !important;

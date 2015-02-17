@@ -46,6 +46,7 @@ $.widget("geoparking.historialWidget", {
     _cargarListadoHistorial: function () {
         var widget = this;
         if (db.getItem("playas") === null || JSON.parse(db.getItem("playas").length === 0)) {
+            $("#listadoHistorial").html('');
             $("#listadoHistorial").append("<p class='historial' >El historial está vacío</p>");
         } else {
             widget.crearEstructuraHistorial();
@@ -55,8 +56,8 @@ $.widget("geoparking.historialWidget", {
         var widget = this;
         var posicionPlayaGoogle = new google.maps.LatLng(playa.Latitud, playa.Longitud);
         var eventoClick = function () {
-            widget.destroy();
             ir(posicionActual, posicionPlayaGoogle, "DRIVING", "METRIC");
+            $("#pnlPrincipal").panel('close');
             widget.options.playaElegida = posicionPlayaGoogle;
             enviarConsultaAEstadisticas(playa);
         };
@@ -159,7 +160,7 @@ $.widget("geoparking.historialWidget", {
                 widget._agregarPreciosAPlayas(precios);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                abrirDialogoConDosBotones(null, "Error de conexion. Inténtelo de nuevo mas tarde", "Algo sucedió...");
+                abrirPopup("Error de conexion. Inténtelo de nuevo mas tarde", "Algo sucedió...");
             }
         });
     },
@@ -230,7 +231,7 @@ $.widget("geoparking.historialWidget", {
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                alert("No se pudo obtener las disponibilidades");
+                abrirPopup("No se pudo obtener las disponibilidades");
             }
         });
     }

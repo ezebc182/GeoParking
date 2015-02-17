@@ -8,7 +8,6 @@ $.widget("geoparking.listadoPlayasWidget", {
         listadoPlayas: null,
         playaElegida: null,
         disponibilidadPlayas: null,
-        cantidadHistorial: 5,
         puntoDeBusqueda : null
     },
     /**
@@ -119,9 +118,9 @@ $.widget("geoparking.listadoPlayasWidget", {
             precio += ": $";
             precio += playa.Precios[0].Monto;
         }
-       else{
+        else{
            precio = "Sin Datos";
-       }
+        }
         
         strongPrecio.innerHTML = precio;
 
@@ -264,7 +263,7 @@ $.widget("geoparking.listadoPlayasWidget", {
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                alert("No se pudo obtener las disponibilidades");
+                abrirPopup("No se pudo obtener las disponibilidades");
             }
         });
     },
@@ -325,12 +324,7 @@ $.widget("geoparking.listadoPlayasWidget", {
         return resultado;
     },
     _verificarQueExistePlayaEnArray: function (playa, array) {
-        for (var j = 0; j < array.length; j++) {
-            if (playa.Id === array[j].Id) {
-                return true;
-            }
-        }
-        return false;
+        verificarQueExistePlayaEnArray(playa, array);
     },
     /**
      * Toma el listado de playas seleccionado (deberia ya estar filtrado por distancia)
