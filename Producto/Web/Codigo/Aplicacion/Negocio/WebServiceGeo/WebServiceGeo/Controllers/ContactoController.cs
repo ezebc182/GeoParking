@@ -9,30 +9,22 @@ using System.Web.Http;
 using System.Web.Mvc;
 using ReglasDeNegocio;
 using Entidades;
+using WebServiceGeo.Models;
 
 namespace WebServiceGeo.Controllers
 {
-    public class Contacto
-    {
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Telefono { get; set; }
-        public string Email { get; set; }
-        public string Mensaje { get; set; }
-        
-    }
+    
     public class ContactoController : ApiController
     {
         GestorEmails emails = new GestorEmails();
         [System.Web.Mvc.HttpPost]
         public void PostEnviarEmailDeContacto([FromBody] Contacto mensaje)
         {
-            string contenidoMensaje = "Nombre: " + mensaje.Nombre;
-            contenidoMensaje += "\nApellido: " + mensaje.Apellido;
-            contenidoMensaje += "\nTelefono: " + mensaje.Telefono;
+            string contenidoMensaje = "Nombre: " + mensaje.Nombre;           
             contenidoMensaje += "\nEmail: " + mensaje.Email;
             contenidoMensaje += "\nCosulta:\n" + mensaje.Mensaje;
-            emails.EnviarEmail(contenidoMensaje, "info.geoparking@gmail.com", "GeoParking - Contacto").ToString();
+            string asunto = mensaje.Asunto;
+            emails.EnviarEmail(contenidoMensaje, "info.geoparking@gmail.com", asunto).ToString();
         }
 
     }

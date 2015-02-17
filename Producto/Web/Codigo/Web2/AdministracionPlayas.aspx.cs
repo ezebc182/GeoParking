@@ -48,9 +48,9 @@ namespace Web2
         }
 
         [WebMethod]
-        public static string BuscarPlayas(string ciudad)
+        public static string BuscarPlayas(string idPlaceCiudad)
         {
-            var playas = gestor.BuscarPlayasPorCiudadJSON(ciudad);
+            var playas = gestor.BuscarPlayasPorCiudadJSON(idPlaceCiudad);
             return playas;
         }
 

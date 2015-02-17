@@ -61,11 +61,12 @@ function zona(id, nombre, wkt) {
         }
     };
 };
-function direccion(id, calle, numero, ciudad, latitud, longitud) {
+function direccion(id, calle, numero, ciudad, idPlaceCiudad, latitud, longitud) {
     this.Id = id;
     this.Calle = calle;
     this.Numero = numero;
     this.Ciudad = ciudad;
+    this.IdPlaceCiudad = idPlaceCiudad,
     this.Posicion = new posicion(longitud, latitud);
     this.Latitud = latitud;
     this.Longitud = longitud;

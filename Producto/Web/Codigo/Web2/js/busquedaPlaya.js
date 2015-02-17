@@ -123,7 +123,7 @@ function mostrarMensaje() {
     var partes = mensaje.split(",");
     var mensaje = partes[0];
     var titulo = partes[1];
-    Alerta_openModalInfo(mensaje, titulo, true);
+    Alerta_openModalInfo(mensaje, titulo, false);
 }
 
 /*Muestra la ayuda*/

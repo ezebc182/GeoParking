@@ -33,18 +33,8 @@ namespace ReglasDeNegocio
         /// <param name="dia">dia(L,M,MM,J,V,S,D)</param>
         public Resultado ActualizarDisponibilidadPlaya(int playa, int tipoVehiculo, int evento, DateTime fechaHora, int dia)
         {
-            Resultado resultado = new Resultado();
-
-            //creamos el nuevo registro para el historial
-            HistorialDisponibilidadPlayas registroHistorial = new HistorialDisponibilidadPlayas();
-            registroHistorial.PlayaDeEstacionamietoId = playa;
-            registroHistorial.TipoVehiculoId = tipoVehiculo;
-            registroHistorial.EventoId = evento;
-            registroHistorial.FechaHora = fechaHora;
-            registroHistorial.Dia = dia;
-
-            //lo insertamos en la BD
-            historialDisponibilidadPlayas.Create(registroHistorial);           
+            Resultado resultado = new Resultado();           
+                        
 
             Servicio servicio = servicioDAO.FindWhere(s => s.PlayaDeEstacionamientoId == playa && s.TipoVehiculoId == tipoVehiculo).First();
 
@@ -52,14 +42,27 @@ namespace ReglasDeNegocio
             if (evento == 1) //ingreso
             {
                 servicio.DisponibilidadPlayas.Disponibilidad = servicio.DisponibilidadPlayas.Disponibilidad - 1;
+                
             }
             else //egreso
             {
                 servicio.DisponibilidadPlayas.Disponibilidad = servicio.DisponibilidadPlayas.Disponibilidad + 1;
+                
             }
 
             try
             {
+                //creamos el nuevo registro para el historial
+                HistorialDisponibilidadPlayas registroHistorial = new HistorialDisponibilidadPlayas();
+                registroHistorial.PlayaDeEstacionamietoId = playa;
+                registroHistorial.TipoVehiculoId = tipoVehiculo;
+                registroHistorial.EventoId = evento;
+                registroHistorial.FechaHora = fechaHora;
+                registroHistorial.Disponibilidad = servicio.DisponibilidadPlayas.Disponibilidad;
+
+                //lo insertamos en la BD
+                historialDisponibilidadPlayas.Create(registroHistorial);           
+                
                 servicioDAO.Update(servicio);
             }
             catch (Exception)
@@ -74,6 +77,11 @@ namespace ReglasDeNegocio
         public Resultado ActualizarDisponibilidadGeneralPlaya(int playa, int tipoVehiculo, int disponibilidad, int evento, DateTime fechaHora, int dia)
         {
             Resultado resultado = new Resultado();
+            
+
+            Servicio servicio = servicioDAO.FindWhere(s => s.PlayaDeEstacionamientoId == playa && s.TipoVehiculoId == tipoVehiculo).First();
+
+            servicio.DisponibilidadPlayas.Disponibilidad = disponibilidad;
 
             //creamos el nuevo registro para el historial
             HistorialDisponibilidadPlayas registroHistorial = new HistorialDisponibilidadPlayas();
@@ -81,16 +89,10 @@ namespace ReglasDeNegocio
             registroHistorial.TipoVehiculoId = tipoVehiculo;
             registroHistorial.EventoId = evento;
             registroHistorial.FechaHora = fechaHora;
-            registroHistorial.Dia = dia;
+            registroHistorial.Disponibilidad = disponibilidad;
 
             //lo insertamos en la BD
             historialDisponibilidadPlayas.Create(registroHistorial);
-
-            Servicio servicio = servicioDAO.FindWhere(s => s.PlayaDeEstacionamientoId == playa && s.TipoVehiculoId == tipoVehiculo).First();
-
-            servicio.DisponibilidadPlayas.Disponibilidad = disponibilidad;
-
-            //registroDisponibilidad.Disponibilidad = disponibilidad;
 
             try
             {

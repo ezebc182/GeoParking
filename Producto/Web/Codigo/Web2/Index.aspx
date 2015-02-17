@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="Web2.Index1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="Web2.Index" %>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -72,10 +73,10 @@
 					<img src="geoparking/images/down.png" alt="conocenos">Conocenos!
 				</a>--%>
 				
-				<a id="linkRegistrarPlaya" class="btn btn-info" href="DatosDeRegistro.aspx">
+				<a id="linkRegistrarPlaya" class="btn btn-info" href="/web.aspx">
 					<i id="iconoBuscar" class="fa fa-search"></i>Buscar playa
 				</a>
-                <a id="linkBuscarPlaya" class="btn btn-default" href="BusquedaDePlaya.aspx">
+                <a id="linkBuscarPlaya" class="btn btn-default" href="/DatosDeRegistro.aspx">
 					<i id="iconoRegistrar" class="fa fa-map-marker"></i>Registra tu playa!
                     
 				</a>
@@ -487,4 +488,5 @@
 
 </body>
 </html>
+
 

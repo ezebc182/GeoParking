@@ -57,6 +57,8 @@
     <Compile Include="Capacidad.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="ConsultaDisponibilidad.cs" />
+    <Compile Include="EstadisticaConsultasDto.cs" />
+    <Compile Include="EstadisticaDisponibilidadDto.cs" />
     <Compile Include="Estado.cs" />
     <Compile Include="SolicitudConexion.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />

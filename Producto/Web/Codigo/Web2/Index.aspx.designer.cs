@@ -10,6 +10,6 @@
 namespace Web2 {
     
     
-    public partial class Index1 {
+    public partial class Index {
     }
 }

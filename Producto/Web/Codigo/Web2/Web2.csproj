@@ -149,6 +149,7 @@
     <Content Include="AdministracionPlayas.aspx" />
     <Content Include="AdministracionRolesyPermisos.aspx" />
     <Content Include="css\bootstrap-fileupload.min.css" />
+    <Content Include="css\morris.css" />
     <Content Include="Estadisticas.aspx" />
     <Content Include="DatosDeRegistro.aspx" />
     <Content Include="AdministracionSolicitudesYConexiones.aspx" />
@@ -325,6 +326,7 @@
     <Content Include="js\jquery.dataTables.min.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\jquery.min.js" />
+    <Content Include="js\morris.min.js" />
     <Content Include="js\plugins\flot\excanvas.min.js" />
     <Content Include="js\plugins\flot\flot-data.js" />
     <Content Include="js\plugins\flot\jquery.flot.js" />

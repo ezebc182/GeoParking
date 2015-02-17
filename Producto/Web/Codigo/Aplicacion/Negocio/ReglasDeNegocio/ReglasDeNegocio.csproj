@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GestorAutenticacion.cs" />
+    <Compile Include="GestorConexion.cs" />
     <Compile Include="GestorSolicitud.cs" />
     <Compile Include="GestorZonas.cs" />
     <Compile Include="GestorBusquedaPlayas.cs" />

@@ -13,6 +13,7 @@ namespace WebServiceGeo.Controllers
     {
 
         private GestorPrecio gestor = new GestorPrecio();
+        private GestorAutenticacion gestorAutenticacion = new GestorAutenticacion();
         
         /// <summary>
         /// Actualiza el precio de una playa
@@ -21,7 +22,12 @@ namespace WebServiceGeo.Controllers
         /// <returns>'True' si la accion se concreto</returns>
         public string PostActualizarPrecio([FromBody]PrecioControler precio)
         {
-            return gestor.ActualizarPrecioPlaya(precio.IdPLaya, precio.IdTiempo, precio.IdTipoVehiculo, precio.Precio).Ok.ToString();
+            if (gestorAutenticacion.verificarAutenticacion(precio.IdPLaya, precio.Token).Ok)
+            {
+                return gestor.ActualizarPrecioPlaya(precio.IdPLaya, precio.IdTiempo, precio.IdTipoVehiculo, precio.Precio).Ok.ToString();
+            }
+            return "False";
+            
         }
        
 
@@ -66,5 +72,6 @@ namespace WebServiceGeo.Controllers
         public int IdTiempo { get; set; }
         public int IdTipoVehiculo { get; set; }
         public double Precio { get; set; }
+        public string Token { get; set; }
     }
 }

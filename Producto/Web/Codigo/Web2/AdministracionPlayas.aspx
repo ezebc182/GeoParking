@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterAdmin.master" AutoEventWireup="true" CodeBehind="AdministracionPlayas.aspx.cs" Inherits="Web2.AdministracionPlayas" %>
+﻿<%@ Page Title="Administracion de Playas" Language="C#" MasterPageFile="~/MasterAdmin.master" AutoEventWireup="true" CodeBehind="AdministracionPlayas.aspx.cs" Inherits="Web2.AdministracionPlayas" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="js/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
@@ -181,6 +181,7 @@
                                             <div class="form-group ">
                                                 <label for="txtBuscarCiudades" class="control-label ">Ciudad:</label>
                                                 <input id="txtBuscarCiudades" type="text" class="form-control autocompleteCiudad" />
+                                                <asp:TextBox runat="server" ID="txtIdPlace" ClientIDMode="Static" class="hide" />
                                             </div>
                                         </div>
 
@@ -332,9 +333,8 @@
             });
 
             $('[id*=btnBuscarPlayas]').on("click", function () {
-                var ciudad = $('[id*=txtBuscarCiudadPlayas]').val();
-                // var nombre = $('[id*=txtFiltroNombre]').val();
-                playas.buscar(ciudad);
+                var idPlaveCiudad = $('[id*=txtIdPlace]').val();               
+                playas.buscar(idPlaveCiudad);
             });
 
             $('[id*=btnNuevaPlaya]').on("click", function () {

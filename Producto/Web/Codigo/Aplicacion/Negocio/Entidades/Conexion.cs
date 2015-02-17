@@ -15,5 +15,6 @@ namespace Entidades
         public virtual PlayaDeEstacionamiento PlayaDeEstacionamiento { get; set; }
         public string UsuarioResponsable { get; set; }
         public virtual Usuario Responsable { get; set; }
+        public string Token { get; set; }
     }
 }

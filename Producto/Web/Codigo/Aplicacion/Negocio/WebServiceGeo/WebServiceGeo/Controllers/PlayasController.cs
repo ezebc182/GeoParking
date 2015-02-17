@@ -22,6 +22,8 @@ namespace WebServiceGeo.Controllers
         private static GestorTiposVehiculo gestorTipoVehiculos = new GestorTiposVehiculo();
         private static GestorDireccion gestorDirecciones = new GestorDireccion();
         private static GestorPrecio gestorPrecio = new GestorPrecio();
+        private GestorAutenticacion gestorAutenticacion = new GestorAutenticacion();
+
         // GET api/Playas/GetPlayas?ciudad=cordoba
         public string GetPlayas([FromUri] String ciudad)
         {
@@ -122,7 +124,12 @@ namespace WebServiceGeo.Controllers
         /// <returns>'True' si la operacion se realizo correctamente</returns>
         public string PostActualizarTipoPlaya([FromBody]PlayaControlador playa)
         {
-            return gestorPlaya.ActualizarTipoPlaya(playa.IdPlaya, playa.TipoPlayaId).Ok.ToString();
+            if (gestorAutenticacion.verificarAutenticacion(playa.IdPlaya, playa.Token).Ok)
+            {
+                return gestorPlaya.ActualizarTipoPlaya(playa.IdPlaya, playa.TipoPlayaId).Ok.ToString();
+            }
+            return "False";
+            
         }
                
         /// <summary>
@@ -132,7 +139,12 @@ namespace WebServiceGeo.Controllers
         /// <returns>'True' si la operacion se realizo correctamente</returns>
         public string PostActualizarNombreEmailPlaya([FromBody]PlayaControlador playa)
         {
-            return gestorPlaya.ActualizarNombreEmailPlaya(playa.IdPlaya, playa.Nombre, playa.Mail).Ok.ToString();
+            if (gestorAutenticacion.verificarAutenticacion(playa.IdPlaya, playa.Token).Ok)
+            {
+                return gestorPlaya.ActualizarNombreEmailPlaya(playa.IdPlaya, playa.Nombre, playa.Mail).Ok.ToString();
+            }
+            return "False";
+            
         }
 
         /// <summary>
@@ -142,7 +154,13 @@ namespace WebServiceGeo.Controllers
         /// <returns>'True' si la operacion se realizo correctamente</returns>
         public string PostActualizarHorarioPlaya([FromBody]PlayaControlador playa)
         {
-            return gestorPlaya.ActualizarHorarioPlaya(playa.IdPlaya, playa.DiaAtencionId, playa.HoraDesde, playa.HoraHasta).Ok.ToString();
+
+            if (gestorAutenticacion.verificarAutenticacion(playa.IdPlaya, playa.Token).Ok)
+            {
+                return gestorPlaya.ActualizarHorarioPlaya(playa.IdPlaya, playa.DiaAtencionId, playa.HoraDesde, playa.HoraHasta).Ok.ToString(); 
+            }
+            return "False";
+            
         }
         
     }
@@ -159,6 +177,7 @@ namespace WebServiceGeo.Controllers
         public int DiaAtencionId { get; set; }
         public string HoraDesde { get; set; }
         public string HoraHasta { get; set; }
+        public string Token { get; set; }
     }
 
     public class BusquedaPorCoordenadas

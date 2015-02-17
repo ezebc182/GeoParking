@@ -10,7 +10,7 @@
 namespace Web2 {
     
     
-    public partial class Index {
+    public partial class web {
         
         /// <summary>
         /// Control txtBuscar.

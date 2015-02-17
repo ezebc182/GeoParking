@@ -305,7 +305,8 @@ namespace ReglasDeNegocio
 
         public string BuscarPlayasPorCiudadJSON(string ciudad)
         {
-            return JsonConvert.SerializeObject(BuscarPlayasPorCiudad(ciudad));
+            //return JsonConvert.SerializeObject(BuscarPlayasPorCiudad(ciudad));
+            return JsonConvert.SerializeObject(BuscarPlayasPorIdPlaceCiudad(ciudad));
         }
         
         /// <summary>
@@ -333,6 +334,11 @@ namespace ReglasDeNegocio
         public string BuscarTipoPlayasJSON()
         {
             return JsonConvert.SerializeObject(BuscarTipoPlayas());
+        }
+
+        public int BuscarPlayaPorNombreYDireccion(string nombre, string ciudad, string calle, int numero)
+        {
+            return playaDao.FindWhere(x => x.Nombre.Contains(nombre) && x.Ciudad.Contains(ciudad) && x.Calle.Contains(calle) && x.Numero == numero).FirstOrDefault().Id;
         }
 
         public IList<Tiempo> BuscarTiemposDeAtencion()

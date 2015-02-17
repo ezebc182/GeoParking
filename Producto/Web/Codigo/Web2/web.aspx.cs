@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace Web2
 {
-    public partial class Index : System.Web.UI.Page
+    public partial class web : System.Web.UI.Page
     {
         static GestorBusquedaPlayas gestor;
         //public SiteMaster master;  --para cuando se haga la master-- 

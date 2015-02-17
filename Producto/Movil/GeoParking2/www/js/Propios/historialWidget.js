@@ -7,8 +7,8 @@ $.widget("geoparking.historialWidget", {
         contenedor: $("#listadoHistorial"),
         cantidadHistorial: 5,
         playaElegida: null,
-        listadoPlayas : null,
-        disponibilidadPlayas : null
+        listadoPlayas: null,
+        disponibilidadPlayas: null
     },
     /**
      * Metodo de creacion del widget, tiene que existir en todo widget.
@@ -25,8 +25,7 @@ $.widget("geoparking.historialWidget", {
         var widget = this;
         if ($("#listado-historial").length === 0) {
             widget._cargarListadoHistorial();
-        } else {
-        }
+        } else {}
         quitarCargando();
     },
     /**
@@ -46,6 +45,7 @@ $.widget("geoparking.historialWidget", {
     _cargarListadoHistorial: function () {
         var widget = this;
         if (db.getItem("playas") === null || JSON.parse(db.getItem("playas").length === 0)) {
+            $("#listadoHistorial").html("");
             $("#listadoHistorial").append("<p class='historial' >El historial está vacío</p>");
         } else {
             widget.crearEstructuraHistorial();
@@ -53,10 +53,11 @@ $.widget("geoparking.historialWidget", {
     },
     _crearEventoClickAPlayaSinGuardarConsulta: function (playa) {
         var widget = this;
+
         var posicionPlayaGoogle = new google.maps.LatLng(playa.Latitud, playa.Longitud);
         var eventoClick = function () {
-            widget.destroy();
             ir(posicionActual, posicionPlayaGoogle, "DRIVING", "METRIC");
+            $("#pnlPrincipal").panel("close");
             widget.options.playaElegida = posicionPlayaGoogle;
             enviarConsultaAEstadisticas(playa);
         };
@@ -112,14 +113,13 @@ $.widget("geoparking.historialWidget", {
             parrafoPrecioa.className = "ui-li-aside";
             var strongPrecio = document.createElement("strong");
             var precio;
-            if(playa.Precios && playa.Precios.length > 0){
+            if (playa.Precios && playa.Precios.length > 0) {
                 precio = playa.Precios[0].Tiempo;
                 precio += ": $";
                 precio += playa.Precios[0].Monto;
+            } else {
+                precio = "Sin precio";
             }
-           else{
-               precio = "Sin precio";
-           }
             strongPrecio.innerHTML = precio;
             //Todos los append
             parrafoPrecioa.appendChild(strongPrecio);
