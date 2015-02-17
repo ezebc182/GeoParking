@@ -49,7 +49,7 @@ var playas = {
         $.ajax({
             type: "POST",
             url: "AdministracionPlayas.aspx/BuscarPlayas",
-            data: "{'ciudad': '" + ciudad + "'}",
+            data: "{'idPlaceCiudad': '" + ciudad + "'}",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -471,11 +471,12 @@ var direcciones = {
         $('[id*=btnAgregarDireccion]').off('click').on('click', function () {
             var calle = $('[id*=txtCalle]').first().val();
             var numero = $('[id*=txtNumero]').first().val();
-            var ciudad = $('[id*=txtBuscar]').first().val();
+            var ciudad = $('[id*=txtBuscar]').first().val();            
+            var idPlaceCiudad = $('[id*=txtIdPlace]').first().val();            
             var latitude = $('[id*=latitud]').first().val();
             var longitude = $('[id*=longitud]').first().val();
 
-            var direccionNueva = new direccion(0, calle, numero, ciudad, latitude, longitude);
+            var direccionNueva = new direccion(0, calle, numero, ciudad, idPlaceCiudad, latitude, longitude);
 
             me.agregar(direccionNueva);
         });
@@ -592,10 +593,11 @@ var direcciones = {
             var calle = $(fila).find('td').eq(0).text();
             var numero = $(fila).find('td').eq(1).text();
             var ciudad = $(fila).find('td').eq(2).text();
+            var idPlaceCiudad = $('[id*=txtIdPlace]').first().val();
             var latitude = $(fila).find('td').eq(3).text();
             var longitude = $(fila).find('td').eq(4).text();
 
-            var direccionTemp = new direccion(id, calle, numero, ciudad, latitude, longitude);
+            var direccionTemp = new direccion(id, calle, numero, ciudad, idPlaceCiudad, latitude, longitude);
 
             direcciones.push(direccionTemp);
         });
