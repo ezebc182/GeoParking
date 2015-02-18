@@ -42,7 +42,15 @@
         <asp:TextBox runat="server" ID="txtIdPlace" ClientIDMode="Static" class="hide"/>
     </div>
 
+    <script src="js/redireccionador.js"></script>
+</asp:Content>
 
+<asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
+    <script type="text/javascript">
 
-        <script src="js/redireccionador.js"></script>
+        $(document).ready(new function () {
+            $('[id=iconGeoParking]').attr("href", "/index.aspx");
+        });
+
+    </script>
 </asp:Content>

@@ -27,15 +27,16 @@ namespace Web2
         {
             if (!Page.IsPostBack)
             {
-                gestorSolicitud = new GestorSolicitud();
-                gestorConexion = new GestorConexion();
-                gestorUsuario = new GestorUsuario();
-                gestorMandarEmail = new GestorEmails();
-                gestorPlaya = new GestorPlaya();
-                encriptacion = new Encriptacion();
-
                 if (SessionUsuario != null)
                 {
+                    gestorSolicitud.BuscarSolicitudes();
+                    gestorConexion.BuscarConexiones();
+                    gestorSolicitud = new GestorSolicitud();
+                    gestorConexion = new GestorConexion();
+                    gestorUsuario = new GestorUsuario();
+                    gestorMandarEmail = new GestorEmails();
+                    gestorPlaya = new GestorPlaya();
+                    encriptacion = new Encriptacion();
                     idUsuario = SessionUsuario.Id;
                     rolId = SessionUsuario.RolId;
                     if (rolId == 1)
@@ -57,6 +58,10 @@ namespace Web2
                         gvConexiones.DataBind();
                         hfUsuario.Value = "true";
                     }
+                }
+                else
+                {
+                    Response.Redirect("/web.aspx");
                 }
             }
         }
@@ -212,21 +217,24 @@ namespace Web2
             NuevaConexion.PlayaDeEstacionamientoId = gestorPlaya.BuscarPlayaPorNombreYDireccion(txtNombrePlaya.Text, txtCiudad.Text, txtDireccion.Text, Int32.Parse(txtNumero.Text));
             NuevaConexion.UsuarioResponsable = usuario.Mail;
             NuevaConexion.Token = encriptacion.Encriptar(NuevaConexion.Id.ToString()+usuario.Id.ToString()+usuario.Nombre);
-             var resultado = gestorConexion.RegistrarNuevaConexion(NuevaConexion);
-             if (resultado == true)
-             {
-                 PlayaDeEstacionamiento playa = gestorPlaya.BuscarPlayaPorId(NuevaConexion.PlayaDeEstacionamientoId);
-                 SolicitudConexion solicitud = gestorSolicitud.BuscarSolicitudByUsuario(usuario.Mail);
-                 solicitud.EstadoId = 7;
-                 gestorSolicitud.UpdateSolicitud(solicitud);
-                 gvSolicitudes.DataSource = GetSolicitudes();
-                 gvSolicitudes.DataBind();
-                 gvConexiones.DataSource = GetConexiones();
-                 gvConexiones.DataBind();
-                 string url = HttpContext.Current.Request.Url.ToString();
-                 Uri uri = new Uri(url);
-                 gestorMandarEmail.EnviarEmail("Se ha creado la conexion con la playa " + playa.Nombre + " de Direccion: " + playa.Direcciones.FirstOrDefault().Calle + " " + playa.Direcciones.FirstOrDefault().Numero + " " + playa.Direcciones.FirstOrDefault().Ciudad + ". Verifique la información cargada y confirme la conexion con su playa. \n\nPresione el siguiente link para ingresar y ver sus conexiones " + uri.GetLeftPart(UriPartial.Authority) + "/Index.aspx .\n\nDatos de Acceso a la API GEOPARKING: \nIdentificador de Playa: "+ playa.Id +" \nNumero de Acceso: " + NuevaConexion.Token + "", usuario.Mail, "Creacion de Conexion en Geoparking");
-             }
+            if (usuario != null && NuevaConexion != null)
+            {
+                var resultado = gestorConexion.RegistrarNuevaConexion(NuevaConexion);
+                if (resultado == true)
+                {
+                    PlayaDeEstacionamiento playa = gestorPlaya.BuscarPlayaPorId(NuevaConexion.PlayaDeEstacionamientoId);
+                    SolicitudConexion solicitud = gestorSolicitud.BuscarSolicitudByUsuario(usuario.Mail);
+                    solicitud.EstadoId = 7;
+                    gestorSolicitud.UpdateSolicitud(solicitud);
+                    gvSolicitudes.DataSource = GetSolicitudes();
+                    gvSolicitudes.DataBind();
+                    gvConexiones.DataSource = GetConexiones();
+                    gvConexiones.DataBind();
+                    string url = HttpContext.Current.Request.Url.ToString();
+                    Uri uri = new Uri(url);
+                    gestorMandarEmail.EnviarEmail("Se ha creado la conexion con la playa " + playa.Nombre + " de Direccion: " + playa.Direcciones.FirstOrDefault().Calle + " " + playa.Direcciones.FirstOrDefault().Numero + " " + playa.Direcciones.FirstOrDefault().Ciudad + ". Verifique la información cargada y confirme la conexion con su playa. \n\nPresione el siguiente link para ingresar y ver sus conexiones " + uri.GetLeftPart(UriPartial.Authority) + "/Index.aspx .\n\nDatos de Acceso a la API GEOPARKING: \nIdentificador de Playa: " + playa.Id + " \nNumero de Acceso: " + NuevaConexion.Token + "", usuario.Mail, "Creacion de Conexion en Geoparking");
+                }
+            }
         }
     }
 }

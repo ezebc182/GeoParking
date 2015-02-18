@@ -21,6 +21,10 @@ namespace Web2
             {
                 CargarDatosUsuario();
             }
+            else
+            {
+                Response.Redirect("/web.aspx");
+            }
         }
 
         public void CargarDatosUsuario()

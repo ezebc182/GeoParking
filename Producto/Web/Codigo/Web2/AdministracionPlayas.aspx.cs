@@ -19,6 +19,11 @@ namespace Web2
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (SessionUsuario == null)
+            {
+                Response.Redirect("/web.aspx");
+            }
+
             gestor = new GestorPlaya();
 
             if (!Page.IsPostBack)
@@ -27,6 +32,30 @@ namespace Web2
                 hfTiempos.Value = gestor.BuscarTiemposDeAtencionJSON();
             }
 
+
+        }
+
+        public Usuario SessionUsuario
+        {
+            get
+            {
+                if (Request.Cookies["SessionUsuario"] != null)
+                {
+                    Usuario sesion = new Usuario();
+                    sesion.RolId = Int32.Parse(Request.Cookies["SessionUsuario"]["Rol"]);
+                    sesion.NombreUsuario = Request.Cookies["SessionUsuario"]["NombreUsuario"];
+                    sesion.Contraseña = Request.Cookies["SessionUsuario"]["Contraseña"];
+                    sesion.Id = Int32.Parse(Request.Cookies["SessionUsuario"]["IdUsuario"]);
+                    sesion.Nombre = Request.Cookies["SessionUsuario"]["Nombre"];
+                    sesion.Apellido = Request.Cookies["SessionUsuario"]["Apellido"];
+                    sesion.Mail = Request.Cookies["SessionUsuario"]["Mail"];
+                    return sesion;
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
 
         [WebMethod]

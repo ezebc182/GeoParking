@@ -22,6 +22,7 @@ namespace Web2
             gestor = new GestorUsuario();
             mandarEmail = new GestorEmails();
             encriptacion = new Encriptacion();
+            gestor.BuscarUsuarios();
             if (SessionUsuario != null)
             {
                 CargarDatosUsuario();
@@ -99,10 +100,11 @@ namespace Web2
             NuevoUsuario.Nombre = nombre;
             NuevoUsuario.NombreUsuario = usuario;
             NuevoUsuario.RolId = 1;
+            var resultado = gestor.RegistrarUsuarioJSON(NuevoUsuario);
             string url = HttpContext.Current.Request.Url.ToString();
             Uri uri = new Uri(url);
             mandarEmail.EnviarEmail("Presione el siguiente link para activar la cuenta " + uri.GetLeftPart(UriPartial.Authority) + "/web.aspx?usuario="+ encriptacion.Encriptar(NuevoUsuario.NombreUsuario), NuevoUsuario.Mail, "Registro de Usuario en Geoparking");
-            return gestor.RegistrarUsuarioJSON(NuevoUsuario);
+            return resultado;
         }
     }
 }
