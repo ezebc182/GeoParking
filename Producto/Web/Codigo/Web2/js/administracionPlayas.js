@@ -1,14 +1,6 @@
 ﻿var playaCargada;
 var tablaPlayas = null;
 
-function habilitarBotonBuscar() { 
-    if ($("#Main_txtBuscarCiudadPlayas").val() === "") {
-        $("#btnBuscarPlayas").removeClass("disabled");
-    }
-    else {
-        $("#btnBuscarPlayas").addClass("disabled");
-    }
-}
 
     var playas = {
         habilitarEdicion: true,

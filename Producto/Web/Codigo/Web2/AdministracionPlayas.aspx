@@ -283,7 +283,7 @@
                             placeholder="Ingrese la ciudad" onchange="habilitarBotonBuscar()"/>                        
                 </div>
                     <div class="form-group">
-                        <a class="disabled btn-primary btn btn-lg" id="btnBuscarPlayas"
+                        <a class=" btn-primary btn btn-lg" id="btnBuscarPlayas"
                             ><i class="fa fa-search"></i>&nbsp;Buscar
                         </a>
                     </div>
