@@ -171,7 +171,9 @@
 							<li>Y mucho más...</li>
 						</ul>
 						<br/>
-                        <div class="well" style="text-align:center;"><h4>Mirá el tutorial  ></h4></div>
+                        <div class="well">
+                        <strong>Para mayor información, te invitamos a que veas el siguiente video instructivo </strong></div>
+                        
 				</div>
 				<div class="col-md-6">
 		<!-- HTML5 video	<video width="500" height="300"controls="controls"  poster="images/bgs/parking.jpg">

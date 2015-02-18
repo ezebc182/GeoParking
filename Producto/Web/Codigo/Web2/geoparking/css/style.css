@@ -942,3 +942,10 @@ bottom:6%;
 
 }
 
+#linkSesion
+{
+    float:right;
+    color:#fff;
+    margin-top:40px;
+    font-weight:bold;
+}
