@@ -892,24 +892,6 @@ border-top: solid 2px #000;
 .page-header{
   margin-top: 7% !important;
 }
-/*#linkSesion
-{
-    float:right;
-    margin-top:50px;
-    color:#fff;
-    font-weight:bold;
-    background: rgba(18, 50, 65, 0.75);
-    text-align: center;
-    padding: 20px;
-}
-#linkSesion:hover
-{    
-    color:#2361a1;
-}
-#iconoUsuario
-{
-    font-size: 1.4em;
-}*/
 
 #linkBuscarPlaya, #linkRegistrarPlaya
 {
@@ -922,28 +904,41 @@ border-top: solid 2px #000;
 {
 margin-left:2%;
 }
-#iconoRegistrar, #iconoBuscar
-{
-    /*font-size: 1.5em;*/
-}
-#btn-down:hover
-{
-    color:#eee;
-}
-#btn-down
-{    
- position: relative;
-left: 46% !important;
-color: #fff;
-bottom:0px;
 
+#redondo
+{
+    width:15%;
+    z-index:9;
+    position:relative;
+    left:45%;
+
+    
+}
+
+.round-button {
 z-index: 9;
+left: 50%;
+position: fixed;
+bottom:6%;
 
+}
+#flecha-abajo:hover
+{
+    color:#fff;
+    
 }
 #flecha-abajo
 {
- margin-top: 545px;
-font-size: 8.4em;
-color:red;
- box-shadow: 10px 10px 5px #888888;
+    font-size:5em;
+    color:#eb2424;
+    
+
 }
+
+.tooltip
+{
+    font-size:1.4em !important;
+    font-weight:bold;
+
+}
+

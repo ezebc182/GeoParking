@@ -42,8 +42,12 @@
 	<!-- Intro -->
 
 	<div id="intro">
-		<!-- Animated background -->				
-        <<a  href="#features" id="btn-down"><i  id="flecha-abajo" class="fa fa-angle-down"></i></a>
+		<!-- Animated background -->
+
+        <a href="#features" class="round-button">
+         <i  id="flecha-abajo" class="fa fa-caret-down" data-toggle="tooltip" data-placement="top" title="Conocenos!"></i>
+        </a>
+        
 		<div class="slideshow">
 			<img class="img-responsive" src="geoparking/images/bgs/parking.jpg" alt="slide">
 			<img class="img-responsive" src="geoparking/images/bgs/testimonials2.jpg" alt="slide">
@@ -455,7 +459,7 @@
 		</section>
 
 
-		<a href="#" id="scrollToTop"><i class="fa fa-angle-up"></i></a>
+		<a href="#" id="scrollToTop" data-toggle="tooltip" data-placement="top" title="Subir!"><i class="fa fa-caret-up"></i></a>
 </div> <!-- .cd-main-content -->
 
 <!-- footer  -->

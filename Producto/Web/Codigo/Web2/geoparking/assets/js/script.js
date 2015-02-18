@@ -19,6 +19,9 @@ $(window).on('scroll', function(){
         }, 50);
   }
 });
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
 
 /* Preloader */
 $(window).load(function() {
@@ -31,7 +34,13 @@ $(window).scroll(function(){
       $('#scrollToTop').fadeOut();
     }
   });
-  
+$(window).scroll(function () {
+    if ($(this).scrollTop() > 100) {
+        $('#flecha-abajo').fadeOut();
+    } else {
+        $('#flecha-abajo').fadeIn();
+    }
+});
   //Click event to scroll to top
   $('#scrollToTop').click(function(){
     $('html, body').animate({scrollTop : 0},800);
