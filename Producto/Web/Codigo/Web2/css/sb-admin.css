@@ -241,3 +241,8 @@ ul.alert-dropdown {
 input, button, .btn, .modal-content,.form-control, .label, #txtBuscar, span {
     border-radius:0 ;
 }
+/* Quita el poweredby Google del dropdown*/
+ .pac-container:after {
+    background-image: none !important;
+    height: 0px;
+}

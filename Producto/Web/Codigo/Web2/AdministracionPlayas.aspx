@@ -1,4 +1,5 @@
-﻿<%@ Page Title="Administracion de Playas" Language="C#" MasterPageFile="~/MasterAdmin.master" AutoEventWireup="true" CodeBehind="AdministracionPlayas.aspx.cs" Inherits="Web2.AdministracionPlayas" %>
+﻿<%@ Page Title="Administracion de Playas" Language="C#" MasterPageFile="~/MasterAdmin.master"
+    AutoEventWireup="true" CodeBehind="AdministracionPlayas.aspx.cs" Inherits="Web2.AdministracionPlayas" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="js/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
@@ -6,7 +7,8 @@
     <link href="js/GoogleMapsAdministracionPlaya.js" rel="stylesheet" />
     <link href="js/DataTables-1.10.4/css/jquery.dataTables.min.css" rel="stylesheet" />
     <style>
-        .pac-container {
+        .pac-container
+        {
             z-index: 1040;
         }
     </style>
@@ -30,22 +32,18 @@
                     <div class="alert alert-success hidden" id="divAlertExito">
                         <p id="lblMensajeExito">Exito</p>
                     </div>
-
-
-
-
                     <div runat="server" id="divTabs">
                         <ul class="nav nav-tabs" id="myTab">
-                            <li id="tabDatosGrales" class="active"><a href="#datosGrales" data-toggle="tab">Datos Generales</a></li>
+                            <li id="tabDatosGrales" class="active"><a href="#datosGrales" data-toggle="tab">Datos
+                                Generales</a></li>
                             <li id="tabDireccion"><a href="#direccion" data-toggle="tab">Direccion</a></li>
                         </ul>
-
-
                         <div class="tab-content" style="margin: 20px;">
 
                             <div class="tab-pane fade active in" id="datosGrales">
                                 <div class="clearfix"></div>
-                                <div class="formulario" data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok" data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                                <div class="formulario" data-bv-message="El valor es requerido" data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                    data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
 
                                     <%-- Nombre --%>
                                     <div class="row">
@@ -62,7 +60,8 @@
                                             <div class="col-lg-8 col-md-8 col-sm-8">
                                                 <div class="form-group">
                                                     <label for="ddlTipoPlaya" class="control-label">Tipo de Playa:</label>
-                                                    <asp:DropDownList runat="server" ID="ddlTipoPlaya" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="Seleccione un tipo." />
+                                                    <asp:DropDownList runat="server" ID="ddlTipoPlaya" CssClass="form-control " data-bv-notempty="true"
+                                                        data-bv-notempty-message="Seleccione un tipo." />
                                                 </div>
                                             </div>
                                         </div>
@@ -74,7 +73,9 @@
                                             <div class="col-lg-8 col-md-8 col-sm-8">
                                                 <div class="form-group">
                                                     <label for="txtTelefonoPlaya" class="control-label">Telefono:</label>
-                                                    <asp:TextBox runat="server" CssClass="form-control" type="tel" ID="txtTelefonoPlaya" data-bv-notempty="true" data-bv-notempty-message="El teléfono es requerido" data-bv-regexp="true" data-bv-regexp-regexp="\b\d{3,5}[-.]?\d{3}[-.]?\d*\b" data-bv-regexp-message="Ingrese un número telefónico correcto." />
+                                                    <asp:TextBox runat="server" CssClass="form-control" type="tel" ID="txtTelefonoPlaya"
+                                                        data-bv-notempty="true" data-bv-notempty-message="El teléfono es requerido" data-bv-regexp="true"
+                                                        data-bv-regexp-regexp="\b\d{3,5}[-.]?\d{3}[-.]?\d*\b" data-bv-regexp-message="Ingrese un número telefónico correcto." />
                                                 </div>
                                             </div>
                                         </div>
@@ -83,7 +84,8 @@
                                             <div class="col-lg-8 col-md-8 col-sm-8 ">
                                                 <div class="form-group">
                                                     <label for="txtMailPlaya" class="control-label">Email:</label>
-                                                    <asp:TextBox runat="server" type="email" CssClass="form-control" ID="txtMailPlaya" data-bv-notempty="true" data-bv-notempty-message="El email es requerido" data-bv-emailaddress-message="Ingrese un formato de email correcto." />
+                                                    <asp:TextBox runat="server" type="email" CssClass="form-control" ID="txtMailPlaya"
+                                                        data-bv-notempty="true" data-bv-notempty-message="El email es requerido" data-bv-emailaddress-message="Ingrese un formato de email correcto." />
                                                 </div>
                                             </div>
                                         </div>
@@ -95,7 +97,8 @@
                                             <div class="col-lg-4 col-md-4 col-sm-4 pull-left">
                                                 <div class="form-group ">
                                                     <label for="ddlDias" class="control-label">Dias:</label>
-                                                    <asp:DropDownList runat="server" ID="ddlDias" CssClass="form-control " data-bv-notempty="true" data-bv-notempty-message="Seleccione el dia" />
+                                                    <asp:DropDownList runat="server" ID="ddlDias" CssClass="form-control " data-bv-notempty="true"
+                                                        data-bv-notempty-message="Seleccione el dia" />
                                                 </div>
                                             </div>
 
@@ -103,20 +106,23 @@
                                                 <div class="col-lg-4 col-md-4 col-sm-4">
                                                     <div class="form-group ">
                                                         <label for="bfhDesde" class="control-label">Desde:</label>
-                                                        <div id="txtDesde" class="bfh-timepicker" data-time="00:00" style="background-color: white;"></div>
+                                                        <div id="txtDesde" class="bfh-timepicker" data-time="00:00" style="background-color: white;">
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 col-md-4 col-sm-4">
                                                     <div class="form-group ">
                                                         <label for="txtHasta" class="control-label">Hasta:</label>
-                                                        <div id="txtHasta" class="bfh-timepicker" data-time="23:59" style="background-color: white;"></div>
+                                                        <div id="txtHasta" class="bfh-timepicker" data-time="23:59" style="background-color: white;">
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 col-md-4 col-sm-4">
                                                     <div class="form-group">
                                                         <label for="chk24Horas" class="control-label"></label>
                                                         <div class="checkbox" id="chk24Horas" class="form-control">
-                                                            <label ><input type="checkbox"  value="" checked /><b>24 Horas</b></label>
+                                                            <label>
+                                                                <input type="checkbox" value="" checked /><b>24 Horas</b></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -254,7 +260,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button id="btnCancelarPlaya" type="button" class="btn btn-lg" data-dismiss="modal">Cancelar</button>
+                        <button id="btnCancelarPlaya" type="button" class="btn btn-lg" data-dismiss="modal">
+                            Cancelar</button>
                         <button id="btnCerrarPlaya" type="button" class="btn btn-lg" data-dismiss="modal">Cerrar</button>
                         <button id="btnGuardarPlaya" type="button" class="btn btn-success btn-lg">Guardar</button>
                     </div>
@@ -263,30 +270,32 @@
         </div>
     </div>
 
-
-
-    <div class="container-fluid">
-        <div class="jumbotron" style="margin-top: 5%;">
-            <div class="page-header">
-                <h2 style="text-align: center;">Administración de playas</h2>
-            </div>
-
-            <div class="form-group" id="busquedaPlayas">
-                <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-lg-6 col-md-6 col-sm-6">
-
-                    <div class="input-group">
-                        <input id="txtBuscarCiudadPlayas" class="form-control input-lg autocompleteCiudad" runat="server"
-                            placeholder="Ingrese la ciudad" />
-
-                        <div class="input-group-btn">
-                            <button class="btn-primary btn btn-lg glyphicon glyphicon-search" id="btnBuscarPlayas" type="button"></button>
-                            <button class="btn-success btn btn-lg glyphicon glyphicon-plus" id="btnNuevaPlaya" type="button"></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="panel panel-primary" style="height:100%;">
+        <div class="panel-heading">
+            <h3 class="panel-title">Administración de playas</h3>
         </div>
+        <div class="panel-body">
 
+            <div class="form-inline" id="busquedaPlayas">
+                <div class="form-group">
+                        <input id="txtBuscarCiudadPlayas" class="form-control input-lg autocompleteCiudad"
+                            runat="server"
+                            placeholder="Ingrese la ciudad" />                        
+                </div>
+                    <div class="form-group">
+                        <a class="btn-primary btn btn-lg" id="btnBuscarPlayas"
+                            ><i class="fa fa-search"></i>&nbsp;Buscar
+                        </a>
+                    </div>
+                <div class="form-group">
+                        <a class="btn btn-success btn-lg" id="btnNuevaPlaya"
+                            ><i class="fa fa-plus"></i>&nbsp;Agregar
+                        </a>
+                </div>
+
+            </div>
+                
+        </div>
         <div id="pnlResultados" class="container-fluid" style="display: none;">
 
             <table id="tbPlayas" class="table table-hover table-responsive">
@@ -307,6 +316,7 @@
             </table>
 
         </div>
+    </div>
 </asp:Content>
 
 <asp:Content runat="server" ID="Script" ContentPlaceHolderID="ScriptContent">
@@ -333,7 +343,7 @@
             });
 
             $('[id*=btnBuscarPlayas]').on("click", function () {
-                var idPlaveCiudad = $('[id*=txtIdPlace]').val();               
+                var idPlaveCiudad = $('[id*=txtIdPlace]').val();
                 playas.buscar(idPlaveCiudad);
             });
 
