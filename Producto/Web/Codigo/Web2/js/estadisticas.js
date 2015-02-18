@@ -1,4 +1,6 @@
-﻿var tiposVehiculos = new Array();
+﻿var publicado = 1;// Cambiar a 1 para publicado, 0 para local!!
+
+var tiposVehiculos = new Array();
 var tiposPlayas = new Array();
 var zonas = new Array();
 var playas = new Array();
@@ -130,8 +132,10 @@ function nuevaEstadistica(tipoEstadistica) {
     $divEstadisticaNueva.parents('.panel-body').prev().find('#btnBuscarEstadisticas').off('click').on('click', function () {
         var tipoEstadistica = $(this).parents('.panel-heading').find('#ddlEstadistica').val();
         var buscarPor = $(this).parents('.panel-heading').find('#ddlBuscarPor').val();
-        var desde = $(this).parents('.panel-heading').find('#fechaDesde').val();
-        var hasta = $(this).parents('.panel-heading').find('#fechaHasta').val();
+        var desdeAUX = $(this).parents('.panel-heading').find('#fechaDesde').val().split('/');
+        var hastaAUX = $(this).parents('.panel-heading').find('#fechaHasta').val().split('/');
+        var desde = publicado == 1 ? desdeAUX[1] + '/' + desdeAUX[0] + '/' + desdeAUX[2] : desdeAUX[0] + '/' + desdeAUX[1] + '/' + desdeAUX[2];
+        var hasta = publicado == 1 ? hastaAUX[1] + '/' + hastaAUX[0] + '/' + hastaAUX[2] : hastaAUX[0] + '/' + hastaAUX[1] + '/' + hastaAUX[2];
         var ciudad = $('[id*=txtIdPlace]').val();
         var usuarioId = $('[id*=hdUsuarioId]').val();
         var $filtros = $(this).parents('.panel-heading').next().find('#divFiltros');
@@ -141,7 +145,7 @@ function nuevaEstadistica(tipoEstadistica) {
         $divEstadistica.prev().find('#ddlAgruparPor option[value=1]').remove();
         $divEstadistica.prev().find('#ddlAgruparPor option[value=2]').remove();
 
-        if (buscarPor != "2") {
+        if (buscarPor == "1") {
             $filtros.find('#ddlZonas').parent().hide()
             $filtros.find('#ddlPlayas').parent().show()
             $divEstadistica.prev().find('#ddlAgruparPor').select2("destroy");
@@ -150,6 +154,7 @@ function nuevaEstadistica(tipoEstadistica) {
             $divEstadistica.prev().find('#ddlAgruparPor').val("2");
             $divEstadistica.prev().find('#ddlAgruparPor').select2();
         }
+
         if (buscarPor == "2") {
             $filtros.find('#ddlZonas').parent().show();
             $filtros.find('#ddlPlayas').parent().hide();
@@ -160,8 +165,17 @@ function nuevaEstadistica(tipoEstadistica) {
             $divEstadistica.prev().find('#ddlAgruparPor').select2();
         }
 
+        if (buscarPor == "3") {
+            $filtros.find('#ddlZonas').parent().hide()
+            $filtros.find('#ddlPlayas').parent().show()
+            $divEstadistica.prev().find('#ddlAgruparPor').select2("destroy");
+            $divEstadistica.prev().find('#ddlAgruparPor option[value=1]').remove();
+            $divEstadistica.prev().find('#ddlAgruparPor').prepend('<option value="2">Playas</option>');
+            $divEstadistica.prev().find('#ddlAgruparPor').val("2");
+            $divEstadistica.prev().find('#ddlAgruparPor').select2();
+            $(btnBuscarEstadisticas).prop('disabled', true);
+        }
         
-
         btnBuscarEstadisticas = this;
         if (buscarPor == 3) {
             busquedaEstadisticasAjax();
@@ -189,7 +203,6 @@ function nuevaEstadistica(tipoEstadistica) {
                         estadisticas[index].init();
                         configurarCamposPorGrafico($divEstadistica, estadisticas[$divEstadistica.attr('data-value')].tipo);
                         $(btnBuscarEstadisticas).parents('.panel-heading').next().show();
-
                     },
                     error: function (result) {
                     }
