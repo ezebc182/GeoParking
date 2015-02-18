@@ -106,5 +106,33 @@ namespace Web2
             mandarEmail.EnviarEmail("Presione el siguiente link para activar la cuenta " + uri.GetLeftPart(UriPartial.Authority) + "/web.aspx?usuario="+ encriptacion.Encriptar(NuevoUsuario.NombreUsuario), NuevoUsuario.Mail, "Registro de Usuario en Geoparking");
             return resultado;
         }
+
+        [WebMethod]
+        public static bool ValidarNombreUsuario(string nombre)
+        {
+            Usuario usuario = gestor.BuscarPorNombreDeUsuario(nombre);
+            if (usuario != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool ValidarEmailUsuario(string email)
+        {
+            Usuario usuario = gestor.BuscarUsuarioByNombreOEmail(email);
+            if (usuario != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

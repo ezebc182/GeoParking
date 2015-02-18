@@ -25,14 +25,14 @@
 function ValidarUsuarioYContraseña(nombre, contraseña) {
     $.ajax({
         type: "POST",
-        url: "AdministracionRolesyPermisos.aspx/ValidarLogin",
+        url: "web.aspx/ValidarLogin",
         data: "{'nombre': '" + nombre + "' , 'contraseña': '" + contraseña + "'}",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         async: true,
         success: function (response) {
             var resultado = response.d;
-            if (resultado == false) {
+            if (resultado == true) {
                 var formDiv = $('[id=valtxtUsuarioLogin]');
                 var campo = $('[id=txtUsuarioLogin');
                 var icon = $('[id= icontxtUsuarioLogin]');
@@ -53,10 +53,10 @@ function ValidarUsuarioYContraseña(nombre, contraseña) {
                 icon1.attr("class", "form-control-feedback glyphicon glyphicon-remove");
                 small1.attr("style", "display:block");
                 error1.text("Usuario o contraseña invalidos");
-                return false
+                return true;
             }
             else {
-                return true;
+                return false;
             }
         },
         error: function (result) {
@@ -65,6 +65,8 @@ function ValidarUsuarioYContraseña(nombre, contraseña) {
         }
     });
 };
+
+
 
 
 function limpiarValidaciones() {

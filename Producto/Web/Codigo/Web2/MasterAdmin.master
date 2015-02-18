@@ -101,7 +101,7 @@
                                 <a href="/Zonas.aspx"><i class="fa fa-fw fa-pencil-square-o"></i> Administración de Zonas</a>
                             </li>
                             <li id="li_Estadisticas" runat="server">
-                                <a href="#"><i class="fa fa-fw fa-bar-chart-o"></i> Estadísticas</a>
+                                <a href="/Estadisticas.aspx"><i class="fa fa-fw fa-bar-chart-o"></i> Estadísticas</a>
                             </li>
                         </ul>
                     </div>

@@ -15,10 +15,12 @@ namespace Web2
     public partial class web : System.Web.UI.Page
     {
         static GestorBusquedaPlayas gestor;
+        private static GestorUsuario gestorUsuario;
         //public SiteMaster master;  --para cuando se haga la master-- 
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            gestorUsuario = new GestorUsuario();
             //primer carga de la pagina
             if (!IsPostBack)
             {
@@ -51,6 +53,20 @@ namespace Web2
 
                 //redirijo a la pagina que mostrara los resultados
                 Response.Redirect("BusquedaPlaya.aspx");
+            }
+        }
+
+        [WebMethod]
+        public static bool ValidarLogin(string nombre, string contraseña)
+        {
+            var resultado = gestorUsuario.Login(nombre, contraseña);
+            if (resultado == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
