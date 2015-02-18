@@ -26,33 +26,32 @@ namespace Web2
 
             if (!Page.IsPostBack)
             {
-                hdZonas.Value = gestorZonas.GetZonasJSON();
-                hdTiposPlayas.Value = gestorPlaya.BuscarTipoPlayasJSON();
-                hdTiposVehiculos.Value = gestorPlaya.BuscarTipoVehiculosJSON();
+                if (((MasterAdmin)(Page.Master)).SessionUsuario == null)
+                {
+                    Response.Redirect("/web.aspx");
+                }
+                else
+                {
+                    hdUsuarioId.Value = ((MasterAdmin)(Page.Master)).SessionUsuario.Id.ToString();
+                }
             }
         }
 
         [WebMethod]
-        public static string BuscarEstadisticas(string ciudad, int tipoEstadistica, int buscarPor, string desde, string hasta)
+        public static string BuscarEstadisticas(string ciudad,int usuarioId, int tipoEstadistica, int buscarPor, string desde, string hasta)
         {
             switch (tipoEstadistica)
             {
                 case 1://Disponibilidad
-                    switch (buscarPor)
-                    {
-                        case 1://playas
-                            return "gestor.DisponibilidadPorPlayas()";
-                        case 2://zonas
-                            return "disponibilidadPorZonas";
-                    }
-                    break;
+                    return gestor.GetDisponibilidadesJSON(ciudad, usuarioId, buscarPor, FormHelper.ObtenerFecha(desde), FormHelper.ObtenerFecha(hasta));
+                    
                 case 2://Consultas
                     switch (buscarPor)
                     {
                         case 1://playas
-                            return gestor.ConsultasPorPlayasJSON(ciudad, 1009, FormHelper.ObtenerFecha(desde), FormHelper.ObtenerFecha(hasta));
+                            return gestor.ConsultasPorPlayasJSON(ciudad, usuarioId, FormHelper.ObtenerFecha(desde), FormHelper.ObtenerFecha(hasta));
                         case 2://zonas
-                            return gestor.ConsultasPorZonasJSON(ciudad, 1009, FormHelper.ObtenerFecha(desde), FormHelper.ObtenerFecha(hasta));
+                            return gestor.ConsultasPorZonasJSON(ciudad, usuarioId, FormHelper.ObtenerFecha(desde), FormHelper.ObtenerFecha(hasta));
                     }
                     break;
             }

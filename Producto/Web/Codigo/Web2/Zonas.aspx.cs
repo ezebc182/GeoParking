@@ -21,6 +21,7 @@ namespace Web2
             master = Master;
             usuarioLogueado = master.SessionUsuario;
             CargarZonas();
+            hdUsuarioId.Value = usuarioLogueado.Id.ToString();
         }
 
         public void CargarZonas()
@@ -35,10 +36,10 @@ namespace Web2
         }
 
         [WebMethod]
-        public static string GuardarZona(string zonaJSON)
+        public static string GuardarZona(string zonaJSON, int usuarioId)
         {
             var zona = new Zona().ToObjectRepresentation(zonaJSON);
-            zona.UsuarioId = 1009;
+            zona.UsuarioId = usuarioId;
             var resultado = new ReglasDeNegocio.Util.Resultado();
             if (zona.Id == 0)
             {

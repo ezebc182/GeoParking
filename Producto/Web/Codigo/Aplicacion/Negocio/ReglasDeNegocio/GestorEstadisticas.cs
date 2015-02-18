@@ -13,11 +13,13 @@ namespace ReglasDeNegocio
     public class GestorEstadisticas
     {
         RepositorioEstadisticaConsultas estadisticaConsultasDao;
+        RepositorioDisponibilidadPlayas disponibilidadPlayasDao;
         IRepositorioPlayaDeEstacionamiento playaDao;
 
         public GestorEstadisticas()
         {
             estadisticaConsultasDao = new RepositorioEstadisticaConsultas();
+            disponibilidadPlayasDao = new RepositorioDisponibilidadPlayas();
             playaDao =  new RepositorioPlayaDeEstacionamiento();
         }
 
@@ -63,10 +65,6 @@ namespace ReglasDeNegocio
 
         //}
 
-        //public IList<EstadisticaDisponibilidadDto> DisponibilidadesPorPlayas(string ciudad, Usuario usuario, DateTime desde, DateTime hasta)
-        //{
-
-        //}
 
         //public IList<EstadisticaDisponibilidadDto> DisponibilidadesUltimoMinutoPorZonas(string ciudad, Usuario usuario)
         //{
@@ -78,6 +76,17 @@ namespace ReglasDeNegocio
 
         //}
 
+        public IList<EstadisticaDisponibilidadDto> GetDisponibilidades(string ciudad, int usuarioId, int buscarPor, DateTime? desde, DateTime? hasta)
+        {
+            return disponibilidadPlayasDao.GetDisponibilidades(ciudad, usuarioId, buscarPor, desde, hasta);
+        }
+
+        public string GetDisponibilidadesJSON(string ciudad, int usuarioId, int buscarPor, DateTime? desde, DateTime? hasta)
+        {
+            return JsonConvert.SerializeObject(GetDisponibilidades(ciudad, usuarioId, buscarPor, desde, hasta));
+        }
+
+        
         public IList<EstadisticaConsultasDto> ConsultasUltimoMinutoPorPlayas(string ciudad, int usuarioId)
         {
             var desde = DateTime.Now.Subtract(new TimeSpan(0, 1, 0));
@@ -88,7 +97,6 @@ namespace ReglasDeNegocio
         public IList<EstadisticaConsultasDto> ConsultasPorPlayas(string ciudad, int usuarioId, DateTime? desde, DateTime? hasta)
         {
             return estadisticaConsultasDao.GetConsultas(ciudad, usuarioId, 1, desde, hasta);
-
         }
 
         public string ConsultasPorPlayasJSON(string ciudad, int usuarioId, DateTime? desde, DateTime? hasta)

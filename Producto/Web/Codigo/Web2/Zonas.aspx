@@ -8,6 +8,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
     <asp:HiddenField ID="hdZonas" runat="server" />
+    <asp:HiddenField ID="hdUsuarioId" runat="server" />
+
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Administración de zonas</h3>

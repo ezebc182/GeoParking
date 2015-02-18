@@ -215,11 +215,11 @@ function nuevaZona() {
 function guardarZona() {
     nombre = $('#txtNombreZona').val();
     datos = new zona(selectedShape.Id, nombre, toWKT(selectedShape));
-
+    var usuarioId = $('[id*=hdUsuarioId]').val();
     $.ajax({
         type: "POST",
         url: "Zonas.aspx/GuardarZona",
-        data: "{'zonaJSON': '" + JSON.stringify(datos) + "'}",
+        data: "{'zonaJSON': '" + JSON.stringify(datos) + ",'usuarioId':'"+usuarioId+"''}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {

@@ -12,12 +12,19 @@ namespace Entidades
     public class EstadisticaDisponibilidadDto
     {
         //% ocupacion
-        public double Ocupacion { get; set; }
+        public int Cantidad { get; set; }
+        public int Ano { get; set; }
+        public int Mes { get; set; }
+        public string Tiempo { get; set; }
         public int PlayaId { get; set; }
+        public string PlayaNombre { get; set; }
         public int ZonaId { get; set; }
+        public string ZonaNombre { get; set; }
         public int TipoPlayaId { get; set; }
+        public string TipoPlayaNombre { get; set; }
         public int TipoVehiculoId { get; set; }
-        //posicion de la playa
+        public string TipoVehiculoNombre { get; set; }
+        //posicion de la playa o centro de la zona
         [JsonConverter(typeof(DbGeographyConverter))]
         public DbGeography Posicion { get; set; }
     }
