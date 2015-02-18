@@ -1,4 +1,5 @@
-﻿<%@ Page Title="Geoparking - Administración Roles y Permisos" Language="C#" MasterPageFile="~/MasterAdmin.Master" AutoEventWireup="true" CodeBehind="AdministracionRolesyPermisos.aspx.cs" Inherits="Web2.AdministracionRolesyPermisos" %>
+﻿<%@ Page Title="Geoparking - Administración Roles y Permisos" Language="C#" MasterPageFile="~/MasterAdmin.Master"
+    AutoEventWireup="true" CodeBehind="AdministracionRolesyPermisos.aspx.cs" Inherits="Web2.AdministracionRolesyPermisos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -13,29 +14,34 @@
         <div class="panel-body">
             <div class="container-fluid">
                 <div class="col-md-4 col-md-offset-4" id="divCrearRol" runat="server">
-                    <div class="page-header">
-                        <h3 style="text-align: center;"><span class="glyphicon glyphicon-plus"></span> Crear Rol</h3>
-                    </div>
+
                     <div class="form-group" id="valNombreRol">
                         <!--ABM Rol -->
+                         <div class="page-header">
+                        <h3 style="text-align: center;"><i class="fa fa-user"></i>&nbsp;Crear Rol</h3>
+                    </div>
                         <label id="lbltxtNombreRol" for="txtNombreRol" class="control-label">Nombre</label>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-align-justify"></i></span>
-                            <input id="txtNombreRol" tabindex="1" placeholder="Nombre del Rol" name="txtNombreRol" class="form-control input-lg" oninput="javascript: CampoRequeridoNombre();" />
-                            <i id="icontxtNombreRol" style="display: none" class="form-control-feedback" data-bv-icon-for="txtNombreRol"></i>
-                        </div>
-                        <small id="smalltxtNombreRol" class="help-block" style="display: none;" data-bv-validator="notEmpty" data-bv-icon-for="txtNombreRol" data-bv-result="INVALID">
+
+                        <input id="txtNombreRol" tabindex="1" placeholder="Nombre del Rol" name="txtNombreRol"
+                            class="form-control input-lg" oninput="javascript: CampoRequeridoNombre();" />
+                        <i id="icontxtNombreRol" style="display: none" class="form-control-feedback" data-bv-icon-for="txtNombreRol">
+                        </i>
+
+                        <small id="smalltxtNombreRol" class="help-block" style="display: none;" data-bv-validator="notEmpty"
+                            data-bv-icon-for="txtNombreRol" data-bv-result="INVALID">
                             <label id="errortxtNombreRol"></label>
                         </small>
                     </div>
                     <div class="form-group" id="valDescripcionRol">
                         <label id="lbltxtDescripcionRol" for="txtDescripcion" class="control-label">Descripción</label>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-info"></i></span>
-                            <textarea id="txtDescripcionRol" placeholder="Descripcion del Rol" tabindex="2" name="txtDescripcionRol" class="form-control input-lg" oninput="javascript: CampoRequeridoDescripcion();"></textarea>
-                            <i id="icontxtDescripcionRol" style="display: none" class="form-control-feedback" data-bv-icon-for="txtDescripcionRol"></i>
-                        </div>
-                        <small id="smalltxtDescripcionRol" class="help-block" style="display: none;" data-bv-validator="notEmpty" data-bv-icon-for="txtDescripcionRol" data-bv-result="INVALID">
+
+                        <textarea id="txtDescripcionRol" placeholder="Descripcion del Rol" tabindex="2" name="txtDescripcionRol"
+                            class="form-control input-lg" oninput="javascript: CampoRequeridoDescripcion();"></textarea>
+                        <i id="icontxtDescripcionRol" style="display: none" class="form-control-feedback"
+                            data-bv-icon-for="txtDescripcionRol"></i>
+
+                        <small id="smalltxtDescripcionRol" class="help-block" style="display: none;" data-bv-validator="notEmpty"
+                            data-bv-icon-for="txtDescripcionRol" data-bv-result="INVALID">
                             <label id="errortxtDescripcionRol"></label>
                         </small>
                     </div>
@@ -44,7 +50,8 @@
 
                 <div class="col-md-4 col-md-offset-4" id="divAsignarPermiso" runat="server">
                     <div class="page-header">
-                        <h3 style="text-align: center;"><span class="glyphicon glyphicon-check"></span> Asignar Permisos a Rol</h3>
+                        <h3 style="text-align: center;"><span class="glyphicon glyphicon-check"></span>Asignar
+                            Permisos a Rol</h3>
                     </div>
                     <div class="form-group">
                         <label for="ddlRol" class="control-label">Rol</label>
@@ -67,32 +74,29 @@
 
                 <div class="col-md-4 col-md-offset-4" id="divAsignarRol" runat="server">
                     <div class="page-header">
-                        <h3 style="text-align: center;"><span class="glyphicon glyphicon-transfer"></span> Asignar Rol a Usuario</h3>
+                        <h3 style="text-align: center;"><span class="glyphicon glyphicon-transfer"></span>Asignar
+                            Rol a Usuario</h3>
                     </div>
                     <div class="form-group">
-                        <label for="ddlUsuario" class="control-label">Usuario</label>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-list-ul"></i></span>
-                            <asp:DropDownList ID="ddlUsuario" CssClass="form-control required" runat="server" />
-                        </div>
+                        <label for="ddlUsuario" class="control-label">Usuario</label>                      
+                            <asp:DropDownList ID="ddlUsuario" CssClass="input-lg form-control required" runat="server" />
+                        
                     </div>
                     <div class="form-group">
-                        <label for="ddlRol" class="control-label">Rol</label>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-list-ul"></i></span>
-                            <asp:DropDownList ID="ddlRol" CssClass="form-control required" runat="server" />
-                        </div>
+                        <label for="ddlRol" class="control-label">Rol</label>                        
+                            <asp:DropDownList ID="ddlRol" CssClass="form-control input-lg required" runat="server" />
+                       
                     </div>
                     <%--FIN Asignar Rol a Usuario--%>
-                </div>
 
-                <asp:Panel ID="panelBotones" class="col-md-12" runat="server">
-                    <div id="divBotones" class="form-group col-md-4 col-md-offset-4">
-                        <button type="button" class="btn btn-primary btn-md pull-left" id="btnGuardar">Guardar</button>
-                        <button type="button" class="btn btn-md pull-right" id="btnCancelar">Cancelar</button>
                     </div>
+                    <asp:Panel ID="panelBotones" class="col-md-4 col-md-offset-4" runat="server">
+                        <div id="divBotones">
+                            <a class="btn btn-success btn-block btn-lg" id="btnGuardar"><i class="fa fa-plus"></i>&nbsp;Agregar</a>
+                        </div>
 
-                </asp:Panel>
+                    </asp:Panel>
+                
             </div>
         </div>
     </div>

@@ -280,10 +280,10 @@
                 <div class="form-group">
                         <input id="txtBuscarCiudadPlayas" class="form-control input-lg autocompleteCiudad"
                             runat="server"
-                            placeholder="Ingrese la ciudad" />                        
+                            placeholder="Ingrese la ciudad" onchange="habilitarBotonBuscar()"/>                        
                 </div>
                     <div class="form-group">
-                        <a class="btn-primary btn btn-lg" id="btnBuscarPlayas"
+                        <a class="disabled btn-primary btn btn-lg" id="btnBuscarPlayas"
                             ><i class="fa fa-search"></i>&nbsp;Buscar
                         </a>
                     </div>

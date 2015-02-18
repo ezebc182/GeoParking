@@ -99,6 +99,7 @@ function codeAddress() {
             map.setCenter(results[0].geometry.location);
             var marker = new google.maps.Marker({
                 map: map,
+                draggable:true,
                 position: results[0].geometry.location,
                 icon: './img/marcadorParking2.png'
             });

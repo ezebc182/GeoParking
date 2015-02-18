@@ -274,7 +274,7 @@ function configurarNuevaZona() {
     $('#btnGuardarZona').show();
     $('#btnCancelar').show();
     $('#txtNombreZona').prop('disabled', false);
-
+    $('#txtNombreZona').removeClass('hidden');
     clearSelection();
     ocultarZonas();
 
@@ -329,6 +329,7 @@ function configurarCancelarZona() {
     $('#btnEliminarZona').hide();
     $('#btnCancelar').hide();
     $('#txtNombreZona').prop('disabled', true);
+    $('#txtNombreZona').addClass("hidden");
 
     clearSelection();
     ocultarZonas();
