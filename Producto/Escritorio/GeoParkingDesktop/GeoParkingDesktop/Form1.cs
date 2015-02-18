@@ -19,6 +19,7 @@ namespace GeoParkingDesktop
         int tipoVehiculo;//tipo de vehiculo a actualizar la disponibilidad         
 
         string token = "Ap55nX2iSXnQAh35Kofj6w==";
+        int id = 0;
 
         public Form1()
         {            
@@ -1745,18 +1746,19 @@ namespace GeoParkingDesktop
         /// <param name="e"></param>
         private void coonectarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form2 testDialog = new Form2();
+            //Form2 testDialog = new Form2();
 
-            // Show testDialog as a modal dialog and determine if DialogResult = OK.
-            if (testDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                configurarSistema(int.Parse(testDialog.txtIdPlaya.Text));
-            }
-            else
-            {
-                //MessageBox.Show("Error");
-            }
-            testDialog.Dispose();
+            //// Show testDialog as a modal dialog and determine if DialogResult = OK.
+            //if (testDialog.ShowDialog(this) == DialogResult.OK)
+            //{
+                //configurarSistema(int.Parse(testDialog.txtIdPlaya.Text));
+            configurarSistema(id);
+            //}
+            //else
+            //{
+            //    //MessageBox.Show("Error");
+            //}
+            //testDialog.Dispose();
         }
 
         /// <summary>
