@@ -131,9 +131,9 @@
 
                             <asp:TextBox ID="txtCiudad" TabIndex="11" Style="margin-bottom: 15px; margin-right: 10px" placeholder="Ciudad, Pais" Width="185px" CssClass="form-control autocompleteCiudad input-lg"
                                 runat="server" oninput="javascript: validar();"></asp:TextBox>
-                            <asp:TextBox ID="txtDireccion" TabIndex="12" Style="margin-bottom: 15px; margin-left: 10px; margin-right: 10px" placeholder="Direccion" Width="220px" CssClass="form-control autocompleteCiudad input-lg"
+                            <asp:TextBox ID="txtDireccion" TabIndex="12" Style="margin-bottom: 15px; margin-left: 10px; margin-right: 10px" placeholder="Direccion" Width="220px" CssClass="form-control input-lg"
                                 runat="server" oninput="javascript: validar();"></asp:TextBox>
-                            <asp:TextBox ID="txtNumero" TabIndex="13" Style="margin-bottom: 15px; margin-left: 10px; margin-right: 10px" placeholder="Numero" Width="98px" CssClass="form-control autocompleteCiudad input-lg"
+                            <asp:TextBox ID="txtNumero" TabIndex="13" Style="margin-bottom: 15px; margin-left: 10px; margin-right: 10px" placeholder="Numero" Width="98px" CssClass="form-control input-lg"
                                 runat="server" oninput="javascript: validar();"></asp:TextBox>
                         </div>
                         <small id="smalltxtDireccion" class="help-block" style="display: none;" data-bv-validator="notEmpty" data-bv-icon-for="ctl00$Main$txtPlaya" data-bv-result="INVALID">
