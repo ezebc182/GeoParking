@@ -58,7 +58,8 @@ function limpiarRepetirContraseñaNueva() {
 }
 
 function ValidarRegistro() {
-    var val1 = ValidarEmailUsuario();
+    var val1 = ValidarEmailUsuario($('[id=Main_txtEmailEditar]').val());
+    val1 = false;
     var val2 = validarCampoVacio($('[id=valNombreEditar]').attr("id"), $('[id=Main_txtNombreEditar]').attr("id"));
     var val3 = validarCampoVacio($('[id=valApellidoEditar]').attr("id"), $('[id=Main_txtApellidoEditar]').attr("id"));
     var val4 = validarCampoVacio($('[id=valFechaEditar]').attr("id"), $('[id=Main_txtfechaNacimiento]').attr("id"));
@@ -66,7 +67,8 @@ function ValidarRegistro() {
     var val6 = validarCampoVacio($('[id=valDireccionEditar]').attr("id"), $('[id=Main_txtDireccion]').attr("id"));
     var val7 = false;
     if ($('[id=Main_txtUsuario]').attr("disabled") != "disabled") {
-        val7 = ValidarNombreUsuario();
+        val7 = ValidarNombreUsuario($('[id=Main_txtUsuario]').val());
+        val7 = false;
     }
     if ($('[id=Main_hfNuevo]').val() == "true") {
         var val8 = validarCampoVacioYLongitud($('[id=valContraseñaNueva]').attr("id"), $('[id=Main_txtContraseñaNueva]').attr("id"), 6);
@@ -79,11 +81,11 @@ function ValidarRegistro() {
     }
 }
 
-function ValidarNombreUsuario() {
+function ValidarNombreUsuario(nombre) {
     $.ajax({
         type: "POST",
         url: "DatosDeRegistro.aspx/ValidarNombreUsuario",
-        data: "{'nombre': '" + $('[id=Main_txtUsuario]').val() + "'}",
+        data: "{'nombre': '" + nombre + "'}",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         async: true,
@@ -94,7 +96,7 @@ function ValidarNombreUsuario() {
             var icon = $('[id= iconMain_txtUsuario]');
             var small = $('[id= smallMain_txtUsuario]');
             var error = $('[id= errorMain_txtUsuario]');
-            if (resultado == true) {
+            if (resultado != true) {
                 formDiv.attr("class", "form-group has-feedback has-error");
                 icon.attr("style", "display:block");
                 icon.attr("class", "form-control-feedback glyphicon glyphicon-remove");
@@ -126,11 +128,11 @@ function ValidarNombreUsuario() {
     });
 };
 
-function ValidarEmailUsuario() {
+function ValidarEmailUsuario(mail) {
     $.ajax({
         type: "POST",
         url: "DatosDeRegistro.aspx/ValidarEmailUsuario",
-        data: "{'email': '" + $('[id=Main_txtEmailEditar]').val() + "'}",
+        data: "{'email': '" + mail+ "'}",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         async: true,
@@ -142,7 +144,7 @@ function ValidarEmailUsuario() {
             var small = $('[id= smallMain_txtEmailEditar]');
             var error = $('[id= errorMain_txtEmailEditar]');
             var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
-            if (resultado == true) {
+            if (resultado != true) {
                 formDiv.attr("class", "form-group has-feedback has-error");
                 icon.attr("style", "display:block");
                 icon.attr("class", "form-control-feedback glyphicon glyphicon-remove");

@@ -111,7 +111,7 @@ namespace Web2
         public static bool ValidarNombreUsuario(string nombre)
         {
             Usuario usuario = gestor.BuscarPorNombreDeUsuario(nombre);
-            if (usuario != null)
+            if (usuario == null)
             {
                 return true;
             }
@@ -125,7 +125,7 @@ namespace Web2
         public static bool ValidarEmailUsuario(string email)
         {
             Usuario usuario = gestor.BuscarUsuarioByNombreOEmail(email);
-            if (usuario != null)
+            if (usuario == null)
             {
                 return true;
             }
