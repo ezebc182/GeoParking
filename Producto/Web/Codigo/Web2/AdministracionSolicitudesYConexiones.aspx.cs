@@ -179,7 +179,15 @@ namespace Web2
             var resultado = gestorSolicitud.RegistrarNuevaSolicitud(NuevaSolicitud);
             if (resultado == true)
             {
-                gestorMandarEmail.EnviarEmail("La solicitud se generó correctamente, luego de completar el formulario envie la informacion a geoparking", SessionUsuario.Mail, "Creacion de Solicitud de Conexion en Geoparking");
+                string mensaje = "La solicitud se generó correctamente. Para avanzar en el proceso, toda la información solicitada debe ser enviada a GeoParking";
+                mensaje += "\n\nINFORMACIÓN DE LA PLAYA";
+                mensaje += "\n-Nombre\n-Tipo Playa\n-Teléfono\n-Email\n-Horario\n-Dirección (ciudad, calle, número)";
+                mensaje += "\n-Vehículos Permitidos (tipo de vehíuclo - capacidad)\n-Precios (por hora, por 6hs, por 12 hs, etc)";
+                mensaje += "\n\nINFORMACIÓN LEGAL";
+                mensaje += "\n-Además de la información de la playa, el responsable debe presentar la documentación legal pertinente, que respalde la actividad ";
+                mensaje += "económica llevada a cabo por la playa de estacionamiento";
+
+                gestorMandarEmail.EnviarEmail(mensaje, SessionUsuario.Mail, "Creacion de Solicitud de Conexion en Geoparking");
                 gvSolicitudes.DataSource = GetMisSolicitudes(SessionUsuario.Mail);
                 gvSolicitudes.DataBind();
             }
