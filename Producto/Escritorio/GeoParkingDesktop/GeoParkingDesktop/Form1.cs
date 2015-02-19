@@ -18,8 +18,8 @@ namespace GeoParkingDesktop
 
         int tipoVehiculo;//tipo de vehiculo a actualizar la disponibilidad         
 
-        string token = "q2/8QXJfits=";
-        int id = 8;
+        string token = "rZgLGEYlkiTQAh35Kofj6w==";
+        int id = 1010;
 
         public Form1()
         {            
@@ -48,7 +48,7 @@ namespace GeoParkingDesktop
 
             
             string sURL;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Playas/Get/" + id;
+            sURL = "http://localhost:21305/api/Playas/Get/" + id;
 
             //strinfg con los datos de la playa
             string JsonPlaya = consultaApi(sURL);                  
@@ -201,7 +201,7 @@ namespace GeoParkingDesktop
         private int recuperarDisponibilidad(int idPlaya, int idTipoVehiculo)
         {
             string sURL;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Disponibilidad/GetDisponibilidadPlayaPorTipoVehiculo?idPlaya=" + idPlaya + "&idTipoVehiculo=" + idTipoVehiculo;
+            sURL = "http://localhost:21305/api/Disponibilidad/GetDisponibilidadPlayaPorTipoVehiculo?idPlaya=" + idPlaya + "&idTipoVehiculo=" + idTipoVehiculo;
 
             try
             {
@@ -478,14 +478,14 @@ namespace GeoParkingDesktop
             //aca utilizo el acceso a la appi
             
             string sURL,postData;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Disponibilidad/PostActualizarDisponibilidad";
+            sURL = "http://localhost:21305/api/Disponibilidad/PostActualizarDisponibilidad";
             postData = "IdPlaya=" + playa.id;
             postData += ("&IdTipoVehiculo=" + tipoVehiculo);
             postData += ("&IdEvento=" + evento);
 
-            string [] fecha = fechaHora.ToString().Split('/');
-            string fechaServidor = fecha[1] + "/" + fecha[0] + "/" + fecha[2].Substring(0,4);
-            postData += ("&Fecha=" + fechaServidor);
+            //string [] fecha = fechaHora.ToString().Split('/');
+            //string fechaServidor = fecha[1] + "/" + fecha[0] + "/" + fecha[2].Substring(0,4);
+            postData += ("&Fecha=" + fechaHora.ToString());
             postData += ("&Token=" + token);
 
             try
@@ -929,7 +929,7 @@ namespace GeoParkingDesktop
             playa.email = emaiPlaya;
 
             string sURL, postData;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Playas/PostActualizarNombreEmailPlaya";
+            sURL = "http://localhost:21305/api/Playas/PostActualizarNombreEmailPlaya";
             postData = "IdPlaya=" + playa.id;
             postData += ("&Nombre=" + nombrePlaya);
             postData += ("&Mail=" + emaiPlaya);
@@ -969,7 +969,7 @@ namespace GeoParkingDesktop
             playa.horaHasta = horaHasta;            
 
             string sURL, postData;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Playas/PostActualizarHorarioPlaya";
+            sURL = "http://localhost:21305/api/Playas/PostActualizarHorarioPlaya";
             postData = "IdPlaya=" + playa.id;
             postData += ("&DiaAtencionId=" + diaAtencion);
             postData += ("&HoraDesde=" + horaDesde);
@@ -1005,7 +1005,7 @@ namespace GeoParkingDesktop
             playa.tipoPlaya = tipoPlaya;
 
             string sURL, postData;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Playas/PostActualizarTipoPlaya";
+            sURL = "http://localhost:21305/api/Playas/PostActualizarTipoPlaya";
             postData = "IdPlaya=" + playa.id;
             postData += ("&TipoPlayaId=" + tipoPlaya);
             postData += ("&Token=" + token);
@@ -1139,7 +1139,7 @@ namespace GeoParkingDesktop
         public void registracionDeServicio(int idTipoVehiculo, string x1, string x6, string x12, string x24, string abono)
         {
             string sURL, postData;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Servicios/PostRegistrarServicio";
+            sURL = "http://localhost:21305/api/Servicios/PostRegistrarServicio";
 
             postData = "IdPlaya=" + playa.id;
             postData += ("&IdTipoVehiculo=" + idTipoVehiculo);
@@ -1187,7 +1187,7 @@ namespace GeoParkingDesktop
         public void cancelacionDeServicio(int idTipoVehiculo)
         {
             string sURL, postData;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Servicios/PostCancelarServicio";
+            sURL = "http://localhost:21305/api/Servicios/PostCancelarServicio";
             postData = "IdPlaya=" + playa.id;
             postData += ("&IdTipoVehiculo=" + idTipoVehiculo);
 
@@ -1557,7 +1557,7 @@ namespace GeoParkingDesktop
         public void actualizarPrecio(int idTipoVehiculo, double precio, int idTiempo)
         {            
             string sURL, postData;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/precios/PostActualizarPrecio";
+            sURL = "http://localhost:21305/api/precios/PostActualizarPrecio";
             postData = "IdPlaya=" + playa.id;
             postData += ("&IdTiempo=" + idTiempo);
             postData += ("&IdTipoVehiculo=" + idTipoVehiculo);
@@ -1587,7 +1587,7 @@ namespace GeoParkingDesktop
         public void registrarPrecio(int idTipoVehiculo, double precio, int idTiempo)
         {
             string sURL, postData;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/precios/PostRegistrarPrecio";
+            sURL = "http://localhost:21305/api/precios/PostRegistrarPrecio";
             postData = "IdPlaya=" + playa.id;
             postData += ("&IdTiempo=" + idTiempo);
             postData += ("&IdTipoVehiculo=" + idTipoVehiculo);
@@ -1815,15 +1815,15 @@ namespace GeoParkingDesktop
         public bool actualizarDisponibilidadGeneral(int idPlaya, int idTipoVehiculo, int disponibilidad, int evento, DateTime fecha)
         {
             string sURL, postData;
-            sURL = "http://ifrigerio-001-site1.smarterasp.net/api/Disponibilidad/PostActualizarDisponibilidadGeneral";
+            sURL = "http://localhost:21305/api/Disponibilidad/PostActualizarDisponibilidadGeneral";
             postData = "IdPlaya=" + playa.id;
             postData += ("&IdTipoVehiculo=" + idTipoVehiculo);
             postData += ("&Disponibilidad=" + disponibilidad);
             postData += ("&IdEvento=" + evento);
 
-            string[] fechas = fecha.ToString().Split('/');
-            string fechaServidor = fechas[1] + "/" + fechas[0] + "/" + fechas[2].Substring(0, 4);
-            postData += ("&Fecha=" + fechaServidor);
+            //string[] fechas = fecha.ToString().Split('/');
+            //string fechaServidor = fechas[1] + "/" + fechas[0] + "/" + fechas[2].Substring(0, 4);
+            postData += ("&Fecha=" + fecha.ToString());
             postData += ("&Token=" + token);
 
             try
