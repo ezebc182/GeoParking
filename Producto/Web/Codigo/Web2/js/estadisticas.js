@@ -401,12 +401,14 @@ function estadistica(divId, datos) {
 
             var ykeysJSON = '[';
             var labelsJSON = '[';
-            var dataJSON = '[{';
+            var dataJSON = '[';
             $.each(valores, function (i, fecha) {
-                dataJSON += '"l":"' + i + '", ';
+                dataJSON += '{"l":"' + i + '", ';
                 $.each(fecha, function (j, item) {
                     dataJSON += '"' + j + '": "' + item + '", ';
                 })
+                dataJSON = dataJSON.slice(0, -2);
+                dataJSON += '}, ';
             })
 
             $.each(etiquetas, function (i, item) {
@@ -424,7 +426,7 @@ function estadistica(divId, datos) {
             if (dataJSON.length > 2) {
                 dataJSON = dataJSON.slice(0, -2);
             }
-            dataJSON += '}]';
+            dataJSON += ']';
             ykeys = JSON.parse(ykeysJSON);
             labels = JSON.parse(labelsJSON);
             datosFormateados = JSON.parse(dataJSON);
@@ -432,9 +434,9 @@ function estadistica(divId, datos) {
             function agruparPorPlayaMes() {
                 $.each(me.datosFiltrados, function (i, item) {
                     if (etiquetas[item.PlayaId] == undefined) { etiquetas[item.PlayaId] = item.PlayaNombre; }
-                    if (valores[item.Mes + '/' + item.Ano] == undefined) { valores[item.Mes + '/' + item.Ano] = new Object(); }
-                    if (valores[item.Mes + '/' + item.Ano][item.PlayaId] == undefined) { valores[item.Mes + '/' + item.Ano][item.PlayaId] = item.Cantidad; }
-                    else { valores[item.Mes + '/' + item.Ano][item.PlayaId] += item.Cantidad; }
+                    if (valores[item.Ano + '-' + item.Mes] == undefined) { valores[item.Ano + '-' + item.Mes] = new Object(); }
+                    if (valores[item.Ano + '-' + item.Mes][item.PlayaId] == undefined) { valores[item.Ano + '-' + item.Mes][item.PlayaId] = item.Cantidad; }
+                    else { valores[item.Ano + '-' + item.Mes][item.PlayaId] += item.Cantidad; }
                 })
 
             };
@@ -452,9 +454,9 @@ function estadistica(divId, datos) {
 
                 $.each(me.datosFiltrados, function (i, item) {
                     if (etiquetas[item.TipoPlayaId] == undefined) { etiquetas[item.TipoPlayaId] = item.TipoPlayaNombre; }
-                    if (valores[item.Mes + '/' + item.Ano] == undefined) { valores[item.Mes + '/' + item.Ano] = new Object(); }
-                    if (valores[item.Mes + '/' + item.Ano][item.TipoPlayaId] == undefined) { valores[item.Mes + '/' + item.Ano][item.TipoPlayaId] = item.Cantidad; }
-                    else { valores[item.Mes + '/' + item.Ano][item.TipoPlayaId] += item.Cantidad; }
+                    if (valores[item.Ano + '-' + item.Mes] == undefined) { valores[item.Ano + '-' + item.Mes] = new Object(); }
+                    if (valores[item.Ano + '-' + item.Mes][item.TipoPlayaId] == undefined) { valores[item.Ano + '-' + item.Mes][item.TipoPlayaId] = item.Cantidad; }
+                    else { valores[item.Ano + '-' + item.Mes][item.TipoPlayaId] += item.Cantidad; }
                 })
 
             };
@@ -471,9 +473,9 @@ function estadistica(divId, datos) {
             function agruparPorTipoVehiculoMes() {
                 $.each(me.datosFiltrados, function (i, item) {
                     if (etiquetas[item.TipoVehiculoId] == undefined) { etiquetas[item.TipoVehiculoId] = item.TipoVehiculoNombre; }
-                    if (valores[item.Mes + '/' + item.Ano] == undefined) { valores[item.Mes + '/' + item.Ano] = new Object(); }
-                    if (valores[item.Mes + '/' + item.Ano][item.TipoVehiculoId] == undefined) { valores[item.Mes + '/' + item.Ano][item.TipoVehiculoId] = item.Cantidad; }
-                    else { valores[item.Mes + '/' + item.Ano][item.TipoVehiculoId] += item.Cantidad; }
+                    if (valores[item.Ano + '-' + item.Mes] == undefined) { valores[item.Ano + '-' + item.Mes] = new Object(); }
+                    if (valores[item.Ano + '-' + item.Mes][item.TipoVehiculoId] == undefined) { valores[item.Ano + '-' + item.Mes][item.TipoVehiculoId] = item.Cantidad; }
+                    else { valores[item.Ano + '-' + item.Mes][item.TipoVehiculoId] += item.Cantidad; }
                 })
             };
 
@@ -489,9 +491,9 @@ function estadistica(divId, datos) {
             function agruparPorZonaMes() {
                 $.each(me.datosFiltrados, function (i, item) {
                     if (etiquetas[item.ZonaId] == undefined) { etiquetas[item.ZonaId] = item.ZonaNombre; }
-                    if (valores[item.Mes + '/' + item.Ano] == undefined) { valores[item.Mes + '/' + item.Ano] = new Object(); }
-                    if (valores[item.Mes + '/' + item.Ano][item.ZonaId] == undefined) { valores[item.Mes + '/' + item.Ano][item.ZonaId] = item.Cantidad; }
-                    else { valores[item.Mes + '/' + item.Ano][item.ZonaId] += item.Cantidad; }
+                    if (valores[item.Ano + '-' + item.Mes] == undefined) { valores[item.Ano + '-' + item.Mes] = new Object(); }
+                    if (valores[item.Ano + '-' + item.Mes][item.ZonaId] == undefined) { valores[item.Ano + '-' + item.Mes][item.ZonaId] = item.Cantidad; }
+                    else { valores[item.Ano + '-' + item.Mes][item.ZonaId] += item.Cantidad; }
                 })
             };
 
@@ -511,10 +513,12 @@ function estadistica(divId, datos) {
     };
     this.initEstadisticaLinea = function () {
         var me = this;
+        var escala = $('#' + me.div).parent().find('#ddlEscala').val();
         var datosFormateados = new Object();
         var xkey = 'l';
         var ykeys;
         var labels;
+        var xLabels = escala == 1 ? "year" : escala == 2 ? "month" : "10sec";
         configurarDatos()
 
         $('#' + this.div).empty();
@@ -524,7 +528,7 @@ function estadistica(divId, datos) {
             xkey: xkey,
             ykeys: ykeys,
             labels: labels,
-            xLabels: "10sec",
+            xLabels: xLabels,
             hideHover: "true"
         });
 
@@ -626,9 +630,9 @@ function estadistica(divId, datos) {
             function agruparPorPlayaMes() {
                 $.each(me.datosFiltrados, function (i, item) {
                     if (etiquetas[item.PlayaId] == undefined) { etiquetas[item.PlayaId] = item.PlayaNombre; }
-                    if (valores[item.Mes + '/' + item.Ano] == undefined) { valores[item.Mes + '/' + item.Ano] = new Object(); }
-                    if (valores[item.Mes + '/' + item.Ano][item.PlayaId] == undefined) { valores[item.Mes + '/' + item.Ano][item.PlayaId] = item.Cantidad; }
-                    else { valores[item.Mes + '/' + item.Ano][item.PlayaId] += item.Cantidad; }
+                    if (valores[item.Ano + '-' + item.Mes] == undefined) { valores[item.Ano + '-' + item.Mes] = new Object(); }
+                    if (valores[item.Ano + '-' + item.Mes][item.PlayaId] == undefined) { valores[item.Ano + '-' + item.Mes][item.PlayaId] = item.Cantidad; }
+                    else { valores[item.Ano + '-' + item.Mes][item.PlayaId] += item.Cantidad; }
                 })
 
             };
@@ -669,9 +673,9 @@ function estadistica(divId, datos) {
 
                 $.each(me.datosFiltrados, function (i, item) {
                     if (etiquetas[item.TipoPlayaId] == undefined) { etiquetas[item.TipoPlayaId] = item.TipoPlayaNombre; }
-                    if (valores[item.Mes + '/' + item.Ano] == undefined) { valores[item.Mes + '/' + item.Ano] = new Object(); }
-                    if (valores[item.Mes + '/' + item.Ano][item.TipoPlayaId] == undefined) { valores[item.Mes + '/' + item.Ano][item.TipoPlayaId] = item.Cantidad; }
-                    else { valores[item.Mes + '/' + item.Ano][item.TipoPlayaId] += item.Cantidad; }
+                    if (valores[item.Ano + '-' + item.Mes] == undefined) { valores[item.Ano + '-' + item.Mes] = new Object(); }
+                    if (valores[item.Ano + '-' + item.Mes][item.TipoPlayaId] == undefined) { valores[item.Ano + '-' + item.Mes][item.TipoPlayaId] = item.Cantidad; }
+                    else { valores[item.Ano + '-' + item.Mes][item.TipoPlayaId] += item.Cantidad; }
                 })
 
             };
@@ -697,9 +701,9 @@ function estadistica(divId, datos) {
             function agruparPorTipoVehiculoMes() {
                 $.each(me.datosFiltrados, function (i, item) {
                     if (etiquetas[item.TipoVehiculoId] == undefined) { etiquetas[item.TipoVehiculoId] = item.TipoVehiculoNombre; }
-                    if (valores[item.Mes + '/' + item.Ano] == undefined) { valores[item.Mes + '/' + item.Ano] = new Object(); }
-                    if (valores[item.Mes + '/' + item.Ano][item.TipoVehiculoId] == undefined) { valores[item.Mes + '/' + item.Ano][item.TipoVehiculoId] = item.Cantidad; }
-                    else { valores[item.Mes + '/' + item.Ano][item.TipoVehiculoId] += item.Cantidad; }
+                    if (valores[item.Ano + '-' + item.Mes] == undefined) { valores[item.Ano + '-' + item.Mes] = new Object(); }
+                    if (valores[item.Ano + '-' + item.Mes][item.TipoVehiculoId] == undefined) { valores[item.Ano + '-' + item.Mes][item.TipoVehiculoId] = item.Cantidad; }
+                    else { valores[item.Ano + '-' + item.Mes][item.TipoVehiculoId] += item.Cantidad; }
                 })
             };
 
@@ -715,9 +719,9 @@ function estadistica(divId, datos) {
             function agruparPorZonaMes() {
                 $.each(me.datosFiltrados, function (i, item) {
                     if (etiquetas[item.ZonaId] == undefined) { etiquetas[item.ZonaId] = item.ZonaNombre; }
-                    if (valores[item.Mes + '/' + item.Ano] == undefined) { valores[item.Mes + '/' + item.Ano] = new Object(); }
-                    if (valores[item.Mes + '/' + item.Ano][item.ZonaId] == undefined) { valores[item.Mes + '/' + item.Ano][item.ZonaId] = item.Cantidad; }
-                    else { valores[item.Mes + '/' + item.Ano][item.ZonaId] += item.Cantidad; }
+                    if (valores[item.Ano + '-' + item.Mes] == undefined) { valores[item.Ano + '-' + item.Mes] = new Object(); }
+                    if (valores[item.Ano + '-' + item.Mes][item.ZonaId] == undefined) { valores[item.Ano + '-' + item.Mes][item.ZonaId] = item.Cantidad; }
+                    else { valores[item.Ano + '-' + item.Mes][item.ZonaId] += item.Cantidad; }
                 })
             };
 
@@ -798,7 +802,7 @@ function estadistica(divId, datos) {
             var labelsJSON = '[';
             var dataJSON = '[';
             $.each(valores, function (i, fecha) {
-                dataJSON += '"l":"' + i + '", ';
+                dataJSON += '{"l":"' + i + '", ';
                 $.each(fecha, function (j, item) {
                     dataJSON += '"' + j + '": "' + item + '", ';
                 })
@@ -829,9 +833,9 @@ function estadistica(divId, datos) {
             function agruparPorPlayaMes() {
                 $.each(me.datosFiltrados, function (i, item) {
                     if (etiquetas[item.PlayaId] == undefined) { etiquetas[item.PlayaId] = item.PlayaNombre; }
-                    if (valores[item.Mes + '/' + item.Ano] == undefined) { valores[item.Mes + '/' + item.Ano] = new Object(); }
-                    if (valores[item.Mes + '/' + item.Ano][item.PlayaId] == undefined) { valores[item.Mes + '/' + item.Ano][item.PlayaId] = item.Cantidad; }
-                    else { valores[item.Mes + '/' + item.Ano][item.PlayaId] += item.Cantidad; }
+                    if (valores[item.Ano + '-' + item.Mes] == undefined) { valores[item.Ano + '-' + item.Mes] = new Object(); }
+                    if (valores[item.Ano + '-' + item.Mes][item.PlayaId] == undefined) { valores[item.Ano + '-' + item.Mes][item.PlayaId] = item.Cantidad; }
+                    else { valores[item.Ano + '-' + item.Mes][item.PlayaId] += item.Cantidad; }
                 })
 
             };
@@ -849,9 +853,9 @@ function estadistica(divId, datos) {
 
                 $.each(me.datosFiltrados, function (i, item) {
                     if (etiquetas[item.TipoPlayaId] == undefined) { etiquetas[item.TipoPlayaId] = item.TipoPlayaNombre; }
-                    if (valores[item.Mes + '/' + item.Ano] == undefined) { valores[item.Mes + '/' + item.Ano] = new Object(); }
-                    if (valores[item.Mes + '/' + item.Ano][item.TipoPlayaId] == undefined) { valores[item.Mes + '/' + item.Ano][item.TipoPlayaId] = item.Cantidad; }
-                    else { valores[item.Mes + '/' + item.Ano][item.TipoPlayaId] += item.Cantidad; }
+                    if (valores[item.Ano + '-' + item.Mes] == undefined) { valores[item.Ano + '-' + item.Mes] = new Object(); }
+                    if (valores[item.Ano + '-' + item.Mes][item.TipoPlayaId] == undefined) { valores[item.Ano + '-' + item.Mes][item.TipoPlayaId] = item.Cantidad; }
+                    else { valores[item.Ano + '-' + item.Mes][item.TipoPlayaId] += item.Cantidad; }
                 })
 
             };
@@ -868,9 +872,9 @@ function estadistica(divId, datos) {
             function agruparPorTipoVehiculoMes() {
                 $.each(me.datosFiltrados, function (i, item) {
                     if (etiquetas[item.TipoVehiculoId] == undefined) { etiquetas[item.TipoVehiculoId] = item.TipoVehiculoNombre; }
-                    if (valores[item.Mes + '/' + item.Ano] == undefined) { valores[item.Mes + '/' + item.Ano] = new Object(); }
-                    if (valores[item.Mes + '/' + item.Ano][item.TipoVehiculoId] == undefined) { valores[item.Mes + '/' + item.Ano][item.TipoVehiculoId] = item.Cantidad; }
-                    else { valores[item.Mes + '/' + item.Ano][item.TipoVehiculoId] += item.Cantidad; }
+                    if (valores[item.Ano + '-' + item.Mes] == undefined) { valores[item.Ano + '-' + item.Mes] = new Object(); }
+                    if (valores[item.Ano + '-' + item.Mes][item.TipoVehiculoId] == undefined) { valores[item.Ano + '-' + item.Mes][item.TipoVehiculoId] = item.Cantidad; }
+                    else { valores[item.Ano + '-' + item.Mes][item.TipoVehiculoId] += item.Cantidad; }
                 })
             };
 
@@ -886,9 +890,9 @@ function estadistica(divId, datos) {
             function agruparPorZonaMes() {
                 $.each(me.datosFiltrados, function (i, item) {
                     if (etiquetas[item.ZonaId] == undefined) { etiquetas[item.ZonaId] = item.ZonaNombre; }
-                    if (valores[item.Mes + '/' + item.Ano] == undefined) { valores[item.Mes + '/' + item.Ano] = new Object(); }
-                    if (valores[item.Mes + '/' + item.Ano][item.ZonaId] == undefined) { valores[item.Mes + '/' + item.Ano][item.ZonaId] = item.Cantidad; }
-                    else { valores[item.Mes + '/' + item.Ano][item.ZonaId] += item.Cantidad; }
+                    if (valores[item.Ano + '-' + item.Mes] == undefined) { valores[item.Ano + '-' + item.Mes] = new Object(); }
+                    if (valores[item.Ano + '-' + item.Mes][item.ZonaId] == undefined) { valores[item.Ano + '-' + item.Mes][item.ZonaId] = item.Cantidad; }
+                    else { valores[item.Ano + '-' + item.Mes][item.ZonaId] += item.Cantidad; }
                 })
             };
 
