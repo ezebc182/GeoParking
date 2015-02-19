@@ -73,7 +73,7 @@ namespace Datos
                         Posicion = System.Data.Entity.Spatial.DbGeography.PointFromText(text, srid),
                         Ano = buscarPor != 3 ? reader.GetInt32(9) : 0,
                         Mes = buscarPor != 3 ? reader.GetInt32(10) : 0,
-                        Tiempo = buscarPor == 1?  reader.GetTimeSpan(11).ToString() : buscarPor == 2?  reader.GetTimeSpan(13).ToString() : reader.GetString(9)
+                        Tiempo = buscarPor == 1?  reader.GetString(11) : buscarPor == 2?  reader.GetString(13).ToString() : reader.GetString(9)
                     });
                 }
             }

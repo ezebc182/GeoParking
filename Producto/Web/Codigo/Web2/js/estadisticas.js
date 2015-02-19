@@ -1,4 +1,4 @@
-﻿var publicado = 0;// Cambiar a 1 para publicado, 0 para local!!
+﻿var publicado = 1;// Cambiar a 1 para publicado, 0 para local!!
 
 var tiposVehiculos = new Array();
 var tiposPlayas = new Array();
@@ -621,7 +621,7 @@ function estadistica(divId, datos) {
             dataJSON += ']';
             ykeys = JSON.parse(ykeysJSON);
             labels = JSON.parse(labelsJSON);
-            datosFormateados = JSON.parse(dataJSON);
+            datosFormateados = escala != 3 ? JSON.parse(dataJSON) : JSON.parse(dataJSON).slice(-6);
 
             function agruparPorPlayaMes() {
                 $.each(me.datosFiltrados, function (i, item) {
