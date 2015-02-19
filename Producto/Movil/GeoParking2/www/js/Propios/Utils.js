@@ -7,6 +7,7 @@ function getLocalStorage() {
         return undefined;
     }
 }
+
 function distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) {
     var R = 6371; // km
     var phi1 = toRad(lat1);
@@ -355,25 +356,29 @@ function enviarEmail() {
         }
     });
 }
+/*Cancelar recorrido*/
+$("#btnCancelarRecorrido").on("click", function () {
+    directionsDisplay.setMap(null);
+});
 
-function enviarConsultaAEstadisticas(playa){
+function enviarConsultaAEstadisticas(playa) {
     var uri = obtenerURLServer() + "api/Estadisticas/PostGuardarConsulta";
     var datos = {
-        idPlaya : playa.Id,
-        idTipoVehiculo : parseInt(leerPropiedadTipoVehiculo()),
-        latitud : posicionActual.k,
-        longitud : posicionActual.D
+        idPlaya: playa.Id,
+        idTipoVehiculo: parseInt(leerPropiedadTipoVehiculo()),
+        latitud: posicionActual.k,
+        longitud: posicionActual.D
     };
     $.ajax({
         type: "POST",
         url: uri,
         dataType: "json",
         content: "application/json; charset=utf-8",
-        data : datos,
-        success : function() {
+        data: datos,
+        success: function () {
             console.log("Se guardo la consulta");
         },
-        error : function (jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
             console.log("No se guardo la consulta");
         }
     });

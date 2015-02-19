@@ -2,34 +2,35 @@
 <html lang="es">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <title>GeoParking</title>
-    <!-- FontAwesome  -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<title>GeoParking</title>
+	<!-- FontAwesome 
     <link rel="stylesheet" href="css/font-awesome.min.css" />
+ -->
+	<!-- jQueryMobileCSS - original without styling -->
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
 
-    <!-- jQueryMobileCSS - original without styling -->
-    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+	<!-- nativeDroid core CSS -->
+	<link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
 
-    <!-- nativeDroid core CSS -->
-    <link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
+	<!-- nativeDroid: Light/Dark -->
+	<link rel="stylesheet" href="css/jquerymobile.nativedroid.dark.css" id='jQMnDTheme' />
 
-    <!-- nativeDroid: Light/Dark -->
-    <link rel="stylesheet" href="css/jquerymobile.nativedroid.dark.css" id='jQMnDTheme' />
-
-    <!-- nativeDroid: Color Schemes -->
-    <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.blue.css" id='jQMnDColor' />
-    <!--<link href="css/jquery-ui.min.css" rel="stylesheet" />-->
-    <link href="css/index.css" rel="stylesheet" />
+	<!-- nativeDroid: Color Schemes -->
+	<link rel="stylesheet" href="css/jquerymobile.nativedroid.color.blue.css" id='jQMnDColor' />
+	<!--<link href="css/jquery-ui.min.css" rel="stylesheet" />-->
+	<link href="css/index.css" rel="stylesheet" />
+	<link href="css/font-awesome-4.3.0/css/font-awesome.min.css" />
 
 </head>
 
 <body>
-    <!-- **************************************************************
+	<!-- **************************************************************
 -------------------- |Página de inicio | --------------------
 **************************************************************-->
-    <!-- PASO 0 -->
-    <!--<div class="page" id="openAppPage" data-theme="b" class="ui-page ui-page-theme-b" data-url="one" style="height:100%;width:100%;padding:0 !important;">
+	<!-- PASO 0 -->
+	<!--<div class="page" id="openAppPage" data-theme="b" class="ui-page ui-page-theme-b" data-url="one" style="height:100%;width:100%;padding:0 !important;">
 
     <img src="img/parking.jpg" />
 
@@ -39,394 +40,396 @@
         </div>
     </div>
 </div>-->
-    <!-- PASO 1 -->
-    <div class="page" id="welcomePage" data-theme="b" class="ui-page ui-page-theme-b" data-url="welcomePage">
-        <div data-role="header" data-theme="b">
-            <h1>Bienvenido a GeoParking! </h1>
-        </div>
-        <div class="ui-content" data-role="content">
+	<!-- PASO 1 -->
+	<div class="page" id="welcomePage" data-theme="b" class="ui-page ui-page-theme-b" data-url="welcomePage">
+		<div data-role="header" data-theme="b">
+			<h1>Bienvenido a GeoParking! </h1>
+		</div>
+		<div class="ui-content" data-role="content">
 
-            <p style="text-align:justify;">Para comenzar, necesitamos que nos brindes algunos datos de configuración que serán utilizados en las búsquedas de playas.
-                <br>Por favor, indicanos el vehículo que utilizas.</p>
+			<p style="text-align:justify;">Para comenzar, necesitamos que nos brindes algunos datos de configuración que serán utilizados en las búsquedas de playas.
+				<br>Por favor, indicanos el vehículo que utilizas.</p>
 
-            <div class="ui-field-contain">
+			<div class="ui-field-contain">
 
-                <div class="ui-select">
-                    <select name="select-choice-1" onchange="goToStep2()" id="selectTipoVehiculosWelcome" data-native-menu="true">
-                        <option value="0">Seleccione</option>
+				<div class="ui-select">
+					<select name="select-choice-1" onchange="goToStep2()" id="selectTipoVehiculosWelcome" data-native-menu="true">
+						<option value="0">Seleccione</option>
 
-                    </select>
-                </div>
-                <br>
-                <i style="text-align:justify;">Puedes modificar este valor  accediendo al menú de ajustes  &nbsp;<i data-theme="a" class=" fa fa-ellipsis-v"></i>&nbsp; ubicado en la esquina superior derecha de la pantalla principal.</i>
-            </div>
+					</select>
+				</div>
+				<br>
+				<i style="text-align:justify;">Puedes modificar este valor  accediendo al menú de ajustes  &nbsp;<i data-theme="a" class=" fa fa-ellipsis-v"></i>&nbsp; ubicado en la esquina superior derecha de la pantalla principal.</i>
+			</div>
 
-            <a id="btnSiguiente" style="margin-top:4%;" href="#paso2" data-transition="slide" data-theme="b" class="ui-btn ui-state-disabled">Siguiente</a>
-        </div>
-
-
-    </div>
-
-    <!-- PASO 2 -->
-    <div hidden class="page" id="paso2" data-theme="b" class="ui-page ui-page-theme-b" data-url="paso2">
-        <div data-role="header" data-theme="b">
-            <h1>Uno más ...</h1>
-        </div>
-        <div class="ui-content" data-role="content" id="paso2">
-            <p style="text-align:justify;">¿Deseas habilitar el GPS de tu dispositivo? Esto mejorará la precisión de tu posición.</p>
-            <br>
-            <i style="text-align:justify;">Puedes modificar este valor  accediendo al menú de ajustes  &nbsp;<i data-theme="a" class=" fa fa-ellipsis-v"></i>&nbsp; ubicado en la esquina superior derecha de la pantalla principal.</i>
-            <div class="ui-field-contain">
-                <label for="checkbox-based-flipswitch">GPS:</label>
-                <input type="checkbox" id="checGPSkWelcome" data-role="flipswitch">
-            </div>
-            <div class="ui-field-contain">
-                <a id="btnAtras" data-theme="b" class="ui-btn" href="#welcomePage" data-transition="slide" data-direction="reverse">Volver</a>
-                <a id="btnEmpezarApp" href="#paso3" data-transition="slide" data-theme="b" class="ui-btn">Siguiente</a>
-            </div>
-        </div>
-    </div>
-    <!-- PASO 3-->
-    <div hidden class="page" id="paso3" data-theme="b" class="ui-page ui-page-theme-b" data-url="paso3">
-        <div data-role="header" data-theme="b">
-            <h1>Ya casi terminamos ...</h1>
-        </div>
-        <div class="ui-content" data-role="content" id="paso2">
-            <p style="text-align:justify;">Por último, indicanos el radio (distancia en metros) que prefieres que se realice la búsqueda.</p>
-            <br>
-            <i style="text-align:justify;">Puedes modificar este valor  accediendo al menú de ajustes  &nbsp;<i data-theme="a" class=" fa fa-ellipsis-v"></i>&nbsp; ubicado en la esquina superior derecha de la pantalla principal.</i>
-            <div class="ui-field-contain">
-                <label for="slider2b" id="slider2b-label">Radio de búsqueda:</label>
-                <input type="range" name="slider2" id="radioWelcome" value="1500" min="300" step="100" max="3000" data-highlight="true" class="ui-shadow-inset ui-body-inherit ui-corner-all ui-slider-input">
-            </div>
-            <div class="ui-field-contain">
-                <a id="btnAtras" data-theme="b" class="ui-btn" href="#paso2" data-transition="slide" data-direction="reverse">Volver</a>
-                <a id="btnEmpezarApp" href="#mainPage" data-transition="fade" data-theme="b" class="ui-btn" onclick="guardarDatos($('#selectTipoVehiculosWelcome'),$('#radioWelcome'),$('#checGPSkWelcome'))">Listo! ir a la aplicación</a>
-            </div>
-        </div>
-    </div>
+			<a id="btnSiguiente" style="margin-top:4%;" href="#paso2" data-transition="slide" data-theme="b" class="ui-btn ui-state-disabled">Siguiente</a>
+		</div>
 
 
+	</div>
+
+	<!-- PASO 2 -->
+	<div hidden class="page" id="paso2" data-theme="b" class="ui-page ui-page-theme-b" data-url="paso2">
+		<div data-role="header" data-theme="b">
+			<h1>Uno más ...</h1>
+		</div>
+		<div class="ui-content" data-role="content" id="paso2">
+			<p style="text-align:justify;">¿Deseas habilitar el GPS de tu dispositivo? Esto mejorará la precisión de tu posición.</p>
+			<br>
+			<i style="text-align:justify;">Puedes modificar este valor  accediendo al menú de ajustes  &nbsp;<i data-theme="a" class=" fa fa-ellipsis-v"></i>&nbsp; ubicado en la esquina superior derecha de la pantalla principal.</i>
+			<div class="ui-field-contain">
+				<label for="checkbox-based-flipswitch">GPS:</label>
+				<input type="checkbox" id="checGPSkWelcome" data-role="flipswitch">
+			</div>
+			<div class="ui-field-contain">
+				<a id="btnAtras" data-theme="b" class="ui-btn" href="#welcomePage" data-transition="slide" data-direction="reverse">Volver</a>
+				<a id="btnEmpezarApp" href="#paso3" data-transition="slide" data-theme="b" class="ui-btn">Siguiente</a>
+			</div>
+		</div>
+	</div>
+	<!-- PASO 3-->
+	<div hidden class="page" id="paso3" data-theme="b" class="ui-page ui-page-theme-b" data-url="paso3">
+		<div data-role="header" data-theme="b">
+			<h1>Ya casi terminamos ...</h1>
+		</div>
+		<div class="ui-content" data-role="content" id="paso2">
+			<p style="text-align:justify;">Por último, indicanos el radio (distancia en metros) que prefieres que se realice la búsqueda.</p>
+			<br>
+			<i style="text-align:justify;">Puedes modificar este valor  accediendo al menú de ajustes  &nbsp;<i data-theme="a" class=" fa fa-ellipsis-v"></i>&nbsp; ubicado en la esquina superior derecha de la pantalla principal.</i>
+			<div class="ui-field-contain">
+				<label for="slider2b" id="slider2b-label">Radio de búsqueda:</label>
+				<input type="range" name="slider2" id="radioWelcome" value="1500" min="300" step="100" max="3000" data-highlight="true" class="ui-shadow-inset ui-body-inherit ui-corner-all ui-slider-input">
+			</div>
+			<div class="ui-field-contain">
+				<a id="btnAtras" data-theme="b" class="ui-btn" href="#paso2" data-transition="slide" data-direction="reverse">Volver</a>
+				<a id="btnEmpezarApp" href="#mainPage" data-transition="fade" data-theme="b" class="ui-btn" onclick="guardarDatos($('#selectTipoVehiculosWelcome'),$('#radioWelcome'),$('#checGPSkWelcome'))">Listo! ir a la aplicación</a>
+			</div>
+		</div>
+	</div>
 
 
 
-    <!-- **************************************************************
+
+
+	<!-- **************************************************************
 -------------------- |Página principal | --------------------
 **************************************************************-->
-    <div data-role="page" data-theme='b' id="mainPage" class="ui-page">
-        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b' data-inline="true">
-            <a href="#pnlPrincipal" data-role='button' data-inline='true'><i class='lIcon fa fa-bars'></i></a>
-            <h1>GeoParking</h1>
-            <a class="ui-btn-right" href="#pnlBusqueda" data-inline="true" data-transition="none" id="abrirPanelBusqueda"><i class=" fa fa-search" onclick="limpiarBusqueda()"></i></a> 
-            <a class="ui-btn-right" href="#popupOpciones" data-rel="popup" data-inline="true" data-transition="none"><i class=" fa fa-ellipsis-v"></i></a>
+	<div data-role="page" data-theme='b' id="mainPage" class="ui-page">
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b' data-inline="true">
+			<a href="#pnlPrincipal" data-role='button' data-inline='true'><i class='lIcon fa fa-bars'></i></a>
+			<h1>GeoParking</h1>
+			<a class="ui-btn-right" href="#pnlBusqueda" data-inline="true" data-transition="none" id="abrirPanelBusqueda"><i class=" fa fa-search" onclick="limpiarBusqueda()"></i></a> 
+			<a class="ui-btn-right" href="#popupOpciones" data-rel="popup" data-inline="true" data-transition="none"><i class=" fa fa-ellipsis-v"></i></a>
 
 
-        </div>
-        <!--*******************************************************
+		</div>
+		<!--*******************************************************
             Panel listado de playas
             ***************************************************-->
-        <div id="panelListado"></div>
-        <!-- Este panel listado tengo que cambiar-->
+		<div id="panelListado"></div>
+		<!-- Este panel listado tengo que cambiar-->
 
-        <!--*******************************************************
+		<!--*******************************************************
                            Mapa
             ***************************************************-->
 
-        <div id="pnlMapa" class="fullscreen">
-            <div id="map-canvas" role="main" data-role="content" class=" fullscreen ui-content ">
-            </div>
-        </div>
+		<div id="pnlMapa" class="fullscreen">
+			<div id="map-canvas" role="main" data-role="content" class=" fullscreen ui-content ">
 
-        <!--*******************************************************
+			</div>
+			<a id="btnCancelarRecorrido" href="#"><i class=" fa fa-trash-o"></i></a>
+		</div>
+
+		<!--*******************************************************
             Panel derecho <Búsqueda de direcciones>
             ***************************************************-->
-        <div data-role="panel" id="pnlBusqueda" data-display="push" data-position="right" data-theme="b" style="height:100%;" class="ui-grid-solo">
+		<div data-role="panel" id="pnlBusqueda" data-display="push" data-position="right" data-theme="b" style="height:100%;" class="ui-grid-solo">
 
 
-            <form data-ajax="true">
+			<form data-ajax="true">
 
-                <div id="divBusqueda">
-                    <p>Podrá buscar playas cercanas a puntos de interés o direcciones que usted quiera.</p>
-                    <input id="txtBusqueda" placeholder="¿Qué quieres buscar?" data-clear-btn="true">
-                    <p id="parrafoDireccionBuscada"></p>
-                    <a id="btnMostrarBusquedaEnMapa" href="#" class="ui-btn">Mostrar en Mapa</a>
-                    <a id="btnVerListadoPuntoBuscado" href="#" class="ui-btn">Ver playas cercanas</a>
-                    <a id="btnBorrarBusqueda" href="#" class="ui-btn">Limpiar busqueda</a>
-                </div>
-            </form>
+				<div id="divBusqueda">
+					<p>Podrá buscar playas cercanas a puntos de interés o direcciones que usted quiera.</p>
+					<input id="txtBusqueda" placeholder="¿Qué quieres buscar?" data-clear-btn="true">
+					<p id="parrafoDireccionBuscada"></p>
+					<a id="btnMostrarBusquedaEnMapa" href="#" class="ui-btn">Mostrar en Mapa</a>
+					<a id="btnVerListadoPuntoBuscado" href="#" class="ui-btn">Ver playas cercanas</a>
+					<a id="btnBorrarBusqueda" href="#" class="ui-btn">Limpiar busqueda</a>
+				</div>
+			</form>
 
-        </div>
-        <!--*******************************************************
+		</div>
+		<!--*******************************************************
             Panel izquierdo <Listado historial, contacto, etc>
             ***************************************************-->
 
-        <div data-role="panel" data-display="push" id="pnlPrincipal" data-theme="b">
-            <ul data-role="listview" style="height:100%;">
-                <li data-icon="false" data-theme="b">
-                    <h1>GeoParking <small>Menú principal</small></h1>
-                </li>
+		<div data-role="panel" data-display="push" id="pnlPrincipal" data-theme="b">
+			<ul data-role="listview" style="height:100%;">
+				<li data-icon="false" data-theme="b">
+					<h1>GeoParking <small>Menú principal</small></h1>
+				</li>
 
-                <li data-theme='b' data-role="list-divider"><i class="fa fa-clock-o"></i><strong>Últimas playas consultadas</strong>
-                </li>
-                <div id="listadoHistorial"></div>
+				<li data-theme='b' data-role="list-divider"><i class="fa fa-clock-o"></i><strong>Últimas playas consultadas</strong>
+				</li>
+				<div id="listadoHistorial"></div>
 
-                <li data-theme='b' data-role="list-divider"><i class="fa fa-info"></i><strong>Información</strong>
-                </li>
-                <li data-icon="false">
-                    <a data-rel="close" href="" id="btnAbrirAyuda">
-                        <i class="fa fa-compass"></i>
-                        ¿Perdido? Ver tutorial
-                    </a>
-                </li>
-                <li data-icon="false" data-theme="b" data-role="list-divider"><i class="fa fa-envelope-o"></i><strong>Contacto</strong>
-                </li>
-                <li data-icon="false"><a href="#contactPage" data-rel="close" data-transition="none"><i class='fa fa-comments'></i>Escribinos</a>
-                </li>
-                <li data-icon="false">
-                    <a data-rel="close" href="http://ifrigerio-001-site3.smarterasp.net">
-                        <i class="fa fa-globe"></i>
-                        Sitio oficial
-                    </a>
-                </li>
-                <li data-icon="false">
-                    <a data-rel="close" href="https://facebook.com/geoparking">
-                        <i class="fa fa-facebook"></i>
-                        Hazte fan
+				<li data-theme='b' data-role="list-divider"><i class="fa fa-info"></i><strong>Información</strong>
+				</li>
+				<li data-icon="false">
+					<a data-rel="close" href="" id="btnAbrirAyuda">
+						<i class="fa fa-compass"></i>
+						¿Perdido? Ver tutorial
+					</a>
+				</li>
+				<li data-icon="false" data-theme="b" data-role="list-divider"><i class="fa fa-envelope-o"></i><strong>Contacto</strong>
+				</li>
+				<li data-icon="false"><a href="#contactPage" data-rel="close" data-transition="none"><i class='fa fa-comments'></i>Escribinos</a>
+				</li>
+				<li data-icon="false">
+					<a data-rel="close" href="http://ifrigerio-001-site3.smarterasp.net">
+						<i class="fa fa-globe"></i>
+						Sitio oficial
+					</a>
+				</li>
+				<li data-icon="false">
+					<a data-rel="close" href="https://facebook.com/geoparking">
+						<i class="fa fa-facebook"></i>
+						Hazte fan
 
-                    </a>
-                </li>
-                <li data-icon="false">
-                    <a data-rel="close" href="https://twitter.com/geoparking">
-                        <i class="fa fa-twitter"></i>
-                        Seguinos
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <!--*******************************************************
+					</a>
+				</li>
+				<li data-icon="false">
+					<a data-rel="close" href="https://twitter.com/geoparking">
+						<i class="fa fa-twitter"></i>
+						Seguinos
+					</a>
+				</li>
+			</ul>
+		</div>
+		<!--*******************************************************
                            Panel derecho <Trazado de ruta>
             ***************************************************-->
-        <div data-role="panel" id="pnlTrazadoRuta" data-display="push" data-position="right" data-theme="a">
-            <div class="hidden" data-theme="b" id="panel_ruta"></div>
-        </div>
+		<div data-role="panel" id="pnlTrazadoRuta" data-display="push" data-position="right" data-theme="a">
+			<div class="hidden" data-theme="b" id="panel_ruta"></div>
+		</div>
 
-        <!--*******************************************************
+		<!--*******************************************************
                             Popup / Dialogs
             ***************************************************-->
-        <div id="popupOpciones" data-role="popup" data-theme="b">
-            <ul data-role="listview" style="min-width:210px;" data-theme="b">
-                <li data-icon="false">
-                    <a href="#preferencesPage" data-transition="none"><i class="fa fa-cog"></i>Ajustes</a>
-                </li>
-            </ul>
-        </div>
+		<div id="popupOpciones" data-role="popup" data-theme="b">
+			<ul data-role="listview" style="min-width:210px;" data-theme="b">
+				<li data-icon="false">
+					<a href="#preferencesPage" data-transition="none"><i class="fa fa-cog"></i>Ajustes</a>
+				</li>
+			</ul>
+		</div>
 
-        <a id="linkAbrePopupBasico" href="#popupBasic" data-rel="popup" style="display: none;"></a>
+		<a id="linkAbrePopupBasico" href="#popupBasic" data-rel="popup" style="display: none;"></a>
 
-        <div data-role="popup" id="popupBasic">
-            <p id="parrafoPopupSimple"></p>
-        </div>
+		<div data-role="popup" id="popupBasic">
+			<p id="parrafoPopupSimple"></p>
+		</div>
 
-        <div data-position="fixed" data-role='popup' id='popupDialog' data-theme='b' style="height : 100%;">
-            <div data-role='header' data-theme='b'>
-                <h1 id="dialogoDosBotonesHeader"></h1>
-            </div>
-            <div data-role='content' data-theme='b'>
-                <p id="dialogoDosBotonesDescripcion"></p>
-                <div class='showastabs center nobg'>
-                    <a id="dialogoDosBotonesAcpetar" href='#' data-rel='back' data-icon='ok' data-iconpos='left' data-role='button' data-inline='true'>Aceptar</a>
-                    <a id="dialogoConDosBotonesCancelar" href='#' data-rel='back' data-iconpos='left' data-role='button' data-inline='true'>Cancelar</a>
-                </div>
-            </div>
-        </div>
-        <a id="linkAbreDialogoDosBotones" href='#popupDialog' data-rel='popup' data-position-to='window' data-role='button' data-icon='external-link' data-transition='pop' data-inline='true' style="display: none;"></a>
-        <a id="linkAbreDialogoUnBoton" href='#popupDialogUnBoton' data-rel='popup' data-position-to='window' data-role='button' data-icon='external-link' data-transition='pop' data-inline='true' style="display: none;"></a>
+		<div data-position="fixed" data-role='popup' id='popupDialog' data-theme='b' style="height : 100%;">
+			<div data-role='header' data-theme='b'>
+				<h1 id="dialogoDosBotonesHeader"></h1>
+			</div>
+			<div data-role='content' data-theme='b'>
+				<p id="dialogoDosBotonesDescripcion"></p>
+				<div class='showastabs center nobg'>
+					<a id="dialogoDosBotonesAcpetar" href='#' data-rel='back' data-icon='ok' data-iconpos='left' data-role='button' data-inline='true'>Aceptar</a>
+					<a id="dialogoConDosBotonesCancelar" href='#' data-rel='back' data-iconpos='left' data-role='button' data-inline='true'>Cancelar</a>
+				</div>
+			</div>
+		</div>
+		<a id="linkAbreDialogoDosBotones" href='#popupDialog' data-rel='popup' data-position-to='window' data-role='button' data-icon='external-link' data-transition='pop' data-inline='true' style="display: none;"></a>
+		<a id="linkAbreDialogoUnBoton" href='#popupDialogUnBoton' data-rel='popup' data-position-to='window' data-role='button' data-icon='external-link' data-transition='pop' data-inline='true' style="display: none;"></a>
 
-        <!--*******************************************************
+		<!--*******************************************************
                             Botones footer
             ***************************************************-->
 
-        <div id="pnlBotones" data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
+		<div id="pnlBotones" data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme='b'>
 
-            <div data-role="navbar">
-                <ul>
-                    <li><a class="ui-btn" id="btnUbicarme" onclick="ubicarMiPosicion()"><i class='blIcon fa fa-user' ></i></a>
-                    </li>
-                    <li><a class="ui-btn" id="btnVerListado" onclick="verListado()"><i class='blIcon fa fa-list'></i></a>
-                    </li>
-                    <li><a class="ui-btn" id="btnGuardarUbicacion" onclick="guardarUbicacion()"><i class='blIcon fa fa-map-marker'></i></a>
-                    </li>
-                    <li><a class="ui-btn ui-state-disabled" id="btnTrazarRegreso" onclick="trazarRegreso()"><i class='blIcon fa fa-car'></i></a>
-                    </li>
-                    <li><a class="ui-btn ui-state-disabled" id="mostrarIndicaciones" href="#pnlTrazadoRuta"><i class='blIcon fa fa-road'></i></a>
-                    </li>
+			<div data-role="navbar">
+				<ul>
+					<li><a class="ui-btn" id="btnUbicarme" onclick="ubicarMiPosicion()"><i class='blIcon fa fa-user' ></i></a>
+					</li>
+					<li><a class="ui-btn" id="btnVerListado" onclick="verListado()"><i class='blIcon fa fa-list'></i></a>
+					</li>
+					<li><a class="ui-btn" id="btnGuardarUbicacion" onclick="guardarUbicacion()"><i class='blIcon fa fa-map-marker'></i></a>
+					</li>
+					<li><a class="ui-btn ui-state-disabled" id="btnTrazarRegreso" onclick="trazarRegreso()"><i class='blIcon fa fa-car'></i></a>
+					</li>
+					<li><a class="ui-btn ui-state-disabled" id="mostrarIndicaciones" href="#pnlTrazadoRuta"><i class='blIcon fa fa-road'></i></a>
+					</li>
 
-                </ul>
-            </div>
-        </div>
+				</ul>
+			</div>
+		</div>
 
-    </div>
-    <!-- /mainPage -->
+	</div>
+	<!-- /mainPage -->
 
-    <!-- **************************************************************
+	<!-- **************************************************************
 -------------------- |Página de ajustes | --------------------
 **************************************************************-->
 
-    <div data-role="page" id="preferencesPage" data-theme="b">
-        <div data-role="header" data-theme="b">
-            <a data-inline='true' data-transition="slide" href="#mainPage" data-direction="reverse"><i class="fa fa-chevron-left" ></i></a>
-            <h1>Ajustes</h1>
-        </div>
+	<div data-role="page" id="preferencesPage" data-theme="b">
+		<div data-role="header" data-theme="b">
+			<a data-inline='true' data-transition="slide" href="#mainPage" data-direction="reverse"><i class="fa fa-chevron-left" ></i></a>
+			<h1>Ajustes</h1>
+		</div>
 
-        <div data-role="content" class="ui-content" role="main">
-            <p>Configura tus preferencias de búsqueda.</p>
-            <br>
-            <form data-ajax="false">
+		<div data-role="content" class="ui-content" role="main">
+			<p>Configura tus preferencias de búsqueda.</p>
+			<br>
+			<form data-ajax="false">
 
-                <div class="ui-field-contain">
-                    <label for="select-choice-1b" class="select">Tipo de vehículo:</label>
-                    <div class="ui-select">
-                        <select name="select-choice-1" id="tipoVehiculoSelect" data-native-menu="true">
-                            <option value="0">Seleccione</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="ui-field-contain">
-                    <label for="slider2b" id="slider2b-label">Radio de búsqueda:</label>
-                    <input type="number" data-type="range" name="slider2" id="slider2b" value="1500" min="300" max="3000" step="100" data-highlight="true" class="ui-shadow-inset ui-body-inherit ui-corner-all ui-slider-input">
-                </div>
-                <div class="ui-field-contain">
-                    <label for="checkbox-based-flipswitch">GPS:</label>
-                    <input type="checkbox" id="checkbox-based-flipswitch" data-role="flipswitch">
-                </div>
+				<div class="ui-field-contain">
+					<label for="select-choice-1b" class="select">Tipo de vehículo:</label>
+					<div class="ui-select">
+						<select name="select-choice-1" id="tipoVehiculoSelect" data-native-menu="true">
+							<option value="0">Seleccione</option>
+						</select>
+					</div>
+				</div>
+				<div class="ui-field-contain">
+					<label for="slider2b" id="slider2b-label">Radio de búsqueda:</label>
+					<input type="number" data-type="range" name="slider2" id="slider2b" value="1500" min="300" max="3000" step="100" data-highlight="true" class="ui-shadow-inset ui-body-inherit ui-corner-all ui-slider-input">
+				</div>
+				<div class="ui-field-contain">
+					<label for="checkbox-based-flipswitch">GPS:</label>
+					<input type="checkbox" id="checkbox-based-flipswitch" data-role="flipswitch">
+				</div>
 
-                <a class="ui-btn " href="#mainPage" data-transition="none" id="btnGuardarConfig" onclick="guardarDatos($('#tipoVehiculoSelect'),$('#slider2b'),$('#checkbox-based-flipswitch'))">Guardar</a> 
+				<a class="ui-btn " href="#mainPage" data-transition="none" id="btnGuardarConfig" onclick="guardarDatos($('#tipoVehiculoSelect'),$('#slider2b'),$('#checkbox-based-flipswitch'))">Guardar</a> 
 
-            </form>
-        </div>
+			</form>
+		</div>
 
-    </div>
-    <!-- /pagina de ajustes -->
+	</div>
+	<!-- /pagina de ajustes -->
 
 
-    <!-- **************************************************************
+	<!-- **************************************************************
 -------------------- |Página de contacto| --------------------
 **************************************************************-->
 
-    <div data-role="page" id="contactPage" data-theme="b">
-        <div data-role="header" data-theme="b">
-            <a id="fromContactoToMain" data-inline='true' data-transition="slide" href="#mainPage" data-direction="reverse"><i class="fa fa-chevron-left"></i></a>
-            <h1>Contacto</h1>
-        </div>
-        <div data-role="content" class="ui-content">
-            <!-- Dialogo con 1 solo boton-->
-            <div data-position="fixed" data-role='popup' id='popupDialogUnBoton' data-theme='b' style="height : 100%;">
-                <div data-role='header' data-theme='b'>
-                    <h1 id="dialogoUnBotonHeader"></h1>
-                </div>
-                <div data-role='content' data-theme='b'>
-                    <p id="dialogoUnBotonDescripcion"></p>
-                    <div class='showastabs center nobg'>
-                        <a id="dialogoUnBotonAceptar" href='#' data-rel='back' data-icon='ok' data-iconpos='left' data-role='button' data-inline='true'>Aceptar</a> 
-                    </div>
-                </div>
-            </div>
+	<div data-role="page" id="contactPage" data-theme="b">
+		<div data-role="header" data-theme="b">
+			<a id="fromContactoToMain" data-inline='true' data-transition="slide" href="#mainPage" data-direction="reverse"><i class="fa fa-chevron-left"></i></a>
+			<h1>Contacto</h1>
+		</div>
+		<div data-role="content" class="ui-content">
+			<!-- Dialogo con 1 solo boton-->
+			<div data-position="fixed" data-role='popup' id='popupDialogUnBoton' data-theme='b' style="height : 100%;">
+				<div data-role='header' data-theme='b'>
+					<h1 id="dialogoUnBotonHeader"></h1>
+				</div>
+				<div data-role='content' data-theme='b'>
+					<p id="dialogoUnBotonDescripcion"></p>
+					<div class='showastabs center nobg'>
+						<a id="dialogoUnBotonAceptar" href='#' data-rel='back' data-icon='ok' data-iconpos='left' data-role='button' data-inline='true'>Aceptar</a> 
+					</div>
+				</div>
+			</div>
 
-            <p>Escribinos por consultas o recomendaciones.</p>
-            <br>
-            <form data-ajax="false">
-                <div class="ui-fieldcontain">
-                    <label for="txtNombre">Nombre:</label>
-                    <input name="Nombre" required="required" data-clear-btn="true" type="text" id="txtNombre" placeholder="Ingrese su nombre" onblur="validarCampo($(this))">
-                </div>
-                <div class="ui-fieldcontain">
-                    <label for="txtEmail">Email:</label>
-                    <input name="Email" required="required" data-clear-btn="true" type="email" id="txtEmail" placeholder="Ingrese su email" onblur="validarCampo($(this))">
-                </div>
-                <div class="ui-fieldcontain">
-                    <label for="txtAsunto">Asunto:</label>
-                    <input name="Asunto" required="required" data-clear-btn="true" type="text" id="txtAsunto" placeholder="Ingrese el asunto" onblur="validarCampo($(this))">
-                </div>
-                <div class="ui-fieldcontain">
-                    <label for="txtMensaje">Mensaje:</label>
-                    <textarea name="Mensaje" required="required" class="textarea" rows="5" id="txtMensaje" placeholder="Ingrese el mensaje" onblur="validarCampo($(this))"></textarea>
-                </div>
-                <a class="ui-btn ui-btn-shadow" id="btnEnviarEmail" onclick="enviarEmail()">Enviar</a>
+			<p>Escribinos por consultas o recomendaciones.</p>
+			<br>
+			<form data-ajax="false">
+				<div class="ui-fieldcontain">
+					<label for="txtNombre">Nombre:</label>
+					<input name="Nombre" required="required" data-clear-btn="true" type="text" id="txtNombre" placeholder="Ingrese su nombre" onblur="validarCampo($(this))">
+				</div>
+				<div class="ui-fieldcontain">
+					<label for="txtEmail">Email:</label>
+					<input name="Email" required="required" data-clear-btn="true" type="email" id="txtEmail" placeholder="Ingrese su email" onblur="validarCampo($(this))">
+				</div>
+				<div class="ui-fieldcontain">
+					<label for="txtAsunto">Asunto:</label>
+					<input name="Asunto" required="required" data-clear-btn="true" type="text" id="txtAsunto" placeholder="Ingrese el asunto" onblur="validarCampo($(this))">
+				</div>
+				<div class="ui-fieldcontain">
+					<label for="txtMensaje">Mensaje:</label>
+					<textarea name="Mensaje" required="required" class="textarea" rows="5" id="txtMensaje" placeholder="Ingrese el mensaje" onblur="validarCampo($(this))"></textarea>
+				</div>
+				<a class="ui-btn ui-btn-shadow" id="btnEnviarEmail" onclick="enviarEmail()">Enviar</a>
 
-            </form>
-        </div>
-    </div>
-    <!-- /pagina de contacto -->
+			</form>
+		</div>
+	</div>
+	<!-- /pagina de contacto -->
 
-    <!--*******************************************************
+	<!--*******************************************************
                             Scripts
             ***************************************************-->
-    <!-- Scripts -->
-    <script src="xhr.js"></script>
+	<!-- Scripts -->
+	<script src="xhr.js"></script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
-    <script src='intelxdk.js'></script>
-    <script src="cordova.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/telephonenumber.js"></script>
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/jquery.mobile-1.4.5.min.js"></script>
-    <script src="js/nativedroid.script.js"></script>
-    <script src="./js/index.js"></script>
-    
-    <script src="./js/Propios/obtenerRutaDeRegreso.js"></script>
-    <script src="./js/Propios/cargarMapa.js"></script>
-    <!-- trabaja con el mapa cuando se inicializa -->
-    <script src="./js/Propios/obtenerPlayas.js"></script>
-    <script src="./js/Propios/latinise.js"></script>
-    <script src="./js/Propios/listadoDePlayasWidget.js"></script>
-    <script src="js/Propios/contactoWidget.js"></script>
-    <script src="./js/Propios/Utils.js"></script>
-    <script src="./js/Propios/autocomplete.js"></script>
-    <script src="./js/Propios/historialWidget.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+	<script src='intelxdk.js'></script>
+	<script src="cordova.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/telephonenumber.js"></script>
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<script src="js/nativedroid.script.js"></script>
+	<script src="./js/index.js"></script>
 
-
-    <script>
-        /* Intel native bridge is available */
-        var playas = [];
-        $(document).ready(function () {
-            initialize();
-            welcome();
-            setTimeout(function(){ 
-                crearAutocomplete();
-            },1500);
+	<script src="./js/Propios/obtenerRutaDeRegreso.js"></script>
+	<script src="./js/Propios/cargarMapa.js"></script>
+	<!-- trabaja con el mapa cuando se inicializa -->
+	<script src="./js/Propios/obtenerPlayas.js"></script>
+	<script src="./js/Propios/latinise.js"></script>
+	<script src="./js/Propios/listadoDePlayasWidget.js"></script>
+	<script src="js/Propios/contactoWidget.js"></script>
+	<script src="./js/Propios/Utils.js"></script>
+	<script src="./js/Propios/autocomplete.js"></script>
+	<script src="./js/Propios/historialWidget.js"></script>
 
 
-
-        });
+	<script>
+		/* Intel native bridge is available */
+		var playas = [];
+		$(document).ready(function () {
+			initialize();
+			welcome();
+			setTimeout(function () {
+				crearAutocomplete();
+			}, 1500);
 
 
 
-        function verListado() {
-            cargandoConMensaje("Cargando Listado");
-            $("#panelListado").listadoPlayasWidget({
-                listadoPlayas: playas,
-                puntoDeBusqueda : (lugarBuscado === null) ? null : lugarBuscado.geometry.location
-            });
-        }
+		});
 
-        function abrirPanelContacto() {
-            /*$("#panelContacto").contactoWidget();*/
-            $("#contactPage").contactoWidget();
-        }
 
-        function mostrarHistorialPlayas() {
-            $("#listadoHistorial").historialWidget();
 
-        }
+		function verListado() {
+			cargandoConMensaje("Cargando Listado");
+			$("#panelListado").listadoPlayasWidget({
+				listadoPlayas: playas,
+				puntoDeBusqueda: (lugarBuscado === null) ? null : lugarBuscado.geometry.location
+			});
+		}
 
-        $("#preferencesPage").on("pagebeforeshow", function () {
-            cargarValoresAlmacenadosDeConfiguracion();
+		function abrirPanelContacto() {
+			/*$("#panelContacto").contactoWidget();*/
+			$("#contactPage").contactoWidget();
+		}
 
-        });
-        $("#contactPage").on("pageshow", function () {
-            $("#txtNombre").focus();
-        });
-    </script>
+		function mostrarHistorialPlayas() {
+			$("#listadoHistorial").historialWidget();
+
+		}
+
+		$("#preferencesPage").on("pagebeforeshow", function () {
+			cargarValoresAlmacenadosDeConfiguracion();
+
+		});
+		$("#contactPage").on("pageshow", function () {
+			$("#txtNombre").focus();
+		});
+	</script>
 </body>
 
 </html>
