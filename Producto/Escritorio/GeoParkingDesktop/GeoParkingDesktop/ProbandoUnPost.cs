@@ -42,7 +42,7 @@ namespace GeoParkingDesktop
 
         public string OtroPost(ServicioAAgregar servicio)
         {
-            var request = (HttpWebRequest)WebRequest.Create("http://localhost:21305/api/Servicios/PostServicioARegistrar");
+            var request = (HttpWebRequest)WebRequest.Create("http://ifrigerio-001-site1.smarterasp.net/api/Servicios/PostServicioARegistrar");
 
             var postData = "IdPlaya=" + servicio.IdPlaya;
             postData += ("&IdTipoVehiculo=" + servicio.IdTipoVehiculo);
