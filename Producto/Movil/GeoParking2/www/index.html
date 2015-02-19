@@ -397,13 +397,10 @@
 			setTimeout(function () {
 				crearAutocomplete();
 			}, 1500);
-
-
-
 		});
-
-
-
+		$("#mainPage").on("pageshow", function () {
+			google.maps.event.trigger(map, 'resize');
+		});
 		function verListado() {
 			cargandoConMensaje("Cargando Listado");
 			$("#panelListado").listadoPlayasWidget({

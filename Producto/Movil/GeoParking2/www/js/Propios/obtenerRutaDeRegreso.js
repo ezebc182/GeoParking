@@ -44,3 +44,11 @@ function agregarMarkadorPosicionAuto(posicion) {
     markers.push(marker);
     marker.setMap(map);
 }
+function eliminarMarkadorPosicionAuto(){
+    for( var i = 0; i< markers.length; i++){
+        if(markers[i].icon == './img/posicionGuardada.png'){
+            markers.splice(i, 1);
+            markers[i].setMap(null);
+        }
+    }
+}
