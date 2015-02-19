@@ -26,7 +26,7 @@ namespace ReglasDeNegocio
 
         public IList<SolicitudConexion> BuscarMisSolicitudes(string usuario)
         {
-            return daoSolicitud.FindWhere(x => x.FechaBaja == null && x.UsuarioResponsable == usuario && x.EstadoId != 7);
+            return daoSolicitud.FindWhere(x => x.FechaBaja == null && x.UsuarioResponsable == usuario && (x.EstadoId == 6 || x.EstadoId == 9 ));
         }
 
         public string CrearSolicitudJSON(SolicitudConexion solicitud)
