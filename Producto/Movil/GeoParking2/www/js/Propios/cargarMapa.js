@@ -50,12 +50,12 @@ function ir(origen, destino, modoViaje, sistema) {
 	directionsService.route(request, function (response, status) {
 		if (status == google.maps.DirectionsStatus.OK) {
 			if (modoViaje === "WALKING") {
-                directionsDisplay.polylineOptions.strokeColor = "#B01515";
-                tipoDestino = "ubicacion";
-            } else {
-                directionsDisplay.polylineOptions.strokeColor = "#61B2FE";
-                tipoDestino = "playa";
-            }
+				directionsDisplay.polylineOptions.strokeColor = "#B01515";
+				tipoDestino = "ubicacion";
+			} else {
+				directionsDisplay.polylineOptions.strokeColor = "#61B2FE";
+				tipoDestino = "playa";
+			}
 
 			directionsDisplay.setMap(map);
 			directionsDisplay.setPanel($("#panel_ruta").get(0));
@@ -67,47 +67,47 @@ function ir(origen, destino, modoViaje, sistema) {
 }
 
 function mantenerPosicionActualActualizada() {
-    var actualizarPosicion = function () {
-        var functionSuccess = function (p) {
-            posicionActual = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
-            removeCarMarker();
-            addCarMarker(posicionActual);
-            if (tipoDestino === "playa") {
-                var lat1 = parseFloat(posicionActual.k);
-                var lon1 = parseFloat(posicionActual.D);
-                var lat2 = parseFloat(destino.k);
-                var lon2 = parseFloat(destino.D);
-                if (distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) >= 0.02) {
-                    directionsDisplay.setMap(null);
-                    ir(posicionActual, destino, "DRIVING", "METRIC");
-                } else {
-                    tipoDestino = null;
-                    //clearInterval(actualizadorDePosicion);
-                    directionsDisplay.setMap(null);
-                }
+	var actualizarPosicion = function () {
+		var functionSuccess = function (p) {
+			posicionActual = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
+			removeCarMarker();
+			addCarMarker(posicionActual);
+			if (tipoDestino === "playa") {
+				var lat1 = parseFloat(posicionActual.k);
+				var lon1 = parseFloat(posicionActual.D);
+				var lat2 = parseFloat(destino.k);
+				var lon2 = parseFloat(destino.D);
+				if (distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) >= 0.02) {
+					directionsDisplay.setMap(null);
+					ir(posicionActual, destino, "DRIVING", "METRIC");
+				} else {
+					tipoDestino = null;
+					//clearInterval(actualizadorDePosicion);
+					directionsDisplay.setMap(null);
+				}
 
-            } else if (tipoDestino === "ubicacion") {
-                var lat1 = parseFloat(posicionActual.k);
-                var lon1 = parseFloat(posicionActual.D);
-                var lat2 = parseFloat(destino.k);
-                var lon2 = parseFloat(destino.D);
-                if (distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) >= 0.02) {
-                    directionsDisplay.setMap(null);
-                    ir(posicionActual, destino, "WALKING", "METRIC");
-                } else {
-                    tipoDestino = null;
-                    //clearInterval(actualizadorDePosicion);
-                    eliminarMarkadorPosicionAuto();
-                    directionsDisplay.setMap(null);
-                }
-            }
-        };
-        var funcionError = function (error) {
+			} else if (tipoDestino === "ubicacion") {
+				var lat1 = parseFloat(posicionActual.k);
+				var lon1 = parseFloat(posicionActual.D);
+				var lat2 = parseFloat(destino.k);
+				var lon2 = parseFloat(destino.D);
+				if (distanciaEntreDosPuntos(lat1, lon1, lat2, lon2) >= 0.02) {
+					directionsDisplay.setMap(null);
+					ir(posicionActual, destino, "WALKING", "METRIC");
+				} else {
+					tipoDestino = null;
+					//clearInterval(actualizadorDePosicion);
+					eliminarMarkadorPosicionAuto();
+					directionsDisplay.setMap(null);
+				}
+			}
+		};
+		var funcionError = function (error) {
 
-        };
-        navigator.geolocation.getCurrentPosition(functionSuccess, funcionError);
-    };
-    actualizadorDePosicion = setInterval(actualizarPosicion, 3000);
+		};
+		navigator.geolocation.getCurrentPosition(functionSuccess, funcionError);
+	};
+	actualizadorDePosicion = setInterval(actualizarPosicion, 3000);
 }
 
 function removeCarMarker() {
@@ -215,7 +215,6 @@ function obtenerPosicionActual() {
 		if (p.coords.latitude !== undefined && p.coords.longitude !== undefined) {
 			var posicionGoogle = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
 			posicionActual = posicionGoogle;
-			mostrarHistorialPlayas();
 
 			map.setCenter(posicionGoogle);
 			/* Pregunto sobre el modo si es consultar playa o consultar vehiculo */
