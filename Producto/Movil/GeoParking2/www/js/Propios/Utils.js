@@ -359,6 +359,7 @@ function enviarEmail() {
 /*Cancelar recorrido*/
 $("#btnCancelarRecorrido").on("click", function () {
     directionsDisplay.setMap(null);
+    destino = null;
 });
 
 function enviarConsultaAEstadisticas(playa) {
