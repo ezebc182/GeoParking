@@ -16,22 +16,18 @@ namespace GeoParkingDesktop
     {
         PlayaDeEstacionamiento playa = new PlayaDeEstacionamiento();//playa de estacionamiento del sistema  
 
+        string urlServidor = "http://localhost:21305";//url del servidor GeoParking
+
         int tipoVehiculo;//tipo de vehiculo a actualizar la disponibilidad         
 
+        //datos de acceso
         string token = "rZgLGEYlkiTQAh35Kofj6w==";
-        int id = 1010;
+        int id = 1012;
 
         public Form1()
         {            
-             InitializeComponent();
-
-             //configuracion de progres bar
-             progressBar1.Visible = true;
-             lblConectar.Visible = false;
-             progressBar1.Minimum = 1;             
-             progressBar1.Maximum = 10;
-             progressBar1.Value = 1;
-             progressBar1.Step = 1;
+             InitializeComponent();             
+             configurarSistema(id);
         }
 
         /// <summary>
@@ -40,15 +36,8 @@ namespace GeoParkingDesktop
         /// </summary>
         /// <param name="id">identificador de la playa</param>
         public void configurarSistema(int id)
-        {
-            lblConectar.Visible = true;
-
-            progressBar1.PerformStep();//bar
-            progressBar1.PerformStep();//bar
-
-            
-            string sURL;
-            sURL = "http://localhost:21305/api/Playas/Get/" + id;
+        {            
+            string sURL = urlServidor+"/api/Playas/Get/" + id;
 
             //strinfg con los datos de la playa
             string JsonPlaya = consultaApi(sURL);                  
@@ -58,8 +47,6 @@ namespace GeoParkingDesktop
                 //obtengo el objeto playa
                 var deserializado = Newtonsoft.Json.JsonConvert.DeserializeObject(JsonPlaya).ToString();
                 var objetoPlaya = Newtonsoft.Json.Linq.JObject.Parse(deserializado);
-
-                progressBar1.PerformStep();//bar
 
                 //cargos datos generales
                 playa.id = (int)objetoPlaya["Id"];
@@ -73,9 +60,7 @@ namespace GeoParkingDesktop
                 playa.horaHasta = (string)horario["HoraHasta"]; 
                 playa.dias = int.Parse(horario["IdDia"].ToString()); //falta cambiar las calases                
 
-                progressBar1.PerformStep();//bar
-
-                //cargos los servicios
+               //cargos los servicios
                 var servicios = objetoPlaya["Servicios"];
 
                 foreach (var item in servicios)
@@ -99,36 +84,19 @@ namespace GeoParkingDesktop
                         precio.precio = double.Parse(item2["Monto"].ToString());
                         playa.precios.Add(precio);
                     }
-
-                    progressBar1.PerformStep();//bar
-
                 }
-
-                progressBar1.PerformStep();//bar              
 
                 //muestro los datos de la playa
                 cargarDatosPlaya();
 
-                progressBar1.PerformStep();//bar
-
                 //mustro las disponibilidades
                 cargarDisponibilidades();
 
-                progressBar1.PerformStep();//bar
-
-                MessageBox.Show("Sistema configurado correctamente");
-                
-                paneles.Visible = true;
-                progressBar1.Visible = false;
-                lblConectar.Visible = false;
+                paneles.Visible = true;               
             }
             catch (Exception e)
-            {
-                
-                MessageBox.Show("Error al iniciar sistmea");
-                progressBar1.Visible = false;
-                lblConectar.Visible = false;
-               
+            {                
+                MessageBox.Show("Error al iniciar sistmea");                
             }       
         }
 
@@ -141,20 +109,10 @@ namespace GeoParkingDesktop
         {
             try
             {
-                WebRequest wrGETURL;
-                progressBar1.PerformStep();
-                wrGETURL = WebRequest.Create(url);
-                progressBar1.PerformStep();                
-
-                Stream objStream;
-                objStream = wrGETURL.GetResponse().GetResponseStream();
-                progressBar1.PerformStep();
-
+                WebRequest wrGETURL = WebRequest.Create(url);
+                Stream objStream = wrGETURL.GetResponse().GetResponseStream();
                 StreamReader objReader = new StreamReader(objStream);
-                progressBar1.PerformStep();
-
-                string sLine = objReader.ReadLine();
-                progressBar1.PerformStep();
+                string sLine = objReader.ReadLine();               
                 return sLine;
             }
             catch (Exception)
@@ -172,8 +130,7 @@ namespace GeoParkingDesktop
         /// <returns></returns>
         public string inserccionApi(string url, string postData)
         {
-            var request = (HttpWebRequest)WebRequest.Create(url);                       
-
+            var request = (HttpWebRequest)WebRequest.Create(url);
             var data = Encoding.ASCII.GetBytes(postData);
 
             request.Method = "POST";
@@ -186,9 +143,7 @@ namespace GeoParkingDesktop
             }
 
             var response = (HttpWebResponse)request.GetResponse();
-
             var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-
             return responseString;
         }
 
@@ -200,8 +155,7 @@ namespace GeoParkingDesktop
         /// <returns></returns>
         private int recuperarDisponibilidad(int idPlaya, int idTipoVehiculo)
         {
-            string sURL;
-            sURL = "http://localhost:21305/api/Disponibilidad/GetDisponibilidadPlayaPorTipoVehiculo?idPlaya=" + idPlaya + "&idTipoVehiculo=" + idTipoVehiculo;
+            string sURL = urlServidor + "/api/Disponibilidad/GetDisponibilidadPlayaPorTipoVehiculo?idPlaya=" + idPlaya + "&idTipoVehiculo=" + idTipoVehiculo;
 
             try
             {
@@ -246,11 +200,8 @@ namespace GeoParkingDesktop
                         chekBici.Checked = true;
                         break;
                 }
-
             }
-
             inhabilitarFormularioAdminsitracion();
-
         }
 
         /// <summary>
@@ -271,9 +222,7 @@ namespace GeoParkingDesktop
                     case 4: txtDispBici.Text = item.disponibilidad.ToString();
                         break;
                 }
-
             }
-
         }
 
         /// <summary>
@@ -369,6 +318,13 @@ namespace GeoParkingDesktop
         {
             string matricula = txtMatriculaIngreso.Text;//matricula            
             int tipoVehiculo = (int)cmbTipoVehiculo.SelectedIndex+1;//tipo vehiculo
+
+            if (matricula == "" & tipoVehiculo == 0)
+            {
+                MessageBox.Show("Datos incompletos para registrar el ingreso");
+                return;
+            }
+
             int evento = 1;//ingreso
             DateTime fechaHora = DateTime.Now;//fecha y hora            
             
@@ -407,11 +363,14 @@ namespace GeoParkingDesktop
         /// <param name="fechaHora"></param>        
         public void registrarIngreso(int idPlaya, int tipoVehiculo, string matricula, int evento, DateTime fechaHora)
         {
-            //registro en el sistema
-            registrarIngresoEnSistema(matricula, tipoVehiculo, fechaHora);          
+            bool actualizoApi =  actualizarDisponibilidad(idPlaya, tipoVehiculo, evento, fechaHora);//registrar en el API
+
+            if (actualizoApi)
+            {
+                //registro en el sistema
+                registrarIngresoEnSistema(matricula, tipoVehiculo, fechaHora);                
+            }
             
-            //registrar en el API
-            actualizarDisponibilidad(idPlaya, tipoVehiculo, evento, fechaHora);
         }
         
         /// <summary>
@@ -443,42 +402,12 @@ namespace GeoParkingDesktop
         /// <param name="tipoVehiculo"></param>
         /// <param name="evento"></param>
         /// <param name="fechaHora"></param>
-        public void actualizarDisponibilidad(int idPlaya, int tipoVehiculo, int evento, DateTime fechaHora)
-        {
-            //aca actualizo la disponibilidad en el sistema (ingreso=se resta un lugar disponible)
-            foreach (var item in playa.disponibilidades)
-            {
-                if (item.tipoVehiculo == tipoVehiculo)
-                {
-                    if (evento == 1)
-                    {
-                        item.disponibilidad = item.disponibilidad - 1;
-                    }
-                    else
-                    {
-                        item.disponibilidad = item.disponibilidad + 1;
-                    }
+        public bool actualizarDisponibilidad(int idPlaya, int tipoVehiculo, int evento, DateTime fechaHora)
+        {            
 
-                    //actualizo los txt
-                    switch (tipoVehiculo)
-                    {
-                        case 1: txtDispAuto.Text = item.disponibilidad.ToString();
-                            break;
-                        case 2: txtDispUti.Text = item.disponibilidad.ToString();
-                            break;
-                        case 3: txtDispMoto.Text = item.disponibilidad.ToString();
-                            break;
-                        case 4: txtDispBici.Text = item.disponibilidad.ToString();
-                            break;
-                    }  
-                    
-                }
-            }
-
-            //aca utilizo el acceso a la appi
-            
+            //aca utilizo el acceso a la appi            
             string sURL,postData;
-            sURL = "http://localhost:21305/api/Disponibilidad/PostActualizarDisponibilidad";
+            sURL = urlServidor + "/api/Disponibilidad/PostActualizarDisponibilidad";
             postData = "IdPlaya=" + playa.id;
             postData += ("&IdTipoVehiculo=" + tipoVehiculo);
             postData += ("&IdEvento=" + evento);
@@ -490,14 +419,50 @@ namespace GeoParkingDesktop
 
             try
             {
-                string sLine = inserccionApi(sURL, postData);               
+                string sLine = inserccionApi(sURL, postData);
 
-                if (sLine != "\"True\"")              
+                if (sLine != "\"True\"")
+                {
                     MessageBox.Show("no se pudo realizar la actualizacion");
+                    return false;
+                }
+
+                //aca actualizo la disponibilidad en el sistema (ingreso=se resta un lugar disponible)
+                foreach (var item in playa.disponibilidades)
+                {
+                    if (item.tipoVehiculo == tipoVehiculo)
+                    {
+                        if (evento == 1)
+                        {
+                            item.disponibilidad = item.disponibilidad - 1;
+                        }
+                        else
+                        {
+                            item.disponibilidad = item.disponibilidad + 1;
+                        }
+
+                        //actualizo los txt
+                        switch (tipoVehiculo)
+                        {
+                            case 1: txtDispAuto.Text = item.disponibilidad.ToString();
+                                break;
+                            case 2: txtDispUti.Text = item.disponibilidad.ToString();
+                                break;
+                            case 3: txtDispMoto.Text = item.disponibilidad.ToString();
+                                break;
+                            case 4: txtDispBici.Text = item.disponibilidad.ToString();
+                                break;
+                        }
+
+                    }
+                }
+
+                return true;
             }
             catch (Exception)
             {
                 MessageBox.Show("Error al actualizar disponibilidad en API");
+                return false;
             }
                
         }
@@ -509,6 +474,8 @@ namespace GeoParkingDesktop
         /// <param name="e"></param>
         private void btnBuscarVehiculo_Click(object sender, EventArgs e)
         {
+            tipoVehiculo = 0;
+
             //busco y obtengo los datos del vehiculo
             for (int i = 0; i < playa.vehiculos.Count; i++)
             {
@@ -538,7 +505,6 @@ namespace GeoParkingDesktop
                     return;
                 }
             }
-
             MessageBox.Show("No existe ningun vehiculo con esa matricula");
         }
         
@@ -660,6 +626,11 @@ namespace GeoParkingDesktop
         /// <param name="e"></param>
         private void btnRegistrarEgreso_Click(object sender, EventArgs e)
         {
+            if (txtMatriculaEgreso.Text == "" || txtTipoVehiculo.Text == "" )
+            {
+                MessageBox.Show("Datos incompletos para registrar el ingreso");
+                return;
+            }
             registrarEgreso(playa.id, tipoVehiculo, txtMatriculaEgreso.Text, 2, DateTime.Now);                 
         }
         
@@ -673,16 +644,15 @@ namespace GeoParkingDesktop
         /// <param name="fechaHora"></param>
         public void registrarEgreso(int idPlaya, int tipoVehiculo, string matricula, int evento, DateTime fechaHora)
         {
-            //registro el egreso en el sistema
-            registrarEgresoEnSistema(txtMatriculaEgreso.Text);
+            bool actualizoApi = actualizarDisponibilidad(idPlaya, tipoVehiculo, evento, fechaHora);//actualizo la disponibilidad
 
-            //actualizo la disponibilidad
-            actualizarDisponibilidad(idPlaya, tipoVehiculo, evento, fechaHora);
-
-            //limpio el formulario y emito mensaje de exito
-            limpiarEgreso();
-            MessageBox.Show("SE REGISTRO EL EGRESO EXISTOSAMENTE");
-            paneles.SelectedTab = tabPage1;
+            if (actualizoApi)
+            {//registro el egreso en el sistema
+                registrarEgresoEnSistema(txtMatriculaEgreso.Text);                
+                limpiarEgreso();
+                MessageBox.Show("SE REGISTRO EL EGRESO EXISTOSAMENTE");
+                paneles.SelectedTab = tabPage1;
+            }
         }
         
         /// <summary>
@@ -929,30 +899,24 @@ namespace GeoParkingDesktop
             playa.email = emaiPlaya;
 
             string sURL, postData;
-            sURL = "http://localhost:21305/api/Playas/PostActualizarNombreEmailPlaya";
+            sURL = urlServidor + "/api/Playas/PostActualizarNombreEmailPlaya";
             postData = "IdPlaya=" + playa.id;
             postData += ("&Nombre=" + nombrePlaya);
             postData += ("&Mail=" + emaiPlaya);
-            postData += ("&Token=" + token);
-            
+            postData += ("&Token=" + token);            
 
             try
             {
                 string sLine = inserccionApi(sURL, postData);
 
-                if (sLine == "\"True\"")
-                {
-                    MessageBox.Show("Nombre y email actualizados");                    
-                }
-                else
+                if (sLine != "\"True\"")
                 {
                     MessageBox.Show("no se pudo realizar la actualizacion de nombre y email");                    
                 }
-
             }
             catch (Exception)
             {
-                MessageBox.Show("Error al actualizar disponibilidad en API");                
+                MessageBox.Show("Error al actualizar nombre y email en API");                
             } 
         }
 
@@ -969,7 +933,7 @@ namespace GeoParkingDesktop
             playa.horaHasta = horaHasta;            
 
             string sURL, postData;
-            sURL = "http://localhost:21305/api/Playas/PostActualizarHorarioPlaya";
+            sURL = urlServidor+"/api/Playas/PostActualizarHorarioPlaya";
             postData = "IdPlaya=" + playa.id;
             postData += ("&DiaAtencionId=" + diaAtencion);
             postData += ("&HoraDesde=" + horaDesde);
@@ -980,19 +944,14 @@ namespace GeoParkingDesktop
             {
                 string sLine = inserccionApi(sURL,postData);
 
-                if (sLine == "\"True\"")
-                {
-                    MessageBox.Show("Horario actualizado");
-                }
-                else
+                if (sLine != "\"True\"")
                 {
                     MessageBox.Show("no se pudo realizar la actualizacion del Horario");
-                }
-
+                }                
             }
             catch (Exception)
             {
-                MessageBox.Show("Error al actualizar disponibilidad en API");
+                MessageBox.Show("Error al actualizar horario en API");
             }
         }
 
@@ -1005,29 +964,24 @@ namespace GeoParkingDesktop
             playa.tipoPlaya = tipoPlaya;
 
             string sURL, postData;
-            sURL = "http://localhost:21305/api/Playas/PostActualizarTipoPlaya";
+            sURL = urlServidor + "/api/Playas/PostActualizarTipoPlaya";
             postData = "IdPlaya=" + playa.id;
             postData += ("&TipoPlayaId=" + tipoPlaya);
-            postData += ("&Token=" + token);
-           
+            postData += ("&Token=" + token);           
 
             try
             {
                 string sLine = inserccionApi(sURL,postData);
 
-                if (sLine == "\"True\"")
-                {
-                    MessageBox.Show("Tipo Playa actualizado");
-                }
-                else
+                if (sLine != "\"True\"")
                 {
                     MessageBox.Show("no se pudo realizar la actualizacion de tipo playa");
                 }
-
+                
             }
             catch (Exception)
             {
-                MessageBox.Show("Error al actualizar disponibilidad en API");
+                MessageBox.Show("Error al actualizar tipo playa en API");
             }
         }
 
@@ -1139,7 +1093,7 @@ namespace GeoParkingDesktop
         public void registracionDeServicio(int idTipoVehiculo, string x1, string x6, string x12, string x24, string abono)
         {
             string sURL, postData;
-            sURL = "http://localhost:21305/api/Servicios/PostRegistrarServicio";
+            sURL = urlServidor+"/api/Servicios/PostRegistrarServicio";
 
             postData = "IdPlaya=" + playa.id;
             postData += ("&IdTipoVehiculo=" + idTipoVehiculo);
@@ -1187,7 +1141,7 @@ namespace GeoParkingDesktop
         public void cancelacionDeServicio(int idTipoVehiculo)
         {
             string sURL, postData;
-            sURL = "http://localhost:21305/api/Servicios/PostCancelarServicio";
+            sURL = urlServidor+"/api/Servicios/PostCancelarServicio";
             postData = "IdPlaya=" + playa.id;
             postData += ("&IdTipoVehiculo=" + idTipoVehiculo);
 
@@ -1557,7 +1511,7 @@ namespace GeoParkingDesktop
         public void actualizarPrecio(int idTipoVehiculo, double precio, int idTiempo)
         {            
             string sURL, postData;
-            sURL = "http://localhost:21305/api/precios/PostActualizarPrecio";
+            sURL = urlServidor+"/api/precios/PostActualizarPrecio";
             postData = "IdPlaya=" + playa.id;
             postData += ("&IdTiempo=" + idTiempo);
             postData += ("&IdTipoVehiculo=" + idTipoVehiculo);
@@ -1587,7 +1541,7 @@ namespace GeoParkingDesktop
         public void registrarPrecio(int idTipoVehiculo, double precio, int idTiempo)
         {
             string sURL, postData;
-            sURL = "http://localhost:21305/api/precios/PostRegistrarPrecio";
+            sURL = urlServidor+"/api/precios/PostRegistrarPrecio";
             postData = "IdPlaya=" + playa.id;
             postData += ("&IdTiempo=" + idTiempo);
             postData += ("&IdTipoVehiculo=" + idTipoVehiculo);
@@ -1740,29 +1694,7 @@ namespace GeoParkingDesktop
                 txt24hBici.Enabled = false;
                 txtAbonoBici.Enabled = false;
             }
-        }
-
-        /// <summary>
-        /// abre una ventana para ingresar el noombre de la playa y conectarse al sistema
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void coonectarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //Form2 testDialog = new Form2();
-
-            //// Show testDialog as a modal dialog and determine if DialogResult = OK.
-            //if (testDialog.ShowDialog(this) == DialogResult.OK)
-            //{
-                //configurarSistema(int.Parse(testDialog.txtIdPlaya.Text));
-            configurarSistema(id);
-            //}
-            //else
-            //{
-            //    //MessageBox.Show("Error");
-            //}
-            //testDialog.Dispose();
-        }
+        }        
 
         /// <summary>
         /// habilita editar o actualizar
@@ -1814,8 +1746,31 @@ namespace GeoParkingDesktop
         /// <param name="fecha">fecha</param>
         public bool actualizarDisponibilidadGeneral(int idPlaya, int idTipoVehiculo, int disponibilidad, int evento, DateTime fecha)
         {
+            //aca actualizo la disponibilidad en el sistema (ingreso=se resta un lugar disponible)
+            foreach (var item in playa.disponibilidades)
+            {
+                if (item.tipoVehiculo == idTipoVehiculo)
+                {
+                    item.disponibilidad = disponibilidad;                    
+
+                    //actualizo los txt
+                    switch (idTipoVehiculo)
+                    {
+                        case 1: txtDispAuto.Text = item.disponibilidad.ToString();
+                            break;
+                        case 2: txtDispUti.Text = item.disponibilidad.ToString();
+                            break;
+                        case 3: txtDispMoto.Text = item.disponibilidad.ToString();
+                            break;
+                        case 4: txtDispBici.Text = item.disponibilidad.ToString();
+                            break;
+                    }
+
+                }
+            }
+
             string sURL, postData;
-            sURL = "http://localhost:21305/api/Disponibilidad/PostActualizarDisponibilidadGeneral";
+            sURL = urlServidor+"/api/Disponibilidad/PostActualizarDisponibilidadGeneral";
             postData = "IdPlaya=" + playa.id;
             postData += ("&IdTipoVehiculo=" + idTipoVehiculo);
             postData += ("&Disponibilidad=" + disponibilidad);
@@ -1831,7 +1786,6 @@ namespace GeoParkingDesktop
                 string sLine = inserccionApi(sURL,postData);
 
                 if (sLine == "\"True\""){
-                    MessageBox.Show("Actualizacion Existosa");
                     return true;
                 }
                 else{
@@ -1956,21 +1910,6 @@ namespace GeoParkingDesktop
 
             MessageBox.Show("Edicion cancelada");
         }
-
-        /// <summary>
-        /// sale del sistema
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Dispose();
-        }
-
-        private void incioToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-               
+        
     }
 }
