@@ -77,7 +77,7 @@
 					<img src="geoparking/images/down.png" alt="conocenos">Conocenos!
 				</a>--%>
 				
-				<a id="linkRegistrarPlaya" class="btn btn-info" href="/web.aspx">
+				<a id="linkRegistrarPlaya" class="btn btn-primary" href="/web.aspx">
 					<i id="iconoBuscar" class="fa fa-search"></i>Buscar playa
 				</a>
                 <a id="linkBuscarPlaya" class="btn btn-default" href="/DatosDeRegistro.aspx">
@@ -116,13 +116,13 @@
 		<ul>
 			<li>
 				<a href="#features">
-					<b>Qué es?</b>
+					<b>Conocenos</b>
 					<span></span><!-- icon -->
 				</a>
 			</li>
 			<li>
 				<a href="#mobile">
-					<b>App movil</b>
+					<b>App móvil</b>
 					<span></span><!-- icon -->
 				</a>
 			</li>
