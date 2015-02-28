@@ -172,7 +172,7 @@
 						</ul>
 						<br/>
                         <div class="well">
-                        <strong>Para mayor información, te invitamos a que veas el siguiente video instructivo </strong></div>
+                        <strong>Para mayor información, te invitamos a que veas nuestro video comercial. </strong></div>
                         
 				</div>
 				<div class="col-md-6">
@@ -183,7 +183,8 @@
                     
 			<div class="embed-responsive embed-responsive-16by9">
                 <br />
-				<iframe  height="350" width="550" class="embed-responsive-item" src="https://www.youtube.com/embed/kaPcI5_PTsk" allowfullscreen></iframe>
+                <iframe width="540" height="310" src="http://www.wideo.co/embed/8483391425130777112?height=300&width=500" frameborder="0"></iframe>
+				
 			</div>
 
 			</div>
@@ -290,7 +291,7 @@
 					</div>
 					<p class="profile-description ">Leo Romero</p>
 					<p class="profile-description italic">Backend developer</p>
-					<p class="profile-level italic"><span class="blue">Ninja</span></p>
+					<%--<p class="profile-level italic"><span class="blue">Ninja</span></p>--%>
 
 				</div>	<!-- Leo -->			
 
@@ -311,7 +312,7 @@
 					</div>
 					<p class="profile-description">Eze Bär Coch</p>
 					<p class="profile-description italic">UI/UX & Mobile Developer</p>
-					<p class="profile-level italic"><span class="white">Afilao</span></p>
+					<%--<p class="profile-level italic"><span class="white">Afilao</span></p>--%>
 
 				</div><!-- Eze -->
 
@@ -333,11 +334,11 @@
 					</div>
 					<p class="profile-description ">Lucas Toneatto</p>
 					<p class="profile-description italic">Backend developer</p>
-					<p class="profile-level italic"><span class="orange">Malambero</span></p>
+					<%--<p class="profile-level italic"><span class="orange">Malambero</span></p>--%>
 				</div><!-- Lucas -->
 				<div class="col-md-2 text-center" style="margin:15px !important;">				
 					<div class="profile-wrap">
-						<img src="geoparking/images/creadores/iraki.jpg" alt="profile" />
+						<img src="geoparking/images/creadores/iraki2.jpg" alt="profile" />
 						<ul>
 							<li>
 								<a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
@@ -352,7 +353,7 @@
 					</div>
 					<p class="profile-description">Marcos Barrera</p>
 					<p class="profile-description italic">Javascript Developer</p>
-					<p class="profile-level italic"><span class="green">Iraki</span></p>				
+					<%--<p class="profile-level italic"><span class="green">Iraki</span></p>			--%>	
 				</div><!-- Irak -->
 				<div class="col-md-2 text-center" style="margin:15px !important;">					
 					<div class="profile-wrap">
@@ -371,7 +372,7 @@
 					</div>
 					<p class="profile-description">Nacho Frigerio</p>
 					<p class="profile-description italic">Mobile Developer</p>
-					<p class="profile-level italic"><span class="yellow">Afilao</span></p>
+					<%--<p class="profile-level italic"><span class="yellow">Afilao</span></p>--%>
 				</div><!-- Nacho -->
 			</div>
 		</section><!--Team  -->
@@ -383,24 +384,24 @@
 				<div class="col-md-4">
 					<div class="chart1" data-percent="85">
 						<span class="percent"></span>
-						<p class="italic">Usuarios utilizan esta app</p>
+						<p class="italic">Usuarios que probaron esta app, la utilizan a diario.</p>
 					</div>
 					<p class="stat-quote ">Referencia de la Ciudad de Córdoba</p>
 				</div>
 				<div class="col-md-4">
 					<h2 class=" text-center">+ de 2000 descargas</h2>
 					<div class="chart2" data-percent="75">
-						<span class="percent">A nivel país</span>
+						<span class="percent"></span>
 						<p class=" italic"></p>
 					</div>
-					<p class="stat-quote ">La utilizan diariamente para dirigirse a sus trabajos.</p>
+					<p class="stat-quote ">Son usuarios móviles (celulares, iphones, tablets).</p>
 				</div>
 				<div class="col-md-4">
-					<div class="chart3" data-percent="95">
+					<div class="chart3" data-percent="65">
 						<span class="percent"></span>
-						<p class=" italic">Mundialmente</p>
+						<p class=" italic">De ahorro en tiempo, para buscar estacionamiento.</p>
 					</div>
-					<p class="stat-quote "> apoyan esta app.</p>
+					<p class="stat-quote "> según usuarios de esta app.</p>
 				</div>
 			</div>
 		</section>
@@ -412,15 +413,15 @@
 					<ul id="testimonial-list" class="clearfix">
 						<li>
 							<p class="context">"La idea es genial, me ha servido mucho y me ha ahorrado muchas horas dando vuelta, buscando donde estacionar mi vehículo."</p>
-							<p class="credits">Chuck Norris</p>
+							<p class="credits">Julia - Empleada administrativa<a href="#">, Ciudad de Córdoba.</a></p>
 						</li>
 						<li>
 							<p class="context">"Realmente recomiendo esta aplicación, ya que mejora el desempeño del tráfico a nivel municipal."</p>
-							<p class="credits">Ramoncito Mestre, <a href="#">Intendente, Ciudad de Córdoba.</a></p>
+							<p class="credits">Oscar - Estudiante <a href="#">, Ciudad de Córdoba.</a></p>
 						</li>
 						<li>
-							<p class="context">"Queridos cordobeses, les recomiendo totalmente esta aplicación ya que es simple, fácil, rápida e intuitiva."</p>
-							<p class="credits">José Manuel de la Sota, <a href="#">Gobernador, Provincia de Córdoba.</a></p>
+							<p class="context">"Les recomiendo totalmente esta aplicación ya que es simple, fácil, rápida e intuitiva."</p>
+							<p class="credits">Juan - Cajero<a href="#">, Ciudad de Córdoba.</a></p>
 						</li>
 
 					</ul>
