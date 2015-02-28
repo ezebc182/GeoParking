@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.incioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.coonectarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.paneles = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -131,9 +128,6 @@
             this.Nombre = new System.Windows.Forms.Label();
             this.txtEmailPlaya = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.lblConectar = new System.Windows.Forms.Label();
-            this.menuStrip1.SuspendLayout();
             this.paneles.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -146,37 +140,11 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.incioToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(578, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // incioToolStripMenuItem
-            // 
-            this.incioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.coonectarToolStripMenuItem,
-            this.salirToolStripMenuItem});
-            this.incioToolStripMenuItem.Name = "incioToolStripMenuItem";
-            this.incioToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
-            this.incioToolStripMenuItem.Text = "Incio";
-            this.incioToolStripMenuItem.Click += new System.EventHandler(this.incioToolStripMenuItem_Click);
-            // 
-            // coonectarToolStripMenuItem
-            // 
-            this.coonectarToolStripMenuItem.Name = "coonectarToolStripMenuItem";
-            this.coonectarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.coonectarToolStripMenuItem.Text = "Conectar";
-            this.coonectarToolStripMenuItem.Click += new System.EventHandler(this.coonectarToolStripMenuItem_Click);
-            // 
-            // salirToolStripMenuItem
-            // 
-            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.salirToolStripMenuItem.Text = "Salir";
-            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
             // paneles
             // 
@@ -1278,38 +1246,16 @@
             this.label9.TabIndex = 2;
             this.label9.Text = "Email";
             // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(247, 1);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(100, 23);
-            this.progressBar1.TabIndex = 2;
-            this.progressBar1.Visible = false;
-            // 
-            // lblConectar
-            // 
-            this.lblConectar.AutoSize = true;
-            this.lblConectar.Location = new System.Drawing.Point(159, 9);
-            this.lblConectar.Name = "lblConectar";
-            this.lblConectar.Size = new System.Drawing.Size(82, 13);
-            this.lblConectar.TabIndex = 3;
-            this.lblConectar.Text = "CONECTANDO";
-            this.lblConectar.Visible = false;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(578, 558);
-            this.Controls.Add(this.lblConectar);
-            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.paneles);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "GeoParking-Desktop";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.paneles.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -1332,9 +1278,6 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem incioToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem coonectarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.TabControl paneles;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -1432,8 +1375,6 @@
         private System.Windows.Forms.ComboBox cmbTipoPlaya;
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.Button btnEditar;
-        private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Label lblConectar;
         private System.Windows.Forms.Button btnDisponibilidades;
         private System.Windows.Forms.Button btnDisponibilidadesCancelar;
     }
