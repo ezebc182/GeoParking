@@ -16,7 +16,7 @@ namespace GeoParkingDesktop
     {
         PlayaDeEstacionamiento playa = new PlayaDeEstacionamiento();//playa de estacionamiento del sistema  
 
-        string urlServidor = "http://localhost:21305";//url del servidor GeoParking
+        string urlServidor = "http://ifrigerio-001-site1.smarterasp.net";//url del servidor GeoParking
 
         int tipoVehiculo;//tipo de vehiculo a actualizar la disponibilidad         
 
