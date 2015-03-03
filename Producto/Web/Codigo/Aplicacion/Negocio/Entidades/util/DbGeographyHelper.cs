@@ -19,7 +19,7 @@ namespace Entidades.util
         public static DbGeography CreatePolygon(string wktString)
         {
             var sqlGeography =
-            SqlGeography.STGeomFromText(new SqlChars(wktString.Replace(',','.')), _coordinateSystem)
+            SqlGeography.STGeomFromText(new SqlChars(wktString.Replace(',', '.')), _coordinateSystem)
             .MakeValid();
 
             var invertedSqlGeography = sqlGeography.ReorientObject();

@@ -219,7 +219,7 @@ function guardarZona() {
     $.ajax({
         type: "POST",
         url: "Zonas.aspx/GuardarZona",
-        data: "{'zonaJSON': '" + JSON.stringify(datos) + ",'usuarioId':'"+usuarioId+"''}",
+        data: "{'zonaJSON': '" + JSON.stringify(datos) + "','usuarioId':'"+usuarioId+"'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
