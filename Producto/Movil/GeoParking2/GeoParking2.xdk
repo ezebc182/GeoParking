@@ -8,7 +8,7 @@
       "src": "blankproject",
       "sourceDirectory": "www",
       "projectGuid": "54561fb7-caf3-4c1c-aec6-0024658761b1",
-      "lastModifiedDate": 1424365377152,
+      "lastModifiedDate": 1425425134225,
       "creationDate": 1415068775913
     },
     "sourceDirectory": "www",
@@ -79,7 +79,7 @@
           "Fullscreen": true
         },
         "isActive_": true,
-        "appName_": "GeoParking2",
+        "appName_": "GeoParking",
         "appID_": "not.yet.specified",
         "appAccess_": "*",
         "icons_": [
@@ -160,9 +160,11 @@
         "platform_": "windows8",
         "runtime_": "Cordova 3.x",
         "name_": "Windows8",
-        "preferences_": {},
+        "preferences_": {
+          "Fullscreen": false
+        },
         "isActive_": true,
-        "appName_": "GeoParking2",
+        "appName_": "GeoParking",
         "appID_": "not.yet.specified",
         "appAccess_": "*",
         "icons_": [],
