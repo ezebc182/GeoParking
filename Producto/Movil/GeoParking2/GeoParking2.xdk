@@ -8,7 +8,7 @@
       "src": "blankproject",
       "sourceDirectory": "www",
       "projectGuid": "54561fb7-caf3-4c1c-aec6-0024658761b1",
-      "lastModifiedDate": 1425425134225,
+      "lastModifiedDate": 1426548077542,
       "creationDate": 1415068775913
     },
     "sourceDirectory": "www",
@@ -76,7 +76,7 @@
         "runtime_": "Cordova 3.x",
         "name_": "Android",
         "preferences_": {
-          "Fullscreen": true
+          "Fullscreen": false
         },
         "isActive_": true,
         "appName_": "GeoParking",
@@ -118,7 +118,8 @@
         "crosswalkVersion_": "stable",
         "appVersion_": "1.0.0",
         "appDescription_": "Sistema de soporte de estacionamiento",
-        "appAuthor_": "GeoParking"
+        "appAuthor_": "GeoParking",
+        "appVersionCode_": "1.0.0"
       },
       "Android-Crosswalk": {
         "platform_": "android",

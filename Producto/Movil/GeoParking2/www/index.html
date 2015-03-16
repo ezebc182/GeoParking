@@ -400,6 +400,9 @@
 		});
 		$("#mainPage").on("pageshow", function () {
 			google.maps.event.trigger(map, 'resize');
+            if(localStorage.getItem("UbicacionVehiculo") !== null){
+                $("#btnTrazarRegreso").removeClass("ui-state-disabled");
+            }
 		});
 		function verListado() {
 			cargandoConMensaje("Cargando Listado");
